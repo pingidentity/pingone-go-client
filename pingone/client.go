@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-04-30T13-39-56
+API version: development-2025-05-01T13-01-46
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -32,6 +32,8 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -41,7 +43,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-04-30T13-39-56
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-01T13-01-46
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -50,8 +52,6 @@ type APIClient struct {
 	// API Services
 
 	DaVinciVariablesManagementApi *DaVinciVariablesManagementApiService
-
-	DefaultApi *DefaultApiService
 
 	EnvironmentManagementApi *EnvironmentManagementApiService
 
@@ -96,7 +96,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.DaVinciVariablesManagementApi = (*DaVinciVariablesManagementApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.EnvironmentManagementApi = (*EnvironmentManagementApiService)(&c.common)
 
 	// Static APIs
@@ -431,6 +430,17 @@ func (c *APIClient) prepareRequest(
 		localVarRequest = localVarRequest.WithContext(ctx)
 
 		// Walk through any authentication.
+
+		// OAuth2 authentication
+		if tok, ok := ctx.Value(ContextOAuth2).(oauth2.TokenSource); ok {
+			// We were able to grab an oauth2 token from the context
+			var latestToken *oauth2.Token
+			if latestToken, err = tok.Token(); err != nil {
+				return nil, err
+			}
+
+			latestToken.SetAuthHeader(localVarRequest)
+		}
 
 		// AccessToken Authentication
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {

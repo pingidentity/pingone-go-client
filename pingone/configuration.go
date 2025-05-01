@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-04-30T13-39-56
+API version: development-2025-05-01T13-01-46
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -29,6 +29,9 @@ func (c contextKey) String() string {
 }
 
 var (
+	// ContextOAuth2 takes an oauth2.TokenSource as authentication for the request.
+	ContextOAuth2 = contextKey("token")
+
 	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
 	ContextAccessToken = contextKey("accesstoken")
 
