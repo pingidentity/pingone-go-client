@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-01T13-01-46
+API version: development-2025-05-01T17-03-59
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -15,6 +15,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"runtime"
 	"strings"
 )
 
@@ -77,6 +78,23 @@ type ServerConfiguration struct {
 // ServerConfigurations stores multiple ServerConfiguration items
 type ServerConfigurations []ServerConfiguration
 
+type ServiceConfiguration struct {
+	EnvironmentID string                           `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
+	ClientAuth    ServiceClientAuthConfiguration   `json:"clientAuth,omitempty"`
+	TenantDomain  ServiceTenantDomainConfiguration `json:"tenantDomain,omitempty"`
+}
+
+type ServiceClientAuthConfiguration struct {
+	ClientID     string `envconfig:"PINGONE_CLIENT_ID" json:"clientId,omitempty"`
+	ClientSecret string `envconfig:"PINGONE_CLIENT_SECRET" json:"clientSecret,omitempty"`
+	AccessToken  string `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
+}
+
+type ServiceTenantDomainConfiguration struct {
+	RootDomain string `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
+	Domain     string `envconfig:"PINGONE_DOMAIN" json:"domain,omitempty"`
+}
+
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string            `json:"host,omitempty"`
@@ -88,22 +106,27 @@ type Configuration struct {
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
+	Service            ServiceConfiguration
 }
 
-// NewConfiguration returns a new Configuration object
+// NewConfiguration returns a new Configuration object with builder pattern as param
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
-		UserAgent:          "pingtools pingone-go-client/v0.0.1",
+		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.0.1 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		DefaultServerIndex: 0,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://api.pingone.{tld}/{basePath}",
+				URL:         "https://api.{sld}.{tld}/{basePath}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "v1",
+					},
+					"sld": {
+						Description:  "No description provided",
+						DefaultValue: "pingone",
 					},
 					"tld": {
 						Description:  "No description provided",
@@ -119,14 +142,14 @@ func NewConfiguration() *Configuration {
 				},
 			},
 			{
-				URL:         "https://{hostname}/{basePath}",
+				URL:         "https://{domain}/{basePath}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "v1",
 					},
-					"hostname": {
+					"domain": {
 						Description:  "No description provided",
 						DefaultValue: "api.pingone.com",
 					},
@@ -167,6 +190,40 @@ func (c *Configuration) SetServerVariableDefaultValue(serverIndex int, variable 
 // AddDefaultHeader adds a new HTTP header to the default header in the request
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
+}
+
+func (c *Configuration) WithEnvironmentID(environmentID string) *Configuration {
+	c.Service.EnvironmentID = environmentID
+	return c
+}
+
+func (c *Configuration) WithClientID(clientID string) *Configuration {
+	c.Service.ClientAuth.ClientID = clientID
+	return c
+}
+
+func (c *Configuration) WithClientSecret(clientSecret string) *Configuration {
+	c.Service.ClientAuth.ClientSecret = clientSecret
+	return c
+}
+
+func (c *Configuration) WithAccessToken(accessToken string) *Configuration {
+	c.Service.ClientAuth.AccessToken = accessToken
+	return c
+}
+
+func (c *Configuration) WithRootDomain(rootDomain string) *Configuration {
+	c.Service.TenantDomain.RootDomain = rootDomain
+	c.SetDefaultServerIndex(1)
+	c.SetDefaultServerVariableDefaultValue("domain", fmt.Sprintf("api.%s", c.Service.TenantDomain.RootDomain))
+	return c
+}
+
+func (c *Configuration) WithDomain(domain string) *Configuration {
+	c.Service.TenantDomain.Domain = domain
+	c.SetDefaultServerIndex(1)
+	c.SetDefaultServerVariableDefaultValue("domain", fmt.Sprintf("%s", c.Service.TenantDomain.Domain))
+	return c
 }
 
 // URL formats template on a index using given variables

@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-01T13-01-46
+API version: development-2025-05-01T17-03-59
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -14,12 +14,15 @@ package pingone
 import (
 	"bytes"
 	"context"
+	"crypto/rand"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
+	"math"
+	"math/big"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -43,7 +46,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-01T13-01-46
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-01T17-03-59
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -51,9 +54,9 @@ type APIClient struct {
 
 	// API Services
 
-	DaVinciVariablesManagementApi *DaVinciVariablesManagementApiService
+	DaVinciVariableApi *DaVinciVariableApiService
 
-	EnvironmentManagementApi *EnvironmentManagementApiService
+	EnvironmentApi *EnvironmentApiService
 
 	// Static APIs
 	// HALApi *HALApiService
@@ -95,8 +98,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.DaVinciVariablesManagementApi = (*DaVinciVariablesManagementApiService)(&c.common)
-	c.EnvironmentManagementApi = (*EnvironmentManagementApiService)(&c.common)
+	c.DaVinciVariableApi = (*DaVinciVariableApiService)(&c.common)
+	c.EnvironmentApi = (*EnvironmentApiService)(&c.common)
 
 	// Static APIs
 	// c.HALApi = (*HALApiService)(&c.common)
@@ -588,7 +591,7 @@ func detectContentType(body interface{}) string {
 	return contentType
 }
 
-// Ripped from https://github.com/gregjones/httpcache/blob/master/httpcache.go
+// From https://github.com/gregjones/httpcache/blob/master/httpcache.go
 type cacheControl map[string]string
 
 func parseCacheControl(headers http.Header) cacheControl {
@@ -684,11 +687,13 @@ func formatErrorMessage(status string, v interface{}) string {
 	return strings.TrimSpace(fmt.Sprintf("%s %s", status, str))
 }
 
+// Retrying requests
 type SDKInterfaceFunc func() (any, *http.Response, error)
 
 var (
-	maxRetries               = 5
-	maximumRetryAfterBackoff = 30
+	maxRetries                       = 10
+	maximumRetryAfterBackoff         = 30
+	maximumRetryAfterBackoffDuration = time.Duration(maximumRetryAfterBackoff) * time.Second
 )
 
 func processResponse(f SDKInterfaceFunc, targetObject any) (*http.Response, error) {
@@ -725,11 +730,12 @@ func exponentialBackOffRetry(f SDKInterfaceFunc) (interface{}, *http.Response, e
 
 	for i := 0; i < maxRetries; i++ {
 		obj, resp, err = f()
+		retryAttempt := i + 1
 
-		backOffTime, isRetryable = testForRetryable(resp, err, backOffTime)
+		backOffTime, isRetryable = testForRetryable(resp, err, retryAttempt)
 
 		if isRetryable {
-			log.Printf("Attempt %d failed: %v, backing off by %s.", i+1, err, backOffTime.String())
+			slog.Info("Attempt failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
 			time.Sleep(backOffTime)
 			continue
 		}
@@ -737,48 +743,53 @@ func exponentialBackOffRetry(f SDKInterfaceFunc) (interface{}, *http.Response, e
 		return obj, resp, err
 	}
 
-	log.Printf("Request failed after %d attempts", maxRetries)
+	slog.Warn("Request failed after maximum number of attempts", "max retries", maxRetries)
 
 	return obj, resp, err // output the final error
 }
 
-func testForRetryable(r *http.Response, err error, currentBackoff time.Duration) (time.Duration, bool) {
+func testForRetryable(r *http.Response, err error, retryAttempt int) (time.Duration, bool) {
 
-	backoff := currentBackoff
+	baseDelay := time.Second
+	requestDelayDuration, ebErr := calculateExponentialBackoff(retryAttempt, baseDelay)
+	if ebErr != nil {
+		slog.Error("Invalid backoff delay duration", "error", ebErr, "baseDelay", baseDelay, "retry", false)
+		return maximumRetryAfterBackoffDuration, false
+	}
 
 	if r != nil {
-		if r.StatusCode == 501 || r.StatusCode == 503 || r.StatusCode == 429 {
+		if r.StatusCode == http.StatusNotImplemented || r.StatusCode == http.StatusServiceUnavailable || r.StatusCode == http.StatusTooManyRequests {
 			retryAfter, err := parseRetryAfterHeader(r)
 			if err != nil {
-				log.Printf("Cannot parse the expected \"Retry-After\" header: %s", err)
-				backoff = currentBackoff * 2
+				slog.Warn("Cannot parse the expected \"Retry-After\" header", "error", err)
 			}
 
-			if retryAfter <= time.Duration(maximumRetryAfterBackoff) {
-				backoff += time.Duration(maximumRetryAfterBackoff)
-			} else {
-				backoff += retryAfter
+			if err == nil {
+				if retryAfter >= maximumRetryAfterBackoffDuration {
+					return maximumRetryAfterBackoffDuration, true // optimistically set to the maximum if beyond
+				} else {
+					return retryAfter, true
+				}
 			}
-		} else {
-			backoff = currentBackoff * 2
 		}
 
 		retryAbleCodes := []int{
-			429,
-			500,
-			501,
-			502,
-			503,
-			504,
+			http.StatusRequestTimeout,
+			http.StatusTooManyRequests,
+			http.StatusInternalServerError,
+			http.StatusNotImplemented,
+			http.StatusBadGateway,
+			http.StatusServiceUnavailable,
+			http.StatusGatewayTimeout,
 		}
 
 		if slices.Contains(retryAbleCodes, r.StatusCode) {
-			log.Printf("HTTP status code %d detected, available for retry", r.StatusCode)
-			return backoff, true
+			slog.Info("HTTP status code detected, available for retry", "status code", r.StatusCode)
+			return requestDelayDuration, true
 		}
 	}
 
-	return backoff, false
+	return requestDelayDuration, false
 }
 
 func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
@@ -801,4 +812,22 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	}
 
 	return time.Until(retryAfterTime), nil
+}
+
+func calculateExponentialBackoff(attempt int, baseDelay time.Duration) (time.Duration, error) {
+	n, err := rand.Int(rand.Reader, big.NewInt(101))
+	if err != nil {
+		return 0, err
+	}
+
+	if !n.IsInt64() {
+		return 0, fmt.Errorf("Generated random jitter value is too large. This is always a problem with the SDK. Please raise an issue with the SDK maintainers.")
+	}
+
+	jitter := time.Duration(n.Int64()) * time.Millisecond // Add random jitter
+	calculatedBackOff := baseDelay*time.Duration(math.Pow(2, float64(attempt))) + jitter
+
+	slog.Debug("Calculated backoff duration", "maximumRetryAfterBackoffDuration", maximumRetryAfterBackoffDuration.String(), "attempt", attempt, "baseDelay", baseDelay.String(), "jitter", jitter.String(), "calculatedBackOff", calculatedBackOff.String())
+
+	return time.Duration(math.Min(float64(calculatedBackOff), float64(maximumRetryAfterBackoffDuration))), nil
 }
