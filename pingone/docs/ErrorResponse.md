@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **string** |  | 
-**Details** | Pointer to [**[]ErrorResponseDetailsInner**](ErrorResponseDetailsInner.md) |  | [optional] 
+**Code** | [**ErrorResponseCode**](ErrorResponseCode.md) |  | 
+**Details** | Pointer to [**[]ErrorResponseDetails**](ErrorResponseDetails.md) |  | [optional] 
 **Id** | **string** |  | 
 **Message** | **string** |  | 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewErrorResponse
 
-`func NewErrorResponse(code string, id string, message string, ) *ErrorResponse`
+`func NewErrorResponse(code ErrorResponseCode, id string, message string, ) *ErrorResponse`
 
 NewErrorResponse instantiates a new ErrorResponse object
 This constructor will assign default values to properties that have it defined,
@@ -30,40 +30,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *ErrorResponse) GetCode() string`
+`func (o *ErrorResponse) GetCode() ErrorResponseCode`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *ErrorResponse) GetCodeOk() (*string, bool)`
+`func (o *ErrorResponse) GetCodeOk() (*ErrorResponseCode, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *ErrorResponse) SetCode(v string)`
+`func (o *ErrorResponse) SetCode(v ErrorResponseCode)`
 
 SetCode sets Code field to given value.
 
 
 ### GetDetails
 
-`func (o *ErrorResponse) GetDetails() []ErrorResponseDetailsInner`
+`func (o *ErrorResponse) GetDetails() []ErrorResponseDetails`
 
 GetDetails returns the Details field if non-nil, zero value otherwise.
 
 ### GetDetailsOk
 
-`func (o *ErrorResponse) GetDetailsOk() (*[]ErrorResponseDetailsInner, bool)`
+`func (o *ErrorResponse) GetDetailsOk() (*[]ErrorResponseDetails, bool)`
 
 GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetails
 
-`func (o *ErrorResponse) SetDetails(v []ErrorResponseDetailsInner)`
+`func (o *ErrorResponse) SetDetails(v []ErrorResponseDetails)`
 
 SetDetails sets Details field to given value.
 

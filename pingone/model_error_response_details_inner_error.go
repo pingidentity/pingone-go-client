@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-01T13-01-46
+API version: development-2025-05-07T13-55-49
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the ErrorResponseDetailsInnerInnerError type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorResponseDetailsInnerInnerError{}
+// checks if the ErrorResponseDetailsInnerError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorResponseDetailsInnerError{}
 
-// ErrorResponseDetailsInnerInnerError struct for ErrorResponseDetailsInnerInnerError
-type ErrorResponseDetailsInnerInnerError struct {
+// ErrorResponseDetailsInnerError struct for ErrorResponseDetailsInnerError
+type ErrorResponseDetailsInnerError struct {
 	AllowedPattern       interface{} `json:"allowedPattern,omitempty"`
 	AllowedValues        interface{} `json:"allowedValues,omitempty"`
 	MaximumValue         interface{} `json:"maximumValue,omitempty"`
@@ -31,27 +31,27 @@ type ErrorResponseDetailsInnerInnerError struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ErrorResponseDetailsInnerInnerError ErrorResponseDetailsInnerInnerError
+type _ErrorResponseDetailsInnerError ErrorResponseDetailsInnerError
 
-// NewErrorResponseDetailsInnerInnerError instantiates a new ErrorResponseDetailsInnerInnerError object
+// NewErrorResponseDetailsInnerError instantiates a new ErrorResponseDetailsInnerError object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorResponseDetailsInnerInnerError() *ErrorResponseDetailsInnerInnerError {
-	this := ErrorResponseDetailsInnerInnerError{}
+func NewErrorResponseDetailsInnerError() *ErrorResponseDetailsInnerError {
+	this := ErrorResponseDetailsInnerError{}
 	return &this
 }
 
-// NewErrorResponseDetailsInnerInnerErrorWithDefaults instantiates a new ErrorResponseDetailsInnerInnerError object
+// NewErrorResponseDetailsInnerErrorWithDefaults instantiates a new ErrorResponseDetailsInnerError object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewErrorResponseDetailsInnerInnerErrorWithDefaults() *ErrorResponseDetailsInnerInnerError {
-	this := ErrorResponseDetailsInnerInnerError{}
+func NewErrorResponseDetailsInnerErrorWithDefaults() *ErrorResponseDetailsInnerError {
+	this := ErrorResponseDetailsInnerError{}
 	return &this
 }
 
 // GetAllowedPattern returns the AllowedPattern field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetAllowedPattern() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetAllowedPattern() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -62,7 +62,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetAllowedPattern() interface{} {
 // GetAllowedPatternOk returns a tuple with the AllowedPattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetAllowedPatternOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetAllowedPatternOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AllowedPattern) {
 		return nil, false
 	}
@@ -70,7 +70,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetAllowedPatternOk() (*interface{
 }
 
 // HasAllowedPattern returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasAllowedPattern() bool {
+func (o *ErrorResponseDetailsInnerError) HasAllowedPattern() bool {
 	if o != nil && !IsNil(o.AllowedPattern) {
 		return true
 	}
@@ -79,12 +79,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasAllowedPattern() bool {
 }
 
 // SetAllowedPattern gets a reference to the given interface{} and assigns it to the AllowedPattern field.
-func (o *ErrorResponseDetailsInnerInnerError) SetAllowedPattern(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetAllowedPattern(v interface{}) {
 	o.AllowedPattern = v
 }
 
 // GetAllowedValues returns the AllowedValues field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetAllowedValues() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetAllowedValues() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -95,7 +95,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetAllowedValues() interface{} {
 // GetAllowedValuesOk returns a tuple with the AllowedValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetAllowedValuesOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetAllowedValuesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AllowedValues) {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetAllowedValuesOk() (*interface{}
 }
 
 // HasAllowedValues returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasAllowedValues() bool {
+func (o *ErrorResponseDetailsInnerError) HasAllowedValues() bool {
 	if o != nil && !IsNil(o.AllowedValues) {
 		return true
 	}
@@ -112,12 +112,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasAllowedValues() bool {
 }
 
 // SetAllowedValues gets a reference to the given interface{} and assigns it to the AllowedValues field.
-func (o *ErrorResponseDetailsInnerInnerError) SetAllowedValues(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetAllowedValues(v interface{}) {
 	o.AllowedValues = v
 }
 
 // GetMaximumValue returns the MaximumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetMaximumValue() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetMaximumValue() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -128,7 +128,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetMaximumValue() interface{} {
 // GetMaximumValueOk returns a tuple with the MaximumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetMaximumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetMaximumValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.MaximumValue) {
 		return nil, false
 	}
@@ -136,7 +136,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetMaximumValueOk() (*interface{},
 }
 
 // HasMaximumValue returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasMaximumValue() bool {
+func (o *ErrorResponseDetailsInnerError) HasMaximumValue() bool {
 	if o != nil && !IsNil(o.MaximumValue) {
 		return true
 	}
@@ -145,12 +145,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasMaximumValue() bool {
 }
 
 // SetMaximumValue gets a reference to the given interface{} and assigns it to the MaximumValue field.
-func (o *ErrorResponseDetailsInnerInnerError) SetMaximumValue(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetMaximumValue(v interface{}) {
 	o.MaximumValue = v
 }
 
 // GetQuotaLimit returns the QuotaLimit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetQuotaLimit() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetQuotaLimit() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -161,7 +161,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetQuotaLimit() interface{} {
 // GetQuotaLimitOk returns a tuple with the QuotaLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetQuotaLimitOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetQuotaLimitOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.QuotaLimit) {
 		return nil, false
 	}
@@ -169,7 +169,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetQuotaLimitOk() (*interface{}, b
 }
 
 // HasQuotaLimit returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasQuotaLimit() bool {
+func (o *ErrorResponseDetailsInnerError) HasQuotaLimit() bool {
 	if o != nil && !IsNil(o.QuotaLimit) {
 		return true
 	}
@@ -178,12 +178,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasQuotaLimit() bool {
 }
 
 // SetQuotaLimit gets a reference to the given interface{} and assigns it to the QuotaLimit field.
-func (o *ErrorResponseDetailsInnerInnerError) SetQuotaLimit(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetQuotaLimit(v interface{}) {
 	o.QuotaLimit = v
 }
 
 // GetQuotaResetTime returns the QuotaResetTime field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetQuotaResetTime() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetQuotaResetTime() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -194,7 +194,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetQuotaResetTime() interface{} {
 // GetQuotaResetTimeOk returns a tuple with the QuotaResetTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetQuotaResetTimeOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetQuotaResetTimeOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.QuotaResetTime) {
 		return nil, false
 	}
@@ -202,7 +202,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetQuotaResetTimeOk() (*interface{
 }
 
 // HasQuotaResetTime returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasQuotaResetTime() bool {
+func (o *ErrorResponseDetailsInnerError) HasQuotaResetTime() bool {
 	if o != nil && !IsNil(o.QuotaResetTime) {
 		return true
 	}
@@ -211,12 +211,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasQuotaResetTime() bool {
 }
 
 // SetQuotaResetTime gets a reference to the given interface{} and assigns it to the QuotaResetTime field.
-func (o *ErrorResponseDetailsInnerInnerError) SetQuotaResetTime(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetQuotaResetTime(v interface{}) {
 	o.QuotaResetTime = v
 }
 
 // GetRangeMaximumValue returns the RangeMaximumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetRangeMaximumValue() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValue() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -227,7 +227,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRangeMaximumValue() interface{}
 // GetRangeMaximumValueOk returns a tuple with the RangeMaximumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetRangeMaximumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RangeMaximumValue) {
 		return nil, false
 	}
@@ -235,7 +235,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRangeMaximumValueOk() (*interfa
 }
 
 // HasRangeMaximumValue returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasRangeMaximumValue() bool {
+func (o *ErrorResponseDetailsInnerError) HasRangeMaximumValue() bool {
 	if o != nil && !IsNil(o.RangeMaximumValue) {
 		return true
 	}
@@ -244,12 +244,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasRangeMaximumValue() bool {
 }
 
 // SetRangeMaximumValue gets a reference to the given interface{} and assigns it to the RangeMaximumValue field.
-func (o *ErrorResponseDetailsInnerInnerError) SetRangeMaximumValue(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetRangeMaximumValue(v interface{}) {
 	o.RangeMaximumValue = v
 }
 
 // GetRangeMinimumValue returns the RangeMinimumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetRangeMinimumValue() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValue() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -260,7 +260,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRangeMinimumValue() interface{}
 // GetRangeMinimumValueOk returns a tuple with the RangeMinimumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetRangeMinimumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RangeMinimumValue) {
 		return nil, false
 	}
@@ -268,7 +268,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRangeMinimumValueOk() (*interfa
 }
 
 // HasRangeMinimumValue returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasRangeMinimumValue() bool {
+func (o *ErrorResponseDetailsInnerError) HasRangeMinimumValue() bool {
 	if o != nil && !IsNil(o.RangeMinimumValue) {
 		return true
 	}
@@ -277,12 +277,12 @@ func (o *ErrorResponseDetailsInnerInnerError) HasRangeMinimumValue() bool {
 }
 
 // SetRangeMinimumValue gets a reference to the given interface{} and assigns it to the RangeMinimumValue field.
-func (o *ErrorResponseDetailsInnerInnerError) SetRangeMinimumValue(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetRangeMinimumValue(v interface{}) {
 	o.RangeMinimumValue = v
 }
 
 // GetRetryAfter returns the RetryAfter field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerInnerError) GetRetryAfter() interface{} {
+func (o *ErrorResponseDetailsInnerError) GetRetryAfter() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
@@ -293,7 +293,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRetryAfter() interface{} {
 // GetRetryAfterOk returns a tuple with the RetryAfter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerInnerError) GetRetryAfterOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRetryAfterOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RetryAfter) {
 		return nil, false
 	}
@@ -301,7 +301,7 @@ func (o *ErrorResponseDetailsInnerInnerError) GetRetryAfterOk() (*interface{}, b
 }
 
 // HasRetryAfter returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInnerInnerError) HasRetryAfter() bool {
+func (o *ErrorResponseDetailsInnerError) HasRetryAfter() bool {
 	if o != nil && !IsNil(o.RetryAfter) {
 		return true
 	}
@@ -310,11 +310,11 @@ func (o *ErrorResponseDetailsInnerInnerError) HasRetryAfter() bool {
 }
 
 // SetRetryAfter gets a reference to the given interface{} and assigns it to the RetryAfter field.
-func (o *ErrorResponseDetailsInnerInnerError) SetRetryAfter(v interface{}) {
+func (o *ErrorResponseDetailsInnerError) SetRetryAfter(v interface{}) {
 	o.RetryAfter = v
 }
 
-func (o ErrorResponseDetailsInnerInnerError) MarshalJSON() ([]byte, error) {
+func (o ErrorResponseDetailsInnerError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -322,7 +322,7 @@ func (o ErrorResponseDetailsInnerInnerError) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ErrorResponseDetailsInnerInnerError) ToMap() (map[string]interface{}, error) {
+func (o ErrorResponseDetailsInnerError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AllowedPattern != nil {
 		toSerialize["allowedPattern"] = o.AllowedPattern
@@ -356,16 +356,16 @@ func (o ErrorResponseDetailsInnerInnerError) ToMap() (map[string]interface{}, er
 	return toSerialize, nil
 }
 
-func (o *ErrorResponseDetailsInnerInnerError) UnmarshalJSON(data []byte) (err error) {
-	varErrorResponseDetailsInnerInnerError := _ErrorResponseDetailsInnerInnerError{}
+func (o *ErrorResponseDetailsInnerError) UnmarshalJSON(data []byte) (err error) {
+	varErrorResponseDetailsInnerError := _ErrorResponseDetailsInnerError{}
 
-	err = json.Unmarshal(data, &varErrorResponseDetailsInnerInnerError)
+	err = json.Unmarshal(data, &varErrorResponseDetailsInnerError)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ErrorResponseDetailsInnerInnerError(varErrorResponseDetailsInnerInnerError)
+	*o = ErrorResponseDetailsInnerError(varErrorResponseDetailsInnerError)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -384,38 +384,38 @@ func (o *ErrorResponseDetailsInnerInnerError) UnmarshalJSON(data []byte) (err er
 	return err
 }
 
-type NullableErrorResponseDetailsInnerInnerError struct {
-	value *ErrorResponseDetailsInnerInnerError
+type NullableErrorResponseDetailsInnerError struct {
+	value *ErrorResponseDetailsInnerError
 	isSet bool
 }
 
-func (v NullableErrorResponseDetailsInnerInnerError) Get() *ErrorResponseDetailsInnerInnerError {
+func (v NullableErrorResponseDetailsInnerError) Get() *ErrorResponseDetailsInnerError {
 	return v.value
 }
 
-func (v *NullableErrorResponseDetailsInnerInnerError) Set(val *ErrorResponseDetailsInnerInnerError) {
+func (v *NullableErrorResponseDetailsInnerError) Set(val *ErrorResponseDetailsInnerError) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorResponseDetailsInnerInnerError) IsSet() bool {
+func (v NullableErrorResponseDetailsInnerError) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorResponseDetailsInnerInnerError) Unset() {
+func (v *NullableErrorResponseDetailsInnerError) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorResponseDetailsInnerInnerError(val *ErrorResponseDetailsInnerInnerError) *NullableErrorResponseDetailsInnerInnerError {
-	return &NullableErrorResponseDetailsInnerInnerError{value: val, isSet: true}
+func NewNullableErrorResponseDetailsInnerError(val *ErrorResponseDetailsInnerError) *NullableErrorResponseDetailsInnerError {
+	return &NullableErrorResponseDetailsInnerError{value: val, isSet: true}
 }
 
-func (v NullableErrorResponseDetailsInnerInnerError) MarshalJSON() ([]byte, error) {
+func (v NullableErrorResponseDetailsInnerError) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorResponseDetailsInnerInnerError) UnmarshalJSON(src []byte) error {
+func (v *NullableErrorResponseDetailsInnerError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

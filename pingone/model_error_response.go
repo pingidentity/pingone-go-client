@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-01T13-01-46
+API version: development-2025-05-07T13-55-49
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -21,10 +21,10 @@ var _ MappedNullable = &ErrorResponse{}
 
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
-	Code                 string                      `json:"code"`
-	Details              []ErrorResponseDetailsInner `json:"details,omitempty"`
-	Id                   string                      `json:"id"`
-	Message              string                      `json:"message"`
+	Code                 ErrorResponseCode      `json:"code"`
+	Details              []ErrorResponseDetails `json:"details,omitempty"`
+	Id                   string                 `json:"id"`
+	Message              string                 `json:"message"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,7 +34,7 @@ type _ErrorResponse ErrorResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorResponse(code string, id string, message string) *ErrorResponse {
+func NewErrorResponse(code ErrorResponseCode, id string, message string) *ErrorResponse {
 	this := ErrorResponse{}
 	this.Code = code
 	this.Id = id
@@ -51,9 +51,9 @@ func NewErrorResponseWithDefaults() *ErrorResponse {
 }
 
 // GetCode returns the Code field value
-func (o *ErrorResponse) GetCode() string {
+func (o *ErrorResponse) GetCode() ErrorResponseCode {
 	if o == nil {
-		var ret string
+		var ret ErrorResponseCode
 		return ret
 	}
 
@@ -62,7 +62,7 @@ func (o *ErrorResponse) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
-func (o *ErrorResponse) GetCodeOk() (*string, bool) {
+func (o *ErrorResponse) GetCodeOk() (*ErrorResponseCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,14 +70,14 @@ func (o *ErrorResponse) GetCodeOk() (*string, bool) {
 }
 
 // SetCode sets field value
-func (o *ErrorResponse) SetCode(v string) {
+func (o *ErrorResponse) SetCode(v ErrorResponseCode) {
 	o.Code = v
 }
 
 // GetDetails returns the Details field value if set, zero value otherwise.
-func (o *ErrorResponse) GetDetails() []ErrorResponseDetailsInner {
+func (o *ErrorResponse) GetDetails() []ErrorResponseDetails {
 	if o == nil || IsNil(o.Details) {
-		var ret []ErrorResponseDetailsInner
+		var ret []ErrorResponseDetails
 		return ret
 	}
 	return o.Details
@@ -85,7 +85,7 @@ func (o *ErrorResponse) GetDetails() []ErrorResponseDetailsInner {
 
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorResponse) GetDetailsOk() ([]ErrorResponseDetailsInner, bool) {
+func (o *ErrorResponse) GetDetailsOk() ([]ErrorResponseDetails, bool) {
 	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *ErrorResponse) HasDetails() bool {
 	return false
 }
 
-// SetDetails gets a reference to the given []ErrorResponseDetailsInner and assigns it to the Details field.
-func (o *ErrorResponse) SetDetails(v []ErrorResponseDetailsInner) {
+// SetDetails gets a reference to the given []ErrorResponseDetails and assigns it to the Details field.
+func (o *ErrorResponse) SetDetails(v []ErrorResponseDetails) {
 	o.Details = v
 }
 

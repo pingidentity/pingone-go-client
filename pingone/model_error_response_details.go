@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-01T13-01-46
+API version: development-2025-05-07T13-55-49
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -16,43 +16,43 @@ import (
 	"fmt"
 )
 
-// checks if the ErrorResponseDetailsInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorResponseDetailsInner{}
+// checks if the ErrorResponseDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorResponseDetails{}
 
-// ErrorResponseDetailsInner struct for ErrorResponseDetailsInner
-type ErrorResponseDetailsInner struct {
-	Code                 string                               `json:"code"`
-	InnerError           *ErrorResponseDetailsInnerInnerError `json:"innerError,omitempty"`
-	Message              string                               `json:"message"`
-	Target               *string                              `json:"target,omitempty"`
+// ErrorResponseDetails struct for ErrorResponseDetails
+type ErrorResponseDetails struct {
+	Code                 ErrorResponseDetailsCode        `json:"code"`
+	InnerError           *ErrorResponseDetailsInnerError `json:"innerError,omitempty"`
+	Message              string                          `json:"message"`
+	Target               *string                         `json:"target,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ErrorResponseDetailsInner ErrorResponseDetailsInner
+type _ErrorResponseDetails ErrorResponseDetails
 
-// NewErrorResponseDetailsInner instantiates a new ErrorResponseDetailsInner object
+// NewErrorResponseDetails instantiates a new ErrorResponseDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorResponseDetailsInner(code string, message string) *ErrorResponseDetailsInner {
-	this := ErrorResponseDetailsInner{}
+func NewErrorResponseDetails(code ErrorResponseDetailsCode, message string) *ErrorResponseDetails {
+	this := ErrorResponseDetails{}
 	this.Code = code
 	this.Message = message
 	return &this
 }
 
-// NewErrorResponseDetailsInnerWithDefaults instantiates a new ErrorResponseDetailsInner object
+// NewErrorResponseDetailsWithDefaults instantiates a new ErrorResponseDetails object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewErrorResponseDetailsInnerWithDefaults() *ErrorResponseDetailsInner {
-	this := ErrorResponseDetailsInner{}
+func NewErrorResponseDetailsWithDefaults() *ErrorResponseDetails {
+	this := ErrorResponseDetails{}
 	return &this
 }
 
 // GetCode returns the Code field value
-func (o *ErrorResponseDetailsInner) GetCode() string {
+func (o *ErrorResponseDetails) GetCode() ErrorResponseDetailsCode {
 	if o == nil {
-		var ret string
+		var ret ErrorResponseDetailsCode
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *ErrorResponseDetailsInner) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
-func (o *ErrorResponseDetailsInner) GetCodeOk() (*string, bool) {
+func (o *ErrorResponseDetails) GetCodeOk() (*ErrorResponseDetailsCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,14 +69,14 @@ func (o *ErrorResponseDetailsInner) GetCodeOk() (*string, bool) {
 }
 
 // SetCode sets field value
-func (o *ErrorResponseDetailsInner) SetCode(v string) {
+func (o *ErrorResponseDetails) SetCode(v ErrorResponseDetailsCode) {
 	o.Code = v
 }
 
 // GetInnerError returns the InnerError field value if set, zero value otherwise.
-func (o *ErrorResponseDetailsInner) GetInnerError() ErrorResponseDetailsInnerInnerError {
+func (o *ErrorResponseDetails) GetInnerError() ErrorResponseDetailsInnerError {
 	if o == nil || IsNil(o.InnerError) {
-		var ret ErrorResponseDetailsInnerInnerError
+		var ret ErrorResponseDetailsInnerError
 		return ret
 	}
 	return *o.InnerError
@@ -84,7 +84,7 @@ func (o *ErrorResponseDetailsInner) GetInnerError() ErrorResponseDetailsInnerInn
 
 // GetInnerErrorOk returns a tuple with the InnerError field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorResponseDetailsInner) GetInnerErrorOk() (*ErrorResponseDetailsInnerInnerError, bool) {
+func (o *ErrorResponseDetails) GetInnerErrorOk() (*ErrorResponseDetailsInnerError, bool) {
 	if o == nil || IsNil(o.InnerError) {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *ErrorResponseDetailsInner) GetInnerErrorOk() (*ErrorResponseDetailsInne
 }
 
 // HasInnerError returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInner) HasInnerError() bool {
+func (o *ErrorResponseDetails) HasInnerError() bool {
 	if o != nil && !IsNil(o.InnerError) {
 		return true
 	}
@@ -100,13 +100,13 @@ func (o *ErrorResponseDetailsInner) HasInnerError() bool {
 	return false
 }
 
-// SetInnerError gets a reference to the given ErrorResponseDetailsInnerInnerError and assigns it to the InnerError field.
-func (o *ErrorResponseDetailsInner) SetInnerError(v ErrorResponseDetailsInnerInnerError) {
+// SetInnerError gets a reference to the given ErrorResponseDetailsInnerError and assigns it to the InnerError field.
+func (o *ErrorResponseDetails) SetInnerError(v ErrorResponseDetailsInnerError) {
 	o.InnerError = &v
 }
 
 // GetMessage returns the Message field value
-func (o *ErrorResponseDetailsInner) GetMessage() string {
+func (o *ErrorResponseDetails) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -117,7 +117,7 @@ func (o *ErrorResponseDetailsInner) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *ErrorResponseDetailsInner) GetMessageOk() (*string, bool) {
+func (o *ErrorResponseDetails) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,12 +125,12 @@ func (o *ErrorResponseDetailsInner) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value
-func (o *ErrorResponseDetailsInner) SetMessage(v string) {
+func (o *ErrorResponseDetails) SetMessage(v string) {
 	o.Message = v
 }
 
 // GetTarget returns the Target field value if set, zero value otherwise.
-func (o *ErrorResponseDetailsInner) GetTarget() string {
+func (o *ErrorResponseDetails) GetTarget() string {
 	if o == nil || IsNil(o.Target) {
 		var ret string
 		return ret
@@ -140,7 +140,7 @@ func (o *ErrorResponseDetailsInner) GetTarget() string {
 
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorResponseDetailsInner) GetTargetOk() (*string, bool) {
+func (o *ErrorResponseDetails) GetTargetOk() (*string, bool) {
 	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
@@ -148,7 +148,7 @@ func (o *ErrorResponseDetailsInner) GetTargetOk() (*string, bool) {
 }
 
 // HasTarget returns a boolean if a field has been set.
-func (o *ErrorResponseDetailsInner) HasTarget() bool {
+func (o *ErrorResponseDetails) HasTarget() bool {
 	if o != nil && !IsNil(o.Target) {
 		return true
 	}
@@ -157,11 +157,11 @@ func (o *ErrorResponseDetailsInner) HasTarget() bool {
 }
 
 // SetTarget gets a reference to the given string and assigns it to the Target field.
-func (o *ErrorResponseDetailsInner) SetTarget(v string) {
+func (o *ErrorResponseDetails) SetTarget(v string) {
 	o.Target = &v
 }
 
-func (o ErrorResponseDetailsInner) MarshalJSON() ([]byte, error) {
+func (o ErrorResponseDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -169,7 +169,7 @@ func (o ErrorResponseDetailsInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ErrorResponseDetailsInner) ToMap() (map[string]interface{}, error) {
+func (o ErrorResponseDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
 	if !IsNil(o.InnerError) {
@@ -187,7 +187,7 @@ func (o ErrorResponseDetailsInner) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ErrorResponseDetailsInner) UnmarshalJSON(data []byte) (err error) {
+func (o *ErrorResponseDetails) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -210,15 +210,15 @@ func (o *ErrorResponseDetailsInner) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varErrorResponseDetailsInner := _ErrorResponseDetailsInner{}
+	varErrorResponseDetails := _ErrorResponseDetails{}
 
-	err = json.Unmarshal(data, &varErrorResponseDetailsInner)
+	err = json.Unmarshal(data, &varErrorResponseDetails)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ErrorResponseDetailsInner(varErrorResponseDetailsInner)
+	*o = ErrorResponseDetails(varErrorResponseDetails)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -233,38 +233,38 @@ func (o *ErrorResponseDetailsInner) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableErrorResponseDetailsInner struct {
-	value *ErrorResponseDetailsInner
+type NullableErrorResponseDetails struct {
+	value *ErrorResponseDetails
 	isSet bool
 }
 
-func (v NullableErrorResponseDetailsInner) Get() *ErrorResponseDetailsInner {
+func (v NullableErrorResponseDetails) Get() *ErrorResponseDetails {
 	return v.value
 }
 
-func (v *NullableErrorResponseDetailsInner) Set(val *ErrorResponseDetailsInner) {
+func (v *NullableErrorResponseDetails) Set(val *ErrorResponseDetails) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorResponseDetailsInner) IsSet() bool {
+func (v NullableErrorResponseDetails) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorResponseDetailsInner) Unset() {
+func (v *NullableErrorResponseDetails) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorResponseDetailsInner(val *ErrorResponseDetailsInner) *NullableErrorResponseDetailsInner {
-	return &NullableErrorResponseDetailsInner{value: val, isSet: true}
+func NewNullableErrorResponseDetails(val *ErrorResponseDetails) *NullableErrorResponseDetails {
+	return &NullableErrorResponseDetails{value: val, isSet: true}
 }
 
-func (v NullableErrorResponseDetailsInner) MarshalJSON() ([]byte, error) {
+func (v NullableErrorResponseDetails) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorResponseDetailsInner) UnmarshalJSON(src []byte) error {
+func (v *NullableErrorResponseDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
