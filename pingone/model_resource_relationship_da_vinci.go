@@ -14,43 +14,41 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/google/uuid"
 )
 
-// checks if the ResourceRelationshipPingOne type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResourceRelationshipPingOne{}
+// checks if the ResourceRelationshipDaVinci type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceRelationshipDaVinci{}
 
-// ResourceRelationshipPingOne struct for ResourceRelationshipPingOne
-type ResourceRelationshipPingOne struct {
-	Id                   uuid.UUID `json:"id"`
+// ResourceRelationshipDaVinci struct for ResourceRelationshipDaVinci
+type ResourceRelationshipDaVinci struct {
+	Id                   string `json:"id" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ResourceRelationshipPingOne ResourceRelationshipPingOne
+type _ResourceRelationshipDaVinci ResourceRelationshipDaVinci
 
-// NewResourceRelationshipPingOne instantiates a new ResourceRelationshipPingOne object
+// NewResourceRelationshipDaVinci instantiates a new ResourceRelationshipDaVinci object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceRelationshipPingOne(id uuid.UUID) *ResourceRelationshipPingOne {
-	this := ResourceRelationshipPingOne{}
+func NewResourceRelationshipDaVinci(id string) *ResourceRelationshipDaVinci {
+	this := ResourceRelationshipDaVinci{}
 	this.Id = id
 	return &this
 }
 
-// NewResourceRelationshipPingOneWithDefaults instantiates a new ResourceRelationshipPingOne object
+// NewResourceRelationshipDaVinciWithDefaults instantiates a new ResourceRelationshipDaVinci object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResourceRelationshipPingOneWithDefaults() *ResourceRelationshipPingOne {
-	this := ResourceRelationshipPingOne{}
+func NewResourceRelationshipDaVinciWithDefaults() *ResourceRelationshipDaVinci {
+	this := ResourceRelationshipDaVinci{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *ResourceRelationshipPingOne) GetId() uuid.UUID {
+func (o *ResourceRelationshipDaVinci) GetId() string {
 	if o == nil {
-		var ret uuid.UUID
+		var ret string
 		return ret
 	}
 
@@ -59,7 +57,7 @@ func (o *ResourceRelationshipPingOne) GetId() uuid.UUID {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ResourceRelationshipPingOne) GetIdOk() (*uuid.UUID, bool) {
+func (o *ResourceRelationshipDaVinci) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,11 +65,11 @@ func (o *ResourceRelationshipPingOne) GetIdOk() (*uuid.UUID, bool) {
 }
 
 // SetId sets field value
-func (o *ResourceRelationshipPingOne) SetId(v uuid.UUID) {
+func (o *ResourceRelationshipDaVinci) SetId(v string) {
 	o.Id = v
 }
 
-func (o ResourceRelationshipPingOne) MarshalJSON() ([]byte, error) {
+func (o ResourceRelationshipDaVinci) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -79,7 +77,7 @@ func (o ResourceRelationshipPingOne) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ResourceRelationshipPingOne) ToMap() (map[string]interface{}, error) {
+func (o ResourceRelationshipDaVinci) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 
@@ -90,7 +88,7 @@ func (o ResourceRelationshipPingOne) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ResourceRelationshipPingOne) UnmarshalJSON(data []byte) (err error) {
+func (o *ResourceRelationshipDaVinci) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -112,15 +110,15 @@ func (o *ResourceRelationshipPingOne) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varResourceRelationshipPingOne := _ResourceRelationshipPingOne{}
+	varResourceRelationshipDaVinci := _ResourceRelationshipDaVinci{}
 
-	err = json.Unmarshal(data, &varResourceRelationshipPingOne)
+	err = json.Unmarshal(data, &varResourceRelationshipDaVinci)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ResourceRelationshipPingOne(varResourceRelationshipPingOne)
+	*o = ResourceRelationshipDaVinci(varResourceRelationshipDaVinci)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -132,38 +130,38 @@ func (o *ResourceRelationshipPingOne) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableResourceRelationshipPingOne struct {
-	value *ResourceRelationshipPingOne
+type NullableResourceRelationshipDaVinci struct {
+	value *ResourceRelationshipDaVinci
 	isSet bool
 }
 
-func (v NullableResourceRelationshipPingOne) Get() *ResourceRelationshipPingOne {
+func (v NullableResourceRelationshipDaVinci) Get() *ResourceRelationshipDaVinci {
 	return v.value
 }
 
-func (v *NullableResourceRelationshipPingOne) Set(val *ResourceRelationshipPingOne) {
+func (v *NullableResourceRelationshipDaVinci) Set(val *ResourceRelationshipDaVinci) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResourceRelationshipPingOne) IsSet() bool {
+func (v NullableResourceRelationshipDaVinci) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResourceRelationshipPingOne) Unset() {
+func (v *NullableResourceRelationshipDaVinci) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResourceRelationshipPingOne(val *ResourceRelationshipPingOne) *NullableResourceRelationshipPingOne {
-	return &NullableResourceRelationshipPingOne{value: val, isSet: true}
+func NewNullableResourceRelationshipDaVinci(val *ResourceRelationshipDaVinci) *NullableResourceRelationshipDaVinci {
+	return &NullableResourceRelationshipDaVinci{value: val, isSet: true}
 }
 
-func (v NullableResourceRelationshipPingOne) MarshalJSON() ([]byte, error) {
+func (v NullableResourceRelationshipDaVinci) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResourceRelationshipPingOne) UnmarshalJSON(src []byte) error {
+func (v *NullableResourceRelationshipDaVinci) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
