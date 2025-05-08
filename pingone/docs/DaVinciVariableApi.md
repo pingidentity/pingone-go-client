@@ -4,7 +4,7 @@ All URIs are relative to *https://api.pingone.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateVariable**](DaVinciVariableApi.md#CreateVariable) | **Post** /environments/{environmentID}/variables | _TO_BE_DEFINED_
+[**CreateVariable**](DaVinciVariableApi.md#CreateVariable) | **Post** /environments/{environmentID}/variables | Create DaVinci Variable
 [**DeleteVariableById**](DaVinciVariableApi.md#DeleteVariableById) | **Delete** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
 [**GetVariableById**](DaVinciVariableApi.md#GetVariableById) | **Get** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
 [**ReplaceVariableById**](DaVinciVariableApi.md#ReplaceVariableById) | **Put** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DaVinciVariable CreateVariable(ctx, environmentID).DaVinciVariableCreateRequest(daVinciVariableCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
-_TO_BE_DEFINED_
+Create DaVinci Variable
 
 
 

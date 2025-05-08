@@ -28,6 +28,7 @@ type Environment struct {
 	License              ResourceRelationshipPingOne  `json:"license"`
 	Name                 string                       `json:"name"`
 	Type                 EnvironmentType              `json:"type"`
+	Status               *EnvironmentStatusValue      `json:"status,omitempty"`
 	Links                *EnvironmentLinks            `json:"_links,omitempty"`
 	BillOfMaterials      *EnvironmentBillOfMaterials  `json:"billOfMaterials,omitempty"`
 	CreatedAt            *time.Time                   `json:"createdAt,omitempty"`
@@ -196,6 +197,38 @@ func (o *Environment) GetTypeOk() (*EnvironmentType, bool) {
 // SetType sets field value
 func (o *Environment) SetType(v EnvironmentType) {
 	o.Type = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Environment) GetStatus() EnvironmentStatusValue {
+	if o == nil || IsNil(o.Status) {
+		var ret EnvironmentStatusValue
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetStatusOk() (*EnvironmentStatusValue, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Environment) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
+func (o *Environment) SetStatus(v EnvironmentStatusValue) {
+	o.Status = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -505,6 +538,9 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
@@ -582,6 +618,7 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "createdAt")

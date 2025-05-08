@@ -25,6 +25,7 @@ type EnvironmentReplaceRequest struct {
 	License              ResourceRelationshipPingOne              `json:"license"`
 	Name                 string                                   `json:"name"`
 	Type                 EnvironmentType                          `json:"type"`
+	Status               *EnvironmentStatusValue                  `json:"status,omitempty"`
 	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -187,6 +188,38 @@ func (o *EnvironmentReplaceRequest) SetType(v EnvironmentType) {
 	o.Type = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentStatusValue {
+	if o == nil || IsNil(o.Status) {
+		var ret EnvironmentStatusValue
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentStatusValue, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *EnvironmentReplaceRequest) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
+func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue) {
+	o.Status = &v
+}
+
 // GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
 func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest {
 	if o == nil || IsNil(o.BillOfMaterials) {
@@ -238,6 +271,9 @@ func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.BillOfMaterials) {
 		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
@@ -291,6 +327,7 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "status")
 		delete(additionalProperties, "billOfMaterials")
 		o.AdditionalProperties = additionalProperties
 	}

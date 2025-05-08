@@ -4,8 +4,8 @@ All URIs are relative to *https://api.pingone.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEnvironment**](EnvironmentApi.md#CreateEnvironment) | **Post** /environments | _TO_BE_DEFINED_
-[**DeleteEnvironmentById**](EnvironmentApi.md#DeleteEnvironmentById) | **Delete** /environments/{environmentID} | _TO_BE_DEFINED_
+[**CreateEnvironment**](EnvironmentApi.md#CreateEnvironment) | **Post** /environments | Create Environment
+[**DeleteEnvironmentById**](EnvironmentApi.md#DeleteEnvironmentById) | **Delete** /environments/{environmentID} | Delete Environment
 [**GetBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#GetBillOfMaterialsByEnvironmentId) | **Get** /environments/{environmentID}/billOfMaterials | _TO_BE_DEFINED_
 [**GetEnvironmentById**](EnvironmentApi.md#GetEnvironmentById) | **Get** /environments/{environmentID} | Read One Environment
 [**ReplaceBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#ReplaceBillOfMaterialsByEnvironmentId) | **Put** /environments/{environmentID}/billOfMaterials | _TO_BE_DEFINED_
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 > Environment CreateEnvironment(ctx).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentCreateRequest(environmentCreateRequest).Execute()
 
-_TO_BE_DEFINED_
+Create Environment
 
 
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 > DeleteEnvironmentById(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
-_TO_BE_DEFINED_
+Delete Environment
 
 
 

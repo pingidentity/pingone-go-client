@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
+**Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsCreateRequest**](EnvironmentBillOfMaterialsCreateRequest.md) |  | [optional] 
 
 ## Methods
@@ -139,6 +140,31 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+
+### GetStatus
+
+`func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentStatusValue`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentStatusValue, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *EnvironmentReplaceRequest) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
 
 ### GetBillOfMaterials
 
