@@ -3,7 +3,6 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-08T12-37-45
 Contact: developerexperiences@pingidentity.com
 */
 
