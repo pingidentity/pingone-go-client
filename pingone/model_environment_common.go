@@ -15,44 +15,43 @@ import (
 	"fmt"
 )
 
-// checks if the EnvironmentReplaceRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EnvironmentReplaceRequest{}
+// checks if the EnvironmentCommon type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnvironmentCommon{}
 
-// EnvironmentReplaceRequest struct for EnvironmentReplaceRequest
-type EnvironmentReplaceRequest struct {
-	Description          *string                                  `json:"description,omitempty"`
-	Icon                 *string                                  `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne              `json:"license"`
-	Name                 string                                   `json:"name"`
-	Type                 EnvironmentType                          `json:"type"`
-	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
+// EnvironmentCommon struct for EnvironmentCommon
+type EnvironmentCommon struct {
+	Description          *string                     `json:"description,omitempty"`
+	Icon                 *string                     `json:"icon,omitempty"`
+	License              ResourceRelationshipPingOne `json:"license"`
+	Name                 string                      `json:"name"`
+	Type                 EnvironmentType             `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _EnvironmentReplaceRequest EnvironmentReplaceRequest
+type _EnvironmentCommon EnvironmentCommon
 
-// NewEnvironmentReplaceRequest instantiates a new EnvironmentReplaceRequest object
+// NewEnvironmentCommon instantiates a new EnvironmentCommon object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *EnvironmentReplaceRequest {
-	this := EnvironmentReplaceRequest{}
+func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *EnvironmentCommon {
+	this := EnvironmentCommon{}
 	this.License = license
 	this.Name = name
 	this.Type = type_
 	return &this
 }
 
-// NewEnvironmentReplaceRequestWithDefaults instantiates a new EnvironmentReplaceRequest object
+// NewEnvironmentCommonWithDefaults instantiates a new EnvironmentCommon object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEnvironmentReplaceRequestWithDefaults() *EnvironmentReplaceRequest {
-	this := EnvironmentReplaceRequest{}
+func NewEnvironmentCommonWithDefaults() *EnvironmentCommon {
+	this := EnvironmentCommon{}
 	return &this
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetDescription() string {
+func (o *EnvironmentCommon) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -62,7 +61,7 @@ func (o *EnvironmentReplaceRequest) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetDescriptionOk() (*string, bool) {
+func (o *EnvironmentCommon) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -70,7 +69,7 @@ func (o *EnvironmentReplaceRequest) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *EnvironmentReplaceRequest) HasDescription() bool {
+func (o *EnvironmentCommon) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -79,12 +78,12 @@ func (o *EnvironmentReplaceRequest) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *EnvironmentReplaceRequest) SetDescription(v string) {
+func (o *EnvironmentCommon) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetIcon returns the Icon field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetIcon() string {
+func (o *EnvironmentCommon) GetIcon() string {
 	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
@@ -94,7 +93,7 @@ func (o *EnvironmentReplaceRequest) GetIcon() string {
 
 // GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetIconOk() (*string, bool) {
+func (o *EnvironmentCommon) GetIconOk() (*string, bool) {
 	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
@@ -102,7 +101,7 @@ func (o *EnvironmentReplaceRequest) GetIconOk() (*string, bool) {
 }
 
 // HasIcon returns a boolean if a field has been set.
-func (o *EnvironmentReplaceRequest) HasIcon() bool {
+func (o *EnvironmentCommon) HasIcon() bool {
 	if o != nil && !IsNil(o.Icon) {
 		return true
 	}
@@ -111,12 +110,12 @@ func (o *EnvironmentReplaceRequest) HasIcon() bool {
 }
 
 // SetIcon gets a reference to the given string and assigns it to the Icon field.
-func (o *EnvironmentReplaceRequest) SetIcon(v string) {
+func (o *EnvironmentCommon) SetIcon(v string) {
 	o.Icon = &v
 }
 
 // GetLicense returns the License field value
-func (o *EnvironmentReplaceRequest) GetLicense() ResourceRelationshipPingOne {
+func (o *EnvironmentCommon) GetLicense() ResourceRelationshipPingOne {
 	if o == nil {
 		var ret ResourceRelationshipPingOne
 		return ret
@@ -127,7 +126,7 @@ func (o *EnvironmentReplaceRequest) GetLicense() ResourceRelationshipPingOne {
 
 // GetLicenseOk returns a tuple with the License field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetLicenseOk() (*ResourceRelationshipPingOne, bool) {
+func (o *EnvironmentCommon) GetLicenseOk() (*ResourceRelationshipPingOne, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -135,12 +134,12 @@ func (o *EnvironmentReplaceRequest) GetLicenseOk() (*ResourceRelationshipPingOne
 }
 
 // SetLicense sets field value
-func (o *EnvironmentReplaceRequest) SetLicense(v ResourceRelationshipPingOne) {
+func (o *EnvironmentCommon) SetLicense(v ResourceRelationshipPingOne) {
 	o.License = v
 }
 
 // GetName returns the Name field value
-func (o *EnvironmentReplaceRequest) GetName() string {
+func (o *EnvironmentCommon) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -151,7 +150,7 @@ func (o *EnvironmentReplaceRequest) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetNameOk() (*string, bool) {
+func (o *EnvironmentCommon) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -159,12 +158,12 @@ func (o *EnvironmentReplaceRequest) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *EnvironmentReplaceRequest) SetName(v string) {
+func (o *EnvironmentCommon) SetName(v string) {
 	o.Name = v
 }
 
 // GetType returns the Type field value
-func (o *EnvironmentReplaceRequest) GetType() EnvironmentType {
+func (o *EnvironmentCommon) GetType() EnvironmentType {
 	if o == nil {
 		var ret EnvironmentType
 		return ret
@@ -175,7 +174,7 @@ func (o *EnvironmentReplaceRequest) GetType() EnvironmentType {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentType, bool) {
+func (o *EnvironmentCommon) GetTypeOk() (*EnvironmentType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -183,43 +182,11 @@ func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentType, bool) {
 }
 
 // SetType sets field value
-func (o *EnvironmentReplaceRequest) SetType(v EnvironmentType) {
+func (o *EnvironmentCommon) SetType(v EnvironmentType) {
 	o.Type = v
 }
 
-// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret EnvironmentBillOfMaterialsCreateRequest
-		return ret
-	}
-	return *o.BillOfMaterials
-}
-
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool) {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		return nil, false
-	}
-	return o.BillOfMaterials, true
-}
-
-// HasBillOfMaterials returns a boolean if a field has been set.
-func (o *EnvironmentReplaceRequest) HasBillOfMaterials() bool {
-	if o != nil && !IsNil(o.BillOfMaterials) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsCreateRequest and assigns it to the BillOfMaterials field.
-func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest) {
-	o.BillOfMaterials = &v
-}
-
-func (o EnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
+func (o EnvironmentCommon) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -227,7 +194,7 @@ func (o EnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
+func (o EnvironmentCommon) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
@@ -238,9 +205,6 @@ func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -249,7 +213,7 @@ func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *EnvironmentCommon) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -273,15 +237,15 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEnvironmentReplaceRequest := _EnvironmentReplaceRequest{}
+	varEnvironmentCommon := _EnvironmentCommon{}
 
-	err = json.Unmarshal(data, &varEnvironmentReplaceRequest)
+	err = json.Unmarshal(data, &varEnvironmentCommon)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EnvironmentReplaceRequest(varEnvironmentReplaceRequest)
+	*o = EnvironmentCommon(varEnvironmentCommon)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -291,45 +255,44 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "billOfMaterials")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableEnvironmentReplaceRequest struct {
-	value *EnvironmentReplaceRequest
+type NullableEnvironmentCommon struct {
+	value *EnvironmentCommon
 	isSet bool
 }
 
-func (v NullableEnvironmentReplaceRequest) Get() *EnvironmentReplaceRequest {
+func (v NullableEnvironmentCommon) Get() *EnvironmentCommon {
 	return v.value
 }
 
-func (v *NullableEnvironmentReplaceRequest) Set(val *EnvironmentReplaceRequest) {
+func (v *NullableEnvironmentCommon) Set(val *EnvironmentCommon) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEnvironmentReplaceRequest) IsSet() bool {
+func (v NullableEnvironmentCommon) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEnvironmentReplaceRequest) Unset() {
+func (v *NullableEnvironmentCommon) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEnvironmentReplaceRequest(val *EnvironmentReplaceRequest) *NullableEnvironmentReplaceRequest {
-	return &NullableEnvironmentReplaceRequest{value: val, isSet: true}
+func NewNullableEnvironmentCommon(val *EnvironmentCommon) *NullableEnvironmentCommon {
+	return &NullableEnvironmentCommon{value: val, isSet: true}
 }
 
-func (v NullableEnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
+func (v NullableEnvironmentCommon) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEnvironmentReplaceRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableEnvironmentCommon) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BillOfMaterials** | Pointer to [**BillOfMaterials**](BillOfMaterials.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
-**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Links** | Pointer to [**EnvironmentLinks**](EnvironmentLinks.md) |  | [optional] 
+**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **HardDeletedAllowedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] [readonly] 
 **Organization** | Pointer to [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | [optional] 
+**Region** | Pointer to [**EnvironmentRegion**](EnvironmentRegion.md) |  | [optional] 
 **SoftDeletedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironment
 
-`func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, region EnvironmentRegion, ) *Environment`
+`func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -37,31 +37,6 @@ will change when the set of required properties is changed
 NewEnvironmentWithDefaults instantiates a new Environment object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetBillOfMaterials
-
-`func (o *Environment) GetBillOfMaterials() BillOfMaterials`
-
-GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
-
-### GetBillOfMaterialsOk
-
-`func (o *Environment) GetBillOfMaterialsOk() (*BillOfMaterials, bool)`
-
-GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBillOfMaterials
-
-`func (o *Environment) SetBillOfMaterials(v BillOfMaterials)`
-
-SetBillOfMaterials sets BillOfMaterials field to given value.
-
-### HasBillOfMaterials
-
-`func (o *Environment) HasBillOfMaterials() bool`
-
-HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -173,26 +148,6 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetRegion
-
-`func (o *Environment) GetRegion() EnvironmentRegion`
-
-GetRegion returns the Region field if non-nil, zero value otherwise.
-
-### GetRegionOk
-
-`func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool)`
-
-GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRegion
-
-`func (o *Environment) SetRegion(v EnvironmentRegion)`
-
-SetRegion sets Region field to given value.
-
-
 ### GetLinks
 
 `func (o *Environment) GetLinks() EnvironmentLinks`
@@ -217,6 +172,31 @@ SetLinks sets Links field to given value.
 `func (o *Environment) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetBillOfMaterials
+
+`func (o *Environment) GetBillOfMaterials() EnvironmentBillOfMaterials`
+
+GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
+
+### GetBillOfMaterialsOk
+
+`func (o *Environment) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterials, bool)`
+
+GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBillOfMaterials
+
+`func (o *Environment) SetBillOfMaterials(v EnvironmentBillOfMaterials)`
+
+SetBillOfMaterials sets BillOfMaterials field to given value.
+
+### HasBillOfMaterials
+
+`func (o *Environment) HasBillOfMaterials() bool`
+
+HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -317,6 +297,31 @@ SetOrganization sets Organization field to given value.
 `func (o *Environment) HasOrganization() bool`
 
 HasOrganization returns a boolean if a field has been set.
+
+### GetRegion
+
+`func (o *Environment) GetRegion() EnvironmentRegion`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *Environment) SetRegion(v EnvironmentRegion)`
+
+SetRegion sets Region field to given value.
+
+### HasRegion
+
+`func (o *Environment) HasRegion() bool`
+
+HasRegion returns a boolean if a field has been set.
 
 ### GetSoftDeletedAt
 

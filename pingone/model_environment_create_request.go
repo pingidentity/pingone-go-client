@@ -20,13 +20,13 @@ var _ MappedNullable = &EnvironmentCreateRequest{}
 
 // EnvironmentCreateRequest struct for EnvironmentCreateRequest
 type EnvironmentCreateRequest struct {
-	BillOfMaterials      *BillOfMaterials            `json:"billOfMaterials,omitempty"`
-	Description          *string                     `json:"description,omitempty"`
-	Icon                 *string                     `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne `json:"license"`
-	Name                 string                      `json:"name"`
-	Type                 EnvironmentType             `json:"type"`
-	Region               EnvironmentRegion           `json:"region"`
+	Description          *string                                  `json:"description,omitempty"`
+	Icon                 *string                                  `json:"icon,omitempty"`
+	License              ResourceRelationshipPingOne              `json:"license"`
+	Name                 string                                   `json:"name"`
+	Type                 EnvironmentType                          `json:"type"`
+	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
+	Region               EnvironmentRegion                        `json:"region"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,38 +51,6 @@ func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name strin
 func NewEnvironmentCreateRequestWithDefaults() *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
 	return &this
-}
-
-// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *EnvironmentCreateRequest) GetBillOfMaterials() BillOfMaterials {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret BillOfMaterials
-		return ret
-	}
-	return *o.BillOfMaterials
-}
-
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*BillOfMaterials, bool) {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		return nil, false
-	}
-	return o.BillOfMaterials, true
-}
-
-// HasBillOfMaterials returns a boolean if a field has been set.
-func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool {
-	if o != nil && !IsNil(o.BillOfMaterials) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillOfMaterials gets a reference to the given BillOfMaterials and assigns it to the BillOfMaterials field.
-func (o *EnvironmentCreateRequest) SetBillOfMaterials(v BillOfMaterials) {
-	o.BillOfMaterials = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -221,6 +189,38 @@ func (o *EnvironmentCreateRequest) SetType(v EnvironmentType) {
 	o.Type = v
 }
 
+// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
+func (o *EnvironmentCreateRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		var ret EnvironmentBillOfMaterialsCreateRequest
+		return ret
+	}
+	return *o.BillOfMaterials
+}
+
+// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool) {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		return nil, false
+	}
+	return o.BillOfMaterials, true
+}
+
+// HasBillOfMaterials returns a boolean if a field has been set.
+func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool {
+	if o != nil && !IsNil(o.BillOfMaterials) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsCreateRequest and assigns it to the BillOfMaterials field.
+func (o *EnvironmentCreateRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest) {
+	o.BillOfMaterials = &v
+}
+
 // GetRegion returns the Region field value
 func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion {
 	if o == nil {
@@ -255,9 +255,6 @@ func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
-	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -267,6 +264,9 @@ func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	}
 	toSerialize["region"] = o.Region
 
 	for key, value := range o.AdditionalProperties {
@@ -314,12 +314,12 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "region")
 		o.AdditionalProperties = additionalProperties
 	}

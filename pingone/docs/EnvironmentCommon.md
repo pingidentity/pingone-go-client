@@ -1,4 +1,4 @@
-# EnvironmentReplaceRequest
+# EnvironmentCommon
 
 ## Properties
 
@@ -9,161 +9,135 @@ Name | Type | Description | Notes
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
-**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsCreateRequest**](EnvironmentBillOfMaterialsCreateRequest.md) |  | [optional] 
 
 ## Methods
 
-### NewEnvironmentReplaceRequest
+### NewEnvironmentCommon
 
-`func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *EnvironmentReplaceRequest`
+`func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *EnvironmentCommon`
 
-NewEnvironmentReplaceRequest instantiates a new EnvironmentReplaceRequest object
+NewEnvironmentCommon instantiates a new EnvironmentCommon object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewEnvironmentReplaceRequestWithDefaults
+### NewEnvironmentCommonWithDefaults
 
-`func NewEnvironmentReplaceRequestWithDefaults() *EnvironmentReplaceRequest`
+`func NewEnvironmentCommonWithDefaults() *EnvironmentCommon`
 
-NewEnvironmentReplaceRequestWithDefaults instantiates a new EnvironmentReplaceRequest object
+NewEnvironmentCommonWithDefaults instantiates a new EnvironmentCommon object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetDescription
 
-`func (o *EnvironmentReplaceRequest) GetDescription() string`
+`func (o *EnvironmentCommon) GetDescription() string`
 
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
-`func (o *EnvironmentReplaceRequest) GetDescriptionOk() (*string, bool)`
+`func (o *EnvironmentCommon) GetDescriptionOk() (*string, bool)`
 
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-`func (o *EnvironmentReplaceRequest) SetDescription(v string)`
+`func (o *EnvironmentCommon) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
 
 ### HasDescription
 
-`func (o *EnvironmentReplaceRequest) HasDescription() bool`
+`func (o *EnvironmentCommon) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
 
 ### GetIcon
 
-`func (o *EnvironmentReplaceRequest) GetIcon() string`
+`func (o *EnvironmentCommon) GetIcon() string`
 
 GetIcon returns the Icon field if non-nil, zero value otherwise.
 
 ### GetIconOk
 
-`func (o *EnvironmentReplaceRequest) GetIconOk() (*string, bool)`
+`func (o *EnvironmentCommon) GetIconOk() (*string, bool)`
 
 GetIconOk returns a tuple with the Icon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIcon
 
-`func (o *EnvironmentReplaceRequest) SetIcon(v string)`
+`func (o *EnvironmentCommon) SetIcon(v string)`
 
 SetIcon sets Icon field to given value.
 
 ### HasIcon
 
-`func (o *EnvironmentReplaceRequest) HasIcon() bool`
+`func (o *EnvironmentCommon) HasIcon() bool`
 
 HasIcon returns a boolean if a field has been set.
 
 ### GetLicense
 
-`func (o *EnvironmentReplaceRequest) GetLicense() ResourceRelationshipPingOne`
+`func (o *EnvironmentCommon) GetLicense() ResourceRelationshipPingOne`
 
 GetLicense returns the License field if non-nil, zero value otherwise.
 
 ### GetLicenseOk
 
-`func (o *EnvironmentReplaceRequest) GetLicenseOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *EnvironmentCommon) GetLicenseOk() (*ResourceRelationshipPingOne, bool)`
 
 GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLicense
 
-`func (o *EnvironmentReplaceRequest) SetLicense(v ResourceRelationshipPingOne)`
+`func (o *EnvironmentCommon) SetLicense(v ResourceRelationshipPingOne)`
 
 SetLicense sets License field to given value.
 
 
 ### GetName
 
-`func (o *EnvironmentReplaceRequest) GetName() string`
+`func (o *EnvironmentCommon) GetName() string`
 
 GetName returns the Name field if non-nil, zero value otherwise.
 
 ### GetNameOk
 
-`func (o *EnvironmentReplaceRequest) GetNameOk() (*string, bool)`
+`func (o *EnvironmentCommon) GetNameOk() (*string, bool)`
 
 GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetName
 
-`func (o *EnvironmentReplaceRequest) SetName(v string)`
+`func (o *EnvironmentCommon) SetName(v string)`
 
 SetName sets Name field to given value.
 
 
 ### GetType
 
-`func (o *EnvironmentReplaceRequest) GetType() EnvironmentType`
+`func (o *EnvironmentCommon) GetType() EnvironmentType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentType, bool)`
+`func (o *EnvironmentCommon) GetTypeOk() (*EnvironmentType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *EnvironmentReplaceRequest) SetType(v EnvironmentType)`
+`func (o *EnvironmentCommon) SetType(v EnvironmentType)`
 
 SetType sets Type field to given value.
 
-
-### GetBillOfMaterials
-
-`func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest`
-
-GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
-
-### GetBillOfMaterialsOk
-
-`func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool)`
-
-GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBillOfMaterials
-
-`func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest)`
-
-SetBillOfMaterials sets BillOfMaterials field to given value.
-
-### HasBillOfMaterials
-
-`func (o *EnvironmentReplaceRequest) HasBillOfMaterials() bool`
-
-HasBillOfMaterials returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

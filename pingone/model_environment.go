@@ -23,18 +23,18 @@ var _ MappedNullable = &Environment{}
 
 // Environment struct for Environment
 type Environment struct {
-	BillOfMaterials      *BillOfMaterials             `json:"billOfMaterials,omitempty"`
 	Description          *string                      `json:"description,omitempty"`
 	Icon                 *string                      `json:"icon,omitempty"`
 	License              ResourceRelationshipPingOne  `json:"license"`
 	Name                 string                       `json:"name"`
 	Type                 EnvironmentType              `json:"type"`
-	Region               EnvironmentRegion            `json:"region"`
 	Links                *EnvironmentLinks            `json:"_links,omitempty"`
+	BillOfMaterials      *EnvironmentBillOfMaterials  `json:"billOfMaterials,omitempty"`
 	CreatedAt            *time.Time                   `json:"createdAt,omitempty"`
 	HardDeletedAllowedAt *time.Time                   `json:"hardDeletedAllowedAt,omitempty"`
 	Id                   *uuid.UUID                   `json:"id,omitempty"`
 	Organization         *ResourceRelationshipPingOne `json:"organization,omitempty"`
+	Region               *EnvironmentRegion           `json:"region,omitempty"`
 	SoftDeletedAt        *time.Time                   `json:"softDeletedAt,omitempty"`
 	UpdatedAt            *time.Time                   `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -46,12 +46,11 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, region EnvironmentRegion) *Environment {
+func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *Environment {
 	this := Environment{}
 	this.License = license
 	this.Name = name
 	this.Type = type_
-	this.Region = region
 	return &this
 }
 
@@ -61,38 +60,6 @@ func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ Envi
 func NewEnvironmentWithDefaults() *Environment {
 	this := Environment{}
 	return &this
-}
-
-// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *Environment) GetBillOfMaterials() BillOfMaterials {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret BillOfMaterials
-		return ret
-	}
-	return *o.BillOfMaterials
-}
-
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Environment) GetBillOfMaterialsOk() (*BillOfMaterials, bool) {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		return nil, false
-	}
-	return o.BillOfMaterials, true
-}
-
-// HasBillOfMaterials returns a boolean if a field has been set.
-func (o *Environment) HasBillOfMaterials() bool {
-	if o != nil && !IsNil(o.BillOfMaterials) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillOfMaterials gets a reference to the given BillOfMaterials and assigns it to the BillOfMaterials field.
-func (o *Environment) SetBillOfMaterials(v BillOfMaterials) {
-	o.BillOfMaterials = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -231,30 +198,6 @@ func (o *Environment) SetType(v EnvironmentType) {
 	o.Type = v
 }
 
-// GetRegion returns the Region field value
-func (o *Environment) GetRegion() EnvironmentRegion {
-	if o == nil {
-		var ret EnvironmentRegion
-		return ret
-	}
-
-	return o.Region
-}
-
-// GetRegionOk returns a tuple with the Region field value
-// and a boolean to check if the value has been set.
-func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Region, true
-}
-
-// SetRegion sets field value
-func (o *Environment) SetRegion(v EnvironmentRegion) {
-	o.Region = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Environment) GetLinks() EnvironmentLinks {
 	if o == nil || IsNil(o.Links) {
@@ -285,6 +228,38 @@ func (o *Environment) HasLinks() bool {
 // SetLinks gets a reference to the given EnvironmentLinks and assigns it to the Links field.
 func (o *Environment) SetLinks(v EnvironmentLinks) {
 	o.Links = &v
+}
+
+// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
+func (o *Environment) GetBillOfMaterials() EnvironmentBillOfMaterials {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		var ret EnvironmentBillOfMaterials
+		return ret
+	}
+	return *o.BillOfMaterials
+}
+
+// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterials, bool) {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		return nil, false
+	}
+	return o.BillOfMaterials, true
+}
+
+// HasBillOfMaterials returns a boolean if a field has been set.
+func (o *Environment) HasBillOfMaterials() bool {
+	if o != nil && !IsNil(o.BillOfMaterials) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterials and assigns it to the BillOfMaterials field.
+func (o *Environment) SetBillOfMaterials(v EnvironmentBillOfMaterials) {
+	o.BillOfMaterials = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -415,6 +390,38 @@ func (o *Environment) SetOrganization(v ResourceRelationshipPingOne) {
 	o.Organization = &v
 }
 
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *Environment) GetRegion() EnvironmentRegion {
+	if o == nil || IsNil(o.Region) {
+		var ret EnvironmentRegion
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *Environment) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given EnvironmentRegion and assigns it to the Region field.
+func (o *Environment) SetRegion(v EnvironmentRegion) {
+	o.Region = &v
+}
+
 // GetSoftDeletedAt returns the SoftDeletedAt field value if set, zero value otherwise.
 func (o *Environment) GetSoftDeletedAt() time.Time {
 	if o == nil || IsNil(o.SoftDeletedAt) {
@@ -489,9 +496,6 @@ func (o Environment) MarshalJSON() ([]byte, error) {
 
 func (o Environment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
-	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -501,9 +505,11 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
-	toSerialize["region"] = o.Region
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
+	}
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -516,6 +522,9 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
 	}
 	if !IsNil(o.SoftDeletedAt) {
 		toSerialize["softDeletedAt"] = o.SoftDeletedAt
@@ -539,7 +548,6 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		"license",
 		"name",
 		"type",
-		"region",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -569,18 +577,18 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "region")
 		delete(additionalProperties, "_links")
+		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "hardDeletedAllowedAt")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "organization")
+		delete(additionalProperties, "region")
 		delete(additionalProperties, "softDeletedAt")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties

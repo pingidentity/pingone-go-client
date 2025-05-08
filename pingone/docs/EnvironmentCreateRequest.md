@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BillOfMaterials** | Pointer to [**BillOfMaterials**](BillOfMaterials.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
+**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsCreateRequest**](EnvironmentBillOfMaterialsCreateRequest.md) |  | [optional] 
 **Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 
 ## Methods
@@ -30,31 +30,6 @@ will change when the set of required properties is changed
 NewEnvironmentCreateRequestWithDefaults instantiates a new EnvironmentCreateRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetBillOfMaterials
-
-`func (o *EnvironmentCreateRequest) GetBillOfMaterials() BillOfMaterials`
-
-GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
-
-### GetBillOfMaterialsOk
-
-`func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*BillOfMaterials, bool)`
-
-GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBillOfMaterials
-
-`func (o *EnvironmentCreateRequest) SetBillOfMaterials(v BillOfMaterials)`
-
-SetBillOfMaterials sets BillOfMaterials field to given value.
-
-### HasBillOfMaterials
-
-`func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool`
-
-HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -165,6 +140,31 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+
+### GetBillOfMaterials
+
+`func (o *EnvironmentCreateRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest`
+
+GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
+
+### GetBillOfMaterialsOk
+
+`func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool)`
+
+GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBillOfMaterials
+
+`func (o *EnvironmentCreateRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest)`
+
+SetBillOfMaterials sets BillOfMaterials field to given value.
+
+### HasBillOfMaterials
+
+`func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool`
+
+HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetRegion
 
