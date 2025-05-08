@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-08T12-11-18
+API version: development-2025-05-08T12-37-45
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -21,15 +21,15 @@ var _ MappedNullable = &DaVinciVariableReplaceRequest{}
 
 // DaVinciVariableReplaceRequest struct for DaVinciVariableReplaceRequest
 type DaVinciVariableReplaceRequest struct {
-	Context              DaVinciVariableCreateRequestContext  `json:"context"`
-	DataType             DaVinciVariableCreateRequestDataType `json:"dataType"`
-	DisplayName          *string                              `json:"displayName,omitempty" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	Flow                 *ResourceRelationshipDaVinci         `json:"flow,omitempty"`
-	Max                  *int32                               `json:"max,omitempty"`
-	Min                  *int32                               `json:"min,omitempty"`
-	Mutable              bool                                 `json:"mutable"`
-	Name                 string                               `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	Value                *DaVinciVariableCreateRequestValue   `json:"value,omitempty"`
+	Context              DaVinciVariableReplaceRequestContext  `json:"context"`
+	DataType             DaVinciVariableReplaceRequestDataType `json:"dataType"`
+	DisplayName          *string                               `json:"displayName,omitempty" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	Flow                 *ResourceRelationshipDaVinci          `json:"flow,omitempty"`
+	Max                  *int32                                `json:"max,omitempty"`
+	Min                  *int32                                `json:"min,omitempty"`
+	Mutable              bool                                  `json:"mutable"`
+	Name                 string                                `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	Value                *DaVinciVariableReplaceRequestValue   `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,7 +39,7 @@ type _DaVinciVariableReplaceRequest DaVinciVariableReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariableReplaceRequest(context DaVinciVariableCreateRequestContext, dataType DaVinciVariableCreateRequestDataType, mutable bool, name string) *DaVinciVariableReplaceRequest {
+func NewDaVinciVariableReplaceRequest(context DaVinciVariableReplaceRequestContext, dataType DaVinciVariableReplaceRequestDataType, mutable bool, name string) *DaVinciVariableReplaceRequest {
 	this := DaVinciVariableReplaceRequest{}
 	this.Context = context
 	this.DataType = dataType
@@ -57,9 +57,9 @@ func NewDaVinciVariableReplaceRequestWithDefaults() *DaVinciVariableReplaceReque
 }
 
 // GetContext returns the Context field value
-func (o *DaVinciVariableReplaceRequest) GetContext() DaVinciVariableCreateRequestContext {
+func (o *DaVinciVariableReplaceRequest) GetContext() DaVinciVariableReplaceRequestContext {
 	if o == nil {
-		var ret DaVinciVariableCreateRequestContext
+		var ret DaVinciVariableReplaceRequestContext
 		return ret
 	}
 
@@ -68,7 +68,7 @@ func (o *DaVinciVariableReplaceRequest) GetContext() DaVinciVariableCreateReques
 
 // GetContextOk returns a tuple with the Context field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciVariableReplaceRequest) GetContextOk() (*DaVinciVariableCreateRequestContext, bool) {
+func (o *DaVinciVariableReplaceRequest) GetContextOk() (*DaVinciVariableReplaceRequestContext, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,14 +76,14 @@ func (o *DaVinciVariableReplaceRequest) GetContextOk() (*DaVinciVariableCreateRe
 }
 
 // SetContext sets field value
-func (o *DaVinciVariableReplaceRequest) SetContext(v DaVinciVariableCreateRequestContext) {
+func (o *DaVinciVariableReplaceRequest) SetContext(v DaVinciVariableReplaceRequestContext) {
 	o.Context = v
 }
 
 // GetDataType returns the DataType field value
-func (o *DaVinciVariableReplaceRequest) GetDataType() DaVinciVariableCreateRequestDataType {
+func (o *DaVinciVariableReplaceRequest) GetDataType() DaVinciVariableReplaceRequestDataType {
 	if o == nil {
-		var ret DaVinciVariableCreateRequestDataType
+		var ret DaVinciVariableReplaceRequestDataType
 		return ret
 	}
 
@@ -92,7 +92,7 @@ func (o *DaVinciVariableReplaceRequest) GetDataType() DaVinciVariableCreateReque
 
 // GetDataTypeOk returns a tuple with the DataType field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciVariableReplaceRequest) GetDataTypeOk() (*DaVinciVariableCreateRequestDataType, bool) {
+func (o *DaVinciVariableReplaceRequest) GetDataTypeOk() (*DaVinciVariableReplaceRequestDataType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *DaVinciVariableReplaceRequest) GetDataTypeOk() (*DaVinciVariableCreateR
 }
 
 // SetDataType sets field value
-func (o *DaVinciVariableReplaceRequest) SetDataType(v DaVinciVariableCreateRequestDataType) {
+func (o *DaVinciVariableReplaceRequest) SetDataType(v DaVinciVariableReplaceRequestDataType) {
 	o.DataType = v
 }
 
@@ -281,9 +281,9 @@ func (o *DaVinciVariableReplaceRequest) SetName(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *DaVinciVariableReplaceRequest) GetValue() DaVinciVariableCreateRequestValue {
+func (o *DaVinciVariableReplaceRequest) GetValue() DaVinciVariableReplaceRequestValue {
 	if o == nil || IsNil(o.Value) {
-		var ret DaVinciVariableCreateRequestValue
+		var ret DaVinciVariableReplaceRequestValue
 		return ret
 	}
 	return *o.Value
@@ -291,7 +291,7 @@ func (o *DaVinciVariableReplaceRequest) GetValue() DaVinciVariableCreateRequestV
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciVariableReplaceRequest) GetValueOk() (*DaVinciVariableCreateRequestValue, bool) {
+func (o *DaVinciVariableReplaceRequest) GetValueOk() (*DaVinciVariableReplaceRequestValue, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -307,8 +307,8 @@ func (o *DaVinciVariableReplaceRequest) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given DaVinciVariableCreateRequestValue and assigns it to the Value field.
-func (o *DaVinciVariableReplaceRequest) SetValue(v DaVinciVariableCreateRequestValue) {
+// SetValue gets a reference to the given DaVinciVariableReplaceRequestValue and assigns it to the Value field.
+func (o *DaVinciVariableReplaceRequest) SetValue(v DaVinciVariableReplaceRequestValue) {
 	o.Value = &v
 }
 

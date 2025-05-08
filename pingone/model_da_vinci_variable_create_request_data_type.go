@@ -3,7 +3,7 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-05-08T12-11-18
+API version: development-2025-05-08T12-37-45
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -19,7 +19,7 @@ import (
 // DaVinciVariableCreateRequestDataType the model 'DaVinciVariableCreateRequestDataType'
 type DaVinciVariableCreateRequestDataType string
 
-// List of DaVinciVariableCreateRequest_dataType
+// List of DaVinci_Variable_Create_Request_Data_Type
 const (
 	DAVINCIVARIABLECREATEREQUESTDATATYPE_BOOLEAN DaVinciVariableCreateRequestDataType = "boolean"
 	DAVINCIVARIABLECREATEREQUESTDATATYPE_NUMBER  DaVinciVariableCreateRequestDataType = "number"
@@ -76,7 +76,7 @@ func (v DaVinciVariableCreateRequestDataType) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to DaVinciVariableCreateRequest_dataType value
+// Ptr returns reference to DaVinci_Variable_Create_Request_Data_Type value
 func (v DaVinciVariableCreateRequestDataType) Ptr() *DaVinciVariableCreateRequestDataType {
 	return &v
 }
