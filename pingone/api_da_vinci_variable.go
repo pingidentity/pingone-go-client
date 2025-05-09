@@ -55,9 +55,9 @@ func (r ApiCreateVariableRequest) Execute() (*DaVinciVariable, *http.Response, e
 }
 
 /*
-CreateVariable _TO_BE_DEFINED_
+CreateVariable Create DaVinci Variable
 
-_TO_BE_DEFINED_
+Creates a new DaVinci variable resource. You must specify a `name`, `dataType`, and `context` for the variable.
 
 	@permission davinci:create:constructs
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -101,7 +101,7 @@ func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVar
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariableApiService.CreateVariable")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/variables"
@@ -157,7 +157,7 @@ func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVar
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -173,7 +173,7 @@ func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVar
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -231,7 +231,7 @@ func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVar
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -312,7 +312,7 @@ func (a *DaVinciVariableApiService) internalDeleteVariableByIdExecute(r ApiDelet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariableApiService.DeleteVariableById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/variables/{variableID}"
@@ -364,7 +364,7 @@ func (a *DaVinciVariableApiService) internalDeleteVariableByIdExecute(r ApiDelet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -380,7 +380,7 @@ func (a *DaVinciVariableApiService) internalDeleteVariableByIdExecute(r ApiDelet
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -513,7 +513,7 @@ func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVaria
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariableApiService.GetVariableById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/variables/{variableID}"
@@ -565,7 +565,7 @@ func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVaria
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -581,7 +581,7 @@ func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVaria
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -639,7 +639,7 @@ func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVaria
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -729,7 +729,7 @@ func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiRepl
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariableApiService.ReplaceVariableById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/variables/{variableID}"
@@ -786,7 +786,7 @@ func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiRepl
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -802,7 +802,7 @@ func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiRepl
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -860,7 +860,7 @@ func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiRepl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

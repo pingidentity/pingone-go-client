@@ -45,7 +45,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-08T15-57-05
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-09T12-06-40
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -648,25 +648,25 @@ func strlen(s string) int {
 	return utf8.RuneCountInString(s)
 }
 
-// GenericOpenAPIError Provides access to the body, error and model on returned errors.
-type GenericOpenAPIError struct {
+// APIError Provides access to the body, error and model on returned errors.
+type APIError struct {
 	body  []byte
 	error string
 	model interface{}
 }
 
 // Error returns non-empty string if there was an error.
-func (e GenericOpenAPIError) Error() string {
+func (e APIError) Error() string {
 	return e.error
 }
 
 // Body returns the raw bytes of the response
-func (e GenericOpenAPIError) Body() []byte {
+func (e APIError) Body() []byte {
 	return e.body
 }
 
 // Model returns the unpacked model of the error
-func (e GenericOpenAPIError) Model() interface{} {
+func (e APIError) Model() interface{} {
 	return e.model
 }
 

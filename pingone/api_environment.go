@@ -54,9 +54,11 @@ func (r ApiCreateEnvironmentRequest) Execute() (*Environment, *http.Response, er
 }
 
 /*
-CreateEnvironment _TO_BE_DEFINED_
+CreateEnvironment Create Environment
 
-_TO_BE_DEFINED_
+Create a new environment associated with the organization encoded in the access token. In the request body, the `name`, `region`, and `type` attributes are required. The value of the name attribute must be unique within the organization. The `billOfMaterials` attribute allows you to specify the Ping products associated with this environment.
+
+If you have a trial license, you cannot create `PRODUCTION` environments or promote `SANDBOX` environments to `PRODUCTION`.
 
 	@permission orgmgt:create:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -98,7 +100,7 @@ func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvi
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.CreateEnvironment")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments"
@@ -150,7 +152,7 @@ func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvi
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -166,7 +168,7 @@ func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvi
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -257,7 +259,7 @@ func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -292,9 +294,9 @@ func (r ApiDeleteEnvironmentByIdRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteEnvironmentById _TO_BE_DEFINED_
+DeleteEnvironmentById Delete Environment
 
-_TO_BE_DEFINED_
+Delete an environment from the organization.
 
 	@permission orgmgt:delete:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -335,7 +337,7 @@ func (a *EnvironmentApiService) internalDeleteEnvironmentByIdExecute(r ApiDelete
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.DeleteEnvironmentById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}"
@@ -386,7 +388,7 @@ func (a *EnvironmentApiService) internalDeleteEnvironmentByIdExecute(r ApiDelete
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -402,7 +404,7 @@ func (a *EnvironmentApiService) internalDeleteEnvironmentByIdExecute(r ApiDelete
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -554,7 +556,7 @@ func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.GetBillOfMaterialsByEnvironmentId")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/billOfMaterials"
@@ -605,7 +607,7 @@ func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -621,7 +623,7 @@ func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -701,7 +703,7 @@ func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -782,7 +784,7 @@ func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnviro
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.GetEnvironmentById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}"
@@ -833,7 +835,7 @@ func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnviro
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -849,7 +851,7 @@ func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnviro
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -929,7 +931,7 @@ func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnviro
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1016,7 +1018,7 @@ func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.ReplaceBillOfMaterialsByEnvironmentId")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}/billOfMaterials"
@@ -1069,7 +1071,7 @@ func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1085,7 +1087,7 @@ func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExe
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1165,7 +1167,7 @@ func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1252,7 +1254,7 @@ func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiRepla
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.ReplaceEnvironmentById")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/environments/{environmentID}"
@@ -1305,7 +1307,7 @@ func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiRepla
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1321,7 +1323,7 @@ func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiRepla
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
+			var v ErrorResponseMinimal
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1401,7 +1403,7 @@ func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiRepla
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := &GenericOpenAPIError{
+		newErr := &APIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -14,6 +14,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 // checks if the DaVinciVariable type satisfies the MappedNullable interface at compile time
@@ -28,7 +30,7 @@ type DaVinciVariable struct {
 	DisplayName          *string                      `json:"displayName,omitempty"`
 	Environment          ResourceRelationshipPingOne  `json:"environment"`
 	Flow                 *ResourceRelationshipDaVinci `json:"flow,omitempty"`
-	Id                   string                       `json:"id"`
+	Id                   uuid.UUID                    `json:"id"`
 	Max                  *float32                     `json:"max,omitempty"`
 	Min                  *float32                     `json:"min,omitempty"`
 	Mutable              *bool                        `json:"mutable,omitempty"`
@@ -44,7 +46,7 @@ type _DaVinciVariable DaVinciVariable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id string, name string) *DaVinciVariable {
+func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id uuid.UUID, name string) *DaVinciVariable {
 	this := DaVinciVariable{}
 	this.Links = links
 	this.DataType = dataType
@@ -263,9 +265,9 @@ func (o *DaVinciVariable) SetFlow(v ResourceRelationshipDaVinci) {
 }
 
 // GetId returns the Id field value
-func (o *DaVinciVariable) GetId() string {
+func (o *DaVinciVariable) GetId() uuid.UUID {
 	if o == nil {
-		var ret string
+		var ret uuid.UUID
 		return ret
 	}
 
@@ -274,7 +276,7 @@ func (o *DaVinciVariable) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetIdOk() (*string, bool) {
+func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -282,7 +284,7 @@ func (o *DaVinciVariable) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *DaVinciVariable) SetId(v string) {
+func (o *DaVinciVariable) SetId(v uuid.UUID) {
 	o.Id = v
 }
 

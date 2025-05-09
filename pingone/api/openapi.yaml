@@ -1,0 +1,1654 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: developerexperiences@pingidentity.com
+    name: Ping Identity Developer Experiences
+    url: https://developer.pingidentity.com
+  description: The PingOne User and Configuration Management API provides the interface
+    to configure and manage users in the PingOne directory and the administration
+    configuration of your PingOne organization.
+  license:
+    name: Apache 2.0
+  title: PingOne User and Configuration Management API
+  version: development-2025-05-09T12-06-40
+externalDocs:
+  description: PingOne Platform API Reference
+  url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
+servers:
+- url: "https://api.{sld}.{tld}/{basePath}"
+  variables:
+    basePath:
+      default: v1
+    sld:
+      default: pingone
+    tld:
+      default: com
+      enum:
+      - eu
+      - com
+      - asia
+      - com.au
+      - ca
+- url: "https://{domain}/{basePath}"
+  variables:
+    basePath:
+      default: v1
+    domain:
+      default: api.pingone.com
+security:
+- bearerAuth: []
+- oauth2: []
+tags:
+- description: Endpoints for managing DaVinci variables within an environment.
+  name: DaVinci Variable
+- description: Endpoints for managing the PingOne environment
+  name: Environment
+paths:
+  /environments:
+    post:
+      description: |-
+        Create a new environment associated with the organization encoded in the access token. In the request body, the `name`, `region`, and `type` attributes are required. The value of the name attribute must be unique within the organization. The `billOfMaterials` attribute allows you to specify the Ping products associated with this environment.
+
+        If you have a trial license, you cannot create `PRODUCTION` environments or promote `SANDBOX` environments to `PRODUCTION`.
+      operationId: createEnvironment
+      parameters:
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentCreateRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: Environment created successfully.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "405":
+          $ref: '#/components/responses/MethodNotAllowed'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: Create Environment
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:create:environment
+  /environments/{environmentID}:
+    delete:
+      description: Delete an environment from the organization.
+      operationId: deleteEnvironmentById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "204":
+          description: Environment deleted successfully.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: Delete Environment
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:delete:environment
+    get:
+      description: Returns data only for the environment resource identified by its
+        ID in the request URL.
+      operationId: getEnvironmentById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: Successful response.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: Read One Environment
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:read:environment
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceEnvironmentById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentReplaceRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: Environment successfully updated.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:update:environment
+  /environments/{environmentID}/billOfMaterials:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getBillOfMaterialsByEnvironmentId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+          description: Environment successfully created.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:read:environment
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceBillOfMaterialsByEnvironmentId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+          description: Environment successfully created.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "502":
+          $ref: '#/components/responses/BadGateway'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - Environment
+      x-public-api: api
+      x-service-name: api
+      x-permission: orgmgt:update:environment
+  /environments/{environmentID}/variables:
+    post:
+      description: "Creates a new DaVinci variable resource. You must specify a `name`,\
+        \ `dataType`, and `context` for the variable."
+      operationId: createVariable
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciVariableCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciVariable'
+          description: Variable created successfully.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: Create DaVinci Variable
+      tags:
+      - DaVinci Variable
+      x-permission: davinci:create:constructs
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/variables/{variableID}:
+    delete:
+      description: _TO_BE_DEFINED_
+      operationId: deleteVariableById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathVariableID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "204":
+          description: Variable deleted successfully.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Variable
+      x-permission: davinci:delete:constructs
+      x-public-api: api
+      x-service-name: api
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getVariableById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathVariableID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciVariable'
+          description: Variable successfully returned.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Variable
+      x-permission: davinci:read:constructs
+      x-public-api: api
+      x-service-name: api
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceVariableById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathVariableID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciVariableReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciVariable'
+          description: Variable successfully updated.
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Variable
+      x-permission: davinci:update:constructs
+      x-public-api: api
+      x-service-name: api
+components:
+  headers:
+    RetryAfter:
+      description: |-
+        Status codes `429` and `503` often include a `Retry-After` header that specifies one of two things, depending on the status code. For a `429`, it specifies how long the client should wait before retrying the request, designated in number of seconds. For these cases, your retry handler must wait for the amount of time provided by the service.
+
+        For a `503` status code, the `Retry-After` header specifies when the service is expected to be available, designated in a date format. In both cases, the Retry-After header specifies when your app can reasonably make the request again. You need to do some math on the available date to figure out when you can try again. Or, if the retry delay is too long, then return a friendly error message to the client.
+
+        You should also validate the `Retry-After` header in API responses when the status code is `429` or `503`. Man-in-the-middle attacks could result in manipulation of the response headers, and an attacker could reset the value to `1`, causing your application to retry too often and get rate limited, or worse, have your IP address blocked. Likewise, attackers can reset the value to an extremely long wait time, like `172800` (2 days), causing your customers to abandon your application before a transaction is completed.
+      explode: false
+      schema:
+        format: int32
+        oneOf:
+        - {}
+        - {}
+      style: simple
+  parameters:
+    HeaderExternalTransactionID:
+      description: "In order to help track transactions, the PingOne platform supports\
+        \ this custom HTTP header that represents a scope larger than a single PingOne\
+        \ API request. It identifies one transaction that encompasses multiple API\
+        \ requests to PingOne."
+      explode: false
+      in: header
+      name: X-Ping-External-Transaction-ID
+      required: false
+      schema:
+        type: string
+      style: simple
+    HeaderExternalSessionID:
+      description: "In order to help track transactions, the PingOne platform supports\
+        \ this custom HTTP header that represents a scope larger than a single transaction.\
+        \ It identifies multiple transactions in the context of a session. For example,\
+        \ an end user completed an authentication request and several transactions\
+        \ one hour ago and now needs to re-authenticate. The session should be the\
+        \ same."
+      explode: false
+      in: header
+      name: X-Ping-External-Session-ID
+      required: false
+      schema:
+        type: string
+      style: simple
+    PathEnvironmentID:
+      description: An environment's unique identifier in UUID format.
+      explode: false
+      in: path
+      name: environmentID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
+    PathVariableID:
+      description: _TO_BE_DEFINED_
+      explode: false
+      in: path
+      name: variableID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
+  responses:
+    BadGateway:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Bad Gateway.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: "Invalid request received.  Malformed JSON, malformed HTTP request."
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Conflict.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Request failed due to authorization issue.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Uncaught error occurred.  Platform outage.
+    MethodNotAllowed:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: "Invalid request received.  Malformed JSON, malformed HTTP request."
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Not found.
+    TooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Request was rate limited.
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/RetryAfter'
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseMinimal'
+      description: Request failed due to authorization issue.
+    UnsupportedMediaType:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Unsupported Media Type. The server is refusing to service the request
+        because the entity of the request is in a format not supported by the requested
+        resource for the requested method.
+  schemas:
+    DaVinciVariable:
+      example:
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        max: 0.8008281904610115
+        displayName: displayName
+        dataType: array
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        min: 6.027456183070403
+        context: context
+        mutable: true
+        name: name
+        id: id
+        value: "{}"
+        flow:
+          id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Variable_Links'
+        context:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        dataType:
+          $ref: '#/components/schemas/DaVinciVariable_dataType'
+        displayName:
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        flow:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+        id:
+          format: UUID
+          type: string
+        max:
+          type: number
+        min:
+          type: number
+        mutable:
+          type: boolean
+        name:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        value:
+          $ref: '#/components/schemas/DaVinci_Variable_Value'
+      required:
+      - _links
+      - dataType
+      - environment
+      - id
+      - name
+    DaVinciVariableCreateRequest:
+      additionalProperties: true
+      default:
+        title: POST variable body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          context:
+            type: string
+            enum:
+            - flow
+            - flowInstance
+            - company
+            - user
+          dataType:
+            type: string
+            enum:
+            - string
+            - number
+            - object
+            - boolean
+            - secret
+          mutable:
+            type: boolean
+          value:
+            type:
+            - string
+            - number
+            - boolean
+            - object
+          displayName:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          flow:
+            type: object
+            properties:
+              id:
+                type: string
+                pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\\
+                  $\\{)))"
+            required:
+            - id
+          min:
+            type: integer
+          max:
+            type: integer
+        required:
+        - name
+        - context
+        - dataType
+        - mutable
+      example:
+        min: 6
+        max: 0
+        displayName: displayName
+        dataType: boolean
+        context: company
+        mutable: true
+        name: name
+        value: "{}"
+        flow:
+          id: id
+      properties:
+        context:
+          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Context'
+        dataType:
+          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Data_Type'
+        displayName:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        flow:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+        max:
+          type: integer
+        min:
+          type: integer
+        mutable:
+          type: boolean
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        value:
+          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Value'
+      required:
+      - context
+      - dataType
+      - mutable
+      - name
+    DaVinciVariableReplaceRequest:
+      additionalProperties: true
+      default:
+        title: PUT variable body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          context:
+            type: string
+            enum:
+            - flow
+            - flowInstance
+            - company
+            - user
+          dataType:
+            type: string
+            enum:
+            - string
+            - number
+            - object
+            - boolean
+            - secret
+          mutable:
+            type: boolean
+          value:
+            type:
+            - string
+            - number
+            - boolean
+            - object
+          displayName:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            minLength: 0
+            maxLength: 256
+            type: string
+          flow:
+            type: object
+            properties:
+              id:
+                type: string
+                pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\\
+                  $\\{)))"
+            required:
+            - id
+          min:
+            type: integer
+          max:
+            type: integer
+        required:
+        - name
+        - context
+        - dataType
+        - mutable
+      example:
+        min: 6
+        max: 0
+        displayName: displayName
+        dataType: boolean
+        context: company
+        mutable: true
+        name: name
+        value: "{}"
+        flow:
+          id: id
+      properties:
+        context:
+          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Context'
+        dataType:
+          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Data_Type'
+        displayName:
+          maxLength: 256
+          minLength: 0
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        flow:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+        max:
+          type: integer
+        min:
+          type: integer
+        mutable:
+          type: boolean
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        value:
+          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Value'
+      required:
+      - context
+      - dataType
+      - mutable
+      - name
+    Environment:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentCommon'
+      - $ref: '#/components/schemas/EnvironmentStatus'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Environment_Links'
+          billOfMaterials:
+            $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+          createdAt:
+            format: date-time
+            readOnly: true
+            type: string
+          hardDeletedAllowedAt:
+            format: date-time
+            readOnly: true
+            type: string
+          id:
+            format: UUID
+            readOnly: true
+            type: string
+          organization:
+            $ref: '#/components/schemas/ResourceRelationshipPingOne'
+          region:
+            $ref: '#/components/schemas/EnvironmentRegion'
+          softDeletedAt:
+            format: date-time
+            readOnly: true
+            type: string
+          updatedAt:
+            format: date-time
+            readOnly: true
+            type: string
+      example:
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        icon: icon
+        description: description
+        type: PRODUCTION
+        hardDeletedAllowedAt: 2000-01-23T04:56:07.000+00:00
+        license:
+          id: id
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        organization:
+          id: id
+        name: name
+        id: id
+        softDeletedAt: 2000-01-23T04:56:07.000+00:00
+        region: AP
+        billOfMaterials:
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          solutionType: CIAM_TRIAL
+          products:
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        status: ACTIVE
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+    EnvironmentBillOfMaterials:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentBillOfMaterialsCreateRequest'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Environment_Bill_of_Materials_Links'
+          createdAt:
+            format: date-time
+            readOnly: true
+            type: string
+          updatedAt:
+            format: date-time
+            readOnly: true
+            type: string
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        solutionType: CIAM_TRIAL
+        products:
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+    EnvironmentBillOfMaterialsCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
+      - properties:
+          solutionType:
+            $ref: '#/components/schemas/Environment_Bill_of_Materials_Solution_Type'
+      example:
+        solutionType: CIAM_TRIAL
+        products:
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+    EnvironmentBillOfMaterialsReplaceRequest:
+      example:
+        products:
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+        - bookmarks:
+          - name: name
+            href: href
+          - name: name
+            href: href
+          console:
+            href: href
+          description: description
+          id: id
+          type: PING_ACCESS
+          deployment:
+            id: id
+          tags:
+          - DAVINCI_MINIMAL
+          - DAVINCI_MINIMAL
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/Environment_Bill_of_Materials_Product'
+          type: array
+      required:
+      - products
+    EnvironmentCommon:
+      properties:
+        description:
+          type: string
+        icon:
+          type: string
+        license:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/EnvironmentType'
+      required:
+      - license
+      - name
+      - type
+    EnvironmentCreateRequest:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentCommon'
+      - properties:
+          billOfMaterials:
+            $ref: '#/components/schemas/EnvironmentBillOfMaterialsCreateRequest'
+          region:
+            $ref: '#/components/schemas/EnvironmentRegion'
+        required:
+        - region
+      example:
+        license:
+          id: id
+        icon: icon
+        name: name
+        description: description
+        type: PRODUCTION
+        region: AP
+        billOfMaterials:
+          solutionType: CIAM_TRIAL
+          products:
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+    EnvironmentRegion:
+      oneOf:
+      - $ref: '#/components/schemas/Environment_Region_Code'
+      - type: string
+    EnvironmentReplaceRequest:
+      allOf:
+      - $ref: '#/components/schemas/EnvironmentCommon'
+      - $ref: '#/components/schemas/EnvironmentStatus'
+      - properties:
+          billOfMaterials:
+            $ref: '#/components/schemas/EnvironmentBillOfMaterialsCreateRequest'
+      example:
+        license:
+          id: id
+        icon: icon
+        name: name
+        description: description
+        type: PRODUCTION
+        billOfMaterials:
+          solutionType: CIAM_TRIAL
+          products:
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            console:
+              href: href
+            description: description
+            id: id
+            type: PING_ACCESS
+            deployment:
+              id: id
+            tags:
+            - DAVINCI_MINIMAL
+            - DAVINCI_MINIMAL
+        status: ACTIVE
+    EnvironmentStatus:
+      properties:
+        status:
+          $ref: '#/components/schemas/EnvironmentStatusValue'
+    EnvironmentStatusValue:
+      enum:
+      - ACTIVE
+      - DELETE_PENDING
+      type: string
+    EnvironmentType:
+      enum:
+      - PRODUCTION
+      - SANDBOX
+      type: string
+    ErrorResponse:
+      example:
+        code: ACCESS_FAILED
+        details:
+        - code: CONSTRAINT_VIOLATION
+          innerError:
+            allowedValues: ""
+            quotaResetTime: ""
+            retryAfter: ""
+            rangeMaximumValue: ""
+            allowedPattern: ""
+            maximumValue: ""
+            quotaLimit: ""
+            rangeMinimumValue: ""
+          message: message
+          target: target
+        - code: CONSTRAINT_VIOLATION
+          innerError:
+            allowedValues: ""
+            quotaResetTime: ""
+            retryAfter: ""
+            rangeMaximumValue: ""
+            allowedPattern: ""
+            maximumValue: ""
+            quotaLimit: ""
+            rangeMinimumValue: ""
+          message: message
+          target: target
+        id: id
+        message: message
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorResponse_code'
+        details:
+          items:
+            $ref: '#/components/schemas/ErrorResponse_details'
+          type: array
+        id:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - id
+      - message
+    ErrorResponseMinimal:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    JSONHALLink:
+      example:
+        profile: https://openapi-generator.tech
+        name: name
+        href: https://openapi-generator.tech
+        title: title
+        type: type
+      properties:
+        href:
+          format: uri
+          type: string
+        name:
+          type: string
+        profile:
+          format: uri
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+      required:
+      - href
+    ResourceRelationshipDaVinci:
+      example:
+        id: id
+      properties:
+        id:
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+      required:
+      - id
+    ResourceRelationshipPingOne:
+      example:
+        id: id
+      properties:
+        id:
+          format: UUID
+          type: string
+      required:
+      - id
+    DaVinci_Variable_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Variable Links
+    DaVinciVariable_dataType:
+      enum:
+      - array
+      - boolean
+      - button
+      - list
+      - listInt
+      - mapping
+      - number
+      - object
+      - propertyGroup
+      - screenConfig
+      - secret
+      - skConnectorList
+      - skEvent
+      - string
+      - timestamp
+      type: string
+    DaVinci_Variable_Value:
+      oneOf:
+      - title: Object Value
+        type: object
+      - title: String Value
+        type: string
+      - title: Number Value
+        type: number
+      - title: Boolean Value
+        type: boolean
+      title: DaVinci Variable Value
+    DaVinci_Variable_Create_Request_Context:
+      enum:
+      - company
+      - flow
+      - flowInstance
+      - user
+      title: DaVinci Variable Create Request Context
+      type: string
+    DaVinci_Variable_Create_Request_Data_Type:
+      enum:
+      - boolean
+      - number
+      - object
+      - secret
+      - string
+      title: DaVinci Variable Create Request Data Type
+      type: string
+    DaVinci_Variable_Create_Request_Value:
+      oneOf:
+      - title: Object Value
+        type: object
+      - title: String Value
+        type: string
+      - title: Number Value
+        type: number
+      - title: Boolean Value
+        type: boolean
+      title: DaVinci Variable Create Request Value
+    DaVinci_Variable_Replace_Request_Context:
+      enum:
+      - company
+      - flow
+      - flowInstance
+      - user
+      title: DaVinci Variable Replace Request Context
+      type: string
+    DaVinci_Variable_Replace_Request_Data_Type:
+      enum:
+      - boolean
+      - number
+      - object
+      - secret
+      - string
+      title: DaVinci Variable Replace Request Data Type
+      type: string
+    DaVinci_Variable_Replace_Request_Value:
+      oneOf:
+      - title: Object Value
+        type: object
+      - title: String Value
+        type: string
+      - title: Number Value
+        type: number
+      - title: Boolean Value
+        type: boolean
+      title: DaVinci Variable Replace Request Value
+    Environment_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Environment Links
+    Environment_Bill_of_Materials_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Environment Bill of Materials Links
+    Environment_Bill_of_Materials_Solution_Type:
+      enum:
+      - CIAM_TRIAL
+      - CUSTOMER
+      - WF_TRIAL
+      - WORKFORCE
+      title: Environment Bill of Materials Solution Type
+      type: string
+    Environment_Bill_of_Materials_Product_Bookmark:
+      example:
+        name: name
+        href: href
+      properties:
+        href:
+          type: string
+        name:
+          type: string
+      required:
+      - href
+      - name
+      title: Environment Bill of Materials Product Bookmark
+    Environment_Bill_of_Materials_Product_console:
+      example:
+        href: href
+      properties:
+        href:
+          type: string
+      required:
+      - href
+    Environment_Bill_of_Materials_Product_deployment:
+      example:
+        id: id
+      properties:
+        id:
+          readOnly: true
+          type: string
+    Environment_Bill_of_Materials_Product_tags:
+      enum:
+      - DAVINCI_MINIMAL
+      type: string
+    Environment_Bill_of_Materials_Product_type:
+      enum:
+      - PING_ACCESS
+      - PING_AUTHORIZE
+      - PING_CENTRAL
+      - PING_DATA_GOVERNANCE
+      - PING_DATA_SYNC
+      - PING_DIRECTORY
+      - PING_FEDERATE
+      - PING_ID
+      - PING_ID_SDK
+      - PING_INTELLIGENCE
+      - PING_ONE_AUTHORIZE
+      - PING_ONE_BASE
+      - PING_ONE_CREDENTIALS
+      - PING_ONE_DAVINCI
+      - PING_ONE_FOR_ENTERPRISE
+      - PING_ONE_FOR_SAAS
+      - PING_ONE_FRAUD
+      - PING_ONE_MFA
+      - PING_ONE_ORCHESTRATE
+      - PING_ONE_PROVISIONING
+      - PING_ONE_RISK
+      - PING_ONE_VERIFY
+      type: string
+    Environment_Bill_of_Materials_Product:
+      example:
+        bookmarks:
+        - name: name
+          href: href
+        - name: name
+          href: href
+        console:
+          href: href
+        description: description
+        id: id
+        type: PING_ACCESS
+        deployment:
+          id: id
+        tags:
+        - DAVINCI_MINIMAL
+        - DAVINCI_MINIMAL
+      properties:
+        bookmarks:
+          items:
+            $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_Bookmark'
+          type: array
+        console:
+          $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_console'
+        deployment:
+          $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_deployment'
+        description:
+          readOnly: true
+          type: string
+        id:
+          format: UUID
+          readOnly: true
+          type: string
+        tags:
+          items:
+            $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_tags'
+          type: array
+        type:
+          $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_type'
+      required:
+      - type
+      title: Environment Bill of Materials Product
+    Environment_Region_Code:
+      enum:
+      - AP
+      - AU
+      - CA
+      - EU
+      - NA
+      title: Environment Region Code
+      type: string
+    ErrorResponse_code:
+      enum:
+      - ACCESS_FAILED
+      - INVALID_DATA
+      - INVALID_REQUEST
+      - NOT_FOUND
+      - REQUEST_FAILED
+      - REQUEST_LIMITED
+      - UNEXPECTED_ERROR
+      type: string
+    ErrorResponse_details_code:
+      enum:
+      - CONSTRAINT_VIOLATION
+      - EMPTY_VALUE
+      - INSUFFICIENT_PERMISSIONS
+      - INVALID_FILTER
+      - INVALID_PARAMETER
+      - INVALID_TOKEN
+      - INVALID_VALUE
+      - LICENSE_EXCEEDED
+      - LIMIT_EXCEEDED
+      - OUT_OF_RANGE
+      - QUOTA_EXCEEDED
+      - REQUIRED_VALUE
+      - SIZE_LIMIT_EXCEEDED
+      - UNIQUENESS_VIOLATION
+      type: string
+    ErrorResponse_details_innerError:
+      example:
+        allowedValues: ""
+        quotaResetTime: ""
+        retryAfter: ""
+        rangeMaximumValue: ""
+        allowedPattern: ""
+        maximumValue: ""
+        quotaLimit: ""
+        rangeMinimumValue: ""
+      properties:
+        allowedPattern: {}
+        allowedValues: {}
+        maximumValue: {}
+        quotaLimit: {}
+        quotaResetTime: {}
+        rangeMaximumValue: {}
+        rangeMinimumValue: {}
+        retryAfter: {}
+    ErrorResponse_details:
+      example:
+        code: CONSTRAINT_VIOLATION
+        innerError:
+          allowedValues: ""
+          quotaResetTime: ""
+          retryAfter: ""
+          rangeMaximumValue: ""
+          allowedPattern: ""
+          maximumValue: ""
+          quotaLimit: ""
+          rangeMinimumValue: ""
+        message: message
+        target: target
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorResponse_details_code'
+        innerError:
+          $ref: '#/components/schemas/ErrorResponse_details_innerError'
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: /as/authorize
+          refreshUrl: /as/token
+          scopes: {}
+          tokenUrl: /as/token
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /as/token
+      type: oauth2
+x-permissions:
+- name: davinci:create:constructs
+- name: davinci:delete:constructs
+- name: davinci:read:constructs
+- name: davinci:update:constructs
+- name: orgmgt:create:environment
+- name: orgmgt:delete:environment
+- name: orgmgt:read:environment
+- name: orgmgt:update:environment

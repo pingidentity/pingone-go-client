@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Flow** | Pointer to [**ResourceRelationshipDaVinci**](ResourceRelationshipDaVinci.md) |  | [optional] 
-**Id** | **string** |  | 
+**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
 **Max** | Pointer to **float32** |  | [optional] 
 **Min** | Pointer to **float32** |  | [optional] 
 **Mutable** | Pointer to **bool** |  | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciVariable
 
-`func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id string, name string, ) *DaVinciVariable`
+`func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id uuid.UUID, name string, ) *DaVinciVariable`
 
 NewDaVinciVariable instantiates a new DaVinciVariable object
 This constructor will assign default values to properties that have it defined,
@@ -200,20 +200,20 @@ HasFlow returns a boolean if a field has been set.
 
 ### GetId
 
-`func (o *DaVinciVariable) GetId() string`
+`func (o *DaVinciVariable) GetId() uuid.UUID`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *DaVinciVariable) GetIdOk() (*string, bool)`
+`func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *DaVinciVariable) SetId(v string)`
+`func (o *DaVinciVariable) SetId(v uuid.UUID)`
 
 SetId sets Id field to given value.
 

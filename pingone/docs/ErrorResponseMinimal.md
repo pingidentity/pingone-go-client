@@ -1,0 +1,51 @@
+# ErrorResponseMinimal
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Message** | **string** |  | 
+
+## Methods
+
+### NewErrorResponseMinimal
+
+`func NewErrorResponseMinimal(message string, ) *ErrorResponseMinimal`
+
+NewErrorResponseMinimal instantiates a new ErrorResponseMinimal object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewErrorResponseMinimalWithDefaults
+
+`func NewErrorResponseMinimalWithDefaults() *ErrorResponseMinimal`
+
+NewErrorResponseMinimalWithDefaults instantiates a new ErrorResponseMinimal object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetMessage
+
+`func (o *ErrorResponseMinimal) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *ErrorResponseMinimal) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *ErrorResponseMinimal) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
