@@ -83,7 +83,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLif
 	s.test_pingone_DaVinciVariableApiService_Delete(s.T(), variableID)
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID string) {
+func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID uuid.UUID) {
 	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.CreateVariable(s.T().Context(), s.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
 	acctest.CheckCreated(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
@@ -98,7 +98,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	return resp.GetId()
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Get(t *testing.T, variableID string, payload any) {
+func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Get(t *testing.T, variableID uuid.UUID, payload any) {
 	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).Execute()
 	acctest.CheckFound(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
@@ -120,7 +120,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	}
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Replace(t *testing.T, variableID string, payload pingone.DaVinciVariableReplaceRequest) {
+func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Replace(t *testing.T, variableID uuid.UUID, payload pingone.DaVinciVariableReplaceRequest) {
 	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.ReplaceVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
 	acctest.CheckReplaced(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
@@ -133,7 +133,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	s.test_pingone_DaVinciVariableApiService_Get(t, variableID, payload)
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Delete(t *testing.T, variableID string) {
+func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Delete(t *testing.T, variableID uuid.UUID) {
 	httpRes, err := s.ApiClient.DaVinciVariableApi.DeleteVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).Execute()
 	acctest.CheckDeleted(t, httpRes, err)
 
