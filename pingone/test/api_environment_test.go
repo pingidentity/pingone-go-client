@@ -30,7 +30,12 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) SetupSuite() {
 	configuration := pingone.NewConfiguration()
 	configuration.AppendUserAgent("testing")
 	configuration.Debug = true
-	s.BadApiClient = pingone.NewAPIClient(configuration)
+
+	var err error
+	s.BadApiClient, err = pingone.NewAPIClient(configuration)
+	if err != nil {
+		s.FailNow("Failed to create API client", err)
+	}
 }
 
 type EnvironmentApiServiceTestSuite struct {
