@@ -37,13 +37,51 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupSuite() {
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupTest() {
 	s.SharedEnvironmentTestSuite.SetupTest()
 
-	s.DefaultDaVinciVariableMaxSchemaCreate = pingone.DaVinciVariableCreateRequest{}
+	s.DefaultDaVinciVariableMaxSchemaCreate = pingone.DaVinciVariableCreateRequest{
+		Context:     pingone.DAVINCIVARIABLECREATEREQUESTCONTEXT_COMPANY,
+		DataType:    pingone.DAVINCIVARIABLECREATEREQUESTDATATYPE_NUMBER,
+		DisplayName: pingone.PtrString(acctest.RandomResourceName()),
+		// Flow:        &pingone.ResourceRelationshipDaVinci{
+		// 	Id: ...,
+		// },
+		Max:     pingone.PtrInt32(300),
+		Min:     pingone.PtrInt32(10),
+		Mutable: false,
+		Name:    acctest.RandomResourceName(),
+		Value: &pingone.DaVinciVariableCreateRequestValue{
+			Float32: pingone.PtrFloat32(20.0),
+		},
+	}
 
-	s.DefaultDaVinciVariableMaxSchemaReplace = pingone.DaVinciVariableReplaceRequest{}
+	s.DefaultDaVinciVariableMaxSchemaReplace = pingone.DaVinciVariableReplaceRequest{
+		Context:     pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_FLOW,
+		DataType:    pingone.DAVINCIVARIABLEREPLACEREQUESTDATATYPE_NUMBER,
+		DisplayName: pingone.PtrString(acctest.RandomResourceName()),
+		// Flow:        &pingone.ResourceRelationshipDaVinci{
+		// 	Id: ...,
+		// },
+		Max:     pingone.PtrInt32(250),
+		Min:     pingone.PtrInt32(12),
+		Mutable: true,
+		Name:    acctest.RandomResourceName(),
+		Value: &pingone.DaVinciVariableReplaceRequestValue{
+			Float32: pingone.PtrFloat32(25.0),
+		},
+	}
 
-	s.DefaultDaVinciVariableMinSchemaCreate = pingone.DaVinciVariableCreateRequest{}
+	s.DefaultDaVinciVariableMinSchemaCreate = pingone.DaVinciVariableCreateRequest{
+		Context:  pingone.DAVINCIVARIABLECREATEREQUESTCONTEXT_FLOW_INSTANCE,
+		DataType: pingone.DAVINCIVARIABLECREATEREQUESTDATATYPE_STRING,
+		Name:     acctest.RandomResourceName(),
+		Mutable:  true,
+	}
 
-	s.DefaultDaVinciVariableMinSchemaReplace = pingone.DaVinciVariableReplaceRequest{}
+	s.DefaultDaVinciVariableMinSchemaReplace = pingone.DaVinciVariableReplaceRequest{
+		Context:  pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_FLOW,
+		DataType: pingone.DAVINCIVARIABLEREPLACEREQUESTDATATYPE_SECRET,
+		Name:     acctest.RandomResourceName(),
+		Mutable:  true,
+	}
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TearDownTest() {
@@ -63,8 +101,6 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableNeverFo
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLifecycle() {
-	s.T().Skip("skip test") // remove to run test
-
 	// Min Schema
 	variableID := s.test_pingone_DaVinciVariableApiService_Create(s.T(), s.DefaultDaVinciVariableMinSchemaCreate)
 
@@ -93,7 +129,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_DaVinciVariableApiService_Get(t, variableID, payload)
+	s.test_pingone_DaVinciVariableApiService_Get(t, resp.Id, payload)
 
 	return resp.GetId()
 }
@@ -110,9 +146,9 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	// TODO: Check data
 	switch obj := payload.(type) {
 	case pingone.DaVinciVariableCreateRequest:
-		assert.Equal(t, resp.Context, obj.Context)
+		assert.Equal(t, pingone.DaVinciVariableCreateRequestContext(*resp.Context), string(obj.Context))
 	case pingone.DaVinciVariableReplaceRequest:
-		assert.Equal(t, resp.Context, obj.Context)
+		assert.Equal(t, pingone.DaVinciVariableReplaceRequestContext(*resp.Context), obj.Context)
 	case pingone.DaVinciVariable:
 		assert.Equal(t, resp.Context, obj.Context)
 	default:
@@ -125,12 +161,13 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	acctest.CheckReplaced(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
+	require.Equal(t, resp.Id, variableID)
 	assert.NotNil(t, resp.Links)
 	assert.NotNil(t, resp.CreatedAt)
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_DaVinciVariableApiService_Get(t, variableID, payload)
+	s.test_pingone_DaVinciVariableApiService_Get(t, resp.Id, payload)
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Delete(t *testing.T, variableID uuid.UUID) {

@@ -29,7 +29,7 @@ type EnvironmentApiServiceNoAuthzTestSuite struct {
 func (s *EnvironmentApiServiceNoAuthzTestSuite) SetupSuite() {
 	configuration := pingone.NewConfiguration()
 	configuration.AppendUserAgent("testing")
-	configuration.Debug = true
+	configuration.WithAccessToken("bad-token")
 
 	var err error
 	s.BadApiClient, err = pingone.NewAPIClient(configuration)
@@ -199,7 +199,7 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization()
 
 	require.IsType(s.T(), &pingone.APIError{}, err)
 	require.IsType(s.T(), pingone.ErrorResponseMinimal{}, err.(*pingone.APIError).Model())
-	assert.Equal(s.T(), err.(*pingone.APIError).Model().(pingone.ErrorResponseMinimal).Message, "Unauthorized")
+	assert.Equal(s.T(), err.(*pingone.APIError).Model().(pingone.ErrorResponseMinimal).Message, "User is not authorized to access this resource with an explicit deny")
 }
 
 func (s *EnvironmentApiServiceTestSuite) TestEnvironmentNeverFound() {
@@ -358,8 +358,6 @@ func (s *EnvironmentApiServiceModifyTestSuite) TearDownSuite() {
 }
 
 func (s *EnvironmentApiServiceModifyTestSuite) TestEnvironmentBillOfMaterialsFullLifecycle() {
-	s.T().Skip("skip test") // remove to run test
-
 	// Replace Max with Min
 	s.test_pingone_EnvironmentBillOfMaterialsApiService_Replace(s.T(), s.TestEnvironment.Environment.GetId(), s.DefaultEnvironmentBillOfMaterialsMinSchemaReplace)
 
