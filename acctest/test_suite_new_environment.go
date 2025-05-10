@@ -36,7 +36,7 @@ func (s *NewEnvironmentTestSuite) SetupTest() {
 
 	testEnvironment := NewTestEnvironment(
 		DefaultEnvironmentDefinition(
-			fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, randomString(10), s.EnvironmentNamePrefix),
+			fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, randomString(10), s.EnvironmentNameSuffix),
 			regionCode,
 			licenseId,
 			s.WithBootstrap,
