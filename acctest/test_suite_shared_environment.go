@@ -68,7 +68,6 @@ func (s *SharedEnvironmentTestSuite) TearDownTest() {
 }
 
 func (s *SharedEnvironmentTestSuite) TearDownSuite() {
-	s.PingOneTestSuite.TearDownSuite()
 
 	if s.TestEnvironment != nil {
 		err := s.TestEnvironment.Delete(
@@ -80,4 +79,6 @@ func (s *SharedEnvironmentTestSuite) TearDownSuite() {
 			s.FailNow("Failed to delete test environment", err)
 		}
 	}
+
+	s.PingOneTestSuite.TearDownSuite()
 }
