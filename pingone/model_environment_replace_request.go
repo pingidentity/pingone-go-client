@@ -20,13 +20,14 @@ var _ MappedNullable = &EnvironmentReplaceRequest{}
 
 // EnvironmentReplaceRequest struct for EnvironmentReplaceRequest
 type EnvironmentReplaceRequest struct {
-	Description          *string                                  `json:"description,omitempty"`
-	Icon                 *string                                  `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne              `json:"license"`
-	Name                 string                                   `json:"name"`
-	Type                 EnvironmentType                          `json:"type"`
-	Status               *EnvironmentStatusValue                  `json:"status,omitempty"`
-	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
+	Description          *string                                   `json:"description,omitempty"`
+	Icon                 *string                                   `json:"icon,omitempty"`
+	License              ResourceRelationshipPingOne               `json:"license"`
+	Name                 string                                    `json:"name"`
+	Region               EnvironmentRegion                         `json:"region"`
+	Type                 EnvironmentType                           `json:"type"`
+	Status               *EnvironmentStatusValue                   `json:"status,omitempty"`
+	BillOfMaterials      *EnvironmentBillOfMaterialsReplaceRequest `json:"billOfMaterials,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,10 +37,11 @@ type _EnvironmentReplaceRequest EnvironmentReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *EnvironmentReplaceRequest {
+func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *EnvironmentReplaceRequest {
 	this := EnvironmentReplaceRequest{}
 	this.License = license
 	this.Name = name
+	this.Region = region
 	this.Type = type_
 	return &this
 }
@@ -164,6 +166,30 @@ func (o *EnvironmentReplaceRequest) SetName(v string) {
 	o.Name = v
 }
 
+// GetRegion returns the Region field value
+func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegion {
+	if o == nil {
+		var ret EnvironmentRegion
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegion, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegion) {
+	o.Region = v
+}
+
 // GetType returns the Type field value
 func (o *EnvironmentReplaceRequest) GetType() EnvironmentType {
 	if o == nil {
@@ -221,9 +247,9 @@ func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue) {
 }
 
 // GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest {
+func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsReplaceRequest {
 	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret EnvironmentBillOfMaterialsCreateRequest
+		var ret EnvironmentBillOfMaterialsReplaceRequest
 		return ret
 	}
 	return *o.BillOfMaterials
@@ -231,7 +257,7 @@ func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMateri
 
 // GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool) {
+func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsReplaceRequest, bool) {
 	if o == nil || IsNil(o.BillOfMaterials) {
 		return nil, false
 	}
@@ -247,8 +273,8 @@ func (o *EnvironmentReplaceRequest) HasBillOfMaterials() bool {
 	return false
 }
 
-// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsCreateRequest and assigns it to the BillOfMaterials field.
-func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest) {
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsReplaceRequest and assigns it to the BillOfMaterials field.
+func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsReplaceRequest) {
 	o.BillOfMaterials = &v
 }
 
@@ -270,6 +296,7 @@ func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
 	toSerialize["type"] = o.Type
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -292,6 +319,7 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"license",
 		"name",
+		"region",
 		"type",
 	}
 
@@ -326,6 +354,7 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "billOfMaterials")

@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-09T12-06-40
+  version: development-2025-05-10T11-24-06
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -834,8 +834,6 @@ components:
             type: string
           organization:
             $ref: '#/components/schemas/ResourceRelationshipPingOne'
-          region:
-            $ref: '#/components/schemas/EnvironmentRegion'
           softDeletedAt:
             format: date-time
             readOnly: true
@@ -1072,11 +1070,14 @@ components:
           $ref: '#/components/schemas/ResourceRelationshipPingOne'
         name:
           type: string
+        region:
+          $ref: '#/components/schemas/EnvironmentRegion'
         type:
           $ref: '#/components/schemas/EnvironmentType'
       required:
       - license
       - name
+      - region
       - type
     EnvironmentCreateRequest:
       allOf:
@@ -1084,18 +1085,14 @@ components:
       - properties:
           billOfMaterials:
             $ref: '#/components/schemas/EnvironmentBillOfMaterialsCreateRequest'
-          region:
-            $ref: '#/components/schemas/EnvironmentRegion'
-        required:
-        - region
       example:
         license:
           id: id
         icon: icon
         name: name
         description: description
-        type: PRODUCTION
         region: AP
+        type: PRODUCTION
         billOfMaterials:
           solutionType: CIAM_TRIAL
           products:
@@ -1130,7 +1127,7 @@ components:
             - DAVINCI_MINIMAL
             - DAVINCI_MINIMAL
     EnvironmentRegion:
-      oneOf:
+      anyOf:
       - $ref: '#/components/schemas/Environment_Region_Code'
       - type: string
     EnvironmentReplaceRequest:
@@ -1139,16 +1136,16 @@ components:
       - $ref: '#/components/schemas/EnvironmentStatus'
       - properties:
           billOfMaterials:
-            $ref: '#/components/schemas/EnvironmentBillOfMaterialsCreateRequest'
+            $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
       example:
         license:
           id: id
         icon: icon
         name: name
         description: description
+        region: AP
         type: PRODUCTION
         billOfMaterials:
-          solutionType: CIAM_TRIAL
           products:
           - bookmarks:
             - name: name

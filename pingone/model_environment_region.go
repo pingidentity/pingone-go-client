@@ -15,67 +15,42 @@ import (
 	"fmt"
 )
 
-// EnvironmentRegion - struct for EnvironmentRegion
+// EnvironmentRegion struct for EnvironmentRegion
 type EnvironmentRegion struct {
 	EnvironmentRegionCode *EnvironmentRegionCode
 	String                *string
 }
 
-// EnvironmentRegionCodeAsEnvironmentRegion is a convenience function that returns EnvironmentRegionCode wrapped in EnvironmentRegion
-func EnvironmentRegionCodeAsEnvironmentRegion(v *EnvironmentRegionCode) EnvironmentRegion {
-	return EnvironmentRegion{
-		EnvironmentRegionCode: v,
-	}
-}
-
-// stringAsEnvironmentRegion is a convenience function that returns string wrapped in EnvironmentRegion
-func StringAsEnvironmentRegion(v *string) EnvironmentRegion {
-	return EnvironmentRegion{
-		String: v,
-	}
-}
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *EnvironmentRegion) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into EnvironmentRegionCode
+	// try to unmarshal JSON data into EnvironmentRegionCode
 	err = json.Unmarshal(data, &dst.EnvironmentRegionCode)
 	if err == nil {
 		jsonEnvironmentRegionCode, _ := json.Marshal(dst.EnvironmentRegionCode)
 		if string(jsonEnvironmentRegionCode) == "{}" { // empty struct
 			dst.EnvironmentRegionCode = nil
 		} else {
-			match++
+			return nil // data stored in dst.EnvironmentRegionCode, return on the first match
 		}
 	} else {
 		dst.EnvironmentRegionCode = nil
 	}
 
-	// try to unmarshal data into String
+	// try to unmarshal JSON data into String
 	err = json.Unmarshal(data, &dst.String)
 	if err == nil {
 		jsonString, _ := json.Marshal(dst.String)
 		if string(jsonString) == "{}" { // empty struct
 			dst.String = nil
 		} else {
-			match++
+			return nil // data stored in dst.String, return on the first match
 		}
 	} else {
 		dst.String = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.EnvironmentRegionCode = nil
-		dst.String = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(EnvironmentRegion)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(EnvironmentRegion)")
-	}
+	return fmt.Errorf("data failed to match schemas in anyOf(EnvironmentRegion)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -88,38 +63,7 @@ func (src EnvironmentRegion) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.String)
 	}
 
-	return nil, nil // no data in oneOf schemas
-}
-
-// Get the actual instance
-func (obj *EnvironmentRegion) GetActualInstance() interface{} {
-	if obj == nil {
-		return nil
-	}
-	if obj.EnvironmentRegionCode != nil {
-		return obj.EnvironmentRegionCode
-	}
-
-	if obj.String != nil {
-		return obj.String
-	}
-
-	// all schemas are nil
-	return nil
-}
-
-// Get the actual instance value
-func (obj EnvironmentRegion) GetActualInstanceValue() interface{} {
-	if obj.EnvironmentRegionCode != nil {
-		return *obj.EnvironmentRegionCode
-	}
-
-	if obj.String != nil {
-		return *obj.String
-	}
-
-	// all schemas are nil
-	return nil
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableEnvironmentRegion struct {

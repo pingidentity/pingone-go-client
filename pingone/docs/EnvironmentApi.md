@@ -36,7 +36,7 @@ import (
 func main() {
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
-	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", openapiclient.EnvironmentType("PRODUCTION"), openapiclient.EnvironmentRegion{EnvironmentRegionCode: openapiclient.Environment_Region_Code("AP")}) // EnvironmentCreateRequest |  (optional)
+	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", *openapiclient.NewEnvironmentRegion(), openapiclient.EnvironmentType("PRODUCTION")) // EnvironmentCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -433,7 +433,7 @@ func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
-	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", openapiclient.EnvironmentType("PRODUCTION")) // EnvironmentReplaceRequest |  (optional)
+	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", *openapiclient.NewEnvironmentRegion(), openapiclient.EnvironmentType("PRODUCTION")) // EnvironmentReplaceRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

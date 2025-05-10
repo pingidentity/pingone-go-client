@@ -24,9 +24,9 @@ type EnvironmentCreateRequest struct {
 	Icon                 *string                                  `json:"icon,omitempty"`
 	License              ResourceRelationshipPingOne              `json:"license"`
 	Name                 string                                   `json:"name"`
+	Region               EnvironmentRegion                        `json:"region"`
 	Type                 EnvironmentType                          `json:"type"`
 	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
-	Region               EnvironmentRegion                        `json:"region"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,12 +36,12 @@ type _EnvironmentCreateRequest EnvironmentCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, region EnvironmentRegion) *EnvironmentCreateRequest {
+func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
 	this.License = license
 	this.Name = name
-	this.Type = type_
 	this.Region = region
+	this.Type = type_
 	return &this
 }
 
@@ -165,6 +165,30 @@ func (o *EnvironmentCreateRequest) SetName(v string) {
 	o.Name = v
 }
 
+// GetRegion returns the Region field value
+func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion {
+	if o == nil {
+		var ret EnvironmentRegion
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegion, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegion) {
+	o.Region = v
+}
+
 // GetType returns the Type field value
 func (o *EnvironmentCreateRequest) GetType() EnvironmentType {
 	if o == nil {
@@ -221,30 +245,6 @@ func (o *EnvironmentCreateRequest) SetBillOfMaterials(v EnvironmentBillOfMateria
 	o.BillOfMaterials = &v
 }
 
-// GetRegion returns the Region field value
-func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion {
-	if o == nil {
-		var ret EnvironmentRegion
-		return ret
-	}
-
-	return o.Region
-}
-
-// GetRegionOk returns a tuple with the Region field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegion, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Region, true
-}
-
-// SetRegion sets field value
-func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegion) {
-	o.Region = v
-}
-
 func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -263,11 +263,11 @@ func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
 	toSerialize["type"] = o.Type
 	if !IsNil(o.BillOfMaterials) {
 		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
-	toSerialize["region"] = o.Region
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -283,8 +283,8 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"license",
 		"name",
-		"type",
 		"region",
+		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -318,9 +318,9 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "billOfMaterials")
-		delete(additionalProperties, "region")
 		o.AdditionalProperties = additionalProperties
 	}
 

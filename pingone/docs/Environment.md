@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
+**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
 **Links** | Pointer to [**EnvironmentLinks**](EnvironmentLinks.md) |  | [optional] 
@@ -16,7 +17,6 @@ Name | Type | Description | Notes
 **HardDeletedAllowedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] [readonly] 
 **Organization** | Pointer to [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | [optional] 
-**Region** | Pointer to [**EnvironmentRegion**](EnvironmentRegion.md) |  | [optional] 
 **SoftDeletedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironment
 
-`func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *Environment`
+`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -127,6 +127,26 @@ and a boolean to check if the value has been set.
 `func (o *Environment) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetRegion
+
+`func (o *Environment) GetRegion() EnvironmentRegion`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *Environment) SetRegion(v EnvironmentRegion)`
+
+SetRegion sets Region field to given value.
 
 
 ### GetType
@@ -323,31 +343,6 @@ SetOrganization sets Organization field to given value.
 `func (o *Environment) HasOrganization() bool`
 
 HasOrganization returns a boolean if a field has been set.
-
-### GetRegion
-
-`func (o *Environment) GetRegion() EnvironmentRegion`
-
-GetRegion returns the Region field if non-nil, zero value otherwise.
-
-### GetRegionOk
-
-`func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool)`
-
-GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRegion
-
-`func (o *Environment) SetRegion(v EnvironmentRegion)`
-
-SetRegion sets Region field to given value.
-
-### HasRegion
-
-`func (o *Environment) HasRegion() bool`
-
-HasRegion returns a boolean if a field has been set.
 
 ### GetSoftDeletedAt
 

@@ -8,13 +8,14 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
+**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 
 ## Methods
 
 ### NewEnvironmentCommon
 
-`func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *EnvironmentCommon`
+`func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, ) *EnvironmentCommon`
 
 NewEnvironmentCommon instantiates a new EnvironmentCommon object
 This constructor will assign default values to properties that have it defined,
@@ -117,6 +118,26 @@ and a boolean to check if the value has been set.
 `func (o *EnvironmentCommon) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetRegion
+
+`func (o *EnvironmentCommon) GetRegion() EnvironmentRegion`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *EnvironmentCommon) GetRegionOk() (*EnvironmentRegion, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *EnvironmentCommon) SetRegion(v EnvironmentRegion)`
+
+SetRegion sets Region field to given value.
 
 
 ### GetType

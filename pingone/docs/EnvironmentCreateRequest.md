@@ -8,15 +8,15 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
+**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsCreateRequest**](EnvironmentBillOfMaterialsCreateRequest.md) |  | [optional] 
-**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 
 ## Methods
 
 ### NewEnvironmentCreateRequest
 
-`func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, region EnvironmentRegion, ) *EnvironmentCreateRequest`
+`func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, ) *EnvironmentCreateRequest`
 
 NewEnvironmentCreateRequest instantiates a new EnvironmentCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -121,6 +121,26 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetRegion
+
+`func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegion, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegion)`
+
+SetRegion sets Region field to given value.
+
+
 ### GetType
 
 `func (o *EnvironmentCreateRequest) GetType() EnvironmentType`
@@ -165,26 +185,6 @@ SetBillOfMaterials sets BillOfMaterials field to given value.
 `func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool`
 
 HasBillOfMaterials returns a boolean if a field has been set.
-
-### GetRegion
-
-`func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion`
-
-GetRegion returns the Region field if non-nil, zero value otherwise.
-
-### GetRegionOk
-
-`func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegion, bool)`
-
-GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRegion
-
-`func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegion)`
-
-SetRegion sets Region field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -27,6 +27,7 @@ type Environment struct {
 	Icon                 *string                      `json:"icon,omitempty"`
 	License              ResourceRelationshipPingOne  `json:"license"`
 	Name                 string                       `json:"name"`
+	Region               EnvironmentRegion            `json:"region"`
 	Type                 EnvironmentType              `json:"type"`
 	Status               *EnvironmentStatusValue      `json:"status,omitempty"`
 	Links                *EnvironmentLinks            `json:"_links,omitempty"`
@@ -35,7 +36,6 @@ type Environment struct {
 	HardDeletedAllowedAt *time.Time                   `json:"hardDeletedAllowedAt,omitempty"`
 	Id                   *uuid.UUID                   `json:"id,omitempty"`
 	Organization         *ResourceRelationshipPingOne `json:"organization,omitempty"`
-	Region               *EnvironmentRegion           `json:"region,omitempty"`
 	SoftDeletedAt        *time.Time                   `json:"softDeletedAt,omitempty"`
 	UpdatedAt            *time.Time                   `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -47,10 +47,11 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *Environment {
+func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *Environment {
 	this := Environment{}
 	this.License = license
 	this.Name = name
+	this.Region = region
 	this.Type = type_
 	return &this
 }
@@ -173,6 +174,30 @@ func (o *Environment) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Environment) SetName(v string) {
 	o.Name = v
+}
+
+// GetRegion returns the Region field value
+func (o *Environment) GetRegion() EnvironmentRegion {
+	if o == nil {
+		var ret EnvironmentRegion
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *Environment) SetRegion(v EnvironmentRegion) {
+	o.Region = v
 }
 
 // GetType returns the Type field value
@@ -423,38 +448,6 @@ func (o *Environment) SetOrganization(v ResourceRelationshipPingOne) {
 	o.Organization = &v
 }
 
-// GetRegion returns the Region field value if set, zero value otherwise.
-func (o *Environment) GetRegion() EnvironmentRegion {
-	if o == nil || IsNil(o.Region) {
-		var ret EnvironmentRegion
-		return ret
-	}
-	return *o.Region
-}
-
-// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
-	if o == nil || IsNil(o.Region) {
-		return nil, false
-	}
-	return o.Region, true
-}
-
-// HasRegion returns a boolean if a field has been set.
-func (o *Environment) HasRegion() bool {
-	if o != nil && !IsNil(o.Region) {
-		return true
-	}
-
-	return false
-}
-
-// SetRegion gets a reference to the given EnvironmentRegion and assigns it to the Region field.
-func (o *Environment) SetRegion(v EnvironmentRegion) {
-	o.Region = &v
-}
-
 // GetSoftDeletedAt returns the SoftDeletedAt field value if set, zero value otherwise.
 func (o *Environment) GetSoftDeletedAt() time.Time {
 	if o == nil || IsNil(o.SoftDeletedAt) {
@@ -537,6 +530,7 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
 	toSerialize["type"] = o.Type
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -559,9 +553,6 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
 	}
-	if !IsNil(o.Region) {
-		toSerialize["region"] = o.Region
-	}
 	if !IsNil(o.SoftDeletedAt) {
 		toSerialize["softDeletedAt"] = o.SoftDeletedAt
 	}
@@ -583,6 +574,7 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"license",
 		"name",
+		"region",
 		"type",
 	}
 
@@ -617,6 +609,7 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
@@ -625,7 +618,6 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "hardDeletedAllowedAt")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "organization")
-		delete(additionalProperties, "region")
 		delete(additionalProperties, "softDeletedAt")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties

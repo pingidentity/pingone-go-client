@@ -24,6 +24,7 @@ type EnvironmentCommon struct {
 	Icon                 *string                     `json:"icon,omitempty"`
 	License              ResourceRelationshipPingOne `json:"license"`
 	Name                 string                      `json:"name"`
+	Region               EnvironmentRegion           `json:"region"`
 	Type                 EnvironmentType             `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
@@ -34,10 +35,11 @@ type _EnvironmentCommon EnvironmentCommon
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, type_ EnvironmentType) *EnvironmentCommon {
+func NewEnvironmentCommon(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *EnvironmentCommon {
 	this := EnvironmentCommon{}
 	this.License = license
 	this.Name = name
+	this.Region = region
 	this.Type = type_
 	return &this
 }
@@ -162,6 +164,30 @@ func (o *EnvironmentCommon) SetName(v string) {
 	o.Name = v
 }
 
+// GetRegion returns the Region field value
+func (o *EnvironmentCommon) GetRegion() EnvironmentRegion {
+	if o == nil {
+		var ret EnvironmentRegion
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCommon) GetRegionOk() (*EnvironmentRegion, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *EnvironmentCommon) SetRegion(v EnvironmentRegion) {
+	o.Region = v
+}
+
 // GetType returns the Type field value
 func (o *EnvironmentCommon) GetType() EnvironmentType {
 	if o == nil {
@@ -204,6 +230,7 @@ func (o EnvironmentCommon) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["license"] = o.License
 	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
 	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
@@ -220,6 +247,7 @@ func (o *EnvironmentCommon) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"license",
 		"name",
+		"region",
 		"type",
 	}
 
@@ -254,6 +282,7 @@ func (o *EnvironmentCommon) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}

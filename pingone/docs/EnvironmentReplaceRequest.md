@@ -8,15 +8,16 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
+**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
-**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsCreateRequest**](EnvironmentBillOfMaterialsCreateRequest.md) |  | [optional] 
+**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsReplaceRequest**](EnvironmentBillOfMaterialsReplaceRequest.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironmentReplaceRequest
 
-`func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, type_ EnvironmentType, ) *EnvironmentReplaceRequest`
+`func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, ) *EnvironmentReplaceRequest`
 
 NewEnvironmentReplaceRequest instantiates a new EnvironmentReplaceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -121,6 +122,26 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetRegion
+
+`func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegion`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegion, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegion)`
+
+SetRegion sets Region field to given value.
+
+
 ### GetType
 
 `func (o *EnvironmentReplaceRequest) GetType() EnvironmentType`
@@ -168,20 +189,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetBillOfMaterials
 
-`func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest`
+`func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsReplaceRequest`
 
 GetBillOfMaterials returns the BillOfMaterials field if non-nil, zero value otherwise.
 
 ### GetBillOfMaterialsOk
 
-`func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool)`
+`func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsReplaceRequest, bool)`
 
 GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBillOfMaterials
 
-`func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest)`
+`func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsReplaceRequest)`
 
 SetBillOfMaterials sets BillOfMaterials field to given value.
 
