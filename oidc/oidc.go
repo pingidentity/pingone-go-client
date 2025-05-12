@@ -29,7 +29,7 @@ func PingOneOIDCEndpoint(host, environmentID string) OIDCEndpoint {
 		Host:   host,
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(host, environmentID),
+		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(host),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
@@ -53,7 +53,7 @@ func PingOneEnvironmentOIDCEndpoint(topLevelDomain, environmentID string) OIDCEn
 		panic("endpoints: invalid environment ID")
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(topLevelDomain, environmentID),
+		ExtendedEndpoint:     oauth2.PingOneEnvironmentExtendedEndpoint(topLevelDomain, environmentID),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),

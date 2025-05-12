@@ -21,7 +21,7 @@ const (
 // PingOneEndpoint returns a new oauth2.Endpoint object for the given custom domain configured on the PingOne environment.
 //
 // The host parameter should be the custom domain, with the subdomain (if required), but without the protocol (e.g., "bxretail.org" or "auth.bxretail.org").
-func PingOneEndpoint(host, environmentID string) oauth2.Endpoint {
+func PingOneEndpoint(host string) oauth2.Endpoint {
 	u := url.URL{
 		Scheme: "https",
 		Host:   host,
@@ -68,13 +68,13 @@ type ExtendedEndpoint struct {
 // PingOneExtendedEndpoint returns a new ExtendedEndpoint object for the given custom domain configured on the PingOne environment.
 //
 // The host parameter should be the custom domain, with the subdomain (if required), but without the protocol (e.g., "bxretail.org" or "auth.bxretail.org").
-func PingOneExtendedEndpoint(host, environmentID string) ExtendedEndpoint {
+func PingOneExtendedEndpoint(host string) ExtendedEndpoint {
 	u := url.URL{
 		Scheme: "https",
 		Host:   host,
 	}
 	return ExtendedEndpoint{
-		Endpoint:           PingOneEndpoint(host, environmentID),
+		Endpoint:           PingOneEndpoint(host),
 		IntrospectionURL:   u.JoinPath(IntrospectionURLPath).String(),
 		IssuerURLPath:      u.JoinPath(IssuerURLPath).String(),
 		JWKSURL:            u.JoinPath(JWKSURLPath).String(),
@@ -100,7 +100,7 @@ func PingOneEnvironmentExtendedEndpoint(topLevelDomain, environmentID string) Ex
 		panic("endpoints: invalid environment ID")
 	}
 	return ExtendedEndpoint{
-		Endpoint:           PingOneEndpoint(topLevelDomain, environmentID),
+		Endpoint:           PingOneEnvironmentEndpoint(topLevelDomain, environmentID),
 		IntrospectionURL:   u.JoinPath(IntrospectionURLPath).String(),
 		IssuerURLPath:      u.JoinPath(IssuerURLPath).String(),
 		JWKSURL:            u.JoinPath(JWKSURLPath).String(),
