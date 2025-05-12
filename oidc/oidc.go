@@ -20,7 +20,23 @@ type OIDCEndpoint struct {
 	UserInfoURLPath      string
 }
 
-// PingOneOIDCEndpoint returns a new OIDCEndpoint object when not using a custom domain in a PingOne environment.
+// PingOneOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.
+//
+// The host parameter should be the custom domain, with the subdomain (if required), but without the protocol (e.g., "bxretail.org" or "auth.bxretail.org").
+func PingOneOIDCEndpoint(host, environmentID string) OIDCEndpoint {
+	u := url.URL{
+		Scheme: "https",
+		Host:   host,
+	}
+	return OIDCEndpoint{
+		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(host, environmentID),
+		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
+		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
+		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
+	}
+}
+
+// PingOneEnvironmentOIDCEndpoint returns a new OIDCEndpoint object when not using a custom domain in a PingOne environment.
 // The endpoints are constructed using the top level domain and environment ID, which result in the URL format:
 // https://auth.pingone.<topLevelDomain>/<environmentID>/<endpoint path>.
 //
@@ -28,7 +44,7 @@ type OIDCEndpoint struct {
 // Top level domains with leading `.` are also supported (e.g., ".com" or ".eu").
 //
 // The environmentID parameter should be a valid PingOne environment ID.
-func PingOneOIDCEndpoint(topLevelDomain, environmentID string) OIDCEndpoint {
+func PingOneEnvironmentOIDCEndpoint(topLevelDomain, environmentID string) OIDCEndpoint {
 	u := url.URL{
 		Scheme: "https",
 		Host:   "auth.pingone." + strings.TrimPrefix(topLevelDomain, "."),
@@ -38,22 +54,6 @@ func PingOneOIDCEndpoint(topLevelDomain, environmentID string) OIDCEndpoint {
 	}
 	return OIDCEndpoint{
 		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(topLevelDomain, environmentID),
-		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
-		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
-		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
-	}
-}
-
-// PingOneCustomDomainOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.
-//
-// The host parameter should be the custom domain, with the subdomain (if required), but without the protocol (e.g., "bxretail.org" or "auth.bxretail.org").
-func PingOneCustomDomainOIDCEndpoint(host, environmentID string) OIDCEndpoint {
-	u := url.URL{
-		Scheme: "https",
-		Host:   host,
-	}
-	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneCustomDomainExtendedEndpoint(host, environmentID),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
