@@ -1,10 +1,10 @@
-package oidc
+package endpoints
 
 import (
 	"net/url"
 	"strings"
 
-	"github.com/pingidentity/pingone-go-client/oauth2"
+	"github.com/pingidentity/pingone-go-client/oauth2/endpoints"
 )
 
 const (
@@ -14,7 +14,7 @@ const (
 )
 
 type OIDCEndpoint struct {
-	oauth2.ExtendedEndpoint
+	endpoints.ExtendedEndpoint
 	OIDCDiscoveryURLPath string
 	SignoffURLPath       string
 	UserInfoURLPath      string
@@ -29,7 +29,7 @@ func PingOneOIDCEndpoint(host string) OIDCEndpoint {
 		Host:   host,
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneExtendedEndpoint(host),
+		ExtendedEndpoint:     endpoints.PingOneExtendedEndpoint(host),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
@@ -54,7 +54,7 @@ func PingOneEnvironmentOIDCEndpoint(rootDomain, environmentID string) OIDCEndpoi
 		panic("endpoints: invalid environment ID")
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
+		ExtendedEndpoint:     endpoints.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),

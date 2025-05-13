@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/kelseyhightower/envconfig"
+	pingone "github.com/pingidentity/pingone-go-client"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -68,25 +69,6 @@ type ServerConfiguration struct {
 // ServerConfigurations stores multiple ServerConfiguration items
 type ServerConfigurations []ServerConfiguration
 
-type ServiceConfiguration struct {
-	PingOne *ServiceConfigurationPingOne `json:"pingone,omitempty"`
-}
-
-type ServiceConfigurationPingOne struct {
-	Auth struct {
-		ClientID     *string `envconfig:"PINGONE_CLIENT_ID" json:"clientId,omitempty"`
-		ClientSecret *string `envconfig:"PINGONE_CLIENT_SECRET" json:"clientSecret,omitempty"`
-		AccessToken  *string `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
-	} `json:"auth"`
-	Endpoint struct {
-		AuthEnvironmentID *string `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
-		TopLevelDomain    *string `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
-		RootDomain        *string `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
-		APIDomain         *string `envconfig:"PINGONE_API_DOMAIN" json:"apiDomain,omitempty"`
-		CustomDomain      *string `envconfig:"PINGONE_CUSTOM_DOMAIN" json:"customDomain,omitempty"`
-	} `json:"endpoint"`
-}
-
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string            `json:"host,omitempty"`
@@ -99,11 +81,15 @@ type Configuration struct {
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
-	Service            *ServiceConfiguration `json:"service,omitempty"`
+	Service            *pingone.Configuration `json:"service,omitempty"`
+}
+
+func NewServiceConfiguration() *pingone.Configuration {
+	return pingone.NewConfiguration()
 }
 
 // NewConfiguration returns a new Configuration object with builder pattern as param
-func NewConfiguration() *Configuration {
+func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
 		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.0.1 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
@@ -150,6 +136,7 @@ func NewConfiguration() *Configuration {
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{},
+		Service:          serviceCfg,
 	}
 
 	// Load environment variables
@@ -189,46 +176,6 @@ func (c *Configuration) SetServerVariableDefaultValue(serverIndex int, variable 
 // AddDefaultHeader adds a new HTTP header to the default header in the request
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
-}
-
-func (c *Configuration) WithAuthEnvironmentID(environmentID string) *Configuration {
-	c.Service.PingOne.Endpoint.AuthEnvironmentID = &environmentID
-	return c
-}
-
-func (c *Configuration) WithClientID(clientID string) *Configuration {
-	c.Service.PingOne.Auth.ClientID = &clientID
-	return c
-}
-
-func (c *Configuration) WithClientSecret(clientSecret string) *Configuration {
-	c.Service.PingOne.Auth.ClientSecret = &clientSecret
-	return c
-}
-
-func (c *Configuration) WithAccessToken(accessToken string) *Configuration {
-	c.Service.PingOne.Auth.AccessToken = &accessToken
-	return c
-}
-
-func (c *Configuration) WithTopLevelDomain(tld string) *Configuration {
-	c.Service.PingOne.Endpoint.TopLevelDomain = &tld
-	return c
-}
-
-func (c *Configuration) WithRootDomain(rootDomain string) *Configuration {
-	c.Service.PingOne.Endpoint.RootDomain = &rootDomain
-	return c
-}
-
-func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
-	c.Service.PingOne.Endpoint.APIDomain = &apiDomain
-	return c
-}
-
-func (c *Configuration) WithCustomDomain(customDomain string) *Configuration {
-	c.Service.PingOne.Endpoint.CustomDomain = &customDomain
-	return c
 }
 
 // URL formats template on a index using given variables
