@@ -1,5 +1,15 @@
 package pingone
 
+import (
+	"context"
+	"log/slog"
+	"net/http"
+
+	"github.com/kelseyhightower/envconfig"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/clientcredentials"
+)
+
 type Configuration struct {
 	Auth struct {
 		ClientID     *string `envconfig:"PINGONE_CLIENT_ID" json:"clientId,omitempty"`
@@ -16,7 +26,15 @@ type Configuration struct {
 }
 
 func NewConfiguration() *Configuration {
-	return &Configuration{}
+
+	cfg := &Configuration{}
+
+	// Load environment variables
+	if err := envconfig.Process("", cfg); err != nil {
+		slog.Error("Failed to process environment variables", "error", err)
+	}
+
+	return cfg
 }
 
 func (c *Configuration) WithAuthEnvironmentID(environmentID string) *Configuration {
@@ -59,6 +77,14 @@ func (c *Configuration) WithCustomDomain(customDomain string) *Configuration {
 	return c
 }
 
-func (c *Configuration) GetBearerToken() *string {
-	return c.Auth.AccessToken
+func (c *Configuration) HasBearerToken() bool {
+	return c.Auth.AccessToken != nil && *c.Auth.AccessToken != ""
+}
+
+func (c *Configuration) AddBearerTokenToContext(parent context.Context, key any) context.Context {
+	if c.HasBearerToken() {
+		return context.WithValue(parent, key, *c.Auth.AccessToken)
+	}
+	return parent
+}
 }

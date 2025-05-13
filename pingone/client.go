@@ -37,9 +37,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	pingoneOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/clientcredentials"
 )
 
 var (
@@ -96,51 +94,13 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	}
 
 	if s := cfg.Service; s != nil {
-		if p := s.PingOne; p != nil {
-			// Priority goes from least specific to most specific
+		// Don't set the OAuth client if the bearer token is already set
+		if !s.HasBearerToken() {
+			ctx := context.Background()
+			httpClient := s.Client(ctx, cfg.HTTPClient)
 
-			var oauth2Endpoint pingoneOAuth2.ExtendedEndpoint
-			// If there is an environment ID, we use the environment specific endpoints
-			if authEnvironmentID := p.Endpoint.AuthEnvironmentID; authEnvironmentID != nil && *authEnvironmentID != "" {
-				if v := p.Endpoint.TopLevelDomain; v != nil && *v != "" {
-					cfg.SetServerVariableDefaultValue(0, "tld", *v)
-					cfg.SetDefaultServerIndex(0)
-					oauth2Endpoint = pingoneOAuth2.PingOneEnvironmentExtendedEndpoint(fmt.Sprintf("pingone.%s", strings.TrimPrefix(*v, ".")), *authEnvironmentID)
-				}
-
-				if v := p.Endpoint.RootDomain; v != nil && *v != "" {
-					cfg.SetServerVariableDefaultValue(1, "domain", fmt.Sprintf("api.%s", *v))
-					cfg.SetDefaultServerIndex(1)
-					oauth2Endpoint = pingoneOAuth2.PingOneEnvironmentExtendedEndpoint(*v, *authEnvironmentID)
-				}
-			}
-
-			if v := p.Endpoint.APIDomain; v != nil && *v != "" {
-				cfg.SetServerVariableDefaultValue(1, "domain", *v)
-				cfg.SetDefaultServerIndex(1)
-			}
-
-			if v := p.Endpoint.CustomDomain; v != nil && *v != "" {
-				oauth2Endpoint = pingoneOAuth2.PingOneExtendedEndpoint(*v)
-			}
-
-			// Do Auth
-
-			// AT overrides configured credentials
-			if p.Auth.AccessToken == nil || *p.Auth.AccessToken == "" {
-				ctx := context.Background()
-
-				if p.Auth.ClientID != nil && *p.Auth.ClientID != "" && p.Auth.ClientSecret != nil && *p.Auth.ClientSecret != "" && oauth2Endpoint.TokenURL != "" {
-					config := clientcredentials.Config{
-						ClientID:     *p.Auth.ClientID,
-						ClientSecret: *p.Auth.ClientSecret,
-						TokenURL:     oauth2Endpoint.TokenURL,
-						AuthStyle:    oauth2.AuthStyleAutoDetect,
-					}
-
-					ctx = context.WithValue(ctx, oauth2.HTTPClient, cfg.HTTPClient)
-					cfg.HTTPClient = config.Client(ctx)
-				}
+			if httpClient != nil {
+				cfg.HTTPClient = httpClient
 			}
 		}
 	}
@@ -499,12 +459,8 @@ func (c *APIClient) prepareRequest(
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
 
 	if s := c.cfg.Service; s != nil {
-		if p := s.PingOne; p != nil {
-			// Set the access token in the context if it exists
-			if v := p.Auth.AccessToken; v != nil && *v != "" {
-				ctx = context.WithValue(ctx, ContextAccessToken, *v)
-			}
-		}
+		// Set the access token in the context if it exists
+		ctx = s.AddBearerTokenToContext(ctx, ContextAccessToken)
 	}
 
 	if ctx != nil {
