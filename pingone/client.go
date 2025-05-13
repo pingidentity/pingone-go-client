@@ -37,8 +37,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"golang.org/x/oauth2"
 	pingoneOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
+	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
 
@@ -97,24 +97,20 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 
 	if s := cfg.Service; s != nil {
 		if p := s.PingOne; p != nil {
-
 			// Priority goes from least specific to most specific
 
 			var oauth2Endpoint pingoneOAuth2.ExtendedEndpoint
-
 			// If there is an environment ID, we use the environment specific endpoints
 			if authEnvironmentID := p.Endpoint.AuthEnvironmentID; authEnvironmentID != nil && *authEnvironmentID != "" {
 				if v := p.Endpoint.TopLevelDomain; v != nil && *v != "" {
 					cfg.SetServerVariableDefaultValue(0, "tld", *v)
 					cfg.SetDefaultServerIndex(0)
-
 					oauth2Endpoint = pingoneOAuth2.PingOneEnvironmentExtendedEndpoint(fmt.Sprintf("pingone.%s", strings.TrimPrefix(*v, ".")), *authEnvironmentID)
 				}
 
 				if v := p.Endpoint.RootDomain; v != nil && *v != "" {
 					cfg.SetServerVariableDefaultValue(1, "domain", fmt.Sprintf("api.%s", *v))
 					cfg.SetDefaultServerIndex(1)
-
 					oauth2Endpoint = pingoneOAuth2.PingOneEnvironmentExtendedEndpoint(*v, *authEnvironmentID)
 				}
 			}
@@ -134,7 +130,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 			if p.Auth.AccessToken == nil || *p.Auth.AccessToken == "" {
 				ctx := context.Background()
 
-				if p.Auth.ClientID != nil && *p.Auth.ClientID != "" && p.Auth.ClientSecret != nil && *p.Auth.ClientSecret != "" &&  oauth2Endpoint.TokenURL != "" {
+				if p.Auth.ClientID != nil && *p.Auth.ClientID != "" && p.Auth.ClientSecret != nil && *p.Auth.ClientSecret != "" && oauth2Endpoint.TokenURL != "" {
 					config := clientcredentials.Config{
 						ClientID:     *p.Auth.ClientID,
 						ClientSecret: *p.Auth.ClientSecret,
