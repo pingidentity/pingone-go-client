@@ -23,7 +23,7 @@ type OIDCEndpoint struct {
 // PingOneOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.
 //
 // The host parameter should be the custom domain, with the subdomain (if required), but without the protocol (e.g., "bxretail.org" or "auth.bxretail.org").
-func PingOneOIDCEndpoint(host, environmentID string) OIDCEndpoint {
+func PingOneOIDCEndpoint(host string) OIDCEndpoint {
 	u := url.URL{
 		Scheme: "https",
 		Host:   host,
@@ -37,23 +37,24 @@ func PingOneOIDCEndpoint(host, environmentID string) OIDCEndpoint {
 }
 
 // PingOneEnvironmentOIDCEndpoint returns a new OIDCEndpoint object when not using a custom domain in a PingOne environment.
-// The endpoints are constructed using the top level domain and environment ID, which result in the URL format:
-// https://auth.pingone.<topLevelDomain>/<environmentID>/<endpoint path>.
+// The endpoints are constructed using the root domain and environment ID, which result in the URL format:
+// https://auth.<rootDomain>/<environmentID>/<endpoint path>.
 //
-// The topLevelDomain parameter should be a valid PingOne top level domain that applies to the region of the PingOne tenant (e.g., "com" or "eu").
-// Top level domains with leading `.` are also supported (e.g., ".com" or ".eu").
+// The rootDomain parameter should be a valid PingOne root domain that applies to the region of the PingOne tenant (e.g., "pingone.com" or "pingone.eu").
+// Root domains with leading `.` are also supported (e.g., ".pingone.com" or ".pingone.eu").
 //
 // The environmentID parameter should be a valid PingOne environment ID.
-func PingOneEnvironmentOIDCEndpoint(topLevelDomain, environmentID string) OIDCEndpoint {
+func PingOneEnvironmentOIDCEndpoint(rootDomain, environmentID string) OIDCEndpoint {
 	u := url.URL{
 		Scheme: "https",
-		Host:   "auth.pingone." + strings.TrimPrefix(topLevelDomain, "."),
+		Host:   "auth." + strings.TrimPrefix(rootDomain, "."),
+		Path:   environmentID,
 	}
 	if environmentID == "" {
 		panic("endpoints: invalid environment ID")
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     oauth2.PingOneEnvironmentExtendedEndpoint(topLevelDomain, environmentID),
+		ExtendedEndpoint:     oauth2.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
 		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
 		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
 		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
