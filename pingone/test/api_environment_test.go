@@ -27,9 +27,9 @@ type EnvironmentApiServiceNoAuthzTestSuite struct {
 }
 
 func (s *EnvironmentApiServiceNoAuthzTestSuite) SetupSuite() {
-	configuration := pingone.NewConfiguration()
+	svcConfig := pingone.NewServiceConfiguration().WithAccessToken("bad-token")
+	configuration := pingone.NewConfiguration(svcConfig)
 	configuration.AppendUserAgent("testing")
-	configuration.WithAccessToken("bad-token")
 
 	var err error
 	s.BadApiClient, err = pingone.NewAPIClient(configuration)

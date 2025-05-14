@@ -19,7 +19,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"log/slog"
 	"math"
 	"math/big"
@@ -94,14 +93,22 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	}
 
 	if s := cfg.Service; s != nil {
-		// Don't set the OAuth client if the bearer token is already set
-		if !s.HasBearerToken() {
-			ctx := context.Background()
-			httpClient := s.Client(ctx, cfg.HTTPClient)
+		apiDomain, err := s.APIDomain()
+		if err != nil {
+			return nil, err
+		}
 
-			if httpClient != nil {
-				cfg.HTTPClient = httpClient
-			}
+		cfg.Host = apiDomain
+
+		// Set the token client
+		ctx := context.Background()
+		httpClient, err := s.Client(ctx, cfg.HTTPClient)
+		if err != nil {
+			return nil, err
+		}
+
+		if httpClient != nil {
+			cfg.HTTPClient = httpClient
 		}
 	}
 
@@ -292,26 +299,23 @@ func parameterToJson(obj interface{}) (string, error) {
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
-	if c.cfg.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
+	dump, err := httputil.DumpRequestOut(request, true)
+	if err != nil {
+		return nil, err
 	}
+	slog.Debug("HTTP Request", slog.String("request", string(dump)))
 
 	resp, err := c.cfg.HTTPClient.Do(request)
 	if err != nil {
 		return resp, err
 	}
 
-	if c.cfg.Debug {
-		dump, err := httputil.DumpResponse(resp, true)
-		if err != nil {
-			return resp, err
-		}
-		log.Printf("\n%s\n", string(dump))
+	dump, err = httputil.DumpResponse(resp, true)
+	if err != nil {
+		return resp, err
 	}
+	slog.Debug("HTTP Response", slog.String("response", string(dump)))
+
 	return resp, err
 }
 
@@ -457,11 +461,6 @@ func (c *APIClient) prepareRequest(
 
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-
-	if s := c.cfg.Service; s != nil {
-		// Set the access token in the context if it exists
-		ctx = s.AddBearerTokenToContext(ctx, ContextAccessToken)
-	}
 
 	if ctx != nil {
 		// add context to the request

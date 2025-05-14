@@ -13,11 +13,13 @@ package pingone
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"runtime"
 	"strings"
 
-	pingone "github.com/pingidentity/pingone-go-client"
+	"github.com/kelseyhightower/envconfig"
+	pingone "github.com/pingidentity/pingone-go-client/config"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -75,7 +77,6 @@ type Configuration struct {
 	UserAgent          string            `json:"userAgent,omitempty"`
 	DefaultServerIndex int               `json:"defaultServerIndex,omitempty"`
 	ProxyURL           *string           `json:"proxyURL,omitempty"`
-	Debug              bool              `json:"debug,omitempty"`
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
@@ -135,6 +136,11 @@ func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 		},
 		OperationServers: map[string]ServerConfigurations{},
 		Service:          serviceCfg,
+	}
+
+	// Load environment variables
+	if err := envconfig.Process("", cfg); err != nil {
+		slog.Error("Failed to process environment variables", "error", err)
 	}
 
 	return cfg
