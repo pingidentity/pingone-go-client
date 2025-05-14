@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
 	"github.com/google/uuid"
 )
@@ -351,6 +352,33 @@ func (o *EnvironmentBillOfMaterialsProduct) UnmarshalJSON(data []byte) (err erro
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterialsProduct) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Bookmarks) {
+		logAttrs = append(logAttrs, slog.Any("bookmarks", o.Bookmarks))
+	}
+	if !IsNil(o.Console) {
+		logAttrs = append(logAttrs, slog.Any("console", *o.Console))
+	}
+	if !IsNil(o.Deployment) {
+		logAttrs = append(logAttrs, slog.Any("deployment", *o.Deployment))
+	}
+	if !IsNil(o.Description) {
+		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
+	}
+	if !IsNil(o.Tags) {
+		logAttrs = append(logAttrs, slog.Any("tags", o.Tags))
+	}
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterialsProduct struct {

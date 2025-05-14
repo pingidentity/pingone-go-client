@@ -12,6 +12,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"log/slog"
 )
 
 // checks if the EnvironmentBillOfMaterialsProductDeployment type satisfies the MappedNullable interface at compile time
@@ -114,6 +115,17 @@ func (o *EnvironmentBillOfMaterialsProductDeployment) UnmarshalJSON(data []byte)
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterialsProductDeployment) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterialsProductDeployment struct {

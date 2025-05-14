@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the JSONHALLink type satisfies the MappedNullable interface at compile time
@@ -275,6 +276,27 @@ func (o *JSONHALLink) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o JSONHALLink) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("href", o.Href))
+	if !IsNil(o.Name) {
+		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
+	}
+	if !IsNil(o.Profile) {
+		logAttrs = append(logAttrs, slog.Any("profile", *o.Profile))
+	}
+	if !IsNil(o.Title) {
+		logAttrs = append(logAttrs, slog.Any("title", *o.Title))
+	}
+	if !IsNil(o.Type) {
+		logAttrs = append(logAttrs, slog.Any("type", *o.Type))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableJSONHALLink struct {

@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
 	"github.com/google/uuid"
 )
@@ -129,6 +130,15 @@ func (o *ResourceRelationshipPingOne) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o ResourceRelationshipPingOne) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableResourceRelationshipPingOne struct {

@@ -12,6 +12,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"log/slog"
 )
 
 // checks if the ErrorResponseDetailsInnerError type satisfies the MappedNullable interface at compile time
@@ -381,6 +382,38 @@ func (o *ErrorResponseDetailsInnerError) UnmarshalJSON(data []byte) (err error) 
 	}
 
 	return err
+}
+
+func (o ErrorResponseDetailsInnerError) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.AllowedPattern) {
+		logAttrs = append(logAttrs, slog.Any("allowedPattern", o.AllowedPattern))
+	}
+	if !IsNil(o.AllowedValues) {
+		logAttrs = append(logAttrs, slog.Any("allowedValues", o.AllowedValues))
+	}
+	if !IsNil(o.MaximumValue) {
+		logAttrs = append(logAttrs, slog.Any("maximumValue", o.MaximumValue))
+	}
+	if !IsNil(o.QuotaLimit) {
+		logAttrs = append(logAttrs, slog.Any("quotaLimit", o.QuotaLimit))
+	}
+	if !IsNil(o.QuotaResetTime) {
+		logAttrs = append(logAttrs, slog.Any("quotaResetTime", o.QuotaResetTime))
+	}
+	if !IsNil(o.RangeMaximumValue) {
+		logAttrs = append(logAttrs, slog.Any("rangeMaximumValue", o.RangeMaximumValue))
+	}
+	if !IsNil(o.RangeMinimumValue) {
+		logAttrs = append(logAttrs, slog.Any("rangeMinimumValue", o.RangeMinimumValue))
+	}
+	if !IsNil(o.RetryAfter) {
+		logAttrs = append(logAttrs, slog.Any("retryAfter", o.RetryAfter))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableErrorResponseDetailsInnerError struct {

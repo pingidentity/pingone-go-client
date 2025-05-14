@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the DaVinciVariableLinks type satisfies the MappedNullable interface at compile time
@@ -156,6 +157,16 @@ func (o *DaVinciVariableLinks) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o DaVinciVariableLinks) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
+	logAttrs = append(logAttrs, slog.Any("self", o.Self))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableDaVinciVariableLinks struct {

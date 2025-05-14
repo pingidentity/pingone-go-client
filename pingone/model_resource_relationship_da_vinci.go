@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the ResourceRelationshipDaVinci type satisfies the MappedNullable interface at compile time
@@ -127,6 +128,15 @@ func (o *ResourceRelationshipDaVinci) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o ResourceRelationshipDaVinci) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableResourceRelationshipDaVinci struct {

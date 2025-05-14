@@ -12,6 +12,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"log/slog"
 )
 
 // checks if the EnvironmentLinks type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,6 @@ var _ MappedNullable = &EnvironmentLinks{}
 
 // EnvironmentLinks struct for EnvironmentLinks
 type EnvironmentLinks struct {
-	Environment          *JSONHALLink `json:"environment,omitempty"`
 	Self                 *JSONHALLink `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -41,38 +41,6 @@ func NewEnvironmentLinks() *EnvironmentLinks {
 func NewEnvironmentLinksWithDefaults() *EnvironmentLinks {
 	this := EnvironmentLinks{}
 	return &this
-}
-
-// GetEnvironment returns the Environment field value if set, zero value otherwise.
-func (o *EnvironmentLinks) GetEnvironment() JSONHALLink {
-	if o == nil || IsNil(o.Environment) {
-		var ret JSONHALLink
-		return ret
-	}
-	return *o.Environment
-}
-
-// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentLinks) GetEnvironmentOk() (*JSONHALLink, bool) {
-	if o == nil || IsNil(o.Environment) {
-		return nil, false
-	}
-	return o.Environment, true
-}
-
-// HasEnvironment returns a boolean if a field has been set.
-func (o *EnvironmentLinks) HasEnvironment() bool {
-	if o != nil && !IsNil(o.Environment) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnvironment gets a reference to the given JSONHALLink and assigns it to the Environment field.
-func (o *EnvironmentLinks) SetEnvironment(v JSONHALLink) {
-	o.Environment = &v
 }
 
 // GetSelf returns the Self field value if set, zero value otherwise.
@@ -117,9 +85,6 @@ func (o EnvironmentLinks) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Environment) {
-		toSerialize["environment"] = o.Environment
-	}
 	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
@@ -145,12 +110,22 @@ func (o *EnvironmentLinks) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "environment")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
+}
+
+func (o EnvironmentLinks) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Self) {
+		logAttrs = append(logAttrs, slog.Any("self", *o.Self))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentLinks struct {

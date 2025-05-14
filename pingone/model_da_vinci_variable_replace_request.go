@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the DaVinciVariableReplaceRequest type satisfies the MappedNullable interface at compile time
@@ -399,6 +400,33 @@ func (o *DaVinciVariableReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o DaVinciVariableReplaceRequest) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("context", o.Context))
+	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
+	if !IsNil(o.DisplayName) {
+		logAttrs = append(logAttrs, slog.Any("displayName", *o.DisplayName))
+	}
+	if !IsNil(o.Flow) {
+		logAttrs = append(logAttrs, slog.Any("flow", *o.Flow))
+	}
+	if !IsNil(o.Max) {
+		logAttrs = append(logAttrs, slog.Any("max", *o.Max))
+	}
+	if !IsNil(o.Min) {
+		logAttrs = append(logAttrs, slog.Any("min", *o.Min))
+	}
+	logAttrs = append(logAttrs, slog.Any("mutable", o.Mutable))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	if !IsNil(o.Value) {
+		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableDaVinciVariableReplaceRequest struct {

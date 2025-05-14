@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/google/uuid"
@@ -579,6 +580,46 @@ func (o *DaVinciVariable) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o DaVinciVariable) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
+	if !IsNil(o.Context) {
+		logAttrs = append(logAttrs, slog.Any("context", *o.Context))
+	}
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
+	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
+	if !IsNil(o.DisplayName) {
+		logAttrs = append(logAttrs, slog.Any("displayName", *o.DisplayName))
+	}
+	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
+	if !IsNil(o.Flow) {
+		logAttrs = append(logAttrs, slog.Any("flow", *o.Flow))
+	}
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	if !IsNil(o.Max) {
+		logAttrs = append(logAttrs, slog.Any("max", *o.Max))
+	}
+	if !IsNil(o.Min) {
+		logAttrs = append(logAttrs, slog.Any("min", *o.Min))
+	}
+	if !IsNil(o.Mutable) {
+		logAttrs = append(logAttrs, slog.Any("mutable", *o.Mutable))
+	}
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	if !IsNil(o.UpdatedAt) {
+		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
+	}
+	if !IsNil(o.Value) {
+		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableDaVinciVariable struct {

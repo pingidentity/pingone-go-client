@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the ErrorResponse type satisfies the MappedNullable interface at compile time
@@ -222,6 +223,20 @@ func (o *ErrorResponse) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o ErrorResponse) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("code", o.Code))
+	if !IsNil(o.Details) {
+		logAttrs = append(logAttrs, slog.Any("details", o.Details))
+	}
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("message", o.Message))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableErrorResponse struct {

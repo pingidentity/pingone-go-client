@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the EnvironmentBillOfMaterialsProductBookmark type satisfies the MappedNullable interface at compile time
@@ -156,6 +157,16 @@ func (o *EnvironmentBillOfMaterialsProductBookmark) UnmarshalJSON(data []byte) (
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterialsProductBookmark) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("href", o.Href))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterialsProductBookmark struct {

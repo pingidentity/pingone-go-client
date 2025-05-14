@@ -12,6 +12,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"log/slog"
 )
 
 // checks if the EnvironmentBillOfMaterialsLinks type satisfies the MappedNullable interface at compile time
@@ -151,6 +152,20 @@ func (o *EnvironmentBillOfMaterialsLinks) UnmarshalJSON(data []byte) (err error)
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterialsLinks) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Environment) {
+		logAttrs = append(logAttrs, slog.Any("environment", *o.Environment))
+	}
+	if !IsNil(o.Self) {
+		logAttrs = append(logAttrs, slog.Any("self", *o.Self))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterialsLinks struct {

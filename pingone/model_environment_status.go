@@ -12,6 +12,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"log/slog"
 )
 
 // checks if the EnvironmentStatus type satisfies the MappedNullable interface at compile time
@@ -114,6 +115,17 @@ func (o *EnvironmentStatus) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o EnvironmentStatus) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Status) {
+		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentStatus struct {

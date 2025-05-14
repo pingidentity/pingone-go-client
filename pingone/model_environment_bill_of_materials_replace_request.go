@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // checks if the EnvironmentBillOfMaterialsReplaceRequest type satisfies the MappedNullable interface at compile time
@@ -127,6 +128,15 @@ func (o *EnvironmentBillOfMaterialsReplaceRequest) UnmarshalJSON(data []byte) (e
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterialsReplaceRequest) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("products", o.Products))
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterialsReplaceRequest struct {

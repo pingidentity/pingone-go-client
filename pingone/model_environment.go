@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/google/uuid"
@@ -624,6 +625,51 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o Environment) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.Description) {
+		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
+	if !IsNil(o.Icon) {
+		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
+	}
+	logAttrs = append(logAttrs, slog.Any("license", o.License))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("region", o.Region))
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	if !IsNil(o.Status) {
+		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	}
+	if !IsNil(o.Links) {
+		logAttrs = append(logAttrs, slog.Any("_links", *o.Links))
+	}
+	if !IsNil(o.BillOfMaterials) {
+		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	}
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
+	if !IsNil(o.HardDeletedAllowedAt) {
+		logAttrs = append(logAttrs, slog.Any("hardDeletedAllowedAt", *o.HardDeletedAllowedAt))
+	}
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
+	}
+	if !IsNil(o.Organization) {
+		logAttrs = append(logAttrs, slog.Any("organization", *o.Organization))
+	}
+	if !IsNil(o.SoftDeletedAt) {
+		logAttrs = append(logAttrs, slog.Any("softDeletedAt", *o.SoftDeletedAt))
+	}
+	if !IsNil(o.UpdatedAt) {
+		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironment struct {

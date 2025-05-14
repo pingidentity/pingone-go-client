@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"time"
 )
 
@@ -276,6 +277,27 @@ func (o *EnvironmentBillOfMaterials) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	return err
+}
+
+func (o EnvironmentBillOfMaterials) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	logAttrs = append(logAttrs, slog.Any("products", o.Products))
+	if !IsNil(o.SolutionType) {
+		logAttrs = append(logAttrs, slog.Any("solutionType", *o.SolutionType))
+	}
+	if !IsNil(o.Links) {
+		logAttrs = append(logAttrs, slog.Any("_links", *o.Links))
+	}
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
+	if !IsNil(o.UpdatedAt) {
+		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
+	}
+	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentBillOfMaterials struct {

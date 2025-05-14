@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
 // EnvironmentRegion struct for EnvironmentRegion
@@ -64,6 +65,19 @@ func (src EnvironmentRegion) MarshalJSON() ([]byte, error) {
 	}
 
 	return nil, nil // no data in anyOf schemas
+}
+
+func (o EnvironmentRegion) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.EnvironmentRegionCode) {
+		logAttrs = append(logAttrs, slog.Any("EnvironmentRegionCode", *o.EnvironmentRegionCode))
+	}
+	if !IsNil(o.String) {
+		logAttrs = append(logAttrs, slog.Any("String", *o.String))
+	}
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentRegion struct {

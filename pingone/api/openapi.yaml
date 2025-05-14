@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-14T13-36-44
+  version: development-2025-05-14T18-34-14
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -735,12 +735,6 @@ components:
             type: string
       example:
         _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
           self:
             profile: https://openapi-generator.tech
             name: name
@@ -1289,12 +1283,6 @@ components:
     Environment_Links:
       additionalProperties: true
       example:
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
         self:
           profile: https://openapi-generator.tech
           name: name
@@ -1302,8 +1290,6 @@ components:
           title: title
           type: type
       properties:
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
         self:
           $ref: '#/components/schemas/JSONHALLink'
       title: Environment Links
