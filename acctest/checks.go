@@ -55,6 +55,7 @@ func CheckPingOneAPIErrorResponse(t *testing.T, httpError error, expectedErrorCo
 	require.IsType(t, &pingone.APIError{}, httpError)
 	assert.IsType(t, pingone.ErrorResponse{}, httpError.(*pingone.APIError).Model())
 
+	require.NotEmpty(t, httpError.(*pingone.APIError).Model())
 	errorModel := httpError.(*pingone.APIError).Model().(pingone.ErrorResponse)
 	assert.NotEmpty(t, errorModel.Id)
 	assert.Equal(t, expectedErrorCode, errorModel.Code)
