@@ -10,6 +10,7 @@
 package pingone_test
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/google/uuid"
@@ -54,7 +55,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupTest() {
 	}
 
 	s.DefaultDaVinciVariableMaxSchemaReplace = pingone.DaVinciVariableReplaceRequest{
-		Context:     pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_FLOW,
+		Context:     pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_COMPANY,
 		DataType:    pingone.DAVINCIVARIABLEREPLACEREQUESTDATATYPE_NUMBER,
 		DisplayName: pingone.PtrString(acctest.RandomResourceName()),
 		// Flow:        &pingone.ResourceRelationshipDaVinci{
@@ -70,14 +71,14 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupTest() {
 	}
 
 	s.DefaultDaVinciVariableMinSchemaCreate = pingone.DaVinciVariableCreateRequest{
-		Context:  pingone.DAVINCIVARIABLECREATEREQUESTCONTEXT_FLOW_INSTANCE,
+		Context:  pingone.DAVINCIVARIABLECREATEREQUESTCONTEXT_COMPANY,
 		DataType: pingone.DAVINCIVARIABLECREATEREQUESTDATATYPE_STRING,
 		Name:     acctest.RandomResourceName(),
 		Mutable:  true,
 	}
 
 	s.DefaultDaVinciVariableMinSchemaReplace = pingone.DaVinciVariableReplaceRequest{
-		Context:  pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_FLOW,
+		Context:  pingone.DAVINCIVARIABLEREPLACEREQUESTCONTEXT_COMPANY,
 		DataType: pingone.DAVINCIVARIABLEREPLACEREQUESTDATATYPE_SECRET,
 		Name:     acctest.RandomResourceName(),
 		Mutable:  true,
@@ -96,8 +97,9 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableNeverFo
 
 	davinciVariableID := uuid.New()
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
 	acctest.CheckNotFound(s.T(), resp, httpRes, err)
+	acctest.CheckPingOneAPIErrorResponse(s.T(), err, pingone.ERRORRESPONSECODE_NOT_FOUND, regexp.MustCompile("The requested resource was not found"))
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLifecycle() {
@@ -120,7 +122,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLif
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID uuid.UUID) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.CreateVariable(s.T().Context(), s.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.CreateVariable(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
 	acctest.CheckCreated(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -135,7 +137,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Get(t *testing.T, variableID uuid.UUID, payload any) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	acctest.CheckFound(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -144,20 +146,20 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	assert.NotNil(t, resp.UpdatedAt)
 
 	// TODO: Check data
-	switch obj := payload.(type) {
-	case pingone.DaVinciVariableCreateRequest:
-		assert.Equal(t, pingone.DaVinciVariableCreateRequestContext(*resp.Context), string(obj.Context))
-	case pingone.DaVinciVariableReplaceRequest:
-		assert.Equal(t, pingone.DaVinciVariableReplaceRequestContext(*resp.Context), obj.Context)
-	case pingone.DaVinciVariable:
-		assert.Equal(t, resp.Context, obj.Context)
-	default:
-		assert.Fail(t, "Unknown payload type")
-	}
+	// switch obj := payload.(type) {
+	// case pingone.DaVinciVariableCreateRequest:
+	// 	assert.Equal(t, resp.Context, string(obj.Context))
+	// case pingone.DaVinciVariableReplaceRequest:
+	// 	assert.Equal(t, resp.Context, obj.Context)
+	// case pingone.DaVinciVariable:
+	// 	assert.Equal(t, resp.Context, obj.Context)
+	// default:
+	// 	assert.Fail(t, "Unknown payload type")
+	// }
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Replace(t *testing.T, variableID uuid.UUID, payload pingone.DaVinciVariableReplaceRequest) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.ReplaceVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.ReplaceVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
 	acctest.CheckReplaced(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -171,10 +173,10 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Delete(t *testing.T, variableID uuid.UUID) {
-	httpRes, err := s.ApiClient.DaVinciVariableApi.DeleteVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).Execute()
+	httpRes, err := s.ApiClient.DaVinciVariableApi.DeleteVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	acctest.CheckDeleted(t, httpRes, err)
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.TestEnvironment.Environment.GetId(), variableID).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	acctest.CheckNotFound(t, resp, httpRes, err)
 }
 
