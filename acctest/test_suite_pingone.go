@@ -13,7 +13,7 @@ type PingOneTestSuite struct {
 func (s *PingOneTestSuite) SetupSuite() {
 	if s.ApiClient == nil {
 		var err error
-		s.ApiClient, err = TestClient()
+		s.ApiClient, err = TestClient(nil)
 		if err != nil {
 			s.T().Fatalf("Failed to create API client: %v", err)
 		}
