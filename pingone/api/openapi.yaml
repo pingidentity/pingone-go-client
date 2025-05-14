@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-10T11-24-06
+  version: development-2025-05-14T13-36-44
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -621,60 +621,6 @@ components:
       - name
     DaVinciVariableCreateRequest:
       additionalProperties: true
-      default:
-        title: POST variable body parameters
-        type: object
-        additionalProperties: true
-        properties:
-          name:
-            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-            maxLength: 256
-            type: string
-          context:
-            type: string
-            enum:
-            - flow
-            - flowInstance
-            - company
-            - user
-          dataType:
-            type: string
-            enum:
-            - string
-            - number
-            - object
-            - boolean
-            - secret
-          mutable:
-            type: boolean
-          value:
-            type:
-            - string
-            - number
-            - boolean
-            - object
-          displayName:
-            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-            maxLength: 256
-            type: string
-          flow:
-            type: object
-            properties:
-              id:
-                type: string
-                pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\\
-                  $\\{)))"
-            required:
-            - id
-          min:
-            type: integer
-          max:
-            type: integer
-        required:
-        - name
-        - context
-        - dataType
-        - mutable
       example:
         min: 6
         max: 0
@@ -716,61 +662,6 @@ components:
       - name
     DaVinciVariableReplaceRequest:
       additionalProperties: true
-      default:
-        title: PUT variable body parameters
-        type: object
-        additionalProperties: true
-        properties:
-          name:
-            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-            maxLength: 256
-            type: string
-          context:
-            type: string
-            enum:
-            - flow
-            - flowInstance
-            - company
-            - user
-          dataType:
-            type: string
-            enum:
-            - string
-            - number
-            - object
-            - boolean
-            - secret
-          mutable:
-            type: boolean
-          value:
-            type:
-            - string
-            - number
-            - boolean
-            - object
-          displayName:
-            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-            minLength: 0
-            maxLength: 256
-            type: string
-          flow:
-            type: object
-            properties:
-              id:
-                type: string
-                pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\\
-                  $\\{)))"
-            required:
-            - id
-          min:
-            type: integer
-          max:
-            type: integer
-        required:
-        - name
-        - context
-        - dataType
-        - mutable
       example:
         min: 6
         max: 0
@@ -1372,6 +1263,7 @@ components:
       - flow
       - flowInstance
       - user
+      readOnly: true
       title: DaVinci Variable Replace Request Context
       type: string
     DaVinci_Variable_Replace_Request_Data_Type:
