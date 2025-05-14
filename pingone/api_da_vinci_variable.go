@@ -77,22 +77,6 @@ func (a *DaVinciVariableApiService) CreateVariable(ctx context.Context, environm
 //	@return DaVinciVariable
 func (a *DaVinciVariableApiService) CreateVariableExecute(r ApiCreateVariableRequest) (*DaVinciVariable, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *DaVinciVariable
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalCreateVariableExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVariableRequest) (*DaVinciVariable, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -148,6 +132,8 @@ func (a *DaVinciVariableApiService) internalCreateVariableExecute(r ApiCreateVar
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -289,22 +275,6 @@ func (a *DaVinciVariableApiService) DeleteVariableById(ctx context.Context, envi
 // Execute executes the request
 func (a *DaVinciVariableApiService) DeleteVariableByIdExecute(r ApiDeleteVariableByIdRequest) (*http.Response, error) {
 	var (
-		err      error
-		response *http.Response
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			resp, err := r.ApiService.internalDeleteVariableByIdExecute(r)
-			return nil, resp, err
-		},
-		nil,
-	)
-	return response, err
-}
-
-func (a *DaVinciVariableApiService) internalDeleteVariableByIdExecute(r ApiDeleteVariableByIdRequest) (*http.Response, error) {
-	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
@@ -355,6 +325,8 @@ func (a *DaVinciVariableApiService) internalDeleteVariableByIdExecute(r ApiDelet
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -489,22 +461,6 @@ func (a *DaVinciVariableApiService) GetVariableById(ctx context.Context, environ
 //	@return DaVinciVariable
 func (a *DaVinciVariableApiService) GetVariableByIdExecute(r ApiGetVariableByIdRequest) (*DaVinciVariable, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *DaVinciVariable
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalGetVariableByIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVariableByIdRequest) (*DaVinciVariable, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -556,6 +512,8 @@ func (a *DaVinciVariableApiService) internalGetVariableByIdExecute(r ApiGetVaria
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -705,22 +663,6 @@ func (a *DaVinciVariableApiService) ReplaceVariableById(ctx context.Context, env
 //	@return DaVinciVariable
 func (a *DaVinciVariableApiService) ReplaceVariableByIdExecute(r ApiReplaceVariableByIdRequest) (*DaVinciVariable, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *DaVinciVariable
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalReplaceVariableByIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiReplaceVariableByIdRequest) (*DaVinciVariable, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -777,6 +719,8 @@ func (a *DaVinciVariableApiService) internalReplaceVariableByIdExecute(r ApiRepl
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()

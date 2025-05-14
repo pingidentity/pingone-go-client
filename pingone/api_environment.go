@@ -76,22 +76,6 @@ func (a *EnvironmentApiService) CreateEnvironment(ctx context.Context) ApiCreate
 //	@return Environment
 func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentRequest) (*Environment, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *Environment
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalCreateEnvironmentExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvironmentRequest) (*Environment, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -143,6 +127,8 @@ func (a *EnvironmentApiService) internalCreateEnvironmentExecute(r ApiCreateEnvi
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -314,22 +300,6 @@ func (a *EnvironmentApiService) DeleteEnvironmentById(ctx context.Context, envir
 // Execute executes the request
 func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironmentByIdRequest) (*http.Response, error) {
 	var (
-		err      error
-		response *http.Response
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			resp, err := r.ApiService.internalDeleteEnvironmentByIdExecute(r)
-			return nil, resp, err
-		},
-		nil,
-	)
-	return response, err
-}
-
-func (a *EnvironmentApiService) internalDeleteEnvironmentByIdExecute(r ApiDeleteEnvironmentByIdRequest) (*http.Response, error) {
-	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
@@ -379,6 +349,8 @@ func (a *EnvironmentApiService) internalDeleteEnvironmentByIdExecute(r ApiDelete
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -532,22 +504,6 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentId(ctx context.Co
 //	@return EnvironmentBillOfMaterials
 func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *EnvironmentBillOfMaterials
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalGetBillOfMaterialsByEnvironmentIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -598,6 +554,8 @@ func (a *EnvironmentApiService) internalGetBillOfMaterialsByEnvironmentIdExecute
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -760,22 +718,6 @@ func (a *EnvironmentApiService) GetEnvironmentById(ctx context.Context, environm
 //	@return Environment
 func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByIdRequest) (*Environment, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *Environment
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalGetEnvironmentByIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnvironmentByIdRequest) (*Environment, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -826,6 +768,8 @@ func (a *EnvironmentApiService) internalGetEnvironmentByIdExecute(r ApiGetEnviro
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -994,22 +938,6 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentId(ctx contex
 //	@return EnvironmentBillOfMaterials
 func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *EnvironmentBillOfMaterials
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalReplaceBillOfMaterialsByEnvironmentIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -1062,6 +990,8 @@ func (a *EnvironmentApiService) internalReplaceBillOfMaterialsByEnvironmentIdExe
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
@@ -1230,22 +1160,6 @@ func (a *EnvironmentApiService) ReplaceEnvironmentById(ctx context.Context, envi
 //	@return Environment
 func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnvironmentByIdRequest) (*Environment, *http.Response, error) {
 	var (
-		err                 error
-		response            *http.Response
-		localVarReturnValue *Environment
-	)
-
-	response, err = processResponse(
-		func() (any, *http.Response, error) {
-			return r.ApiService.internalReplaceEnvironmentByIdExecute(r)
-		},
-		&localVarReturnValue,
-	)
-	return localVarReturnValue, response, err
-}
-
-func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiReplaceEnvironmentByIdRequest) (*Environment, *http.Response, error) {
-	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
@@ -1298,6 +1212,8 @@ func (a *EnvironmentApiService) internalReplaceEnvironmentByIdExecute(r ApiRepla
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()

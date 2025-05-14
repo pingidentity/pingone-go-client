@@ -46,7 +46,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-10T11-24-06
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-14T13-36-44
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -70,7 +70,6 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
-
 		if v := cfg.ProxyURL; v != nil && *v != "" {
 			// Parse the proxy URL
 			proxyURLParsed, err := url.Parse(*v)
@@ -79,8 +78,10 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 			}
 
 			// Create a new Transport object with the proxy settings
-			transport := &http.Transport{
-				Proxy: http.ProxyURL(proxyURLParsed),
+			transport := &retryableTransport{
+				transport: &http.Transport{
+					Proxy: http.ProxyURL(proxyURLParsed),
+				},
 			}
 
 			// Create a new HTTP client using the custom Transport
@@ -88,7 +89,11 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 				Transport: transport,
 			}
 		} else {
-			cfg.HTTPClient = http.DefaultClient
+			cfg.HTTPClient = &http.Client{
+				Transport: &retryableTransport{
+					transport: &http.Transport{},
+				},
+			}
 		}
 	}
 
@@ -721,66 +726,72 @@ func formatErrorMessage(status string, v interface{}) string {
 	return strings.TrimSpace(fmt.Sprintf("%s %s", status, str))
 }
 
+func logDeprecationHeaders(httpHeaders http.Header, localVarPath, localVarHTTPMethod string) {
+	if httpHeaders == nil {
+		return
+	}
+
+	for key, values := range httpHeaders {
+		if strings.Contains(strings.ToLower(key), "api-deprecation-date") {
+			for _, value := range values {
+				slog.Warn("API deprecation warning", "header", key, "value", value, "request path", localVarPath, "request method", localVarHTTPMethod)
+			}
+		}
+		if strings.Contains(strings.ToLower(key), "api-deprecation-message") {
+			for _, value := range values {
+				slog.Warn("API deprecation warning", "header", key, "value", value, "request path", localVarPath, "request method", localVarHTTPMethod)
+			}
+		}
+	}
+}
+
 // Retrying requests
-type SDKInterfaceFunc func() (any, *http.Response, error)
+type retryableTransport struct {
+	transport http.RoundTripper
+}
+
+func (t *retryableTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+
+	var bodyBytes []byte
+	var isRetryable bool
+	backOffTime := time.Second
+	var resp *http.Response
+	var err error
+
+	if req.Body != nil {
+		bodyBytes, _ = io.ReadAll(req.Body)
+	}
+
+	for i := range maxRetries {
+		if req.Body != nil {
+			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		}
+		resp, err := t.transport.RoundTrip(req)
+		retryAttempt := i + 1
+
+		backOffTime, isRetryable = testForRetryable(resp, err, retryAttempt)
+
+		if !isRetryable {
+			break
+		}
+
+		if resp.Body != nil {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+		}
+
+		slog.Info("Attempt failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
+		time.Sleep(backOffTime)
+	}
+
+	return resp, err
+}
 
 var (
 	maxRetries                       = 10
 	maximumRetryAfterBackoff         = 30
 	maximumRetryAfterBackoffDuration = time.Duration(maximumRetryAfterBackoff) * time.Second
 )
-
-func processResponse(f SDKInterfaceFunc, targetObject any) (*http.Response, error) {
-
-	obj, response, error := exponentialBackOffRetry(f)
-
-	if targetObject != nil {
-		v := reflect.ValueOf(targetObject)
-		if v.Kind() != reflect.Ptr {
-			return nil, fmt.Errorf("Target object must be a pointer.  This is always a problem with the provider, please raise an issue with the provider maintainers.")
-		}
-		if !v.Elem().IsValid() {
-			return nil, fmt.Errorf("Target object is not valid.  This is always a problem with the provider, please raise an issue with the provider maintainers.")
-		}
-
-		if obj != nil {
-			v.Elem().Set(reflect.ValueOf(obj))
-		}
-	}
-
-	return response, reformError(error)
-}
-
-func reformError(err error) error {
-	return err
-}
-
-func exponentialBackOffRetry(f SDKInterfaceFunc) (interface{}, *http.Response, error) {
-	var obj interface{}
-	var resp *http.Response
-	var err error
-	backOffTime := time.Second
-	var isRetryable bool
-
-	for i := 0; i < maxRetries; i++ {
-		obj, resp, err = f()
-		retryAttempt := i + 1
-
-		backOffTime, isRetryable = testForRetryable(resp, err, retryAttempt)
-
-		if isRetryable {
-			slog.Info("Attempt failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
-			time.Sleep(backOffTime)
-			continue
-		}
-
-		return obj, resp, err
-	}
-
-	slog.Warn("Request failed after maximum number of attempts", "max retries", maxRetries)
-
-	return obj, resp, err // output the final error
-}
 
 func testForRetryable(r *http.Response, err error, retryAttempt int) (time.Duration, bool) {
 
@@ -811,7 +822,6 @@ func testForRetryable(r *http.Response, err error, retryAttempt int) (time.Durat
 			http.StatusRequestTimeout,
 			http.StatusTooManyRequests,
 			http.StatusInternalServerError,
-			http.StatusNotImplemented,
 			http.StatusBadGateway,
 			http.StatusServiceUnavailable,
 			http.StatusGatewayTimeout,
@@ -819,6 +829,10 @@ func testForRetryable(r *http.Response, err error, retryAttempt int) (time.Durat
 
 		if slices.Contains(retryAbleCodes, r.StatusCode) {
 			slog.Info("HTTP status code detected, available for retry", "status code", r.StatusCode)
+
+			if r.StatusCode == http.StatusInternalServerError {
+				slog.Error("Server error detected, retrying", "status code", r.StatusCode)
+			}
 			return requestDelayDuration, true
 		}
 	}
