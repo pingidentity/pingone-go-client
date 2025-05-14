@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kelseyhightower/envconfig"
 	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
@@ -31,17 +30,13 @@ type Configuration struct {
 }
 
 const (
-	defaultSLD = "pingone"
+	defaultSLD          = "pingone"
+	defaultAPISubDomain = "api"
 )
 
 func NewConfiguration() *Configuration {
 
 	cfg := &Configuration{}
-
-	// Load environment variables
-	if err := envconfig.Process("", cfg); err != nil {
-		slog.Error("Failed to process environment variables", "error", err)
-	}
 
 	return cfg
 }
@@ -121,6 +116,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (*oauth2.TokenSource, e
 			AccessToken: *at,
 			TokenType:   "Bearer",
 		})
+		slog.Debug("Using static token source as access token has been provided")
 		return &ts, nil
 	}
 
@@ -134,6 +130,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (*oauth2.TokenSource, e
 			return nil, fmt.Errorf("client ID is required for client credentials grant type")
 		}
 
+		slog.Debug("Using client credentials token source with provided client ID", "client ID", *c.Auth.ClientID)
 		if c.Auth.ClientSecret != nil && *c.Auth.ClientSecret != "" {
 			config := &clientcredentials.Config{
 				ClientID:     *c.Auth.ClientID,
@@ -141,6 +138,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (*oauth2.TokenSource, e
 				TokenURL:     endpoints.TokenURL,
 			}
 			ts := config.TokenSource(ctx)
+			slog.Debug("Using standard client credentials token source as client secret has been provided")
 			return &ts, nil
 		}
 
@@ -168,4 +166,21 @@ func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 	}
 
 	return endpoints.OIDCEndpoint{}, fmt.Errorf("no valid endpoint configuration found. Must provide either a custom domain or root domain/top level domain and auth environment ID")
+}
+
+func (c *Configuration) APIDomain() (string, error) {
+
+	if v := c.Endpoint.APIDomain; v != nil && *v != "" {
+		return *v, nil
+	}
+
+	if v := c.Endpoint.RootDomain; v != nil && strings.TrimPrefix(*v, ".") != "" {
+		return fmt.Sprintf("%s.%s", defaultAPISubDomain, strings.TrimPrefix(*v, ".")), nil
+	}
+
+	if v := c.Endpoint.TopLevelDomain; v != nil && strings.TrimPrefix(*v, ".") != "" {
+		return fmt.Sprintf("%s.%s.%s", defaultAPISubDomain, defaultSLD, strings.TrimPrefix(*v, ".")), nil
+	}
+
+	return "", fmt.Errorf("no valid endpoint configuration found. Must provide either a full API domain, a root domain, or a top level domain")
 }
