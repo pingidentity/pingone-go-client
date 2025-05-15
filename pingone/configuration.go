@@ -3,7 +3,6 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-04-30T13-39-56
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -14,8 +13,13 @@ package pingone
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"net/http"
+	"runtime"
 	"strings"
+
+	"github.com/kelseyhightower/envconfig"
+	pingone "github.com/pingidentity/pingone-go-client/config"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -29,6 +33,9 @@ func (c contextKey) String() string {
 }
 
 var (
+	// ContextOAuth2 takes an oauth2.TokenSource as authentication for the request.
+	ContextOAuth2 = contextKey("token")
+
 	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
 	ContextAccessToken = contextKey("accesstoken")
 
@@ -44,18 +51,6 @@ var (
 	// ContextOperationServerVariables overrides a server configuration variables using operation specific values.
 	ContextOperationServerVariables = contextKey("serverOperationVariables")
 )
-
-// BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
-type BasicAuth struct {
-	UserName string `json:"userName,omitempty"`
-	Password string `json:"password,omitempty"`
-}
-
-// APIKey provides API key based authentication to a request passed via context using ContextAPIKey
-type APIKey struct {
-	Key    string
-	Prefix string
-}
 
 // ServerVariable stores the information about a server variable
 type ServerVariable struct {
@@ -85,22 +80,31 @@ type Configuration struct {
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
+	Service            *pingone.Configuration `json:"service,omitempty"`
 }
 
-// NewConfiguration returns a new Configuration object
-func NewConfiguration() *Configuration {
+func NewServiceConfiguration() *pingone.Configuration {
+	return pingone.NewConfiguration()
+}
+
+// NewConfiguration returns a new Configuration object with builder pattern as param
+func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
-		UserAgent:          "pingtools pingone-go-client/v0.0.1",
+		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.0.1 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		DefaultServerIndex: 0,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://api.pingone.{tld}/{basePath}",
+				URL:         "https://api.{sld}.{tld}/{basePath}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "v1",
+					},
+					"sld": {
+						Description:  "No description provided",
+						DefaultValue: "pingone",
 					},
 					"tld": {
 						Description:  "No description provided",
@@ -116,14 +120,14 @@ func NewConfiguration() *Configuration {
 				},
 			},
 			{
-				URL:         "https://{hostname}/{basePath}",
+				URL:         "https://{domain}/{basePath}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "v1",
 					},
-					"hostname": {
+					"domain": {
 						Description:  "No description provided",
 						DefaultValue: "api.pingone.com",
 					},
@@ -131,7 +135,14 @@ func NewConfiguration() *Configuration {
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{},
+		Service:          serviceCfg,
 	}
+
+	// Load environment variables
+	if err := envconfig.Process("", cfg); err != nil {
+		slog.Error("Failed to process environment variables", "error", err)
+	}
+
 	return cfg
 }
 

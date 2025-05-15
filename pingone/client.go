@@ -3,7 +3,6 @@ PingOne User and Configuration Management API
 
 The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
 
-API version: development-2025-04-30T13-39-56
 Contact: developerexperiences@pingidentity.com
 */
 
@@ -14,14 +13,18 @@ package pingone
 import (
 	"bytes"
 	"context"
+	"crypto/rand"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
+	"math"
+	"math/big"
 	"mime/multipart"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -32,6 +35,8 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -41,7 +46,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-04-30T13-39-56
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-15T14-17-00
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -49,11 +54,9 @@ type APIClient struct {
 
 	// API Services
 
-	DaVinciVariablesManagementApi *DaVinciVariablesManagementApiService
+	DaVinciVariableApi *DaVinciVariableApiService
 
-	DefaultApi *DefaultApiService
-
-	EnvironmentManagementApi *EnvironmentManagementApiService
+	EnvironmentApi *EnvironmentApiService
 
 	// Static APIs
 	// HALApi *HALApiService
@@ -65,20 +68,20 @@ type service struct {
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) *APIClient {
+func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
-
 		if v := cfg.ProxyURL; v != nil && *v != "" {
 			// Parse the proxy URL
 			proxyURLParsed, err := url.Parse(*v)
 			if err != nil {
-				fmt.Println("Failed to parse proxy URL:", err)
-				return nil
+				return nil, err
 			}
 
 			// Create a new Transport object with the proxy settings
-			transport := &http.Transport{
-				Proxy: http.ProxyURL(proxyURLParsed),
+			transport := &retryableTransport{
+				transport: &http.Transport{
+					Proxy: http.ProxyURL(proxyURLParsed),
+				},
 			}
 
 			// Create a new HTTP client using the custom Transport
@@ -86,7 +89,31 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 				Transport: transport,
 			}
 		} else {
-			cfg.HTTPClient = http.DefaultClient
+			cfg.HTTPClient = &http.Client{
+				Transport: &retryableTransport{
+					transport: &http.Transport{},
+				},
+			}
+		}
+	}
+
+	if s := cfg.Service; s != nil {
+		apiDomain, err := s.APIDomain()
+		if err != nil {
+			return nil, err
+		}
+
+		cfg.Host = apiDomain
+
+		// Set the token client
+		ctx := context.Background()
+		httpClient, err := s.Client(ctx, cfg.HTTPClient)
+		if err != nil {
+			return nil, err
+		}
+
+		if httpClient != nil {
+			cfg.HTTPClient = httpClient
 		}
 	}
 
@@ -95,14 +122,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.DaVinciVariablesManagementApi = (*DaVinciVariablesManagementApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
-	c.EnvironmentManagementApi = (*EnvironmentManagementApiService)(&c.common)
+	c.DaVinciVariableApi = (*DaVinciVariableApiService)(&c.common)
+	c.EnvironmentApi = (*EnvironmentApiService)(&c.common)
 
 	// Static APIs
 	// c.HALApi = (*HALApiService)(&c.common)
 
-	return c
+	return c, nil
 }
 
 func atoi(in string) (int, error) {
@@ -159,6 +185,10 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 
 func parameterValueToString(obj interface{}, key string) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
+		if actualObj, ok := obj.(interface{ GetActualInstanceValue() interface{} }); ok {
+			return fmt.Sprintf("%v", actualObj.GetActualInstanceValue())
+		}
+
 		return fmt.Sprintf("%v", obj)
 	}
 	var param, ok = obj.(MappedNullable)
@@ -274,11 +304,22 @@ func parameterToJson(obj interface{}) (string, error) {
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
+	dump, err := httputil.DumpRequestOut(request, true)
+	if err != nil {
+		return nil, err
+	}
+	slog.Debug("HTTP Request", slog.String("request", string(dump)))
 
 	resp, err := c.cfg.HTTPClient.Do(request)
 	if err != nil {
 		return resp, err
 	}
+
+	dump, err = httputil.DumpResponse(resp, true)
+	if err != nil {
+		return resp, err
+	}
+	slog.Debug("HTTP Response", slog.String("response", string(dump)))
 
 	return resp, err
 }
@@ -432,6 +473,17 @@ func (c *APIClient) prepareRequest(
 
 		// Walk through any authentication.
 
+		// OAuth2 authentication
+		if tok, ok := ctx.Value(ContextOAuth2).(oauth2.TokenSource); ok {
+			// We were able to grab an oauth2 token from the context
+			var latestToken *oauth2.Token
+			if latestToken, err = tok.Token(); err != nil {
+				return nil, err
+			}
+
+			latestToken.SetAuthHeader(localVarRequest)
+		}
+
 		// AccessToken Authentication
 		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
 			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
@@ -578,7 +630,7 @@ func detectContentType(body interface{}) string {
 	return contentType
 }
 
-// Ripped from https://github.com/gregjones/httpcache/blob/master/httpcache.go
+// From https://github.com/gregjones/httpcache/blob/master/httpcache.go
 type cacheControl map[string]string
 
 func parseCacheControl(headers http.Header) cacheControl {
@@ -632,25 +684,25 @@ func strlen(s string) int {
 	return utf8.RuneCountInString(s)
 }
 
-// GenericOpenAPIError Provides access to the body, error and model on returned errors.
-type GenericOpenAPIError struct {
+// APIError Provides access to the body, error and model on returned errors.
+type APIError struct {
 	body  []byte
 	error string
 	model interface{}
 }
 
 // Error returns non-empty string if there was an error.
-func (e GenericOpenAPIError) Error() string {
+func (e APIError) Error() string {
 	return e.error
 }
 
 // Body returns the raw bytes of the response
-func (e GenericOpenAPIError) Body() []byte {
+func (e APIError) Body() []byte {
 	return e.body
 }
 
 // Model returns the unpacked model of the error
-func (e GenericOpenAPIError) Model() interface{} {
+func (e APIError) Model() interface{} {
 	return e.model
 }
 
@@ -674,101 +726,118 @@ func formatErrorMessage(status string, v interface{}) string {
 	return strings.TrimSpace(fmt.Sprintf("%s %s", status, str))
 }
 
-type SDKInterfaceFunc func() (any, *http.Response, error)
-
-var (
-	maxRetries               = 5
-	maximumRetryAfterBackoff = 30
-)
-
-func processResponse(f SDKInterfaceFunc, targetObject any) (*http.Response, error) {
-
-	obj, response, error := exponentialBackOffRetry(f)
-
-	if targetObject != nil {
-		v := reflect.ValueOf(targetObject)
-		if v.Kind() != reflect.Ptr {
-			return nil, fmt.Errorf("Target object must be a pointer.  This is always a problem with the provider, please raise an issue with the provider maintainers.")
-		}
-		if !v.Elem().IsValid() {
-			return nil, fmt.Errorf("Target object is not valid.  This is always a problem with the provider, please raise an issue with the provider maintainers.")
-		}
-
-		if obj != nil {
-			v.Elem().Set(reflect.ValueOf(obj))
-		}
+func logDeprecationHeaders(httpHeaders http.Header, localVarPath, localVarHTTPMethod string) {
+	if httpHeaders == nil {
+		return
 	}
 
-	return response, reformError(error)
+	for key, values := range httpHeaders {
+		if strings.Contains(strings.ToLower(key), "api-deprecation-date") {
+			for _, value := range values {
+				slog.Warn("API deprecation warning", "header", key, "value", value, "request path", localVarPath, "request method", localVarHTTPMethod)
+			}
+		}
+		if strings.Contains(strings.ToLower(key), "api-deprecation-message") {
+			for _, value := range values {
+				slog.Warn("API deprecation warning", "header", key, "value", value, "request path", localVarPath, "request method", localVarHTTPMethod)
+			}
+		}
+	}
 }
 
-func reformError(err error) error {
-	return err
+// Retrying requests
+type retryableTransport struct {
+	transport http.RoundTripper
 }
 
-func exponentialBackOffRetry(f SDKInterfaceFunc) (interface{}, *http.Response, error) {
-	var obj interface{}
+func (t *retryableTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+
+	var bodyBytes []byte
+	var isRetryable bool
+	backOffTime := time.Second
 	var resp *http.Response
 	var err error
-	backOffTime := time.Second
-	var isRetryable bool
 
-	for i := 0; i < maxRetries; i++ {
-		obj, resp, err = f()
-
-		backOffTime, isRetryable = testForRetryable(resp, err, backOffTime)
-
-		if isRetryable {
-			log.Printf("Attempt %d failed: %v, backing off by %s.", i+1, err, backOffTime.String())
-			time.Sleep(backOffTime)
-			continue
-		}
-
-		return obj, resp, err
+	if req.Body != nil {
+		bodyBytes, _ = io.ReadAll(req.Body)
 	}
 
-	log.Printf("Request failed after %d attempts", maxRetries)
+	for i := range maxRetries {
+		if req.Body != nil {
+			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		}
+		resp, err := t.transport.RoundTrip(req)
+		retryAttempt := i + 1
 
-	return obj, resp, err // output the final error
+		backOffTime, isRetryable = testForRetryable(resp, err, retryAttempt)
+
+		if !isRetryable {
+			break
+		}
+
+		if resp.Body != nil {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+		}
+
+		slog.Info("Attempt failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
+		time.Sleep(backOffTime)
+	}
+
+	return resp, err
 }
 
-func testForRetryable(r *http.Response, err error, currentBackoff time.Duration) (time.Duration, bool) {
+var (
+	maxRetries                       = 10
+	maximumRetryAfterBackoff         = 30
+	maximumRetryAfterBackoffDuration = time.Duration(maximumRetryAfterBackoff) * time.Second
+)
 
-	backoff := currentBackoff
+func testForRetryable(r *http.Response, err error, retryAttempt int) (time.Duration, bool) {
+
+	baseDelay := time.Second
+	requestDelayDuration, ebErr := calculateExponentialBackoff(retryAttempt, baseDelay)
+	if ebErr != nil {
+		slog.Error("Invalid backoff delay duration", "error", ebErr, "baseDelay", baseDelay, "retry", false)
+		return maximumRetryAfterBackoffDuration, false
+	}
 
 	if r != nil {
-		if r.StatusCode == 501 || r.StatusCode == 503 || r.StatusCode == 429 {
+		if r.StatusCode == http.StatusNotImplemented || r.StatusCode == http.StatusServiceUnavailable || r.StatusCode == http.StatusTooManyRequests {
 			retryAfter, err := parseRetryAfterHeader(r)
 			if err != nil {
-				log.Printf("Cannot parse the expected \"Retry-After\" header: %s", err)
-				backoff = currentBackoff * 2
+				slog.Warn("Cannot parse the expected \"Retry-After\" header", "error", err)
 			}
 
-			if retryAfter <= time.Duration(maximumRetryAfterBackoff) {
-				backoff += time.Duration(maximumRetryAfterBackoff)
-			} else {
-				backoff += retryAfter
+			if err == nil {
+				if retryAfter >= maximumRetryAfterBackoffDuration {
+					return maximumRetryAfterBackoffDuration, true // optimistically set to the maximum if beyond
+				} else {
+					return retryAfter, true
+				}
 			}
-		} else {
-			backoff = currentBackoff * 2
 		}
 
 		retryAbleCodes := []int{
-			429,
-			500,
-			501,
-			502,
-			503,
-			504,
+			http.StatusRequestTimeout,
+			http.StatusTooManyRequests,
+			http.StatusInternalServerError,
+			http.StatusBadGateway,
+			http.StatusServiceUnavailable,
+			http.StatusGatewayTimeout,
 		}
 
 		if slices.Contains(retryAbleCodes, r.StatusCode) {
-			log.Printf("HTTP status code %d detected, available for retry", r.StatusCode)
-			return backoff, true
+			slog.Info("HTTP status code detected, available for retry", "status code", r.StatusCode)
+
+			if r.StatusCode == http.StatusInternalServerError {
+				slog.Error("Server error detected, retrying", "status code", r.StatusCode)
+			}
+			return requestDelayDuration, true
 		}
 	}
 
-	return backoff, false
+	return requestDelayDuration, false
 }
 
 func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
@@ -791,4 +860,22 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	}
 
 	return time.Until(retryAfterTime), nil
+}
+
+func calculateExponentialBackoff(attempt int, baseDelay time.Duration) (time.Duration, error) {
+	n, err := rand.Int(rand.Reader, big.NewInt(101))
+	if err != nil {
+		return 0, err
+	}
+
+	if !n.IsInt64() {
+		return 0, fmt.Errorf("Generated random jitter value is too large. This is always a problem with the SDK. Please raise an issue with the SDK maintainers.")
+	}
+
+	jitter := time.Duration(n.Int64()) * time.Millisecond // Add random jitter
+	calculatedBackOff := baseDelay*time.Duration(math.Pow(2, float64(attempt))) + jitter
+
+	slog.Debug("Calculated backoff duration", "maximumRetryAfterBackoffDuration", maximumRetryAfterBackoffDuration.String(), "attempt", attempt, "baseDelay", baseDelay.String(), "jitter", jitter.String(), "calculatedBackOff", calculatedBackOff.String())
+
+	return time.Duration(math.Min(float64(calculatedBackOff), float64(maximumRetryAfterBackoffDuration))), nil
 }
