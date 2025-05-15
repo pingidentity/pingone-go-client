@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | [**ErrorResponseCode**](ErrorResponseCode.md) |  | 
+**Code** | Pointer to [**ErrorResponseCode**](ErrorResponseCode.md) |  | [optional] 
 **Details** | Pointer to [**[]ErrorResponseDetails**](ErrorResponseDetails.md) |  | [optional] 
-**Id** | **string** |  | 
-**Message** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewErrorResponse
 
-`func NewErrorResponse(code ErrorResponseCode, id string, message string, ) *ErrorResponse`
+`func NewErrorResponse() *ErrorResponse`
 
 NewErrorResponse instantiates a new ErrorResponse object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetCode sets Code field to given value.
 
+### HasCode
+
+`func (o *ErrorResponse) HasCode() bool`
+
+HasCode returns a boolean if a field has been set.
 
 ### GetDetails
 
@@ -92,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *ErrorResponse) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -112,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
+### HasMessage
+
+`func (o *ErrorResponse) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

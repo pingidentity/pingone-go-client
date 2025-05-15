@@ -13,146 +13,131 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
-	"log/slog"
 )
 
 // DaVinciVariableCreateRequestValue - struct for DaVinciVariableCreateRequestValue
 type DaVinciVariableCreateRequestValue struct {
-	ValueBoolean *bool
-	ValueNumber  *float32
-	ValueObject  *any
-	ValueSecret  *string
-	ValueString  *string
+	Bool              *bool
+	Float32           *float32
+	MapmapOfStringAny *map[string]interface{}
+	String            *string
 }
 
-// ValueBooleanAsDaVinciVariableCreateRequestValue is a convenience function that returns ValueBoolean wrapped in DaVinciVariableCreateRequestValue
-func ValueBooleanAsDaVinciVariableCreateRequestValue(v *bool) DaVinciVariableCreateRequestValue {
+// boolAsDaVinciVariableCreateRequestValue is a convenience function that returns bool wrapped in DaVinciVariableCreateRequestValue
+func BoolAsDaVinciVariableCreateRequestValue(v *bool) DaVinciVariableCreateRequestValue {
 	return DaVinciVariableCreateRequestValue{
-		ValueBoolean: v,
+		Bool: v,
 	}
 }
 
-// ValueNumberAsDaVinciVariableCreateRequestValue is a convenience function that returns ValueNumber wrapped in DaVinciVariableCreateRequestValue
-func ValueNumberAsDaVinciVariableCreateRequestValue(v *float32) DaVinciVariableCreateRequestValue {
+// float32AsDaVinciVariableCreateRequestValue is a convenience function that returns float32 wrapped in DaVinciVariableCreateRequestValue
+func Float32AsDaVinciVariableCreateRequestValue(v *float32) DaVinciVariableCreateRequestValue {
 	return DaVinciVariableCreateRequestValue{
-		ValueNumber: v,
+		Float32: v,
 	}
 }
 
-// ValueObjectAsDaVinciVariableCreateRequestValue is a convenience function that returns ValueObject wrapped in DaVinciVariableCreateRequestValue
-func ValueObjectAsDaVinciVariableCreateRequestValue(v *any) DaVinciVariableCreateRequestValue {
+// map[string]interface{}AsDaVinciVariableCreateRequestValue is a convenience function that returns map[string]interface{} wrapped in DaVinciVariableCreateRequestValue
+func MapmapOfStringAnyAsDaVinciVariableCreateRequestValue(v *map[string]interface{}) DaVinciVariableCreateRequestValue {
 	return DaVinciVariableCreateRequestValue{
-		ValueObject: v,
+		MapmapOfStringAny: v,
 	}
 }
 
-// ValueSecretAsDaVinciVariableCreateRequestValue is a convenience function that returns ValueSecret wrapped in DaVinciVariableCreateRequestValue
-func ValueSecretAsDaVinciVariableCreateRequestValue(v *string) DaVinciVariableCreateRequestValue {
+// stringAsDaVinciVariableCreateRequestValue is a convenience function that returns string wrapped in DaVinciVariableCreateRequestValue
+func StringAsDaVinciVariableCreateRequestValue(v *string) DaVinciVariableCreateRequestValue {
 	return DaVinciVariableCreateRequestValue{
-		ValueSecret: v,
-	}
-}
-
-// ValueStringAsDaVinciVariableCreateRequestValue is a convenience function that returns ValueString wrapped in DaVinciVariableCreateRequestValue
-func ValueStringAsDaVinciVariableCreateRequestValue(v *string) DaVinciVariableCreateRequestValue {
-	return DaVinciVariableCreateRequestValue{
-		ValueString: v,
+		String: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *DaVinciVariableCreateRequestValue) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
-	var jsonDict map[string]interface{}
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
-	}
-
-	// check if the discriminator value is 'boolean'
-	if jsonDict["dataType"] == "boolean" {
-		// try to unmarshal JSON data into ValueBoolean
-		err = json.Unmarshal(data, &dst.ValueBoolean)
-		if err == nil {
-			return nil // data stored in dst.ValueBoolean, return on the first match
+	match := 0
+	// try to unmarshal data into Bool
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
+		jsonBool, _ := json.Marshal(dst.Bool)
+		if string(jsonBool) == "{}" { // empty struct
+			dst.Bool = nil
 		} else {
-			dst.ValueBoolean = nil
-			return fmt.Errorf("failed to unmarshal DaVinciVariableCreateRequestValue as ValueBoolean: %s", err.Error())
+			match++
 		}
+	} else {
+		dst.Bool = nil
 	}
 
-	// check if the discriminator value is 'number'
-	if jsonDict["dataType"] == "number" {
-		// try to unmarshal JSON data into ValueNumber
-		err = json.Unmarshal(data, &dst.ValueNumber)
-		if err == nil {
-			return nil // data stored in dst.ValueNumber, return on the first match
+	// try to unmarshal data into Float32
+	err = json.Unmarshal(data, &dst.Float32)
+	if err == nil {
+		jsonFloat32, _ := json.Marshal(dst.Float32)
+		if string(jsonFloat32) == "{}" { // empty struct
+			dst.Float32 = nil
 		} else {
-			dst.ValueNumber = nil
-			return fmt.Errorf("failed to unmarshal DaVinciVariableCreateRequestValue as ValueNumber: %s", err.Error())
+			match++
 		}
+	} else {
+		dst.Float32 = nil
 	}
 
-	// check if the discriminator value is 'object'
-	if jsonDict["dataType"] == "object" {
-		// try to unmarshal JSON data into ValueObject
-		err = json.Unmarshal(data, &dst.ValueObject)
-		if err == nil {
-			return nil // data stored in dst.ValueObject, return on the first match
+	// try to unmarshal data into MapmapOfStringAny
+	err = json.Unmarshal(data, &dst.MapmapOfStringAny)
+	if err == nil {
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
 		} else {
-			dst.ValueObject = nil
-			return fmt.Errorf("failed to unmarshal DaVinciVariableCreateRequestValue as ValueObject: %s", err.Error())
+			match++
 		}
+	} else {
+		dst.MapmapOfStringAny = nil
 	}
 
-	// check if the discriminator value is 'secret'
-	if jsonDict["dataType"] == "secret" {
-		// try to unmarshal JSON data into ValueSecret
-		err = json.Unmarshal(data, &dst.ValueSecret)
-		if err == nil {
-			return nil // data stored in dst.ValueSecret, return on the first match
+	// try to unmarshal data into String
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
 		} else {
-			dst.ValueSecret = nil
-			return fmt.Errorf("failed to unmarshal DaVinciVariableCreateRequestValue as ValueSecret: %s", err.Error())
+			match++
 		}
+	} else {
+		dst.String = nil
 	}
 
-	// check if the discriminator value is 'string'
-	if jsonDict["dataType"] == "string" {
-		// try to unmarshal JSON data into ValueString
-		err = json.Unmarshal(data, &dst.ValueString)
-		if err == nil {
-			return nil // data stored in dst.ValueString, return on the first match
-		} else {
-			dst.ValueString = nil
-			return fmt.Errorf("failed to unmarshal DaVinciVariableCreateRequestValue as ValueString: %s", err.Error())
-		}
-	}
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.Bool = nil
+		dst.Float32 = nil
+		dst.MapmapOfStringAny = nil
+		dst.String = nil
 
-	return nil
+		return fmt.Errorf("data matches more than one schema in oneOf(DaVinciVariableCreateRequestValue)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(DaVinciVariableCreateRequestValue)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src DaVinciVariableCreateRequestValue) MarshalJSON() ([]byte, error) {
-	if src.ValueBoolean != nil {
-		return json.Marshal(&src.ValueBoolean)
+	if src.Bool != nil {
+		return json.Marshal(&src.Bool)
 	}
 
-	if src.ValueNumber != nil {
-		return json.Marshal(&src.ValueNumber)
+	if src.Float32 != nil {
+		return json.Marshal(&src.Float32)
 	}
 
-	if src.ValueObject != nil {
-		return json.Marshal(&src.ValueObject)
+	if src.MapmapOfStringAny != nil {
+		return json.Marshal(&src.MapmapOfStringAny)
 	}
 
-	if src.ValueSecret != nil {
-		return json.Marshal(&src.ValueSecret)
-	}
-
-	if src.ValueString != nil {
-		return json.Marshal(&src.ValueString)
+	if src.String != nil {
+		return json.Marshal(&src.String)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -163,24 +148,20 @@ func (obj *DaVinciVariableCreateRequestValue) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
-	if obj.ValueBoolean != nil {
-		return obj.ValueBoolean
+	if obj.Bool != nil {
+		return obj.Bool
 	}
 
-	if obj.ValueNumber != nil {
-		return obj.ValueNumber
+	if obj.Float32 != nil {
+		return obj.Float32
 	}
 
-	if obj.ValueObject != nil {
-		return obj.ValueObject
+	if obj.MapmapOfStringAny != nil {
+		return obj.MapmapOfStringAny
 	}
 
-	if obj.ValueSecret != nil {
-		return obj.ValueSecret
-	}
-
-	if obj.ValueString != nil {
-		return obj.ValueString
+	if obj.String != nil {
+		return obj.String
 	}
 
 	// all schemas are nil
@@ -189,50 +170,24 @@ func (obj *DaVinciVariableCreateRequestValue) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj DaVinciVariableCreateRequestValue) GetActualInstanceValue() interface{} {
-	if obj.ValueBoolean != nil {
-		return *obj.ValueBoolean
+	if obj.Bool != nil {
+		return *obj.Bool
 	}
 
-	if obj.ValueNumber != nil {
-		return *obj.ValueNumber
+	if obj.Float32 != nil {
+		return *obj.Float32
 	}
 
-	if obj.ValueObject != nil {
-		return *obj.ValueObject
+	if obj.MapmapOfStringAny != nil {
+		return *obj.MapmapOfStringAny
 	}
 
-	if obj.ValueSecret != nil {
-		return *obj.ValueSecret
-	}
-
-	if obj.ValueString != nil {
-		return *obj.ValueString
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil
 	return nil
-}
-
-func (o DaVinciVariableCreateRequestValue) LogValue() slog.Value {
-	logAttrs := make([]slog.Attr, 0)
-
-	if !IsNil(o.ValueBoolean) {
-		logAttrs = append(logAttrs, slog.Any("ValueBoolean", *o.ValueBoolean))
-	}
-	if !IsNil(o.ValueNumber) {
-		logAttrs = append(logAttrs, slog.Any("ValueNumber", *o.ValueNumber))
-	}
-	if !IsNil(o.ValueObject) {
-		logAttrs = append(logAttrs, slog.Any("ValueObject", *o.ValueObject))
-	}
-	if !IsNil(o.ValueSecret) {
-		logAttrs = append(logAttrs, slog.String("ValueSecret", "****"))
-	}
-	if !IsNil(o.ValueString) {
-		logAttrs = append(logAttrs, slog.Any("ValueString", *o.ValueString))
-	}
-
-	return slog.GroupValue(logAttrs...)
 }
 
 type NullableDaVinciVariableCreateRequestValue struct {

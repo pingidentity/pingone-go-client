@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-15T11-51-47
+  version: development-2025-05-15T12-09-14
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -577,7 +577,7 @@ components:
         mutable: true
         name: name
         id: id
-        value: null
+        value: true
         flow:
           id: id
         updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -629,7 +629,7 @@ components:
         context: company
         mutable: true
         name: name
-        value: null
+        value: true
         flow:
           id: id
       properties:
@@ -670,7 +670,7 @@ components:
         context: company
         mutable: true
         name: name
-        value: null
+        value: true
         flow:
           id: id
       properties:
@@ -1118,18 +1118,12 @@ components:
           type: string
         message:
           type: string
-      required:
-      - code
-      - id
-      - message
     ErrorResponseMinimal:
       example:
         message: message
       properties:
         message:
           type: string
-      required:
-      - message
     JSONHALLink:
       example:
         profile: https://openapi-generator.tech
@@ -1170,23 +1164,6 @@ components:
           type: string
       required:
       - id
-    ValueBoolean:
-      title: Value Boolean
-      type: boolean
-    ValueNumber:
-      title: Value Number
-      type: number
-    ValueObject:
-      additionalProperties: true
-      title: Value Object
-      type: object
-    ValueSecret:
-      format: password
-      title: Value Secret
-      type: string
-    ValueString:
-      title: Value String
-      type: string
     DaVinci_Variable_Links:
       additionalProperties: true
       example:
@@ -1230,20 +1207,11 @@ components:
       - timestamp
       type: string
     DaVinci_Variable_Value:
-      discriminator:
-        mapping:
-          boolean: '#/components/schemas/ValueBoolean'
-          number: '#/components/schemas/ValueNumber'
-          object: '#/components/schemas/ValueObject'
-          secret: '#/components/schemas/ValueSecret'
-          string: '#/components/schemas/ValueString'
-        propertyName: dataType
       oneOf:
-      - $ref: '#/components/schemas/ValueBoolean'
-      - $ref: '#/components/schemas/ValueNumber'
-      - $ref: '#/components/schemas/ValueObject'
-      - $ref: '#/components/schemas/ValueSecret'
-      - $ref: '#/components/schemas/ValueString'
+      - type: boolean
+      - type: number
+      - type: object
+      - type: string
       title: DaVinci Variable Value
     DaVinci_Variable_Create_Request_Context:
       enum:
@@ -1263,20 +1231,11 @@ components:
       title: DaVinci Variable Create Request Data Type
       type: string
     DaVinci_Variable_Create_Request_Value:
-      discriminator:
-        mapping:
-          boolean: '#/components/schemas/ValueBoolean'
-          number: '#/components/schemas/ValueNumber'
-          object: '#/components/schemas/ValueObject'
-          secret: '#/components/schemas/ValueSecret'
-          string: '#/components/schemas/ValueString'
-        propertyName: dataType
       oneOf:
-      - $ref: '#/components/schemas/ValueBoolean'
-      - $ref: '#/components/schemas/ValueNumber'
-      - $ref: '#/components/schemas/ValueObject'
-      - $ref: '#/components/schemas/ValueSecret'
-      - $ref: '#/components/schemas/ValueString'
+      - type: boolean
+      - type: number
+      - type: object
+      - type: string
       title: DaVinci Variable Create Request Value
     DaVinci_Variable_Replace_Request_Context:
       enum:
@@ -1297,20 +1256,11 @@ components:
       title: DaVinci Variable Replace Request Data Type
       type: string
     DaVinci_Variable_Replace_Request_Value:
-      discriminator:
-        mapping:
-          boolean: '#/components/schemas/ValueBoolean'
-          number: '#/components/schemas/ValueNumber'
-          object: '#/components/schemas/ValueObject'
-          secret: '#/components/schemas/ValueSecret'
-          string: '#/components/schemas/ValueString'
-        propertyName: dataType
       oneOf:
-      - $ref: '#/components/schemas/ValueBoolean'
-      - $ref: '#/components/schemas/ValueNumber'
-      - $ref: '#/components/schemas/ValueObject'
-      - $ref: '#/components/schemas/ValueSecret'
-      - $ref: '#/components/schemas/ValueString'
+      - type: boolean
+      - type: number
+      - type: object
+      - type: string
       title: DaVinci Variable Replace Request Value
     Environment_Links:
       additionalProperties: true

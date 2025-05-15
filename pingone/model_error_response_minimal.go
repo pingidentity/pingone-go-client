@@ -12,7 +12,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -21,7 +20,7 @@ var _ MappedNullable = &ErrorResponseMinimal{}
 
 // ErrorResponseMinimal struct for ErrorResponseMinimal
 type ErrorResponseMinimal struct {
-	Message              string `json:"message"`
+	Message              *string `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,9 +30,8 @@ type _ErrorResponseMinimal ErrorResponseMinimal
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorResponseMinimal(message string) *ErrorResponseMinimal {
+func NewErrorResponseMinimal() *ErrorResponseMinimal {
 	this := ErrorResponseMinimal{}
-	this.Message = message
 	return &this
 }
 
@@ -45,28 +43,36 @@ func NewErrorResponseMinimalWithDefaults() *ErrorResponseMinimal {
 	return &this
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ErrorResponseMinimal) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponseMinimal) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *ErrorResponseMinimal) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *ErrorResponseMinimal) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
 }
 
 func (o ErrorResponseMinimal) MarshalJSON() ([]byte, error) {
@@ -79,7 +85,9 @@ func (o ErrorResponseMinimal) MarshalJSON() ([]byte, error) {
 
 func (o ErrorResponseMinimal) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -89,27 +97,6 @@ func (o ErrorResponseMinimal) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ErrorResponseMinimal) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"message",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varErrorResponseMinimal := _ErrorResponseMinimal{}
 
 	err = json.Unmarshal(data, &varErrorResponseMinimal)
@@ -133,7 +120,9 @@ func (o *ErrorResponseMinimal) UnmarshalJSON(data []byte) (err error) {
 func (o ErrorResponseMinimal) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("message", o.Message))
+	if !IsNil(o.Message) {
+		logAttrs = append(logAttrs, slog.Any("message", *o.Message))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

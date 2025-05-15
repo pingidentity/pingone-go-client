@@ -12,7 +12,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -21,10 +20,10 @@ var _ MappedNullable = &ErrorResponse{}
 
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
-	Code                 ErrorResponseCode      `json:"code"`
+	Code                 *ErrorResponseCode     `json:"code,omitempty"`
 	Details              []ErrorResponseDetails `json:"details,omitempty"`
-	Id                   string                 `json:"id"`
-	Message              string                 `json:"message"`
+	Id                   *string                `json:"id,omitempty"`
+	Message              *string                `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,11 +33,8 @@ type _ErrorResponse ErrorResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorResponse(code ErrorResponseCode, id string, message string) *ErrorResponse {
+func NewErrorResponse() *ErrorResponse {
 	this := ErrorResponse{}
-	this.Code = code
-	this.Id = id
-	this.Message = message
 	return &this
 }
 
@@ -50,28 +46,36 @@ func NewErrorResponseWithDefaults() *ErrorResponse {
 	return &this
 }
 
-// GetCode returns the Code field value
+// GetCode returns the Code field value if set, zero value otherwise.
 func (o *ErrorResponse) GetCode() ErrorResponseCode {
-	if o == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret ErrorResponseCode
 		return ret
 	}
-
-	return o.Code
+	return *o.Code
 }
 
-// GetCodeOk returns a tuple with the Code field value
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetCodeOk() (*ErrorResponseCode, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code, true
 }
 
-// SetCode sets field value
+// HasCode returns a boolean if a field has been set.
+func (o *ErrorResponse) HasCode() bool {
+	if o != nil && !IsNil(o.Code) {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given ErrorResponseCode and assigns it to the Code field.
 func (o *ErrorResponse) SetCode(v ErrorResponseCode) {
-	o.Code = v
+	o.Code = &v
 }
 
 // GetDetails returns the Details field value if set, zero value otherwise.
@@ -106,52 +110,68 @@ func (o *ErrorResponse) SetDetails(v []ErrorResponseDetails) {
 	o.Details = v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *ErrorResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *ErrorResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *ErrorResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ErrorResponse) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *ErrorResponse) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *ErrorResponse) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
 }
 
 func (o ErrorResponse) MarshalJSON() ([]byte, error) {
@@ -164,12 +184,18 @@ func (o ErrorResponse) MarshalJSON() ([]byte, error) {
 
 func (o ErrorResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["code"] = o.Code
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
-	toSerialize["id"] = o.Id
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -179,29 +205,6 @@ func (o ErrorResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ErrorResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"code",
-		"id",
-		"message",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varErrorResponse := _ErrorResponse{}
 
 	err = json.Unmarshal(data, &varErrorResponse)
@@ -228,12 +231,18 @@ func (o *ErrorResponse) UnmarshalJSON(data []byte) (err error) {
 func (o ErrorResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("code", o.Code))
+	if !IsNil(o.Code) {
+		logAttrs = append(logAttrs, slog.Any("code", *o.Code))
+	}
 	if !IsNil(o.Details) {
 		logAttrs = append(logAttrs, slog.Any("details", o.Details))
 	}
-	logAttrs = append(logAttrs, slog.Any("id", o.Id))
-	logAttrs = append(logAttrs, slog.Any("message", o.Message))
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
+	}
+	if !IsNil(o.Message) {
+		logAttrs = append(logAttrs, slog.Any("message", *o.Message))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

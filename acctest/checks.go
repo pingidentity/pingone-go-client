@@ -58,7 +58,7 @@ func CheckPingOneAPIErrorResponse(t *testing.T, httpError error, expectedErrorCo
 	require.NotEmpty(t, httpError.(*pingone.APIError).Model())
 	errorModel := httpError.(*pingone.APIError).Model().(pingone.ErrorResponse)
 	assert.NotEmpty(t, errorModel.Id)
-	assert.Equal(t, expectedErrorCode, errorModel.Code)
+	assert.Equal(t, expectedErrorCode, *errorModel.Code)
 	assert.NotEmpty(t, errorModel.Message)
-	assert.Regexp(t, expectedErrorMessageRegex, errorModel.Message)
+	assert.Regexp(t, expectedErrorMessageRegex, *errorModel.Message)
 }
