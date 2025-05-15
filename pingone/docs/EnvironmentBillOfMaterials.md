@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Products** | [**[]EnvironmentBillOfMaterialsProduct**](EnvironmentBillOfMaterialsProduct.md) |  | 
 **SolutionType** | Pointer to [**EnvironmentBillOfMaterialsSolutionType**](EnvironmentBillOfMaterialsSolutionType.md) |  | [optional] 
-**Links** | Pointer to [**EnvironmentBillOfMaterialsLinks**](EnvironmentBillOfMaterialsLinks.md) |  | [optional] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**Links** | [**EnvironmentBillOfMaterialsLinks**](EnvironmentBillOfMaterialsLinks.md) |  | 
+**CreatedAt** | **time.Time** |  | [readonly] 
+**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewEnvironmentBillOfMaterials
 
-`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, ) *EnvironmentBillOfMaterials`
+`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, links EnvironmentBillOfMaterialsLinks, createdAt time.Time, updatedAt time.Time, ) *EnvironmentBillOfMaterials`
 
 NewEnvironmentBillOfMaterials instantiates a new EnvironmentBillOfMaterials object
 This constructor will assign default values to properties that have it defined,
@@ -93,11 +93,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *EnvironmentBillOfMaterials) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -118,11 +113,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *EnvironmentBillOfMaterials) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -143,11 +133,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-### HasUpdatedAt
-
-`func (o *EnvironmentBillOfMaterials) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

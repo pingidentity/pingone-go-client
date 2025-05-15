@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 **Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
-**Links** | Pointer to [**EnvironmentLinks**](EnvironmentLinks.md) |  | [optional] 
-**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**Links** | [**EnvironmentLinks**](EnvironmentLinks.md) |  | 
+**BillOfMaterials** | [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | 
+**CreatedAt** | **time.Time** |  | [readonly] 
 **HardDeletedAllowedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] [readonly] 
-**Organization** | Pointer to [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | [optional] 
+**Id** | [**uuid.UUID**](uuid.UUID.md) |  | [readonly] 
+**Organization** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **SoftDeletedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewEnvironment
 
-`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, ) *Environment`
+`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, billOfMaterials EnvironmentBillOfMaterials, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -213,11 +213,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *Environment) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetBillOfMaterials
 
@@ -238,11 +233,6 @@ and a boolean to check if the value has been set.
 
 SetBillOfMaterials sets BillOfMaterials field to given value.
 
-### HasBillOfMaterials
-
-`func (o *Environment) HasBillOfMaterials() bool`
-
-HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -263,11 +253,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *Environment) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetHardDeletedAllowedAt
 
@@ -313,11 +298,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *Environment) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetOrganization
 
@@ -338,11 +318,6 @@ and a boolean to check if the value has been set.
 
 SetOrganization sets Organization field to given value.
 
-### HasOrganization
-
-`func (o *Environment) HasOrganization() bool`
-
-HasOrganization returns a boolean if a field has been set.
 
 ### GetSoftDeletedAt
 
@@ -388,11 +363,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-### HasUpdatedAt
-
-`func (o *Environment) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

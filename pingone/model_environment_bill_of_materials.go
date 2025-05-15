@@ -24,9 +24,9 @@ var _ MappedNullable = &EnvironmentBillOfMaterials{}
 type EnvironmentBillOfMaterials struct {
 	Products             []EnvironmentBillOfMaterialsProduct     `json:"products"`
 	SolutionType         *EnvironmentBillOfMaterialsSolutionType `json:"solutionType,omitempty"`
-	Links                *EnvironmentBillOfMaterialsLinks        `json:"_links,omitempty"`
-	CreatedAt            *time.Time                              `json:"createdAt,omitempty"`
-	UpdatedAt            *time.Time                              `json:"updatedAt,omitempty"`
+	Links                EnvironmentBillOfMaterialsLinks         `json:"_links"`
+	CreatedAt            time.Time                               `json:"createdAt"`
+	UpdatedAt            time.Time                               `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,9 +36,12 @@ type _EnvironmentBillOfMaterials EnvironmentBillOfMaterials
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct) *EnvironmentBillOfMaterials {
+func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, links EnvironmentBillOfMaterialsLinks, createdAt time.Time, updatedAt time.Time) *EnvironmentBillOfMaterials {
 	this := EnvironmentBillOfMaterials{}
 	this.Products = products
+	this.Links = links
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -106,100 +109,76 @@ func (o *EnvironmentBillOfMaterials) SetSolutionType(v EnvironmentBillOfMaterial
 	o.SolutionType = &v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value
 func (o *EnvironmentBillOfMaterials) GetLinks() EnvironmentBillOfMaterialsLinks {
-	if o == nil || IsNil(o.Links) {
+	if o == nil {
 		var ret EnvironmentBillOfMaterialsLinks
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterials) GetLinksOk() (*EnvironmentBillOfMaterialsLinks, bool) {
-	if o == nil || IsNil(o.Links) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *EnvironmentBillOfMaterials) HasLinks() bool {
-	if o != nil && !IsNil(o.Links) {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given EnvironmentBillOfMaterialsLinks and assigns it to the Links field.
+// SetLinks sets field value
 func (o *EnvironmentBillOfMaterials) SetLinks(v EnvironmentBillOfMaterialsLinks) {
-	o.Links = &v
+	o.Links = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *EnvironmentBillOfMaterials) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterials) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *EnvironmentBillOfMaterials) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *EnvironmentBillOfMaterials) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value
 func (o *EnvironmentBillOfMaterials) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterials) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *EnvironmentBillOfMaterials) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *EnvironmentBillOfMaterials) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 }
 
 func (o EnvironmentBillOfMaterials) MarshalJSON() ([]byte, error) {
@@ -216,15 +195,9 @@ func (o EnvironmentBillOfMaterials) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SolutionType) {
 		toSerialize["solutionType"] = o.SolutionType
 	}
-	if !IsNil(o.Links) {
-		toSerialize["_links"] = o.Links
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["_links"] = o.Links
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -239,6 +212,9 @@ func (o *EnvironmentBillOfMaterials) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"products",
+		"_links",
+		"createdAt",
+		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -286,15 +262,9 @@ func (o EnvironmentBillOfMaterials) LogValue() slog.Value {
 	if !IsNil(o.SolutionType) {
 		logAttrs = append(logAttrs, slog.Any("solutionType", *o.SolutionType))
 	}
-	if !IsNil(o.Links) {
-		logAttrs = append(logAttrs, slog.Any("_links", *o.Links))
-	}
-	if !IsNil(o.CreatedAt) {
-		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
-	}
-	if !IsNil(o.UpdatedAt) {
-		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
-	}
+	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
+	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
+	logAttrs = append(logAttrs, slog.Any("updatedAt", o.UpdatedAt))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
