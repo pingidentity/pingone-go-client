@@ -241,7 +241,7 @@ func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Crea
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_EnvironmentApiService_Get(t, *resp.Id, payload)
+	s.test_pingone_EnvironmentApiService_Get(t, resp.Id, payload)
 
 	return resp.GetId()
 }
@@ -272,14 +272,13 @@ func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Repl
 	resp, httpRes, err := s.ApiClient.EnvironmentApi.ReplaceEnvironmentById(s.T().Context(), environmentID).EnvironmentReplaceRequest(payload).Execute()
 	acctest.CheckReplaced(t, resp, &pingone.Environment{}, httpRes, err)
 
-	require.NotNil(t, resp.Id)
-	require.Equal(t, *resp.Id, environmentID)
+	require.Equal(t, resp.Id, environmentID)
 	assert.NotNil(t, resp.Links)
 	assert.NotNil(t, resp.CreatedAt)
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_EnvironmentApiService_Get(t, *resp.Id, payload)
+	s.test_pingone_EnvironmentApiService_Get(t, resp.Id, payload)
 }
 
 func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Delete(t *testing.T, environmentID uuid.UUID) {

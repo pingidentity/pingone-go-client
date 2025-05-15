@@ -79,7 +79,7 @@ func (e *TestEnvironment) Delete(request DeleteConfig) (err error) {
 		return fmt.Errorf("Environment is nil or ifExists is false")
 	}
 
-	httpResp, err := request.apiClient.EnvironmentApi.DeleteEnvironmentById(request.ctx, *e.Environment.Id).Execute()
+	httpResp, err := request.apiClient.EnvironmentApi.DeleteEnvironmentById(request.ctx, e.Environment.Id).Execute()
 	if err != nil {
 		if httpResp != nil && httpResp.StatusCode == 404 {
 			return nil
