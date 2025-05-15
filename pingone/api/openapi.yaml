@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-15T14-13-07
+  version: development-2025-05-15T14-17-00
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -540,7 +540,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponseMinimal'
+            $ref: '#/components/schemas/ErrorResponse'
       description: Request failed due to authorization issue.
     UnsupportedMediaType:
       content:
@@ -1129,12 +1129,6 @@ components:
           type: array
         id:
           type: string
-        message:
-          type: string
-    ErrorResponseMinimal:
-      example:
-        message: message
-      properties:
         message:
           type: string
     JSONHALLink:

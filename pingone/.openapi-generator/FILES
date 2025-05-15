@@ -44,7 +44,6 @@ docs/ErrorResponseCode.md
 docs/ErrorResponseDetails.md
 docs/ErrorResponseDetailsCode.md
 docs/ErrorResponseDetailsInnerError.md
-docs/ErrorResponseMinimal.md
 docs/JSONHALLink.md
 docs/ResourceRelationshipDaVinci.md
 docs/ResourceRelationshipPingOne.md
@@ -86,7 +85,6 @@ model_error_response_code.go
 model_error_response_details.go
 model_error_response_details_code.go
 model_error_response_details_inner_error.go
-model_error_response_minimal.go
 model_jsonhal_link.go
 model_resource_relationship_da_vinci.go
 model_resource_relationship_ping_one.go
