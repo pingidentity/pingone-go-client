@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-15T12-09-14
+  version: development-2025-05-15T13-30-39
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -1081,28 +1081,32 @@ components:
       example:
         code: ACCESS_FAILED
         details:
-        - code: CONSTRAINT_VIOLATION
+        - code: ACCOUNT_NOT_USABLE
           innerError:
-            allowedValues: ""
-            quotaResetTime: ""
-            retryAfter: ""
-            rangeMaximumValue: ""
-            allowedPattern: ""
-            maximumValue: ""
-            quotaLimit: ""
-            rangeMinimumValue: ""
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
           message: message
           target: target
-        - code: CONSTRAINT_VIOLATION
+        - code: ACCOUNT_NOT_USABLE
           innerError:
-            allowedValues: ""
-            quotaResetTime: ""
-            retryAfter: ""
-            rangeMaximumValue: ""
-            allowedPattern: ""
-            maximumValue: ""
-            quotaLimit: ""
-            rangeMinimumValue: ""
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
           message: message
           target: target
         id: id
@@ -1424,52 +1428,80 @@ components:
       type: string
     ErrorResponse_details_code:
       enum:
+      - ACCOUNT_NOT_USABLE
+      - ACCOUNT_SELECTION_REQUIRED
+      - CONSENT_REQUIRED
       - CONSTRAINT_VIOLATION
       - EMPTY_VALUE
       - INSUFFICIENT_PERMISSIONS
+      - INTERACTION_REQUIRED
       - INVALID_FILTER
+      - INVALID_OTP
       - INVALID_PARAMETER
       - INVALID_TOKEN
       - INVALID_VALUE
+      - ITEM_LIMIT_EXCEEDED
       - LICENSE_EXCEEDED
       - LIMIT_EXCEEDED
+      - LOGIN_REQUIRED
+      - MFA_AUTH_METHODS_CONFLICT
+      - NO_PASSWORD
       - OUT_OF_RANGE
+      - PASSWORD_LOCKED_OUT
+      - PASSWORD_TOO_YOUNG
+      - POLICY_DENIED
       - QUOTA_EXCEEDED
       - REQUIRED_VALUE
       - SIZE_LIMIT_EXCEEDED
       - UNIQUENESS_VIOLATION
+      - USER_DENIED
       type: string
     ErrorResponse_details_innerError:
+      additionalProperties: true
       example:
-        allowedValues: ""
-        quotaResetTime: ""
-        retryAfter: ""
-        rangeMaximumValue: ""
-        allowedPattern: ""
-        maximumValue: ""
-        quotaLimit: ""
-        rangeMinimumValue: ""
+        allowedValues:
+        - ""
+        - ""
+        quotaResetTime: 2000-01-23T04:56:07.000+00:00
+        retryAfter: retryAfter
+        rangeMaximumValue: 1.4658129805029452
+        allowedPattern: allowedPattern
+        maximumValue: 0.8008281904610115
+        quotaLimit: 6.027456183070403
+        rangeMinimumValue: 5.962133916683182
       properties:
-        allowedPattern: {}
-        allowedValues: {}
-        maximumValue: {}
-        quotaLimit: {}
-        quotaResetTime: {}
-        rangeMaximumValue: {}
-        rangeMinimumValue: {}
-        retryAfter: {}
+        allowedPattern:
+          type: string
+        allowedValues:
+          items: {}
+          type: array
+        maximumValue:
+          type: number
+        quotaLimit:
+          type: number
+        quotaResetTime:
+          format: date-time
+          type: string
+        rangeMaximumValue:
+          type: number
+        rangeMinimumValue:
+          type: number
+        retryAfter:
+          type: string
     ErrorResponse_details:
       example:
-        code: CONSTRAINT_VIOLATION
+        code: ACCOUNT_NOT_USABLE
         innerError:
-          allowedValues: ""
-          quotaResetTime: ""
-          retryAfter: ""
-          rangeMaximumValue: ""
-          allowedPattern: ""
-          maximumValue: ""
-          quotaLimit: ""
-          rangeMinimumValue: ""
+          allowedValues:
+          - ""
+          - ""
+          quotaResetTime: 2000-01-23T04:56:07.000+00:00
+          retryAfter: retryAfter
+          rangeMaximumValue: 1.4658129805029452
+          allowedPattern: allowedPattern
+          maximumValue: 0.8008281904610115
+          quotaLimit: 6.027456183070403
+          rangeMinimumValue: 5.962133916683182
         message: message
         target: target
       properties:

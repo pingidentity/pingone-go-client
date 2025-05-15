@@ -13,6 +13,7 @@ package pingone
 import (
 	"encoding/json"
 	"log/slog"
+	"time"
 )
 
 // checks if the ErrorResponseDetailsInnerError type satisfies the MappedNullable interface at compile time
@@ -20,14 +21,14 @@ var _ MappedNullable = &ErrorResponseDetailsInnerError{}
 
 // ErrorResponseDetailsInnerError struct for ErrorResponseDetailsInnerError
 type ErrorResponseDetailsInnerError struct {
-	AllowedPattern       interface{} `json:"allowedPattern,omitempty"`
-	AllowedValues        interface{} `json:"allowedValues,omitempty"`
-	MaximumValue         interface{} `json:"maximumValue,omitempty"`
-	QuotaLimit           interface{} `json:"quotaLimit,omitempty"`
-	QuotaResetTime       interface{} `json:"quotaResetTime,omitempty"`
-	RangeMaximumValue    interface{} `json:"rangeMaximumValue,omitempty"`
-	RangeMinimumValue    interface{} `json:"rangeMinimumValue,omitempty"`
-	RetryAfter           interface{} `json:"retryAfter,omitempty"`
+	AllowedPattern       *string       `json:"allowedPattern,omitempty"`
+	AllowedValues        []interface{} `json:"allowedValues,omitempty"`
+	MaximumValue         *float32      `json:"maximumValue,omitempty"`
+	QuotaLimit           *float32      `json:"quotaLimit,omitempty"`
+	QuotaResetTime       *time.Time    `json:"quotaResetTime,omitempty"`
+	RangeMaximumValue    *float32      `json:"rangeMaximumValue,omitempty"`
+	RangeMinimumValue    *float32      `json:"rangeMinimumValue,omitempty"`
+	RetryAfter           *string       `json:"retryAfter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,23 +51,22 @@ func NewErrorResponseDetailsInnerErrorWithDefaults() *ErrorResponseDetailsInnerE
 	return &this
 }
 
-// GetAllowedPattern returns the AllowedPattern field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetAllowedPattern() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetAllowedPattern returns the AllowedPattern field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetAllowedPattern() string {
+	if o == nil || IsNil(o.AllowedPattern) {
+		var ret string
 		return ret
 	}
-	return o.AllowedPattern
+	return *o.AllowedPattern
 }
 
 // GetAllowedPatternOk returns a tuple with the AllowedPattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetAllowedPatternOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetAllowedPatternOk() (*string, bool) {
 	if o == nil || IsNil(o.AllowedPattern) {
 		return nil, false
 	}
-	return &o.AllowedPattern, true
+	return o.AllowedPattern, true
 }
 
 // HasAllowedPattern returns a boolean if a field has been set.
@@ -78,15 +78,15 @@ func (o *ErrorResponseDetailsInnerError) HasAllowedPattern() bool {
 	return false
 }
 
-// SetAllowedPattern gets a reference to the given interface{} and assigns it to the AllowedPattern field.
-func (o *ErrorResponseDetailsInnerError) SetAllowedPattern(v interface{}) {
-	o.AllowedPattern = v
+// SetAllowedPattern gets a reference to the given string and assigns it to the AllowedPattern field.
+func (o *ErrorResponseDetailsInnerError) SetAllowedPattern(v string) {
+	o.AllowedPattern = &v
 }
 
-// GetAllowedValues returns the AllowedValues field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetAllowedValues() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetAllowedValues returns the AllowedValues field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetAllowedValues() []interface{} {
+	if o == nil || IsNil(o.AllowedValues) {
+		var ret []interface{}
 		return ret
 	}
 	return o.AllowedValues
@@ -94,12 +94,11 @@ func (o *ErrorResponseDetailsInnerError) GetAllowedValues() interface{} {
 
 // GetAllowedValuesOk returns a tuple with the AllowedValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetAllowedValuesOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetAllowedValuesOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.AllowedValues) {
 		return nil, false
 	}
-	return &o.AllowedValues, true
+	return o.AllowedValues, true
 }
 
 // HasAllowedValues returns a boolean if a field has been set.
@@ -111,28 +110,27 @@ func (o *ErrorResponseDetailsInnerError) HasAllowedValues() bool {
 	return false
 }
 
-// SetAllowedValues gets a reference to the given interface{} and assigns it to the AllowedValues field.
-func (o *ErrorResponseDetailsInnerError) SetAllowedValues(v interface{}) {
+// SetAllowedValues gets a reference to the given []interface{} and assigns it to the AllowedValues field.
+func (o *ErrorResponseDetailsInnerError) SetAllowedValues(v []interface{}) {
 	o.AllowedValues = v
 }
 
-// GetMaximumValue returns the MaximumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetMaximumValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetMaximumValue returns the MaximumValue field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetMaximumValue() float32 {
+	if o == nil || IsNil(o.MaximumValue) {
+		var ret float32
 		return ret
 	}
-	return o.MaximumValue
+	return *o.MaximumValue
 }
 
 // GetMaximumValueOk returns a tuple with the MaximumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetMaximumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetMaximumValueOk() (*float32, bool) {
 	if o == nil || IsNil(o.MaximumValue) {
 		return nil, false
 	}
-	return &o.MaximumValue, true
+	return o.MaximumValue, true
 }
 
 // HasMaximumValue returns a boolean if a field has been set.
@@ -144,28 +142,27 @@ func (o *ErrorResponseDetailsInnerError) HasMaximumValue() bool {
 	return false
 }
 
-// SetMaximumValue gets a reference to the given interface{} and assigns it to the MaximumValue field.
-func (o *ErrorResponseDetailsInnerError) SetMaximumValue(v interface{}) {
-	o.MaximumValue = v
+// SetMaximumValue gets a reference to the given float32 and assigns it to the MaximumValue field.
+func (o *ErrorResponseDetailsInnerError) SetMaximumValue(v float32) {
+	o.MaximumValue = &v
 }
 
-// GetQuotaLimit returns the QuotaLimit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetQuotaLimit() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetQuotaLimit returns the QuotaLimit field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetQuotaLimit() float32 {
+	if o == nil || IsNil(o.QuotaLimit) {
+		var ret float32
 		return ret
 	}
-	return o.QuotaLimit
+	return *o.QuotaLimit
 }
 
 // GetQuotaLimitOk returns a tuple with the QuotaLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetQuotaLimitOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetQuotaLimitOk() (*float32, bool) {
 	if o == nil || IsNil(o.QuotaLimit) {
 		return nil, false
 	}
-	return &o.QuotaLimit, true
+	return o.QuotaLimit, true
 }
 
 // HasQuotaLimit returns a boolean if a field has been set.
@@ -177,28 +174,27 @@ func (o *ErrorResponseDetailsInnerError) HasQuotaLimit() bool {
 	return false
 }
 
-// SetQuotaLimit gets a reference to the given interface{} and assigns it to the QuotaLimit field.
-func (o *ErrorResponseDetailsInnerError) SetQuotaLimit(v interface{}) {
-	o.QuotaLimit = v
+// SetQuotaLimit gets a reference to the given float32 and assigns it to the QuotaLimit field.
+func (o *ErrorResponseDetailsInnerError) SetQuotaLimit(v float32) {
+	o.QuotaLimit = &v
 }
 
-// GetQuotaResetTime returns the QuotaResetTime field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetQuotaResetTime() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetQuotaResetTime returns the QuotaResetTime field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetQuotaResetTime() time.Time {
+	if o == nil || IsNil(o.QuotaResetTime) {
+		var ret time.Time
 		return ret
 	}
-	return o.QuotaResetTime
+	return *o.QuotaResetTime
 }
 
 // GetQuotaResetTimeOk returns a tuple with the QuotaResetTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetQuotaResetTimeOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetQuotaResetTimeOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.QuotaResetTime) {
 		return nil, false
 	}
-	return &o.QuotaResetTime, true
+	return o.QuotaResetTime, true
 }
 
 // HasQuotaResetTime returns a boolean if a field has been set.
@@ -210,28 +206,27 @@ func (o *ErrorResponseDetailsInnerError) HasQuotaResetTime() bool {
 	return false
 }
 
-// SetQuotaResetTime gets a reference to the given interface{} and assigns it to the QuotaResetTime field.
-func (o *ErrorResponseDetailsInnerError) SetQuotaResetTime(v interface{}) {
-	o.QuotaResetTime = v
+// SetQuotaResetTime gets a reference to the given time.Time and assigns it to the QuotaResetTime field.
+func (o *ErrorResponseDetailsInnerError) SetQuotaResetTime(v time.Time) {
+	o.QuotaResetTime = &v
 }
 
-// GetRangeMaximumValue returns the RangeMaximumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetRangeMaximumValue returns the RangeMaximumValue field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValue() float32 {
+	if o == nil || IsNil(o.RangeMaximumValue) {
+		var ret float32
 		return ret
 	}
-	return o.RangeMaximumValue
+	return *o.RangeMaximumValue
 }
 
 // GetRangeMaximumValueOk returns a tuple with the RangeMaximumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRangeMaximumValueOk() (*float32, bool) {
 	if o == nil || IsNil(o.RangeMaximumValue) {
 		return nil, false
 	}
-	return &o.RangeMaximumValue, true
+	return o.RangeMaximumValue, true
 }
 
 // HasRangeMaximumValue returns a boolean if a field has been set.
@@ -243,28 +238,27 @@ func (o *ErrorResponseDetailsInnerError) HasRangeMaximumValue() bool {
 	return false
 }
 
-// SetRangeMaximumValue gets a reference to the given interface{} and assigns it to the RangeMaximumValue field.
-func (o *ErrorResponseDetailsInnerError) SetRangeMaximumValue(v interface{}) {
-	o.RangeMaximumValue = v
+// SetRangeMaximumValue gets a reference to the given float32 and assigns it to the RangeMaximumValue field.
+func (o *ErrorResponseDetailsInnerError) SetRangeMaximumValue(v float32) {
+	o.RangeMaximumValue = &v
 }
 
-// GetRangeMinimumValue returns the RangeMinimumValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetRangeMinimumValue returns the RangeMinimumValue field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValue() float32 {
+	if o == nil || IsNil(o.RangeMinimumValue) {
+		var ret float32
 		return ret
 	}
-	return o.RangeMinimumValue
+	return *o.RangeMinimumValue
 }
 
 // GetRangeMinimumValueOk returns a tuple with the RangeMinimumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValueOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRangeMinimumValueOk() (*float32, bool) {
 	if o == nil || IsNil(o.RangeMinimumValue) {
 		return nil, false
 	}
-	return &o.RangeMinimumValue, true
+	return o.RangeMinimumValue, true
 }
 
 // HasRangeMinimumValue returns a boolean if a field has been set.
@@ -276,28 +270,27 @@ func (o *ErrorResponseDetailsInnerError) HasRangeMinimumValue() bool {
 	return false
 }
 
-// SetRangeMinimumValue gets a reference to the given interface{} and assigns it to the RangeMinimumValue field.
-func (o *ErrorResponseDetailsInnerError) SetRangeMinimumValue(v interface{}) {
-	o.RangeMinimumValue = v
+// SetRangeMinimumValue gets a reference to the given float32 and assigns it to the RangeMinimumValue field.
+func (o *ErrorResponseDetailsInnerError) SetRangeMinimumValue(v float32) {
+	o.RangeMinimumValue = &v
 }
 
-// GetRetryAfter returns the RetryAfter field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ErrorResponseDetailsInnerError) GetRetryAfter() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetRetryAfter returns the RetryAfter field value if set, zero value otherwise.
+func (o *ErrorResponseDetailsInnerError) GetRetryAfter() string {
+	if o == nil || IsNil(o.RetryAfter) {
+		var ret string
 		return ret
 	}
-	return o.RetryAfter
+	return *o.RetryAfter
 }
 
 // GetRetryAfterOk returns a tuple with the RetryAfter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ErrorResponseDetailsInnerError) GetRetryAfterOk() (*interface{}, bool) {
+func (o *ErrorResponseDetailsInnerError) GetRetryAfterOk() (*string, bool) {
 	if o == nil || IsNil(o.RetryAfter) {
 		return nil, false
 	}
-	return &o.RetryAfter, true
+	return o.RetryAfter, true
 }
 
 // HasRetryAfter returns a boolean if a field has been set.
@@ -309,9 +302,9 @@ func (o *ErrorResponseDetailsInnerError) HasRetryAfter() bool {
 	return false
 }
 
-// SetRetryAfter gets a reference to the given interface{} and assigns it to the RetryAfter field.
-func (o *ErrorResponseDetailsInnerError) SetRetryAfter(v interface{}) {
-	o.RetryAfter = v
+// SetRetryAfter gets a reference to the given string and assigns it to the RetryAfter field.
+func (o *ErrorResponseDetailsInnerError) SetRetryAfter(v string) {
+	o.RetryAfter = &v
 }
 
 func (o ErrorResponseDetailsInnerError) MarshalJSON() ([]byte, error) {
@@ -324,28 +317,28 @@ func (o ErrorResponseDetailsInnerError) MarshalJSON() ([]byte, error) {
 
 func (o ErrorResponseDetailsInnerError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedPattern != nil {
+	if !IsNil(o.AllowedPattern) {
 		toSerialize["allowedPattern"] = o.AllowedPattern
 	}
-	if o.AllowedValues != nil {
+	if !IsNil(o.AllowedValues) {
 		toSerialize["allowedValues"] = o.AllowedValues
 	}
-	if o.MaximumValue != nil {
+	if !IsNil(o.MaximumValue) {
 		toSerialize["maximumValue"] = o.MaximumValue
 	}
-	if o.QuotaLimit != nil {
+	if !IsNil(o.QuotaLimit) {
 		toSerialize["quotaLimit"] = o.QuotaLimit
 	}
-	if o.QuotaResetTime != nil {
+	if !IsNil(o.QuotaResetTime) {
 		toSerialize["quotaResetTime"] = o.QuotaResetTime
 	}
-	if o.RangeMaximumValue != nil {
+	if !IsNil(o.RangeMaximumValue) {
 		toSerialize["rangeMaximumValue"] = o.RangeMaximumValue
 	}
-	if o.RangeMinimumValue != nil {
+	if !IsNil(o.RangeMinimumValue) {
 		toSerialize["rangeMinimumValue"] = o.RangeMinimumValue
 	}
-	if o.RetryAfter != nil {
+	if !IsNil(o.RetryAfter) {
 		toSerialize["retryAfter"] = o.RetryAfter
 	}
 
@@ -388,28 +381,28 @@ func (o ErrorResponseDetailsInnerError) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	if !IsNil(o.AllowedPattern) {
-		logAttrs = append(logAttrs, slog.Any("allowedPattern", o.AllowedPattern))
+		logAttrs = append(logAttrs, slog.Any("allowedPattern", *o.AllowedPattern))
 	}
 	if !IsNil(o.AllowedValues) {
 		logAttrs = append(logAttrs, slog.Any("allowedValues", o.AllowedValues))
 	}
 	if !IsNil(o.MaximumValue) {
-		logAttrs = append(logAttrs, slog.Any("maximumValue", o.MaximumValue))
+		logAttrs = append(logAttrs, slog.Any("maximumValue", *o.MaximumValue))
 	}
 	if !IsNil(o.QuotaLimit) {
-		logAttrs = append(logAttrs, slog.Any("quotaLimit", o.QuotaLimit))
+		logAttrs = append(logAttrs, slog.Any("quotaLimit", *o.QuotaLimit))
 	}
 	if !IsNil(o.QuotaResetTime) {
-		logAttrs = append(logAttrs, slog.Any("quotaResetTime", o.QuotaResetTime))
+		logAttrs = append(logAttrs, slog.Any("quotaResetTime", *o.QuotaResetTime))
 	}
 	if !IsNil(o.RangeMaximumValue) {
-		logAttrs = append(logAttrs, slog.Any("rangeMaximumValue", o.RangeMaximumValue))
+		logAttrs = append(logAttrs, slog.Any("rangeMaximumValue", *o.RangeMaximumValue))
 	}
 	if !IsNil(o.RangeMinimumValue) {
-		logAttrs = append(logAttrs, slog.Any("rangeMinimumValue", o.RangeMinimumValue))
+		logAttrs = append(logAttrs, slog.Any("rangeMinimumValue", *o.RangeMinimumValue))
 	}
 	if !IsNil(o.RetryAfter) {
-		logAttrs = append(logAttrs, slog.Any("retryAfter", o.RetryAfter))
+		logAttrs = append(logAttrs, slog.Any("retryAfter", *o.RetryAfter))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
