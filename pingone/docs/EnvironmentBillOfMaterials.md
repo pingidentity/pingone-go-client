@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Products** | [**[]EnvironmentBillOfMaterialsProduct**](EnvironmentBillOfMaterialsProduct.md) |  | 
 **SolutionType** | Pointer to [**EnvironmentBillOfMaterialsSolutionType**](EnvironmentBillOfMaterialsSolutionType.md) |  | [optional] 
-**Links** | [**EnvironmentBillOfMaterialsLinks**](EnvironmentBillOfMaterialsLinks.md) |  | 
+**Links** | Pointer to [**EnvironmentBillOfMaterialsLinks**](EnvironmentBillOfMaterialsLinks.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironmentBillOfMaterials
 
-`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, links EnvironmentBillOfMaterialsLinks, createdAt time.Time, updatedAt time.Time, ) *EnvironmentBillOfMaterials`
+`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, createdAt time.Time, updatedAt time.Time, ) *EnvironmentBillOfMaterials`
 
 NewEnvironmentBillOfMaterials instantiates a new EnvironmentBillOfMaterials object
 This constructor will assign default values to properties that have it defined,
@@ -93,6 +93,11 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
+### HasLinks
+
+`func (o *EnvironmentBillOfMaterials) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

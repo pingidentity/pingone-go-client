@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-15T14-07-10
+  version: development-2025-05-15T14-13-07
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -735,7 +735,6 @@ components:
             type: string
         required:
         - _links
-        - billOfMaterials
         - createdAt
         - id
         - organization
@@ -826,7 +825,6 @@ components:
             readOnly: true
             type: string
         required:
-        - _links
         - createdAt
         - updatedAt
       example:

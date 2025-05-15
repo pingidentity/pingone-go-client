@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
 **Links** | [**EnvironmentLinks**](EnvironmentLinks.md) |  | 
-**BillOfMaterials** | [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | 
+**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **HardDeletedAllowedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Id** | [**uuid.UUID**](uuid.UUID.md) |  | [readonly] 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironment
 
-`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, billOfMaterials EnvironmentBillOfMaterials, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time, ) *Environment`
+`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -233,6 +233,11 @@ and a boolean to check if the value has been set.
 
 SetBillOfMaterials sets BillOfMaterials field to given value.
 
+### HasBillOfMaterials
+
+`func (o *Environment) HasBillOfMaterials() bool`
+
+HasBillOfMaterials returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

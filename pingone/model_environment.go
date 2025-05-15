@@ -32,7 +32,7 @@ type Environment struct {
 	Type                 EnvironmentType             `json:"type"`
 	Status               *EnvironmentStatusValue     `json:"status,omitempty"`
 	Links                EnvironmentLinks            `json:"_links"`
-	BillOfMaterials      EnvironmentBillOfMaterials  `json:"billOfMaterials"`
+	BillOfMaterials      *EnvironmentBillOfMaterials `json:"billOfMaterials,omitempty"`
 	CreatedAt            time.Time                   `json:"createdAt"`
 	HardDeletedAllowedAt *time.Time                  `json:"hardDeletedAllowedAt,omitempty"`
 	Id                   uuid.UUID                   `json:"id"`
@@ -48,14 +48,13 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, billOfMaterials EnvironmentBillOfMaterials, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time) *Environment {
+func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time) *Environment {
 	this := Environment{}
 	this.License = license
 	this.Name = name
 	this.Region = region
 	this.Type = type_
 	this.Links = links
-	this.BillOfMaterials = billOfMaterials
 	this.CreatedAt = createdAt
 	this.Id = id
 	this.Organization = organization
@@ -287,28 +286,36 @@ func (o *Environment) SetLinks(v EnvironmentLinks) {
 	o.Links = v
 }
 
-// GetBillOfMaterials returns the BillOfMaterials field value
+// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
 func (o *Environment) GetBillOfMaterials() EnvironmentBillOfMaterials {
-	if o == nil {
+	if o == nil || IsNil(o.BillOfMaterials) {
 		var ret EnvironmentBillOfMaterials
 		return ret
 	}
-
-	return o.BillOfMaterials
+	return *o.BillOfMaterials
 }
 
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value
+// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Environment) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterials, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BillOfMaterials) {
 		return nil, false
 	}
-	return &o.BillOfMaterials, true
+	return o.BillOfMaterials, true
 }
 
-// SetBillOfMaterials sets field value
+// HasBillOfMaterials returns a boolean if a field has been set.
+func (o *Environment) HasBillOfMaterials() bool {
+	if o != nil && !IsNil(o.BillOfMaterials) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterials and assigns it to the BillOfMaterials field.
 func (o *Environment) SetBillOfMaterials(v EnvironmentBillOfMaterials) {
-	o.BillOfMaterials = v
+	o.BillOfMaterials = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -495,7 +502,9 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 		toSerialize["status"] = o.Status
 	}
 	toSerialize["_links"] = o.Links
-	toSerialize["billOfMaterials"] = o.BillOfMaterials
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	}
 	toSerialize["createdAt"] = o.CreatedAt
 	if !IsNil(o.HardDeletedAllowedAt) {
 		toSerialize["hardDeletedAllowedAt"] = o.HardDeletedAllowedAt
@@ -524,7 +533,6 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		"region",
 		"type",
 		"_links",
-		"billOfMaterials",
 		"createdAt",
 		"id",
 		"organization",
@@ -596,7 +604,9 @@ func (o Environment) LogValue() slog.Value {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
 	}
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
-	logAttrs = append(logAttrs, slog.Any("billOfMaterials", o.BillOfMaterials))
+	if !IsNil(o.BillOfMaterials) {
+		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	}
 	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
 	if !IsNil(o.HardDeletedAllowedAt) {
 		logAttrs = append(logAttrs, slog.Any("hardDeletedAllowedAt", *o.HardDeletedAllowedAt))
