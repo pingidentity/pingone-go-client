@@ -72,7 +72,7 @@ func main() {
 }
 ```
 
-The client may be initialised without any declared service configuration.  In this case, it's expected that service configuration values are provided at runtime with environment variables according to the [service configuration parameters](#configuration-parameters) table below.  Client code projects don't need to define these environment variables explicitly in project code if the end user's environment has been set up with the appropriate environment variables exported in their shell.
+The client may be initialised without any declared service configuration.  In this case, it's expected that service configuration values are provided at runtime with environment variables according to the [PingOne service configuration parameters](#pingone-service-configuration) table below.  Client code projects don't need to define these environment variables explicitly in project code if the end user's environment has been set up with the appropriate environment variables exported in their shell.
 
 Example when relying on environment variable values:
 
