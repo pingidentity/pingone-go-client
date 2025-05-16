@@ -23,24 +23,24 @@ For example, using a worker application without a custom domain:
 package main
 
 import (
-	"log/slog"
+    "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     serviceCfg := config.NewConfiguration()
-	serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
-	serviceCfg.WithClientSecret("***************")
-	serviceCfg.WithAuthEnvironmentID("5dfe1e9f-95ce-43ed-b3c6-6f2f0a35ede5")
-	serviceCfg.WithRootDomain("pingone.com")
+    serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
+    serviceCfg.WithClientSecret("***************")
+    serviceCfg.WithAuthEnvironmentID("5dfe1e9f-95ce-43ed-b3c6-6f2f0a35ede5")
+    serviceCfg.WithRootDomain("pingone.com")
 
-	configuration := pingone.NewConfiguration(serviceCfg)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    configuration := pingone.NewConfiguration(serviceCfg)
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 }
 ```
 
@@ -52,23 +52,23 @@ For example:
 package main
 
 import (
-	"log/slog"
+    "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     serviceCfg := config.NewConfiguration()
-	serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
-	serviceCfg.WithClientSecret("***************")
-	serviceCfg.WithCustomDomain("auth.bxretail.org")
+    serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
+    serviceCfg.WithClientSecret("***************")
+    serviceCfg.WithCustomDomain("auth.bxretail.org")
 
-	configuration := pingone.NewConfiguration(serviceCfg)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    configuration := pingone.NewConfiguration(serviceCfg)
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 }
 ```
 
@@ -80,17 +80,17 @@ Example when relying on environment variable values:
 package main
 
 import (
-	"log/slog"
+    "log/slog"
 
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     cfg := pingone.NewConfiguration(nil)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 }
 ```
 
@@ -110,40 +110,40 @@ Use of slog is shown in this example:
 package main
 
 import (
-	"context"
-	"log/slog"
-	"os"
+    "context"
+    "log/slog"
+    "os"
 
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     opts := &slog.HandlerOptions{
-		Level:     slog.LevelDebug,
-		AddSource: true,
-	}
+        Level:     slog.LevelDebug,
+        AddSource: true,
+    }
 
-	logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
-	slog.SetDefault(logger)
+    logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
+    slog.SetDefault(logger)
 
     cfg := pingone.NewConfiguration(nil)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 
-	variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
-	if err != nil {
-		slog.Error("Failed to read variable", "error", err)
-		os.Exit(1)
-	}
+    variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+    if err != nil {
+        slog.Error("Failed to read variable", "error", err)
+        os.Exit(1)
+    }
 
-	if httpResp.StatusCode != 200 {
-		slog.Error("Failed to read variable", "http response status", httpResp.Status)
-		os.Exit(1)
-	}
+    if httpResp.StatusCode != 200 {
+        slog.Error("Failed to read variable", "http response status", httpResp.Status)
+        os.Exit(1)
+    }
 
-	slog.Debug("Variable successfully read", "variable", variable)
+    slog.Debug("Variable successfully read", "variable", variable)
 }
 ```
 
@@ -157,55 +157,55 @@ For example:
 package main
 
 import (
-	"context"
-	"log/slog"
-	"os"
+    "context"
+    "log/slog"
+    "os"
 
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     opts := &slog.HandlerOptions{
-		Level:     slog.LevelDebug,
-		AddSource: true,
-	}
+        Level:     slog.LevelDebug,
+        AddSource: true,
+    }
 
-	logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
-	slog.SetDefault(logger)
+    logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
+    slog.SetDefault(logger)
 
     cfg := pingone.NewConfiguration(nil)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 
     pagedIterator := client.DaVinciVariableApi.GetVariables(context.Background(), environmentId).Execute()
 
     // Iterate over the pages
     pageNumber := 1
-	for pageCursor, err := range pagedIterator {
-	    if err != nil {
-		    slog.Error("Failed to read variables", "error", err)
+    for pageCursor, err := range pagedIterator {
+        if err != nil {
+            slog.Error("Failed to read variables", "error", err)
             break
-		}
+        }
 
         if pageCursor.HTTPResponse.StatusCode != 200 {
             slog.Error("Failed to read variables", "http response status", pageCursor.HTTPResponse.Status)
             break
-    	}
+        }
         
         slog.Debug("Processing page of results", "page", pageNumber)
 
         // Iterate over the variables in the page's collection
         if variables, ok := pageCursor.Variables.Embedded.GetVariablesOk(); ok {
-			for _, variable := range variables {
+            for _, variable := range variables {
                 slog.Debug("Variable successfully read", "variable", variable)
             }
-		}
+        }
 
         pageNumber++
-	}
-	
+    }
+    
     slog.Info("All variables over all pages have been read", "pages read", pageNumber)
 }
 ```
@@ -220,27 +220,27 @@ For example:
 package main
 
 import (
-	"context"
-	"errors"
-	"log/slog"
+    "context"
+    "errors"
+    "log/slog"
 
-	"github.com/pingidentity/pingone-go-client/pingone"
+    "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     cfg := pingone.NewConfiguration(nil)
-	client, err := pingone.NewAPIClient(cfg)
-	if err != nil {
-		slog.Error("Failed to create client", "error", err)
-	}
+    client, err := pingone.NewAPIClient(cfg)
+    if err != nil {
+        slog.Error("Failed to create client", "error", err)
+    }
 
-	variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
-	if err != nil {
-		slog.Error("Failed to read variable", "error", err)
+    variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+    if err != nil {
+        slog.Error("Failed to read variable", "error", err)
 
         var notFoundErr *pingone.NotFoundError
-		if errors.As(err, &notFoundErr) {
-			slog.Error("The variable was not found", "error", notFoundErr)
+        if errors.As(err, &notFoundErr) {
+            slog.Error("The variable was not found", "error", notFoundErr)
             
             // Enter "not found" specific logic using detail attributes from the `pingone.NotFoundError` model
         }
@@ -254,7 +254,7 @@ func main() {
 
         slog.Error("An error has occurred", "error", err)
         // Enter general error handling logic
-	}
+    }
 }
 ```
 
