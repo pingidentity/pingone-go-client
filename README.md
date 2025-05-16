@@ -94,7 +94,26 @@ func main() {
 }
 ```
 
-## Configuration parameters
+## Client Configuration
+
+TODO
+
+### User Agent Suffix
+
+Strings can be applied as a suffix to the default User Agent string.  This can be achieved using the `AppendUserAgent()` function in the SDK client configuration.
+
+For example:
+
+```go
+cfg := pingone.NewConfiguration(nil)
+cfg.AppendUserAgent("my-custom-string")
+client, err := pingone.NewAPIClient(cfg)
+if err != nil {
+    slog.Error("Failed to create client", "error", err)
+}
+```
+
+## PingOne Service Configuration
 
 TODO
 
