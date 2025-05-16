@@ -750,7 +750,7 @@ func getErrorObject(v interface{}) error {
 		return err
 	}
 
-	return fmt.Errorf("Unknown error type %T", v)
+	return errors.New(fmt.Sprintf("Unknown error type %T", v))
 }
 
 func logDeprecationHeaders(httpHeaders http.Header, localVarPath, localVarHTTPMethod string) {
