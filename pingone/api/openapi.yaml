@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.1
 info:
   contact:
     email: developerexperiences@pingidentity.com
@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-15T14-17-00
+  version: development-2025-05-16T12-49-38
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -489,49 +489,49 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ServiceError'
       description: Bad Gateway.
     BadRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error_Response_Bad_Request'
       description: "Invalid request received.  Malformed JSON, malformed HTTP request."
     Conflict:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ServiceError'
       description: Conflict.
     Forbidden:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/AccessFailedError'
       description: Request failed due to authorization issue.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/UnexpectedServiceError'
       description: Uncaught error occurred.  Platform outage.
     MethodNotAllowed:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/InvalidRequestError'
       description: "Invalid request received.  Malformed JSON, malformed HTTP request."
     NotFound:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/NotFoundError'
       description: Not found.
     TooManyRequests:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/RequestLimitedError'
       description: Request was rate limited.
       headers:
         Retry-After:
@@ -540,17 +540,59 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/AccessFailedError'
       description: Request failed due to authorization issue.
     UnsupportedMediaType:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/InvalidRequestError'
       description: Unsupported Media Type. The server is refusing to service the request
         because the entity of the request is in a format not supported by the requested
         resource for the requested method.
   schemas:
+    AccessFailedError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Access_Failed_Error_Code'
+        required:
+        - code
+      example:
+        code: ACCESS_FAILED
+        details:
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
     DaVinciVariable:
       example:
         _links:
@@ -1086,9 +1128,30 @@ components:
       - PRODUCTION
       - SANDBOX
       type: string
-    ErrorResponse:
+    ErrorResponseCommon:
+      properties:
+        details:
+          items:
+            $ref: '#/components/schemas/ErrorResponseCommon_details'
+          type: array
+        id:
+          format: UUID
+          type: string
+        message:
+          type: string
+          x-go-generate-error-message: true
+      required:
+      - message
+    InvalidDataError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Invalid_Data_Error_Code'
+        required:
+        - code
       example:
-        code: ACCESS_FAILED
+        code: INVALID_DATA
         details:
         - code: ACCOUNT_NOT_USABLE
           innerError:
@@ -1120,17 +1183,49 @@ components:
           target: target
         id: id
         message: message
-      properties:
-        code:
-          $ref: '#/components/schemas/ErrorResponse_code'
+      x-go-generate-error: true
+    InvalidRequestError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Invalid_Request_Error_Code'
+        required:
+        - code
+      example:
+        code: INVALID_REQUEST
         details:
-          items:
-            $ref: '#/components/schemas/ErrorResponse_details'
-          type: array
-        id:
-          type: string
-        message:
-          type: string
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
     JSONHALLink:
       example:
         profile: https://openapi-generator.tech
@@ -1153,6 +1248,99 @@ components:
           type: string
       required:
       - href
+    NotFoundError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Not_Found_Error_Code'
+        required:
+        - code
+      example:
+        code: NOT_FOUND
+        details:
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
+    RequestFailedError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Request_Failed_Error_Code'
+        required:
+        - code
+      x-go-generate-error: true
+    RequestLimitedError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Request_Limited_Error_Code'
+        required:
+        - code
+      example:
+        code: REQUEST_LIMITED
+        details:
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
     ResourceRelationshipDaVinci:
       example:
         id: id
@@ -1171,6 +1359,96 @@ components:
           type: string
       required:
       - id
+    ServiceError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            title: Service Error Code
+            type: string
+            x-go-generate-error-code: true
+      example:
+        code: code
+        details:
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
+    UnexpectedServiceError:
+      allOf:
+      - $ref: '#/components/schemas/ErrorResponseCommon'
+      - properties:
+          code:
+            $ref: '#/components/schemas/Unexpected_Service_Error_Code'
+        required:
+        - code
+      example:
+        code: UNEXPECTED_ERROR
+        details:
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        - code: ACCOUNT_NOT_USABLE
+          innerError:
+            allowedValues:
+            - ""
+            - ""
+            quotaResetTime: 2000-01-23T04:56:07.000+00:00
+            retryAfter: retryAfter
+            rangeMaximumValue: 1.4658129805029452
+            allowedPattern: allowedPattern
+            maximumValue: 0.8008281904610115
+            quotaLimit: 6.027456183070403
+            rangeMinimumValue: 5.962133916683182
+          message: message
+          target: target
+        id: id
+        message: message
+      x-go-generate-error: true
+    Access_Failed_Error_Code:
+      enum:
+      - ACCESS_FAILED
+      title: Access Failed Error Code
+      type: string
+      x-go-generate-error-code: true
     DaVinci_Variable_Links:
       additionalProperties: true
       example:
@@ -1419,17 +1697,7 @@ components:
       - NA
       title: Environment Region Code
       type: string
-    ErrorResponse_code:
-      enum:
-      - ACCESS_FAILED
-      - INVALID_DATA
-      - INVALID_REQUEST
-      - NOT_FOUND
-      - REQUEST_FAILED
-      - REQUEST_LIMITED
-      - UNEXPECTED_ERROR
-      type: string
-    ErrorResponse_details_code:
+    ErrorResponseCommon_details_code:
       enum:
       - ACCOUNT_NOT_USABLE
       - ACCOUNT_SELECTION_REQUIRED
@@ -1459,7 +1727,7 @@ components:
       - UNIQUENESS_VIOLATION
       - USER_DENIED
       type: string
-    ErrorResponse_details_innerError:
+    ErrorResponseCommon_details_innerError:
       additionalProperties: true
       example:
         allowedValues:
@@ -1491,7 +1759,7 @@ components:
           type: number
         retryAfter:
           type: string
-    ErrorResponse_details:
+    ErrorResponseCommon_details:
       example:
         code: ACCOUNT_NOT_USABLE
         innerError:
@@ -1509,9 +1777,9 @@ components:
         target: target
       properties:
         code:
-          $ref: '#/components/schemas/ErrorResponse_details_code'
+          $ref: '#/components/schemas/ErrorResponseCommon_details_code'
         innerError:
-          $ref: '#/components/schemas/ErrorResponse_details_innerError'
+          $ref: '#/components/schemas/ErrorResponseCommon_details_innerError'
         message:
           type: string
         target:
@@ -1519,6 +1787,54 @@ components:
       required:
       - code
       - message
+    Invalid_Data_Error_Code:
+      enum:
+      - INVALID_DATA
+      title: Invalid Data Error Code
+      type: string
+      x-go-generate-error-code: true
+    Invalid_Request_Error_Code:
+      enum:
+      - INVALID_REQUEST
+      title: Invalid Request Error Code
+      type: string
+      x-go-generate-error-code: true
+    Not_Found_Error_Code:
+      enum:
+      - NOT_FOUND
+      title: Not Found Error Code
+      type: string
+      x-go-generate-error-code: true
+    Request_Failed_Error_Code:
+      enum:
+      - REQUEST_FAILED
+      title: Request Failed Error Code
+      type: string
+      x-go-generate-error-code: true
+    Request_Limited_Error_Code:
+      enum:
+      - REQUEST_LIMITED
+      title: Request Limited Error Code
+      type: string
+      x-go-generate-error-code: true
+    Unexpected_Service_Error_Code:
+      enum:
+      - UNEXPECTED_ERROR
+      title: Unexpected Service Error Code
+      type: string
+      x-go-generate-error-code: true
+    Error_Response_Bad_Request:
+      discriminator:
+        mapping:
+          INVALID_DATA: '#/components/schemas/InvalidDataError'
+          INVALID_REQUEST: '#/components/schemas/InvalidRequestError'
+          REQUEST_FAILED: '#/components/schemas/RequestFailedError'
+        propertyName: code
+      oneOf:
+      - $ref: '#/components/schemas/InvalidDataError'
+      - $ref: '#/components/schemas/InvalidRequestError'
+      - $ref: '#/components/schemas/RequestFailedError'
+      title: Error Response Bad Request
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

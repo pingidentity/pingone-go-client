@@ -205,14 +205,14 @@ For example:
 ```go
 variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
 if err != nil {
-    var notFoundErr *pingone.NotFoundError
+    var notFoundErr pingone.NotFoundError
     if errors.As(err, &notFoundErr) {
         slog.Error("The variable was not found", "error", notFoundErr)
             
         // Enter "not found" specific logic using detail attributes from the `pingone.NotFoundError` model
     }
 
-    var invalidRequestErr *pingone.InvalidRequestError
+    var invalidRequestErr pingone.InvalidRequestError
     if errors.As(err, &invalidRequestErr) {
         slog.Error("The API request was invalid", "error", invalidRequestErr)
 
