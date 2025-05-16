@@ -46,7 +46,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-15T14-17-00
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-16T12-49-38
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -724,6 +724,33 @@ func formatErrorMessage(status string, v interface{}) string {
 	}
 
 	return strings.TrimSpace(fmt.Sprintf("%s %s", status, str))
+}
+
+type oneOfErrorIntf interface {
+	GetActualInstanceValue() interface{}
+}
+
+func getErrorObject(v interface{}) error {
+	if v == nil {
+		return nil
+	}
+
+	if reflect.TypeOf(v).Kind() == reflect.Ptr {
+		v = reflect.ValueOf(v).Elem().Interface()
+	}
+
+	if actualObj, ok := v.(oneOfErrorIntf); ok {
+		// we have a oneOf schema
+		if err := actualObj.GetActualInstanceValue(); err != nil {
+			v = err
+		}
+	}
+
+	if err, ok := v.(error); ok && err != nil {
+		return err
+	}
+
+	return fmt.Errorf("Unknown error type %T", v)
 }
 
 func logDeprecationHeaders(httpHeaders http.Header, localVarPath, localVarHTTPMethod string) {
