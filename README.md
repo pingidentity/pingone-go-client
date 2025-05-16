@@ -107,44 +107,32 @@ Using slog is recommended, as request and response models implement the [`LogVal
 Use of slog is shown in this example:
 
 ```go
-package main
-
-import (
-    "context"
-    "log/slog"
-    "os"
-
-    "github.com/pingidentity/pingone-go-client/pingone"
-)
-
-func main() {
-    opts := &slog.HandlerOptions{
-        Level:     slog.LevelDebug,
-        AddSource: true,
-    }
-
-    logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
-    slog.SetDefault(logger)
-
-    cfg := pingone.NewConfiguration(nil)
-    client, err := pingone.NewAPIClient(cfg)
-    if err != nil {
-        slog.Error("Failed to create client", "error", err)
-    }
-
-    variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
-    if err != nil {
-        slog.Error("Failed to read variable", "error", err)
-        os.Exit(1)
-    }
-
-    if httpResp.StatusCode != 200 {
-        slog.Error("Failed to read variable", "http response status", httpResp.Status)
-        os.Exit(1)
-    }
-
-    slog.Debug("Variable successfully read", "variable", variable)
+opts := &slog.HandlerOptions{
+    Level:     slog.LevelDebug,
+    AddSource: true,
 }
+
+logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
+slog.SetDefault(logger)
+
+cfg := pingone.NewConfiguration(nil)
+client, err := pingone.NewAPIClient(cfg)
+if err != nil {
+    slog.Error("Failed to create client", "error", err)
+}
+
+variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+if err != nil {
+    slog.Error("Failed to read variable", "error", err)
+    os.Exit(1)
+}
+
+if httpResp.StatusCode != 200 {
+    slog.Error("Failed to read variable", "http response status", httpResp.Status)
+    os.Exit(1)
+}
+
+slog.Debug("Variable successfully read", "variable", variable)
 ```
 
 ## Pagination
@@ -154,65 +142,39 @@ This Go client uses the standard [`iter` package](https://pkg.go.dev/iter) intro
 For example:
 
 ```go
-package main
+pagedIterator := client.DaVinciVariableApi.GetVariables(context.Background(), environmentId).Execute()
 
-import (
-    "context"
-    "log/slog"
-    "os"
+// Set counters for the purpose of demonstration in log output
+pagesProcessed := 0
+variablesRead := 0
 
-    "github.com/pingidentity/pingone-go-client/pingone"
-)
-
-func main() {
-    opts := &slog.HandlerOptions{
-        Level:     slog.LevelDebug,
-        AddSource: true,
-    }
-
-    logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
-    slog.SetDefault(logger)
-
-    cfg := pingone.NewConfiguration(nil)
-    client, err := pingone.NewAPIClient(cfg)
+// Iterate over the pages
+for pageCursor, err := range pagedIterator {
+    pageNumber := pagesProcessed+1
     if err != nil {
-        slog.Error("Failed to create client", "error", err)
+        slog.Error("Failed to read variables", "error", err, "page number", pageNumber)
+        break
     }
 
-    pagedIterator := client.DaVinciVariableApi.GetVariables(context.Background(), environmentId).Execute()
-
-    // Set counters for the purpose of demonstration in log output
-    pagesProcessed := 0
-    variablesRead := 0
-
-    // Iterate over the pages
-    for pageCursor, err := range pagedIterator {
-        pageNumber := pagesProcessed+1
-        if err != nil {
-            slog.Error("Failed to read variables", "error", err, "page number", pageNumber)
-            break
-        }
-
-        if pageCursor.HTTPResponse.StatusCode != 200 {
-            slog.Error("Failed to read variables", "http response status", pageCursor.HTTPResponse.Status, "page number", pageNumber)
-            break
-        }
+    if pageCursor.HTTPResponse.StatusCode != 200 {
+        slog.Error("Failed to read variables", "http response status", pageCursor.HTTPResponse.Status, "page number", pageNumber)
+        break
+    }
         
-        slog.Debug("Processing page of results", "page number", pageNumber)
+    slog.Debug("Processing page of results", "page number", pageNumber)
 
-        // Iterate over the variables in the page's collection
-        if variables, ok := pageCursor.Variables.Embedded.GetVariablesOk(); ok {
-            for _, variable := range variables {
-                slog.Debug("Variable successfully read", "variable", variable, "page number", pageNumber)
-                variablesRead++
-            }
+    // Iterate over the variables in the page's collection
+    if variables, ok := pageCursor.Variables.Embedded.GetVariablesOk(); ok {
+        for _, variable := range variables {
+            slog.Debug("Variable successfully read", "variable", variable, "page number", pageNumber)
+            variablesRead++
         }
-
-        pagesProcessed++
     }
-    
-    slog.Info("All variables over all pages have been read", "pages processed", pagesProcessed, "variables read", variablesRead)
+
+    pagesProcessed++
 }
+    
+slog.Info("All variables over all pages have been read", "pages processed", pagesProcessed, "variables read", variablesRead)
 ```
 
 ## Error Handling
@@ -222,44 +184,26 @@ When service errors are returned from the Go SDK, custom error types are returne
 For example:
 
 ```go
-package main
+variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+if err != nil {
+    slog.Error("Failed to read variable", "error", err)
 
-import (
-    "context"
-    "errors"
-    "log/slog"
-
-    "github.com/pingidentity/pingone-go-client/pingone"
-)
-
-func main() {
-    cfg := pingone.NewConfiguration(nil)
-    client, err := pingone.NewAPIClient(cfg)
-    if err != nil {
-        slog.Error("Failed to create client", "error", err)
-    }
-
-    variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
-    if err != nil {
-        slog.Error("Failed to read variable", "error", err)
-
-        var notFoundErr *pingone.NotFoundError
-        if errors.As(err, &notFoundErr) {
-            slog.Error("The variable was not found", "error", notFoundErr)
+    var notFoundErr *pingone.NotFoundError
+    if errors.As(err, &notFoundErr) {
+        slog.Error("The variable was not found", "error", notFoundErr)
             
-            // Enter "not found" specific logic using detail attributes from the `pingone.NotFoundError` model
-        }
-
-        var invalidRequestErr *pingone.InvalidRequestError
-        if errors.As(err, &invalidRequestErr) {
-            slog.Error("The API request was invalid", "error", invalidRequestErr)
-
-            // Enter "invalid request" specific logic using detail attributes from the `pingone.InvalidRequestError` model
-        }
-
-        slog.Error("An error has occurred", "error", err)
-        // Enter general error handling logic
+        // Enter "not found" specific logic using detail attributes from the `pingone.NotFoundError` model
     }
+
+    var invalidRequestErr *pingone.InvalidRequestError
+    if errors.As(err, &invalidRequestErr) {
+        slog.Error("The API request was invalid", "error", invalidRequestErr)
+
+        // Enter "invalid request" specific logic using detail attributes from the `pingone.InvalidRequestError` model
+    }
+
+    slog.Error("An error has occurred", "error", err)
+    // Enter general error handling logic
 }
 ```
 
