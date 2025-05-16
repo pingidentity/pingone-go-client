@@ -186,8 +186,6 @@ For example:
 ```go
 variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
 if err != nil {
-    slog.Error("Failed to read variable", "error", err)
-
     var notFoundErr *pingone.NotFoundError
     if errors.As(err, &notFoundErr) {
         slog.Error("The variable was not found", "error", notFoundErr)
