@@ -181,32 +181,37 @@ func main() {
 
     pagedIterator := client.DaVinciVariableApi.GetVariables(context.Background(), environmentId).Execute()
 
+    // Set counters for the purpose of demonstration in log output
+    pagesProcessed := 0
+    variablesRead := 0
+
     // Iterate over the pages
-    pageNumber := 1
     for pageCursor, err := range pagedIterator {
+        pageNumber := pagesProcessed+1
         if err != nil {
-            slog.Error("Failed to read variables", "error", err)
+            slog.Error("Failed to read variables", "error", err, "page number", pageNumber)
             break
         }
 
         if pageCursor.HTTPResponse.StatusCode != 200 {
-            slog.Error("Failed to read variables", "http response status", pageCursor.HTTPResponse.Status)
+            slog.Error("Failed to read variables", "http response status", pageCursor.HTTPResponse.Status, "page number", pageNumber)
             break
         }
         
-        slog.Debug("Processing page of results", "page", pageNumber)
+        slog.Debug("Processing page of results", "page number", pageNumber)
 
         // Iterate over the variables in the page's collection
         if variables, ok := pageCursor.Variables.Embedded.GetVariablesOk(); ok {
             for _, variable := range variables {
-                slog.Debug("Variable successfully read", "variable", variable)
+                slog.Debug("Variable successfully read", "variable", variable, "page number", pageNumber)
+                variablesRead++
             }
         }
 
-        pageNumber++
+        pagesProcessed++
     }
     
-    slog.Info("All variables over all pages have been read", "pages read", pageNumber)
+    slog.Info("All variables over all pages have been read", "pages processed", pagesProcessed, "variables read", variablesRead)
 }
 ```
 
