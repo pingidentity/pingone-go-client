@@ -44,7 +44,7 @@ func main() {
 }
 ```
 
-If a custom domain has been configured in the environment, the custom domain can be applied during client initialisation.
+If a custom domain has been configured in the environment, the custom domain can be applied during client initialisation instead of the environment ID and root domain (or top level domain).
 
 For example:
 
