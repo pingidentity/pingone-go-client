@@ -26,11 +26,13 @@ import (
     "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
+	"github.com/pingidentity/pingone-go-client/oauth2"
     "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     serviceCfg := config.NewConfiguration()
+    serviceCfg.WithGrantType(oauth2.GrantTypeClientCredentials)
     serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
     serviceCfg.WithClientSecret("***************")
     serviceCfg.WithAuthEnvironmentID("5dfe1e9f-95ce-43ed-b3c6-6f2f0a35ede5")
@@ -55,11 +57,13 @@ import (
     "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
+	"github.com/pingidentity/pingone-go-client/oauth2"
     "github.com/pingidentity/pingone-go-client/pingone"
 )
 
 func main() {
     serviceCfg := config.NewConfiguration()
+    serviceCfg.WithGrantType(oauth2.GrantTypeClientCredentials)
     serviceCfg.WithClientID("595bdcd8-4e58-4094-ad19-132ee12d43f8")
     serviceCfg.WithClientSecret("***************")
     serviceCfg.WithCustomDomain("auth.bxretail.org")
