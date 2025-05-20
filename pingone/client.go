@@ -19,6 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"iter"
 	"log/slog"
 	"math"
 	"math/big"
@@ -46,7 +47,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-16T12-49-38
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-16T13-22-25
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -59,7 +60,7 @@ type APIClient struct {
 	EnvironmentApi *EnvironmentApiService
 
 	// Static APIs
-	// HALApi *HALApiService
+	// LinkApi *LinkApiService
 }
 
 type service struct {
@@ -126,7 +127,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.EnvironmentApi = (*EnvironmentApiService)(&c.common)
 
 	// Static APIs
-	// c.HALApi = (*HALApiService)(&c.common)
+	// c.LinkApi = (*LinkApiService)(&c.common)
 
 	return c, nil
 }
@@ -770,6 +771,117 @@ func logDeprecationHeaders(httpHeaders http.Header, localVarPath, localVarHTTPMe
 			}
 		}
 	}
+}
+
+// Paging
+type PagedCursor[T MappedNullable] struct {
+	Data         *T
+	HTTPResponse *http.Response
+}
+
+type PagedIterator[T MappedNullable] iter.Seq2[PagedCursor[T], error]
+
+func paginationIterator[T MappedNullable](initialPageAPIFunc func() (*T, *http.Response, error), pageByLinkAPIFunc func(link JSONHALLink) (*T, *http.Response, error)) PagedIterator[T] {
+	var err error
+	return func(yield func(PagedCursor[T], error) bool) {
+
+		initialCursor := PagedCursor[T]{}
+		initialCursor.Data, initialCursor.HTTPResponse, err = initialPageAPIFunc()
+
+		if !yield(initialCursor, err) {
+			return
+		}
+
+		paginationNextLink, err := parsePagination(*initialCursor.Data)
+		if err != nil {
+			if !yield(initialCursor, err) {
+				return
+			}
+		}
+
+		for paginationNextLink != nil {
+			loopCursor := PagedCursor[T]{}
+
+			var halResponse interface{}
+			halResponse, loopCursor.HTTPResponse, err = pageByLinkAPIFunc(*paginationNextLink)
+			if err != nil {
+				if !yield(loopCursor, err) {
+					return
+				}
+				break
+			}
+
+			bytes, err := json.Marshal(halResponse)
+			if err != nil {
+				if !yield(loopCursor, err) {
+					return
+				}
+				break
+			}
+
+			err = json.Unmarshal(bytes, &loopCursor.Data)
+			if err != nil {
+				if !yield(loopCursor, err) {
+					return
+				}
+				break
+			}
+
+			if loopCursor.Data == nil {
+				if !yield(loopCursor, fmt.Errorf("Paged results unexpectedly nil")) {
+					return
+				}
+				break
+			}
+
+			paginationNextLink, err = parsePagination(*loopCursor.Data)
+			if err != nil {
+				if !yield(loopCursor, err) {
+					return
+				}
+			}
+
+			if !yield(loopCursor, nil) {
+				return
+			}
+		}
+	}
+}
+
+func parsePagination[T MappedNullable](response T) (*JSONHALLink, error) {
+	responseMap, err := response.ToMap()
+	if err != nil {
+		return nil, err
+	}
+
+	// Check if the response has a "_links" field
+	if links, ok := responseMap["_links"]; ok {
+		if linksObj, ok := links.(MappedNullable); ok {
+			linksMap, err := linksObj.ToMap()
+			if err != nil {
+				return nil, err
+			}
+
+			if nextLink, ok := linksMap["next"]; ok {
+				switch v := nextLink.(type) {
+				case JSONHALLink:
+					slog.Debug("Type JSONHALLink")
+					return &v, nil
+				case *JSONHALLink:
+					slog.Debug("Type *JSONHALLink")
+					return v, nil
+				default:
+					slog.Error("Unknown type for next link", "type", reflect.TypeOf(v))
+					return nil, fmt.Errorf("Unknown links type")
+				}
+			} else {
+				// Next not found, at the end of the pages (or no pages)
+				return nil, nil
+			}
+		}
+	}
+
+	return nil, fmt.Errorf("Links object not found in response, but expected for pagination")
 }
 
 // Retrying requests

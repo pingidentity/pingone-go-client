@@ -8,6 +8,9 @@ docs/AccessFailedError.md
 docs/AccessFailedErrorCode.md
 docs/DaVinciVariable.md
 docs/DaVinciVariableApi.md
+docs/DaVinciVariableCollection.md
+docs/DaVinciVariableCollectionEmbedded.md
+docs/DaVinciVariableCollectionLinks.md
 docs/DaVinciVariableCreateRequest.md
 docs/DaVinciVariableCreateRequestContext.md
 docs/DaVinciVariableCreateRequestDataType.md
@@ -65,6 +68,9 @@ docs/UnexpectedServiceErrorCode.md
 model_access_failed_error.go
 model_access_failed_error_code.go
 model_da_vinci_variable.go
+model_da_vinci_variable_collection.go
+model_da_vinci_variable_collection__embedded.go
+model_da_vinci_variable_collection__links.go
 model_da_vinci_variable_create_request.go
 model_da_vinci_variable_create_request_context.go
 model_da_vinci_variable_create_request_data_type.go
