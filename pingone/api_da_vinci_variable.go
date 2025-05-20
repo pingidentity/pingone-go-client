@@ -14,6 +14,7 @@ import (
 	"bytes"
 	"context"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"strings"
@@ -482,6 +483,251 @@ func (a *DaVinciVariableApiService) GetVariableByIdExecute(r ApiGetVariableByIdR
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &APIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponseBadRequest
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v AccessFailedError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v AccessFailedError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+		}
+		if localVarHTTPResponse.StatusCode == 415 {
+			var v InvalidRequestError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v UnexpectedServiceError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &APIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetVariablesRequest struct {
+	ctx                        context.Context
+	ApiService                 *DaVinciVariableApiService
+	environmentID              uuid.UUID
+	limit                      *int32
+	cursor                     *string
+	filter                     *string
+	xPingExternalTransactionID *string
+	xPingExternalSessionID     *string
+}
+
+func (r ApiGetVariablesRequest) Limit(limit int32) ApiGetVariablesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiGetVariablesRequest) Cursor(cursor string) ApiGetVariablesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r ApiGetVariablesRequest) Filter(filter string) ApiGetVariablesRequest {
+	r.filter = &filter
+	return r
+}
+
+// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
+func (r ApiGetVariablesRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetVariablesRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
+	return r
+}
+
+// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
+func (r ApiGetVariablesRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetVariablesRequest {
+	r.xPingExternalSessionID = &xPingExternalSessionID
+	return r
+}
+
+func (r ApiGetVariablesRequest) Execute() PagedIterator[DaVinciVariableCollection] {
+	return r.ApiService.GetVariablesExecute(r)
+}
+
+func (r ApiGetVariablesRequest) ExecuteInitialPage() (*DaVinciVariableCollection, *http.Response, error) {
+	return r.ApiService.GetVariablesExecutePage(r, nil)
+}
+
+func (r ApiGetVariablesRequest) executePageByLink(link JSONHALLink) (*DaVinciVariableCollection, *http.Response, error) {
+	return r.ApiService.GetVariablesExecutePage(r, &link)
+}
+
+/*
+GetVariables _TO_BE_DEFINED_
+
+_TO_BE_DEFINED_
+
+	@permission davinci:read:constructs
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentID An environment's unique identifier in UUID format.
+	@return ApiGetVariablesRequest
+*/
+func (a *DaVinciVariableApiService) GetVariables(ctx context.Context, environmentID uuid.UUID) ApiGetVariablesRequest {
+	return ApiGetVariablesRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		environmentID: environmentID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DaVinciVariableCollection
+func (a *DaVinciVariableApiService) GetVariablesExecute(r ApiGetVariablesRequest) PagedIterator[DaVinciVariableCollection] {
+	return paginationIterator(r.ExecuteInitialPage, r.executePageByLink)
+}
+
+// Execute executes the request (returning the initial page of the paged response only)
+//
+//	@return DaVinciVariableCollection
+func (a *DaVinciVariableApiService) GetVariablesExecutePage(r ApiGetVariablesRequest, link *JSONHALLink) (*DaVinciVariableCollection, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DaVinciVariableCollection
+	)
+
+	var linkUrl *url.URL
+	if link != nil {
+		var err error
+		linkUrl, err = url.Parse(link.Href)
+		if err != nil {
+			return localVarReturnValue, nil, &APIError{error: err.Error()}
+		}
+	}
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariableApiService.GetVariables")
+	if err != nil {
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/environments/{environmentID}/variables"
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 10
+		r.limit = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.filter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+	}
+
+	// overwrite query params with link URL query params if provided
+	if linkUrl != nil {
+		localVarQueryParams = linkUrl.Query()
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
+	}
+	if r.xPingExternalSessionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	if linkUrl != nil && linkUrl.Host != req.Host {
+		slog.Error("link host does not match expected host", "expected host", req.Host, "provided link host", linkUrl.Host)
+		return localVarReturnValue, nil, reportError("link host does not match expected host")
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)

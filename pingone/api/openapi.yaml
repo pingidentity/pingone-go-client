@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-16T12-49-38
+  version: development-2025-05-16T13-22-25
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -280,6 +280,65 @@ paths:
       x-service-name: api
       x-permission: orgmgt:update:environment
   /environments/{environmentID}/variables:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getVariables
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          format: int32
+          maximum: 500
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciVariableCollection'
+          description: "Collection of variables successfully returned. If no variables\
+            \ are present, the collection may be empty."
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          $ref: '#/components/responses/Forbidden'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Variable
+      x-permission: davinci:read:constructs
+      x-public-api: api
+      x-service-name: api
+      x-pingidentity-paginatedresponse: true
     post:
       description: "Creates a new DaVinci variable resource. You must specify a `name`,\
         \ `dataType`, and `context` for the variable."
@@ -661,6 +720,101 @@ components:
       - environment
       - id
       - name
+    DaVinciVariableCollection:
+      example:
+        size: 5.962133916683182
+        _embedded:
+          variables:
+          - _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            max: 0.8008281904610115
+            displayName: displayName
+            dataType: array
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            min: 6.027456183070403
+            context: context
+            mutable: true
+            name: name
+            id: id
+            value: true
+            flow:
+              id: id
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            max: 0.8008281904610115
+            displayName: displayName
+            dataType: array
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            min: 6.027456183070403
+            context: context
+            mutable: true
+            name: name
+            id: id
+            value: true
+            flow:
+              id: id
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          next:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        count: 1.4658129805029452
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinciVariableCollection__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinciVariableCollection__links'
+        count:
+          type: number
+        size:
+          type: number
+      required:
+      - _embedded
+      - _links
+      - count
+      - size
     DaVinciVariableCreateRequest:
       additionalProperties: true
       example:
@@ -1498,6 +1652,103 @@ components:
       - type: object
       - type: string
       title: DaVinci Variable Value
+    DaVinciVariableCollection__embedded:
+      example:
+        variables:
+        - _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          max: 0.8008281904610115
+          displayName: displayName
+          dataType: array
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          min: 6.027456183070403
+          context: context
+          mutable: true
+          name: name
+          id: id
+          value: true
+          flow:
+            id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          max: 0.8008281904610115
+          displayName: displayName
+          dataType: array
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          min: 6.027456183070403
+          context: context
+          mutable: true
+          name: name
+          id: id
+          value: true
+          flow:
+            id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        variables:
+          items:
+            $ref: '#/components/schemas/DaVinciVariable'
+          type: array
+      required:
+      - variables
+    DaVinciVariableCollection__links:
+      additionalProperties: true
+      example:
+        next:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        next:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
     DaVinci_Variable_Create_Request_Context:
       enum:
       - company

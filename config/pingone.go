@@ -51,6 +51,11 @@ func (c *Configuration) WithClientID(clientID string) *Configuration {
 	return c
 }
 
+func (c *Configuration) WithGrantType(grantType svcOAuth2.GrantType) *Configuration {
+	c.Auth.GrantType = &grantType
+	return c
+}
+
 func (c *Configuration) WithClientSecret(clientSecret string) *Configuration {
 	c.Auth.ClientSecret = &clientSecret
 	return c

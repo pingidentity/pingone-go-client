@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateVariable**](DaVinciVariableApi.md#CreateVariable) | **Post** /environments/{environmentID}/variables | Create DaVinci Variable
 [**DeleteVariableById**](DaVinciVariableApi.md#DeleteVariableById) | **Delete** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
 [**GetVariableById**](DaVinciVariableApi.md#GetVariableById) | **Get** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
+[**GetVariables**](DaVinciVariableApi.md#GetVariables) | **Get** /environments/{environmentID}/variables | _TO_BE_DEFINED_
 [**ReplaceVariableById**](DaVinciVariableApi.md#ReplaceVariableById) | **Put** /environments/{environmentID}/variables/{variableID} | _TO_BE_DEFINED_
 
 
@@ -242,6 +243,138 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DaVinciVariable**](DaVinciVariable.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetVariables
+
+_TO_BE_DEFINED_
+
+
+
+### Paged Response (Recommended)
+
+> PagedIterator[DaVinciVariableCollection] GetVariables(ctx, environmentID).Limit(limit).Cursor(cursor).Filter(filter).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
+	limit := int32(56) // int32 |  (optional) (default to 10)
+	cursor := "cursor_example" // string |  (optional)
+	filter := "filter_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	pagedIterator := apiClient.DaVinciVariableApi.GetVariables(context.Background(), environmentID).Limit(limit).Cursor(cursor).Filter(filter).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+	for pageCursor, err := range pagedIterator {
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error when calling `DaVinciVariableApi.GetVariables``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", pageCursor.HTTPResponse)
+		}
+
+		// response from `GetVariables` page iteration: DaVinciVariableCollection
+		fmt.Fprintf(os.Stdout, "Response from `DaVinciVariableApi.GetVariables` page iteration: %v\n", pageCursor.Data)
+	}
+}
+```
+
+### Initial Page Response
+
+> DaVinciVariableCollection GetVariables(ctx, environmentID).Limit(limit).Cursor(cursor).Filter(filter).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
+	limit := int32(56) // int32 |  (optional) (default to 10)
+	cursor := "cursor_example" // string |  (optional)
+	filter := "filter_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciVariableApi.GetVariables(context.Background(), environmentID).Limit(limit).Cursor(cursor).Filter(filter).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciVariableApi.GetVariables``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetVariables`: DaVinciVariableCollection
+	fmt.Fprintf(os.Stdout, "Response from `DaVinciVariableApi.GetVariables`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `davinci:read:constructs`
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVariablesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **int32** |  | [default to 10]
+ **cursor** | **string** |  | 
+ **filter** | **string** |  | 
+ **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
+ **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+
+### Return type
+
+Page Iterator: PagedIterator[[**DaVinciVariableCollection**](DaVinciVariableCollection.md)]
+
+PagedIterator[DaVinciVariableCollection] is a struct alias for iter.Seq2[[PagedCursor](PagedCursor.md)[[**DaVinciVariableCollection**](DaVinciVariableCollection.md)], error] using the standard `iter` package in go `1.23`.
+
+Page Data: [**DaVinciVariableCollection**](DaVinciVariableCollection.md)
 
 ### Authorization
 

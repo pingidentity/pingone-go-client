@@ -183,7 +183,7 @@ for pageCursor, err := range pagedIterator {
     slog.Debug("Processing page of results", "page number", pageNumber)
 
     // Iterate over the variables in the page's collection
-    if variables, ok := pageCursor.Variables.Embedded.GetVariablesOk(); ok {
+    if variables, ok := pageCursor.Data.Embedded.GetVariablesOk(); ok {
         for _, variable := range variables {
             slog.Debug("Variable successfully read", "variable", variable, "page number", pageNumber)
             variablesRead++

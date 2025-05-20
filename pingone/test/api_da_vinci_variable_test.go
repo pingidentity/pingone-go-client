@@ -99,7 +99,7 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableNeverFo
 
 	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
 	acctest.CheckNotFound(s.T(), resp, httpRes, err)
-	acctest.CheckPingOneAPIErrorResponse(s.T(), err, pingone.ERRORRESPONSECODE_NOT_FOUND, regexp.MustCompile("The requested resource was not found"))
+	acctest.CheckPingOneAPIErrorResponse(s.T(), err, pingone.NotFoundError{}, regexp.MustCompile("The requested resource was not found"))
 }
 
 func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLifecycle() {
