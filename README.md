@@ -26,7 +26,7 @@ import (
     "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
-	"github.com/pingidentity/pingone-go-client/oauth2"
+    "github.com/pingidentity/pingone-go-client/oauth2"
     "github.com/pingidentity/pingone-go-client/pingone"
 )
 
@@ -57,7 +57,7 @@ import (
     "log/slog"
 
     "github.com/pingidentity/pingone-go-client/config"
-	"github.com/pingidentity/pingone-go-client/oauth2"
+    "github.com/pingidentity/pingone-go-client/oauth2"
     "github.com/pingidentity/pingone-go-client/pingone"
 )
 
@@ -234,4 +234,4 @@ if err != nil {
 * **pingone** - The main client SDK. [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/pingone)
 * **oauth2** - Methods used in gaining OAuth2 access tokens. [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/oauth2)
 * **oidc** - Methods used in gaining OpenID Connect tokens. [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/oidc)
-* **acctest** - Methods used to structure project testing with PingOne services. [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/acctest)
+* **testframework** - Methods used to structure project testing with PingOne services. [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/testframework)
