@@ -19,6 +19,9 @@ import (
 // checks if the DaVinciVariableCollectionEmbedded type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DaVinciVariableCollectionEmbedded{}
 
+// checks if the DaVinciVariableCollectionEmbedded type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciVariableCollectionEmbedded{}
+
 // DaVinciVariableCollectionEmbedded struct for DaVinciVariableCollectionEmbedded
 type DaVinciVariableCollectionEmbedded struct {
 	Variables            []DaVinciVariable `json:"variables"`

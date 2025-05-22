@@ -19,6 +19,9 @@ import (
 // checks if the EnvironmentCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentCreateRequest{}
 
+// checks if the EnvironmentCreateRequest type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentCreateRequest{}
+
 // EnvironmentCreateRequest struct for EnvironmentCreateRequest
 type EnvironmentCreateRequest struct {
 	Description          *string                                  `json:"description,omitempty"`

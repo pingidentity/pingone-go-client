@@ -22,6 +22,9 @@ import (
 // checks if the InvalidDataError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InvalidDataError{}
 
+// checks if the InvalidDataError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &InvalidDataError{}
+
 // InvalidDataError struct for InvalidDataError
 type InvalidDataError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

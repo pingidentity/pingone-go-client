@@ -22,6 +22,9 @@ import (
 // checks if the ServiceError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ServiceError{}
 
+// checks if the ServiceError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &ServiceError{}
+
 // ServiceError struct for ServiceError
 type ServiceError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

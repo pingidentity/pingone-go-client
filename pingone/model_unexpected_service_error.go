@@ -22,6 +22,9 @@ import (
 // checks if the UnexpectedServiceError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UnexpectedServiceError{}
 
+// checks if the UnexpectedServiceError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &UnexpectedServiceError{}
+
 // UnexpectedServiceError struct for UnexpectedServiceError
 type UnexpectedServiceError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

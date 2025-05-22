@@ -20,6 +20,9 @@ import (
 // checks if the EnvironmentBillOfMaterials type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterials{}
 
+// checks if the EnvironmentBillOfMaterials type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterials{}
+
 // EnvironmentBillOfMaterials struct for EnvironmentBillOfMaterials
 type EnvironmentBillOfMaterials struct {
 	Products             []EnvironmentBillOfMaterialsProduct     `json:"products"`

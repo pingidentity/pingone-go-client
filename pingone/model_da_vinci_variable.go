@@ -22,6 +22,9 @@ import (
 // checks if the DaVinciVariable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DaVinciVariable{}
 
+// checks if the DaVinciVariable type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciVariable{}
+
 // DaVinciVariable struct for DaVinciVariable
 type DaVinciVariable struct {
 	Links                DaVinciVariableLinks         `json:"_links"`

@@ -19,6 +19,9 @@ import (
 // checks if the ErrorResponseCommonDetailsInnerError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ErrorResponseCommonDetailsInnerError{}
 
+// checks if the ErrorResponseCommonDetailsInnerError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &ErrorResponseCommonDetailsInnerError{}
+
 // ErrorResponseCommonDetailsInnerError struct for ErrorResponseCommonDetailsInnerError
 type ErrorResponseCommonDetailsInnerError struct {
 	AllowedPattern       *string       `json:"allowedPattern,omitempty"`

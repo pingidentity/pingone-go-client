@@ -18,6 +18,9 @@ import (
 // checks if the EnvironmentBillOfMaterialsProductDeployment type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterialsProductDeployment{}
 
+// checks if the EnvironmentBillOfMaterialsProductDeployment type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterialsProductDeployment{}
+
 // EnvironmentBillOfMaterialsProductDeployment struct for EnvironmentBillOfMaterialsProductDeployment
 type EnvironmentBillOfMaterialsProductDeployment struct {
 	Id                   *string `json:"id,omitempty"`

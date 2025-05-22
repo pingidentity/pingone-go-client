@@ -22,6 +22,9 @@ import (
 // checks if the InvalidRequestError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InvalidRequestError{}
 
+// checks if the InvalidRequestError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &InvalidRequestError{}
+
 // InvalidRequestError struct for InvalidRequestError
 type InvalidRequestError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

@@ -21,6 +21,9 @@ import (
 // checks if the ErrorResponseCommon type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ErrorResponseCommon{}
 
+// checks if the ErrorResponseCommon type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &ErrorResponseCommon{}
+
 // ErrorResponseCommon struct for ErrorResponseCommon
 type ErrorResponseCommon struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

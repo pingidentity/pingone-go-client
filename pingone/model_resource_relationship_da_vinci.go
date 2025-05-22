@@ -19,6 +19,9 @@ import (
 // checks if the ResourceRelationshipDaVinci type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceRelationshipDaVinci{}
 
+// checks if the ResourceRelationshipDaVinci type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &ResourceRelationshipDaVinci{}
+
 // ResourceRelationshipDaVinci struct for ResourceRelationshipDaVinci
 type ResourceRelationshipDaVinci struct {
 	Id                   string `json:"id" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`

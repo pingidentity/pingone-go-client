@@ -21,6 +21,9 @@ import (
 // checks if the ResourceRelationshipPingOne type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceRelationshipPingOne{}
 
+// checks if the ResourceRelationshipPingOne type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &ResourceRelationshipPingOne{}
+
 // ResourceRelationshipPingOne struct for ResourceRelationshipPingOne
 type ResourceRelationshipPingOne struct {
 	Id                   uuid.UUID `json:"id"`

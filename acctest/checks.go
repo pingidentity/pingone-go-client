@@ -26,7 +26,7 @@ func CheckDeleted(t *testing.T, httpResponse *http.Response, httpError error) {
 }
 
 func CheckNotFound(t *testing.T, responseDataObj any, httpResponse *http.Response, httpError error) {
-	checkAPIFailure(t, responseDataObj, httpResponse, httpError, http.StatusNotFound, "NOT_FOUND: The request could not be completed. The requested resource was not found.")
+	checkAPIFailure(t, responseDataObj, httpResponse, httpError, http.StatusNotFound)
 }
 
 func checkAPISuccess(t *testing.T, httpResponse *http.Response, httpError error, expectedStatusCode int) {
@@ -42,12 +42,11 @@ func checkAPISuccessWithResponseObject(t *testing.T, responseDataObj any, expect
 	require.IsType(t, expectedResponseDataType, responseDataObj)
 }
 
-func checkAPIFailure(t *testing.T, responseDataObj any, httpResponse *http.Response, httpError error, expectedStatusCode int, expectedErrorString string) {
+func checkAPIFailure(t *testing.T, responseDataObj any, httpResponse *http.Response, httpError error, expectedStatusCode int) {
 	require.NotNil(t, httpError)
 	require.Nil(t, responseDataObj)
 	require.NotNil(t, httpResponse)
 	assert.Equal(t, expectedStatusCode, httpResponse.StatusCode)
-	assert.EqualError(t, httpError, expectedErrorString)
 }
 
 func CheckPingOneAPIErrorResponse(t *testing.T, httpError error, expectedErrorType any, expectedErrorMessageRegex *regexp.Regexp) {

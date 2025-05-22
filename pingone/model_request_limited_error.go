@@ -22,6 +22,9 @@ import (
 // checks if the RequestLimitedError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RequestLimitedError{}
 
+// checks if the RequestLimitedError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &RequestLimitedError{}
+
 // RequestLimitedError struct for RequestLimitedError
 type RequestLimitedError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

@@ -19,6 +19,9 @@ import (
 // checks if the EnvironmentCommon type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentCommon{}
 
+// checks if the EnvironmentCommon type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentCommon{}
+
 // EnvironmentCommon struct for EnvironmentCommon
 type EnvironmentCommon struct {
 	Description          *string                     `json:"description,omitempty"`

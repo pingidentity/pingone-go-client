@@ -22,6 +22,9 @@ import (
 // checks if the NotFoundError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NotFoundError{}
 
+// checks if the NotFoundError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &NotFoundError{}
+
 // NotFoundError struct for NotFoundError
 type NotFoundError struct {
 	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`

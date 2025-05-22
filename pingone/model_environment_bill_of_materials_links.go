@@ -18,6 +18,9 @@ import (
 // checks if the EnvironmentBillOfMaterialsLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterialsLinks{}
 
+// checks if the EnvironmentBillOfMaterialsLinks type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterialsLinks{}
+
 // EnvironmentBillOfMaterialsLinks struct for EnvironmentBillOfMaterialsLinks
 type EnvironmentBillOfMaterialsLinks struct {
 	Environment          *JSONHALLink `json:"environment,omitempty"`

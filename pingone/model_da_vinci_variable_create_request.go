@@ -19,6 +19,9 @@ import (
 // checks if the DaVinciVariableCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DaVinciVariableCreateRequest{}
 
+// checks if the DaVinciVariableCreateRequest type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciVariableCreateRequest{}
+
 // DaVinciVariableCreateRequest struct for DaVinciVariableCreateRequest
 type DaVinciVariableCreateRequest struct {
 	Context              DaVinciVariableCreateRequestContext  `json:"context"`

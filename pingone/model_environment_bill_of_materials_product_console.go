@@ -19,6 +19,9 @@ import (
 // checks if the EnvironmentBillOfMaterialsProductConsole type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterialsProductConsole{}
 
+// checks if the EnvironmentBillOfMaterialsProductConsole type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterialsProductConsole{}
+
 // EnvironmentBillOfMaterialsProductConsole struct for EnvironmentBillOfMaterialsProductConsole
 type EnvironmentBillOfMaterialsProductConsole struct {
 	Href                 string `json:"href"`

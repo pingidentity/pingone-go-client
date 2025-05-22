@@ -22,6 +22,9 @@ import (
 // checks if the Environment type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Environment{}
 
+// checks if the Environment type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &Environment{}
+
 // Environment struct for Environment
 type Environment struct {
 	Description          *string                     `json:"description,omitempty"`
