@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -17,6 +18,9 @@ import (
 
 // checks if the EnvironmentStatus type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentStatus{}
+
+// checks if the EnvironmentStatus type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentStatus{}
 
 // EnvironmentStatus struct for EnvironmentStatus
 type EnvironmentStatus struct {

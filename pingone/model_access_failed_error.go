@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -21,6 +22,9 @@ import (
 
 // checks if the AccessFailedError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessFailedError{}
+
+// checks if the AccessFailedError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &AccessFailedError{}
 
 // AccessFailedError struct for AccessFailedError
 type AccessFailedError struct {

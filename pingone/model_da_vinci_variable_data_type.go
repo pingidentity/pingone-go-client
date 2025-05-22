@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 

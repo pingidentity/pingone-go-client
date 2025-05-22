@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -208,7 +209,7 @@ func (s *EnvironmentApiServiceTestSuite) TestEnvironmentNeverFound() {
 
 	resp, httpRes, err := s.ApiClient.EnvironmentApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
 	acctest.CheckNotFound(s.T(), resp, httpRes, err)
-	acctest.CheckPingOneAPIErrorResponse(s.T(), err, pingone.ERRORRESPONSECODE_NOT_FOUND, regexp.MustCompile("Unable to find environment"))
+	acctest.CheckPingOneAPIErrorResponse(s.T(), err, pingone.NotFoundError{}, regexp.MustCompile("Unable to find environment"))
 }
 
 func (s *EnvironmentApiServiceTestSuite) TestEnvironmentFullLifecycle() {

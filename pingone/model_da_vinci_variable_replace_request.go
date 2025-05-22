@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -18,6 +19,9 @@ import (
 
 // checks if the DaVinciVariableReplaceRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DaVinciVariableReplaceRequest{}
+
+// checks if the DaVinciVariableReplaceRequest type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciVariableReplaceRequest{}
 
 // DaVinciVariableReplaceRequest struct for DaVinciVariableReplaceRequest
 type DaVinciVariableReplaceRequest struct {

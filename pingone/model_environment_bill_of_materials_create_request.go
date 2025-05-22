@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -18,6 +19,9 @@ import (
 
 // checks if the EnvironmentBillOfMaterialsCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterialsCreateRequest{}
+
+// checks if the EnvironmentBillOfMaterialsCreateRequest type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterialsCreateRequest{}
 
 // EnvironmentBillOfMaterialsCreateRequest struct for EnvironmentBillOfMaterialsCreateRequest
 type EnvironmentBillOfMaterialsCreateRequest struct {

@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -21,6 +22,9 @@ import (
 
 // checks if the InvalidDataError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InvalidDataError{}
+
+// checks if the InvalidDataError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &InvalidDataError{}
 
 // InvalidDataError struct for InvalidDataError
 type InvalidDataError struct {

@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -18,6 +19,9 @@ import (
 
 // checks if the DaVinciVariableCollection type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DaVinciVariableCollection{}
+
+// checks if the DaVinciVariableCollection type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciVariableCollection{}
 
 // DaVinciVariableCollection struct for DaVinciVariableCollection
 type DaVinciVariableCollection struct {

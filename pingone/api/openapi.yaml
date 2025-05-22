@@ -221,9 +221,20 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
         "409":
           $ref: '#/components/responses/Conflict'
         "429":
@@ -262,9 +273,20 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
         "409":
           $ref: '#/components/responses/Conflict'
         "429":
@@ -325,9 +347,20 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
         "415":
           $ref: '#/components/responses/UnsupportedMediaType'
         "500":
@@ -365,9 +398,20 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
         "415":
           $ref: '#/components/responses/UnsupportedMediaType'
         "500":
@@ -395,7 +439,12 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
         "404":
           $ref: '#/components/responses/NotFound'
         "415":
@@ -428,7 +477,12 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
         "404":
           $ref: '#/components/responses/NotFound'
         "415":
@@ -467,7 +521,12 @@ paths:
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
-          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
         "404":
           $ref: '#/components/responses/NotFound'
         "415":

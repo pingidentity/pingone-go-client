@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -21,6 +22,9 @@ import (
 
 // checks if the RequestFailedError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RequestFailedError{}
+
+// checks if the RequestFailedError type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &RequestFailedError{}
 
 // RequestFailedError struct for RequestFailedError
 type RequestFailedError struct {

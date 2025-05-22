@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 /*
 PingOne User and Configuration Management API
 
@@ -20,6 +21,9 @@ import (
 
 // checks if the EnvironmentBillOfMaterialsProduct type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentBillOfMaterialsProduct{}
+
+// checks if the EnvironmentBillOfMaterialsProduct type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &EnvironmentBillOfMaterialsProduct{}
 
 // EnvironmentBillOfMaterialsProduct struct for EnvironmentBillOfMaterialsProduct
 type EnvironmentBillOfMaterialsProduct struct {
