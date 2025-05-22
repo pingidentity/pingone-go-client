@@ -1,6 +1,6 @@
 // Copyright © 2025 Ping Identity Corporation
 
-package acctest
+package testframework
 
 import (
 	"net/http"
