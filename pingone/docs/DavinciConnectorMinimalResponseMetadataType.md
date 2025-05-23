@@ -1,4 +1,4 @@
-# DavinciConnectorMinimalResponseMetadataType
+# DaVinciConnectorMinimalResponseMetadataType
 
 ## Enum
 

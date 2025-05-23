@@ -1,214 +1,214 @@
-# DavinciConnectorMinimalResponse
+# DaVinciConnectorMinimalResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**DavinciConnectorCollectionMinimalResponseLinks**](DavinciConnectorCollectionMinimalResponseLinks.md) |  | 
+**Links** | [**DaVinciConnectorMinimalResponseLinks**](DaVinciConnectorMinimalResponseLinks.md) |  | 
 **CreatedAt** | **time.Time** |  | 
 **Description** | **string** |  | 
 **Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Id** | **string** |  | 
-**Metadata** | [**DavinciConnectorMinimalResponseMetadata**](DavinciConnectorMinimalResponseMetadata.md) |  | 
+**Metadata** | [**DaVinciConnectorMinimalResponseMetadata**](DaVinciConnectorMinimalResponseMetadata.md) |  | 
 **Name** | **string** |  | 
 **UpdatedAt** | **time.Time** |  | 
 **Version** | **string** |  | 
 
 ## Methods
 
-### NewDavinciConnectorMinimalResponse
+### NewDaVinciConnectorMinimalResponse
 
-`func NewDavinciConnectorMinimalResponse(links DavinciConnectorCollectionMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipPingOne, id string, metadata DavinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string, ) *DavinciConnectorMinimalResponse`
+`func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipPingOne, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string, ) *DaVinciConnectorMinimalResponse`
 
-NewDavinciConnectorMinimalResponse instantiates a new DavinciConnectorMinimalResponse object
+NewDaVinciConnectorMinimalResponse instantiates a new DaVinciConnectorMinimalResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDavinciConnectorMinimalResponseWithDefaults
+### NewDaVinciConnectorMinimalResponseWithDefaults
 
-`func NewDavinciConnectorMinimalResponseWithDefaults() *DavinciConnectorMinimalResponse`
+`func NewDaVinciConnectorMinimalResponseWithDefaults() *DaVinciConnectorMinimalResponse`
 
-NewDavinciConnectorMinimalResponseWithDefaults instantiates a new DavinciConnectorMinimalResponse object
+NewDaVinciConnectorMinimalResponseWithDefaults instantiates a new DaVinciConnectorMinimalResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *DavinciConnectorMinimalResponse) GetLinks() DavinciConnectorCollectionMinimalResponseLinks`
+`func (o *DaVinciConnectorMinimalResponse) GetLinks() DaVinciConnectorMinimalResponseLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DavinciConnectorMinimalResponse) GetLinksOk() (*DavinciConnectorCollectionMinimalResponseLinks, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetLinksOk() (*DaVinciConnectorMinimalResponseLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DavinciConnectorMinimalResponse) SetLinks(v DavinciConnectorCollectionMinimalResponseLinks)`
+`func (o *DaVinciConnectorMinimalResponse) SetLinks(v DaVinciConnectorMinimalResponseLinks)`
 
 SetLinks sets Links field to given value.
 
 
 ### GetCreatedAt
 
-`func (o *DavinciConnectorMinimalResponse) GetCreatedAt() time.Time`
+`func (o *DaVinciConnectorMinimalResponse) GetCreatedAt() time.Time`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DavinciConnectorMinimalResponse) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetCreatedAtOk() (*time.Time, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DavinciConnectorMinimalResponse) SetCreatedAt(v time.Time)`
+`func (o *DaVinciConnectorMinimalResponse) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetDescription
 
-`func (o *DavinciConnectorMinimalResponse) GetDescription() string`
+`func (o *DaVinciConnectorMinimalResponse) GetDescription() string`
 
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
-`func (o *DavinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool)`
 
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-`func (o *DavinciConnectorMinimalResponse) SetDescription(v string)`
+`func (o *DaVinciConnectorMinimalResponse) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
 
 
 ### GetEnvironment
 
-`func (o *DavinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipPingOne`
+`func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipPingOne`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DavinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DavinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipPingOne)`
+`func (o *DaVinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipPingOne)`
 
 SetEnvironment sets Environment field to given value.
 
 
 ### GetId
 
-`func (o *DavinciConnectorMinimalResponse) GetId() string`
+`func (o *DaVinciConnectorMinimalResponse) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *DavinciConnectorMinimalResponse) GetIdOk() (*string, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *DavinciConnectorMinimalResponse) SetId(v string)`
+`func (o *DaVinciConnectorMinimalResponse) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetMetadata
 
-`func (o *DavinciConnectorMinimalResponse) GetMetadata() DavinciConnectorMinimalResponseMetadata`
+`func (o *DaVinciConnectorMinimalResponse) GetMetadata() DaVinciConnectorMinimalResponseMetadata`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *DavinciConnectorMinimalResponse) GetMetadataOk() (*DavinciConnectorMinimalResponseMetadata, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetMetadataOk() (*DaVinciConnectorMinimalResponseMetadata, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *DavinciConnectorMinimalResponse) SetMetadata(v DavinciConnectorMinimalResponseMetadata)`
+`func (o *DaVinciConnectorMinimalResponse) SetMetadata(v DaVinciConnectorMinimalResponseMetadata)`
 
 SetMetadata sets Metadata field to given value.
 
 
 ### GetName
 
-`func (o *DavinciConnectorMinimalResponse) GetName() string`
+`func (o *DaVinciConnectorMinimalResponse) GetName() string`
 
 GetName returns the Name field if non-nil, zero value otherwise.
 
 ### GetNameOk
 
-`func (o *DavinciConnectorMinimalResponse) GetNameOk() (*string, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetNameOk() (*string, bool)`
 
 GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetName
 
-`func (o *DavinciConnectorMinimalResponse) SetName(v string)`
+`func (o *DaVinciConnectorMinimalResponse) SetName(v string)`
 
 SetName sets Name field to given value.
 
 
 ### GetUpdatedAt
 
-`func (o *DavinciConnectorMinimalResponse) GetUpdatedAt() time.Time`
+`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAt() time.Time`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DavinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DavinciConnectorMinimalResponse) SetUpdatedAt(v time.Time)`
+`func (o *DaVinciConnectorMinimalResponse) SetUpdatedAt(v time.Time)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
 ### GetVersion
 
-`func (o *DavinciConnectorMinimalResponse) GetVersion() string`
+`func (o *DaVinciConnectorMinimalResponse) GetVersion() string`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *DavinciConnectorMinimalResponse) GetVersionOk() (*string, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetVersionOk() (*string, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *DavinciConnectorMinimalResponse) SetVersion(v string)`
+`func (o *DaVinciConnectorMinimalResponse) SetVersion(v string)`
 
 SetVersion sets Version field to given value.
 
