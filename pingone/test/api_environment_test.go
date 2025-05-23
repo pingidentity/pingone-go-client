@@ -198,9 +198,7 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization()
 	assert.Equal(s.T(), 401, httpRes.StatusCode)
 	assert.EqualError(s.T(), err, "401 Unauthorized")
 
-	require.IsType(s.T(), &pingone.APIError{}, err)
-	require.IsType(s.T(), pingone.ErrorResponseMinimal{}, err.(*pingone.APIError).Model())
-	assert.Equal(s.T(), err.(*pingone.APIError).Model().(pingone.ErrorResponseMinimal).Message, "User is not authorized to access this resource with an explicit deny")
+	require.IsType(s.T(), &pingone.AccessFailedError{}, err)
 }
 
 func (s *EnvironmentApiServiceTestSuite) TestEnvironmentNeverFound() {
