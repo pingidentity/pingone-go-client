@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-16T13-22-25
+  version: development-2025-05-23T14-30-45
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -39,6 +39,8 @@ security:
 - bearerAuth: []
 - oauth2: []
 tags:
+- description: _TO_BE_DEFINED_
+  name: DaVinci Connector
 - description: Endpoints for managing DaVinci variables within an environment.
   name: DaVinci Variable
 - description: Endpoints for managing the PingOne environment
@@ -301,6 +303,405 @@ paths:
       x-public-api: api
       x-service-name: api
       x-permission: orgmgt:update:environment
+  /environments/{environmentID}/connectorInstances:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getConnectorInstances
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorInstanceCollection'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:read:connections
+      x-public-api: api
+      x-service-name: api
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createConnectorInstance
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciConnectorInstanceCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorInstance'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:create:connections
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/connectorInstances/{connectorInstanceID}:
+    delete:
+      description: _TO_BE_DEFINED_
+      operationId: deleteConnectorInstanceById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "204":
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:delete:connections
+      x-public-api: api
+      x-service-name: api
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getConnectorInstanceById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorInstance'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:read:connections
+      x-public-api: api
+      x-service-name: api
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createConnectorInstanceById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/vnd.pingidentity.connectorInstance.clone+json:
+            schema:
+              $ref: '#/components/schemas/DaVinciConnectorInstanceCloneRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorInstance'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:create:connections
+      x-public-api: api
+      x-service-name: api
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceConnectorInstanceById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciConnectorInstanceReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorInstance'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:update:connections
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/connectors:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getConnectors
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:read:connectors
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/connectors/{connectorID}:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getConnectorById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorMinimalResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:read:connectors
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/connectors/{connectorID}/details:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getDetailsByConnectorId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathConnectorID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DavinciConnectorDetailsResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Connector
+      x-permission: davinci:read:connectors
+      x-public-api: api
+      x-service-name: api
   /environments/{environmentID}/variables:
     get:
       description: _TO_BE_DEFINED_
@@ -446,7 +847,11 @@ paths:
           description: Request failed due to authorization issue.
           x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
         "415":
           $ref: '#/components/responses/UnsupportedMediaType'
         "500":
@@ -484,7 +889,11 @@ paths:
           description: Request failed due to authorization issue.
           x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
         "415":
           $ref: '#/components/responses/UnsupportedMediaType'
         "500":
@@ -528,7 +937,11 @@ paths:
           description: Request failed due to authorization issue.
           x-pingone-p14c-63085: true
         "404":
-          $ref: '#/components/responses/NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
         "415":
           $ref: '#/components/responses/UnsupportedMediaType'
         "500":
@@ -587,6 +1000,24 @@ components:
       explode: false
       in: path
       name: environmentID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
+    PathConnectorID:
+      explode: false
+      in: path
+      name: connectorID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
+    PathConnectorInstanceID:
+      explode: false
+      in: path
+      name: connectorInstanceID
       required: true
       schema:
         format: UUID
@@ -711,6 +1142,43 @@ components:
         id: id
         message: message
       x-go-generate-error: true
+    DaVinciConnectorInstanceCloneRequest:
+      additionalProperties: true
+      properties: {}
+      type: object
+    DaVinciConnectorInstanceCreateRequest:
+      additionalProperties: true
+      example:
+        connector:
+          id: id
+        name: name
+        properties: "{}"
+      properties:
+        connector:
+          $ref: '#/components/schemas/DaVinciConnectorInstanceCreateRequest_connector'
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        properties:
+          type: object
+      required:
+      - connector
+      - name
+    DaVinciConnectorInstanceReplaceRequest:
+      additionalProperties: true
+      example:
+        name: name
+        properties: "{}"
+      properties:
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+        properties:
+          type: object
+      required:
+      - name
     DaVinciVariable:
       example:
         _links:
@@ -957,6 +1425,440 @@ components:
       - dataType
       - mutable
       - name
+    DavinciConnectorCollectionMinimalResponse:
+      example:
+        _embedded:
+          connectors:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            metadata:
+              vendor: vendor
+              type: core
+              logos:
+                canvas:
+                  imageFileName: imageFileName
+              colors:
+                canvas: canvas
+                canvasText: canvasText
+                dark: dark
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            description: description
+            id: id
+            version: version
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            metadata:
+              vendor: vendor
+              type: core
+              logos:
+                canvas:
+                  imageFileName: imageFileName
+              colors:
+                canvas: canvas
+                canvasText: canvasText
+                dark: dark
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            description: description
+            id: id
+            version: version
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__embedded'
+        _links:
+          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
+      required:
+      - _embedded
+      - _links
+    DavinciConnectorDetailsResponse:
+      example:
+        accountConfigView:
+          componentViewSize: componentViewSize
+          items:
+          - key: ""
+          - key: ""
+        environment:
+          id: id
+        capabilities:
+          key:
+            key: ""
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        flowSections:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        credentialsView:
+          items:
+          - key: ""
+          - key: ""
+        properties:
+          key: ""
+        sections:
+        - default: true
+          name: name
+          value: value
+        - default: true
+          name: name
+          value: value
+      properties:
+        _links:
+          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
+        accountConfigView:
+          $ref: '#/components/schemas/DavinciConnectorDetailsResponse_accountConfigView'
+        capabilities:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+        credentialsView:
+          $ref: '#/components/schemas/DavinciConnectorDetailsResponse_credentialsView'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        flowSections:
+          items:
+            $ref: '#/components/schemas/DavinciConnectorDetailsResponse_flowSections'
+          type: array
+        properties:
+          additionalProperties: true
+          properties: {}
+          type: object
+        sections:
+          items:
+            $ref: '#/components/schemas/DavinciConnectorDetailsResponse_sections'
+          type: array
+      required:
+      - environment
+    DavinciConnectorInstance:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        connector:
+          id: id
+        _links:
+          connectorInstance.clone:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          gateways:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          notificationsPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          deviceAuthenticationPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          applications:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        name: name
+        id: id
+        properties:
+          key: ""
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DavinciConnectorInstance__links'
+        connector:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+        createdAt:
+          format: date-time
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        id:
+          type: string
+        name:
+          type: string
+        properties:
+          additionalProperties: true
+          properties: {}
+          type: object
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - _links
+      - connector
+      - environment
+      - id
+      - name
+    DavinciConnectorInstanceCollection:
+      example:
+        _embedded:
+          connectorInstances:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            connector:
+              id: id
+            _links:
+              connectorInstance.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              gateways:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              notificationsPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              deviceAuthenticationPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              applications:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            properties:
+              key: ""
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            connector:
+              id: id
+            _links:
+              connectorInstance.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              gateways:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              notificationsPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              deviceAuthenticationPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              applications:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            properties:
+              key: ""
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DavinciConnectorInstanceCollection__embedded'
+        _links:
+          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
+      required:
+      - _embedded
+      - _links
+    DavinciConnectorMinimalResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        metadata:
+          vendor: vendor
+          type: core
+          logos:
+            canvas:
+              imageFileName: imageFileName
+          colors:
+            canvas: canvas
+            canvasText: canvasText
+            dark: dark
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        name: name
+        description: description
+        id: id
+        version: version
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
+        createdAt:
+          format: date-time
+          type: string
+        description:
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata'
+        name:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        version:
+          type: string
+      required:
+      - _links
+      - createdAt
+      - description
+      - environment
+      - id
+      - metadata
+      - name
+      - updatedAt
+      - version
     Environment:
       allOf:
       - $ref: '#/components/schemas/EnvironmentCommon'
@@ -1662,6 +2564,14 @@ components:
       title: Access Failed Error Code
       type: string
       x-go-generate-error-code: true
+    DaVinciConnectorInstanceCreateRequest_connector:
+      example:
+        id: id
+      properties:
+        id:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
     DaVinci_Variable_Links:
       additionalProperties: true
       example:
@@ -1857,6 +2767,390 @@ components:
       - type: object
       - type: string
       title: DaVinci Variable Replace Request Value
+    DavinciConnectorCollectionMinimalResponse__embedded:
+      example:
+        connectors:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          metadata:
+            vendor: vendor
+            type: core
+            logos:
+              canvas:
+                imageFileName: imageFileName
+            colors:
+              canvas: canvas
+              canvasText: canvasText
+              dark: dark
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          description: description
+          id: id
+          version: version
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          metadata:
+            vendor: vendor
+            type: core
+            logos:
+              canvas:
+                imageFileName: imageFileName
+            colors:
+              canvas: canvas
+              canvasText: canvasText
+              dark: dark
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          description: description
+          id: id
+          version: version
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        connectors:
+          items:
+            $ref: '#/components/schemas/DavinciConnectorMinimalResponse'
+          type: array
+      required:
+      - connectors
+    DavinciConnectorCollectionMinimalResponse__links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+    DavinciConnectorDetailsResponse_accountConfigView:
+      example:
+        componentViewSize: componentViewSize
+        items:
+        - key: ""
+        - key: ""
+      properties:
+        componentViewSize:
+          type: string
+        items:
+          items:
+            additionalProperties: true
+            properties: {}
+            type: object
+          type: array
+      required:
+      - items
+    DavinciConnectorDetailsResponse_credentialsView:
+      example:
+        items:
+        - key: ""
+        - key: ""
+      properties:
+        items:
+          items:
+            additionalProperties: true
+            properties: {}
+            type: object
+          type: array
+      required:
+      - items
+    DavinciConnectorDetailsResponse_flowSections:
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    DavinciConnectorDetailsResponse_sections:
+      example:
+        default: true
+        name: name
+        value: value
+      properties:
+        default:
+          type: boolean
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    DavinciConnectorInstance__links:
+      additionalProperties: true
+      example:
+        connectorInstance.clone:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        gateways:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        notificationsPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        deviceAuthenticationPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        applications:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        applications:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstance.clone:
+          $ref: '#/components/schemas/JSONHALLink'
+        deviceAuthenticationPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        gateways:
+          $ref: '#/components/schemas/JSONHALLink'
+        notificationsPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - connectorInstance.clone
+      - environment
+      - self
+    DavinciConnectorInstanceCollection__embedded:
+      example:
+        connectorInstances:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          connector:
+            id: id
+          _links:
+            connectorInstance.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            gateways:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            notificationsPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            deviceAuthenticationPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            applications:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          properties:
+            key: ""
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          connector:
+            id: id
+          _links:
+            connectorInstance.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            gateways:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            notificationsPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            deviceAuthenticationPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            applications:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          properties:
+            key: ""
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        connectorInstances:
+          items:
+            $ref: '#/components/schemas/DavinciConnectorInstance'
+          type: array
+      required:
+      - connectorInstances
+    DavinciConnectorMinimalResponse_metadata_colors:
+      example:
+        canvas: canvas
+        canvasText: canvasText
+        dark: dark
+      properties:
+        canvas:
+          type: string
+        canvasText:
+          type: string
+        dark:
+          type: string
+    DavinciConnectorMinimalResponse_metadata_logos_canvas:
+      example:
+        imageFileName: imageFileName
+      properties:
+        imageFileName:
+          type: string
+    DavinciConnectorMinimalResponse_metadata_logos:
+      example:
+        canvas:
+          imageFileName: imageFileName
+      properties:
+        canvas:
+          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_logos_canvas'
+    DavinciConnectorMinimalResponse_metadata_type:
+      enum:
+      - core
+      - ping
+      - service
+      type: string
+    DavinciConnectorMinimalResponse_metadata:
+      example:
+        vendor: vendor
+        type: core
+        logos:
+          canvas:
+            imageFileName: imageFileName
+        colors:
+          canvas: canvas
+          canvasText: canvasText
+          dark: dark
+      properties:
+        colors:
+          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_colors'
+        logos:
+          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_logos'
+        type:
+          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_type'
+        vendor:
+          type: string
     Environment_Links:
       additionalProperties: true
       example:
@@ -2162,9 +3456,14 @@ components:
           tokenUrl: /as/token
       type: oauth2
 x-permissions:
+- name: davinci:create:connections
 - name: davinci:create:constructs
+- name: davinci:delete:connections
 - name: davinci:delete:constructs
+- name: davinci:read:connections
+- name: davinci:read:connectors
 - name: davinci:read:constructs
+- name: davinci:update:connections
 - name: davinci:update:constructs
 - name: orgmgt:create:environment
 - name: orgmgt:delete:environment
