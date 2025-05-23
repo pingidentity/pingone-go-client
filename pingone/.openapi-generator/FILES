@@ -257,4 +257,8 @@ model_service_error.go
 model_unexpected_service_error.go
 model_unexpected_service_error_code.go
 response.go
+test/api_da_vinci_application_test.go
+test/api_da_vinci_connector_test.go
+test/api_da_vinci_variable_test.go
+test/api_environment_test.go
 utils.go
