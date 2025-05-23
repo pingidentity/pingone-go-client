@@ -48,13 +48,15 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-16T13-22-25
+// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-23T14-30-45
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
+
+	DaVinciConnectorApi *DaVinciConnectorApiService
 
 	DaVinciVariableApi *DaVinciVariableApiService
 
@@ -124,6 +126,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.common.client = c
 
 	// API Services
+	c.DaVinciConnectorApi = (*DaVinciConnectorApiService)(&c.common)
 	c.DaVinciVariableApi = (*DaVinciVariableApiService)(&c.common)
 	c.EnvironmentApi = (*EnvironmentApiService)(&c.common)
 
