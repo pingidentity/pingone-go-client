@@ -281,7 +281,7 @@ type ApiCreateConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	requestBody                *map[string]interface{}
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
@@ -319,7 +319,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiCreateConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiCreateConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiCreateConnectorInstanceByIdRequest {
 	return ApiCreateConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -510,7 +510,7 @@ type ApiDeleteConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -542,7 +542,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiDeleteConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiDeleteConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiDeleteConnectorInstanceByIdRequest {
 	return ApiDeleteConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -710,7 +710,7 @@ type ApiGetConnectorByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorID                uuid.UUID
+	connectorID                string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -742,7 +742,7 @@ _TO_BE_DEFINED_
 	@param connectorID
 	@return ApiGetConnectorByIdRequest
 */
-func (a *DaVinciConnectorApiService) GetConnectorById(ctx context.Context, environmentID uuid.UUID, connectorID uuid.UUID) ApiGetConnectorByIdRequest {
+func (a *DaVinciConnectorApiService) GetConnectorById(ctx context.Context, environmentID uuid.UUID, connectorID string) ApiGetConnectorByIdRequest {
 	return ApiGetConnectorByIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -928,7 +928,7 @@ type ApiGetConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -960,7 +960,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiGetConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiGetConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiGetConnectorInstanceByIdRequest {
 	return ApiGetConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -1162,8 +1162,16 @@ func (r ApiGetConnectorInstancesRequest) XPingExternalSessionID(xPingExternalSes
 	return r
 }
 
-func (r ApiGetConnectorInstancesRequest) Execute() (*DaVinciConnectorInstanceCollection, *http.Response, error) {
+func (r ApiGetConnectorInstancesRequest) Execute() PagedIterator[DaVinciConnectorInstanceCollection] {
 	return r.ApiService.GetConnectorInstancesExecute(r)
+}
+
+func (r ApiGetConnectorInstancesRequest) ExecuteInitialPage() (*DaVinciConnectorInstanceCollection, *http.Response, error) {
+	return r.ApiService.GetConnectorInstancesExecutePage(r, nil)
+}
+
+func (r ApiGetConnectorInstancesRequest) executePageByLink(link JSONHALLink) (*DaVinciConnectorInstanceCollection, *http.Response, error) {
+	return r.ApiService.GetConnectorInstancesExecutePage(r, &link)
 }
 
 /*
@@ -1187,13 +1195,29 @@ func (a *DaVinciConnectorApiService) GetConnectorInstances(ctx context.Context, 
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceCollection
-func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) (*DaVinciConnectorInstanceCollection, *http.Response, error) {
+func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) PagedIterator[DaVinciConnectorInstanceCollection] {
+	return paginationIterator(r.ExecuteInitialPage, r.executePageByLink)
+}
+
+// Execute executes the request (returning the initial page of the paged response only)
+//
+//	@return DaVinciConnectorInstanceCollection
+func (a *DaVinciConnectorApiService) GetConnectorInstancesExecutePage(r ApiGetConnectorInstancesRequest, link *JSONHALLink) (*DaVinciConnectorInstanceCollection, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceCollection
 	)
+
+	var linkUrl *url.URL
+	if link != nil {
+		var err error
+		linkUrl, err = url.Parse(link.Href)
+		if err != nil {
+			return localVarReturnValue, nil, &APIError{error: err.Error()}
+		}
+	}
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectorInstances")
 	if err != nil {
@@ -1206,6 +1230,11 @@ func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnec
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+
+	// overwrite query params with link URL query params if provided
+	if linkUrl != nil {
+		localVarQueryParams = linkUrl.Query()
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1233,6 +1262,11 @@ func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnec
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
+	}
+
+	if linkUrl != nil && linkUrl.Host != req.Host {
+		slog.Error("link host does not match expected host", "expected host", req.Host, "provided link host", linkUrl.Host)
+		return localVarReturnValue, nil, reportError("link host does not match expected host")
 	}
 
 	var bodyBytes []byte
@@ -1400,8 +1434,16 @@ func (r ApiGetConnectorsRequest) XPingExternalSessionID(xPingExternalSessionID s
 	return r
 }
 
-func (r ApiGetConnectorsRequest) Execute() (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
+func (r ApiGetConnectorsRequest) Execute() PagedIterator[DaVinciConnectorCollectionMinimalResponse] {
 	return r.ApiService.GetConnectorsExecute(r)
+}
+
+func (r ApiGetConnectorsRequest) ExecuteInitialPage() (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
+	return r.ApiService.GetConnectorsExecutePage(r, nil)
+}
+
+func (r ApiGetConnectorsRequest) executePageByLink(link JSONHALLink) (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
+	return r.ApiService.GetConnectorsExecutePage(r, &link)
 }
 
 /*
@@ -1425,13 +1467,29 @@ func (a *DaVinciConnectorApiService) GetConnectors(ctx context.Context, environm
 // Execute executes the request
 //
 //	@return DaVinciConnectorCollectionMinimalResponse
-func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
+func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) PagedIterator[DaVinciConnectorCollectionMinimalResponse] {
+	return paginationIterator(r.ExecuteInitialPage, r.executePageByLink)
+}
+
+// Execute executes the request (returning the initial page of the paged response only)
+//
+//	@return DaVinciConnectorCollectionMinimalResponse
+func (a *DaVinciConnectorApiService) GetConnectorsExecutePage(r ApiGetConnectorsRequest, link *JSONHALLink) (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorCollectionMinimalResponse
 	)
+
+	var linkUrl *url.URL
+	if link != nil {
+		var err error
+		linkUrl, err = url.Parse(link.Href)
+		if err != nil {
+			return localVarReturnValue, nil, &APIError{error: err.Error()}
+		}
+	}
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectors")
 	if err != nil {
@@ -1444,6 +1502,11 @@ func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+
+	// overwrite query params with link URL query params if provided
+	if linkUrl != nil {
+		localVarQueryParams = linkUrl.Query()
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1471,6 +1534,11 @@ func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequ
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
+	}
+
+	if linkUrl != nil && linkUrl.Host != req.Host {
+		slog.Error("link host does not match expected host", "expected host", req.Host, "provided link host", linkUrl.Host)
+		return localVarReturnValue, nil, reportError("link host does not match expected host")
 	}
 
 	var bodyBytes []byte
@@ -1607,7 +1675,7 @@ type ApiGetDetailsByConnectorIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorID                uuid.UUID
+	connectorID                string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -1639,7 +1707,7 @@ _TO_BE_DEFINED_
 	@param connectorID
 	@return ApiGetDetailsByConnectorIdRequest
 */
-func (a *DaVinciConnectorApiService) GetDetailsByConnectorId(ctx context.Context, environmentID uuid.UUID, connectorID uuid.UUID) ApiGetDetailsByConnectorIdRequest {
+func (a *DaVinciConnectorApiService) GetDetailsByConnectorId(ctx context.Context, environmentID uuid.UUID, connectorID string) ApiGetDetailsByConnectorIdRequest {
 	return ApiGetDetailsByConnectorIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -1825,7 +1893,7 @@ type ApiReplaceConnectorInstanceByIdRequest struct {
 	ctx                                    context.Context
 	ApiService                             *DaVinciConnectorApiService
 	environmentID                          uuid.UUID
-	connectorInstanceID                    uuid.UUID
+	connectorInstanceID                    string
 	daVinciConnectorInstanceReplaceRequest *DaVinciConnectorInstanceReplaceRequest
 	xPingExternalTransactionID             *string
 	xPingExternalSessionID                 *string
@@ -1863,7 +1931,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiReplaceConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiReplaceConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiReplaceConnectorInstanceByIdRequest {
 	return ApiReplaceConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,

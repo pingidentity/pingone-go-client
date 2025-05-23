@@ -120,7 +120,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorInstanceID := "connectorInstanceID_example" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -205,7 +205,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorInstanceID := "connectorInstanceID_example" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -286,7 +286,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorID := "connectorID_example" // uuid.UUID | 
+	connectorID := "connectorID_example" // string | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
 
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorID** | **uuid.UUID** |  | 
+**connectorID** | **string** |  | 
 
 ### Other Parameters
 
@@ -369,7 +369,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorInstanceID := "connectorInstanceID_example" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -432,13 +432,15 @@ Name | Type | Description  | Notes
 
 ## GetConnectorInstances
 
-> DaVinciConnectorInstanceCollection GetConnectorInstances(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
 _TO_BE_DEFINED_
 
 
 
-### Example
+### Paged Response (Recommended)
+
+> PagedIterator[DaVinciConnectorInstanceCollection] GetConnectorInstances(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+#### Example
 
 ```go
 package main
@@ -457,7 +459,44 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciConnectorApi.GetConnectorInstances(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	pagedIterator := apiClient.DaVinciConnectorApi.GetConnectorInstances(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+	for pageCursor, err := range pagedIterator {
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectorInstances``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", pageCursor.HTTPResponse)
+		}
+
+		// response from `GetConnectorInstances` page iteration: DaVinciConnectorInstanceCollection
+		fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectorInstances` page iteration: %v\n", pageCursor.Data)
+	}
+}
+```
+
+### Initial Page Response
+
+> DaVinciConnectorInstanceCollection GetConnectorInstances(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciConnectorApi.GetConnectorInstances(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectorInstances``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -494,7 +533,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DaVinciConnectorInstanceCollection**](DaVinciConnectorInstanceCollection.md)
+Page Iterator: PagedIterator[[**DaVinciConnectorInstanceCollection**](DaVinciConnectorInstanceCollection.md)]
+
+PagedIterator[DaVinciConnectorInstanceCollection] is a struct alias for iter.Seq2[[PagedCursor](PagedCursor.md)[[**DaVinciConnectorInstanceCollection**](DaVinciConnectorInstanceCollection.md)], error] using the standard `iter` package in go `1.23`.
+
+Page Data: [**DaVinciConnectorInstanceCollection**](DaVinciConnectorInstanceCollection.md)
 
 ### Authorization
 
@@ -512,13 +555,15 @@ Name | Type | Description  | Notes
 
 ## GetConnectors
 
-> DaVinciConnectorCollectionMinimalResponse GetConnectors(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
 _TO_BE_DEFINED_
 
 
 
-### Example
+### Paged Response (Recommended)
+
+> PagedIterator[DaVinciConnectorCollectionMinimalResponse] GetConnectors(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+#### Example
 
 ```go
 package main
@@ -537,7 +582,44 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciConnectorApi.GetConnectors(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	pagedIterator := apiClient.DaVinciConnectorApi.GetConnectors(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+
+	for pageCursor, err := range pagedIterator {
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectors``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", pageCursor.HTTPResponse)
+		}
+
+		// response from `GetConnectors` page iteration: DaVinciConnectorCollectionMinimalResponse
+		fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectors` page iteration: %v\n", pageCursor.Data)
+	}
+}
+```
+
+### Initial Page Response
+
+> DaVinciConnectorCollectionMinimalResponse GetConnectors(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciConnectorApi.GetConnectors(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).ExecuteInitialPage()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -574,7 +656,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DaVinciConnectorCollectionMinimalResponse**](DaVinciConnectorCollectionMinimalResponse.md)
+Page Iterator: PagedIterator[[**DaVinciConnectorCollectionMinimalResponse**](DaVinciConnectorCollectionMinimalResponse.md)]
+
+PagedIterator[DaVinciConnectorCollectionMinimalResponse] is a struct alias for iter.Seq2[[PagedCursor](PagedCursor.md)[[**DaVinciConnectorCollectionMinimalResponse**](DaVinciConnectorCollectionMinimalResponse.md)], error] using the standard `iter` package in go `1.23`.
+
+Page Data: [**DaVinciConnectorCollectionMinimalResponse**](DaVinciConnectorCollectionMinimalResponse.md)
 
 ### Authorization
 
@@ -612,7 +698,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorID := "connectorID_example" // uuid.UUID | 
+	connectorID := "connectorID_example" // string | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
 
@@ -641,7 +727,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorID** | **uuid.UUID** |  | 
+**connectorID** | **string** |  | 
 
 ### Other Parameters
 
@@ -695,7 +781,7 @@ import (
 
 func main() {
 	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	connectorInstanceID := "connectorInstanceID_example" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	daVinciConnectorInstanceReplaceRequest := *openapiclient.NewDaVinciConnectorInstanceReplaceRequest("Name_example") // DaVinciConnectorInstanceReplaceRequest | 
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
@@ -725,7 +811,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
