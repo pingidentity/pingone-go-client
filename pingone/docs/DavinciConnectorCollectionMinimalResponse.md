@@ -1,67 +1,67 @@
-# DavinciConnectorCollectionMinimalResponse
+# DaVinciConnectorCollectionMinimalResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Embedded** | [**DavinciConnectorCollectionMinimalResponseEmbedded**](DavinciConnectorCollectionMinimalResponseEmbedded.md) |  | 
-**Links** | [**DavinciConnectorCollectionMinimalResponseLinks**](DavinciConnectorCollectionMinimalResponseLinks.md) |  | 
+**Embedded** | [**DaVinciConnectorCollectionMinimalResponseEmbedded**](DaVinciConnectorCollectionMinimalResponseEmbedded.md) |  | 
+**Links** | [**DaVinciConnectorCollectionMinimalResponseLinks**](DaVinciConnectorCollectionMinimalResponseLinks.md) |  | 
 
 ## Methods
 
-### NewDavinciConnectorCollectionMinimalResponse
+### NewDaVinciConnectorCollectionMinimalResponse
 
-`func NewDavinciConnectorCollectionMinimalResponse(embedded DavinciConnectorCollectionMinimalResponseEmbedded, links DavinciConnectorCollectionMinimalResponseLinks, ) *DavinciConnectorCollectionMinimalResponse`
+`func NewDaVinciConnectorCollectionMinimalResponse(embedded DaVinciConnectorCollectionMinimalResponseEmbedded, links DaVinciConnectorCollectionMinimalResponseLinks, ) *DaVinciConnectorCollectionMinimalResponse`
 
-NewDavinciConnectorCollectionMinimalResponse instantiates a new DavinciConnectorCollectionMinimalResponse object
+NewDaVinciConnectorCollectionMinimalResponse instantiates a new DaVinciConnectorCollectionMinimalResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDavinciConnectorCollectionMinimalResponseWithDefaults
+### NewDaVinciConnectorCollectionMinimalResponseWithDefaults
 
-`func NewDavinciConnectorCollectionMinimalResponseWithDefaults() *DavinciConnectorCollectionMinimalResponse`
+`func NewDaVinciConnectorCollectionMinimalResponseWithDefaults() *DaVinciConnectorCollectionMinimalResponse`
 
-NewDavinciConnectorCollectionMinimalResponseWithDefaults instantiates a new DavinciConnectorCollectionMinimalResponse object
+NewDaVinciConnectorCollectionMinimalResponseWithDefaults instantiates a new DaVinciConnectorCollectionMinimalResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetEmbedded
 
-`func (o *DavinciConnectorCollectionMinimalResponse) GetEmbedded() DavinciConnectorCollectionMinimalResponseEmbedded`
+`func (o *DaVinciConnectorCollectionMinimalResponse) GetEmbedded() DaVinciConnectorCollectionMinimalResponseEmbedded`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *DavinciConnectorCollectionMinimalResponse) GetEmbeddedOk() (*DavinciConnectorCollectionMinimalResponseEmbedded, bool)`
+`func (o *DaVinciConnectorCollectionMinimalResponse) GetEmbeddedOk() (*DaVinciConnectorCollectionMinimalResponseEmbedded, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *DavinciConnectorCollectionMinimalResponse) SetEmbedded(v DavinciConnectorCollectionMinimalResponseEmbedded)`
+`func (o *DaVinciConnectorCollectionMinimalResponse) SetEmbedded(v DaVinciConnectorCollectionMinimalResponseEmbedded)`
 
 SetEmbedded sets Embedded field to given value.
 
 
 ### GetLinks
 
-`func (o *DavinciConnectorCollectionMinimalResponse) GetLinks() DavinciConnectorCollectionMinimalResponseLinks`
+`func (o *DaVinciConnectorCollectionMinimalResponse) GetLinks() DaVinciConnectorCollectionMinimalResponseLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DavinciConnectorCollectionMinimalResponse) GetLinksOk() (*DavinciConnectorCollectionMinimalResponseLinks, bool)`
+`func (o *DaVinciConnectorCollectionMinimalResponse) GetLinksOk() (*DaVinciConnectorCollectionMinimalResponseLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DavinciConnectorCollectionMinimalResponse) SetLinks(v DavinciConnectorCollectionMinimalResponseLinks)`
+`func (o *DaVinciConnectorCollectionMinimalResponse) SetLinks(v DaVinciConnectorCollectionMinimalResponseLinks)`
 
 SetLinks sets Links field to given value.
 

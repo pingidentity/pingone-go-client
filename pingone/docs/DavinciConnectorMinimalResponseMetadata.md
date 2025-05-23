@@ -1,130 +1,130 @@
-# DavinciConnectorMinimalResponseMetadata
+# DaVinciConnectorMinimalResponseMetadata
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Colors** | Pointer to [**DavinciConnectorMinimalResponseMetadataColors**](DavinciConnectorMinimalResponseMetadataColors.md) |  | [optional] 
-**Logos** | Pointer to [**DavinciConnectorMinimalResponseMetadataLogos**](DavinciConnectorMinimalResponseMetadataLogos.md) |  | [optional] 
-**Type** | Pointer to [**DavinciConnectorMinimalResponseMetadataType**](DavinciConnectorMinimalResponseMetadataType.md) |  | [optional] 
+**Colors** | Pointer to [**DaVinciConnectorMinimalResponseMetadataColors**](DaVinciConnectorMinimalResponseMetadataColors.md) |  | [optional] 
+**Logos** | Pointer to [**DaVinciConnectorMinimalResponseMetadataLogos**](DaVinciConnectorMinimalResponseMetadataLogos.md) |  | [optional] 
+**Type** | Pointer to [**DaVinciConnectorMinimalResponseMetadataType**](DaVinciConnectorMinimalResponseMetadataType.md) |  | [optional] 
 **Vendor** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
-### NewDavinciConnectorMinimalResponseMetadata
+### NewDaVinciConnectorMinimalResponseMetadata
 
-`func NewDavinciConnectorMinimalResponseMetadata() *DavinciConnectorMinimalResponseMetadata`
+`func NewDaVinciConnectorMinimalResponseMetadata() *DaVinciConnectorMinimalResponseMetadata`
 
-NewDavinciConnectorMinimalResponseMetadata instantiates a new DavinciConnectorMinimalResponseMetadata object
+NewDaVinciConnectorMinimalResponseMetadata instantiates a new DaVinciConnectorMinimalResponseMetadata object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDavinciConnectorMinimalResponseMetadataWithDefaults
+### NewDaVinciConnectorMinimalResponseMetadataWithDefaults
 
-`func NewDavinciConnectorMinimalResponseMetadataWithDefaults() *DavinciConnectorMinimalResponseMetadata`
+`func NewDaVinciConnectorMinimalResponseMetadataWithDefaults() *DaVinciConnectorMinimalResponseMetadata`
 
-NewDavinciConnectorMinimalResponseMetadataWithDefaults instantiates a new DavinciConnectorMinimalResponseMetadata object
+NewDaVinciConnectorMinimalResponseMetadataWithDefaults instantiates a new DaVinciConnectorMinimalResponseMetadata object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetColors
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetColors() DavinciConnectorMinimalResponseMetadataColors`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetColors() DaVinciConnectorMinimalResponseMetadataColors`
 
 GetColors returns the Colors field if non-nil, zero value otherwise.
 
 ### GetColorsOk
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetColorsOk() (*DavinciConnectorMinimalResponseMetadataColors, bool)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetColorsOk() (*DaVinciConnectorMinimalResponseMetadataColors, bool)`
 
 GetColorsOk returns a tuple with the Colors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColors
 
-`func (o *DavinciConnectorMinimalResponseMetadata) SetColors(v DavinciConnectorMinimalResponseMetadataColors)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) SetColors(v DaVinciConnectorMinimalResponseMetadataColors)`
 
 SetColors sets Colors field to given value.
 
 ### HasColors
 
-`func (o *DavinciConnectorMinimalResponseMetadata) HasColors() bool`
+`func (o *DaVinciConnectorMinimalResponseMetadata) HasColors() bool`
 
 HasColors returns a boolean if a field has been set.
 
 ### GetLogos
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetLogos() DavinciConnectorMinimalResponseMetadataLogos`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetLogos() DaVinciConnectorMinimalResponseMetadataLogos`
 
 GetLogos returns the Logos field if non-nil, zero value otherwise.
 
 ### GetLogosOk
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetLogosOk() (*DavinciConnectorMinimalResponseMetadataLogos, bool)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetLogosOk() (*DaVinciConnectorMinimalResponseMetadataLogos, bool)`
 
 GetLogosOk returns a tuple with the Logos field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogos
 
-`func (o *DavinciConnectorMinimalResponseMetadata) SetLogos(v DavinciConnectorMinimalResponseMetadataLogos)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) SetLogos(v DaVinciConnectorMinimalResponseMetadataLogos)`
 
 SetLogos sets Logos field to given value.
 
 ### HasLogos
 
-`func (o *DavinciConnectorMinimalResponseMetadata) HasLogos() bool`
+`func (o *DaVinciConnectorMinimalResponseMetadata) HasLogos() bool`
 
 HasLogos returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetType() DavinciConnectorMinimalResponseMetadataType`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetType() DaVinciConnectorMinimalResponseMetadataType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetTypeOk() (*DavinciConnectorMinimalResponseMetadataType, bool)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetTypeOk() (*DaVinciConnectorMinimalResponseMetadataType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *DavinciConnectorMinimalResponseMetadata) SetType(v DavinciConnectorMinimalResponseMetadataType)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) SetType(v DaVinciConnectorMinimalResponseMetadataType)`
 
 SetType sets Type field to given value.
 
 ### HasType
 
-`func (o *DavinciConnectorMinimalResponseMetadata) HasType() bool`
+`func (o *DaVinciConnectorMinimalResponseMetadata) HasType() bool`
 
 HasType returns a boolean if a field has been set.
 
 ### GetVendor
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetVendor() string`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetVendor() string`
 
 GetVendor returns the Vendor field if non-nil, zero value otherwise.
 
 ### GetVendorOk
 
-`func (o *DavinciConnectorMinimalResponseMetadata) GetVendorOk() (*string, bool)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) GetVendorOk() (*string, bool)`
 
 GetVendorOk returns a tuple with the Vendor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVendor
 
-`func (o *DavinciConnectorMinimalResponseMetadata) SetVendor(v string)`
+`func (o *DaVinciConnectorMinimalResponseMetadata) SetVendor(v string)`
 
 SetVendor sets Vendor field to given value.
 
 ### HasVendor
 
-`func (o *DavinciConnectorMinimalResponseMetadata) HasVendor() bool`
+`func (o *DaVinciConnectorMinimalResponseMetadata) HasVendor() bool`
 
 HasVendor returns a boolean if a field has been set.
 

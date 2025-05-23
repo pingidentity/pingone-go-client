@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-23T14-30-45
+  version: development-2025-05-23T19-05-22
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -39,6 +39,8 @@ security:
 - bearerAuth: []
 - oauth2: []
 tags:
+- description: _TO_BE_DEFINED_
+  name: DaVinci Application
 - description: _TO_BE_DEFINED_
   name: DaVinci Connector
 - description: Endpoints for managing DaVinci variables within an environment.
@@ -316,7 +318,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorInstanceCollection'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceCollection'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -365,7 +367,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstance'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -448,7 +450,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstance'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -496,7 +498,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstance'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -544,7 +546,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstance'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -586,7 +588,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse'
+                $ref: '#/components/schemas/DaVinciConnectorCollectionMinimalResponse'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -630,7 +632,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorMinimalResponse'
+                $ref: '#/components/schemas/DaVinciConnectorMinimalResponse'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -673,7 +675,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DavinciConnectorDetailsResponse'
+                $ref: '#/components/schemas/DaVinciConnectorDetailsResponse'
           description: _TO_BE_DEFINED_
         "400":
           $ref: '#/components/responses/BadRequest'
@@ -700,6 +702,547 @@ paths:
       tags:
       - DaVinci Connector
       x-permission: davinci:read:connectors
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getDavinciApplications
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplicationCollection'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:read:applications
+      x-public-api: api
+      x-service-name: api
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createDavinciApplication
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciApplicationCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplication'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-docs-8830: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+          x-pingone-docs-8830: true
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:create:applications
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications/{daVinciApplicationID}:
+    delete:
+      description: _TO_BE_DEFINED_
+      operationId: deleteDavinciApplicationById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "204":
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:delete:applications
+      x-public-api: api
+      x-service-name: api
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getDavinciApplicationById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplication'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:read:applications
+      x-public-api: api
+      x-service-name: api
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceDavinciApplicationById
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciApplicationReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplication'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:update:applications
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies:
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getFlowPoliciesByDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowPolicyCollection'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:read:flowPolicies
+      x-public-api: api
+      x-service-name: api
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createFlowPolicyByDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:create:flowPolicies
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies/{flowPolicyID}:
+    delete:
+      description: _TO_BE_DEFINED_
+      operationId: deleteFlowPolicyByIdUsingDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/PathFlowPolicyID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "204":
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:delete:flowPolicies
+      x-public-api: api
+      x-service-name: api
+    get:
+      description: _TO_BE_DEFINED_
+      operationId: getFlowPolicyByIdUsingDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/PathFlowPolicyID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:read:flowPolicies
+      x-public-api: api
+      x-service-name: api
+    put:
+      description: _TO_BE_DEFINED_
+      operationId: replaceFlowPolicyByIdUsingDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/PathFlowPolicyID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowPolicyReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:update:flowPolicies
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/key:
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createKeyByDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/vnd.pingidentity.davinciApplication.rotateKey+json:
+            schema:
+              $ref: '#/components/schemas/DaVinciApplicationRotateKeyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplication'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:update:applications
+      x-public-api: api
+      x-service-name: api
+  /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/secret:
+    post:
+      description: _TO_BE_DEFINED_
+      operationId: createSecretByDavinciApplicationId
+      parameters:
+      - $ref: '#/components/parameters/PathEnvironmentID'
+      - $ref: '#/components/parameters/PathDaVinciApplicationID'
+      - $ref: '#/components/parameters/HeaderExternalTransactionID'
+      - $ref: '#/components/parameters/HeaderExternalSessionID'
+      requestBody:
+        content:
+          application/vnd.pingidentity.davinciApplication.rotateSecret+json:
+            schema:
+              $ref: '#/components/schemas/DaVinciApplicationRotateSecretRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciApplication'
+          description: _TO_BE_DEFINED_
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessFailedError'
+          description: Request failed due to authorization issue.
+          x-pingone-p14c-63085: true
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          description: Not found.
+        "415":
+          $ref: '#/components/responses/UnsupportedMediaType'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      summary: _TO_BE_DEFINED_
+      tags:
+      - DaVinci Application
+      x-permission: davinci:update:applications
       x-public-api: api
       x-service-name: api
   /environments/{environmentID}/variables:
@@ -1023,6 +1566,24 @@ components:
         format: UUID
         type: string
       style: simple
+    PathDaVinciApplicationID:
+      explode: false
+      in: path
+      name: daVinciApplicationID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
+    PathFlowPolicyID:
+      explode: false
+      in: path
+      name: flowPolicyID
+      required: true
+      schema:
+        format: UUID
+        type: string
+      style: simple
     PathVariableID:
       description: _TO_BE_DEFINED_
       explode: false
@@ -1142,10 +1703,723 @@ components:
         id: id
         message: message
       x-go-generate-error: true
+    DaVinciApplication:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        apiKey:
+          value: value
+          enabled: true
+        _links:
+          flowPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          davinciApplication.rotateKey:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          davinciApplication.rotateSecret:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        name: name
+        id: id
+        oauth:
+          grantTypes:
+          - authorizationCode
+          - authorizationCode
+          logoutUris:
+          - logoutUris
+          - logoutUris
+          enforceSignedRequestOpenid: true
+          clientSecret: clientSecret
+          scopes:
+          - flow_analytics
+          - flow_analytics
+          redirectUris:
+          - redirectUris
+          - redirectUris
+          spjwksUrl: spjwksUrl
+          spJwksOpenid: spJwksOpenid
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Application_Links'
+        apiKey:
+          $ref: '#/components/schemas/DaVinciApplication_apiKey'
+        createdAt:
+          format: date-time
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        id:
+          type: string
+        name:
+          type: string
+        oauth:
+          $ref: '#/components/schemas/DaVinciApplication_oauth'
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - _links
+      - apiKey
+      - environment
+      - id
+      - name
+      - oauth
+    DaVinciApplicationCollection:
+      example:
+        _embedded:
+          davinciApplications:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            apiKey:
+              value: value
+              enabled: true
+            _links:
+              flowPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              davinciApplication.rotateKey:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              davinciApplication.rotateSecret:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            oauth:
+              grantTypes:
+              - authorizationCode
+              - authorizationCode
+              logoutUris:
+              - logoutUris
+              - logoutUris
+              enforceSignedRequestOpenid: true
+              clientSecret: clientSecret
+              scopes:
+              - flow_analytics
+              - flow_analytics
+              redirectUris:
+              - redirectUris
+              - redirectUris
+              spjwksUrl: spjwksUrl
+              spJwksOpenid: spJwksOpenid
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            apiKey:
+              value: value
+              enabled: true
+            _links:
+              flowPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              davinciApplication.rotateKey:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              davinciApplication.rotateSecret:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            oauth:
+              grantTypes:
+              - authorizationCode
+              - authorizationCode
+              logoutUris:
+              - logoutUris
+              - logoutUris
+              enforceSignedRequestOpenid: true
+              clientSecret: clientSecret
+              scopes:
+              - flow_analytics
+              - flow_analytics
+              redirectUris:
+              - redirectUris
+              - redirectUris
+              spjwksUrl: spjwksUrl
+              spJwksOpenid: spJwksOpenid
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinciApplicationCollection__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Application_Collection_Links'
+      required:
+      - _embedded
+      - _links
+    DaVinciApplicationCreateRequest:
+      additionalProperties: true
+      default:
+        title: POST application body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+        required:
+        - name
+      example:
+        name: name
+      properties:
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+      required:
+      - name
+    DaVinciApplicationReplaceRequest:
+      additionalProperties: {}
+      default:
+        title: PUT application body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          apiKeyEnabled:
+            type: boolean
+          oauth:
+            type: object
+            additionalProperties: true
+            properties:
+              redirectUris:
+                type: array
+                items:
+                  type: string
+              logoutUris:
+                type: array
+                items:
+                  type: string
+              scopes:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - openid
+                  - profile
+                  - flow_analytics
+                  - offline_access
+              grantTypes:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - authorizationCode
+                  - implicit
+                  - clientCredentials
+              enforceSignedRequestOpenid:
+                type: boolean
+              spjwksUrl:
+                type: string
+              spJwksOpenid:
+                type: string
+        required:
+        - name
+      example:
+        name: name
+        apiKeyEnabled: true
+        oauth:
+          grantTypes:
+          - authorizationCode
+          - authorizationCode
+          logoutUris:
+          - logoutUris
+          - logoutUris
+          enforceSignedRequestOpenid: true
+          scopes:
+          - flow_analytics
+          - flow_analytics
+          redirectUris:
+          - redirectUris
+          - redirectUris
+          spjwksUrl: spjwksUrl
+          spJwksOpenid: spJwksOpenid
+      properties:
+        apiKeyEnabled:
+          type: boolean
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        oauth:
+          $ref: '#/components/schemas/DaVinciApplicationReplaceRequest_oauth'
+      required:
+      - name
+    DaVinciApplicationRotateKeyRequest:
+      additionalProperties: true
+      default:
+        title: ROTATE application validation parameters
+        type: object
+        additionalProperties: false
+        properties: {}
+      properties: {}
+      type: object
+    DaVinciApplicationRotateSecretRequest:
+      additionalProperties: true
+      default:
+        title: ROTATE application validation parameters
+        type: object
+        additionalProperties: false
+        properties: {}
+      properties: {}
+      type: object
+    DaVinciConnectorCollectionMinimalResponse:
+      example:
+        _embedded:
+          connectors:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            metadata:
+              vendor: vendor
+              type: core
+              logos:
+                canvas:
+                  imageFileName: imageFileName
+              colors:
+                canvas: canvas
+                canvasText: canvasText
+                dark: dark
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            description: description
+            id: id
+            version: version
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            metadata:
+              vendor: vendor
+              type: core
+              logos:
+                canvas:
+                  imageFileName: imageFileName
+              colors:
+                canvas: canvas
+                canvasText: canvasText
+                dark: dark
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            description: description
+            id: id
+            version: version
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinciConnectorCollectionMinimalResponse__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Collection_Minimal_Response_Links'
+      required:
+      - _embedded
+      - _links
+    DaVinciConnectorDetailsResponse:
+      example:
+        accountConfigView:
+          componentViewSize: componentViewSize
+          items:
+          - key: ""
+          - key: ""
+        environment:
+          id: id
+        capabilities:
+          key:
+            key: ""
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        flowSections:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        credentialsView:
+          items:
+          - key: ""
+          - key: ""
+        properties:
+          key: ""
+        sections:
+        - default: true
+          name: name
+          value: value
+        - default: true
+          name: name
+          value: value
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Links'
+        accountConfigView:
+          $ref: '#/components/schemas/DaVinciConnectorDetailsResponse_accountConfigView'
+        capabilities:
+          additionalProperties:
+            additionalProperties: true
+            type: object
+        credentialsView:
+          $ref: '#/components/schemas/DaVinciConnectorDetailsResponse_credentialsView'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        flowSections:
+          items:
+            $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Flow_Section'
+          type: array
+        properties:
+          additionalProperties: true
+          properties: {}
+          type: object
+        sections:
+          items:
+            $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Section'
+          type: array
+      required:
+      - environment
+    DaVinciConnectorInstance:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        connector:
+          id: id
+        _links:
+          connectorInstance.clone:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          gateways:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          notificationsPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          deviceAuthenticationPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          applications:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        name: name
+        id: id
+        properties:
+          key: ""
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Instance_Links'
+        connector:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+        createdAt:
+          format: date-time
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        id:
+          type: string
+        name:
+          type: string
+        properties:
+          additionalProperties: true
+          properties: {}
+          type: object
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - _links
+      - connector
+      - environment
+      - id
+      - name
     DaVinciConnectorInstanceCloneRequest:
       additionalProperties: true
       properties: {}
       type: object
+    DaVinciConnectorInstanceCollection:
+      example:
+        _embedded:
+          connectorInstances:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            connector:
+              id: id
+            _links:
+              connectorInstance.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              gateways:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              notificationsPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              deviceAuthenticationPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              applications:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            properties:
+              key: ""
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            connector:
+              id: id
+            _links:
+              connectorInstance.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              gateways:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              notificationsPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              deviceAuthenticationPolicies:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              applications:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            name: name
+            id: id
+            properties:
+              key: ""
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinciConnectorInstanceCollection__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection_Links'
+      required:
+      - _embedded
+      - _links
     DaVinciConnectorInstanceCreateRequest:
       additionalProperties: true
       example:
@@ -1179,6 +2453,610 @@ components:
           type: object
       required:
       - name
+    DaVinciConnectorMinimalResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        metadata:
+          vendor: vendor
+          type: core
+          logos:
+            canvas:
+              imageFileName: imageFileName
+          colors:
+            canvas: canvas
+            canvasText: canvasText
+            dark: dark
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        name: name
+        description: description
+        id: id
+        version: version
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Links'
+        createdAt:
+          format: date-time
+          type: string
+        description:
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/DaVinciConnectorMinimalResponse_metadata'
+        name:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        version:
+          type: string
+      required:
+      - _links
+      - createdAt
+      - description
+      - environment
+      - id
+      - metadata
+      - name
+      - updatedAt
+      - version
+    DaVinciFlowPolicyCollection:
+      example:
+        _embedded:
+          flowPolicies:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            flowDistributions:
+            - ip:
+              - ip
+              - ip
+              weight: 6.027456183070403
+              id: id
+              version: 0.8008281904610115
+              successNodes:
+              - id: id
+              - id: id
+            - ip:
+              - ip
+              - ip
+              weight: 6.027456183070403
+              id: id
+              version: 0.8008281904610115
+              successNodes:
+              - id: id
+              - id: id
+            name: name
+            id: id
+            trigger:
+              configuration:
+                mfa:
+                  timeFormat: timeFormat
+                  time: 1.4658129805029452
+                  enabled: true
+                pwd:
+                  timeFormat: timeFormat
+                  time: 5.962133916683182
+                  enabled: true
+              type: type
+            status: disabled
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: title
+                type: type
+            flowDistributions:
+            - ip:
+              - ip
+              - ip
+              weight: 6.027456183070403
+              id: id
+              version: 0.8008281904610115
+              successNodes:
+              - id: id
+              - id: id
+            - ip:
+              - ip
+              - ip
+              weight: 6.027456183070403
+              id: id
+              version: 0.8008281904610115
+              successNodes:
+              - id: id
+              - id: id
+            name: name
+            id: id
+            trigger:
+              configuration:
+                mfa:
+                  timeFormat: timeFormat
+                  time: 1.4658129805029452
+                  enabled: true
+                pwd:
+                  timeFormat: timeFormat
+                  time: 5.962133916683182
+                  enabled: true
+              type: type
+            status: disabled
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCollection__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Collection_Links'
+      required:
+      - _embedded
+      - _links
+    DaVinciFlowPolicyCreateRequest:
+      additionalProperties: {}
+      default:
+        title: POST flow policy body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          status:
+            enum:
+            - enabled
+            - disabled
+            type: string
+          trigger:
+            type: object
+            additionalProperties: true
+            properties:
+              type:
+                type: string
+                minLength: 0
+                maxLength: 50
+              configuration:
+                type: object
+                additionalProperties: true
+                properties:
+                  pwd:
+                    type: object
+                    additionalProperties: true
+                    properties:
+                      enabled:
+                        type: boolean
+                      time:
+                        type: number
+                        minLength: 0
+                        maxLength: 100000
+                      timeFormat:
+                        type: string
+                        minLength: 0
+                        maxLength: 50
+                  mfa:
+                    type: object
+                    additionalProperties: true
+                    properties:
+                      enabled:
+                        type: boolean
+                      time:
+                        type: number
+                        minLength: 0
+                        maxLength: 100000
+                      timeFormat:
+                        type: string
+                        minLength: 0
+                        maxLength: 50
+          flowDistributions:
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  pattern: "^[a-zA-Z0-9-_]+$"
+                version:
+                  type: number
+                weight:
+                  type: number
+                successNodes:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        pattern: "^[a-zA-Z0-9]+$"
+                        type: string
+                    required:
+                    - id
+                ip:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - id
+              - version
+        required:
+        - flowDistributions
+      example:
+        flowDistributions:
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        name: name
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.4658129805029452
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 5.962133916683182
+              enabled: true
+          type: type
+        status: disabled
+      properties:
+        flowDistributions:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution'
+          maxItems: 100
+          minItems: 1
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        status:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest_status'
+        trigger:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest_trigger'
+      required:
+      - flowDistributions
+    DaVinciFlowPolicyReplaceRequest:
+      additionalProperties: {}
+      default:
+        title: PUT flow policy body parameters
+        type: object
+        additionalProperties: true
+        properties:
+          name:
+            pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+            maxLength: 256
+            type: string
+          status:
+            enum:
+            - enabled
+            - disabled
+            type: string
+          trigger:
+            type: object
+            additionalProperties: true
+            properties:
+              type:
+                type: string
+                minLength: 0
+                maxLength: 50
+              configuration:
+                type: object
+                additionalProperties: true
+                properties:
+                  pwd:
+                    type: object
+                    additionalProperties: true
+                    properties:
+                      enabled:
+                        type: boolean
+                      time:
+                        type: number
+                        minLength: 0
+                        maxLength: 100000
+                      timeFormat:
+                        type: string
+                        minLength: 0
+                        maxLength: 50
+                  mfa:
+                    type: object
+                    additionalProperties: true
+                    properties:
+                      enabled:
+                        type: boolean
+                      time:
+                        type: number
+                        minLength: 0
+                        maxLength: 100000
+                      timeFormat:
+                        type: string
+                        minLength: 0
+                        maxLength: 50
+          flowDistributions:
+            type: array
+            minItems: 0
+            maxItems: 100
+            items:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                version:
+                  type: number
+                weight:
+                  type: number
+                successNodes:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        pattern: "^[a-zA-Z0-9]+$"
+                        type: string
+                    required:
+                    - id
+                ip:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - id
+              - version
+        required:
+        - name
+      example:
+        flowDistributions:
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        name: name
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.4658129805029452
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 5.962133916683182
+              enabled: true
+          type: type
+        status: disabled
+      properties:
+        flowDistributions:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution'
+          maxItems: 100
+          minItems: 0
+        name:
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        status:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest_status'
+        trigger:
+          $ref: '#/components/schemas/DaVinciFlowPolicyReplaceRequest_trigger'
+      required:
+      - name
+    DaVinciFlowPolicyResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: title
+            type: type
+        flowDistributions:
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        - ip:
+          - ip
+          - ip
+          weight: 6.027456183070403
+          id: id
+          version: 0.8008281904610115
+          successNodes:
+          - id: id
+          - id: id
+        name: name
+        id: id
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.4658129805029452
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 5.962133916683182
+              enabled: true
+          type: type
+        status: disabled
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Links'
+        createdAt:
+          format: date-time
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipPingOne'
+        flowDistributions:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution'
+          type: array
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest_status'
+        trigger:
+          $ref: '#/components/schemas/DaVinciFlowPolicyResponse_trigger'
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - _links
+      - environment
+      - flowDistributions
+      - id
+      - name
+      - status
     DaVinciVariable:
       example:
         _links:
@@ -1332,7 +3210,7 @@ components:
         _embedded:
           $ref: '#/components/schemas/DaVinciVariableCollection__embedded'
         _links:
-          $ref: '#/components/schemas/DaVinciVariableCollection__links'
+          $ref: '#/components/schemas/DaVinci_Variable_Collection_Links'
         count:
           type: number
         size:
@@ -1425,440 +3303,6 @@ components:
       - dataType
       - mutable
       - name
-    DavinciConnectorCollectionMinimalResponse:
-      example:
-        _embedded:
-          connectors:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            environment:
-              id: id
-            metadata:
-              vendor: vendor
-              type: core
-              logos:
-                canvas:
-                  imageFileName: imageFileName
-              colors:
-                canvas: canvas
-                canvasText: canvasText
-                dark: dark
-            _links:
-              environment:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              self:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-            name: name
-            description: description
-            id: id
-            version: version
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            environment:
-              id: id
-            metadata:
-              vendor: vendor
-              type: core
-              logos:
-                canvas:
-                  imageFileName: imageFileName
-              colors:
-                canvas: canvas
-                canvasText: canvasText
-                dark: dark
-            _links:
-              environment:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              self:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-            name: name
-            description: description
-            id: id
-            version: version
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-        _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-      properties:
-        _embedded:
-          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__embedded'
-        _links:
-          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
-      required:
-      - _embedded
-      - _links
-    DavinciConnectorDetailsResponse:
-      example:
-        accountConfigView:
-          componentViewSize: componentViewSize
-          items:
-          - key: ""
-          - key: ""
-        environment:
-          id: id
-        capabilities:
-          key:
-            key: ""
-        _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-        flowSections:
-        - name: name
-          value: value
-        - name: name
-          value: value
-        credentialsView:
-          items:
-          - key: ""
-          - key: ""
-        properties:
-          key: ""
-        sections:
-        - default: true
-          name: name
-          value: value
-        - default: true
-          name: name
-          value: value
-      properties:
-        _links:
-          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
-        accountConfigView:
-          $ref: '#/components/schemas/DavinciConnectorDetailsResponse_accountConfigView'
-        capabilities:
-          additionalProperties:
-            additionalProperties: true
-            type: object
-        credentialsView:
-          $ref: '#/components/schemas/DavinciConnectorDetailsResponse_credentialsView'
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipPingOne'
-        flowSections:
-          items:
-            $ref: '#/components/schemas/DavinciConnectorDetailsResponse_flowSections'
-          type: array
-        properties:
-          additionalProperties: true
-          properties: {}
-          type: object
-        sections:
-          items:
-            $ref: '#/components/schemas/DavinciConnectorDetailsResponse_sections'
-          type: array
-      required:
-      - environment
-    DavinciConnectorInstance:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: id
-        connector:
-          id: id
-        _links:
-          connectorInstance.clone:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          gateways:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          notificationsPolicies:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          deviceAuthenticationPolicies:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          applications:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-        name: name
-        id: id
-        properties:
-          key: ""
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        _links:
-          $ref: '#/components/schemas/DavinciConnectorInstance__links'
-        connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
-        createdAt:
-          format: date-time
-          type: string
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipPingOne'
-        id:
-          type: string
-        name:
-          type: string
-        properties:
-          additionalProperties: true
-          properties: {}
-          type: object
-        updatedAt:
-          format: date-time
-          type: string
-      required:
-      - _links
-      - connector
-      - environment
-      - id
-      - name
-    DavinciConnectorInstanceCollection:
-      example:
-        _embedded:
-          connectorInstances:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            environment:
-              id: id
-            connector:
-              id: id
-            _links:
-              connectorInstance.clone:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              gateways:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              environment:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              notificationsPolicies:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              self:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              deviceAuthenticationPolicies:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              applications:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-            name: name
-            id: id
-            properties:
-              key: ""
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            environment:
-              id: id
-            connector:
-              id: id
-            _links:
-              connectorInstance.clone:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              gateways:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              environment:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              notificationsPolicies:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              self:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              deviceAuthenticationPolicies:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-              applications:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: title
-                type: type
-            name: name
-            id: id
-            properties:
-              key: ""
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-        _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-      properties:
-        _embedded:
-          $ref: '#/components/schemas/DavinciConnectorInstanceCollection__embedded'
-        _links:
-          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
-      required:
-      - _embedded
-      - _links
-    DavinciConnectorMinimalResponse:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: id
-        metadata:
-          vendor: vendor
-          type: core
-          logos:
-            canvas:
-              imageFileName: imageFileName
-          colors:
-            canvas: canvas
-            canvasText: canvasText
-            dark: dark
-        _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: title
-            type: type
-        name: name
-        description: description
-        id: id
-        version: version
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        _links:
-          $ref: '#/components/schemas/DavinciConnectorCollectionMinimalResponse__links'
-        createdAt:
-          format: date-time
-          type: string
-        description:
-          type: string
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipPingOne'
-        id:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata'
-        name:
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-        version:
-          type: string
-      required:
-      - _links
-      - createdAt
-      - description
-      - environment
-      - id
-      - metadata
-      - name
-      - updatedAt
-      - version
     Environment:
       allOf:
       - $ref: '#/components/schemas/EnvironmentCommon'
@@ -2564,6 +4008,712 @@ components:
       title: Access Failed Error Code
       type: string
       x-go-generate-error-code: true
+    DaVinci_Application_Links:
+      additionalProperties: true
+      example:
+        flowPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        davinciApplication.rotateKey:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        davinciApplication.rotateSecret:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        davinciApplication.rotateKey:
+          $ref: '#/components/schemas/JSONHALLink'
+        davinciApplication.rotateSecret:
+          $ref: '#/components/schemas/JSONHALLink'
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        flowPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - davinciApplication.rotateKey
+      - davinciApplication.rotateSecret
+      - environment
+      - flowPolicies
+      - self
+      title: DaVinci Application Links
+    DaVinciApplication_apiKey:
+      example:
+        value: value
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        value:
+          type: string
+      required:
+      - enabled
+      - value
+    DaVinciApplication_oauth_grantTypes:
+      enum:
+      - authorizationCode
+      - clientCredentials
+      - implicit
+      type: string
+    DaVinciApplication_oauth_scopes:
+      enum:
+      - flow_analytics
+      - offline_access
+      - openid
+      - profile
+      type: string
+    DaVinciApplication_oauth:
+      example:
+        grantTypes:
+        - authorizationCode
+        - authorizationCode
+        logoutUris:
+        - logoutUris
+        - logoutUris
+        enforceSignedRequestOpenid: true
+        clientSecret: clientSecret
+        scopes:
+        - flow_analytics
+        - flow_analytics
+        redirectUris:
+        - redirectUris
+        - redirectUris
+        spjwksUrl: spjwksUrl
+        spJwksOpenid: spJwksOpenid
+      properties:
+        clientSecret:
+          type: string
+        enforceSignedRequestOpenid:
+          type: boolean
+        grantTypes:
+          items:
+            $ref: '#/components/schemas/DaVinciApplication_oauth_grantTypes'
+          type: array
+        logoutUris:
+          items:
+            type: string
+          type: array
+        redirectUris:
+          items:
+            type: string
+          type: array
+        scopes:
+          items:
+            $ref: '#/components/schemas/DaVinciApplication_oauth_scopes'
+          type: array
+        spJwksOpenid:
+          type: string
+        spjwksUrl:
+          type: string
+      required:
+      - clientSecret
+      - grantTypes
+      - logoutUris
+      - redirectUris
+      - scopes
+    DaVinciApplicationCollection__embedded:
+      example:
+        davinciApplications:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          apiKey:
+            value: value
+            enabled: true
+          _links:
+            flowPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            davinciApplication.rotateKey:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            davinciApplication.rotateSecret:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          oauth:
+            grantTypes:
+            - authorizationCode
+            - authorizationCode
+            logoutUris:
+            - logoutUris
+            - logoutUris
+            enforceSignedRequestOpenid: true
+            clientSecret: clientSecret
+            scopes:
+            - flow_analytics
+            - flow_analytics
+            redirectUris:
+            - redirectUris
+            - redirectUris
+            spjwksUrl: spjwksUrl
+            spJwksOpenid: spJwksOpenid
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          apiKey:
+            value: value
+            enabled: true
+          _links:
+            flowPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            davinciApplication.rotateKey:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            davinciApplication.rotateSecret:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          oauth:
+            grantTypes:
+            - authorizationCode
+            - authorizationCode
+            logoutUris:
+            - logoutUris
+            - logoutUris
+            enforceSignedRequestOpenid: true
+            clientSecret: clientSecret
+            scopes:
+            - flow_analytics
+            - flow_analytics
+            redirectUris:
+            - redirectUris
+            - redirectUris
+            spjwksUrl: spjwksUrl
+            spJwksOpenid: spJwksOpenid
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        davinciApplications:
+          items:
+            $ref: '#/components/schemas/DaVinciApplication'
+          type: array
+      required:
+      - davinciApplications
+    DaVinci_Application_Collection_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Application Collection Links
+    DaVinciApplicationReplaceRequest_oauth_grantTypes:
+      enum:
+      - authorizationCode
+      - clientCredentials
+      - implicit
+    DaVinciApplicationReplaceRequest_oauth_scopes:
+      enum:
+      - flow_analytics
+      - offline_access
+      - openid
+      - profile
+    DaVinciApplicationReplaceRequest_oauth:
+      additionalProperties: true
+      example:
+        grantTypes:
+        - authorizationCode
+        - authorizationCode
+        logoutUris:
+        - logoutUris
+        - logoutUris
+        enforceSignedRequestOpenid: true
+        scopes:
+        - flow_analytics
+        - flow_analytics
+        redirectUris:
+        - redirectUris
+        - redirectUris
+        spjwksUrl: spjwksUrl
+        spJwksOpenid: spJwksOpenid
+      properties:
+        enforceSignedRequestOpenid:
+          type: boolean
+        grantTypes:
+          items:
+            $ref: '#/components/schemas/DaVinciApplicationReplaceRequest_oauth_grantTypes'
+        logoutUris:
+          items: {}
+        redirectUris:
+          items: {}
+        scopes:
+          items:
+            $ref: '#/components/schemas/DaVinciApplicationReplaceRequest_oauth_scopes'
+        spJwksOpenid:
+          type: string
+        spjwksUrl:
+          type: string
+    DaVinciConnectorCollectionMinimalResponse__embedded:
+      example:
+        connectors:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          metadata:
+            vendor: vendor
+            type: core
+            logos:
+              canvas:
+                imageFileName: imageFileName
+            colors:
+              canvas: canvas
+              canvasText: canvasText
+              dark: dark
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          description: description
+          id: id
+          version: version
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          metadata:
+            vendor: vendor
+            type: core
+            logos:
+              canvas:
+                imageFileName: imageFileName
+            colors:
+              canvas: canvas
+              canvasText: canvasText
+              dark: dark
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          description: description
+          id: id
+          version: version
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        connectors:
+          items:
+            $ref: '#/components/schemas/DaVinciConnectorMinimalResponse'
+          type: array
+      required:
+      - connectors
+    DaVinci_Connector_Collection_Minimal_Response_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Connector Collection Minimal Response Links
+    DaVinci_Connector_Details_Response_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Connector Details Response Links
+    DaVinciConnectorDetailsResponse_accountConfigView:
+      example:
+        componentViewSize: componentViewSize
+        items:
+        - key: ""
+        - key: ""
+      properties:
+        componentViewSize:
+          type: string
+        items:
+          items:
+            additionalProperties: true
+            properties: {}
+            title: DaVinci Connector Details Response Account Config View Item
+            type: object
+          type: array
+      required:
+      - items
+    DaVinciConnectorDetailsResponse_credentialsView:
+      example:
+        items:
+        - key: ""
+        - key: ""
+      properties:
+        items:
+          items:
+            additionalProperties: true
+            properties: {}
+            title: DaVinci Connector Details Response Credentials View Item
+            type: object
+          type: array
+      required:
+      - items
+    DaVinci_Connector_Details_Response_Flow_Section:
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+      title: DaVinci Connector Details Response Flow Section
+    DaVinci_Connector_Details_Response_Section:
+      example:
+        default: true
+        name: name
+        value: value
+      properties:
+        default:
+          type: boolean
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+      title: DaVinci Connector Details Response Section
+    DaVinci_Connector_Instance_Links:
+      additionalProperties: true
+      example:
+        connectorInstance.clone:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        gateways:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        notificationsPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        deviceAuthenticationPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        applications:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        applications:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstance.clone:
+          $ref: '#/components/schemas/JSONHALLink'
+        deviceAuthenticationPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        gateways:
+          $ref: '#/components/schemas/JSONHALLink'
+        notificationsPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - connectorInstance.clone
+      - environment
+      - self
+      title: DaVinci Connector Instance Links
+    DaVinciConnectorInstanceCollection__embedded:
+      example:
+        connectorInstances:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          connector:
+            id: id
+          _links:
+            connectorInstance.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            gateways:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            notificationsPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            deviceAuthenticationPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            applications:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          properties:
+            key: ""
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          connector:
+            id: id
+          _links:
+            connectorInstance.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            gateways:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            notificationsPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            deviceAuthenticationPolicies:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            applications:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          name: name
+          id: id
+          properties:
+            key: ""
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        connectorInstances:
+          items:
+            $ref: '#/components/schemas/DaVinciConnectorInstance'
+          type: array
+      required:
+      - connectorInstances
+    DaVinci_Connector_Instance_Collection_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Connector Instance Collection Links
     DaVinciConnectorInstanceCreateRequest_connector:
       example:
         id: id
@@ -2571,6 +4721,565 @@ components:
         id:
           maxLength: 256
           pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          type: string
+    DaVinci_Connector_Minimal_Response_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Connector Minimal Response Links
+    DaVinciConnectorMinimalResponse_metadata_colors:
+      example:
+        canvas: canvas
+        canvasText: canvasText
+        dark: dark
+      properties:
+        canvas:
+          type: string
+        canvasText:
+          type: string
+        dark:
+          type: string
+    DaVinciConnectorMinimalResponse_metadata_logos_canvas:
+      example:
+        imageFileName: imageFileName
+      properties:
+        imageFileName:
+          type: string
+    DaVinciConnectorMinimalResponse_metadata_logos:
+      example:
+        canvas:
+          imageFileName: imageFileName
+      properties:
+        canvas:
+          $ref: '#/components/schemas/DaVinciConnectorMinimalResponse_metadata_logos_canvas'
+    DaVinciConnectorMinimalResponse_metadata_type:
+      enum:
+      - core
+      - ping
+      - service
+      type: string
+    DaVinciConnectorMinimalResponse_metadata:
+      example:
+        vendor: vendor
+        type: core
+        logos:
+          canvas:
+            imageFileName: imageFileName
+        colors:
+          canvas: canvas
+          canvasText: canvasText
+          dark: dark
+      properties:
+        colors:
+          $ref: '#/components/schemas/DaVinciConnectorMinimalResponse_metadata_colors'
+        logos:
+          $ref: '#/components/schemas/DaVinciConnectorMinimalResponse_metadata_logos'
+        type:
+          $ref: '#/components/schemas/DaVinciConnectorMinimalResponse_metadata_type'
+        vendor:
+          type: string
+    DaVinciFlowPolicyCollection__embedded:
+      example:
+        flowPolicies:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          flowDistributions:
+          - ip:
+            - ip
+            - ip
+            weight: 6.027456183070403
+            id: id
+            version: 0.8008281904610115
+            successNodes:
+            - id: id
+            - id: id
+          - ip:
+            - ip
+            - ip
+            weight: 6.027456183070403
+            id: id
+            version: 0.8008281904610115
+            successNodes:
+            - id: id
+            - id: id
+          name: name
+          id: id
+          trigger:
+            configuration:
+              mfa:
+                timeFormat: timeFormat
+                time: 1.4658129805029452
+                enabled: true
+              pwd:
+                timeFormat: timeFormat
+                time: 5.962133916683182
+                enabled: true
+            type: type
+          status: disabled
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: title
+              type: type
+          flowDistributions:
+          - ip:
+            - ip
+            - ip
+            weight: 6.027456183070403
+            id: id
+            version: 0.8008281904610115
+            successNodes:
+            - id: id
+            - id: id
+          - ip:
+            - ip
+            - ip
+            weight: 6.027456183070403
+            id: id
+            version: 0.8008281904610115
+            successNodes:
+            - id: id
+            - id: id
+          name: name
+          id: id
+          trigger:
+            configuration:
+              mfa:
+                timeFormat: timeFormat
+                time: 1.4658129805029452
+                enabled: true
+              pwd:
+                timeFormat: timeFormat
+                time: 5.962133916683182
+                enabled: true
+            type: type
+          status: disabled
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        flowPolicies:
+          items:
+            $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+          type: array
+      required:
+      - flowPolicies
+    DaVinci_Flow_Policy_Collection_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Flow Policy Collection Links
+    DaVinci_Flow_Policy_Create_Request_Flow_Distribution_Success_Node:
+      additionalProperties: true
+      example:
+        id: id
+      properties:
+        id:
+          pattern: "^[a-zA-Z0-9]+$"
+      required:
+      - id
+      title: DaVinci Flow Policy Create Request Flow Distribution Success Node
+    DaVinci_Flow_Policy_Create_Request_Flow_Distribution:
+      additionalProperties: true
+      example:
+        ip:
+        - ip
+        - ip
+        weight: 6.027456183070403
+        id: id
+        version: 0.8008281904610115
+        successNodes:
+        - id: id
+        - id: id
+      properties:
+        id:
+          pattern: "^[a-zA-Z0-9-_]+$"
+        ip:
+          items: {}
+        successNodes:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution_Success_Node'
+          minItems: 1
+        version:
+          type: number
+        weight:
+          type: number
+      required:
+      - id
+      - version
+      title: DaVinci Flow Policy Create Request Flow Distribution
+    DaVinciFlowPolicyCreateRequest_status:
+      enum:
+      - disabled
+      - enabled
+      type: string
+    DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_MFA:
+      additionalProperties: true
+      example:
+        timeFormat: timeFormat
+        time: 1.4658129805029452
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          maxLength: 100000
+          minLength: 0
+        timeFormat:
+          maxLength: 50
+          minLength: 0
+      title: DaVinci Flow Policy Create Request Trigger Configuration MFA
+    DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_Password:
+      additionalProperties: true
+      example:
+        timeFormat: timeFormat
+        time: 5.962133916683182
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          maxLength: 100000
+          minLength: 0
+        timeFormat:
+          maxLength: 50
+          minLength: 0
+      title: DaVinci Flow Policy Create Request Trigger Configuration Password
+    DaVinciFlowPolicyCreateRequest_trigger_configuration:
+      additionalProperties: true
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.4658129805029452
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 5.962133916683182
+          enabled: true
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_Password'
+    DaVinciFlowPolicyCreateRequest_trigger:
+      additionalProperties: true
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.4658129805029452
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 5.962133916683182
+            enabled: true
+        type: type
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest_trigger_configuration'
+        type:
+          maxLength: 50
+          minLength: 0
+    DaVinci_Flow_Policy_Replace_Request_Flow_Distribution_Success_Node:
+      additionalProperties: true
+      example:
+        id: id
+      properties:
+        id:
+          pattern: "^[a-zA-Z0-9]+$"
+      required:
+      - id
+      title: DaVinci Flow Policy Replace Request Flow Distribution Success Node
+    DaVinci_Flow_Policy_Replace_Request_Flow_Distribution:
+      additionalProperties: true
+      example:
+        ip:
+        - ip
+        - ip
+        weight: 6.027456183070403
+        id: id
+        version: 0.8008281904610115
+        successNodes:
+        - id: id
+        - id: id
+      properties:
+        id:
+          type: string
+        ip:
+          items: {}
+        successNodes:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution_Success_Node'
+          minItems: 1
+        version:
+          type: number
+        weight:
+          type: number
+      required:
+      - id
+      - version
+      title: DaVinci Flow Policy Replace Request Flow Distribution
+    DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_MFA:
+      additionalProperties: true
+      example:
+        timeFormat: timeFormat
+        time: 1.4658129805029452
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          maxLength: 100000
+          minLength: 0
+        timeFormat:
+          maxLength: 50
+          minLength: 0
+      title: DaVinci Flow Policy Replace Request Trigger Configuration MFA
+    DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_Password:
+      additionalProperties: true
+      example:
+        timeFormat: timeFormat
+        time: 5.962133916683182
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          maxLength: 100000
+          minLength: 0
+        timeFormat:
+          maxLength: 50
+          minLength: 0
+      title: DaVinci Flow Policy Replace Request Trigger Configuration Password
+    DaVinciFlowPolicyReplaceRequest_trigger_configuration:
+      additionalProperties: true
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.4658129805029452
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 5.962133916683182
+          enabled: true
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_Password'
+    DaVinciFlowPolicyReplaceRequest_trigger:
+      additionalProperties: true
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.4658129805029452
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 5.962133916683182
+            enabled: true
+        type: type
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinciFlowPolicyReplaceRequest_trigger_configuration'
+        type:
+          maxLength: 50
+          minLength: 0
+    DaVinci_Flow_Policy_Response_Links:
+      additionalProperties: true
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: title
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Flow Policy Response Links
+    DaVinci_Flow_Policy_Response_Flow_Distribution_Success_Node:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      title: DaVinci Flow Policy Response Flow Distribution Success Node
+    DaVinci_Flow_Policy_Response_Flow_Distribution:
+      example:
+        ip:
+        - ip
+        - ip
+        weight: 6.027456183070403
+        id: id
+        version: 0.8008281904610115
+        successNodes:
+        - id: id
+        - id: id
+      properties:
+        id:
+          type: string
+        ip:
+          items:
+            type: string
+          type: array
+        successNodes:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution_Success_Node'
+          type: array
+        version:
+          type: number
+        weight:
+          type: number
+      required:
+      - id
+      - version
+      title: DaVinci Flow Policy Response Flow Distribution
+    DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA:
+      example:
+        timeFormat: timeFormat
+        time: 1.4658129805029452
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          type: number
+        timeFormat:
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Policy Response Trigger Configuration MFA
+    DaVinci_Flow_Policy_Response_Trigger_Configuration_Password:
+      example:
+        timeFormat: timeFormat
+        time: 5.962133916683182
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        time:
+          type: number
+        timeFormat:
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Policy Response Trigger Configuration Password
+    DaVinciFlowPolicyResponse_trigger_configuration:
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.4658129805029452
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 5.962133916683182
+          enabled: true
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_Password'
+      required:
+      - mfa
+      - pwd
+    DaVinciFlowPolicyResponse_trigger:
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.4658129805029452
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 5.962133916683182
+            enabled: true
+        type: type
+      nullable: true
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinciFlowPolicyResponse_trigger_configuration'
+        type:
           type: string
     DaVinci_Variable_Links:
       additionalProperties: true
@@ -2687,7 +5396,7 @@ components:
           type: array
       required:
       - variables
-    DaVinciVariableCollection__links:
+    DaVinci_Variable_Collection_Links:
       additionalProperties: true
       example:
         next:
@@ -2718,6 +5427,7 @@ components:
       required:
       - environment
       - self
+      title: DaVinci Variable Collection Links
     DaVinci_Variable_Create_Request_Context:
       enum:
       - company
@@ -2767,390 +5477,6 @@ components:
       - type: object
       - type: string
       title: DaVinci Variable Replace Request Value
-    DavinciConnectorCollectionMinimalResponse__embedded:
-      example:
-        connectors:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          environment:
-            id: id
-          metadata:
-            vendor: vendor
-            type: core
-            logos:
-              canvas:
-                imageFileName: imageFileName
-            colors:
-              canvas: canvas
-              canvasText: canvasText
-              dark: dark
-          _links:
-            environment:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            self:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-          name: name
-          description: description
-          id: id
-          version: version
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          environment:
-            id: id
-          metadata:
-            vendor: vendor
-            type: core
-            logos:
-              canvas:
-                imageFileName: imageFileName
-            colors:
-              canvas: canvas
-              canvasText: canvasText
-              dark: dark
-          _links:
-            environment:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            self:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-          name: name
-          description: description
-          id: id
-          version: version
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        connectors:
-          items:
-            $ref: '#/components/schemas/DavinciConnectorMinimalResponse'
-          type: array
-      required:
-      - connectors
-    DavinciConnectorCollectionMinimalResponse__links:
-      additionalProperties: true
-      example:
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-      properties:
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      required:
-      - environment
-      - self
-    DavinciConnectorDetailsResponse_accountConfigView:
-      example:
-        componentViewSize: componentViewSize
-        items:
-        - key: ""
-        - key: ""
-      properties:
-        componentViewSize:
-          type: string
-        items:
-          items:
-            additionalProperties: true
-            properties: {}
-            type: object
-          type: array
-      required:
-      - items
-    DavinciConnectorDetailsResponse_credentialsView:
-      example:
-        items:
-        - key: ""
-        - key: ""
-      properties:
-        items:
-          items:
-            additionalProperties: true
-            properties: {}
-            type: object
-          type: array
-      required:
-      - items
-    DavinciConnectorDetailsResponse_flowSections:
-      example:
-        name: name
-        value: value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
-    DavinciConnectorDetailsResponse_sections:
-      example:
-        default: true
-        name: name
-        value: value
-      properties:
-        default:
-          type: boolean
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
-    DavinciConnectorInstance__links:
-      additionalProperties: true
-      example:
-        connectorInstance.clone:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        gateways:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        notificationsPolicies:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        deviceAuthenticationPolicies:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-        applications:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: title
-          type: type
-      properties:
-        applications:
-          $ref: '#/components/schemas/JSONHALLink'
-        connectorInstance.clone:
-          $ref: '#/components/schemas/JSONHALLink'
-        deviceAuthenticationPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
-        gateways:
-          $ref: '#/components/schemas/JSONHALLink'
-        notificationsPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      required:
-      - connectorInstance.clone
-      - environment
-      - self
-    DavinciConnectorInstanceCollection__embedded:
-      example:
-        connectorInstances:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          environment:
-            id: id
-          connector:
-            id: id
-          _links:
-            connectorInstance.clone:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            gateways:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            environment:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            notificationsPolicies:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            self:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            deviceAuthenticationPolicies:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            applications:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-          name: name
-          id: id
-          properties:
-            key: ""
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          environment:
-            id: id
-          connector:
-            id: id
-          _links:
-            connectorInstance.clone:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            gateways:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            environment:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            notificationsPolicies:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            self:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            deviceAuthenticationPolicies:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-            applications:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: title
-              type: type
-          name: name
-          id: id
-          properties:
-            key: ""
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        connectorInstances:
-          items:
-            $ref: '#/components/schemas/DavinciConnectorInstance'
-          type: array
-      required:
-      - connectorInstances
-    DavinciConnectorMinimalResponse_metadata_colors:
-      example:
-        canvas: canvas
-        canvasText: canvasText
-        dark: dark
-      properties:
-        canvas:
-          type: string
-        canvasText:
-          type: string
-        dark:
-          type: string
-    DavinciConnectorMinimalResponse_metadata_logos_canvas:
-      example:
-        imageFileName: imageFileName
-      properties:
-        imageFileName:
-          type: string
-    DavinciConnectorMinimalResponse_metadata_logos:
-      example:
-        canvas:
-          imageFileName: imageFileName
-      properties:
-        canvas:
-          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_logos_canvas'
-    DavinciConnectorMinimalResponse_metadata_type:
-      enum:
-      - core
-      - ping
-      - service
-      type: string
-    DavinciConnectorMinimalResponse_metadata:
-      example:
-        vendor: vendor
-        type: core
-        logos:
-          canvas:
-            imageFileName: imageFileName
-        colors:
-          canvas: canvas
-          canvasText: canvasText
-          dark: dark
-      properties:
-        colors:
-          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_colors'
-        logos:
-          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_logos'
-        type:
-          $ref: '#/components/schemas/DavinciConnectorMinimalResponse_metadata_type'
-        vendor:
-          type: string
     Environment_Links:
       additionalProperties: true
       example:
@@ -3456,15 +5782,23 @@ components:
           tokenUrl: /as/token
       type: oauth2
 x-permissions:
+- name: davinci:create:applications
 - name: davinci:create:connections
 - name: davinci:create:constructs
+- name: davinci:create:flowPolicies
+- name: davinci:delete:applications
 - name: davinci:delete:connections
 - name: davinci:delete:constructs
+- name: davinci:delete:flowPolicies
+- name: davinci:read:applications
 - name: davinci:read:connections
 - name: davinci:read:connectors
 - name: davinci:read:constructs
+- name: davinci:read:flowPolicies
+- name: davinci:update:applications
 - name: davinci:update:connections
 - name: davinci:update:constructs
+- name: davinci:update:flowPolicies
 - name: orgmgt:create:environment
 - name: orgmgt:delete:environment
 - name: orgmgt:read:environment

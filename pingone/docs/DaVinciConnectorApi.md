@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## CreateConnectorInstance
 
-> DavinciConnectorInstance CreateConnectorInstance(ctx, environmentID).DaVinciConnectorInstanceCreateRequest(daVinciConnectorInstanceCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorInstance CreateConnectorInstance(ctx, environmentID).DaVinciConnectorInstanceCreateRequest(daVinciConnectorInstanceCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -49,7 +49,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.CreateConnectorInstance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateConnectorInstance`: DavinciConnectorInstance
+	// response from `CreateConnectorInstance`: DaVinciConnectorInstance
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.CreateConnectorInstance`: %v\n", resp)
 }
 ```
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorInstance**](DavinciConnectorInstance.md)
+[**DaVinciConnectorInstance**](DaVinciConnectorInstance.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 
 ## CreateConnectorInstanceById
 
-> DavinciConnectorInstance CreateConnectorInstanceById(ctx, environmentID, connectorInstanceID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorInstance CreateConnectorInstanceById(ctx, environmentID, connectorInstanceID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -132,7 +132,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.CreateConnectorInstanceById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateConnectorInstanceById`: DavinciConnectorInstance
+	// response from `CreateConnectorInstanceById`: DaVinciConnectorInstance
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.CreateConnectorInstanceById`: %v\n", resp)
 }
 ```
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorInstance**](DavinciConnectorInstance.md)
+[**DaVinciConnectorInstance**](DaVinciConnectorInstance.md)
 
 ### Authorization
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ## GetConnectorById
 
-> DavinciConnectorMinimalResponse GetConnectorById(ctx, environmentID, connectorID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorMinimalResponse GetConnectorById(ctx, environmentID, connectorID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -297,7 +297,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectorById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetConnectorById`: DavinciConnectorMinimalResponse
+	// response from `GetConnectorById`: DaVinciConnectorMinimalResponse
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectorById`: %v\n", resp)
 }
 ```
@@ -331,7 +331,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorMinimalResponse**](DavinciConnectorMinimalResponse.md)
+[**DaVinciConnectorMinimalResponse**](DaVinciConnectorMinimalResponse.md)
 
 ### Authorization
 
@@ -349,7 +349,7 @@ Name | Type | Description  | Notes
 
 ## GetConnectorInstanceById
 
-> DavinciConnectorInstance GetConnectorInstanceById(ctx, environmentID, connectorInstanceID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorInstance GetConnectorInstanceById(ctx, environmentID, connectorInstanceID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -380,7 +380,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectorInstanceById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetConnectorInstanceById`: DavinciConnectorInstance
+	// response from `GetConnectorInstanceById`: DaVinciConnectorInstance
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectorInstanceById`: %v\n", resp)
 }
 ```
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorInstance**](DavinciConnectorInstance.md)
+[**DaVinciConnectorInstance**](DaVinciConnectorInstance.md)
 
 ### Authorization
 
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes
 
 ## GetConnectorInstances
 
-> DavinciConnectorInstanceCollection GetConnectorInstances(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorInstanceCollection GetConnectorInstances(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -462,7 +462,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectorInstances``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetConnectorInstances`: DavinciConnectorInstanceCollection
+	// response from `GetConnectorInstances`: DaVinciConnectorInstanceCollection
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectorInstances`: %v\n", resp)
 }
 ```
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorInstanceCollection**](DavinciConnectorInstanceCollection.md)
+[**DaVinciConnectorInstanceCollection**](DaVinciConnectorInstanceCollection.md)
 
 ### Authorization
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## GetConnectors
 
-> DavinciConnectorCollectionMinimalResponse GetConnectors(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorCollectionMinimalResponse GetConnectors(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -542,7 +542,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetConnectors`: DavinciConnectorCollectionMinimalResponse
+	// response from `GetConnectors`: DaVinciConnectorCollectionMinimalResponse
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetConnectors`: %v\n", resp)
 }
 ```
@@ -574,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorCollectionMinimalResponse**](DavinciConnectorCollectionMinimalResponse.md)
+[**DaVinciConnectorCollectionMinimalResponse**](DaVinciConnectorCollectionMinimalResponse.md)
 
 ### Authorization
 
@@ -592,7 +592,7 @@ Name | Type | Description  | Notes
 
 ## GetDetailsByConnectorId
 
-> DavinciConnectorDetailsResponse GetDetailsByConnectorId(ctx, environmentID, connectorID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorDetailsResponse GetDetailsByConnectorId(ctx, environmentID, connectorID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -623,7 +623,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.GetDetailsByConnectorId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDetailsByConnectorId`: DavinciConnectorDetailsResponse
+	// response from `GetDetailsByConnectorId`: DaVinciConnectorDetailsResponse
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.GetDetailsByConnectorId`: %v\n", resp)
 }
 ```
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorDetailsResponse**](DavinciConnectorDetailsResponse.md)
+[**DaVinciConnectorDetailsResponse**](DaVinciConnectorDetailsResponse.md)
 
 ### Authorization
 
@@ -675,7 +675,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceConnectorInstanceById
 
-> DavinciConnectorInstance ReplaceConnectorInstanceById(ctx, environmentID, connectorInstanceID).DaVinciConnectorInstanceReplaceRequest(daVinciConnectorInstanceReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+> DaVinciConnectorInstance ReplaceConnectorInstanceById(ctx, environmentID, connectorInstanceID).DaVinciConnectorInstanceReplaceRequest(daVinciConnectorInstanceReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
 
 _TO_BE_DEFINED_
 
@@ -707,7 +707,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciConnectorApi.ReplaceConnectorInstanceById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReplaceConnectorInstanceById`: DavinciConnectorInstance
+	// response from `ReplaceConnectorInstanceById`: DaVinciConnectorInstance
 	fmt.Fprintf(os.Stdout, "Response from `DaVinciConnectorApi.ReplaceConnectorInstanceById`: %v\n", resp)
 }
 ```
@@ -742,7 +742,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DavinciConnectorInstance**](DavinciConnectorInstance.md)
+[**DaVinciConnectorInstance**](DaVinciConnectorInstance.md)
 
 ### Authorization
 

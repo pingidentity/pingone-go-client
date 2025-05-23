@@ -54,7 +54,7 @@ func (r ApiCreateConnectorInstanceRequest) XPingExternalSessionID(xPingExternalS
 	return r
 }
 
-func (r ApiCreateConnectorInstanceRequest) Execute() (*DavinciConnectorInstance, *http.Response, error) {
+func (r ApiCreateConnectorInstanceRequest) Execute() (*DaVinciConnectorInstance, *http.Response, error) {
 	return r.ApiService.CreateConnectorInstanceExecute(r)
 }
 
@@ -78,13 +78,13 @@ func (a *DaVinciConnectorApiService) CreateConnectorInstance(ctx context.Context
 
 // Execute executes the request
 //
-//	@return DavinciConnectorInstance
-func (a *DaVinciConnectorApiService) CreateConnectorInstanceExecute(r ApiCreateConnectorInstanceRequest) (*DavinciConnectorInstance, *http.Response, error) {
+//	@return DaVinciConnectorInstance
+func (a *DaVinciConnectorApiService) CreateConnectorInstanceExecute(r ApiCreateConnectorInstanceRequest) (*DaVinciConnectorInstance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorInstance
+		localVarReturnValue *DaVinciConnectorInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.CreateConnectorInstance")
@@ -304,7 +304,7 @@ func (r ApiCreateConnectorInstanceByIdRequest) XPingExternalSessionID(xPingExter
 	return r
 }
 
-func (r ApiCreateConnectorInstanceByIdRequest) Execute() (*DavinciConnectorInstance, *http.Response, error) {
+func (r ApiCreateConnectorInstanceByIdRequest) Execute() (*DaVinciConnectorInstance, *http.Response, error) {
 	return r.ApiService.CreateConnectorInstanceByIdExecute(r)
 }
 
@@ -330,13 +330,13 @@ func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Con
 
 // Execute executes the request
 //
-//	@return DavinciConnectorInstance
-func (a *DaVinciConnectorApiService) CreateConnectorInstanceByIdExecute(r ApiCreateConnectorInstanceByIdRequest) (*DavinciConnectorInstance, *http.Response, error) {
+//	@return DaVinciConnectorInstance
+func (a *DaVinciConnectorApiService) CreateConnectorInstanceByIdExecute(r ApiCreateConnectorInstanceByIdRequest) (*DaVinciConnectorInstance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorInstance
+		localVarReturnValue *DaVinciConnectorInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.CreateConnectorInstanceById")
@@ -727,7 +727,7 @@ func (r ApiGetConnectorByIdRequest) XPingExternalSessionID(xPingExternalSessionI
 	return r
 }
 
-func (r ApiGetConnectorByIdRequest) Execute() (*DavinciConnectorMinimalResponse, *http.Response, error) {
+func (r ApiGetConnectorByIdRequest) Execute() (*DaVinciConnectorMinimalResponse, *http.Response, error) {
 	return r.ApiService.GetConnectorByIdExecute(r)
 }
 
@@ -753,13 +753,13 @@ func (a *DaVinciConnectorApiService) GetConnectorById(ctx context.Context, envir
 
 // Execute executes the request
 //
-//	@return DavinciConnectorMinimalResponse
-func (a *DaVinciConnectorApiService) GetConnectorByIdExecute(r ApiGetConnectorByIdRequest) (*DavinciConnectorMinimalResponse, *http.Response, error) {
+//	@return DaVinciConnectorMinimalResponse
+func (a *DaVinciConnectorApiService) GetConnectorByIdExecute(r ApiGetConnectorByIdRequest) (*DaVinciConnectorMinimalResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorMinimalResponse
+		localVarReturnValue *DaVinciConnectorMinimalResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectorById")
@@ -945,7 +945,7 @@ func (r ApiGetConnectorInstanceByIdRequest) XPingExternalSessionID(xPingExternal
 	return r
 }
 
-func (r ApiGetConnectorInstanceByIdRequest) Execute() (*DavinciConnectorInstance, *http.Response, error) {
+func (r ApiGetConnectorInstanceByIdRequest) Execute() (*DaVinciConnectorInstance, *http.Response, error) {
 	return r.ApiService.GetConnectorInstanceByIdExecute(r)
 }
 
@@ -971,13 +971,13 @@ func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return DavinciConnectorInstance
-func (a *DaVinciConnectorApiService) GetConnectorInstanceByIdExecute(r ApiGetConnectorInstanceByIdRequest) (*DavinciConnectorInstance, *http.Response, error) {
+//	@return DaVinciConnectorInstance
+func (a *DaVinciConnectorApiService) GetConnectorInstanceByIdExecute(r ApiGetConnectorInstanceByIdRequest) (*DaVinciConnectorInstance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorInstance
+		localVarReturnValue *DaVinciConnectorInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectorInstanceById")
@@ -1162,7 +1162,7 @@ func (r ApiGetConnectorInstancesRequest) XPingExternalSessionID(xPingExternalSes
 	return r
 }
 
-func (r ApiGetConnectorInstancesRequest) Execute() (*DavinciConnectorInstanceCollection, *http.Response, error) {
+func (r ApiGetConnectorInstancesRequest) Execute() (*DaVinciConnectorInstanceCollection, *http.Response, error) {
 	return r.ApiService.GetConnectorInstancesExecute(r)
 }
 
@@ -1186,13 +1186,13 @@ func (a *DaVinciConnectorApiService) GetConnectorInstances(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return DavinciConnectorInstanceCollection
-func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) (*DavinciConnectorInstanceCollection, *http.Response, error) {
+//	@return DaVinciConnectorInstanceCollection
+func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) (*DaVinciConnectorInstanceCollection, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorInstanceCollection
+		localVarReturnValue *DaVinciConnectorInstanceCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectorInstances")
@@ -1400,7 +1400,7 @@ func (r ApiGetConnectorsRequest) XPingExternalSessionID(xPingExternalSessionID s
 	return r
 }
 
-func (r ApiGetConnectorsRequest) Execute() (*DavinciConnectorCollectionMinimalResponse, *http.Response, error) {
+func (r ApiGetConnectorsRequest) Execute() (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
 	return r.ApiService.GetConnectorsExecute(r)
 }
 
@@ -1424,13 +1424,13 @@ func (a *DaVinciConnectorApiService) GetConnectors(ctx context.Context, environm
 
 // Execute executes the request
 //
-//	@return DavinciConnectorCollectionMinimalResponse
-func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) (*DavinciConnectorCollectionMinimalResponse, *http.Response, error) {
+//	@return DaVinciConnectorCollectionMinimalResponse
+func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorCollectionMinimalResponse
+		localVarReturnValue *DaVinciConnectorCollectionMinimalResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetConnectors")
@@ -1624,7 +1624,7 @@ func (r ApiGetDetailsByConnectorIdRequest) XPingExternalSessionID(xPingExternalS
 	return r
 }
 
-func (r ApiGetDetailsByConnectorIdRequest) Execute() (*DavinciConnectorDetailsResponse, *http.Response, error) {
+func (r ApiGetDetailsByConnectorIdRequest) Execute() (*DaVinciConnectorDetailsResponse, *http.Response, error) {
 	return r.ApiService.GetDetailsByConnectorIdExecute(r)
 }
 
@@ -1650,13 +1650,13 @@ func (a *DaVinciConnectorApiService) GetDetailsByConnectorId(ctx context.Context
 
 // Execute executes the request
 //
-//	@return DavinciConnectorDetailsResponse
-func (a *DaVinciConnectorApiService) GetDetailsByConnectorIdExecute(r ApiGetDetailsByConnectorIdRequest) (*DavinciConnectorDetailsResponse, *http.Response, error) {
+//	@return DaVinciConnectorDetailsResponse
+func (a *DaVinciConnectorApiService) GetDetailsByConnectorIdExecute(r ApiGetDetailsByConnectorIdRequest) (*DaVinciConnectorDetailsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorDetailsResponse
+		localVarReturnValue *DaVinciConnectorDetailsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.GetDetailsByConnectorId")
@@ -1848,7 +1848,7 @@ func (r ApiReplaceConnectorInstanceByIdRequest) XPingExternalSessionID(xPingExte
 	return r
 }
 
-func (r ApiReplaceConnectorInstanceByIdRequest) Execute() (*DavinciConnectorInstance, *http.Response, error) {
+func (r ApiReplaceConnectorInstanceByIdRequest) Execute() (*DaVinciConnectorInstance, *http.Response, error) {
 	return r.ApiService.ReplaceConnectorInstanceByIdExecute(r)
 }
 
@@ -1874,13 +1874,13 @@ func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Co
 
 // Execute executes the request
 //
-//	@return DavinciConnectorInstance
-func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceByIdExecute(r ApiReplaceConnectorInstanceByIdRequest) (*DavinciConnectorInstance, *http.Response, error) {
+//	@return DaVinciConnectorInstance
+func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceByIdExecute(r ApiReplaceConnectorInstanceByIdRequest) (*DaVinciConnectorInstance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DavinciConnectorInstance
+		localVarReturnValue *DaVinciConnectorInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorApiService.ReplaceConnectorInstanceById")
