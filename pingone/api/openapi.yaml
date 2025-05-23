@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne User and Configuration Management API
-  version: development-2025-05-23T19-05-22
+  version: development-2025-05-23T19-41-12
 externalDocs:
   description: PingOne Platform API Reference
   url: https://apidocs.pingidentity.com/pingone/platform/v1/api/#management-apis
@@ -349,6 +349,7 @@ paths:
       x-permission: davinci:read:connections
       x-public-api: api
       x-service-name: api
+      x-pingidentity-paginatedresponse: true
     post:
       description: _TO_BE_DEFINED_
       operationId: createConnectorInstance
@@ -404,7 +405,13 @@ paths:
       operationId: deleteConnectorInstanceById
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - explode: false
+        in: path
+        name: connectorInstanceID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       responses:
@@ -442,7 +449,13 @@ paths:
       operationId: getConnectorInstanceById
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - explode: false
+        in: path
+        name: connectorInstanceID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       responses:
@@ -484,7 +497,13 @@ paths:
       operationId: createConnectorInstanceById
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - explode: false
+        in: path
+        name: connectorInstanceID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       requestBody:
@@ -532,7 +551,13 @@ paths:
       operationId: replaceConnectorInstanceById
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorInstanceID'
+      - explode: false
+        in: path
+        name: connectorInstanceID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       requestBody:
@@ -618,13 +643,20 @@ paths:
       x-permission: davinci:read:connectors
       x-public-api: api
       x-service-name: api
+      x-pingidentity-paginatedresponse: true
   /environments/{environmentID}/connectors/{connectorID}:
     get:
       description: _TO_BE_DEFINED_
       operationId: getConnectorById
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorID'
+      - explode: false
+        in: path
+        name: connectorID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       responses:
@@ -667,7 +699,13 @@ paths:
       operationId: getDetailsByConnectorId
       parameters:
       - $ref: '#/components/parameters/PathEnvironmentID'
-      - $ref: '#/components/parameters/PathConnectorID'
+      - explode: false
+        in: path
+        name: connectorID
+        required: true
+        schema:
+          type: string
+        style: simple
       - $ref: '#/components/parameters/HeaderExternalTransactionID'
       - $ref: '#/components/parameters/HeaderExternalSessionID'
       responses:
@@ -1543,24 +1581,6 @@ components:
       explode: false
       in: path
       name: environmentID
-      required: true
-      schema:
-        format: UUID
-        type: string
-      style: simple
-    PathConnectorID:
-      explode: false
-      in: path
-      name: connectorID
-      required: true
-      schema:
-        format: UUID
-        type: string
-      style: simple
-    PathConnectorInstanceID:
-      explode: false
-      in: path
-      name: connectorInstanceID
       required: true
       schema:
         format: UUID
