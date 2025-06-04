@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ping Identity Developer Portal
+    url: https://developer.pingidentity.com
+    about: Visit the Ping Identity Developer Portal for documentation, guides, and resources.
+  - name: Ping Developer Community
+    url: https://support.pingidentity.com/s/topic/0TO1W000000Q9oRWAS/developer
+    about: Ask a question or start a discussion with Ping's developer community.
+  - name: Ping Identity Support Portal
+    url: https://support.pingidentity.com/s/
+    about: Visit the Ping Identity Support portal for issues on the platform not related to the PingOne management SDK.
