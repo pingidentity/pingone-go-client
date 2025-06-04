@@ -32,7 +32,6 @@ All pull requests are automatically tested using GitHub Actions. The following c
 2. **Linting**: Ensures code quality and consistency
 3. **CodeQL Analysis**: Performs static code analysis to identify security vulnerabilities
 4. **Security Scanning**: Uses gosec to detect potential security issues in the code
-5. **Vulnerability Scanning**: Checks dependencies for known vulnerabilities using govulncheck
 
 Make sure all CI checks pass before your pull request can be merged.
 
