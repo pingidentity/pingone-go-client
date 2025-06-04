@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
         {
             "name": "Code",
             "type": "go",
@@ -10,7 +9,9 @@
             "program": "${workspaceFolder}",
             "args": [],
             "showLog": true,
-            "dlvFlags": ["--log"]
+            "dlvFlags": [
+                "--log"
+            ]
         },
         {
             "name": "Test Current File",
@@ -20,7 +21,40 @@
             "program": "${file}",
             "args": [],
             "showLog": true,
-            "dlvFlags": ["--log"]
-        }       
+            "dlvFlags": [
+                "--log"
+            ]
+        },
+        {
+            "name": "Debug Example",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/basic",
+            "env": {
+                "PINGONE_CLIENT_ID": "${input:clientId}",
+                "PINGONE_CLIENT_SECRET": "${input:clientSecret}",
+                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}"
+            },
+            "args": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "clientId",
+            "type": "promptString",
+            "description": "PingOne Client ID"
+        },
+        {
+            "id": "clientSecret",
+            "type": "promptString",
+            "description": "PingOne Client Secret",
+            "password": true
+        },
+        {
+            "id": "environmentId",
+            "type": "promptString",
+            "description": "PingOne Environment ID"
+        }
     ]
 }
