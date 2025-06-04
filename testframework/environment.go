@@ -44,11 +44,11 @@ func (e *CreateConfig) IfNotExists() *CreateConfig {
 func (e *TestEnvironment) Create(request CreateConfig) (err error) {
 	environmentResponse, httpResp, err := request.apiClient.EnvironmentApi.CreateEnvironment(request.ctx).EnvironmentCreateRequest(e.EnvironmentCreateRequest).Execute()
 	if err != nil {
-		return fmt.Errorf("Cannot create environment: %s", err.Error())
+		return fmt.Errorf("cannot create environment: %s", err.Error())
 	}
 
 	if httpResp.StatusCode != 201 {
-		return fmt.Errorf("Cannot create environment: %s", httpResp.Status)
+		return fmt.Errorf("cannot create environment: %s", httpResp.Status)
 	}
 
 	e.Environment = environmentResponse
@@ -78,7 +78,7 @@ func (e *DeleteConfig) IfExists() *DeleteConfig {
 func (e *TestEnvironment) Delete(request DeleteConfig) (err error) {
 
 	if e.Environment == nil || !request.ifExists {
-		return fmt.Errorf("Environment is nil or ifExists is false")
+		return fmt.Errorf("environment is nil or ifExists is false")
 	}
 
 	httpResp, err := request.apiClient.EnvironmentApi.DeleteEnvironmentById(request.ctx, e.Environment.Id).Execute()
@@ -86,11 +86,11 @@ func (e *TestEnvironment) Delete(request DeleteConfig) (err error) {
 		if httpResp != nil && httpResp.StatusCode == 404 {
 			return nil
 		}
-		return fmt.Errorf("Cannot delete environment: %s", err.Error())
+		return fmt.Errorf("cannot delete environment: %s", err.Error())
 	}
 
 	if httpResp.StatusCode != 204 {
-		return fmt.Errorf("Cannot delete environment: %s", httpResp.Status)
+		return fmt.Errorf("cannot delete environment: %s", httpResp.Status)
 	}
 
 	return nil

@@ -835,7 +835,7 @@ func paginationIterator[T MappedNullable](initialPageAPIFunc func() (*T, *http.R
 			}
 
 			if loopCursor.Data == nil {
-				if !yield(loopCursor, fmt.Errorf("Paged results unexpectedly nil")) {
+				if !yield(loopCursor, fmt.Errorf("paged results unexpectedly nil")) {
 					return
 				}
 				break
@@ -879,7 +879,7 @@ func parsePagination[T MappedNullable](response T) (*JSONHALLink, error) {
 					return v, nil
 				default:
 					slog.Error("Unknown type for next link", "type", reflect.TypeOf(v))
-					return nil, fmt.Errorf("Unknown links type")
+					return nil, fmt.Errorf("unknown links type")
 				}
 			} else {
 				// Next not found, at the end of the pages (or no pages)
@@ -888,7 +888,7 @@ func parsePagination[T MappedNullable](response T) (*JSONHALLink, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("Links object not found in response, but expected for pagination")
+	return nil, fmt.Errorf("links object not found in response, but expected for pagination")
 }
 
 // Retrying requests
@@ -990,7 +990,7 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	retryAfterHeader := resp.Header.Get("Retry-After")
 
 	if retryAfterHeader == "" {
-		return 0, fmt.Errorf("Retry-After header not found")
+		return 0, fmt.Errorf("retry-after header not found")
 	}
 
 	retryAfterSeconds, err := strconv.Atoi(retryAfterHeader)
@@ -1002,7 +1002,7 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	retryAfterTime, err := http.ParseTime(retryAfterHeader)
 
 	if err != nil {
-		return 0, fmt.Errorf("Unable to parse Retry-After header value: %v", err)
+		return 0, fmt.Errorf("unable to parse Retry-After header value: %v", err)
 	}
 
 	return time.Until(retryAfterTime), nil
@@ -1015,7 +1015,7 @@ func calculateExponentialBackoff(attempt int, baseDelay time.Duration) (time.Dur
 	}
 
 	if !n.IsInt64() {
-		return 0, fmt.Errorf("Generated random jitter value is too large. This is always a problem with the SDK. Please raise an issue with the SDK maintainers.")
+		return 0, fmt.Errorf("generated random jitter value is too large. This is always a problem with the SDK. Please raise an issue with the SDK maintainers.")
 	}
 
 	jitter := time.Duration(n.Int64()) * time.Millisecond // Add random jitter
