@@ -3,8 +3,18 @@ name: "CodeQL Code Scanning"
 on:
   push:
     branches: [ main ]
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/codeql-analysis.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/codeql-analysis.yml'
   schedule:
     - cron: '0 14 * * 1' # Run once a week on Monday at 14:00 UTC
 
