@@ -47,7 +47,7 @@ func (s *SharedEnvironmentTestSuite) SetupSuite() {
 	err = testEnvironment.Create(
 		*CreateEnvironment(
 			s.T().Context(),
-			s.PingOneTestSuite.ApiClient,
+			s.ApiClient,
 		).IfNotExists())
 	if err != nil {
 		s.FailNow("Failed to create test environment", err)
@@ -75,7 +75,7 @@ func (s *SharedEnvironmentTestSuite) TearDownSuite() {
 		err := s.TestEnvironment.Delete(
 			*DeleteEnvironment(
 				s.T().Context(),
-				s.PingOneTestSuite.ApiClient,
+				s.ApiClient,
 			).IfExists())
 		if err != nil {
 			s.FailNow("Failed to delete test environment", err)
