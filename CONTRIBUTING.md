@@ -30,8 +30,21 @@ All pull requests are automatically tested using GitHub Actions. The following c
 
 1. **Unit Tests**: Verifies that your code changes don't break existing functionality
 2. **Linting**: Ensures code quality and consistency
+3. **CodeQL Analysis**: Performs static code analysis to identify security vulnerabilities
+4. **Security Scanning**: Uses gosec to detect potential security issues in the code
+5. **Vulnerability Scanning**: Checks dependencies for known vulnerabilities using govulncheck
 
 Make sure all CI checks pass before your pull request can be merged.
+
+### Security Best Practices
+
+When contributing code, please follow these security best practices:
+
+- Avoid hardcoding sensitive information like credentials or tokens
+- Use proper input validation for all external inputs
+- Follow the principle of least privilege when implementing functionality
+- Make sure all API endpoints are properly authenticated and authorized
+- Document any security considerations for your code
 
 ## Pull Request Process
 
