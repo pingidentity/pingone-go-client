@@ -25,7 +25,7 @@ jobs:
     - name: Run gosec Security Scanner
       uses: securego/gosec@master
       with:
-        args: '-no-fail -fmt sarif -out results.sarif ./...'
+        args: '-no-fail -fmt sarif ./...'
 
     - name: Upload gosec scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
