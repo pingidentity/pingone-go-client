@@ -1,5 +1,11 @@
 # pingone-go-client GO SDK
 
+[![Go Tests](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-test.yml/badge.svg)](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-test.yml)
+[![Go Linting](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-lint.yml/badge.svg)](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-lint.yml)
+[![Go Security Scan](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-security.yml/badge.svg)](https://github.com/pingidentity/pingone-go-client/actions/workflows/go-security.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pingidentity/pingone-go-client)](https://goreportcard.com/report/github.com/pingidentity/pingone-go-client)
+[![GoDoc](https://godoc.org/github.com/pingidentity/pingone-go-client?status.svg)](https://godoc.org/github.com/pingidentity/pingone-go-client)
+
 The pingone-go-client GO SDK provides a set of functions and stucts that help with interacting with the PingOne management API.
 
 > [!IMPORTANT]  
@@ -100,7 +106,26 @@ func main() {
 
 ## Client Configuration
 
-TODO
+The client configuration provides settings for how the SDK interacts with PingOne APIs. You can customize the configuration to suit your specific needs:
+
+```go
+cfg := pingone.NewConfiguration(serviceCfg)
+
+// Set custom timeout
+cfg.HTTPClient.Timeout = 30 * time.Second
+
+// Set proxy
+proxyURL, _ := url.Parse("http://proxy.example.com:8080")
+cfg.HTTPClient.Transport = &http.Transport{
+    Proxy: http.ProxyURL(proxyURL),
+}
+
+// Add custom headers
+cfg.DefaultHeader["Custom-Header"] = "custom-value"
+
+// Customize User-Agent
+cfg.AppendUserAgent("my-application/1.0.0")
+```
 
 ### User Agent Suffix
 
@@ -119,7 +144,21 @@ if err != nil {
 
 ## PingOne Service Configuration
 
-TODO
+The PingOne service configuration contains all the necessary settings to connect to PingOne services. You can provide these settings programmatically or through environment variables.
+
+### Environment Variables
+
+The following environment variables can be used to configure the client:
+
+| Environment Variable | Description | Required |
+|----------------------|-------------|----------|
+| `PINGONE_CLIENT_ID` | OAuth 2.0 client ID for authentication | Yes |
+| `PINGONE_CLIENT_SECRET` | OAuth 2.0 client secret for authentication | Yes |
+| `PINGONE_ENVIRONMENT_ID` | PingOne environment ID | Yes* |
+| `PINGONE_REGION` | PingOne region (e.g., `NA`, `EU`, `ASIA`) | No |
+| `PINGONE_CUSTOM_DOMAIN` | Custom domain if configured | Yes* |
+
+*Either `PINGONE_ENVIRONMENT_ID` or `PINGONE_CUSTOM_DOMAIN` must be provided.
 
 ## Logging
 
