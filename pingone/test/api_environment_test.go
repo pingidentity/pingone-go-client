@@ -127,7 +127,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 	s.DefaultEnvironmentMaxSchemaCreate = pingone.EnvironmentCreateRequest{
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate,
 		Description:     pingone.PtrString("Test environment created by the PingOne Go SDK"),
-		Icon:            pingone.PtrString("https://example.com/icon.png"),
+		Icon:            pingone.PtrString("https://bxretail.org/icon.png"),
 		License: pingone.ResourceRelationshipPingOne{
 			Id: s.DefaultLicenseId,
 		},
@@ -154,7 +154,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 	s.DefaultEnvironmentMaxSchemaReplace = pingone.EnvironmentReplaceRequest{
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMinSchemaReplace,
 		Description:     pingone.PtrString("Test environment updated by the PingOne Go SDK"),
-		Icon:            pingone.PtrString("https://example.com/icon1.png"),
+		Icon:            pingone.PtrString("https://bxretail.org/icon1.png"),
 		License: pingone.ResourceRelationshipPingOne{
 			Id: s.DefaultLicenseId,
 		},
