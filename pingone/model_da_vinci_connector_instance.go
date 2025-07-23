@@ -16,8 +16,6 @@ import (
 	"fmt"
 	"log/slog"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 // checks if the DaVinciConnectorInstance type satisfies the MappedNullable interface at compile time
@@ -32,7 +30,7 @@ type DaVinciConnectorInstance struct {
 	Connector            ResourceRelationshipDaVinci   `json:"connector"`
 	CreatedAt            *time.Time                    `json:"createdAt,omitempty"`
 	Environment          ResourceRelationshipPingOne   `json:"environment"`
-	Id                   uuid.UUID                        `json:"id"`
+	Id                   string                        `json:"id"`
 	Name                 string                        `json:"name"`
 	Properties           map[string]interface{}        `json:"properties,omitempty"`
 	UpdatedAt            *time.Time                    `json:"updatedAt,omitempty"`
@@ -45,7 +43,7 @@ type _DaVinciConnectorInstance DaVinciConnectorInstance
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinci, environment ResourceRelationshipPingOne, id uuid.UUID, name string) *DaVinciConnectorInstance {
+func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinci, environment ResourceRelationshipPingOne, id string, name string) *DaVinciConnectorInstance {
 	this := DaVinciConnectorInstance{}
 	this.Links = links
 	this.Connector = connector
@@ -168,9 +166,9 @@ func (o *DaVinciConnectorInstance) SetEnvironment(v ResourceRelationshipPingOne)
 }
 
 // GetId returns the Id field value
-func (o *DaVinciConnectorInstance) GetId() uuid.UUID {
+func (o *DaVinciConnectorInstance) GetId() string {
 	if o == nil {
-		var ret uuid.UUID
+		var ret string
 		return ret
 	}
 
@@ -179,7 +177,7 @@ func (o *DaVinciConnectorInstance) GetId() uuid.UUID {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciConnectorInstance) GetIdOk() (*uuid.UUID, bool) {
+func (o *DaVinciConnectorInstance) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -187,7 +185,7 @@ func (o *DaVinciConnectorInstance) GetIdOk() (*uuid.UUID, bool) {
 }
 
 // SetId sets field value
-func (o *DaVinciConnectorInstance) SetId(v uuid.UUID) {
+func (o *DaVinciConnectorInstance) SetId(v string) {
 	o.Id = v
 }
 

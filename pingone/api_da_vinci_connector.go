@@ -281,7 +281,7 @@ type ApiCreateConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	requestBody                *map[string]interface{}
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
@@ -319,7 +319,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiCreateConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiCreateConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiCreateConnectorInstanceByIdRequest {
 	return ApiCreateConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -510,7 +510,7 @@ type ApiDeleteConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -542,7 +542,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiDeleteConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiDeleteConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiDeleteConnectorInstanceByIdRequest {
 	return ApiDeleteConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -928,7 +928,7 @@ type ApiGetConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
 }
@@ -960,7 +960,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiGetConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiGetConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiGetConnectorInstanceByIdRequest {
 	return ApiGetConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -1825,7 +1825,7 @@ type ApiReplaceConnectorInstanceByIdRequest struct {
 	ctx                                    context.Context
 	ApiService                             *DaVinciConnectorApiService
 	environmentID                          uuid.UUID
-	connectorInstanceID                    uuid.UUID
+	connectorInstanceID                    string
 	daVinciConnectorInstanceReplaceRequest *DaVinciConnectorInstanceReplaceRequest
 	xPingExternalTransactionID             *string
 	xPingExternalSessionID                 *string
@@ -1863,7 +1863,7 @@ _TO_BE_DEFINED_
 	@param connectorInstanceID
 	@return ApiReplaceConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiReplaceConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiReplaceConnectorInstanceByIdRequest {
 	return ApiReplaceConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
