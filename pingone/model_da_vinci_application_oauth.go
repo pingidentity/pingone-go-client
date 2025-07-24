@@ -28,8 +28,8 @@ type DaVinciApplicationOauth struct {
 	ClientSecret               string                              `json:"clientSecret"`
 	EnforceSignedRequestOpenid *bool                               `json:"enforceSignedRequestOpenid,omitempty"`
 	GrantTypes                 []DaVinciApplicationOauthGrantTypes `json:"grantTypes"`
-	LogoutUris                 []string                            `json:"logoutUris"`
-	RedirectUris               []string                            `json:"redirectUris"`
+	LogoutUris                 []string                            `json:"logoutUris,omitempty"`
+	RedirectUris               []string                            `json:"redirectUris,omitempty"`
 	Scopes                     []DaVinciApplicationOauthScopes     `json:"scopes"`
 	SpJwksOpenid               *string                             `json:"spJwksOpenid,omitempty"`
 	SpjwksUrl                  *string                             `json:"spjwksUrl,omitempty"`
@@ -42,12 +42,10 @@ type _DaVinciApplicationOauth DaVinciApplicationOauth
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciApplicationOauth(clientSecret string, grantTypes []DaVinciApplicationOauthGrantTypes, logoutUris []string, redirectUris []string, scopes []DaVinciApplicationOauthScopes) *DaVinciApplicationOauth {
+func NewDaVinciApplicationOauth(clientSecret string, grantTypes []DaVinciApplicationOauthGrantTypes, scopes []DaVinciApplicationOauthScopes) *DaVinciApplicationOauth {
 	this := DaVinciApplicationOauth{}
 	this.ClientSecret = clientSecret
 	this.GrantTypes = grantTypes
-	this.LogoutUris = logoutUris
-	this.RedirectUris = redirectUris
 	this.Scopes = scopes
 	return &this
 }
@@ -140,50 +138,66 @@ func (o *DaVinciApplicationOauth) SetGrantTypes(v []DaVinciApplicationOauthGrant
 	o.GrantTypes = v
 }
 
-// GetLogoutUris returns the LogoutUris field value
+// GetLogoutUris returns the LogoutUris field value if set, zero value otherwise.
 func (o *DaVinciApplicationOauth) GetLogoutUris() []string {
-	if o == nil {
+	if o == nil || IsNil(o.LogoutUris) {
 		var ret []string
 		return ret
 	}
-
 	return o.LogoutUris
 }
 
-// GetLogoutUrisOk returns a tuple with the LogoutUris field value
+// GetLogoutUrisOk returns a tuple with the LogoutUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciApplicationOauth) GetLogoutUrisOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LogoutUris) {
 		return nil, false
 	}
 	return o.LogoutUris, true
 }
 
-// SetLogoutUris sets field value
+// HasLogoutUris returns a boolean if a field has been set.
+func (o *DaVinciApplicationOauth) HasLogoutUris() bool {
+	if o != nil && !IsNil(o.LogoutUris) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogoutUris gets a reference to the given []string and assigns it to the LogoutUris field.
 func (o *DaVinciApplicationOauth) SetLogoutUris(v []string) {
 	o.LogoutUris = v
 }
 
-// GetRedirectUris returns the RedirectUris field value
+// GetRedirectUris returns the RedirectUris field value if set, zero value otherwise.
 func (o *DaVinciApplicationOauth) GetRedirectUris() []string {
-	if o == nil {
+	if o == nil || IsNil(o.RedirectUris) {
 		var ret []string
 		return ret
 	}
-
 	return o.RedirectUris
 }
 
-// GetRedirectUrisOk returns a tuple with the RedirectUris field value
+// GetRedirectUrisOk returns a tuple with the RedirectUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciApplicationOauth) GetRedirectUrisOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RedirectUris) {
 		return nil, false
 	}
 	return o.RedirectUris, true
 }
 
-// SetRedirectUris sets field value
+// HasRedirectUris returns a boolean if a field has been set.
+func (o *DaVinciApplicationOauth) HasRedirectUris() bool {
+	if o != nil && !IsNil(o.RedirectUris) {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUris gets a reference to the given []string and assigns it to the RedirectUris field.
 func (o *DaVinciApplicationOauth) SetRedirectUris(v []string) {
 	o.RedirectUris = v
 }
@@ -291,8 +305,12 @@ func (o DaVinciApplicationOauth) ToMap() (map[string]interface{}, error) {
 		toSerialize["enforceSignedRequestOpenid"] = o.EnforceSignedRequestOpenid
 	}
 	toSerialize["grantTypes"] = o.GrantTypes
-	toSerialize["logoutUris"] = o.LogoutUris
-	toSerialize["redirectUris"] = o.RedirectUris
+	if !IsNil(o.LogoutUris) {
+		toSerialize["logoutUris"] = o.LogoutUris
+	}
+	if !IsNil(o.RedirectUris) {
+		toSerialize["redirectUris"] = o.RedirectUris
+	}
 	toSerialize["scopes"] = o.Scopes
 	if !IsNil(o.SpJwksOpenid) {
 		toSerialize["spJwksOpenid"] = o.SpJwksOpenid
@@ -315,8 +333,6 @@ func (o *DaVinciApplicationOauth) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"clientSecret",
 		"grantTypes",
-		"logoutUris",
-		"redirectUris",
 		"scopes",
 	}
 
@@ -369,8 +385,12 @@ func (o DaVinciApplicationOauth) LogValue() slog.Value {
 		logAttrs = append(logAttrs, slog.Any("enforceSignedRequestOpenid", *o.EnforceSignedRequestOpenid))
 	}
 	logAttrs = append(logAttrs, slog.Any("grantTypes", o.GrantTypes))
-	logAttrs = append(logAttrs, slog.Any("logoutUris", o.LogoutUris))
-	logAttrs = append(logAttrs, slog.Any("redirectUris", o.RedirectUris))
+	if !IsNil(o.LogoutUris) {
+		logAttrs = append(logAttrs, slog.Any("logoutUris", o.LogoutUris))
+	}
+	if !IsNil(o.RedirectUris) {
+		logAttrs = append(logAttrs, slog.Any("redirectUris", o.RedirectUris))
+	}
 	logAttrs = append(logAttrs, slog.Any("scopes", o.Scopes))
 	if !IsNil(o.SpJwksOpenid) {
 		logAttrs = append(logAttrs, slog.Any("spJwksOpenid", *o.SpJwksOpenid))
