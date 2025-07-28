@@ -27,10 +27,10 @@ var _ slog.LogValuer = &DaVinciApplicationOauth{}
 type DaVinciApplicationOauth struct {
 	ClientSecret               string                              `json:"clientSecret"`
 	EnforceSignedRequestOpenid *bool                               `json:"enforceSignedRequestOpenid,omitempty"`
-	GrantTypes                 []DaVinciApplicationOauthGrantTypes `json:"grantTypes"`
+	GrantTypes                 []DaVinciApplicationOauthGrantTypes `json:"grantTypes,omitempty"`
 	LogoutUris                 []string                            `json:"logoutUris,omitempty"`
 	RedirectUris               []string                            `json:"redirectUris,omitempty"`
-	Scopes                     []DaVinciApplicationOauthScopes     `json:"scopes"`
+	Scopes                     []DaVinciApplicationOauthScopes     `json:"scopes,omitempty"`
 	SpJwksOpenid               *string                             `json:"spJwksOpenid,omitempty"`
 	SpjwksUrl                  *string                             `json:"spjwksUrl,omitempty"`
 	AdditionalProperties       map[string]interface{}
