@@ -332,8 +332,6 @@ func (o *DaVinciApplicationOauth) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"clientSecret",
-		"grantTypes",
-		"scopes",
 	}
 
 	allProperties := make(map[string]interface{})
