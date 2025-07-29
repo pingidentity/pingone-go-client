@@ -33,7 +33,7 @@ type DaVinciFlowPolicyResponse struct {
 	Id                   string                                      `json:"id"`
 	Name                 string                                      `json:"name"`
 	Status               DaVinciFlowPolicyCreateRequestStatus        `json:"status"`
-	Trigger              NullableDaVinciFlowPolicyResponseTrigger    `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowPolicyResponseTrigger           `json:"trigger,omitempty"`
 	UpdatedAt            *time.Time                                  `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -241,45 +241,35 @@ func (o *DaVinciFlowPolicyResponse) SetStatus(v DaVinciFlowPolicyCreateRequestSt
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTrigger {
-	if o == nil || IsNil(o.Trigger.Get()) {
+	if o == nil || IsNil(o.Trigger) {
 		var ret DaVinciFlowPolicyResponseTrigger
 		return ret
 	}
-	return *o.Trigger.Get()
+	return *o.Trigger
 }
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTrigger, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
-	return o.Trigger.Get(), o.Trigger.IsSet()
+	return o.Trigger, true
 }
 
 // HasTrigger returns a boolean if a field has been set.
 func (o *DaVinciFlowPolicyResponse) HasTrigger() bool {
-	if o != nil && o.Trigger.IsSet() {
+	if o != nil && !IsNil(o.Trigger) {
 		return true
 	}
 
 	return false
 }
 
-// SetTrigger gets a reference to the given NullableDaVinciFlowPolicyResponseTrigger and assigns it to the Trigger field.
+// SetTrigger gets a reference to the given DaVinciFlowPolicyResponseTrigger and assigns it to the Trigger field.
 func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTrigger) {
-	o.Trigger.Set(&v)
-}
-
-// SetTriggerNil sets the value for Trigger to be an explicit nil
-func (o *DaVinciFlowPolicyResponse) SetTriggerNil() {
-	o.Trigger.Set(nil)
-}
-
-// UnsetTrigger ensures that no value is present for Trigger, not even an explicit nil
-func (o *DaVinciFlowPolicyResponse) UnsetTrigger() {
-	o.Trigger.Unset()
+	o.Trigger = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -333,8 +323,8 @@ func (o DaVinciFlowPolicyResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
-	if o.Trigger.IsSet() {
-		toSerialize["trigger"] = o.Trigger.Get()
+	if !IsNil(o.Trigger) {
+		toSerialize["trigger"] = o.Trigger
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt

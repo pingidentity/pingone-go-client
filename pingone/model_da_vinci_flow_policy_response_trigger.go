@@ -171,39 +171,3 @@ func (o DaVinciFlowPolicyResponseTrigger) LogValue() slog.Value {
 
 	return slog.GroupValue(logAttrs...)
 }
-
-type NullableDaVinciFlowPolicyResponseTrigger struct {
-	value *DaVinciFlowPolicyResponseTrigger
-	isSet bool
-}
-
-func (v NullableDaVinciFlowPolicyResponseTrigger) Get() *DaVinciFlowPolicyResponseTrigger {
-	return v.value
-}
-
-func (v *NullableDaVinciFlowPolicyResponseTrigger) Set(val *DaVinciFlowPolicyResponseTrigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDaVinciFlowPolicyResponseTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDaVinciFlowPolicyResponseTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDaVinciFlowPolicyResponseTrigger(val *DaVinciFlowPolicyResponseTrigger) *NullableDaVinciFlowPolicyResponseTrigger {
-	return &NullableDaVinciFlowPolicyResponseTrigger{value: val, isSet: true}
-}
-
-func (v NullableDaVinciFlowPolicyResponseTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableDaVinciFlowPolicyResponseTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
-}
