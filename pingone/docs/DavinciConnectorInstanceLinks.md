@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
-**ConnectorInstanceClone** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**DeviceAuthenticationPolicies** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**ConnectorInstanceClone** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Applications** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
+**DeviceAuthenticationPolicies** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 **Gateways** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 **NotificationsPolicies** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
-**Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
 
 ## Methods
 
 ### NewDaVinciConnectorInstanceLinks
 
-`func NewDaVinciConnectorInstanceLinks(connectorInstanceClone JSONHALLink, environment JSONHALLink, self JSONHALLink, ) *DaVinciConnectorInstanceLinks`
+`func NewDaVinciConnectorInstanceLinks(environment JSONHALLink, self JSONHALLink, connectorInstanceClone JSONHALLink, ) *DaVinciConnectorInstanceLinks`
 
 NewDaVinciConnectorInstanceLinks instantiates a new DaVinciConnectorInstanceLinks object
 This constructor will assign default values to properties that have it defined,
@@ -30,6 +30,66 @@ will change when the set of required properties is changed
 NewDaVinciConnectorInstanceLinksWithDefaults instantiates a new DaVinciConnectorInstanceLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEnvironment
+
+`func (o *DaVinciConnectorInstanceLinks) GetEnvironment() JSONHALLink`
+
+GetEnvironment returns the Environment field if non-nil, zero value otherwise.
+
+### GetEnvironmentOk
+
+`func (o *DaVinciConnectorInstanceLinks) GetEnvironmentOk() (*JSONHALLink, bool)`
+
+GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironment
+
+`func (o *DaVinciConnectorInstanceLinks) SetEnvironment(v JSONHALLink)`
+
+SetEnvironment sets Environment field to given value.
+
+
+### GetSelf
+
+`func (o *DaVinciConnectorInstanceLinks) GetSelf() JSONHALLink`
+
+GetSelf returns the Self field if non-nil, zero value otherwise.
+
+### GetSelfOk
+
+`func (o *DaVinciConnectorInstanceLinks) GetSelfOk() (*JSONHALLink, bool)`
+
+GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelf
+
+`func (o *DaVinciConnectorInstanceLinks) SetSelf(v JSONHALLink)`
+
+SetSelf sets Self field to given value.
+
+
+### GetConnectorInstanceClone
+
+`func (o *DaVinciConnectorInstanceLinks) GetConnectorInstanceClone() JSONHALLink`
+
+GetConnectorInstanceClone returns the ConnectorInstanceClone field if non-nil, zero value otherwise.
+
+### GetConnectorInstanceCloneOk
+
+`func (o *DaVinciConnectorInstanceLinks) GetConnectorInstanceCloneOk() (*JSONHALLink, bool)`
+
+GetConnectorInstanceCloneOk returns a tuple with the ConnectorInstanceClone field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectorInstanceClone
+
+`func (o *DaVinciConnectorInstanceLinks) SetConnectorInstanceClone(v JSONHALLink)`
+
+SetConnectorInstanceClone sets ConnectorInstanceClone field to given value.
+
 
 ### GetApplications
 
@@ -56,26 +116,6 @@ SetApplications sets Applications field to given value.
 
 HasApplications returns a boolean if a field has been set.
 
-### GetConnectorInstanceClone
-
-`func (o *DaVinciConnectorInstanceLinks) GetConnectorInstanceClone() JSONHALLink`
-
-GetConnectorInstanceClone returns the ConnectorInstanceClone field if non-nil, zero value otherwise.
-
-### GetConnectorInstanceCloneOk
-
-`func (o *DaVinciConnectorInstanceLinks) GetConnectorInstanceCloneOk() (*JSONHALLink, bool)`
-
-GetConnectorInstanceCloneOk returns a tuple with the ConnectorInstanceClone field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConnectorInstanceClone
-
-`func (o *DaVinciConnectorInstanceLinks) SetConnectorInstanceClone(v JSONHALLink)`
-
-SetConnectorInstanceClone sets ConnectorInstanceClone field to given value.
-
-
 ### GetDeviceAuthenticationPolicies
 
 `func (o *DaVinciConnectorInstanceLinks) GetDeviceAuthenticationPolicies() JSONHALLink`
@@ -100,26 +140,6 @@ SetDeviceAuthenticationPolicies sets DeviceAuthenticationPolicies field to given
 `func (o *DaVinciConnectorInstanceLinks) HasDeviceAuthenticationPolicies() bool`
 
 HasDeviceAuthenticationPolicies returns a boolean if a field has been set.
-
-### GetEnvironment
-
-`func (o *DaVinciConnectorInstanceLinks) GetEnvironment() JSONHALLink`
-
-GetEnvironment returns the Environment field if non-nil, zero value otherwise.
-
-### GetEnvironmentOk
-
-`func (o *DaVinciConnectorInstanceLinks) GetEnvironmentOk() (*JSONHALLink, bool)`
-
-GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnvironment
-
-`func (o *DaVinciConnectorInstanceLinks) SetEnvironment(v JSONHALLink)`
-
-SetEnvironment sets Environment field to given value.
-
 
 ### GetGateways
 
@@ -170,26 +190,6 @@ SetNotificationsPolicies sets NotificationsPolicies field to given value.
 `func (o *DaVinciConnectorInstanceLinks) HasNotificationsPolicies() bool`
 
 HasNotificationsPolicies returns a boolean if a field has been set.
-
-### GetSelf
-
-`func (o *DaVinciConnectorInstanceLinks) GetSelf() JSONHALLink`
-
-GetSelf returns the Self field if non-nil, zero value otherwise.
-
-### GetSelfOk
-
-`func (o *DaVinciConnectorInstanceLinks) GetSelfOk() (*JSONHALLink, bool)`
-
-GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSelf
-
-`func (o *DaVinciConnectorInstanceLinks) SetSelf(v JSONHALLink)`
-
-SetSelf sets Self field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

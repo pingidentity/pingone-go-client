@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
+**Version** | **float32** |  | 
 **Ip** | Pointer to **[]string** |  | [optional] 
 **SuccessNodes** | Pointer to [**[]DaVinciFlowPolicyResponseFlowDistributionSuccessNode**](DaVinciFlowPolicyResponseFlowDistributionSuccessNode.md) |  | [optional] 
-**Version** | **float32** |  | 
 **Weight** | Pointer to **float32** |  | [optional] 
 
 ## Methods
@@ -47,6 +47,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowPolicyResponseFlowDistribution) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetVersion
+
+`func (o *DaVinciFlowPolicyResponseFlowDistribution) GetVersion() float32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *DaVinciFlowPolicyResponseFlowDistribution) GetVersionOk() (*float32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *DaVinciFlowPolicyResponseFlowDistribution) SetVersion(v float32)`
+
+SetVersion sets Version field to given value.
 
 
 ### GetIp
@@ -98,26 +118,6 @@ SetSuccessNodes sets SuccessNodes field to given value.
 `func (o *DaVinciFlowPolicyResponseFlowDistribution) HasSuccessNodes() bool`
 
 HasSuccessNodes returns a boolean if a field has been set.
-
-### GetVersion
-
-`func (o *DaVinciFlowPolicyResponseFlowDistribution) GetVersion() float32`
-
-GetVersion returns the Version field if non-nil, zero value otherwise.
-
-### GetVersionOk
-
-`func (o *DaVinciFlowPolicyResponseFlowDistribution) GetVersionOk() (*float32, bool)`
-
-GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVersion
-
-`func (o *DaVinciFlowPolicyResponseFlowDistribution) SetVersion(v float32)`
-
-SetVersion sets Version field to given value.
-
 
 ### GetWeight
 

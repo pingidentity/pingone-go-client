@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **Links** | Pointer to [**DaVinciConnectorDetailsResponseLinks**](DaVinciConnectorDetailsResponseLinks.md) |  | [optional] 
 **AccountConfigView** | Pointer to [**DaVinciConnectorDetailsResponseAccountConfigView**](DaVinciConnectorDetailsResponseAccountConfigView.md) |  | [optional] 
 **Capabilities** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **CredentialsView** | Pointer to [**DaVinciConnectorDetailsResponseCredentialsView**](DaVinciConnectorDetailsResponseCredentialsView.md) |  | [optional] 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **FlowSections** | Pointer to [**[]DaVinciConnectorDetailsResponseFlowSection**](DaVinciConnectorDetailsResponseFlowSection.md) |  | [optional] 
 **Properties** | Pointer to **map[string]interface{}** |  | [optional] 
 **Sections** | Pointer to [**[]DaVinciConnectorDetailsResponseSection**](DaVinciConnectorDetailsResponseSection.md) |  | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciConnectorDetailsResponse
 
-`func NewDaVinciConnectorDetailsResponse(environment ResourceRelationshipPingOne, ) *DaVinciConnectorDetailsResponse`
+`func NewDaVinciConnectorDetailsResponse(environment ResourceRelationshipReadOnly, ) *DaVinciConnectorDetailsResponse`
 
 NewDaVinciConnectorDetailsResponse instantiates a new DaVinciConnectorDetailsResponse object
 This constructor will assign default values to properties that have it defined,
@@ -31,6 +31,26 @@ will change when the set of required properties is changed
 NewDaVinciConnectorDetailsResponseWithDefaults instantiates a new DaVinciConnectorDetailsResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEnvironment
+
+`func (o *DaVinciConnectorDetailsResponse) GetEnvironment() ResourceRelationshipReadOnly`
+
+GetEnvironment returns the Environment field if non-nil, zero value otherwise.
+
+### GetEnvironmentOk
+
+`func (o *DaVinciConnectorDetailsResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
+
+GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironment
+
+`func (o *DaVinciConnectorDetailsResponse) SetEnvironment(v ResourceRelationshipReadOnly)`
+
+SetEnvironment sets Environment field to given value.
+
 
 ### GetLinks
 
@@ -131,26 +151,6 @@ SetCredentialsView sets CredentialsView field to given value.
 `func (o *DaVinciConnectorDetailsResponse) HasCredentialsView() bool`
 
 HasCredentialsView returns a boolean if a field has been set.
-
-### GetEnvironment
-
-`func (o *DaVinciConnectorDetailsResponse) GetEnvironment() ResourceRelationshipPingOne`
-
-GetEnvironment returns the Environment field if non-nil, zero value otherwise.
-
-### GetEnvironmentOk
-
-`func (o *DaVinciConnectorDetailsResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
-
-GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnvironment
-
-`func (o *DaVinciConnectorDetailsResponse) SetEnvironment(v ResourceRelationshipPingOne)`
-
-SetEnvironment sets Environment field to given value.
-
 
 ### GetFlowSections
 

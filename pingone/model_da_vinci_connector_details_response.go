@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,11 +25,11 @@ var _ slog.LogValuer = &DaVinciConnectorDetailsResponse{}
 
 // DaVinciConnectorDetailsResponse struct for DaVinciConnectorDetailsResponse
 type DaVinciConnectorDetailsResponse struct {
+	Environment          ResourceRelationshipReadOnly                      `json:"environment"`
 	Links                *DaVinciConnectorDetailsResponseLinks             `json:"_links,omitempty"`
 	AccountConfigView    *DaVinciConnectorDetailsResponseAccountConfigView `json:"accountConfigView,omitempty"`
 	Capabilities         map[string]map[string]interface{}                 `json:"capabilities,omitempty"`
 	CredentialsView      *DaVinciConnectorDetailsResponseCredentialsView   `json:"credentialsView,omitempty"`
-	Environment          ResourceRelationshipPingOne                       `json:"environment"`
 	FlowSections         []DaVinciConnectorDetailsResponseFlowSection      `json:"flowSections,omitempty"`
 	Properties           map[string]interface{}                            `json:"properties,omitempty"`
 	Sections             []DaVinciConnectorDetailsResponseSection          `json:"sections,omitempty"`
@@ -42,7 +42,7 @@ type _DaVinciConnectorDetailsResponse DaVinciConnectorDetailsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorDetailsResponse(environment ResourceRelationshipPingOne) *DaVinciConnectorDetailsResponse {
+func NewDaVinciConnectorDetailsResponse(environment ResourceRelationshipReadOnly) *DaVinciConnectorDetailsResponse {
 	this := DaVinciConnectorDetailsResponse{}
 	this.Environment = environment
 	return &this
@@ -54,6 +54,30 @@ func NewDaVinciConnectorDetailsResponse(environment ResourceRelationshipPingOne)
 func NewDaVinciConnectorDetailsResponseWithDefaults() *DaVinciConnectorDetailsResponse {
 	this := DaVinciConnectorDetailsResponse{}
 	return &this
+}
+
+// GetEnvironment returns the Environment field value
+func (o *DaVinciConnectorDetailsResponse) GetEnvironment() ResourceRelationshipReadOnly {
+	if o == nil {
+		var ret ResourceRelationshipReadOnly
+		return ret
+	}
+
+	return o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorDetailsResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Environment, true
+}
+
+// SetEnvironment sets field value
+func (o *DaVinciConnectorDetailsResponse) SetEnvironment(v ResourceRelationshipReadOnly) {
+	o.Environment = v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -184,30 +208,6 @@ func (o *DaVinciConnectorDetailsResponse) SetCredentialsView(v DaVinciConnectorD
 	o.CredentialsView = &v
 }
 
-// GetEnvironment returns the Environment field value
-func (o *DaVinciConnectorDetailsResponse) GetEnvironment() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
-		return ret
-	}
-
-	return o.Environment
-}
-
-// GetEnvironmentOk returns a tuple with the Environment field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciConnectorDetailsResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Environment, true
-}
-
-// SetEnvironment sets field value
-func (o *DaVinciConnectorDetailsResponse) SetEnvironment(v ResourceRelationshipPingOne) {
-	o.Environment = v
-}
-
 // GetFlowSections returns the FlowSections field value if set, zero value otherwise.
 func (o *DaVinciConnectorDetailsResponse) GetFlowSections() []DaVinciConnectorDetailsResponseFlowSection {
 	if o == nil || IsNil(o.FlowSections) {
@@ -314,6 +314,7 @@ func (o DaVinciConnectorDetailsResponse) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciConnectorDetailsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["environment"] = o.Environment
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
@@ -326,7 +327,6 @@ func (o DaVinciConnectorDetailsResponse) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.CredentialsView) {
 		toSerialize["credentialsView"] = o.CredentialsView
 	}
-	toSerialize["environment"] = o.Environment
 	if !IsNil(o.FlowSections) {
 		toSerialize["flowSections"] = o.FlowSections
 	}
@@ -379,11 +379,11 @@ func (o *DaVinciConnectorDetailsResponse) UnmarshalJSON(data []byte) (err error)
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "accountConfigView")
 		delete(additionalProperties, "capabilities")
 		delete(additionalProperties, "credentialsView")
-		delete(additionalProperties, "environment")
 		delete(additionalProperties, "flowSections")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "sections")
@@ -396,6 +396,7 @@ func (o *DaVinciConnectorDetailsResponse) UnmarshalJSON(data []byte) (err error)
 func (o DaVinciConnectorDetailsResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	if !IsNil(o.Links) {
 		logAttrs = append(logAttrs, slog.Any("_links", *o.Links))
 	}
@@ -408,7 +409,6 @@ func (o DaVinciConnectorDetailsResponse) LogValue() slog.Value {
 	if !IsNil(o.CredentialsView) {
 		logAttrs = append(logAttrs, slog.Any("credentialsView", *o.CredentialsView))
 	}
-	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	if !IsNil(o.FlowSections) {
 		logAttrs = append(logAttrs, slog.Any("flowSections", o.FlowSections))
 	}

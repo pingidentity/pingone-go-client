@@ -4,14 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**VersionsIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowPolicyResponseLinks
 
-`func NewDaVinciFlowPolicyResponseLinks(environment JSONHALLink, self JSONHALLink, ) *DaVinciFlowPolicyResponseLinks`
+`func NewDaVinciFlowPolicyResponseLinks(self JSONHALLink, environment JSONHALLink, ) *DaVinciFlowPolicyResponseLinks`
 
 NewDaVinciFlowPolicyResponseLinks instantiates a new DaVinciFlowPolicyResponseLinks object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +26,26 @@ will change when the set of required properties is changed
 NewDaVinciFlowPolicyResponseLinksWithDefaults instantiates a new DaVinciFlowPolicyResponseLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetSelf
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetSelf() JSONHALLink`
+
+GetSelf returns the Self field if non-nil, zero value otherwise.
+
+### GetSelfOk
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetSelfOk() (*JSONHALLink, bool)`
+
+GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelf
+
+`func (o *DaVinciFlowPolicyResponseLinks) SetSelf(v JSONHALLink)`
+
+SetSelf sets Self field to given value.
+
 
 ### GetEnvironment
 
@@ -46,25 +67,30 @@ and a boolean to check if the value has been set.
 SetEnvironment sets Environment field to given value.
 
 
-### GetSelf
+### GetVersionsIndex
 
-`func (o *DaVinciFlowPolicyResponseLinks) GetSelf() JSONHALLink`
+`func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndex() JSONHALLink`
 
-GetSelf returns the Self field if non-nil, zero value otherwise.
+GetVersionsIndex returns the VersionsIndex field if non-nil, zero value otherwise.
 
-### GetSelfOk
+### GetVersionsIndexOk
 
-`func (o *DaVinciFlowPolicyResponseLinks) GetSelfOk() (*JSONHALLink, bool)`
+`func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndexOk() (*JSONHALLink, bool)`
 
-GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+GetVersionsIndexOk returns a tuple with the VersionsIndex field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSelf
+### SetVersionsIndex
 
-`func (o *DaVinciFlowPolicyResponseLinks) SetSelf(v JSONHALLink)`
+`func (o *DaVinciFlowPolicyResponseLinks) SetVersionsIndex(v JSONHALLink)`
 
-SetSelf sets Self field to given value.
+SetVersionsIndex sets VersionsIndex field to given value.
 
+### HasVersionsIndex
+
+`func (o *DaVinciFlowPolicyResponseLinks) HasVersionsIndex() bool`
+
+HasVersionsIndex returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

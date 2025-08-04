@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -27,8 +27,8 @@ var _ slog.LogValuer = &DaVinciVariableCollection{}
 type DaVinciVariableCollection struct {
 	Embedded             DaVinciVariableCollectionEmbedded `json:"_embedded"`
 	Links                DaVinciVariableCollectionLinks    `json:"_links"`
-	Count                float32                           `json:"count"`
 	Size                 float32                           `json:"size"`
+	Count                float32                           `json:"count"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,12 +38,12 @@ type _DaVinciVariableCollection DaVinciVariableCollection
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariableCollection(embedded DaVinciVariableCollectionEmbedded, links DaVinciVariableCollectionLinks, count float32, size float32) *DaVinciVariableCollection {
+func NewDaVinciVariableCollection(embedded DaVinciVariableCollectionEmbedded, links DaVinciVariableCollectionLinks, size float32, count float32) *DaVinciVariableCollection {
 	this := DaVinciVariableCollection{}
 	this.Embedded = embedded
 	this.Links = links
-	this.Count = count
 	this.Size = size
+	this.Count = count
 	return &this
 }
 
@@ -103,30 +103,6 @@ func (o *DaVinciVariableCollection) SetLinks(v DaVinciVariableCollectionLinks) {
 	o.Links = v
 }
 
-// GetCount returns the Count field value
-func (o *DaVinciVariableCollection) GetCount() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Count
-}
-
-// GetCountOk returns a tuple with the Count field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariableCollection) GetCountOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Count, true
-}
-
-// SetCount sets field value
-func (o *DaVinciVariableCollection) SetCount(v float32) {
-	o.Count = v
-}
-
 // GetSize returns the Size field value
 func (o *DaVinciVariableCollection) GetSize() float32 {
 	if o == nil {
@@ -151,6 +127,30 @@ func (o *DaVinciVariableCollection) SetSize(v float32) {
 	o.Size = v
 }
 
+// GetCount returns the Count field value
+func (o *DaVinciVariableCollection) GetCount() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Count
+}
+
+// GetCountOk returns a tuple with the Count field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariableCollection) GetCountOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Count, true
+}
+
+// SetCount sets field value
+func (o *DaVinciVariableCollection) SetCount(v float32) {
+	o.Count = v
+}
+
 func (o DaVinciVariableCollection) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -163,8 +163,8 @@ func (o DaVinciVariableCollection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_embedded"] = o.Embedded
 	toSerialize["_links"] = o.Links
-	toSerialize["count"] = o.Count
 	toSerialize["size"] = o.Size
+	toSerialize["count"] = o.Count
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -180,8 +180,8 @@ func (o *DaVinciVariableCollection) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"_embedded",
 		"_links",
-		"count",
 		"size",
+		"count",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -213,8 +213,8 @@ func (o *DaVinciVariableCollection) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
-		delete(additionalProperties, "count")
 		delete(additionalProperties, "size")
+		delete(additionalProperties, "count")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -226,8 +226,8 @@ func (o DaVinciVariableCollection) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("_embedded", o.Embedded))
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
-	logAttrs = append(logAttrs, slog.Any("count", o.Count))
 	logAttrs = append(logAttrs, slog.Any("size", o.Size))
+	logAttrs = append(logAttrs, slog.Any("count", o.Count))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

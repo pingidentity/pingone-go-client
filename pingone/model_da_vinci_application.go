@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -26,14 +26,14 @@ var _ slog.LogValuer = &DaVinciApplication{}
 
 // DaVinciApplication struct for DaVinciApplication
 type DaVinciApplication struct {
-	Links                DaVinciApplicationLinks     `json:"_links"`
-	ApiKey               DaVinciApplicationApiKey    `json:"apiKey"`
-	CreatedAt            *time.Time                  `json:"createdAt,omitempty"`
-	Environment          ResourceRelationshipPingOne `json:"environment"`
-	Id                   string                      `json:"id"`
-	Name                 string                      `json:"name"`
-	Oauth                DaVinciApplicationOauth     `json:"oauth"`
-	UpdatedAt            *time.Time                  `json:"updatedAt,omitempty"`
+	Links                DaVinciApplicationLinks      `json:"_links"`
+	ApiKey               DaVinciApplicationApiKey     `json:"apiKey"`
+	Environment          ResourceRelationshipReadOnly `json:"environment"`
+	Id                   string                       `json:"id"`
+	Name                 string                       `json:"name"`
+	Oauth                DaVinciApplicationOAuth      `json:"oauth"`
+	CreatedAt            *time.Time                   `json:"createdAt,omitempty"`
+	UpdatedAt            *time.Time                   `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,7 +43,7 @@ type _DaVinciApplication DaVinciApplication
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciApplication(links DaVinciApplicationLinks, apiKey DaVinciApplicationApiKey, environment ResourceRelationshipPingOne, id string, name string, oauth DaVinciApplicationOauth) *DaVinciApplication {
+func NewDaVinciApplication(links DaVinciApplicationLinks, apiKey DaVinciApplicationApiKey, environment ResourceRelationshipReadOnly, id string, name string, oauth DaVinciApplicationOAuth) *DaVinciApplication {
 	this := DaVinciApplication{}
 	this.Links = links
 	this.ApiKey = apiKey
@@ -110,42 +110,10 @@ func (o *DaVinciApplication) SetApiKey(v DaVinciApplicationApiKey) {
 	o.ApiKey = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DaVinciApplication) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciApplication) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *DaVinciApplication) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *DaVinciApplication) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
 // GetEnvironment returns the Environment field value
-func (o *DaVinciApplication) GetEnvironment() ResourceRelationshipPingOne {
+func (o *DaVinciApplication) GetEnvironment() ResourceRelationshipReadOnly {
 	if o == nil {
-		var ret ResourceRelationshipPingOne
+		var ret ResourceRelationshipReadOnly
 		return ret
 	}
 
@@ -154,7 +122,7 @@ func (o *DaVinciApplication) GetEnvironment() ResourceRelationshipPingOne {
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciApplication) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
+func (o *DaVinciApplication) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -162,7 +130,7 @@ func (o *DaVinciApplication) GetEnvironmentOk() (*ResourceRelationshipPingOne, b
 }
 
 // SetEnvironment sets field value
-func (o *DaVinciApplication) SetEnvironment(v ResourceRelationshipPingOne) {
+func (o *DaVinciApplication) SetEnvironment(v ResourceRelationshipReadOnly) {
 	o.Environment = v
 }
 
@@ -215,9 +183,9 @@ func (o *DaVinciApplication) SetName(v string) {
 }
 
 // GetOauth returns the Oauth field value
-func (o *DaVinciApplication) GetOauth() DaVinciApplicationOauth {
+func (o *DaVinciApplication) GetOauth() DaVinciApplicationOAuth {
 	if o == nil {
-		var ret DaVinciApplicationOauth
+		var ret DaVinciApplicationOAuth
 		return ret
 	}
 
@@ -226,7 +194,7 @@ func (o *DaVinciApplication) GetOauth() DaVinciApplicationOauth {
 
 // GetOauthOk returns a tuple with the Oauth field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciApplication) GetOauthOk() (*DaVinciApplicationOauth, bool) {
+func (o *DaVinciApplication) GetOauthOk() (*DaVinciApplicationOAuth, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -234,8 +202,40 @@ func (o *DaVinciApplication) GetOauthOk() (*DaVinciApplicationOauth, bool) {
 }
 
 // SetOauth sets field value
-func (o *DaVinciApplication) SetOauth(v DaVinciApplicationOauth) {
+func (o *DaVinciApplication) SetOauth(v DaVinciApplicationOAuth) {
 	o.Oauth = v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *DaVinciApplication) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciApplication) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *DaVinciApplication) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *DaVinciApplication) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -282,13 +282,13 @@ func (o DaVinciApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
 	toSerialize["apiKey"] = o.ApiKey
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
 	toSerialize["environment"] = o.Environment
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["oauth"] = o.Oauth
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
@@ -342,11 +342,11 @@ func (o *DaVinciApplication) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "apiKey")
-		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "oauth")
+		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -359,13 +359,13 @@ func (o DaVinciApplication) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
 	logAttrs = append(logAttrs, slog.Any("apiKey", o.ApiKey))
-	if !IsNil(o.CreatedAt) {
-		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
-	}
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("oauth", o.Oauth))
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
 	if !IsNil(o.UpdatedAt) {
 		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
 	}

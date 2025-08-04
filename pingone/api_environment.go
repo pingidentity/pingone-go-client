@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -48,8 +48,8 @@ func (r ApiCreateEnvironmentRequest) XPingExternalSessionID(xPingExternalSession
 	return r
 }
 
-func (r ApiCreateEnvironmentRequest) EnvironmentCreateRequest(environmentCreateRequest EnvironmentCreateRequest) ApiCreateEnvironmentRequest {
-	r.environmentCreateRequest = &environmentCreateRequest
+func (r ApiCreateEnvironmentRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiCreateEnvironmentRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
@@ -58,11 +58,7 @@ func (r ApiCreateEnvironmentRequest) Execute() (*Environment, *http.Response, er
 }
 
 /*
-CreateEnvironment Create Environment
-
-Create a new environment associated with the organization encoded in the access token. In the request body, the `name`, `region`, and `type` attributes are required. The value of the name attribute must be unique within the organization. The `billOfMaterials` attribute allows you to specify the Ping products associated with this environment.
-
-If you have a trial license, you cannot create `PRODUCTION` environments or promote `SANDBOX` environments to `PRODUCTION`.
+CreateEnvironment Method for CreateEnvironment
 
 	@permission orgmgt:create:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

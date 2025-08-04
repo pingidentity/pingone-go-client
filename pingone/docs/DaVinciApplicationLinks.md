@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DavinciApplicationRotateKey** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**DavinciApplicationRotateSecret** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **FlowPolicies** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**DavinciApplicationRotateKey** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**DavinciApplicationRotateSecret** | [**JSONHALLink**](JSONHALLink.md) |  | 
 
 ## Methods
 
 ### NewDaVinciApplicationLinks
 
-`func NewDaVinciApplicationLinks(davinciApplicationRotateKey JSONHALLink, davinciApplicationRotateSecret JSONHALLink, environment JSONHALLink, flowPolicies JSONHALLink, self JSONHALLink, ) *DaVinciApplicationLinks`
+`func NewDaVinciApplicationLinks(self JSONHALLink, environment JSONHALLink, flowPolicies JSONHALLink, davinciApplicationRotateKey JSONHALLink, davinciApplicationRotateSecret JSONHALLink, ) *DaVinciApplicationLinks`
 
 NewDaVinciApplicationLinks instantiates a new DaVinciApplicationLinks object
 This constructor will assign default values to properties that have it defined,
@@ -29,44 +29,24 @@ NewDaVinciApplicationLinksWithDefaults instantiates a new DaVinciApplicationLink
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDavinciApplicationRotateKey
+### GetSelf
 
-`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateKey() JSONHALLink`
+`func (o *DaVinciApplicationLinks) GetSelf() JSONHALLink`
 
-GetDavinciApplicationRotateKey returns the DavinciApplicationRotateKey field if non-nil, zero value otherwise.
+GetSelf returns the Self field if non-nil, zero value otherwise.
 
-### GetDavinciApplicationRotateKeyOk
+### GetSelfOk
 
-`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateKeyOk() (*JSONHALLink, bool)`
+`func (o *DaVinciApplicationLinks) GetSelfOk() (*JSONHALLink, bool)`
 
-GetDavinciApplicationRotateKeyOk returns a tuple with the DavinciApplicationRotateKey field if it's non-nil, zero value otherwise
+GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDavinciApplicationRotateKey
+### SetSelf
 
-`func (o *DaVinciApplicationLinks) SetDavinciApplicationRotateKey(v JSONHALLink)`
+`func (o *DaVinciApplicationLinks) SetSelf(v JSONHALLink)`
 
-SetDavinciApplicationRotateKey sets DavinciApplicationRotateKey field to given value.
-
-
-### GetDavinciApplicationRotateSecret
-
-`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateSecret() JSONHALLink`
-
-GetDavinciApplicationRotateSecret returns the DavinciApplicationRotateSecret field if non-nil, zero value otherwise.
-
-### GetDavinciApplicationRotateSecretOk
-
-`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateSecretOk() (*JSONHALLink, bool)`
-
-GetDavinciApplicationRotateSecretOk returns a tuple with the DavinciApplicationRotateSecret field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDavinciApplicationRotateSecret
-
-`func (o *DaVinciApplicationLinks) SetDavinciApplicationRotateSecret(v JSONHALLink)`
-
-SetDavinciApplicationRotateSecret sets DavinciApplicationRotateSecret field to given value.
+SetSelf sets Self field to given value.
 
 
 ### GetEnvironment
@@ -109,24 +89,44 @@ and a boolean to check if the value has been set.
 SetFlowPolicies sets FlowPolicies field to given value.
 
 
-### GetSelf
+### GetDavinciApplicationRotateKey
 
-`func (o *DaVinciApplicationLinks) GetSelf() JSONHALLink`
+`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateKey() JSONHALLink`
 
-GetSelf returns the Self field if non-nil, zero value otherwise.
+GetDavinciApplicationRotateKey returns the DavinciApplicationRotateKey field if non-nil, zero value otherwise.
 
-### GetSelfOk
+### GetDavinciApplicationRotateKeyOk
 
-`func (o *DaVinciApplicationLinks) GetSelfOk() (*JSONHALLink, bool)`
+`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateKeyOk() (*JSONHALLink, bool)`
 
-GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+GetDavinciApplicationRotateKeyOk returns a tuple with the DavinciApplicationRotateKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSelf
+### SetDavinciApplicationRotateKey
 
-`func (o *DaVinciApplicationLinks) SetSelf(v JSONHALLink)`
+`func (o *DaVinciApplicationLinks) SetDavinciApplicationRotateKey(v JSONHALLink)`
 
-SetSelf sets Self field to given value.
+SetDavinciApplicationRotateKey sets DavinciApplicationRotateKey field to given value.
+
+
+### GetDavinciApplicationRotateSecret
+
+`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateSecret() JSONHALLink`
+
+GetDavinciApplicationRotateSecret returns the DavinciApplicationRotateSecret field if non-nil, zero value otherwise.
+
+### GetDavinciApplicationRotateSecretOk
+
+`func (o *DaVinciApplicationLinks) GetDavinciApplicationRotateSecretOk() (*JSONHALLink, bool)`
+
+GetDavinciApplicationRotateSecretOk returns a tuple with the DavinciApplicationRotateSecret field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDavinciApplicationRotateSecret
+
+`func (o *DaVinciApplicationLinks) SetDavinciApplicationRotateSecret(v JSONHALLink)`
+
+SetDavinciApplicationRotateSecret sets DavinciApplicationRotateSecret field to given value.
 
 
 

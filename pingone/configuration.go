@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -96,16 +96,12 @@ func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 		DefaultServerIndex: 0,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://api.{sld}.{tld}/{basePath}",
+				URL:         "https://api.pingone.{tld}/{basePath}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
 					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "v1",
-					},
-					"sld": {
-						Description:  "No description provided",
-						DefaultValue: "pingone",
 					},
 					"tld": {
 						Description:  "No description provided",
@@ -116,21 +112,8 @@ func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 							"asia",
 							"com.au",
 							"ca",
+							"sg",
 						},
-					},
-				},
-			},
-			{
-				URL:         "https://{domain}/{basePath}",
-				Description: "No description provided",
-				Variables: map[string]ServerVariable{
-					"basePath": {
-						Description:  "No description provided",
-						DefaultValue: "v1",
-					},
-					"domain": {
-						Description:  "No description provided",
-						DefaultValue: "api.pingone.com",
 					},
 				},
 			},

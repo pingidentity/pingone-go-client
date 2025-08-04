@@ -5,20 +5,20 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciFlowPolicyResponseLinks**](DaVinciFlowPolicyResponseLinks.md) |  | 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **FlowDistributions** | [**[]DaVinciFlowPolicyResponseFlowDistribution**](DaVinciFlowPolicyResponseFlowDistribution.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**Status** | [**DaVinciFlowPolicyCreateRequestStatus**](DaVinciFlowPolicyCreateRequestStatus.md) |  | 
-**Trigger** | Pointer to [**NullableDaVinciFlowPolicyResponseTrigger**](DaVinciFlowPolicyResponseTrigger.md) |  | [optional] 
+**Status** | [**DaVinciFlowPolicyResponseStatus**](DaVinciFlowPolicyResponseStatus.md) |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**Trigger** | Pointer to [**NullableDaVinciFlowPolicyResponseTriggerOption1**](DaVinciFlowPolicyResponseTriggerOption1.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowPolicyResponse
 
-`func NewDaVinciFlowPolicyResponse(links DaVinciFlowPolicyResponseLinks, environment ResourceRelationshipPingOne, flowDistributions []DaVinciFlowPolicyResponseFlowDistribution, id string, name string, status DaVinciFlowPolicyCreateRequestStatus, ) *DaVinciFlowPolicyResponse`
+`func NewDaVinciFlowPolicyResponse(links DaVinciFlowPolicyResponseLinks, environment ResourceRelationshipReadOnly, flowDistributions []DaVinciFlowPolicyResponseFlowDistribution, id string, name string, status DaVinciFlowPolicyResponseStatus, ) *DaVinciFlowPolicyResponse`
 
 NewDaVinciFlowPolicyResponse instantiates a new DaVinciFlowPolicyResponse object
 This constructor will assign default values to properties that have it defined,
@@ -53,47 +53,22 @@ and a boolean to check if the value has been set.
 SetLinks sets Links field to given value.
 
 
-### GetCreatedAt
-
-`func (o *DaVinciFlowPolicyResponse) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *DaVinciFlowPolicyResponse) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *DaVinciFlowPolicyResponse) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *DaVinciFlowPolicyResponse) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
-
 ### GetEnvironment
 
-`func (o *DaVinciFlowPolicyResponse) GetEnvironment() ResourceRelationshipPingOne`
+`func (o *DaVinciFlowPolicyResponse) GetEnvironment() ResourceRelationshipReadOnly`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DaVinciFlowPolicyResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *DaVinciFlowPolicyResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DaVinciFlowPolicyResponse) SetEnvironment(v ResourceRelationshipPingOne)`
+`func (o *DaVinciFlowPolicyResponse) SetEnvironment(v ResourceRelationshipReadOnly)`
 
 SetEnvironment sets Environment field to given value.
 
@@ -160,40 +135,65 @@ SetName sets Name field to given value.
 
 ### GetStatus
 
-`func (o *DaVinciFlowPolicyResponse) GetStatus() DaVinciFlowPolicyCreateRequestStatus`
+`func (o *DaVinciFlowPolicyResponse) GetStatus() DaVinciFlowPolicyResponseStatus`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *DaVinciFlowPolicyResponse) GetStatusOk() (*DaVinciFlowPolicyCreateRequestStatus, bool)`
+`func (o *DaVinciFlowPolicyResponse) GetStatusOk() (*DaVinciFlowPolicyResponseStatus, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *DaVinciFlowPolicyResponse) SetStatus(v DaVinciFlowPolicyCreateRequestStatus)`
+`func (o *DaVinciFlowPolicyResponse) SetStatus(v DaVinciFlowPolicyResponseStatus)`
 
 SetStatus sets Status field to given value.
 
 
+### GetCreatedAt
+
+`func (o *DaVinciFlowPolicyResponse) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *DaVinciFlowPolicyResponse) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *DaVinciFlowPolicyResponse) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *DaVinciFlowPolicyResponse) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
 ### GetTrigger
 
-`func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTrigger`
+`func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTriggerOption1`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTrigger, bool)`
+`func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTriggerOption1, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTrigger)`
+`func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTriggerOption1)`
 
 SetTrigger sets Trigger field to given value.
 

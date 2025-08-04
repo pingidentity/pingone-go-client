@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enabled** | **bool** |  | 
+**Enabled** | **bool** |  | [default to true]
 **Value** | **string** |  | 
 
 ## Methods

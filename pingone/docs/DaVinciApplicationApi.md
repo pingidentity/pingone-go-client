@@ -4,26 +4,25 @@ All URIs are relative to *https://api.pingone.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDavinciApplication**](DaVinciApplicationApi.md#CreateDavinciApplication) | **Post** /environments/{environmentID}/davinciApplications | _TO_BE_DEFINED_
-[**CreateFlowPolicyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateFlowPolicyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies | _TO_BE_DEFINED_
-[**CreateKeyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateKeyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/key | _TO_BE_DEFINED_
-[**CreateSecretByDavinciApplicationId**](DaVinciApplicationApi.md#CreateSecretByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/secret | _TO_BE_DEFINED_
-[**DeleteDavinciApplicationById**](DaVinciApplicationApi.md#DeleteDavinciApplicationById) | **Delete** /environments/{environmentID}/davinciApplications/{daVinciApplicationID} | _TO_BE_DEFINED_
-[**DeleteFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#DeleteFlowPolicyByIdUsingDavinciApplicationId) | **Delete** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies/{flowPolicyID} | _TO_BE_DEFINED_
-[**GetDavinciApplicationById**](DaVinciApplicationApi.md#GetDavinciApplicationById) | **Get** /environments/{environmentID}/davinciApplications/{daVinciApplicationID} | _TO_BE_DEFINED_
-[**GetDavinciApplications**](DaVinciApplicationApi.md#GetDavinciApplications) | **Get** /environments/{environmentID}/davinciApplications | _TO_BE_DEFINED_
-[**GetFlowPoliciesByDavinciApplicationId**](DaVinciApplicationApi.md#GetFlowPoliciesByDavinciApplicationId) | **Get** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies | _TO_BE_DEFINED_
-[**GetFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#GetFlowPolicyByIdUsingDavinciApplicationId) | **Get** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies/{flowPolicyID} | _TO_BE_DEFINED_
-[**ReplaceDavinciApplicationById**](DaVinciApplicationApi.md#ReplaceDavinciApplicationById) | **Put** /environments/{environmentID}/davinciApplications/{daVinciApplicationID} | _TO_BE_DEFINED_
-[**ReplaceFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#ReplaceFlowPolicyByIdUsingDavinciApplicationId) | **Put** /environments/{environmentID}/davinciApplications/{daVinciApplicationID}/flowPolicies/{flowPolicyID} | _TO_BE_DEFINED_
+[**CreateDavinciApplication**](DaVinciApplicationApi.md#CreateDavinciApplication) | **Post** /environments/{environmentID}/davinciApplications | 
+[**CreateFlowPolicyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateFlowPolicyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies | 
+[**CreateKeyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateKeyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key | 
+[**CreateSecretByDavinciApplicationId**](DaVinciApplicationApi.md#CreateSecretByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret | 
+[**DeleteDavinciApplicationById**](DaVinciApplicationApi.md#DeleteDavinciApplicationById) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
+[**DeleteFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#DeleteFlowPolicyByIdUsingDavinciApplicationId) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
+[**GetDavinciApplicationById**](DaVinciApplicationApi.md#GetDavinciApplicationById) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
+[**GetDavinciApplications**](DaVinciApplicationApi.md#GetDavinciApplications) | **Get** /environments/{environmentID}/davinciApplications | 
+[**GetEventsByDavinciApplicationIdAndFlowPolicyId**](DaVinciApplicationApi.md#GetEventsByDavinciApplicationIdAndFlowPolicyId) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID}/events | 
+[**GetFlowPoliciesByDavinciApplicationId**](DaVinciApplicationApi.md#GetFlowPoliciesByDavinciApplicationId) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies | 
+[**GetFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#GetFlowPolicyByIdUsingDavinciApplicationId) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
+[**ReplaceDavinciApplicationById**](DaVinciApplicationApi.md#ReplaceDavinciApplicationById) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
+[**ReplaceFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#ReplaceFlowPolicyByIdUsingDavinciApplicationId) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
 
 
 
 ## CreateDavinciApplication
 
-> DaVinciApplication CreateDavinciApplication(ctx, environmentID).DaVinciApplicationCreateRequest(daVinciApplicationCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplication CreateDavinciApplication(ctx, environmentID).DaVinciApplicationCreateRequest(daVinciApplicationCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -40,14 +39,14 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	daVinciApplicationCreateRequest := *openapiclient.NewDaVinciApplicationCreateRequest("Name_example") // DaVinciApplicationCreateRequest | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateDavinciApplication(context.Background(), environmentID).DaVinciApplicationCreateRequest(daVinciApplicationCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.CreateDavinciApplication(context.Background(), environmentID).DaVinciApplicationCreateRequest(daVinciApplicationCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateDavinciApplication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,7 +68,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -80,8 +79,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **daVinciApplicationCreateRequest** | [**DaVinciApplicationCreateRequest**](DaVinciApplicationCreateRequest.md) |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -94,7 +93,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -103,9 +102,7 @@ Name | Type | Description  | Notes
 
 ## CreateFlowPolicyByDavinciApplicationId
 
-> DaVinciFlowPolicyResponse CreateFlowPolicyByDavinciApplicationId(ctx, environmentID, daVinciApplicationID).DaVinciFlowPolicyCreateRequest(daVinciFlowPolicyCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciFlowPolicyResponse CreateFlowPolicyByDavinciApplicationId(ctx, environmentID, davinciApplicationID).DaVinciFlowPolicyCreateRequest(daVinciFlowPolicyCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -122,15 +119,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	daVinciFlowPolicyCreateRequest := *openapiclient.NewDaVinciFlowPolicyCreateRequest([]openapiclient.DaVinciFlowPolicyCreateRequestFlowDistribution{*openapiclient.NewDaVinciFlowPolicyCreateRequestFlowDistribution("Id_example", float32(123))}) // DaVinciFlowPolicyCreateRequest | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	daVinciFlowPolicyCreateRequest := *openapiclient.NewDaVinciFlowPolicyCreateRequest("Name_example") // DaVinciFlowPolicyCreateRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateFlowPolicyByDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID).DaVinciFlowPolicyCreateRequest(daVinciFlowPolicyCreateRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.CreateFlowPolicyByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).DaVinciFlowPolicyCreateRequest(daVinciFlowPolicyCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateFlowPolicyByDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -152,8 +149,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -165,8 +162,8 @@ Name | Type | Description  | Notes
 
 
  **daVinciFlowPolicyCreateRequest** | [**DaVinciFlowPolicyCreateRequest**](DaVinciFlowPolicyCreateRequest.md) |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -179,7 +176,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -188,9 +185,7 @@ Name | Type | Description  | Notes
 
 ## CreateKeyByDavinciApplicationId
 
-> DaVinciApplication CreateKeyByDavinciApplicationId(ctx, environmentID, daVinciApplicationID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplication CreateKeyByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -207,15 +202,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateKeyByDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.CreateKeyByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateKeyByDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -237,8 +232,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -250,8 +245,8 @@ Name | Type | Description  | Notes
 
 
  **requestBody** | **map[string]interface{}** |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -264,7 +259,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateKey+json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -273,9 +268,7 @@ Name | Type | Description  | Notes
 
 ## CreateSecretByDavinciApplicationId
 
-> DaVinciApplication CreateSecretByDavinciApplicationId(ctx, environmentID, daVinciApplicationID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplication CreateSecretByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -292,15 +285,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateSecretByDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID).RequestBody(requestBody).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.CreateSecretByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateSecretByDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -322,8 +315,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -335,8 +328,8 @@ Name | Type | Description  | Notes
 
 
  **requestBody** | **map[string]interface{}** |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -349,7 +342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateSecret+json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -358,9 +351,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDavinciApplicationById
 
-> DeleteDavinciApplicationById(ctx, environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DeleteDavinciApplicationById(ctx, environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -377,14 +368,14 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DaVinciApplicationApi.DeleteDavinciApplicationById(context.Background(), environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	r, err := apiClient.DaVinciApplicationApi.DeleteDavinciApplicationById(context.Background(), environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.DeleteDavinciApplicationById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -404,8 +395,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -416,8 +407,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -430,7 +421,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -439,9 +430,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFlowPolicyByIdUsingDavinciApplicationId
 
-> DeleteFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, daVinciApplicationID, flowPolicyID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DeleteFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -458,15 +447,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	flowPolicyID := "flowPolicyID_example" // uuid.UUID | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DaVinciApplicationApi.DeleteFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID, flowPolicyID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	r, err := apiClient.DaVinciApplicationApi.DeleteFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.DeleteFlowPolicyByIdUsingDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -486,8 +475,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 **flowPolicyID** | **uuid.UUID** |  | 
 
 ### Other Parameters
@@ -500,8 +489,8 @@ Name | Type | Description  | Notes
 
 
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -514,7 +503,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -523,9 +512,7 @@ Name | Type | Description  | Notes
 
 ## GetDavinciApplicationById
 
-> DaVinciApplication GetDavinciApplicationById(ctx, environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplication GetDavinciApplicationById(ctx, environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -542,14 +529,14 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.GetDavinciApplicationById(context.Background(), environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.GetDavinciApplicationById(context.Background(), environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.GetDavinciApplicationById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -571,8 +558,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -583,8 +570,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -597,7 +584,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -606,9 +593,7 @@ Name | Type | Description  | Notes
 
 ## GetDavinciApplications
 
-> DaVinciApplicationCollection GetDavinciApplications(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplicationCollection GetDavinciApplications(ctx, environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -625,13 +610,13 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.GetDavinciApplications(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.GetDavinciApplications(context.Background(), environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.GetDavinciApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -653,7 +638,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -663,8 +648,8 @@ Other parameters are passed through a pointer to a apiGetDavinciApplicationsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -677,18 +662,16 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## GetFlowPoliciesByDavinciApplicationId
+## GetEventsByDavinciApplicationIdAndFlowPolicyId
 
-> DaVinciFlowPolicyCollection GetFlowPoliciesByDavinciApplicationId(ctx, environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciFlowPolicyEventsCollection GetEventsByDavinciApplicationIdAndFlowPolicyId(ctx, environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -705,14 +688,98 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.GetFlowPoliciesByDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.GetEventsByDavinciApplicationIdAndFlowPolicyId(context.Background(), environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.GetEventsByDavinciApplicationIdAndFlowPolicyId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEventsByDavinciApplicationIdAndFlowPolicyId`: DaVinciFlowPolicyEventsCollection
+	fmt.Fprintf(os.Stdout, "Response from `DaVinciApplicationApi.GetEventsByDavinciApplicationIdAndFlowPolicyId`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `davinci:read:flowPolicies`
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
+**flowPolicyID** | **uuid.UUID** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
+
+### Return type
+
+[**DaVinciFlowPolicyEventsCollection**](DaVinciFlowPolicyEventsCollection.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFlowPoliciesByDavinciApplicationId
+
+> DaVinciFlowPolicyCollection GetFlowPoliciesByDavinciApplicationId(ctx, environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciApplicationApi.GetFlowPoliciesByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.GetFlowPoliciesByDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -734,8 +801,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -746,8 +813,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -760,7 +827,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -769,9 +836,7 @@ Name | Type | Description  | Notes
 
 ## GetFlowPolicyByIdUsingDavinciApplicationId
 
-> DaVinciFlowPolicyResponse GetFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, daVinciApplicationID, flowPolicyID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciFlowPolicyResponse GetFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -788,15 +853,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	flowPolicyID := "flowPolicyID_example" // uuid.UUID | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.GetFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID, flowPolicyID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.GetFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, davinciApplicationID, flowPolicyID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.GetFlowPolicyByIdUsingDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -818,8 +883,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 **flowPolicyID** | **uuid.UUID** |  | 
 
 ### Other Parameters
@@ -832,8 +897,8 @@ Name | Type | Description  | Notes
 
 
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -846,7 +911,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -855,9 +920,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceDavinciApplicationById
 
-> DaVinciApplication ReplaceDavinciApplicationById(ctx, environmentID, daVinciApplicationID).DaVinciApplicationReplaceRequest(daVinciApplicationReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciApplication ReplaceDavinciApplicationById(ctx, environmentID, davinciApplicationID).DaVinciApplicationReplaceRequest(daVinciApplicationReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -874,15 +937,15 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	daVinciApplicationReplaceRequest := *openapiclient.NewDaVinciApplicationReplaceRequest("Name_example") // DaVinciApplicationReplaceRequest | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.ReplaceDavinciApplicationById(context.Background(), environmentID, daVinciApplicationID).DaVinciApplicationReplaceRequest(daVinciApplicationReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.ReplaceDavinciApplicationById(context.Background(), environmentID, davinciApplicationID).DaVinciApplicationReplaceRequest(daVinciApplicationReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.ReplaceDavinciApplicationById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -904,8 +967,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -917,8 +980,8 @@ Name | Type | Description  | Notes
 
 
  **daVinciApplicationReplaceRequest** | [**DaVinciApplicationReplaceRequest**](DaVinciApplicationReplaceRequest.md) |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -931,7 +994,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -940,9 +1003,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceFlowPolicyByIdUsingDavinciApplicationId
 
-> DaVinciFlowPolicyResponse ReplaceFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, daVinciApplicationID, flowPolicyID).DaVinciFlowPolicyReplaceRequest(daVinciFlowPolicyReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> DaVinciFlowPolicyResponse ReplaceFlowPolicyByIdUsingDavinciApplicationId(ctx, environmentID, davinciApplicationID, flowPolicyID).DaVinciFlowPolicyReplaceRequest(daVinciFlowPolicyReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -959,16 +1020,16 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	daVinciApplicationID := "daVinciApplicationID_example" // uuid.UUID | 
-	flowPolicyID := "flowPolicyID_example" // uuid.UUID | 
-	daVinciFlowPolicyReplaceRequest := *openapiclient.NewDaVinciFlowPolicyReplaceRequest("Name_example") // DaVinciFlowPolicyReplaceRequest | 
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	daVinciFlowPolicyReplaceRequest := *openapiclient.NewDaVinciFlowPolicyReplaceRequest([]openapiclient.DaVinciFlowPolicyReplaceRequestFlowDistribution{*openapiclient.NewDaVinciFlowPolicyReplaceRequestFlowDistribution("Id_example", float32(123))}) // DaVinciFlowPolicyReplaceRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.ReplaceFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, daVinciApplicationID, flowPolicyID).DaVinciFlowPolicyReplaceRequest(daVinciFlowPolicyReplaceRequest).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.DaVinciApplicationApi.ReplaceFlowPolicyByIdUsingDavinciApplicationId(context.Background(), environmentID, davinciApplicationID, flowPolicyID).DaVinciFlowPolicyReplaceRequest(daVinciFlowPolicyReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.ReplaceFlowPolicyByIdUsingDavinciApplicationId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -990,8 +1051,8 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
-**daVinciApplicationID** | **uuid.UUID** |  | 
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
 **flowPolicyID** | **uuid.UUID** |  | 
 
 ### Other Parameters
@@ -1005,8 +1066,8 @@ Name | Type | Description  | Notes
 
 
  **daVinciFlowPolicyReplaceRequest** | [**DaVinciFlowPolicyReplaceRequest**](DaVinciFlowPolicyReplaceRequest.md) |  | 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -1019,7 +1080,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowPolicyCreateRequest{}
 
 // DaVinciFlowPolicyCreateRequest struct for DaVinciFlowPolicyCreateRequest
 type DaVinciFlowPolicyCreateRequest struct {
-	FlowDistributions    []DaVinciFlowPolicyCreateRequestFlowDistribution `json:"flowDistributions"`
-	Name                 *string                                          `json:"name,omitempty" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	Name                 string                                           `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	FlowDistributions    []DaVinciFlowPolicyCreateRequestFlowDistribution `json:"flowDistributions,omitempty"`
 	Status               *DaVinciFlowPolicyCreateRequestStatus            `json:"status,omitempty"`
 	Trigger              *DaVinciFlowPolicyCreateRequestTrigger           `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -38,9 +38,11 @@ type _DaVinciFlowPolicyCreateRequest DaVinciFlowPolicyCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowPolicyCreateRequest(flowDistributions []DaVinciFlowPolicyCreateRequestFlowDistribution) *DaVinciFlowPolicyCreateRequest {
+func NewDaVinciFlowPolicyCreateRequest(name string) *DaVinciFlowPolicyCreateRequest {
 	this := DaVinciFlowPolicyCreateRequest{}
-	this.FlowDistributions = flowDistributions
+	this.Name = name
+	var status DaVinciFlowPolicyCreateRequestStatus = DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_ENABLED
+	this.Status = &status
 	return &this
 }
 
@@ -49,63 +51,67 @@ func NewDaVinciFlowPolicyCreateRequest(flowDistributions []DaVinciFlowPolicyCrea
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciFlowPolicyCreateRequestWithDefaults() *DaVinciFlowPolicyCreateRequest {
 	this := DaVinciFlowPolicyCreateRequest{}
+	var name string = "New Policy"
+	this.Name = name
+	var status DaVinciFlowPolicyCreateRequestStatus = DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_ENABLED
+	this.Status = &status
 	return &this
 }
 
-// GetFlowDistributions returns the FlowDistributions field value
-func (o *DaVinciFlowPolicyCreateRequest) GetFlowDistributions() []DaVinciFlowPolicyCreateRequestFlowDistribution {
+// GetName returns the Name field value
+func (o *DaVinciFlowPolicyCreateRequest) GetName() string {
 	if o == nil {
-		var ret []DaVinciFlowPolicyCreateRequestFlowDistribution
+		var ret string
 		return ret
 	}
 
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyCreateRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciFlowPolicyCreateRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetFlowDistributions returns the FlowDistributions field value if set, zero value otherwise.
+func (o *DaVinciFlowPolicyCreateRequest) GetFlowDistributions() []DaVinciFlowPolicyCreateRequestFlowDistribution {
+	if o == nil || IsNil(o.FlowDistributions) {
+		var ret []DaVinciFlowPolicyCreateRequestFlowDistribution
+		return ret
+	}
 	return o.FlowDistributions
 }
 
-// GetFlowDistributionsOk returns a tuple with the FlowDistributions field value
+// GetFlowDistributionsOk returns a tuple with the FlowDistributions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowPolicyCreateRequest) GetFlowDistributionsOk() ([]DaVinciFlowPolicyCreateRequestFlowDistribution, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowDistributions) {
 		return nil, false
 	}
 	return o.FlowDistributions, true
 }
 
-// SetFlowDistributions sets field value
-func (o *DaVinciFlowPolicyCreateRequest) SetFlowDistributions(v []DaVinciFlowPolicyCreateRequestFlowDistribution) {
-	o.FlowDistributions = v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *DaVinciFlowPolicyCreateRequest) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *DaVinciFlowPolicyCreateRequest) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+// HasFlowDistributions returns a boolean if a field has been set.
+func (o *DaVinciFlowPolicyCreateRequest) HasFlowDistributions() bool {
+	if o != nil && !IsNil(o.FlowDistributions) {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *DaVinciFlowPolicyCreateRequest) SetName(v string) {
-	o.Name = &v
+// SetFlowDistributions gets a reference to the given []DaVinciFlowPolicyCreateRequestFlowDistribution and assigns it to the FlowDistributions field.
+func (o *DaVinciFlowPolicyCreateRequest) SetFlowDistributions(v []DaVinciFlowPolicyCreateRequestFlowDistribution) {
+	o.FlowDistributions = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -182,9 +188,9 @@ func (o DaVinciFlowPolicyCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowPolicyCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["flowDistributions"] = o.FlowDistributions
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["name"] = o.Name
+	if !IsNil(o.FlowDistributions) {
+		toSerialize["flowDistributions"] = o.FlowDistributions
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -205,7 +211,7 @@ func (o *DaVinciFlowPolicyCreateRequest) UnmarshalJSON(data []byte) (err error) 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"flowDistributions",
+		"name",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -235,8 +241,8 @@ func (o *DaVinciFlowPolicyCreateRequest) UnmarshalJSON(data []byte) (err error) 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "flowDistributions")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "flowDistributions")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "trigger")
 		o.AdditionalProperties = additionalProperties
@@ -248,9 +254,9 @@ func (o *DaVinciFlowPolicyCreateRequest) UnmarshalJSON(data []byte) (err error) 
 func (o DaVinciFlowPolicyCreateRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("flowDistributions", o.FlowDistributions))
-	if !IsNil(o.Name) {
-		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	if !IsNil(o.FlowDistributions) {
+		logAttrs = append(logAttrs, slog.Any("flowDistributions", o.FlowDistributions))
 	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))

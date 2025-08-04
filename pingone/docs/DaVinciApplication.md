@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciApplicationLinks**](DaVinciApplicationLinks.md) |  | 
 **ApiKey** | [**DaVinciApplicationApiKey**](DaVinciApplicationApiKey.md) |  | 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**Oauth** | [**DaVinciApplicationOauth**](DaVinciApplicationOauth.md) |  | 
+**Oauth** | [**DaVinciApplicationOAuth**](DaVinciApplicationOAuth.md) |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciApplication
 
-`func NewDaVinciApplication(links DaVinciApplicationLinks, apiKey DaVinciApplicationApiKey, environment ResourceRelationshipPingOne, id string, name string, oauth DaVinciApplicationOauth, ) *DaVinciApplication`
+`func NewDaVinciApplication(links DaVinciApplicationLinks, apiKey DaVinciApplicationApiKey, environment ResourceRelationshipReadOnly, id string, name string, oauth DaVinciApplicationOAuth, ) *DaVinciApplication`
 
 NewDaVinciApplication instantiates a new DaVinciApplication object
 This constructor will assign default values to properties that have it defined,
@@ -72,47 +72,22 @@ and a boolean to check if the value has been set.
 SetApiKey sets ApiKey field to given value.
 
 
-### GetCreatedAt
-
-`func (o *DaVinciApplication) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *DaVinciApplication) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *DaVinciApplication) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *DaVinciApplication) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
-
 ### GetEnvironment
 
-`func (o *DaVinciApplication) GetEnvironment() ResourceRelationshipPingOne`
+`func (o *DaVinciApplication) GetEnvironment() ResourceRelationshipReadOnly`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DaVinciApplication) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *DaVinciApplication) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DaVinciApplication) SetEnvironment(v ResourceRelationshipPingOne)`
+`func (o *DaVinciApplication) SetEnvironment(v ResourceRelationshipReadOnly)`
 
 SetEnvironment sets Environment field to given value.
 
@@ -159,23 +134,48 @@ SetName sets Name field to given value.
 
 ### GetOauth
 
-`func (o *DaVinciApplication) GetOauth() DaVinciApplicationOauth`
+`func (o *DaVinciApplication) GetOauth() DaVinciApplicationOAuth`
 
 GetOauth returns the Oauth field if non-nil, zero value otherwise.
 
 ### GetOauthOk
 
-`func (o *DaVinciApplication) GetOauthOk() (*DaVinciApplicationOauth, bool)`
+`func (o *DaVinciApplication) GetOauthOk() (*DaVinciApplicationOAuth, bool)`
 
 GetOauthOk returns a tuple with the Oauth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOauth
 
-`func (o *DaVinciApplication) SetOauth(v DaVinciApplicationOauth)`
+`func (o *DaVinciApplication) SetOauth(v DaVinciApplicationOAuth)`
 
 SetOauth sets Oauth field to given value.
 
+
+### GetCreatedAt
+
+`func (o *DaVinciApplication) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *DaVinciApplication) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *DaVinciApplication) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *DaVinciApplication) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

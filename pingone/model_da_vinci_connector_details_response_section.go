@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,9 +25,9 @@ var _ slog.LogValuer = &DaVinciConnectorDetailsResponseSection{}
 
 // DaVinciConnectorDetailsResponseSection struct for DaVinciConnectorDetailsResponseSection
 type DaVinciConnectorDetailsResponseSection struct {
-	Default              *bool  `json:"default,omitempty"`
 	Name                 string `json:"name"`
 	Value                string `json:"value"`
+	Default              *bool  `json:"default,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,38 +50,6 @@ func NewDaVinciConnectorDetailsResponseSection(name string, value string) *DaVin
 func NewDaVinciConnectorDetailsResponseSectionWithDefaults() *DaVinciConnectorDetailsResponseSection {
 	this := DaVinciConnectorDetailsResponseSection{}
 	return &this
-}
-
-// GetDefault returns the Default field value if set, zero value otherwise.
-func (o *DaVinciConnectorDetailsResponseSection) GetDefault() bool {
-	if o == nil || IsNil(o.Default) {
-		var ret bool
-		return ret
-	}
-	return *o.Default
-}
-
-// GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciConnectorDetailsResponseSection) GetDefaultOk() (*bool, bool) {
-	if o == nil || IsNil(o.Default) {
-		return nil, false
-	}
-	return o.Default, true
-}
-
-// HasDefault returns a boolean if a field has been set.
-func (o *DaVinciConnectorDetailsResponseSection) HasDefault() bool {
-	if o != nil && !IsNil(o.Default) {
-		return true
-	}
-
-	return false
-}
-
-// SetDefault gets a reference to the given bool and assigns it to the Default field.
-func (o *DaVinciConnectorDetailsResponseSection) SetDefault(v bool) {
-	o.Default = &v
 }
 
 // GetName returns the Name field value
@@ -132,6 +100,38 @@ func (o *DaVinciConnectorDetailsResponseSection) SetValue(v string) {
 	o.Value = v
 }
 
+// GetDefault returns the Default field value if set, zero value otherwise.
+func (o *DaVinciConnectorDetailsResponseSection) GetDefault() bool {
+	if o == nil || IsNil(o.Default) {
+		var ret bool
+		return ret
+	}
+	return *o.Default
+}
+
+// GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorDetailsResponseSection) GetDefaultOk() (*bool, bool) {
+	if o == nil || IsNil(o.Default) {
+		return nil, false
+	}
+	return o.Default, true
+}
+
+// HasDefault returns a boolean if a field has been set.
+func (o *DaVinciConnectorDetailsResponseSection) HasDefault() bool {
+	if o != nil && !IsNil(o.Default) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefault gets a reference to the given bool and assigns it to the Default field.
+func (o *DaVinciConnectorDetailsResponseSection) SetDefault(v bool) {
+	o.Default = &v
+}
+
 func (o DaVinciConnectorDetailsResponseSection) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -142,11 +142,11 @@ func (o DaVinciConnectorDetailsResponseSection) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciConnectorDetailsResponseSection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["value"] = o.Value
 	if !IsNil(o.Default) {
 		toSerialize["default"] = o.Default
 	}
-	toSerialize["name"] = o.Name
-	toSerialize["value"] = o.Value
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -191,9 +191,9 @@ func (o *DaVinciConnectorDetailsResponseSection) UnmarshalJSON(data []byte) (err
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "default")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "value")
+		delete(additionalProperties, "default")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -203,11 +203,11 @@ func (o *DaVinciConnectorDetailsResponseSection) UnmarshalJSON(data []byte) (err
 func (o DaVinciConnectorDetailsResponseSection) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("value", o.Value))
 	if !IsNil(o.Default) {
 		logAttrs = append(logAttrs, slog.Any("default", *o.Default))
 	}
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	logAttrs = append(logAttrs, slog.Any("value", o.Value))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

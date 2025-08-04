@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiKeyEnabled** | Pointer to **bool** |  | [optional] 
 **Name** | **string** |  | 
-**Oauth** | Pointer to [**DaVinciApplicationReplaceRequestOauth**](DaVinciApplicationReplaceRequestOauth.md) |  | [optional] 
+**ApiKeyEnabled** | Pointer to **bool** |  | [optional] 
+**Oauth** | Pointer to [**DaVinciApplicationReplaceRequestOAuth**](DaVinciApplicationReplaceRequestOAuth.md) |  | [optional] 
 
 ## Methods
 
@@ -26,6 +26,26 @@ will change when the set of required properties is changed
 NewDaVinciApplicationReplaceRequestWithDefaults instantiates a new DaVinciApplicationReplaceRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetName
+
+`func (o *DaVinciApplicationReplaceRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *DaVinciApplicationReplaceRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *DaVinciApplicationReplaceRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
 
 ### GetApiKeyEnabled
 
@@ -52,42 +72,22 @@ SetApiKeyEnabled sets ApiKeyEnabled field to given value.
 
 HasApiKeyEnabled returns a boolean if a field has been set.
 
-### GetName
-
-`func (o *DaVinciApplicationReplaceRequest) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *DaVinciApplicationReplaceRequest) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *DaVinciApplicationReplaceRequest) SetName(v string)`
-
-SetName sets Name field to given value.
-
-
 ### GetOauth
 
-`func (o *DaVinciApplicationReplaceRequest) GetOauth() DaVinciApplicationReplaceRequestOauth`
+`func (o *DaVinciApplicationReplaceRequest) GetOauth() DaVinciApplicationReplaceRequestOAuth`
 
 GetOauth returns the Oauth field if non-nil, zero value otherwise.
 
 ### GetOauthOk
 
-`func (o *DaVinciApplicationReplaceRequest) GetOauthOk() (*DaVinciApplicationReplaceRequestOauth, bool)`
+`func (o *DaVinciApplicationReplaceRequest) GetOauthOk() (*DaVinciApplicationReplaceRequestOAuth, bool)`
 
 GetOauthOk returns a tuple with the Oauth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOauth
 
-`func (o *DaVinciApplicationReplaceRequest) SetOauth(v DaVinciApplicationReplaceRequestOauth)`
+`func (o *DaVinciApplicationReplaceRequest) SetOauth(v DaVinciApplicationReplaceRequestOAuth)`
 
 SetOauth sets Oauth field to given value.
 

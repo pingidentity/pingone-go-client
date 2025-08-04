@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**Next** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Next** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 
 ## Methods
 
@@ -47,6 +47,26 @@ and a boolean to check if the value has been set.
 SetEnvironment sets Environment field to given value.
 
 
+### GetSelf
+
+`func (o *DaVinciVariableCollectionLinks) GetSelf() JSONHALLink`
+
+GetSelf returns the Self field if non-nil, zero value otherwise.
+
+### GetSelfOk
+
+`func (o *DaVinciVariableCollectionLinks) GetSelfOk() (*JSONHALLink, bool)`
+
+GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelf
+
+`func (o *DaVinciVariableCollectionLinks) SetSelf(v JSONHALLink)`
+
+SetSelf sets Self field to given value.
+
+
 ### GetNext
 
 `func (o *DaVinciVariableCollectionLinks) GetNext() JSONHALLink`
@@ -71,26 +91,6 @@ SetNext sets Next field to given value.
 `func (o *DaVinciVariableCollectionLinks) HasNext() bool`
 
 HasNext returns a boolean if a field has been set.
-
-### GetSelf
-
-`func (o *DaVinciVariableCollectionLinks) GetSelf() JSONHALLink`
-
-GetSelf returns the Self field if non-nil, zero value otherwise.
-
-### GetSelfOk
-
-`func (o *DaVinciVariableCollectionLinks) GetSelfOk() (*JSONHALLink, bool)`
-
-GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSelf
-
-`func (o *DaVinciVariableCollectionLinks) SetSelf(v JSONHALLink)`
-
-SetSelf sets Self field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

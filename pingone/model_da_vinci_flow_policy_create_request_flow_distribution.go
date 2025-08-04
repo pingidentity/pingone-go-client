@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -26,9 +26,9 @@ var _ slog.LogValuer = &DaVinciFlowPolicyCreateRequestFlowDistribution{}
 // DaVinciFlowPolicyCreateRequestFlowDistribution struct for DaVinciFlowPolicyCreateRequestFlowDistribution
 type DaVinciFlowPolicyCreateRequestFlowDistribution struct {
 	Id                   string                                                      `json:"id" validate:"regexp=^[a-zA-Z0-9-_]+$"`
+	Version              float32                                                     `json:"version"`
 	Ip                   []string                                                    `json:"ip,omitempty"`
 	SuccessNodes         []DaVinciFlowPolicyCreateRequestFlowDistributionSuccessNode `json:"successNodes,omitempty"`
-	Version              float32                                                     `json:"version"`
 	Weight               *float32                                                    `json:"weight,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -76,6 +76,30 @@ func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetIdOk() (*string, boo
 // SetId sets field value
 func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) SetId(v string) {
 	o.Id = v
+}
+
+// GetVersion returns the Version field value
+func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetVersion() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetVersionOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) SetVersion(v float32) {
+	o.Version = v
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
@@ -142,30 +166,6 @@ func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) SetSuccessNodes(v []DaV
 	o.SuccessNodes = v
 }
 
-// GetVersion returns the Version field value
-func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetVersion() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetVersionOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Version, true
-}
-
-// SetVersion sets field value
-func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) SetVersion(v float32) {
-	o.Version = v
-}
-
 // GetWeight returns the Weight field value if set, zero value otherwise.
 func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) GetWeight() float32 {
 	if o == nil || IsNil(o.Weight) {
@@ -209,13 +209,13 @@ func (o DaVinciFlowPolicyCreateRequestFlowDistribution) MarshalJSON() ([]byte, e
 func (o DaVinciFlowPolicyCreateRequestFlowDistribution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
+	toSerialize["version"] = o.Version
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
 	if !IsNil(o.SuccessNodes) {
 		toSerialize["successNodes"] = o.SuccessNodes
 	}
-	toSerialize["version"] = o.Version
 	if !IsNil(o.Weight) {
 		toSerialize["weight"] = o.Weight
 	}
@@ -264,9 +264,9 @@ func (o *DaVinciFlowPolicyCreateRequestFlowDistribution) UnmarshalJSON(data []by
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "version")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "successNodes")
-		delete(additionalProperties, "version")
 		delete(additionalProperties, "weight")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -278,13 +278,13 @@ func (o DaVinciFlowPolicyCreateRequestFlowDistribution) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("version", o.Version))
 	if !IsNil(o.Ip) {
 		logAttrs = append(logAttrs, slog.Any("ip", o.Ip))
 	}
 	if !IsNil(o.SuccessNodes) {
 		logAttrs = append(logAttrs, slog.Any("successNodes", o.SuccessNodes))
 	}
-	logAttrs = append(logAttrs, slog.Any("version", o.Version))
 	if !IsNil(o.Weight) {
 		logAttrs = append(logAttrs, slog.Any("weight", *o.Weight))
 	}

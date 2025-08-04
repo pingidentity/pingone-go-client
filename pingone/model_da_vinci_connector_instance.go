@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -26,14 +26,14 @@ var _ slog.LogValuer = &DaVinciConnectorInstance{}
 
 // DaVinciConnectorInstance struct for DaVinciConnectorInstance
 type DaVinciConnectorInstance struct {
-	Links                DaVinciConnectorInstanceLinks `json:"_links"`
-	Connector            ResourceRelationshipDaVinci   `json:"connector"`
-	CreatedAt            *time.Time                    `json:"createdAt,omitempty"`
-	Environment          ResourceRelationshipPingOne   `json:"environment"`
-	Id                   string                        `json:"id"`
-	Name                 string                        `json:"name"`
-	Properties           map[string]interface{}        `json:"properties,omitempty"`
-	UpdatedAt            *time.Time                    `json:"updatedAt,omitempty"`
+	Links                DaVinciConnectorInstanceLinks       `json:"_links"`
+	Connector            ResourceRelationshipDaVinciReadOnly `json:"connector"`
+	Environment          ResourceRelationshipReadOnly        `json:"environment"`
+	Id                   string                              `json:"id"`
+	Name                 string                              `json:"name"`
+	CreatedAt            *time.Time                          `json:"createdAt,omitempty"`
+	Properties           map[string]interface{}              `json:"properties,omitempty"`
+	UpdatedAt            *time.Time                          `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,7 +43,7 @@ type _DaVinciConnectorInstance DaVinciConnectorInstance
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinci, environment ResourceRelationshipPingOne, id string, name string) *DaVinciConnectorInstance {
+func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinciReadOnly, environment ResourceRelationshipReadOnly, id string, name string) *DaVinciConnectorInstance {
 	this := DaVinciConnectorInstance{}
 	this.Links = links
 	this.Connector = connector
@@ -86,9 +86,9 @@ func (o *DaVinciConnectorInstance) SetLinks(v DaVinciConnectorInstanceLinks) {
 }
 
 // GetConnector returns the Connector field value
-func (o *DaVinciConnectorInstance) GetConnector() ResourceRelationshipDaVinci {
+func (o *DaVinciConnectorInstance) GetConnector() ResourceRelationshipDaVinciReadOnly {
 	if o == nil {
-		var ret ResourceRelationshipDaVinci
+		var ret ResourceRelationshipDaVinciReadOnly
 		return ret
 	}
 
@@ -97,7 +97,7 @@ func (o *DaVinciConnectorInstance) GetConnector() ResourceRelationshipDaVinci {
 
 // GetConnectorOk returns a tuple with the Connector field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciConnectorInstance) GetConnectorOk() (*ResourceRelationshipDaVinci, bool) {
+func (o *DaVinciConnectorInstance) GetConnectorOk() (*ResourceRelationshipDaVinciReadOnly, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,46 +105,14 @@ func (o *DaVinciConnectorInstance) GetConnectorOk() (*ResourceRelationshipDaVinc
 }
 
 // SetConnector sets field value
-func (o *DaVinciConnectorInstance) SetConnector(v ResourceRelationshipDaVinci) {
+func (o *DaVinciConnectorInstance) SetConnector(v ResourceRelationshipDaVinciReadOnly) {
 	o.Connector = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DaVinciConnectorInstance) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciConnectorInstance) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *DaVinciConnectorInstance) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *DaVinciConnectorInstance) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
 // GetEnvironment returns the Environment field value
-func (o *DaVinciConnectorInstance) GetEnvironment() ResourceRelationshipPingOne {
+func (o *DaVinciConnectorInstance) GetEnvironment() ResourceRelationshipReadOnly {
 	if o == nil {
-		var ret ResourceRelationshipPingOne
+		var ret ResourceRelationshipReadOnly
 		return ret
 	}
 
@@ -153,7 +121,7 @@ func (o *DaVinciConnectorInstance) GetEnvironment() ResourceRelationshipPingOne 
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciConnectorInstance) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
+func (o *DaVinciConnectorInstance) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -161,7 +129,7 @@ func (o *DaVinciConnectorInstance) GetEnvironmentOk() (*ResourceRelationshipPing
 }
 
 // SetEnvironment sets field value
-func (o *DaVinciConnectorInstance) SetEnvironment(v ResourceRelationshipPingOne) {
+func (o *DaVinciConnectorInstance) SetEnvironment(v ResourceRelationshipReadOnly) {
 	o.Environment = v
 }
 
@@ -211,6 +179,38 @@ func (o *DaVinciConnectorInstance) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *DaVinciConnectorInstance) SetName(v string) {
 	o.Name = v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *DaVinciConnectorInstance) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorInstance) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *DaVinciConnectorInstance) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *DaVinciConnectorInstance) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
@@ -289,12 +289,12 @@ func (o DaVinciConnectorInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
 	toSerialize["connector"] = o.Connector
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
 	toSerialize["environment"] = o.Environment
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
 	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
@@ -350,10 +350,10 @@ func (o *DaVinciConnectorInstance) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "connector")
-		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
@@ -367,12 +367,12 @@ func (o DaVinciConnectorInstance) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
 	logAttrs = append(logAttrs, slog.Any("connector", o.Connector))
-	if !IsNil(o.CreatedAt) {
-		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
-	}
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
 	if !IsNil(o.Properties) {
 		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
 	}

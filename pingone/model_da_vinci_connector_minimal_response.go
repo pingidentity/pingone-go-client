@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -29,7 +29,7 @@ type DaVinciConnectorMinimalResponse struct {
 	Links                DaVinciConnectorMinimalResponseLinks    `json:"_links"`
 	CreatedAt            time.Time                               `json:"createdAt"`
 	Description          string                                  `json:"description"`
-	Environment          ResourceRelationshipPingOne             `json:"environment"`
+	Environment          ResourceRelationshipReadOnly            `json:"environment"`
 	Id                   string                                  `json:"id"`
 	Metadata             DaVinciConnectorMinimalResponseMetadata `json:"metadata"`
 	Name                 string                                  `json:"name"`
@@ -44,7 +44,7 @@ type _DaVinciConnectorMinimalResponse DaVinciConnectorMinimalResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipPingOne, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string) *DaVinciConnectorMinimalResponse {
+func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipReadOnly, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string) *DaVinciConnectorMinimalResponse {
 	this := DaVinciConnectorMinimalResponse{}
 	this.Links = links
 	this.CreatedAt = createdAt
@@ -139,9 +139,9 @@ func (o *DaVinciConnectorMinimalResponse) SetDescription(v string) {
 }
 
 // GetEnvironment returns the Environment field value
-func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipPingOne {
+func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipReadOnly {
 	if o == nil {
-		var ret ResourceRelationshipPingOne
+		var ret ResourceRelationshipReadOnly
 		return ret
 	}
 
@@ -150,7 +150,7 @@ func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipP
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
+func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,7 +158,7 @@ func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelations
 }
 
 // SetEnvironment sets field value
-func (o *DaVinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipPingOne) {
+func (o *DaVinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipReadOnly) {
 	o.Environment = v
 }
 

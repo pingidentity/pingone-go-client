@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciConnectorInstanceLinks**](DaVinciConnectorInstanceLinks.md) |  | 
-**Connector** | [**ResourceRelationshipDaVinci**](ResourceRelationshipDaVinci.md) |  | 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
+**Connector** | [**ResourceRelationshipDaVinciReadOnly**](ResourceRelationshipDaVinciReadOnly.md) |  | 
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **Properties** | Pointer to **map[string]interface{}** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciConnectorInstance
 
-`func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinci, environment ResourceRelationshipPingOne, id string, name string, ) *DaVinciConnectorInstance`
+`func NewDaVinciConnectorInstance(links DaVinciConnectorInstanceLinks, connector ResourceRelationshipDaVinciReadOnly, environment ResourceRelationshipReadOnly, id string, name string, ) *DaVinciConnectorInstance`
 
 NewDaVinciConnectorInstance instantiates a new DaVinciConnectorInstance object
 This constructor will assign default values to properties that have it defined,
@@ -54,65 +54,40 @@ SetLinks sets Links field to given value.
 
 ### GetConnector
 
-`func (o *DaVinciConnectorInstance) GetConnector() ResourceRelationshipDaVinci`
+`func (o *DaVinciConnectorInstance) GetConnector() ResourceRelationshipDaVinciReadOnly`
 
 GetConnector returns the Connector field if non-nil, zero value otherwise.
 
 ### GetConnectorOk
 
-`func (o *DaVinciConnectorInstance) GetConnectorOk() (*ResourceRelationshipDaVinci, bool)`
+`func (o *DaVinciConnectorInstance) GetConnectorOk() (*ResourceRelationshipDaVinciReadOnly, bool)`
 
 GetConnectorOk returns a tuple with the Connector field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnector
 
-`func (o *DaVinciConnectorInstance) SetConnector(v ResourceRelationshipDaVinci)`
+`func (o *DaVinciConnectorInstance) SetConnector(v ResourceRelationshipDaVinciReadOnly)`
 
 SetConnector sets Connector field to given value.
 
 
-### GetCreatedAt
-
-`func (o *DaVinciConnectorInstance) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *DaVinciConnectorInstance) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *DaVinciConnectorInstance) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *DaVinciConnectorInstance) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
-
 ### GetEnvironment
 
-`func (o *DaVinciConnectorInstance) GetEnvironment() ResourceRelationshipPingOne`
+`func (o *DaVinciConnectorInstance) GetEnvironment() ResourceRelationshipReadOnly`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DaVinciConnectorInstance) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *DaVinciConnectorInstance) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DaVinciConnectorInstance) SetEnvironment(v ResourceRelationshipPingOne)`
+`func (o *DaVinciConnectorInstance) SetEnvironment(v ResourceRelationshipReadOnly)`
 
 SetEnvironment sets Environment field to given value.
 
@@ -156,6 +131,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetCreatedAt
+
+`func (o *DaVinciConnectorInstance) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *DaVinciConnectorInstance) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *DaVinciConnectorInstance) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *DaVinciConnectorInstance) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetProperties
 

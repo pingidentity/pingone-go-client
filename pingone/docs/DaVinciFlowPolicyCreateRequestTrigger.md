@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Configuration** | Pointer to [**DaVinciFlowPolicyCreateRequestTriggerConfiguration**](DaVinciFlowPolicyCreateRequestTriggerConfiguration.md) |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to [**DaVinciFlowPolicyCreateRequestTriggerType**](DaVinciFlowPolicyCreateRequestTriggerType.md) |  | [optional] [default to DAVINCIFLOWPOLICYCREATEREQUESTTRIGGERTYPE_AUTHENTICATION]
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasConfiguration returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *DaVinciFlowPolicyCreateRequestTrigger) GetType() string`
+`func (o *DaVinciFlowPolicyCreateRequestTrigger) GetType() DaVinciFlowPolicyCreateRequestTriggerType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *DaVinciFlowPolicyCreateRequestTrigger) GetTypeOk() (*string, bool)`
+`func (o *DaVinciFlowPolicyCreateRequestTrigger) GetTypeOk() (*DaVinciFlowPolicyCreateRequestTriggerType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *DaVinciFlowPolicyCreateRequestTrigger) SetType(v string)`
+`func (o *DaVinciFlowPolicyCreateRequestTrigger) SetType(v DaVinciFlowPolicyCreateRequestTriggerType)`
 
 SetType sets Type field to given value.
 

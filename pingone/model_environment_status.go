@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -13,123 +13,66 @@ package pingone
 
 import (
 	"encoding/json"
-	"log/slog"
+	"fmt"
 )
 
-// checks if the EnvironmentStatus type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EnvironmentStatus{}
+// EnvironmentStatus the model 'EnvironmentStatus'
+type EnvironmentStatus string
 
-// checks if the EnvironmentStatus type satisfies the LogValuer interface at compile time
-var _ slog.LogValuer = &EnvironmentStatus{}
+// List of Environment_Status
+const (
+	ENVIRONMENTSTATUS_ACTIVE         EnvironmentStatus = "ACTIVE"
+	ENVIRONMENTSTATUS_DELETE_PENDING EnvironmentStatus = "DELETE_PENDING"
+)
 
-// EnvironmentStatus struct for EnvironmentStatus
-type EnvironmentStatus struct {
-	Status               *EnvironmentStatusValue `json:"status,omitempty"`
-	AdditionalProperties map[string]interface{}
+// All allowed values of EnvironmentStatus enum
+var AllowedEnvironmentStatusEnumValues = []EnvironmentStatus{
+	"ACTIVE",
+	"DELETE_PENDING",
 }
 
-type _EnvironmentStatus EnvironmentStatus
-
-// NewEnvironmentStatus instantiates a new EnvironmentStatus object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewEnvironmentStatus() *EnvironmentStatus {
-	this := EnvironmentStatus{}
-	return &this
-}
-
-// NewEnvironmentStatusWithDefaults instantiates a new EnvironmentStatus object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewEnvironmentStatusWithDefaults() *EnvironmentStatus {
-	this := EnvironmentStatus{}
-	return &this
-}
-
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *EnvironmentStatus) GetStatus() EnvironmentStatusValue {
-	if o == nil || IsNil(o.Status) {
-		var ret EnvironmentStatusValue
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentStatus) GetStatusOk() (*EnvironmentStatusValue, bool) {
-	if o == nil || IsNil(o.Status) {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *EnvironmentStatus) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
-func (o *EnvironmentStatus) SetStatus(v EnvironmentStatusValue) {
-	o.Status = &v
-}
-
-func (o EnvironmentStatus) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o EnvironmentStatus) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
-	return toSerialize, nil
-}
-
-func (o *EnvironmentStatus) UnmarshalJSON(data []byte) (err error) {
-	varEnvironmentStatus := _EnvironmentStatus{}
-
-	err = json.Unmarshal(data, &varEnvironmentStatus)
-
+func (v *EnvironmentStatus) UnmarshalJSON(src []byte) error {
+	var value string
+	err := json.Unmarshal(src, &value)
 	if err != nil {
 		return err
 	}
-
-	*o = EnvironmentStatus(varEnvironmentStatus)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "status")
-		o.AdditionalProperties = additionalProperties
+	enumTypeValue := EnvironmentStatus(value)
+	for _, existing := range AllowedEnvironmentStatusEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
 	}
 
-	return err
+	*v = EnvironmentStatus(fmt.Sprintf("%s", "UNKNOWN"))
+	return nil
 }
 
-func (o EnvironmentStatus) LogValue() slog.Value {
-	logAttrs := make([]slog.Attr, 0)
-
-	if !IsNil(o.Status) {
-		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+// NewEnvironmentStatusFromValue returns a pointer to a valid EnvironmentStatus
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewEnvironmentStatusFromValue(v string) (*EnvironmentStatus, error) {
+	ev := EnvironmentStatus(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for EnvironmentStatus: valid values are %v", v, AllowedEnvironmentStatusEnumValues)
 	}
-	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
+}
 
-	return slog.GroupValue(logAttrs...)
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v EnvironmentStatus) IsValid() bool {
+	for _, existing := range AllowedEnvironmentStatusEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to Environment_Status value
+func (v EnvironmentStatus) Ptr() *EnvironmentStatus {
+	return &v
 }
 
 type NullableEnvironmentStatus struct {

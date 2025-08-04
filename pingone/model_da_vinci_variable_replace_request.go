@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,14 +25,14 @@ var _ slog.LogValuer = &DaVinciVariableReplaceRequest{}
 
 // DaVinciVariableReplaceRequest struct for DaVinciVariableReplaceRequest
 type DaVinciVariableReplaceRequest struct {
+	Name                 string                                `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Context              DaVinciVariableReplaceRequestContext  `json:"context"`
 	DataType             DaVinciVariableReplaceRequestDataType `json:"dataType"`
+	Mutable              bool                                  `json:"mutable"`
 	DisplayName          *string                               `json:"displayName,omitempty" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Flow                 *ResourceRelationshipDaVinci          `json:"flow,omitempty"`
 	Max                  *int32                                `json:"max,omitempty"`
 	Min                  *int32                                `json:"min,omitempty"`
-	Mutable              bool                                  `json:"mutable"`
-	Name                 string                                `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Value                *DaVinciVariableReplaceRequestValue   `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -43,12 +43,16 @@ type _DaVinciVariableReplaceRequest DaVinciVariableReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariableReplaceRequest(context DaVinciVariableReplaceRequestContext, dataType DaVinciVariableReplaceRequestDataType, mutable bool, name string) *DaVinciVariableReplaceRequest {
+func NewDaVinciVariableReplaceRequest(name string, context DaVinciVariableReplaceRequestContext, dataType DaVinciVariableReplaceRequestDataType, mutable bool) *DaVinciVariableReplaceRequest {
 	this := DaVinciVariableReplaceRequest{}
+	this.Name = name
 	this.Context = context
 	this.DataType = dataType
 	this.Mutable = mutable
-	this.Name = name
+	var max int32 = 2000
+	this.Max = &max
+	var min int32 = 0
+	this.Min = &min
 	return &this
 }
 
@@ -57,7 +61,35 @@ func NewDaVinciVariableReplaceRequest(context DaVinciVariableReplaceRequestConte
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciVariableReplaceRequestWithDefaults() *DaVinciVariableReplaceRequest {
 	this := DaVinciVariableReplaceRequest{}
+	var max int32 = 2000
+	this.Max = &max
+	var min int32 = 0
+	this.Min = &min
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *DaVinciVariableReplaceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariableReplaceRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciVariableReplaceRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetContext returns the Context field value
@@ -106,6 +138,30 @@ func (o *DaVinciVariableReplaceRequest) GetDataTypeOk() (*DaVinciVariableReplace
 // SetDataType sets field value
 func (o *DaVinciVariableReplaceRequest) SetDataType(v DaVinciVariableReplaceRequestDataType) {
 	o.DataType = v
+}
+
+// GetMutable returns the Mutable field value
+func (o *DaVinciVariableReplaceRequest) GetMutable() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Mutable
+}
+
+// GetMutableOk returns a tuple with the Mutable field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariableReplaceRequest) GetMutableOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Mutable, true
+}
+
+// SetMutable sets field value
+func (o *DaVinciVariableReplaceRequest) SetMutable(v bool) {
+	o.Mutable = v
 }
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
@@ -236,54 +292,6 @@ func (o *DaVinciVariableReplaceRequest) SetMin(v int32) {
 	o.Min = &v
 }
 
-// GetMutable returns the Mutable field value
-func (o *DaVinciVariableReplaceRequest) GetMutable() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Mutable
-}
-
-// GetMutableOk returns a tuple with the Mutable field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariableReplaceRequest) GetMutableOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Mutable, true
-}
-
-// SetMutable sets field value
-func (o *DaVinciVariableReplaceRequest) SetMutable(v bool) {
-	o.Mutable = v
-}
-
-// GetName returns the Name field value
-func (o *DaVinciVariableReplaceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariableReplaceRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *DaVinciVariableReplaceRequest) SetName(v string) {
-	o.Name = v
-}
-
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *DaVinciVariableReplaceRequest) GetValue() DaVinciVariableReplaceRequestValue {
 	if o == nil || IsNil(o.Value) {
@@ -326,8 +334,10 @@ func (o DaVinciVariableReplaceRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciVariableReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
 	toSerialize["context"] = o.Context
 	toSerialize["dataType"] = o.DataType
+	toSerialize["mutable"] = o.Mutable
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
@@ -340,8 +350,6 @@ func (o DaVinciVariableReplaceRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Min) {
 		toSerialize["min"] = o.Min
 	}
-	toSerialize["mutable"] = o.Mutable
-	toSerialize["name"] = o.Name
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
@@ -358,10 +366,10 @@ func (o *DaVinciVariableReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"name",
 		"context",
 		"dataType",
 		"mutable",
-		"name",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -391,14 +399,14 @@ func (o *DaVinciVariableReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "mutable")
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "flow")
 		delete(additionalProperties, "max")
 		delete(additionalProperties, "min")
-		delete(additionalProperties, "mutable")
-		delete(additionalProperties, "name")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -409,8 +417,10 @@ func (o *DaVinciVariableReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 func (o DaVinciVariableReplaceRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("context", o.Context))
 	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
+	logAttrs = append(logAttrs, slog.Any("mutable", o.Mutable))
 	if !IsNil(o.DisplayName) {
 		logAttrs = append(logAttrs, slog.Any("displayName", *o.DisplayName))
 	}
@@ -423,8 +433,6 @@ func (o DaVinciVariableReplaceRequest) LogValue() slog.Value {
 	if !IsNil(o.Min) {
 		logAttrs = append(logAttrs, slog.Any("min", *o.Min))
 	}
-	logAttrs = append(logAttrs, slog.Any("mutable", o.Mutable))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.Value) {
 		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
 	}

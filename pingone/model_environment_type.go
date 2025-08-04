@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,7 +19,7 @@ import (
 // EnvironmentType the model 'EnvironmentType'
 type EnvironmentType string
 
-// List of EnvironmentType
+// List of Environment_Type
 const (
 	ENVIRONMENTTYPE_PRODUCTION EnvironmentType = "PRODUCTION"
 	ENVIRONMENTTYPE_SANDBOX    EnvironmentType = "SANDBOX"
@@ -70,7 +70,7 @@ func (v EnvironmentType) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to EnvironmentType value
+// Ptr returns reference to Environment_Type value
 func (v EnvironmentType) Ptr() *EnvironmentType {
 	return &v
 }

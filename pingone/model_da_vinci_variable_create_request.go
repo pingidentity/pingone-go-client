@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,14 +25,14 @@ var _ slog.LogValuer = &DaVinciVariableCreateRequest{}
 
 // DaVinciVariableCreateRequest struct for DaVinciVariableCreateRequest
 type DaVinciVariableCreateRequest struct {
+	Name                 string                               `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Context              DaVinciVariableCreateRequestContext  `json:"context"`
 	DataType             DaVinciVariableCreateRequestDataType `json:"dataType"`
+	Mutable              bool                                 `json:"mutable"`
 	DisplayName          *string                              `json:"displayName,omitempty" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Flow                 *ResourceRelationshipDaVinci         `json:"flow,omitempty"`
 	Max                  *int32                               `json:"max,omitempty"`
 	Min                  *int32                               `json:"min,omitempty"`
-	Mutable              bool                                 `json:"mutable"`
-	Name                 string                               `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
 	Value                *DaVinciVariableCreateRequestValue   `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -43,12 +43,16 @@ type _DaVinciVariableCreateRequest DaVinciVariableCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariableCreateRequest(context DaVinciVariableCreateRequestContext, dataType DaVinciVariableCreateRequestDataType, mutable bool, name string) *DaVinciVariableCreateRequest {
+func NewDaVinciVariableCreateRequest(name string, context DaVinciVariableCreateRequestContext, dataType DaVinciVariableCreateRequestDataType, mutable bool) *DaVinciVariableCreateRequest {
 	this := DaVinciVariableCreateRequest{}
+	this.Name = name
 	this.Context = context
 	this.DataType = dataType
 	this.Mutable = mutable
-	this.Name = name
+	var max int32 = 2000
+	this.Max = &max
+	var min int32 = 0
+	this.Min = &min
 	return &this
 }
 
@@ -57,7 +61,35 @@ func NewDaVinciVariableCreateRequest(context DaVinciVariableCreateRequestContext
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciVariableCreateRequestWithDefaults() *DaVinciVariableCreateRequest {
 	this := DaVinciVariableCreateRequest{}
+	var max int32 = 2000
+	this.Max = &max
+	var min int32 = 0
+	this.Min = &min
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *DaVinciVariableCreateRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariableCreateRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciVariableCreateRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetContext returns the Context field value
@@ -106,6 +138,30 @@ func (o *DaVinciVariableCreateRequest) GetDataTypeOk() (*DaVinciVariableCreateRe
 // SetDataType sets field value
 func (o *DaVinciVariableCreateRequest) SetDataType(v DaVinciVariableCreateRequestDataType) {
 	o.DataType = v
+}
+
+// GetMutable returns the Mutable field value
+func (o *DaVinciVariableCreateRequest) GetMutable() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Mutable
+}
+
+// GetMutableOk returns a tuple with the Mutable field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariableCreateRequest) GetMutableOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Mutable, true
+}
+
+// SetMutable sets field value
+func (o *DaVinciVariableCreateRequest) SetMutable(v bool) {
+	o.Mutable = v
 }
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
@@ -236,54 +292,6 @@ func (o *DaVinciVariableCreateRequest) SetMin(v int32) {
 	o.Min = &v
 }
 
-// GetMutable returns the Mutable field value
-func (o *DaVinciVariableCreateRequest) GetMutable() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Mutable
-}
-
-// GetMutableOk returns a tuple with the Mutable field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariableCreateRequest) GetMutableOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Mutable, true
-}
-
-// SetMutable sets field value
-func (o *DaVinciVariableCreateRequest) SetMutable(v bool) {
-	o.Mutable = v
-}
-
-// GetName returns the Name field value
-func (o *DaVinciVariableCreateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariableCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *DaVinciVariableCreateRequest) SetName(v string) {
-	o.Name = v
-}
-
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *DaVinciVariableCreateRequest) GetValue() DaVinciVariableCreateRequestValue {
 	if o == nil || IsNil(o.Value) {
@@ -326,8 +334,10 @@ func (o DaVinciVariableCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciVariableCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
 	toSerialize["context"] = o.Context
 	toSerialize["dataType"] = o.DataType
+	toSerialize["mutable"] = o.Mutable
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
@@ -340,8 +350,6 @@ func (o DaVinciVariableCreateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Min) {
 		toSerialize["min"] = o.Min
 	}
-	toSerialize["mutable"] = o.Mutable
-	toSerialize["name"] = o.Name
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
@@ -358,10 +366,10 @@ func (o *DaVinciVariableCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"name",
 		"context",
 		"dataType",
 		"mutable",
-		"name",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -391,14 +399,14 @@ func (o *DaVinciVariableCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "mutable")
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "flow")
 		delete(additionalProperties, "max")
 		delete(additionalProperties, "min")
-		delete(additionalProperties, "mutable")
-		delete(additionalProperties, "name")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -409,8 +417,10 @@ func (o *DaVinciVariableCreateRequest) UnmarshalJSON(data []byte) (err error) {
 func (o DaVinciVariableCreateRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("context", o.Context))
 	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
+	logAttrs = append(logAttrs, slog.Any("mutable", o.Mutable))
 	if !IsNil(o.DisplayName) {
 		logAttrs = append(logAttrs, slog.Any("displayName", *o.DisplayName))
 	}
@@ -423,8 +433,6 @@ func (o DaVinciVariableCreateRequest) LogValue() slog.Value {
 	if !IsNil(o.Min) {
 		logAttrs = append(logAttrs, slog.Any("min", *o.Min))
 	}
-	logAttrs = append(logAttrs, slog.Any("mutable", o.Mutable))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.Value) {
 		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
 	}

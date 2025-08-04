@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -13,7 +13,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -25,8 +24,8 @@ var _ slog.LogValuer = &EnvironmentBillOfMaterialsProductBookmark{}
 
 // EnvironmentBillOfMaterialsProductBookmark struct for EnvironmentBillOfMaterialsProductBookmark
 type EnvironmentBillOfMaterialsProductBookmark struct {
-	Href                 string `json:"href"`
-	Name                 string `json:"name"`
+	Href                 *string `json:"href,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,10 +35,8 @@ type _EnvironmentBillOfMaterialsProductBookmark EnvironmentBillOfMaterialsProduc
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentBillOfMaterialsProductBookmark(href string, name string) *EnvironmentBillOfMaterialsProductBookmark {
+func NewEnvironmentBillOfMaterialsProductBookmark() *EnvironmentBillOfMaterialsProductBookmark {
 	this := EnvironmentBillOfMaterialsProductBookmark{}
-	this.Href = href
-	this.Name = name
 	return &this
 }
 
@@ -51,52 +48,68 @@ func NewEnvironmentBillOfMaterialsProductBookmarkWithDefaults() *EnvironmentBill
 	return &this
 }
 
-// GetHref returns the Href field value
+// GetHref returns the Href field value if set, zero value otherwise.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetHref() string {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
-
-	return o.Href
+	return *o.Href
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-	return &o.Href, true
+	return o.Href, true
 }
 
-// SetHref sets field value
+// HasHref returns a boolean if a field has been set.
+func (o *EnvironmentBillOfMaterialsProductBookmark) HasHref() bool {
+	if o != nil && !IsNil(o.Href) {
+		return true
+	}
+
+	return false
+}
+
+// SetHref gets a reference to the given string and assigns it to the Href field.
 func (o *EnvironmentBillOfMaterialsProductBookmark) SetHref(v string) {
-	o.Href = v
+	o.Href = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *EnvironmentBillOfMaterialsProductBookmark) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *EnvironmentBillOfMaterialsProductBookmark) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 func (o EnvironmentBillOfMaterialsProductBookmark) MarshalJSON() ([]byte, error) {
@@ -109,8 +122,12 @@ func (o EnvironmentBillOfMaterialsProductBookmark) MarshalJSON() ([]byte, error)
 
 func (o EnvironmentBillOfMaterialsProductBookmark) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["href"] = o.Href
-	toSerialize["name"] = o.Name
+	if !IsNil(o.Href) {
+		toSerialize["href"] = o.Href
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -120,28 +137,6 @@ func (o EnvironmentBillOfMaterialsProductBookmark) ToMap() (map[string]interface
 }
 
 func (o *EnvironmentBillOfMaterialsProductBookmark) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"href",
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varEnvironmentBillOfMaterialsProductBookmark := _EnvironmentBillOfMaterialsProductBookmark{}
 
 	err = json.Unmarshal(data, &varEnvironmentBillOfMaterialsProductBookmark)
@@ -166,8 +161,12 @@ func (o *EnvironmentBillOfMaterialsProductBookmark) UnmarshalJSON(data []byte) (
 func (o EnvironmentBillOfMaterialsProductBookmark) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("href", o.Href))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	if !IsNil(o.Href) {
+		logAttrs = append(logAttrs, slog.Any("href", *o.Href))
+	}
+	if !IsNil(o.Name) {
+		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

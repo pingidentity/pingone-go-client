@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,9 +25,9 @@ var _ slog.LogValuer = &DaVinciConnectorInstanceCreateRequest{}
 
 // DaVinciConnectorInstanceCreateRequest struct for DaVinciConnectorInstanceCreateRequest
 type DaVinciConnectorInstanceCreateRequest struct {
-	Connector            DaVinciConnectorInstanceCreateRequestConnector `json:"connector"`
-	Name                 string                                         `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	Properties           map[string]interface{}                         `json:"properties,omitempty"`
+	Name                 string                      `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	Connector            ResourceRelationshipDaVinci `json:"connector"`
+	Properties           map[string]interface{}      `json:"properties,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,10 +37,10 @@ type _DaVinciConnectorInstanceCreateRequest DaVinciConnectorInstanceCreateReques
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorInstanceCreateRequest(connector DaVinciConnectorInstanceCreateRequestConnector, name string) *DaVinciConnectorInstanceCreateRequest {
+func NewDaVinciConnectorInstanceCreateRequest(name string, connector ResourceRelationshipDaVinci) *DaVinciConnectorInstanceCreateRequest {
 	this := DaVinciConnectorInstanceCreateRequest{}
-	this.Connector = connector
 	this.Name = name
+	this.Connector = connector
 	return &this
 }
 
@@ -50,30 +50,6 @@ func NewDaVinciConnectorInstanceCreateRequest(connector DaVinciConnectorInstance
 func NewDaVinciConnectorInstanceCreateRequestWithDefaults() *DaVinciConnectorInstanceCreateRequest {
 	this := DaVinciConnectorInstanceCreateRequest{}
 	return &this
-}
-
-// GetConnector returns the Connector field value
-func (o *DaVinciConnectorInstanceCreateRequest) GetConnector() DaVinciConnectorInstanceCreateRequestConnector {
-	if o == nil {
-		var ret DaVinciConnectorInstanceCreateRequestConnector
-		return ret
-	}
-
-	return o.Connector
-}
-
-// GetConnectorOk returns a tuple with the Connector field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciConnectorInstanceCreateRequest) GetConnectorOk() (*DaVinciConnectorInstanceCreateRequestConnector, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Connector, true
-}
-
-// SetConnector sets field value
-func (o *DaVinciConnectorInstanceCreateRequest) SetConnector(v DaVinciConnectorInstanceCreateRequestConnector) {
-	o.Connector = v
 }
 
 // GetName returns the Name field value
@@ -98,6 +74,30 @@ func (o *DaVinciConnectorInstanceCreateRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *DaVinciConnectorInstanceCreateRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetConnector returns the Connector field value
+func (o *DaVinciConnectorInstanceCreateRequest) GetConnector() ResourceRelationshipDaVinci {
+	if o == nil {
+		var ret ResourceRelationshipDaVinci
+		return ret
+	}
+
+	return o.Connector
+}
+
+// GetConnectorOk returns a tuple with the Connector field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorInstanceCreateRequest) GetConnectorOk() (*ResourceRelationshipDaVinci, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Connector, true
+}
+
+// SetConnector sets field value
+func (o *DaVinciConnectorInstanceCreateRequest) SetConnector(v ResourceRelationshipDaVinci) {
+	o.Connector = v
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
@@ -142,8 +142,8 @@ func (o DaVinciConnectorInstanceCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciConnectorInstanceCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["connector"] = o.Connector
 	toSerialize["name"] = o.Name
+	toSerialize["connector"] = o.Connector
 	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
@@ -160,8 +160,8 @@ func (o *DaVinciConnectorInstanceCreateRequest) UnmarshalJSON(data []byte) (err 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"connector",
 		"name",
+		"connector",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -191,8 +191,8 @@ func (o *DaVinciConnectorInstanceCreateRequest) UnmarshalJSON(data []byte) (err 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "connector")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "connector")
 		delete(additionalProperties, "properties")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -203,8 +203,8 @@ func (o *DaVinciConnectorInstanceCreateRequest) UnmarshalJSON(data []byte) (err 
 func (o DaVinciConnectorInstanceCreateRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("connector", o.Connector))
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("connector", o.Connector))
 	if !IsNil(o.Properties) {
 		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
 	}

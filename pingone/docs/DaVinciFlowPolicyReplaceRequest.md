@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FlowDistributions** | Pointer to [**[]DaVinciFlowPolicyReplaceRequestFlowDistribution**](DaVinciFlowPolicyReplaceRequestFlowDistribution.md) |  | [optional] 
-**Name** | **string** |  | 
-**Status** | Pointer to [**DaVinciFlowPolicyCreateRequestStatus**](DaVinciFlowPolicyCreateRequestStatus.md) |  | [optional] 
+**FlowDistributions** | [**[]DaVinciFlowPolicyReplaceRequestFlowDistribution**](DaVinciFlowPolicyReplaceRequestFlowDistribution.md) |  | 
+**Name** | Pointer to **string** |  | [optional] [default to "New Policy"]
+**Status** | Pointer to [**DaVinciFlowPolicyReplaceRequestStatus**](DaVinciFlowPolicyReplaceRequestStatus.md) |  | [optional] [default to DAVINCIFLOWPOLICYREPLACEREQUESTSTATUS_ENABLED]
 **Trigger** | Pointer to [**DaVinciFlowPolicyReplaceRequestTrigger**](DaVinciFlowPolicyReplaceRequestTrigger.md) |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowPolicyReplaceRequest
 
-`func NewDaVinciFlowPolicyReplaceRequest(name string, ) *DaVinciFlowPolicyReplaceRequest`
+`func NewDaVinciFlowPolicyReplaceRequest(flowDistributions []DaVinciFlowPolicyReplaceRequestFlowDistribution, ) *DaVinciFlowPolicyReplaceRequest`
 
 NewDaVinciFlowPolicyReplaceRequest instantiates a new DaVinciFlowPolicyReplaceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetFlowDistributions sets FlowDistributions field to given value.
 
-### HasFlowDistributions
-
-`func (o *DaVinciFlowPolicyReplaceRequest) HasFlowDistributions() bool`
-
-HasFlowDistributions returns a boolean if a field has been set.
 
 ### GetName
 
@@ -72,23 +67,28 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *DaVinciFlowPolicyReplaceRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *DaVinciFlowPolicyReplaceRequest) GetStatus() DaVinciFlowPolicyCreateRequestStatus`
+`func (o *DaVinciFlowPolicyReplaceRequest) GetStatus() DaVinciFlowPolicyReplaceRequestStatus`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *DaVinciFlowPolicyReplaceRequest) GetStatusOk() (*DaVinciFlowPolicyCreateRequestStatus, bool)`
+`func (o *DaVinciFlowPolicyReplaceRequest) GetStatusOk() (*DaVinciFlowPolicyReplaceRequestStatus, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *DaVinciFlowPolicyReplaceRequest) SetStatus(v DaVinciFlowPolicyCreateRequestStatus)`
+`func (o *DaVinciFlowPolicyReplaceRequest) SetStatus(v DaVinciFlowPolicyReplaceRequestStatus)`
 
 SetStatus sets Status field to given value.
 
