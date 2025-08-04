@@ -6,15 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Products** | [**[]EnvironmentBillOfMaterialsProduct**](EnvironmentBillOfMaterialsProduct.md) |  | 
 **SolutionType** | Pointer to [**EnvironmentBillOfMaterialsSolutionType**](EnvironmentBillOfMaterialsSolutionType.md) |  | [optional] 
-**Links** | Pointer to [**EnvironmentBillOfMaterialsLinks**](EnvironmentBillOfMaterialsLinks.md) |  | [optional] 
-**CreatedAt** | **time.Time** |  | [readonly] 
-**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewEnvironmentBillOfMaterials
 
-`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, createdAt time.Time, updatedAt time.Time, ) *EnvironmentBillOfMaterials`
+`func NewEnvironmentBillOfMaterials(products []EnvironmentBillOfMaterialsProduct, ) *EnvironmentBillOfMaterials`
 
 NewEnvironmentBillOfMaterials instantiates a new EnvironmentBillOfMaterials object
 This constructor will assign default values to properties that have it defined,
@@ -73,71 +70,6 @@ SetSolutionType sets SolutionType field to given value.
 `func (o *EnvironmentBillOfMaterials) HasSolutionType() bool`
 
 HasSolutionType returns a boolean if a field has been set.
-
-### GetLinks
-
-`func (o *EnvironmentBillOfMaterials) GetLinks() EnvironmentBillOfMaterialsLinks`
-
-GetLinks returns the Links field if non-nil, zero value otherwise.
-
-### GetLinksOk
-
-`func (o *EnvironmentBillOfMaterials) GetLinksOk() (*EnvironmentBillOfMaterialsLinks, bool)`
-
-GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinks
-
-`func (o *EnvironmentBillOfMaterials) SetLinks(v EnvironmentBillOfMaterialsLinks)`
-
-SetLinks sets Links field to given value.
-
-### HasLinks
-
-`func (o *EnvironmentBillOfMaterials) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
-
-### GetCreatedAt
-
-`func (o *EnvironmentBillOfMaterials) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *EnvironmentBillOfMaterials) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *EnvironmentBillOfMaterials) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetUpdatedAt
-
-`func (o *EnvironmentBillOfMaterials) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *EnvironmentBillOfMaterials) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *EnvironmentBillOfMaterials) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

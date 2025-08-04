@@ -4,27 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Icon** | Pointer to **string** |  | [optional] 
-**License** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
 **Name** | **string** |  | 
 **Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
 **Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
-**Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
-**Links** | [**EnvironmentLinks**](EnvironmentLinks.md) |  | 
-**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | [readonly] 
-**HardDeletedAllowedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | [**uuid.UUID**](uuid.UUID.md) |  | [readonly] 
-**Organization** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
-**SoftDeletedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
+**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
+**Organization** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
+**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**Links** | Pointer to [**EnvironmentLinks**](EnvironmentLinks.md) |  | [optional] 
+**BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**EnvironmentCapabilities** | Pointer to [**EnvironmentCapabilities**](EnvironmentCapabilities.md) |  | [optional] 
+**HardDeleteAllowedAt** | Pointer to **time.Time** |  | [optional] 
+**Icon** | Pointer to **string** |  | [optional] 
+**License** | Pointer to [**EnvironmentLicense**](EnvironmentLicense.md) |  | [optional] 
+**PingoneAccountId** | Pointer to **string** |  | [optional] 
+**SoftDeletedAt** | Pointer to **time.Time** |  | [optional] 
+**Status** | Pointer to [**EnvironmentStatus**](EnvironmentStatus.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironment
 
-`func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time, ) *Environment`
+`func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentType, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -38,76 +41,6 @@ will change when the set of required properties is changed
 NewEnvironmentWithDefaults instantiates a new Environment object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetDescription
-
-`func (o *Environment) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *Environment) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *Environment) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *Environment) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
-
-### GetIcon
-
-`func (o *Environment) GetIcon() string`
-
-GetIcon returns the Icon field if non-nil, zero value otherwise.
-
-### GetIconOk
-
-`func (o *Environment) GetIconOk() (*string, bool)`
-
-GetIconOk returns a tuple with the Icon field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIcon
-
-`func (o *Environment) SetIcon(v string)`
-
-SetIcon sets Icon field to given value.
-
-### HasIcon
-
-`func (o *Environment) HasIcon() bool`
-
-HasIcon returns a boolean if a field has been set.
-
-### GetLicense
-
-`func (o *Environment) GetLicense() ResourceRelationshipPingOne`
-
-GetLicense returns the License field if non-nil, zero value otherwise.
-
-### GetLicenseOk
-
-`func (o *Environment) GetLicenseOk() (*ResourceRelationshipPingOne, bool)`
-
-GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLicense
-
-`func (o *Environment) SetLicense(v ResourceRelationshipPingOne)`
-
-SetLicense sets License field to given value.
-
 
 ### GetName
 
@@ -169,30 +102,110 @@ and a boolean to check if the value has been set.
 SetType sets Type field to given value.
 
 
-### GetStatus
+### GetCreatedAt
 
-`func (o *Environment) GetStatus() EnvironmentStatusValue`
+`func (o *Environment) GetCreatedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCreatedAtOk
 
-`func (o *Environment) GetStatusOk() (*EnvironmentStatusValue, bool)`
+`func (o *Environment) GetCreatedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCreatedAt
 
-`func (o *Environment) SetStatus(v EnvironmentStatusValue)`
+`func (o *Environment) SetCreatedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
-### HasStatus
 
-`func (o *Environment) HasStatus() bool`
+### GetUpdatedAt
 
-HasStatus returns a boolean if a field has been set.
+`func (o *Environment) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *Environment) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *Environment) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+
+### GetId
+
+`func (o *Environment) GetId() uuid.UUID`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Environment) GetIdOk() (*uuid.UUID, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Environment) SetId(v uuid.UUID)`
+
+SetId sets Id field to given value.
+
+
+### GetOrganization
+
+`func (o *Environment) GetOrganization() ResourceRelationshipReadOnly`
+
+GetOrganization returns the Organization field if non-nil, zero value otherwise.
+
+### GetOrganizationOk
+
+`func (o *Environment) GetOrganizationOk() (*ResourceRelationshipReadOnly, bool)`
+
+GetOrganizationOk returns a tuple with the Organization field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganization
+
+`func (o *Environment) SetOrganization(v ResourceRelationshipReadOnly)`
+
+SetOrganization sets Organization field to given value.
+
+
+### GetEmbedded
+
+`func (o *Environment) GetEmbedded() map[string]map[string]interface{}`
+
+GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
+
+### GetEmbeddedOk
+
+`func (o *Environment) GetEmbeddedOk() (*map[string]map[string]interface{}, bool)`
+
+GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmbedded
+
+`func (o *Environment) SetEmbedded(v map[string]map[string]interface{})`
+
+SetEmbedded sets Embedded field to given value.
+
+### HasEmbedded
+
+`func (o *Environment) HasEmbedded() bool`
+
+HasEmbedded returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -213,6 +226,11 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
+### HasLinks
+
+`func (o *Environment) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 ### GetBillOfMaterials
 
@@ -239,90 +257,155 @@ SetBillOfMaterials sets BillOfMaterials field to given value.
 
 HasBillOfMaterials returns a boolean if a field has been set.
 
-### GetCreatedAt
+### GetDescription
 
-`func (o *Environment) GetCreatedAt() time.Time`
+`func (o *Environment) GetDescription() string`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetDescription returns the Description field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetDescriptionOk
 
-`func (o *Environment) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *Environment) GetDescriptionOk() (*string, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetDescription
 
-`func (o *Environment) SetCreatedAt(v time.Time)`
+`func (o *Environment) SetDescription(v string)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetDescription sets Description field to given value.
 
+### HasDescription
 
-### GetHardDeletedAllowedAt
+`func (o *Environment) HasDescription() bool`
 
-`func (o *Environment) GetHardDeletedAllowedAt() time.Time`
+HasDescription returns a boolean if a field has been set.
 
-GetHardDeletedAllowedAt returns the HardDeletedAllowedAt field if non-nil, zero value otherwise.
+### GetEnvironmentCapabilities
 
-### GetHardDeletedAllowedAtOk
+`func (o *Environment) GetEnvironmentCapabilities() EnvironmentCapabilities`
 
-`func (o *Environment) GetHardDeletedAllowedAtOk() (*time.Time, bool)`
+GetEnvironmentCapabilities returns the EnvironmentCapabilities field if non-nil, zero value otherwise.
 
-GetHardDeletedAllowedAtOk returns a tuple with the HardDeletedAllowedAt field if it's non-nil, zero value otherwise
+### GetEnvironmentCapabilitiesOk
+
+`func (o *Environment) GetEnvironmentCapabilitiesOk() (*EnvironmentCapabilities, bool)`
+
+GetEnvironmentCapabilitiesOk returns a tuple with the EnvironmentCapabilities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetHardDeletedAllowedAt
+### SetEnvironmentCapabilities
 
-`func (o *Environment) SetHardDeletedAllowedAt(v time.Time)`
+`func (o *Environment) SetEnvironmentCapabilities(v EnvironmentCapabilities)`
 
-SetHardDeletedAllowedAt sets HardDeletedAllowedAt field to given value.
+SetEnvironmentCapabilities sets EnvironmentCapabilities field to given value.
 
-### HasHardDeletedAllowedAt
+### HasEnvironmentCapabilities
 
-`func (o *Environment) HasHardDeletedAllowedAt() bool`
+`func (o *Environment) HasEnvironmentCapabilities() bool`
 
-HasHardDeletedAllowedAt returns a boolean if a field has been set.
+HasEnvironmentCapabilities returns a boolean if a field has been set.
 
-### GetId
+### GetHardDeleteAllowedAt
 
-`func (o *Environment) GetId() uuid.UUID`
+`func (o *Environment) GetHardDeleteAllowedAt() time.Time`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetHardDeleteAllowedAt returns the HardDeleteAllowedAt field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetHardDeleteAllowedAtOk
 
-`func (o *Environment) GetIdOk() (*uuid.UUID, bool)`
+`func (o *Environment) GetHardDeleteAllowedAtOk() (*time.Time, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetHardDeleteAllowedAtOk returns a tuple with the HardDeleteAllowedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetHardDeleteAllowedAt
 
-`func (o *Environment) SetId(v uuid.UUID)`
+`func (o *Environment) SetHardDeleteAllowedAt(v time.Time)`
 
-SetId sets Id field to given value.
+SetHardDeleteAllowedAt sets HardDeleteAllowedAt field to given value.
 
+### HasHardDeleteAllowedAt
 
-### GetOrganization
+`func (o *Environment) HasHardDeleteAllowedAt() bool`
 
-`func (o *Environment) GetOrganization() ResourceRelationshipPingOne`
+HasHardDeleteAllowedAt returns a boolean if a field has been set.
 
-GetOrganization returns the Organization field if non-nil, zero value otherwise.
+### GetIcon
 
-### GetOrganizationOk
+`func (o *Environment) GetIcon() string`
 
-`func (o *Environment) GetOrganizationOk() (*ResourceRelationshipPingOne, bool)`
+GetIcon returns the Icon field if non-nil, zero value otherwise.
 
-GetOrganizationOk returns a tuple with the Organization field if it's non-nil, zero value otherwise
+### GetIconOk
+
+`func (o *Environment) GetIconOk() (*string, bool)`
+
+GetIconOk returns a tuple with the Icon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOrganization
+### SetIcon
 
-`func (o *Environment) SetOrganization(v ResourceRelationshipPingOne)`
+`func (o *Environment) SetIcon(v string)`
 
-SetOrganization sets Organization field to given value.
+SetIcon sets Icon field to given value.
 
+### HasIcon
+
+`func (o *Environment) HasIcon() bool`
+
+HasIcon returns a boolean if a field has been set.
+
+### GetLicense
+
+`func (o *Environment) GetLicense() EnvironmentLicense`
+
+GetLicense returns the License field if non-nil, zero value otherwise.
+
+### GetLicenseOk
+
+`func (o *Environment) GetLicenseOk() (*EnvironmentLicense, bool)`
+
+GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLicense
+
+`func (o *Environment) SetLicense(v EnvironmentLicense)`
+
+SetLicense sets License field to given value.
+
+### HasLicense
+
+`func (o *Environment) HasLicense() bool`
+
+HasLicense returns a boolean if a field has been set.
+
+### GetPingoneAccountId
+
+`func (o *Environment) GetPingoneAccountId() string`
+
+GetPingoneAccountId returns the PingoneAccountId field if non-nil, zero value otherwise.
+
+### GetPingoneAccountIdOk
+
+`func (o *Environment) GetPingoneAccountIdOk() (*string, bool)`
+
+GetPingoneAccountIdOk returns a tuple with the PingoneAccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPingoneAccountId
+
+`func (o *Environment) SetPingoneAccountId(v string)`
+
+SetPingoneAccountId sets PingoneAccountId field to given value.
+
+### HasPingoneAccountId
+
+`func (o *Environment) HasPingoneAccountId() bool`
+
+HasPingoneAccountId returns a boolean if a field has been set.
 
 ### GetSoftDeletedAt
 
@@ -349,25 +432,30 @@ SetSoftDeletedAt sets SoftDeletedAt field to given value.
 
 HasSoftDeletedAt returns a boolean if a field has been set.
 
-### GetUpdatedAt
+### GetStatus
 
-`func (o *Environment) GetUpdatedAt() time.Time`
+`func (o *Environment) GetStatus() EnvironmentStatus`
 
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+GetStatus returns the Status field if non-nil, zero value otherwise.
 
-### GetUpdatedAtOk
+### GetStatusOk
 
-`func (o *Environment) GetUpdatedAtOk() (*time.Time, bool)`
+`func (o *Environment) GetStatusOk() (*EnvironmentStatus, bool)`
 
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUpdatedAt
+### SetStatus
 
-`func (o *Environment) SetUpdatedAt(v time.Time)`
+`func (o *Environment) SetStatus(v EnvironmentStatus)`
 
-SetUpdatedAt sets UpdatedAt field to given value.
+SetStatus sets Status field to given value.
 
+### HasStatus
+
+`func (o *Environment) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

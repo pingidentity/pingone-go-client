@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -27,13 +27,14 @@ var _ slog.LogValuer = &EnvironmentBillOfMaterialsProduct{}
 
 // EnvironmentBillOfMaterialsProduct struct for EnvironmentBillOfMaterialsProduct
 type EnvironmentBillOfMaterialsProduct struct {
-	Bookmarks            []EnvironmentBillOfMaterialsProductBookmark  `json:"bookmarks,omitempty"`
-	Console              *EnvironmentBillOfMaterialsProductConsole    `json:"console,omitempty"`
-	Deployment           *EnvironmentBillOfMaterialsProductDeployment `json:"deployment,omitempty"`
-	Description          *string                                      `json:"description,omitempty"`
-	Id                   *uuid.UUID                                   `json:"id,omitempty"`
-	Tags                 []EnvironmentBillOfMaterialsProductTags      `json:"tags,omitempty"`
-	Type                 EnvironmentBillOfMaterialsProductType        `json:"type"`
+	Type                 EnvironmentBillOfMaterialsProductType       `json:"type"`
+	Bookmarks            []EnvironmentBillOfMaterialsProductBookmark `json:"bookmarks,omitempty"`
+	Console              *EnvironmentBillOfMaterialsProductConsole   `json:"console,omitempty"`
+	Deployment           *ResourceRelationshipReadOnly               `json:"deployment,omitempty"`
+	Description          *string                                     `json:"description,omitempty"`
+	Id                   *uuid.UUID                                  `json:"id,omitempty"`
+	SoftwareLicense      *ResourceRelationshipGeneric                `json:"softwareLicense,omitempty"`
+	Tags                 []string                                    `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,6 +56,30 @@ func NewEnvironmentBillOfMaterialsProduct(type_ EnvironmentBillOfMaterialsProduc
 func NewEnvironmentBillOfMaterialsProductWithDefaults() *EnvironmentBillOfMaterialsProduct {
 	this := EnvironmentBillOfMaterialsProduct{}
 	return &this
+}
+
+// GetType returns the Type field value
+func (o *EnvironmentBillOfMaterialsProduct) GetType() EnvironmentBillOfMaterialsProductType {
+	if o == nil {
+		var ret EnvironmentBillOfMaterialsProductType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentBillOfMaterialsProduct) GetTypeOk() (*EnvironmentBillOfMaterialsProductType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *EnvironmentBillOfMaterialsProduct) SetType(v EnvironmentBillOfMaterialsProductType) {
+	o.Type = v
 }
 
 // GetBookmarks returns the Bookmarks field value if set, zero value otherwise.
@@ -122,9 +147,9 @@ func (o *EnvironmentBillOfMaterialsProduct) SetConsole(v EnvironmentBillOfMateri
 }
 
 // GetDeployment returns the Deployment field value if set, zero value otherwise.
-func (o *EnvironmentBillOfMaterialsProduct) GetDeployment() EnvironmentBillOfMaterialsProductDeployment {
+func (o *EnvironmentBillOfMaterialsProduct) GetDeployment() ResourceRelationshipReadOnly {
 	if o == nil || IsNil(o.Deployment) {
-		var ret EnvironmentBillOfMaterialsProductDeployment
+		var ret ResourceRelationshipReadOnly
 		return ret
 	}
 	return *o.Deployment
@@ -132,7 +157,7 @@ func (o *EnvironmentBillOfMaterialsProduct) GetDeployment() EnvironmentBillOfMat
 
 // GetDeploymentOk returns a tuple with the Deployment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentBillOfMaterialsProduct) GetDeploymentOk() (*EnvironmentBillOfMaterialsProductDeployment, bool) {
+func (o *EnvironmentBillOfMaterialsProduct) GetDeploymentOk() (*ResourceRelationshipReadOnly, bool) {
 	if o == nil || IsNil(o.Deployment) {
 		return nil, false
 	}
@@ -148,8 +173,8 @@ func (o *EnvironmentBillOfMaterialsProduct) HasDeployment() bool {
 	return false
 }
 
-// SetDeployment gets a reference to the given EnvironmentBillOfMaterialsProductDeployment and assigns it to the Deployment field.
-func (o *EnvironmentBillOfMaterialsProduct) SetDeployment(v EnvironmentBillOfMaterialsProductDeployment) {
+// SetDeployment gets a reference to the given ResourceRelationshipReadOnly and assigns it to the Deployment field.
+func (o *EnvironmentBillOfMaterialsProduct) SetDeployment(v ResourceRelationshipReadOnly) {
 	o.Deployment = &v
 }
 
@@ -217,10 +242,42 @@ func (o *EnvironmentBillOfMaterialsProduct) SetId(v uuid.UUID) {
 	o.Id = &v
 }
 
+// GetSoftwareLicense returns the SoftwareLicense field value if set, zero value otherwise.
+func (o *EnvironmentBillOfMaterialsProduct) GetSoftwareLicense() ResourceRelationshipGeneric {
+	if o == nil || IsNil(o.SoftwareLicense) {
+		var ret ResourceRelationshipGeneric
+		return ret
+	}
+	return *o.SoftwareLicense
+}
+
+// GetSoftwareLicenseOk returns a tuple with the SoftwareLicense field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentBillOfMaterialsProduct) GetSoftwareLicenseOk() (*ResourceRelationshipGeneric, bool) {
+	if o == nil || IsNil(o.SoftwareLicense) {
+		return nil, false
+	}
+	return o.SoftwareLicense, true
+}
+
+// HasSoftwareLicense returns a boolean if a field has been set.
+func (o *EnvironmentBillOfMaterialsProduct) HasSoftwareLicense() bool {
+	if o != nil && !IsNil(o.SoftwareLicense) {
+		return true
+	}
+
+	return false
+}
+
+// SetSoftwareLicense gets a reference to the given ResourceRelationshipGeneric and assigns it to the SoftwareLicense field.
+func (o *EnvironmentBillOfMaterialsProduct) SetSoftwareLicense(v ResourceRelationshipGeneric) {
+	o.SoftwareLicense = &v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *EnvironmentBillOfMaterialsProduct) GetTags() []EnvironmentBillOfMaterialsProductTags {
+func (o *EnvironmentBillOfMaterialsProduct) GetTags() []string {
 	if o == nil || IsNil(o.Tags) {
-		var ret []EnvironmentBillOfMaterialsProductTags
+		var ret []string
 		return ret
 	}
 	return o.Tags
@@ -228,7 +285,7 @@ func (o *EnvironmentBillOfMaterialsProduct) GetTags() []EnvironmentBillOfMateria
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentBillOfMaterialsProduct) GetTagsOk() ([]EnvironmentBillOfMaterialsProductTags, bool) {
+func (o *EnvironmentBillOfMaterialsProduct) GetTagsOk() ([]string, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -244,33 +301,9 @@ func (o *EnvironmentBillOfMaterialsProduct) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []EnvironmentBillOfMaterialsProductTags and assigns it to the Tags field.
-func (o *EnvironmentBillOfMaterialsProduct) SetTags(v []EnvironmentBillOfMaterialsProductTags) {
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *EnvironmentBillOfMaterialsProduct) SetTags(v []string) {
 	o.Tags = v
-}
-
-// GetType returns the Type field value
-func (o *EnvironmentBillOfMaterialsProduct) GetType() EnvironmentBillOfMaterialsProductType {
-	if o == nil {
-		var ret EnvironmentBillOfMaterialsProductType
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentBillOfMaterialsProduct) GetTypeOk() (*EnvironmentBillOfMaterialsProductType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *EnvironmentBillOfMaterialsProduct) SetType(v EnvironmentBillOfMaterialsProductType) {
-	o.Type = v
 }
 
 func (o EnvironmentBillOfMaterialsProduct) MarshalJSON() ([]byte, error) {
@@ -283,6 +316,7 @@ func (o EnvironmentBillOfMaterialsProduct) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentBillOfMaterialsProduct) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
 	if !IsNil(o.Bookmarks) {
 		toSerialize["bookmarks"] = o.Bookmarks
 	}
@@ -298,10 +332,12 @@ func (o EnvironmentBillOfMaterialsProduct) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+	if !IsNil(o.SoftwareLicense) {
+		toSerialize["softwareLicense"] = o.SoftwareLicense
+	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
-	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -345,13 +381,14 @@ func (o *EnvironmentBillOfMaterialsProduct) UnmarshalJSON(data []byte) (err erro
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "bookmarks")
 		delete(additionalProperties, "console")
 		delete(additionalProperties, "deployment")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "softwareLicense")
 		delete(additionalProperties, "tags")
-		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -361,6 +398,7 @@ func (o *EnvironmentBillOfMaterialsProduct) UnmarshalJSON(data []byte) (err erro
 func (o EnvironmentBillOfMaterialsProduct) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
 	if !IsNil(o.Bookmarks) {
 		logAttrs = append(logAttrs, slog.Any("bookmarks", o.Bookmarks))
 	}
@@ -376,10 +414,12 @@ func (o EnvironmentBillOfMaterialsProduct) LogValue() slog.Value {
 	if !IsNil(o.Id) {
 		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
 	}
+	if !IsNil(o.SoftwareLicense) {
+		logAttrs = append(logAttrs, slog.Any("softwareLicense", *o.SoftwareLicense))
+	}
 	if !IsNil(o.Tags) {
 		logAttrs = append(logAttrs, slog.Any("tags", o.Tags))
 	}
-	logAttrs = append(logAttrs, slog.Any("type", o.Type))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

@@ -1,4 +1,4 @@
-# EnvironmentRegionCode
+# EnvironmentCreateRequestRegion
 
 ## Enum
 

@@ -1,19 +1,11 @@
-# EnvironmentRegionCode
+# EnvironmentCreateRequestType
 
 ## Enum
 
 
-* `AP` (value: `"AP"`)
+* `PRODUCTION` (value: `"PRODUCTION"`)
 
-* `AU` (value: `"AU"`)
-
-* `CA` (value: `"CA"`)
-
-* `EU` (value: `"EU"`)
-
-* `NA` (value: `"NA"`)
-
-* `SG` (value: `"SG"`)
+* `SANDBOX` (value: `"SANDBOX"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

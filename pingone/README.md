@@ -107,6 +107,13 @@ Class | Method | HTTP request | Description
 *DaVinciVariableApi* | [**GetVariableById**](docs/DaVinciVariableApi.md#getvariablebyid) | **Get** /environments/{environmentID}/variables/{variableID} | 
 *DaVinciVariableApi* | [**GetVariables**](docs/DaVinciVariableApi.md#getvariables) | **Get** /environments/{environmentID}/variables | 
 *DaVinciVariableApi* | [**ReplaceVariableById**](docs/DaVinciVariableApi.md#replacevariablebyid) | **Put** /environments/{environmentID}/variables/{variableID} | 
+*EnvironmentApi* | [**CreateEnvironment**](docs/EnvironmentApi.md#createenvironment) | **Post** /environments | 
+*EnvironmentApi* | [**DeleteEnvironmentById**](docs/EnvironmentApi.md#deleteenvironmentbyid) | **Delete** /environments/{environmentID} | 
+*EnvironmentApi* | [**GetBillOfMaterialsByEnvironmentId**](docs/EnvironmentApi.md#getbillofmaterialsbyenvironmentid) | **Get** /environments/{environmentID}/billOfMaterials | 
+*EnvironmentApi* | [**GetEnvironmentById**](docs/EnvironmentApi.md#getenvironmentbyid) | **Get** /environments/{environmentID} | 
+*EnvironmentApi* | [**GetEnvironments**](docs/EnvironmentApi.md#getenvironments) | **Get** /environments | 
+*EnvironmentApi* | [**ReplaceBillOfMaterialsByEnvironmentId**](docs/EnvironmentApi.md#replacebillofmaterialsbyenvironmentid) | **Put** /environments/{environmentID}/billOfMaterials | 
+*EnvironmentApi* | [**ReplaceEnvironmentById**](docs/EnvironmentApi.md#replaceenvironmentbyid) | **Put** /environments/{environmentID} | 
 
 
 ## Documentation For Models
@@ -206,26 +213,34 @@ Class | Method | HTTP request | Description
  - [DaVinciVariableReplaceRequestValue](docs/DaVinciVariableReplaceRequestValue.md)
  - [DaVinciVariableValue](docs/DaVinciVariableValue.md)
  - [Environment](docs/Environment.md)
+ - [EnvironmentAPILimit](docs/EnvironmentAPILimit.md)
  - [EnvironmentBillOfMaterials](docs/EnvironmentBillOfMaterials.md)
- - [EnvironmentBillOfMaterialsCreateRequest](docs/EnvironmentBillOfMaterialsCreateRequest.md)
- - [EnvironmentBillOfMaterialsLinks](docs/EnvironmentBillOfMaterialsLinks.md)
  - [EnvironmentBillOfMaterialsProduct](docs/EnvironmentBillOfMaterialsProduct.md)
  - [EnvironmentBillOfMaterialsProductBookmark](docs/EnvironmentBillOfMaterialsProductBookmark.md)
  - [EnvironmentBillOfMaterialsProductConsole](docs/EnvironmentBillOfMaterialsProductConsole.md)
- - [EnvironmentBillOfMaterialsProductDeployment](docs/EnvironmentBillOfMaterialsProductDeployment.md)
- - [EnvironmentBillOfMaterialsProductTags](docs/EnvironmentBillOfMaterialsProductTags.md)
  - [EnvironmentBillOfMaterialsProductType](docs/EnvironmentBillOfMaterialsProductType.md)
  - [EnvironmentBillOfMaterialsReplaceRequest](docs/EnvironmentBillOfMaterialsReplaceRequest.md)
+ - [EnvironmentBillOfMaterialsResponse](docs/EnvironmentBillOfMaterialsResponse.md)
  - [EnvironmentBillOfMaterialsSolutionType](docs/EnvironmentBillOfMaterialsSolutionType.md)
- - [EnvironmentCommon](docs/EnvironmentCommon.md)
+ - [EnvironmentCapabilities](docs/EnvironmentCapabilities.md)
+ - [EnvironmentCapabilitiesLinks](docs/EnvironmentCapabilitiesLinks.md)
  - [EnvironmentCreateRequest](docs/EnvironmentCreateRequest.md)
+ - [EnvironmentCreateRequestRegion](docs/EnvironmentCreateRequestRegion.md)
+ - [EnvironmentCreateRequestType](docs/EnvironmentCreateRequestType.md)
+ - [EnvironmentLicense](docs/EnvironmentLicense.md)
+ - [EnvironmentLicenseQuantities](docs/EnvironmentLicenseQuantities.md)
  - [EnvironmentLinks](docs/EnvironmentLinks.md)
  - [EnvironmentRegion](docs/EnvironmentRegion.md)
  - [EnvironmentRegionCode](docs/EnvironmentRegionCode.md)
  - [EnvironmentReplaceRequest](docs/EnvironmentReplaceRequest.md)
+ - [EnvironmentReplaceRequestRegion](docs/EnvironmentReplaceRequestRegion.md)
+ - [EnvironmentReplaceRequestStatus](docs/EnvironmentReplaceRequestStatus.md)
+ - [EnvironmentReplaceRequestType](docs/EnvironmentReplaceRequestType.md)
  - [EnvironmentStatus](docs/EnvironmentStatus.md)
- - [EnvironmentStatusValue](docs/EnvironmentStatusValue.md)
  - [EnvironmentType](docs/EnvironmentType.md)
+ - [EnvironmentsCollection](docs/EnvironmentsCollection.md)
+ - [EnvironmentsCollectionEmbedded](docs/EnvironmentsCollectionEmbedded.md)
+ - [EnvironmentsCollectionLinks](docs/EnvironmentsCollectionLinks.md)
  - [ForbiddenError](docs/ForbiddenError.md)
  - [ForbiddenErrorCode](docs/ForbiddenErrorCode.md)
  - [ForbiddenErrorDetail](docs/ForbiddenErrorDetail.md)

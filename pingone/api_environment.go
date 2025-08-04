@@ -31,18 +31,16 @@ type EnvironmentApiService service
 type ApiCreateEnvironmentRequest struct {
 	ctx                        context.Context
 	ApiService                 *EnvironmentApiService
-	xPingExternalTransactionID *string
-	xPingExternalSessionID     *string
 	environmentCreateRequest   *EnvironmentCreateRequest
+	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiCreateEnvironmentRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiCreateEnvironmentRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
+func (r ApiCreateEnvironmentRequest) EnvironmentCreateRequest(environmentCreateRequest EnvironmentCreateRequest) ApiCreateEnvironmentRequest {
+	r.environmentCreateRequest = &environmentCreateRequest
 	return r
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
 func (r ApiCreateEnvironmentRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiCreateEnvironmentRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
@@ -92,6 +90,9 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.environmentCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("environmentCreateRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -103,18 +104,18 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.environmentCreateRequest
@@ -160,7 +161,7 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -169,7 +170,7 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -178,7 +179,7 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -195,26 +196,8 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
-			if localVarHTTPResponse.StatusCode == 405 {
-				var v InvalidRequestError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -223,7 +206,7 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -232,7 +215,16 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -260,19 +252,17 @@ type ApiDeleteEnvironmentByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *EnvironmentApiService
 	environmentID              uuid.UUID
-	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiDeleteEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiDeleteEnvironmentByIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
+func (r ApiDeleteEnvironmentByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiDeleteEnvironmentByIdRequest {
+	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
-func (r ApiDeleteEnvironmentByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiDeleteEnvironmentByIdRequest {
-	r.xPingExternalSessionID = &xPingExternalSessionID
+func (r ApiDeleteEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiDeleteEnvironmentByIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
@@ -281,13 +271,11 @@ func (r ApiDeleteEnvironmentByIdRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteEnvironmentById Delete Environment
-
-Delete an environment from the organization.
+DeleteEnvironmentById Method for DeleteEnvironmentById
 
 	@permission orgmgt:delete:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID An environment's unique identifier in UUID format.
+	@param environmentID
 	@return ApiDeleteEnvironmentByIdRequest
 */
 func (a *EnvironmentApiService) DeleteEnvironmentById(ctx context.Context, environmentID uuid.UUID) ApiDeleteEnvironmentByIdRequest {
@@ -328,18 +316,18 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -383,7 +371,7 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -392,7 +380,7 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -401,11 +389,20 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarHTTPResponse, newErr
+				}
+				// check if environment exists - P14C-63085
+				_, _, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					var notFoundErr NotFoundError
+					if errors.As(err, &notFoundErr) {
+						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
+						return localVarHTTPResponse, errors.Join(notFoundErr, err)
+					}
 				}
 				return localVarHTTPResponse, getErrorObject(v)
 			}
@@ -416,19 +413,25 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 					newErr.error = err.Error()
 					return localVarHTTPResponse, newErr
 				}
-				return localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
 				if err != nil {
 					newErr.error = err.Error()
-					return localVarHTTPResponse, newErr
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -437,7 +440,7 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -446,7 +449,16 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarHTTPResponse, newErr
+				}
+				return localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -465,34 +477,30 @@ type ApiGetBillOfMaterialsByEnvironmentIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *EnvironmentApiService
 	environmentID              uuid.UUID
-	xPingExternalTransactionID *string
 	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiGetBillOfMaterialsByEnvironmentIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetBillOfMaterialsByEnvironmentIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
-	return r
-}
-
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
 func (r ApiGetBillOfMaterialsByEnvironmentIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetBillOfMaterialsByEnvironmentIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiGetBillOfMaterialsByEnvironmentIdRequest) Execute() (*EnvironmentBillOfMaterials, *http.Response, error) {
+func (r ApiGetBillOfMaterialsByEnvironmentIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetBillOfMaterialsByEnvironmentIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
+	return r
+}
+
+func (r ApiGetBillOfMaterialsByEnvironmentIdRequest) Execute() (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
 	return r.ApiService.GetBillOfMaterialsByEnvironmentIdExecute(r)
 }
 
 /*
-GetBillOfMaterialsByEnvironmentId _TO_BE_DEFINED_
-
-_TO_BE_DEFINED_
+GetBillOfMaterialsByEnvironmentId Method for GetBillOfMaterialsByEnvironmentId
 
 	@permission orgmgt:read:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID An environment's unique identifier in UUID format.
+	@param environmentID
 	@return ApiGetBillOfMaterialsByEnvironmentIdRequest
 */
 func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentId(ctx context.Context, environmentID uuid.UUID) ApiGetBillOfMaterialsByEnvironmentIdRequest {
@@ -505,13 +513,13 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentId(ctx context.Co
 
 // Execute executes the request
 //
-//	@return EnvironmentBillOfMaterials
-func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
+//	@return EnvironmentBillOfMaterialsResponse
+func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnvironmentBillOfMaterials
+		localVarReturnValue *EnvironmentBillOfMaterialsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.GetBillOfMaterialsByEnvironmentId")
@@ -536,18 +544,18 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -591,7 +599,7 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -600,7 +608,7 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -609,7 +617,7 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -665,17 +673,8 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -684,7 +683,7 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -693,7 +692,16 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -721,19 +729,23 @@ type ApiGetEnvironmentByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *EnvironmentApiService
 	environmentID              uuid.UUID
-	xPingExternalTransactionID *string
+	expand                     *string
 	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiGetEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetEnvironmentByIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
+func (r ApiGetEnvironmentByIdRequest) Expand(expand string) ApiGetEnvironmentByIdRequest {
+	r.expand = &expand
 	return r
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
 func (r ApiGetEnvironmentByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetEnvironmentByIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
+	return r
+}
+
+func (r ApiGetEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetEnvironmentByIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
@@ -742,13 +754,11 @@ func (r ApiGetEnvironmentByIdRequest) Execute() (*Environment, *http.Response, e
 }
 
 /*
-GetEnvironmentById Read One Environment
-
-Returns data only for the environment resource identified by its ID in the request URL.
+GetEnvironmentById Method for GetEnvironmentById
 
 	@permission orgmgt:read:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID An environment's unique identifier in UUID format.
+	@param environmentID
 	@return ApiGetEnvironmentByIdRequest
 */
 func (a *EnvironmentApiService) GetEnvironmentById(ctx context.Context, environmentID uuid.UUID) ApiGetEnvironmentByIdRequest {
@@ -781,6 +791,11 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.expand == nil {
+		return localVarReturnValue, nil, reportError("expand is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -792,18 +807,18 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -847,7 +862,7 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -856,7 +871,7 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -865,7 +880,324 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment exists - P14C-63085
+				_, _, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					var notFoundErr NotFoundError
+					if errors.As(err, &notFoundErr) {
+						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
+						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
+					}
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 404 {
+				var v NotFoundError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 429 {
+				var v TooManyRequestsError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 500 {
+				var v InternalServerError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 502 {
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+			}
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		break
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &APIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetEnvironmentsRequest struct {
+	ctx                        context.Context
+	ApiService                 *EnvironmentApiService
+	expand                     *string
+	filter                     *string
+	order                      *string
+	limit                      *int32
+	cursor                     *string
+	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
+}
+
+func (r ApiGetEnvironmentsRequest) Expand(expand string) ApiGetEnvironmentsRequest {
+	r.expand = &expand
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) Filter(filter string) ApiGetEnvironmentsRequest {
+	r.filter = &filter
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) Order(order string) ApiGetEnvironmentsRequest {
+	r.order = &order
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) Limit(limit int32) ApiGetEnvironmentsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) Cursor(cursor string) ApiGetEnvironmentsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetEnvironmentsRequest {
+	r.xPingExternalSessionID = &xPingExternalSessionID
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetEnvironmentsRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
+	return r
+}
+
+func (r ApiGetEnvironmentsRequest) Execute() PagedIterator[EnvironmentsCollection] {
+	return r.ApiService.GetEnvironmentsExecute(r)
+}
+
+func (r ApiGetEnvironmentsRequest) ExecuteInitialPage() (*EnvironmentsCollection, *http.Response, error) {
+	return r.ApiService.GetEnvironmentsExecutePage(r, nil)
+}
+
+func (r ApiGetEnvironmentsRequest) executePageByLink(link JSONHALLink) (*EnvironmentsCollection, *http.Response, error) {
+	return r.ApiService.GetEnvironmentsExecutePage(r, &link)
+}
+
+/*
+GetEnvironments Method for GetEnvironments
+
+	@permission orgmgt:read:environment
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEnvironmentsRequest
+*/
+func (a *EnvironmentApiService) GetEnvironments(ctx context.Context) ApiGetEnvironmentsRequest {
+	return ApiGetEnvironmentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EnvironmentsCollection
+func (a *EnvironmentApiService) GetEnvironmentsExecute(r ApiGetEnvironmentsRequest) PagedIterator[EnvironmentsCollection] {
+	return paginationIterator(r.ExecuteInitialPage, r.executePageByLink)
+}
+
+// Execute executes the request (returning the initial page of the paged response only)
+//
+//	@return EnvironmentsCollection
+func (a *EnvironmentApiService) GetEnvironmentsExecutePage(r ApiGetEnvironmentsRequest, link *JSONHALLink) (*EnvironmentsCollection, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentsCollection
+	)
+
+	var linkUrl *url.URL
+	if link != nil {
+		var err error
+		linkUrl, err = url.Parse(link.Href)
+		if err != nil {
+			return localVarReturnValue, nil, &APIError{error: err.Error()}
+		}
+	}
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.GetEnvironments")
+	if err != nil {
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/environments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.expand == nil {
+		return localVarReturnValue, nil, reportError("expand is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
+	if r.filter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+	}
+	if r.order != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 1000
+		r.limit = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+
+	// overwrite query params with link URL query params if provided
+	if linkUrl != nil {
+		localVarQueryParams = linkUrl.Query()
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xPingExternalSessionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	if linkUrl != nil && linkUrl.Host != req.Host {
+		slog.Error("link host does not match expected host", "expected host", req.Host, "provided link host", linkUrl.Host)
+		return localVarReturnValue, nil, reportError("link host does not match expected host")
+	}
+
+	var bodyBytes []byte
+	if req.Body != nil {
+		bodyBytes, _ = io.ReadAll(req.Body)
+	}
+
+	var localVarHTTPResponse *http.Response
+	var localVarBody []byte
+
+	for i := range maxRetries {
+		if req.Body != nil {
+			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		}
+
+		if i > 0 {
+			slog.Debug("Retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+		}
+
+		localVarHTTPResponse, err = a.client.callAPI(req)
+		if err != nil || localVarHTTPResponse == nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+
+		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
+
+		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
+		localVarHTTPResponse.Body.Close()
+		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+
+		if localVarHTTPResponse.StatusCode >= 300 {
+			newErr := &APIError{
+				body:  localVarBody,
+				error: localVarHTTPResponse.Status,
+			}
+			if localVarHTTPResponse.StatusCode == 400 {
+				var v BadRequestError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 401 {
+				var v UnauthorizedError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 403 {
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -882,17 +1214,8 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -901,7 +1224,7 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -910,7 +1233,16 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -938,21 +1270,9 @@ type ApiReplaceBillOfMaterialsByEnvironmentIdRequest struct {
 	ctx                                      context.Context
 	ApiService                               *EnvironmentApiService
 	environmentID                            uuid.UUID
-	xPingExternalTransactionID               *string
-	xPingExternalSessionID                   *string
 	environmentBillOfMaterialsReplaceRequest *EnvironmentBillOfMaterialsReplaceRequest
-}
-
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
-	return r
-}
-
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
-func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
-	r.xPingExternalSessionID = &xPingExternalSessionID
-	return r
+	xPingExternalSessionID                   *string
+	xPingExternalTransactionID               *string
 }
 
 func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) EnvironmentBillOfMaterialsReplaceRequest(environmentBillOfMaterialsReplaceRequest EnvironmentBillOfMaterialsReplaceRequest) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
@@ -960,18 +1280,26 @@ func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) EnvironmentBillOfMateri
 	return r
 }
 
-func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) Execute() (*EnvironmentBillOfMaterials, *http.Response, error) {
+func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
+	r.xPingExternalSessionID = &xPingExternalSessionID
+	return r
+}
+
+func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
+	return r
+}
+
+func (r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) Execute() (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
 	return r.ApiService.ReplaceBillOfMaterialsByEnvironmentIdExecute(r)
 }
 
 /*
-ReplaceBillOfMaterialsByEnvironmentId _TO_BE_DEFINED_
-
-_TO_BE_DEFINED_
+ReplaceBillOfMaterialsByEnvironmentId Method for ReplaceBillOfMaterialsByEnvironmentId
 
 	@permission orgmgt:update:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID An environment's unique identifier in UUID format.
+	@param environmentID
 	@return ApiReplaceBillOfMaterialsByEnvironmentIdRequest
 */
 func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentId(ctx context.Context, environmentID uuid.UUID) ApiReplaceBillOfMaterialsByEnvironmentIdRequest {
@@ -984,13 +1312,13 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentId(ctx contex
 
 // Execute executes the request
 //
-//	@return EnvironmentBillOfMaterials
-func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterials, *http.Response, error) {
+//	@return EnvironmentBillOfMaterialsResponse
+func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnvironmentBillOfMaterials
+		localVarReturnValue *EnvironmentBillOfMaterialsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentApiService.ReplaceBillOfMaterialsByEnvironmentId")
@@ -1004,6 +1332,9 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.environmentBillOfMaterialsReplaceRequest == nil {
+		return localVarReturnValue, nil, reportError("environmentBillOfMaterialsReplaceRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1015,18 +1346,18 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.environmentBillOfMaterialsReplaceRequest
@@ -1072,7 +1403,7 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1081,7 +1412,7 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1090,7 +1421,7 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1146,17 +1477,8 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1165,7 +1487,7 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1174,7 +1496,16 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1202,25 +1533,23 @@ type ApiReplaceEnvironmentByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *EnvironmentApiService
 	environmentID              uuid.UUID
-	xPingExternalTransactionID *string
-	xPingExternalSessionID     *string
 	environmentReplaceRequest  *EnvironmentReplaceRequest
+	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne.
-func (r ApiReplaceEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceEnvironmentByIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
+func (r ApiReplaceEnvironmentByIdRequest) EnvironmentReplaceRequest(environmentReplaceRequest EnvironmentReplaceRequest) ApiReplaceEnvironmentByIdRequest {
+	r.environmentReplaceRequest = &environmentReplaceRequest
 	return r
 }
 
-// In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same.
 func (r ApiReplaceEnvironmentByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiReplaceEnvironmentByIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiReplaceEnvironmentByIdRequest) EnvironmentReplaceRequest(environmentReplaceRequest EnvironmentReplaceRequest) ApiReplaceEnvironmentByIdRequest {
-	r.environmentReplaceRequest = &environmentReplaceRequest
+func (r ApiReplaceEnvironmentByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceEnvironmentByIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
@@ -1229,13 +1558,11 @@ func (r ApiReplaceEnvironmentByIdRequest) Execute() (*Environment, *http.Respons
 }
 
 /*
-ReplaceEnvironmentById _TO_BE_DEFINED_
-
-_TO_BE_DEFINED_
+ReplaceEnvironmentById Method for ReplaceEnvironmentById
 
 	@permission orgmgt:update:environment
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID An environment's unique identifier in UUID format.
+	@param environmentID
 	@return ApiReplaceEnvironmentByIdRequest
 */
 func (a *EnvironmentApiService) ReplaceEnvironmentById(ctx context.Context, environmentID uuid.UUID) ApiReplaceEnvironmentByIdRequest {
@@ -1268,6 +1595,9 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.environmentReplaceRequest == nil {
+		return localVarReturnValue, nil, reportError("environmentReplaceRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1279,18 +1609,18 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.environmentReplaceRequest
@@ -1336,7 +1666,7 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 				error: localVarHTTPResponse.Status,
 			}
 			if localVarHTTPResponse.StatusCode == 400 {
-				var v ErrorResponseBadRequest
+				var v BadRequestError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1345,7 +1675,7 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 401 {
-				var v AccessFailedError
+				var v UnauthorizedError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1354,11 +1684,20 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 403 {
-				var v AccessFailedError
+				var v ForbiddenError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment exists - P14C-63085
+				_, _, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					var notFoundErr NotFoundError
+					if errors.As(err, &notFoundErr) {
+						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
+						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -1369,19 +1708,25 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
 				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 409 {
-				var v ServiceError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
 				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 429 {
-				var v RequestLimitedError
+				var v TooManyRequestsError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1390,7 +1735,7 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 500 {
-				var v UnexpectedServiceError
+				var v InternalServerError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()
@@ -1399,7 +1744,16 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 502 {
-				var v ServiceError
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
 				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 				if err != nil {
 					newErr.error = err.Error()

@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,8 +19,9 @@ import (
 // EnvironmentBillOfMaterialsProductType the model 'EnvironmentBillOfMaterialsProductType'
 type EnvironmentBillOfMaterialsProductType string
 
-// List of Environment_Bill_of_Materials_Product_type
+// List of Environment_Bill_of_Materials_Product_Type
 const (
+	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_IDENTITY_CLOUD          EnvironmentBillOfMaterialsProductType = "IDENTITY_CLOUD"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ACCESS             EnvironmentBillOfMaterialsProductType = "PING_ACCESS"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_AUTHORIZE          EnvironmentBillOfMaterialsProductType = "PING_AUTHORIZE"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_CENTRAL            EnvironmentBillOfMaterialsProductType = "PING_CENTRAL"
@@ -38,8 +39,11 @@ const (
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_FOR_ENTERPRISE EnvironmentBillOfMaterialsProductType = "PING_ONE_FOR_ENTERPRISE"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_FOR_SAAS       EnvironmentBillOfMaterialsProductType = "PING_ONE_FOR_SAAS"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_FRAUD          EnvironmentBillOfMaterialsProductType = "PING_ONE_FRAUD"
+	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_ID             EnvironmentBillOfMaterialsProductType = "PING_ONE_ID"
+	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_LEGACY         EnvironmentBillOfMaterialsProductType = "PING_ONE_LEGACY"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_MFA            EnvironmentBillOfMaterialsProductType = "PING_ONE_MFA"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_ORCHESTRATE    EnvironmentBillOfMaterialsProductType = "PING_ONE_ORCHESTRATE"
+	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_PAM            EnvironmentBillOfMaterialsProductType = "PING_ONE_PAM"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_PROVISIONING   EnvironmentBillOfMaterialsProductType = "PING_ONE_PROVISIONING"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_RISK           EnvironmentBillOfMaterialsProductType = "PING_ONE_RISK"
 	ENVIRONMENTBILLOFMATERIALSPRODUCTTYPE_PING_ONE_VERIFY         EnvironmentBillOfMaterialsProductType = "PING_ONE_VERIFY"
@@ -47,6 +51,7 @@ const (
 
 // All allowed values of EnvironmentBillOfMaterialsProductType enum
 var AllowedEnvironmentBillOfMaterialsProductTypeEnumValues = []EnvironmentBillOfMaterialsProductType{
+	"IDENTITY_CLOUD",
 	"PING_ACCESS",
 	"PING_AUTHORIZE",
 	"PING_CENTRAL",
@@ -64,8 +69,11 @@ var AllowedEnvironmentBillOfMaterialsProductTypeEnumValues = []EnvironmentBillOf
 	"PING_ONE_FOR_ENTERPRISE",
 	"PING_ONE_FOR_SAAS",
 	"PING_ONE_FRAUD",
+	"PING_ONE_ID",
+	"PING_ONE_LEGACY",
 	"PING_ONE_MFA",
 	"PING_ONE_ORCHESTRATE",
+	"PING_ONE_PAM",
 	"PING_ONE_PROVISIONING",
 	"PING_ONE_RISK",
 	"PING_ONE_VERIFY",
@@ -110,7 +118,7 @@ func (v EnvironmentBillOfMaterialsProductType) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to Environment_Bill_of_Materials_Product_type value
+// Ptr returns reference to Environment_Bill_of_Materials_Product_Type value
 func (v EnvironmentBillOfMaterialsProductType) Ptr() *EnvironmentBillOfMaterialsProductType {
 	return &v
 }

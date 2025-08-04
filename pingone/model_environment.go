@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -28,22 +28,25 @@ var _ slog.LogValuer = &Environment{}
 
 // Environment struct for Environment
 type Environment struct {
-	Description          *string                     `json:"description,omitempty"`
-	Icon                 *string                     `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne `json:"license"`
-	Name                 string                      `json:"name"`
-	Region               EnvironmentRegion           `json:"region"`
-	Type                 EnvironmentType             `json:"type"`
-	Status               *EnvironmentStatusValue     `json:"status,omitempty"`
-	Links                EnvironmentLinks            `json:"_links"`
-	BillOfMaterials      *EnvironmentBillOfMaterials `json:"billOfMaterials,omitempty"`
-	CreatedAt            time.Time                   `json:"createdAt"`
-	HardDeletedAllowedAt *time.Time                  `json:"hardDeletedAllowedAt,omitempty"`
-	Id                   uuid.UUID                   `json:"id"`
-	Organization         ResourceRelationshipPingOne `json:"organization"`
-	SoftDeletedAt        *time.Time                  `json:"softDeletedAt,omitempty"`
-	UpdatedAt            time.Time                   `json:"updatedAt"`
-	AdditionalProperties map[string]interface{}
+	Name                    string                            `json:"name"`
+	Region                  EnvironmentRegion                 `json:"region"`
+	Type                    EnvironmentType                   `json:"type"`
+	CreatedAt               time.Time                         `json:"createdAt"`
+	UpdatedAt               time.Time                         `json:"updatedAt"`
+	Id                      uuid.UUID                         `json:"id"`
+	Organization            ResourceRelationshipReadOnly      `json:"organization"`
+	Embedded                map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                   *EnvironmentLinks                 `json:"_links,omitempty"`
+	BillOfMaterials         *EnvironmentBillOfMaterials       `json:"billOfMaterials,omitempty"`
+	Description             *string                           `json:"description,omitempty"`
+	EnvironmentCapabilities *EnvironmentCapabilities          `json:"environmentCapabilities,omitempty"`
+	HardDeleteAllowedAt     *time.Time                        `json:"hardDeleteAllowedAt,omitempty"`
+	Icon                    *string                           `json:"icon,omitempty"`
+	License                 *EnvironmentLicense               `json:"license,omitempty"`
+	PingoneAccountId        *string                           `json:"pingoneAccountId,omitempty"`
+	SoftDeletedAt           *time.Time                        `json:"softDeletedAt,omitempty"`
+	Status                  *EnvironmentStatus                `json:"status,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _Environment Environment
@@ -52,17 +55,15 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType, links EnvironmentLinks, createdAt time.Time, id uuid.UUID, organization ResourceRelationshipPingOne, updatedAt time.Time) *Environment {
+func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentType, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly) *Environment {
 	this := Environment{}
-	this.License = license
 	this.Name = name
 	this.Region = region
 	this.Type = type_
-	this.Links = links
 	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	this.Id = id
 	this.Organization = organization
-	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -72,94 +73,6 @@ func NewEnvironment(license ResourceRelationshipPingOne, name string, region Env
 func NewEnvironmentWithDefaults() *Environment {
 	this := Environment{}
 	return &this
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Environment) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Environment) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *Environment) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Environment) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetIcon returns the Icon field value if set, zero value otherwise.
-func (o *Environment) GetIcon() string {
-	if o == nil || IsNil(o.Icon) {
-		var ret string
-		return ret
-	}
-	return *o.Icon
-}
-
-// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Environment) GetIconOk() (*string, bool) {
-	if o == nil || IsNil(o.Icon) {
-		return nil, false
-	}
-	return o.Icon, true
-}
-
-// HasIcon returns a boolean if a field has been set.
-func (o *Environment) HasIcon() bool {
-	if o != nil && !IsNil(o.Icon) {
-		return true
-	}
-
-	return false
-}
-
-// SetIcon gets a reference to the given string and assigns it to the Icon field.
-func (o *Environment) SetIcon(v string) {
-	o.Icon = &v
-}
-
-// GetLicense returns the License field value
-func (o *Environment) GetLicense() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
-		return ret
-	}
-
-	return o.License
-}
-
-// GetLicenseOk returns a tuple with the License field value
-// and a boolean to check if the value has been set.
-func (o *Environment) GetLicenseOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.License, true
-}
-
-// SetLicense sets field value
-func (o *Environment) SetLicense(v ResourceRelationshipPingOne) {
-	o.License = v
 }
 
 // GetName returns the Name field value
@@ -234,60 +147,164 @@ func (o *Environment) SetType(v EnvironmentType) {
 	o.Type = v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Environment) GetStatus() EnvironmentStatusValue {
-	if o == nil || IsNil(o.Status) {
-		var ret EnvironmentStatusValue
+// GetCreatedAt returns the CreatedAt field value
+func (o *Environment) GetCreatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
 		return ret
 	}
-	return *o.Status
+
+	return o.CreatedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Environment) GetStatusOk() (*EnvironmentStatusValue, bool) {
-	if o == nil || IsNil(o.Status) {
+func (o *Environment) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.CreatedAt, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *Environment) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
+// SetCreatedAt sets field value
+func (o *Environment) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *Environment) GetUpdatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *Environment) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
+}
+
+// GetId returns the Id field value
+func (o *Environment) GetId() uuid.UUID {
+	if o == nil {
+		var ret uuid.UUID
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetIdOk() (*uuid.UUID, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Environment) SetId(v uuid.UUID) {
+	o.Id = v
+}
+
+// GetOrganization returns the Organization field value
+func (o *Environment) GetOrganization() ResourceRelationshipReadOnly {
+	if o == nil {
+		var ret ResourceRelationshipReadOnly
+		return ret
+	}
+
+	return o.Organization
+}
+
+// GetOrganizationOk returns a tuple with the Organization field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetOrganizationOk() (*ResourceRelationshipReadOnly, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organization, true
+}
+
+// SetOrganization sets field value
+func (o *Environment) SetOrganization(v ResourceRelationshipReadOnly) {
+	o.Organization = v
+}
+
+// GetEmbedded returns the Embedded field value if set, zero value otherwise.
+func (o *Environment) GetEmbedded() map[string]map[string]interface{} {
+	if o == nil || IsNil(o.Embedded) {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+	return o.Embedded
+}
+
+// GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
+	}
+	return o.Embedded, true
+}
+
+// HasEmbedded returns a boolean if a field has been set.
+func (o *Environment) HasEmbedded() bool {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
 	return false
 }
 
-// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
-func (o *Environment) SetStatus(v EnvironmentStatusValue) {
-	o.Status = &v
+// SetEmbedded gets a reference to the given map[string]map[string]interface{} and assigns it to the Embedded field.
+func (o *Environment) SetEmbedded(v map[string]map[string]interface{}) {
+	o.Embedded = v
 }
 
-// GetLinks returns the Links field value
+// GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Environment) GetLinks() EnvironmentLinks {
-	if o == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret EnvironmentLinks
 		return ret
 	}
-
-	return o.Links
+	return *o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Environment) GetLinksOk() (*EnvironmentLinks, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
-	return &o.Links, true
+	return o.Links, true
 }
 
-// SetLinks sets field value
+// HasLinks returns a boolean if a field has been set.
+func (o *Environment) HasLinks() bool {
+	if o != nil && !IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given EnvironmentLinks and assigns it to the Links field.
 func (o *Environment) SetLinks(v EnvironmentLinks) {
-	o.Links = v
+	o.Links = &v
 }
 
 // GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
@@ -322,108 +339,196 @@ func (o *Environment) SetBillOfMaterials(v EnvironmentBillOfMaterials) {
 	o.BillOfMaterials = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value
-func (o *Environment) GetCreatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Environment) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
 		return ret
 	}
-
-	return o.CreatedAt
+	return *o.Description
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
+func (o *Environment) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.CreatedAt, true
+	return o.Description, true
 }
 
-// SetCreatedAt sets field value
-func (o *Environment) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
-}
-
-// GetHardDeletedAllowedAt returns the HardDeletedAllowedAt field value if set, zero value otherwise.
-func (o *Environment) GetHardDeletedAllowedAt() time.Time {
-	if o == nil || IsNil(o.HardDeletedAllowedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.HardDeletedAllowedAt
-}
-
-// GetHardDeletedAllowedAtOk returns a tuple with the HardDeletedAllowedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Environment) GetHardDeletedAllowedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.HardDeletedAllowedAt) {
-		return nil, false
-	}
-	return o.HardDeletedAllowedAt, true
-}
-
-// HasHardDeletedAllowedAt returns a boolean if a field has been set.
-func (o *Environment) HasHardDeletedAllowedAt() bool {
-	if o != nil && !IsNil(o.HardDeletedAllowedAt) {
+// HasDescription returns a boolean if a field has been set.
+func (o *Environment) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
 	return false
 }
 
-// SetHardDeletedAllowedAt gets a reference to the given time.Time and assigns it to the HardDeletedAllowedAt field.
-func (o *Environment) SetHardDeletedAllowedAt(v time.Time) {
-	o.HardDeletedAllowedAt = &v
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Environment) SetDescription(v string) {
+	o.Description = &v
 }
 
-// GetId returns the Id field value
-func (o *Environment) GetId() uuid.UUID {
-	if o == nil {
-		var ret uuid.UUID
+// GetEnvironmentCapabilities returns the EnvironmentCapabilities field value if set, zero value otherwise.
+func (o *Environment) GetEnvironmentCapabilities() EnvironmentCapabilities {
+	if o == nil || IsNil(o.EnvironmentCapabilities) {
+		var ret EnvironmentCapabilities
 		return ret
 	}
-
-	return o.Id
+	return *o.EnvironmentCapabilities
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetEnvironmentCapabilitiesOk returns a tuple with the EnvironmentCapabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil {
+func (o *Environment) GetEnvironmentCapabilitiesOk() (*EnvironmentCapabilities, bool) {
+	if o == nil || IsNil(o.EnvironmentCapabilities) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.EnvironmentCapabilities, true
 }
 
-// SetId sets field value
-func (o *Environment) SetId(v uuid.UUID) {
-	o.Id = v
+// HasEnvironmentCapabilities returns a boolean if a field has been set.
+func (o *Environment) HasEnvironmentCapabilities() bool {
+	if o != nil && !IsNil(o.EnvironmentCapabilities) {
+		return true
+	}
+
+	return false
 }
 
-// GetOrganization returns the Organization field value
-func (o *Environment) GetOrganization() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
+// SetEnvironmentCapabilities gets a reference to the given EnvironmentCapabilities and assigns it to the EnvironmentCapabilities field.
+func (o *Environment) SetEnvironmentCapabilities(v EnvironmentCapabilities) {
+	o.EnvironmentCapabilities = &v
+}
+
+// GetHardDeleteAllowedAt returns the HardDeleteAllowedAt field value if set, zero value otherwise.
+func (o *Environment) GetHardDeleteAllowedAt() time.Time {
+	if o == nil || IsNil(o.HardDeleteAllowedAt) {
+		var ret time.Time
 		return ret
 	}
-
-	return o.Organization
+	return *o.HardDeleteAllowedAt
 }
 
-// GetOrganizationOk returns a tuple with the Organization field value
+// GetHardDeleteAllowedAtOk returns a tuple with the HardDeleteAllowedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetOrganizationOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
+func (o *Environment) GetHardDeleteAllowedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.HardDeleteAllowedAt) {
 		return nil, false
 	}
-	return &o.Organization, true
+	return o.HardDeleteAllowedAt, true
 }
 
-// SetOrganization sets field value
-func (o *Environment) SetOrganization(v ResourceRelationshipPingOne) {
-	o.Organization = v
+// HasHardDeleteAllowedAt returns a boolean if a field has been set.
+func (o *Environment) HasHardDeleteAllowedAt() bool {
+	if o != nil && !IsNil(o.HardDeleteAllowedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetHardDeleteAllowedAt gets a reference to the given time.Time and assigns it to the HardDeleteAllowedAt field.
+func (o *Environment) SetHardDeleteAllowedAt(v time.Time) {
+	o.HardDeleteAllowedAt = &v
+}
+
+// GetIcon returns the Icon field value if set, zero value otherwise.
+func (o *Environment) GetIcon() string {
+	if o == nil || IsNil(o.Icon) {
+		var ret string
+		return ret
+	}
+	return *o.Icon
+}
+
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetIconOk() (*string, bool) {
+	if o == nil || IsNil(o.Icon) {
+		return nil, false
+	}
+	return o.Icon, true
+}
+
+// HasIcon returns a boolean if a field has been set.
+func (o *Environment) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
+func (o *Environment) SetIcon(v string) {
+	o.Icon = &v
+}
+
+// GetLicense returns the License field value if set, zero value otherwise.
+func (o *Environment) GetLicense() EnvironmentLicense {
+	if o == nil || IsNil(o.License) {
+		var ret EnvironmentLicense
+		return ret
+	}
+	return *o.License
+}
+
+// GetLicenseOk returns a tuple with the License field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetLicenseOk() (*EnvironmentLicense, bool) {
+	if o == nil || IsNil(o.License) {
+		return nil, false
+	}
+	return o.License, true
+}
+
+// HasLicense returns a boolean if a field has been set.
+func (o *Environment) HasLicense() bool {
+	if o != nil && !IsNil(o.License) {
+		return true
+	}
+
+	return false
+}
+
+// SetLicense gets a reference to the given EnvironmentLicense and assigns it to the License field.
+func (o *Environment) SetLicense(v EnvironmentLicense) {
+	o.License = &v
+}
+
+// GetPingoneAccountId returns the PingoneAccountId field value if set, zero value otherwise.
+func (o *Environment) GetPingoneAccountId() string {
+	if o == nil || IsNil(o.PingoneAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.PingoneAccountId
+}
+
+// GetPingoneAccountIdOk returns a tuple with the PingoneAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetPingoneAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PingoneAccountId) {
+		return nil, false
+	}
+	return o.PingoneAccountId, true
+}
+
+// HasPingoneAccountId returns a boolean if a field has been set.
+func (o *Environment) HasPingoneAccountId() bool {
+	if o != nil && !IsNil(o.PingoneAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPingoneAccountId gets a reference to the given string and assigns it to the PingoneAccountId field.
+func (o *Environment) SetPingoneAccountId(v string) {
+	o.PingoneAccountId = &v
 }
 
 // GetSoftDeletedAt returns the SoftDeletedAt field value if set, zero value otherwise.
@@ -458,28 +563,36 @@ func (o *Environment) SetSoftDeletedAt(v time.Time) {
 	o.SoftDeletedAt = &v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *Environment) GetUpdatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Environment) GetStatus() EnvironmentStatus {
+	if o == nil || IsNil(o.Status) {
+		var ret EnvironmentStatus
 		return ret
 	}
-
-	return o.UpdatedAt
+	return *o.Status
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+func (o *Environment) GetStatusOk() (*EnvironmentStatus, bool) {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.Status, true
 }
 
-// SetUpdatedAt sets field value
-func (o *Environment) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+// HasStatus returns a boolean if a field has been set.
+func (o *Environment) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given EnvironmentStatus and assigns it to the Status field.
+func (o *Environment) SetStatus(v EnvironmentStatus) {
+	o.Status = &v
 }
 
 func (o Environment) MarshalJSON() ([]byte, error) {
@@ -492,33 +605,46 @@ func (o Environment) MarshalJSON() ([]byte, error) {
 
 func (o Environment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
+	toSerialize["type"] = o.Type
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["id"] = o.Id
+	toSerialize["organization"] = o.Organization
+	if !IsNil(o.Embedded) {
+		toSerialize["_embedded"] = o.Embedded
+	}
+	if !IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
+	}
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.EnvironmentCapabilities) {
+		toSerialize["environmentCapabilities"] = o.EnvironmentCapabilities
+	}
+	if !IsNil(o.HardDeleteAllowedAt) {
+		toSerialize["hardDeleteAllowedAt"] = o.HardDeleteAllowedAt
 	}
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
-	toSerialize["license"] = o.License
-	toSerialize["name"] = o.Name
-	toSerialize["region"] = o.Region
-	toSerialize["type"] = o.Type
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
+	if !IsNil(o.License) {
+		toSerialize["license"] = o.License
 	}
-	toSerialize["_links"] = o.Links
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	if !IsNil(o.PingoneAccountId) {
+		toSerialize["pingoneAccountId"] = o.PingoneAccountId
 	}
-	toSerialize["createdAt"] = o.CreatedAt
-	if !IsNil(o.HardDeletedAllowedAt) {
-		toSerialize["hardDeletedAllowedAt"] = o.HardDeletedAllowedAt
-	}
-	toSerialize["id"] = o.Id
-	toSerialize["organization"] = o.Organization
 	if !IsNil(o.SoftDeletedAt) {
 		toSerialize["softDeletedAt"] = o.SoftDeletedAt
 	}
-	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -532,15 +658,13 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"license",
 		"name",
 		"region",
 		"type",
-		"_links",
 		"createdAt",
+		"updatedAt",
 		"id",
 		"organization",
-		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -570,21 +694,24 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "icon")
-		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "status")
-		delete(additionalProperties, "_links")
-		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "createdAt")
-		delete(additionalProperties, "hardDeletedAllowedAt")
+		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "organization")
+		delete(additionalProperties, "_embedded")
+		delete(additionalProperties, "_links")
+		delete(additionalProperties, "billOfMaterials")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "environmentCapabilities")
+		delete(additionalProperties, "hardDeleteAllowedAt")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "license")
+		delete(additionalProperties, "pingoneAccountId")
 		delete(additionalProperties, "softDeletedAt")
-		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -594,33 +721,46 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 func (o Environment) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("region", o.Region))
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
+	logAttrs = append(logAttrs, slog.Any("updatedAt", o.UpdatedAt))
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("organization", o.Organization))
+	if !IsNil(o.Embedded) {
+		logAttrs = append(logAttrs, slog.Any("_embedded", o.Embedded))
+	}
+	if !IsNil(o.Links) {
+		logAttrs = append(logAttrs, slog.Any("_links", *o.Links))
+	}
+	if !IsNil(o.BillOfMaterials) {
+		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	}
 	if !IsNil(o.Description) {
 		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
+	if !IsNil(o.EnvironmentCapabilities) {
+		logAttrs = append(logAttrs, slog.Any("environmentCapabilities", *o.EnvironmentCapabilities))
+	}
+	if !IsNil(o.HardDeleteAllowedAt) {
+		logAttrs = append(logAttrs, slog.Any("hardDeleteAllowedAt", *o.HardDeleteAllowedAt))
 	}
 	if !IsNil(o.Icon) {
 		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
 	}
-	logAttrs = append(logAttrs, slog.Any("license", o.License))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	logAttrs = append(logAttrs, slog.Any("region", o.Region))
-	logAttrs = append(logAttrs, slog.Any("type", o.Type))
-	if !IsNil(o.Status) {
-		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	if !IsNil(o.License) {
+		logAttrs = append(logAttrs, slog.Any("license", *o.License))
 	}
-	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
-	if !IsNil(o.BillOfMaterials) {
-		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	if !IsNil(o.PingoneAccountId) {
+		logAttrs = append(logAttrs, slog.Any("pingoneAccountId", *o.PingoneAccountId))
 	}
-	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
-	if !IsNil(o.HardDeletedAllowedAt) {
-		logAttrs = append(logAttrs, slog.Any("hardDeletedAllowedAt", *o.HardDeletedAllowedAt))
-	}
-	logAttrs = append(logAttrs, slog.Any("id", o.Id))
-	logAttrs = append(logAttrs, slog.Any("organization", o.Organization))
 	if !IsNil(o.SoftDeletedAt) {
 		logAttrs = append(logAttrs, slog.Any("softDeletedAt", *o.SoftDeletedAt))
 	}
-	logAttrs = append(logAttrs, slog.Any("updatedAt", o.UpdatedAt))
+	if !IsNil(o.Status) {
+		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

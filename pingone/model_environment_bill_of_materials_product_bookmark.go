@@ -13,6 +13,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"fmt"
 	"log/slog"
 )
 
@@ -24,8 +25,8 @@ var _ slog.LogValuer = &EnvironmentBillOfMaterialsProductBookmark{}
 
 // EnvironmentBillOfMaterialsProductBookmark struct for EnvironmentBillOfMaterialsProductBookmark
 type EnvironmentBillOfMaterialsProductBookmark struct {
-	Href                 *string `json:"href,omitempty"`
-	Name                 *string `json:"name,omitempty"`
+	Href                 string `json:"href"`
+	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,8 +36,10 @@ type _EnvironmentBillOfMaterialsProductBookmark EnvironmentBillOfMaterialsProduc
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentBillOfMaterialsProductBookmark() *EnvironmentBillOfMaterialsProductBookmark {
+func NewEnvironmentBillOfMaterialsProductBookmark(href string, name string) *EnvironmentBillOfMaterialsProductBookmark {
 	this := EnvironmentBillOfMaterialsProductBookmark{}
+	this.Href = href
+	this.Name = name
 	return &this
 }
 
@@ -48,68 +51,52 @@ func NewEnvironmentBillOfMaterialsProductBookmarkWithDefaults() *EnvironmentBill
 	return &this
 }
 
-// GetHref returns the Href field value if set, zero value otherwise.
+// GetHref returns the Href field value
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetHref() string {
-	if o == nil || IsNil(o.Href) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Href
+
+	return o.Href
 }
 
-// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
+// GetHrefOk returns a tuple with the Href field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetHrefOk() (*string, bool) {
-	if o == nil || IsNil(o.Href) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Href, true
+	return &o.Href, true
 }
 
-// HasHref returns a boolean if a field has been set.
-func (o *EnvironmentBillOfMaterialsProductBookmark) HasHref() bool {
-	if o != nil && !IsNil(o.Href) {
-		return true
-	}
-
-	return false
-}
-
-// SetHref gets a reference to the given string and assigns it to the Href field.
+// SetHref sets field value
 func (o *EnvironmentBillOfMaterialsProductBookmark) SetHref(v string) {
-	o.Href = &v
+	o.Href = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterialsProductBookmark) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *EnvironmentBillOfMaterialsProductBookmark) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *EnvironmentBillOfMaterialsProductBookmark) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 func (o EnvironmentBillOfMaterialsProductBookmark) MarshalJSON() ([]byte, error) {
@@ -122,12 +109,8 @@ func (o EnvironmentBillOfMaterialsProductBookmark) MarshalJSON() ([]byte, error)
 
 func (o EnvironmentBillOfMaterialsProductBookmark) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Href) {
-		toSerialize["href"] = o.Href
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["href"] = o.Href
+	toSerialize["name"] = o.Name
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -137,6 +120,28 @@ func (o EnvironmentBillOfMaterialsProductBookmark) ToMap() (map[string]interface
 }
 
 func (o *EnvironmentBillOfMaterialsProductBookmark) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varEnvironmentBillOfMaterialsProductBookmark := _EnvironmentBillOfMaterialsProductBookmark{}
 
 	err = json.Unmarshal(data, &varEnvironmentBillOfMaterialsProductBookmark)
@@ -161,12 +166,8 @@ func (o *EnvironmentBillOfMaterialsProductBookmark) UnmarshalJSON(data []byte) (
 func (o EnvironmentBillOfMaterialsProductBookmark) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	if !IsNil(o.Href) {
-		logAttrs = append(logAttrs, slog.Any("href", *o.Href))
-	}
-	if !IsNil(o.Name) {
-		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
-	}
+	logAttrs = append(logAttrs, slog.Any("href", o.Href))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

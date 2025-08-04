@@ -4,20 +4,19 @@ All URIs are relative to *https://api.pingone.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEnvironment**](EnvironmentApi.md#CreateEnvironment) | **Post** /environments | Create Environment
-[**DeleteEnvironmentById**](EnvironmentApi.md#DeleteEnvironmentById) | **Delete** /environments/{environmentID} | Delete Environment
-[**GetBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#GetBillOfMaterialsByEnvironmentId) | **Get** /environments/{environmentID}/billOfMaterials | _TO_BE_DEFINED_
-[**GetEnvironmentById**](EnvironmentApi.md#GetEnvironmentById) | **Get** /environments/{environmentID} | Read One Environment
-[**ReplaceBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#ReplaceBillOfMaterialsByEnvironmentId) | **Put** /environments/{environmentID}/billOfMaterials | _TO_BE_DEFINED_
-[**ReplaceEnvironmentById**](EnvironmentApi.md#ReplaceEnvironmentById) | **Put** /environments/{environmentID} | _TO_BE_DEFINED_
+[**CreateEnvironment**](EnvironmentApi.md#CreateEnvironment) | **Post** /environments | 
+[**DeleteEnvironmentById**](EnvironmentApi.md#DeleteEnvironmentById) | **Delete** /environments/{environmentID} | 
+[**GetBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#GetBillOfMaterialsByEnvironmentId) | **Get** /environments/{environmentID}/billOfMaterials | 
+[**GetEnvironmentById**](EnvironmentApi.md#GetEnvironmentById) | **Get** /environments/{environmentID} | 
+[**GetEnvironments**](EnvironmentApi.md#GetEnvironments) | **Get** /environments | 
+[**ReplaceBillOfMaterialsByEnvironmentId**](EnvironmentApi.md#ReplaceBillOfMaterialsByEnvironmentId) | **Put** /environments/{environmentID}/billOfMaterials | 
+[**ReplaceEnvironmentById**](EnvironmentApi.md#ReplaceEnvironmentById) | **Put** /environments/{environmentID} | 
 
 
 
 ## CreateEnvironment
 
-> Environment CreateEnvironment(ctx).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentCreateRequest(environmentCreateRequest).Execute()
-
-Create Environment
+> Environment CreateEnvironment(ctx).EnvironmentCreateRequest(environmentCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -34,13 +33,13 @@ import (
 )
 
 func main() {
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
-	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", *openapiclient.NewEnvironmentRegion(), openapiclient.EnvironmentType("PRODUCTION")) // EnvironmentCreateRequest |  (optional)
+	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest("Name_example", openapiclient.Environment_Create_Request_Region("AP"), openapiclient.Environment_Create_Request_Type("PRODUCTION")) // EnvironmentCreateRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentApi.CreateEnvironment(context.Background()).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentCreateRequest(environmentCreateRequest).Execute()
+	resp, r, err := apiClient.EnvironmentApi.CreateEnvironment(context.Background()).EnvironmentCreateRequest(environmentCreateRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.CreateEnvironment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,9 +66,9 @@ Other parameters are passed through a pointer to a apiCreateEnvironmentRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
  **environmentCreateRequest** | [**EnvironmentCreateRequest**](EnvironmentCreateRequest.md) |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -82,7 +81,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/hal+json, application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -91,9 +90,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEnvironmentById
 
-> DeleteEnvironmentById(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-Delete Environment
+> DeleteEnvironmentById(ctx, environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -110,13 +107,13 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EnvironmentApi.DeleteEnvironmentById(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	r, err := apiClient.EnvironmentApi.DeleteEnvironmentById(context.Background(), environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.DeleteEnvironmentById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -136,7 +133,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -146,8 +143,8 @@ Other parameters are passed through a pointer to a apiDeleteEnvironmentByIdReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -160,7 +157,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -169,9 +166,7 @@ Name | Type | Description  | Notes
 
 ## GetBillOfMaterialsByEnvironmentId
 
-> EnvironmentBillOfMaterials GetBillOfMaterialsByEnvironmentId(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-_TO_BE_DEFINED_
+> EnvironmentBillOfMaterialsResponse GetBillOfMaterialsByEnvironmentId(ctx, environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -188,18 +183,18 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentApi.GetBillOfMaterialsByEnvironmentId(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.EnvironmentApi.GetBillOfMaterialsByEnvironmentId(context.Background(), environmentID).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.GetBillOfMaterialsByEnvironmentId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillOfMaterialsByEnvironmentId`: EnvironmentBillOfMaterials
+	// response from `GetBillOfMaterialsByEnvironmentId`: EnvironmentBillOfMaterialsResponse
 	fmt.Fprintf(os.Stdout, "Response from `EnvironmentApi.GetBillOfMaterialsByEnvironmentId`: %v\n", resp)
 }
 ```
@@ -216,7 +211,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -226,12 +221,12 @@ Other parameters are passed through a pointer to a apiGetBillOfMaterialsByEnviro
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
-[**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md)
+[**EnvironmentBillOfMaterialsResponse**](EnvironmentBillOfMaterialsResponse.md)
 
 ### Authorization
 
@@ -240,7 +235,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/hal+json, application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -249,9 +244,7 @@ Name | Type | Description  | Notes
 
 ## GetEnvironmentById
 
-> Environment GetEnvironmentById(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
-
-Read One Environment
+> Environment GetEnvironmentById(ctx, environmentID).Expand(expand).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -268,13 +261,14 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	expand := "expand_example" // string | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentApi.GetEnvironmentById(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).Execute()
+	resp, r, err := apiClient.EnvironmentApi.GetEnvironmentById(context.Background(), environmentID).Expand(expand).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.GetEnvironmentById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -296,7 +290,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -306,8 +300,9 @@ Other parameters are passed through a pointer to a apiGetEnvironmentByIdRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
+ **expand** | **string** |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -320,7 +315,136 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/hal+json, application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetEnvironments
+
+
+
+### Paged Response (Recommended)
+
+> PagedIterator[EnvironmentsCollection] GetEnvironments(ctx).Expand(expand).Filter(filter).Order(order).Limit(limit).Cursor(cursor).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	expand := "expand_example" // string | 
+	filter := "filter_example" // string |  (optional)
+	order := "order_example" // string |  (optional)
+	limit := int32(56) // int32 |  (optional) (default to 1000)
+	cursor := "cursor_example" // string |  (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	pagedIterator := apiClient.EnvironmentApi.GetEnvironments(context.Background()).Expand(expand).Filter(filter).Order(order).Limit(limit).Cursor(cursor).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+	for pageCursor, err := range pagedIterator {
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.GetEnvironments``: %v\n", err)
+			fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", pageCursor.HTTPResponse)
+		}
+
+		// response from `GetEnvironments` page iteration: EnvironmentsCollection
+		fmt.Fprintf(os.Stdout, "Response from `EnvironmentApi.GetEnvironments` page iteration: %v\n", pageCursor.Data)
+	}
+}
+```
+
+### Initial Page Response
+
+> EnvironmentsCollection GetEnvironments(ctx).Expand(expand).Filter(filter).Order(order).Limit(limit).Cursor(cursor).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).ExecuteInitialPage()
+
+#### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	expand := "expand_example" // string | 
+	filter := "filter_example" // string |  (optional)
+	order := "order_example" // string |  (optional)
+	limit := int32(56) // int32 |  (optional) (default to 1000)
+	cursor := "cursor_example" // string |  (optional)
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EnvironmentApi.GetEnvironments(context.Background()).Expand(expand).Filter(filter).Order(order).Limit(limit).Cursor(cursor).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).ExecuteInitialPage()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.GetEnvironments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEnvironments`: EnvironmentsCollection
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentApi.GetEnvironments`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `orgmgt:read:environment`
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEnvironmentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **expand** | **string** |  | 
+ **filter** | **string** |  | 
+ **order** | **string** |  | 
+ **limit** | **int32** |  | [default to 1000]
+ **cursor** | **string** |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
+
+### Return type
+
+Page Iterator: PagedIterator[[**EnvironmentsCollection**](EnvironmentsCollection.md)]
+
+PagedIterator[EnvironmentsCollection] is a struct alias for iter.Seq2[[PagedCursor](PagedCursor.md)[[**EnvironmentsCollection**](EnvironmentsCollection.md)], error] using the standard `iter` package in go `1.23`.
+
+Page Data: [**EnvironmentsCollection**](EnvironmentsCollection.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/hal+json, application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -329,9 +453,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceBillOfMaterialsByEnvironmentId
 
-> EnvironmentBillOfMaterials ReplaceBillOfMaterialsByEnvironmentId(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentBillOfMaterialsReplaceRequest(environmentBillOfMaterialsReplaceRequest).Execute()
-
-_TO_BE_DEFINED_
+> EnvironmentBillOfMaterialsResponse ReplaceBillOfMaterialsByEnvironmentId(ctx, environmentID).EnvironmentBillOfMaterialsReplaceRequest(environmentBillOfMaterialsReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -348,19 +470,19 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
-	environmentBillOfMaterialsReplaceRequest := *openapiclient.NewEnvironmentBillOfMaterialsReplaceRequest([]openapiclient.EnvironmentBillOfMaterialsProduct{*openapiclient.NewEnvironmentBillOfMaterialsProduct(openapiclient.Environment_Bill_of_Materials_Product_type("PING_ACCESS"))}) // EnvironmentBillOfMaterialsReplaceRequest |  (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	environmentBillOfMaterialsReplaceRequest := *openapiclient.NewEnvironmentBillOfMaterialsReplaceRequest([]openapiclient.EnvironmentBillOfMaterialsProduct{*openapiclient.NewEnvironmentBillOfMaterialsProduct(openapiclient.Environment_Bill_of_Materials_Product_Type("IDENTITY_CLOUD"))}) // EnvironmentBillOfMaterialsReplaceRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentApi.ReplaceBillOfMaterialsByEnvironmentId(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentBillOfMaterialsReplaceRequest(environmentBillOfMaterialsReplaceRequest).Execute()
+	resp, r, err := apiClient.EnvironmentApi.ReplaceBillOfMaterialsByEnvironmentId(context.Background(), environmentID).EnvironmentBillOfMaterialsReplaceRequest(environmentBillOfMaterialsReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.ReplaceBillOfMaterialsByEnvironmentId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReplaceBillOfMaterialsByEnvironmentId`: EnvironmentBillOfMaterials
+	// response from `ReplaceBillOfMaterialsByEnvironmentId`: EnvironmentBillOfMaterialsResponse
 	fmt.Fprintf(os.Stdout, "Response from `EnvironmentApi.ReplaceBillOfMaterialsByEnvironmentId`: %v\n", resp)
 }
 ```
@@ -377,7 +499,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -387,13 +509,13 @@ Other parameters are passed through a pointer to a apiReplaceBillOfMaterialsByEn
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
  **environmentBillOfMaterialsReplaceRequest** | [**EnvironmentBillOfMaterialsReplaceRequest**](EnvironmentBillOfMaterialsReplaceRequest.md) |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
-[**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md)
+[**EnvironmentBillOfMaterialsResponse**](EnvironmentBillOfMaterialsResponse.md)
 
 ### Authorization
 
@@ -402,7 +524,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/hal+json, application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -411,9 +533,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceEnvironmentById
 
-> Environment ReplaceEnvironmentById(ctx, environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentReplaceRequest(environmentReplaceRequest).Execute()
-
-_TO_BE_DEFINED_
+> Environment ReplaceEnvironmentById(ctx, environmentID).EnvironmentReplaceRequest(environmentReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -430,14 +550,14 @@ import (
 )
 
 func main() {
-	environmentID := "environmentID_example" // uuid.UUID | An environment's unique identifier in UUID format.
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. (optional)
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. (optional)
-	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest(*openapiclient.NewResourceRelationshipPingOne("TODO"), "Name_example", *openapiclient.NewEnvironmentRegion(), openapiclient.EnvironmentType("PRODUCTION")) // EnvironmentReplaceRequest |  (optional)
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest("Name_example", openapiclient.Environment_Replace_Request_Region("AP"), openapiclient.Environment_Replace_Request_Type("PRODUCTION")) // EnvironmentReplaceRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentApi.ReplaceEnvironmentById(context.Background(), environmentID).XPingExternalTransactionID(xPingExternalTransactionID).XPingExternalSessionID(xPingExternalSessionID).EnvironmentReplaceRequest(environmentReplaceRequest).Execute()
+	resp, r, err := apiClient.EnvironmentApi.ReplaceEnvironmentById(context.Background(), environmentID).EnvironmentReplaceRequest(environmentReplaceRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentApi.ReplaceEnvironmentById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -459,7 +579,7 @@ The following admin role permissions are required to call this endpoint:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** | An environment&#39;s unique identifier in UUID format. | 
+**environmentID** | **uuid.UUID** |  | 
 
 ### Other Parameters
 
@@ -469,9 +589,9 @@ Other parameters are passed through a pointer to a apiReplaceEnvironmentByIdRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xPingExternalTransactionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single PingOne API request. It identifies one transaction that encompasses multiple API requests to PingOne. | 
- **xPingExternalSessionID** | **string** | In order to help track transactions, the PingOne platform supports this custom HTTP header that represents a scope larger than a single transaction. It identifies multiple transactions in the context of a session. For example, an end user completed an authentication request and several transactions one hour ago and now needs to re-authenticate. The session should be the same. | 
  **environmentReplaceRequest** | [**EnvironmentReplaceRequest**](EnvironmentReplaceRequest.md) |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
 
 ### Return type
 
@@ -484,7 +604,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/hal+json, application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
