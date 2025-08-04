@@ -1410,6 +1410,7 @@ components:
       name: X-Ping-External-Session-ID
       required: false
       schema:
+        minLength: 1
         type: string
       style: simple
     com.pingidentity.header.ExternalTransactionID:
@@ -1418,6 +1419,7 @@ components:
       name: X-Ping-External-Transaction-ID
       required: false
       schema:
+        minLength: 1
         type: string
       style: simple
     com.pingidentity.path.environments.environmentID:
@@ -4714,6 +4716,7 @@ components:
       - EU
       - NA
       - SG
+      minLength: 1
       title: Environment Region Code
       type: string
     EnvironmentReplaceRequest:
@@ -4876,12 +4879,14 @@ components:
       enum:
       - ACTIVE
       - DELETE_PENDING
+      minLength: 1
       title: Environment Status Value
       type: string
     EnvironmentTypeValue:
       enum:
       - PRODUCTION
       - SANDBOX
+      minLength: 1
       title: Environment Type Value
       type: string
     EnvironmentsCollection:
