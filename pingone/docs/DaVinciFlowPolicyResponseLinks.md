@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**VersionsIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
+**FlowIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
+**VersionFlowIdIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 
 ## Methods
 
@@ -67,30 +68,55 @@ and a boolean to check if the value has been set.
 SetEnvironment sets Environment field to given value.
 
 
-### GetVersionsIndex
+### GetFlowIndex
 
-`func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndex() JSONHALLink`
+`func (o *DaVinciFlowPolicyResponseLinks) GetFlowIndex() JSONHALLink`
 
-GetVersionsIndex returns the VersionsIndex field if non-nil, zero value otherwise.
+GetFlowIndex returns the FlowIndex field if non-nil, zero value otherwise.
 
-### GetVersionsIndexOk
+### GetFlowIndexOk
 
-`func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndexOk() (*JSONHALLink, bool)`
+`func (o *DaVinciFlowPolicyResponseLinks) GetFlowIndexOk() (*JSONHALLink, bool)`
 
-GetVersionsIndexOk returns a tuple with the VersionsIndex field if it's non-nil, zero value otherwise
+GetFlowIndexOk returns a tuple with the FlowIndex field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetVersionsIndex
+### SetFlowIndex
 
-`func (o *DaVinciFlowPolicyResponseLinks) SetVersionsIndex(v JSONHALLink)`
+`func (o *DaVinciFlowPolicyResponseLinks) SetFlowIndex(v JSONHALLink)`
 
-SetVersionsIndex sets VersionsIndex field to given value.
+SetFlowIndex sets FlowIndex field to given value.
 
-### HasVersionsIndex
+### HasFlowIndex
 
-`func (o *DaVinciFlowPolicyResponseLinks) HasVersionsIndex() bool`
+`func (o *DaVinciFlowPolicyResponseLinks) HasFlowIndex() bool`
 
-HasVersionsIndex returns a boolean if a field has been set.
+HasFlowIndex returns a boolean if a field has been set.
+
+### GetVersionFlowIdIndex
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetVersionFlowIdIndex() JSONHALLink`
+
+GetVersionFlowIdIndex returns the VersionFlowIdIndex field if non-nil, zero value otherwise.
+
+### GetVersionFlowIdIndexOk
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetVersionFlowIdIndexOk() (*JSONHALLink, bool)`
+
+GetVersionFlowIdIndexOk returns a tuple with the VersionFlowIdIndex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionFlowIdIndex
+
+`func (o *DaVinciFlowPolicyResponseLinks) SetVersionFlowIdIndex(v JSONHALLink)`
+
+SetVersionFlowIdIndex sets VersionFlowIdIndex field to given value.
+
+### HasVersionFlowIdIndex
+
+`func (o *DaVinciFlowPolicyResponseLinks) HasVersionFlowIdIndex() bool`
+
+HasVersionFlowIdIndex returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

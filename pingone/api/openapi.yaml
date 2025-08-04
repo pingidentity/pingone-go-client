@@ -2448,19 +2448,25 @@ components:
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             _links:
-              versions.<index>:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: https://openapi-generator.tech
-                type: type
               environment:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
                 title: https://openapi-generator.tech
                 type: type
+              flow.<index>:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
               self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              version.<flowId>.<index>:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
@@ -2504,19 +2510,25 @@ components:
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             _links:
-              versions.<index>:
-                profile: https://openapi-generator.tech
-                name: name
-                href: https://openapi-generator.tech
-                title: https://openapi-generator.tech
-                type: type
               environment:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
                 title: https://openapi-generator.tech
                 type: type
+              flow.<index>:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
               self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              version.<flowId>.<index>:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
@@ -2628,24 +2640,23 @@ components:
           type: AUTHENTICATION
         status: enabled
       properties:
-        name:
-          default: New Policy
-          maxLength: 256
-          minLength: 1
-          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-          title: DaVinci Flow Policy Create Request Name
         flowDistributions:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution'
           maxItems: 100
           minItems: 1
           title: DaVinci Flow Policy Create Request Flow Distributions
+        name:
+          default: New Policy
+          maxLength: 256
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Policy Create Request Name
         status:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Status'
         trigger:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger'
       required:
-      - name
+      - flowDistributions
       title: DaVinci Flow Policy Create Request
     DaVinciFlowPolicyEventsCollection:
       example:
@@ -2760,23 +2771,24 @@ components:
           type: AUTHENTICATION
         status: enabled
       properties:
+        name:
+          default: New Policy
+          maxLength: 256
+          minLength: 1
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Policy Replace Request Name
         flowDistributions:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution'
           maxItems: 100
           minItems: 1
           title: DaVinci Flow Policy Replace Request Flow Distributions
-        name:
-          default: New Policy
-          maxLength: 256
-          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-          title: DaVinci Flow Policy Replace Request Name
         status:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Status'
         trigger:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger'
       required:
-      - flowDistributions
+      - name
       title: DaVinci Flow Policy Replace Request
     DaVinciFlowPolicyResponse:
       example:
@@ -2784,19 +2796,25 @@ components:
         environment:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         _links:
-          versions.<index>:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
           environment:
             profile: https://openapi-generator.tech
             name: name
             href: https://openapi-generator.tech
             title: https://openapi-generator.tech
             type: type
+          flow.<index>:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
           self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          version.<flowId>.<index>:
             profile: https://openapi-generator.tech
             name: name
             href: https://openapi-generator.tech
@@ -6278,19 +6296,25 @@ components:
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           _links:
-            versions.<index>:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: https://openapi-generator.tech
-              type: type
             environment:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
               title: https://openapi-generator.tech
               type: type
+            flow.<index>:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
             self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            version.<flowId>.<index>:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
@@ -6334,19 +6358,25 @@ components:
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           _links:
-            versions.<index>:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: https://openapi-generator.tech
-              type: type
             environment:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
               title: https://openapi-generator.tech
               type: type
+            flow.<index>:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
             self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            version.<flowId>.<index>:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
@@ -6806,19 +6836,25 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
-        versions.<index>:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
         environment:
           profile: https://openapi-generator.tech
           name: name
           href: https://openapi-generator.tech
           title: https://openapi-generator.tech
           type: type
+        flow.<index>:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
         self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        version.<flowId>.<index>:
           profile: https://openapi-generator.tech
           name: name
           href: https://openapi-generator.tech
@@ -6829,7 +6865,9 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
         environment:
           $ref: '#/components/schemas/JSONHALLink'
-        versions.<index>:
+        flow.<index>:
+          $ref: '#/components/schemas/JSONHALLink'
+        version.<flowId>.<index>:
           $ref: '#/components/schemas/JSONHALLink'
       required:
       - environment

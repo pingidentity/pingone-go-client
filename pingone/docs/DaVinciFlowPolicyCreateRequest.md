@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | [default to "New Policy"]
-**FlowDistributions** | Pointer to [**[]DaVinciFlowPolicyCreateRequestFlowDistribution**](DaVinciFlowPolicyCreateRequestFlowDistribution.md) |  | [optional] 
+**FlowDistributions** | [**[]DaVinciFlowPolicyCreateRequestFlowDistribution**](DaVinciFlowPolicyCreateRequestFlowDistribution.md) |  | 
+**Name** | Pointer to **string** |  | [optional] [default to "New Policy"]
 **Status** | Pointer to [**DaVinciFlowPolicyCreateRequestStatus**](DaVinciFlowPolicyCreateRequestStatus.md) |  | [optional] [default to DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_ENABLED]
 **Trigger** | Pointer to [**DaVinciFlowPolicyCreateRequestTrigger**](DaVinciFlowPolicyCreateRequestTrigger.md) |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciFlowPolicyCreateRequest
 
-`func NewDaVinciFlowPolicyCreateRequest(name string, ) *DaVinciFlowPolicyCreateRequest`
+`func NewDaVinciFlowPolicyCreateRequest(flowDistributions []DaVinciFlowPolicyCreateRequestFlowDistribution, ) *DaVinciFlowPolicyCreateRequest`
 
 NewDaVinciFlowPolicyCreateRequest instantiates a new DaVinciFlowPolicyCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -27,26 +27,6 @@ will change when the set of required properties is changed
 NewDaVinciFlowPolicyCreateRequestWithDefaults instantiates a new DaVinciFlowPolicyCreateRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetName
-
-`func (o *DaVinciFlowPolicyCreateRequest) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *DaVinciFlowPolicyCreateRequest) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *DaVinciFlowPolicyCreateRequest) SetName(v string)`
-
-SetName sets Name field to given value.
-
 
 ### GetFlowDistributions
 
@@ -67,11 +47,31 @@ and a boolean to check if the value has been set.
 
 SetFlowDistributions sets FlowDistributions field to given value.
 
-### HasFlowDistributions
 
-`func (o *DaVinciFlowPolicyCreateRequest) HasFlowDistributions() bool`
+### GetName
 
-HasFlowDistributions returns a boolean if a field has been set.
+`func (o *DaVinciFlowPolicyCreateRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *DaVinciFlowPolicyCreateRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *DaVinciFlowPolicyCreateRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *DaVinciFlowPolicyCreateRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetStatus
 

@@ -121,7 +121,7 @@ import (
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	davinciApplicationID := "davinciApplicationID_example" // string | 
-	daVinciFlowPolicyCreateRequest := *openapiclient.NewDaVinciFlowPolicyCreateRequest("Name_example") // DaVinciFlowPolicyCreateRequest | 
+	daVinciFlowPolicyCreateRequest := *openapiclient.NewDaVinciFlowPolicyCreateRequest([]openapiclient.DaVinciFlowPolicyCreateRequestFlowDistribution{*openapiclient.NewDaVinciFlowPolicyCreateRequestFlowDistribution("Id_example", float32(123))}) // DaVinciFlowPolicyCreateRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -857,7 +857,7 @@ func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	davinciApplicationID := "davinciApplicationID_example" // string | 
 	flowPolicyID := "flowPolicyID_example" // string | 
-	daVinciFlowPolicyReplaceRequest := *openapiclient.NewDaVinciFlowPolicyReplaceRequest([]openapiclient.DaVinciFlowPolicyReplaceRequestFlowDistribution{*openapiclient.NewDaVinciFlowPolicyReplaceRequestFlowDistribution("Id_example", float32(123))}) // DaVinciFlowPolicyReplaceRequest | 
+	daVinciFlowPolicyReplaceRequest := *openapiclient.NewDaVinciFlowPolicyReplaceRequest("Name_example") // DaVinciFlowPolicyReplaceRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 

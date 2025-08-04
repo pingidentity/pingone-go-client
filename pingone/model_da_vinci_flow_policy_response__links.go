@@ -27,7 +27,8 @@ var _ slog.LogValuer = &DaVinciFlowPolicyResponseLinks{}
 type DaVinciFlowPolicyResponseLinks struct {
 	Self                 JSONHALLink  `json:"self"`
 	Environment          JSONHALLink  `json:"environment"`
-	VersionsIndex        *JSONHALLink `json:"versions.<index>,omitempty"`
+	FlowIndex            *JSONHALLink `json:"flow.<index>,omitempty"`
+	VersionFlowIdIndex   *JSONHALLink `json:"version.<flowId>.<index>,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -100,36 +101,68 @@ func (o *DaVinciFlowPolicyResponseLinks) SetEnvironment(v JSONHALLink) {
 	o.Environment = v
 }
 
-// GetVersionsIndex returns the VersionsIndex field value if set, zero value otherwise.
-func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndex() JSONHALLink {
-	if o == nil || IsNil(o.VersionsIndex) {
+// GetFlowIndex returns the FlowIndex field value if set, zero value otherwise.
+func (o *DaVinciFlowPolicyResponseLinks) GetFlowIndex() JSONHALLink {
+	if o == nil || IsNil(o.FlowIndex) {
 		var ret JSONHALLink
 		return ret
 	}
-	return *o.VersionsIndex
+	return *o.FlowIndex
 }
 
-// GetVersionsIndexOk returns a tuple with the VersionsIndex field value if set, nil otherwise
+// GetFlowIndexOk returns a tuple with the FlowIndex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyResponseLinks) GetVersionsIndexOk() (*JSONHALLink, bool) {
-	if o == nil || IsNil(o.VersionsIndex) {
+func (o *DaVinciFlowPolicyResponseLinks) GetFlowIndexOk() (*JSONHALLink, bool) {
+	if o == nil || IsNil(o.FlowIndex) {
 		return nil, false
 	}
-	return o.VersionsIndex, true
+	return o.FlowIndex, true
 }
 
-// HasVersionsIndex returns a boolean if a field has been set.
-func (o *DaVinciFlowPolicyResponseLinks) HasVersionsIndex() bool {
-	if o != nil && !IsNil(o.VersionsIndex) {
+// HasFlowIndex returns a boolean if a field has been set.
+func (o *DaVinciFlowPolicyResponseLinks) HasFlowIndex() bool {
+	if o != nil && !IsNil(o.FlowIndex) {
 		return true
 	}
 
 	return false
 }
 
-// SetVersionsIndex gets a reference to the given JSONHALLink and assigns it to the VersionsIndex field.
-func (o *DaVinciFlowPolicyResponseLinks) SetVersionsIndex(v JSONHALLink) {
-	o.VersionsIndex = &v
+// SetFlowIndex gets a reference to the given JSONHALLink and assigns it to the FlowIndex field.
+func (o *DaVinciFlowPolicyResponseLinks) SetFlowIndex(v JSONHALLink) {
+	o.FlowIndex = &v
+}
+
+// GetVersionFlowIdIndex returns the VersionFlowIdIndex field value if set, zero value otherwise.
+func (o *DaVinciFlowPolicyResponseLinks) GetVersionFlowIdIndex() JSONHALLink {
+	if o == nil || IsNil(o.VersionFlowIdIndex) {
+		var ret JSONHALLink
+		return ret
+	}
+	return *o.VersionFlowIdIndex
+}
+
+// GetVersionFlowIdIndexOk returns a tuple with the VersionFlowIdIndex field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyResponseLinks) GetVersionFlowIdIndexOk() (*JSONHALLink, bool) {
+	if o == nil || IsNil(o.VersionFlowIdIndex) {
+		return nil, false
+	}
+	return o.VersionFlowIdIndex, true
+}
+
+// HasVersionFlowIdIndex returns a boolean if a field has been set.
+func (o *DaVinciFlowPolicyResponseLinks) HasVersionFlowIdIndex() bool {
+	if o != nil && !IsNil(o.VersionFlowIdIndex) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersionFlowIdIndex gets a reference to the given JSONHALLink and assigns it to the VersionFlowIdIndex field.
+func (o *DaVinciFlowPolicyResponseLinks) SetVersionFlowIdIndex(v JSONHALLink) {
+	o.VersionFlowIdIndex = &v
 }
 
 func (o DaVinciFlowPolicyResponseLinks) MarshalJSON() ([]byte, error) {
@@ -144,8 +177,11 @@ func (o DaVinciFlowPolicyResponseLinks) ToMap() (map[string]interface{}, error) 
 	toSerialize := map[string]interface{}{}
 	toSerialize["self"] = o.Self
 	toSerialize["environment"] = o.Environment
-	if !IsNil(o.VersionsIndex) {
-		toSerialize["versions.<index>"] = o.VersionsIndex
+	if !IsNil(o.FlowIndex) {
+		toSerialize["flow.<index>"] = o.FlowIndex
+	}
+	if !IsNil(o.VersionFlowIdIndex) {
+		toSerialize["version.<flowId>.<index>"] = o.VersionFlowIdIndex
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -193,7 +229,8 @@ func (o *DaVinciFlowPolicyResponseLinks) UnmarshalJSON(data []byte) (err error) 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "environment")
-		delete(additionalProperties, "versions.<index>")
+		delete(additionalProperties, "flow.<index>")
+		delete(additionalProperties, "version.<flowId>.<index>")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -205,8 +242,11 @@ func (o DaVinciFlowPolicyResponseLinks) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("self", o.Self))
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
-	if !IsNil(o.VersionsIndex) {
-		logAttrs = append(logAttrs, slog.Any("versions.&lt;index&gt;", *o.VersionsIndex))
+	if !IsNil(o.FlowIndex) {
+		logAttrs = append(logAttrs, slog.Any("flow.&lt;index&gt;", *o.FlowIndex))
+	}
+	if !IsNil(o.VersionFlowIdIndex) {
+		logAttrs = append(logAttrs, slog.Any("version.&lt;flowId&gt;.&lt;index&gt;", *o.VersionFlowIdIndex))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
