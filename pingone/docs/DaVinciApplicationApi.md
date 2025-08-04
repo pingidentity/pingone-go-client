@@ -120,7 +120,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	daVinciFlowPolicyCreateRequest := *openapiclient.NewDaVinciFlowPolicyCreateRequest("Name_example") // DaVinciFlowPolicyCreateRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -203,7 +203,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -282,8 +282,8 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
+	flowPolicyID := "flowPolicyID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -310,8 +310,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-**flowPolicyID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
+**flowPolicyID** | **string** |  | 
 
 ### Other Parameters
 
@@ -364,7 +364,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -523,8 +523,8 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
+	flowPolicyID := "flowPolicyID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -553,8 +553,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-**flowPolicyID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
+**flowPolicyID** | **string** |  | 
 
 ### Other Parameters
 
@@ -607,7 +607,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -636,7 +636,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -688,8 +688,8 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
+	flowPolicyID := "flowPolicyID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -718,8 +718,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-**flowPolicyID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
+**flowPolicyID** | **string** |  | 
 
 ### Other Parameters
 
@@ -772,7 +772,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	daVinciApplicationReplaceRequest := *openapiclient.NewDaVinciApplicationReplaceRequest("Name_example") // DaVinciApplicationReplaceRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -802,7 +802,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -855,8 +855,8 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	flowPolicyID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
+	flowPolicyID := "flowPolicyID_example" // string | 
 	daVinciFlowPolicyReplaceRequest := *openapiclient.NewDaVinciFlowPolicyReplaceRequest([]openapiclient.DaVinciFlowPolicyReplaceRequestFlowDistribution{*openapiclient.NewDaVinciFlowPolicyReplaceRequestFlowDistribution("Id_example", float32(123))}) // DaVinciFlowPolicyReplaceRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -886,8 +886,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-**flowPolicyID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
+**flowPolicyID** | **string** |  | 
 
 ### Other Parameters
 
@@ -941,7 +941,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -971,7 +971,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 
@@ -1024,7 +1024,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "davinciApplicationID_example" // string | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -1054,7 +1054,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **string** |  | 
 
 ### Other Parameters
 

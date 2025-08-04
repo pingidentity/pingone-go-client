@@ -1437,7 +1437,7 @@ components:
       name: connectorInstanceID
       required: true
       schema:
-        format: uuid
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
         type: string
       style: simple
     com.pingidentity.path.environments.variables.variableID:
@@ -1464,7 +1464,7 @@ components:
       name: davinciApplicationID
       required: true
       schema:
-        format: uuid
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
         type: string
       style: simple
     com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID:
@@ -1473,7 +1473,7 @@ components:
       name: flowPolicyID
       required: true
       schema:
-        format: uuid
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
         type: string
       style: simple
   responses:

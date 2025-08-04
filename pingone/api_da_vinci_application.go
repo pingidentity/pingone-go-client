@@ -304,7 +304,7 @@ type ApiCreateFlowPolicyByDavinciApplicationIdRequest struct {
 	ctx                            context.Context
 	ApiService                     *DaVinciApplicationApiService
 	environmentID                  uuid.UUID
-	davinciApplicationID           uuid.UUID
+	davinciApplicationID           string
 	daVinciFlowPolicyCreateRequest *DaVinciFlowPolicyCreateRequest
 	xPingExternalSessionID         *string
 	xPingExternalTransactionID     *string
@@ -338,7 +338,7 @@ CreateFlowPolicyByDavinciApplicationId Method for CreateFlowPolicyByDavinciAppli
 	@param davinciApplicationID
 	@return ApiCreateFlowPolicyByDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) CreateFlowPolicyByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiCreateFlowPolicyByDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) CreateFlowPolicyByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiCreateFlowPolicyByDavinciApplicationIdRequest {
 	return ApiCreateFlowPolicyByDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -550,7 +550,7 @@ type ApiDeleteDavinciApplicationByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
+	davinciApplicationID       string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -578,7 +578,7 @@ DeleteDavinciApplicationById Method for DeleteDavinciApplicationById
 	@param davinciApplicationID
 	@return ApiDeleteDavinciApplicationByIdRequest
 */
-func (a *DaVinciApplicationApiService) DeleteDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiDeleteDavinciApplicationByIdRequest {
+func (a *DaVinciApplicationApiService) DeleteDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiDeleteDavinciApplicationByIdRequest {
 	return ApiDeleteDavinciApplicationByIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -773,8 +773,8 @@ type ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
-	flowPolicyID               uuid.UUID
+	davinciApplicationID       string
+	flowPolicyID               string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -803,7 +803,7 @@ DeleteFlowPolicyByIdUsingDavinciApplicationId Method for DeleteFlowPolicyByIdUsi
 	@param flowPolicyID
 	@return ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) DeleteFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID, flowPolicyID uuid.UUID) ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) DeleteFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string, flowPolicyID string) ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest {
 	return ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -1000,7 +1000,7 @@ type ApiGetDavinciApplicationByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
+	davinciApplicationID       string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -1028,7 +1028,7 @@ GetDavinciApplicationById Method for GetDavinciApplicationById
 	@param davinciApplicationID
 	@return ApiGetDavinciApplicationByIdRequest
 */
-func (a *DaVinciApplicationApiService) GetDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiGetDavinciApplicationByIdRequest {
+func (a *DaVinciApplicationApiService) GetDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiGetDavinciApplicationByIdRequest {
 	return ApiGetDavinciApplicationByIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -1496,8 +1496,8 @@ type ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
-	flowPolicyID               uuid.UUID
+	davinciApplicationID       string
+	flowPolicyID               string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -1526,7 +1526,7 @@ GetEventsByDavinciApplicationIdAndFlowPolicyId Method for GetEventsByDavinciAppl
 	@param flowPolicyID
 	@return ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest
 */
-func (a *DaVinciApplicationApiService) GetEventsByDavinciApplicationIdAndFlowPolicyId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID, flowPolicyID uuid.UUID) ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest {
+func (a *DaVinciApplicationApiService) GetEventsByDavinciApplicationIdAndFlowPolicyId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string, flowPolicyID string) ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest {
 	return ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -1735,7 +1735,7 @@ type ApiGetFlowPoliciesByDavinciApplicationIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
+	davinciApplicationID       string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -1763,7 +1763,7 @@ GetFlowPoliciesByDavinciApplicationId Method for GetFlowPoliciesByDavinciApplica
 	@param davinciApplicationID
 	@return ApiGetFlowPoliciesByDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) GetFlowPoliciesByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiGetFlowPoliciesByDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) GetFlowPoliciesByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiGetFlowPoliciesByDavinciApplicationIdRequest {
 	return ApiGetFlowPoliciesByDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -1970,8 +1970,8 @@ type ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
-	flowPolicyID               uuid.UUID
+	davinciApplicationID       string
+	flowPolicyID               string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -2000,7 +2000,7 @@ GetFlowPolicyByIdUsingDavinciApplicationId Method for GetFlowPolicyByIdUsingDavi
 	@param flowPolicyID
 	@return ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) GetFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID, flowPolicyID uuid.UUID) ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) GetFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string, flowPolicyID string) ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest {
 	return ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -2209,7 +2209,7 @@ type ApiReplaceDavinciApplicationByIdRequest struct {
 	ctx                              context.Context
 	ApiService                       *DaVinciApplicationApiService
 	environmentID                    uuid.UUID
-	davinciApplicationID             uuid.UUID
+	davinciApplicationID             string
 	daVinciApplicationReplaceRequest *DaVinciApplicationReplaceRequest
 	xPingExternalSessionID           *string
 	xPingExternalTransactionID       *string
@@ -2243,7 +2243,7 @@ ReplaceDavinciApplicationById Method for ReplaceDavinciApplicationById
 	@param davinciApplicationID
 	@return ApiReplaceDavinciApplicationByIdRequest
 */
-func (a *DaVinciApplicationApiService) ReplaceDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiReplaceDavinciApplicationByIdRequest {
+func (a *DaVinciApplicationApiService) ReplaceDavinciApplicationById(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiReplaceDavinciApplicationByIdRequest {
 	return ApiReplaceDavinciApplicationByIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -2455,8 +2455,8 @@ type ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest struct {
 	ctx                             context.Context
 	ApiService                      *DaVinciApplicationApiService
 	environmentID                   uuid.UUID
-	davinciApplicationID            uuid.UUID
-	flowPolicyID                    uuid.UUID
+	davinciApplicationID            string
+	flowPolicyID                    string
 	daVinciFlowPolicyReplaceRequest *DaVinciFlowPolicyReplaceRequest
 	xPingExternalSessionID          *string
 	xPingExternalTransactionID      *string
@@ -2491,7 +2491,7 @@ ReplaceFlowPolicyByIdUsingDavinciApplicationId Method for ReplaceFlowPolicyByIdU
 	@param flowPolicyID
 	@return ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) ReplaceFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID, flowPolicyID uuid.UUID) ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) ReplaceFlowPolicyByIdUsingDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string, flowPolicyID string) ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest {
 	return ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -2705,7 +2705,7 @@ type ApiRotateKeyByDavinciApplicationIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
+	davinciApplicationID       string
 	requestBody                *map[string]interface{}
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
@@ -2739,7 +2739,7 @@ RotateKeyByDavinciApplicationId Method for RotateKeyByDavinciApplicationId
 	@param davinciApplicationID
 	@return ApiRotateKeyByDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) RotateKeyByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiRotateKeyByDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) RotateKeyByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiRotateKeyByDavinciApplicationIdRequest {
 	return ApiRotateKeyByDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -2951,7 +2951,7 @@ type ApiRotateSecretByDavinciApplicationIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciApplicationApiService
 	environmentID              uuid.UUID
-	davinciApplicationID       uuid.UUID
+	davinciApplicationID       string
 	requestBody                *map[string]interface{}
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
@@ -2985,7 +2985,7 @@ RotateSecretByDavinciApplicationId Method for RotateSecretByDavinciApplicationId
 	@param davinciApplicationID
 	@return ApiRotateSecretByDavinciApplicationIdRequest
 */
-func (a *DaVinciApplicationApiService) RotateSecretByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID uuid.UUID) ApiRotateSecretByDavinciApplicationIdRequest {
+func (a *DaVinciApplicationApiService) RotateSecretByDavinciApplicationId(ctx context.Context, environmentID uuid.UUID, davinciApplicationID string) ApiRotateSecretByDavinciApplicationIdRequest {
 	return ApiRotateSecretByDavinciApplicationIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,

@@ -116,7 +116,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	connectorInstanceID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -199,7 +199,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	connectorInstanceID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -359,7 +359,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	connectorInstanceID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 
@@ -677,7 +677,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	connectorInstanceID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	connectorInstanceID := "connectorInstanceID_example" // string | 
 	daVinciConnectorInstanceReplaceRequest := *openapiclient.NewDaVinciConnectorInstanceReplaceRequest("Name_example", *openapiclient.NewResourceRelationshipDaVinci("Id_example")) // DaVinciConnectorInstanceReplaceRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
@@ -707,7 +707,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **environmentID** | **uuid.UUID** |  | 
-**connectorInstanceID** | **uuid.UUID** |  | 
+**connectorInstanceID** | **string** |  | 
 
 ### Other Parameters
 

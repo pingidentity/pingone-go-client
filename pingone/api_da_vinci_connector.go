@@ -304,7 +304,7 @@ type ApiCreateConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	requestBody                *map[string]interface{}
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
@@ -338,7 +338,7 @@ CreateConnectorInstanceById Method for CreateConnectorInstanceById
 	@param connectorInstanceID
 	@return ApiCreateConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiCreateConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) CreateConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiCreateConnectorInstanceByIdRequest {
 	return ApiCreateConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -550,7 +550,7 @@ type ApiDeleteConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -578,7 +578,7 @@ DeleteConnectorInstanceById Method for DeleteConnectorInstanceById
 	@param connectorInstanceID
 	@return ApiDeleteConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiDeleteConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) DeleteConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiDeleteConnectorInstanceByIdRequest {
 	return ApiDeleteConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -1008,7 +1008,7 @@ type ApiGetConnectorInstanceByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorApiService
 	environmentID              uuid.UUID
-	connectorInstanceID        uuid.UUID
+	connectorInstanceID        string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -1036,7 +1036,7 @@ GetConnectorInstanceById Method for GetConnectorInstanceById
 	@param connectorInstanceID
 	@return ApiGetConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiGetConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) GetConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiGetConnectorInstanceByIdRequest {
 	return ApiGetConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
@@ -2000,7 +2000,7 @@ type ApiReplaceConnectorInstanceByIdRequest struct {
 	ctx                                    context.Context
 	ApiService                             *DaVinciConnectorApiService
 	environmentID                          uuid.UUID
-	connectorInstanceID                    uuid.UUID
+	connectorInstanceID                    string
 	daVinciConnectorInstanceReplaceRequest *DaVinciConnectorInstanceReplaceRequest
 	xPingExternalSessionID                 *string
 	xPingExternalTransactionID             *string
@@ -2034,7 +2034,7 @@ ReplaceConnectorInstanceById Method for ReplaceConnectorInstanceById
 	@param connectorInstanceID
 	@return ApiReplaceConnectorInstanceByIdRequest
 */
-func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID uuid.UUID) ApiReplaceConnectorInstanceByIdRequest {
+func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceById(ctx context.Context, environmentID uuid.UUID, connectorInstanceID string) ApiReplaceConnectorInstanceByIdRequest {
 	return ApiReplaceConnectorInstanceByIdRequest{
 		ApiService:          a,
 		ctx:                 ctx,
