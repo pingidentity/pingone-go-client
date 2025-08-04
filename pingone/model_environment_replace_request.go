@@ -27,12 +27,12 @@ var _ slog.LogValuer = &EnvironmentReplaceRequest{}
 type EnvironmentReplaceRequest struct {
 	Name                 string                                    `json:"name"`
 	Region               EnvironmentReplaceRequestRegion           `json:"region"`
-	Type                 EnvironmentReplaceRequestType             `json:"type"`
+	Type                 EnvironmentTypeValue                      `json:"type"`
 	BillOfMaterials      *EnvironmentBillOfMaterialsReplaceRequest `json:"billOfMaterials,omitempty"`
 	Description          *string                                   `json:"description,omitempty"`
 	Icon                 *string                                   `json:"icon,omitempty"`
 	License              *EnvironmentLicense                       `json:"license,omitempty"`
-	Status               *EnvironmentReplaceRequestStatus          `json:"status,omitempty"`
+	Status               *EnvironmentStatusValue                   `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,7 +42,7 @@ type _EnvironmentReplaceRequest EnvironmentReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentReplaceRequestType) *EnvironmentReplaceRequest {
+func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentTypeValue) *EnvironmentReplaceRequest {
 	this := EnvironmentReplaceRequest{}
 	this.Name = name
 	this.Region = region
@@ -107,9 +107,9 @@ func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentReplaceRequestRegion)
 }
 
 // GetType returns the Type field value
-func (o *EnvironmentReplaceRequest) GetType() EnvironmentReplaceRequestType {
+func (o *EnvironmentReplaceRequest) GetType() EnvironmentTypeValue {
 	if o == nil {
-		var ret EnvironmentReplaceRequestType
+		var ret EnvironmentTypeValue
 		return ret
 	}
 
@@ -118,7 +118,7 @@ func (o *EnvironmentReplaceRequest) GetType() EnvironmentReplaceRequestType {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentReplaceRequestType, bool) {
+func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentTypeValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentReplaceRequestType,
 }
 
 // SetType sets field value
-func (o *EnvironmentReplaceRequest) SetType(v EnvironmentReplaceRequestType) {
+func (o *EnvironmentReplaceRequest) SetType(v EnvironmentTypeValue) {
 	o.Type = v
 }
 
@@ -259,9 +259,9 @@ func (o *EnvironmentReplaceRequest) SetLicense(v EnvironmentLicense) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentReplaceRequestStatus {
+func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentStatusValue {
 	if o == nil || IsNil(o.Status) {
-		var ret EnvironmentReplaceRequestStatus
+		var ret EnvironmentStatusValue
 		return ret
 	}
 	return *o.Status
@@ -269,7 +269,7 @@ func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentReplaceRequestStatus 
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentReplaceRequestStatus, bool) {
+func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentStatusValue, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -285,8 +285,8 @@ func (o *EnvironmentReplaceRequest) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given EnvironmentReplaceRequestStatus and assigns it to the Status field.
-func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentReplaceRequestStatus) {
+// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
+func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue) {
 	o.Status = &v
 }
 

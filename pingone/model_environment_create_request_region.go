@@ -14,73 +14,71 @@ package pingone
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 )
 
-// EnvironmentCreateRequestRegion the model 'EnvironmentCreateRequestRegion'
-type EnvironmentCreateRequestRegion string
-
-// List of Environment_Create_Request_Region
-const (
-	ENVIRONMENTCREATEREQUESTREGION_AP EnvironmentCreateRequestRegion = "AP"
-	ENVIRONMENTCREATEREQUESTREGION_AU EnvironmentCreateRequestRegion = "AU"
-	ENVIRONMENTCREATEREQUESTREGION_CA EnvironmentCreateRequestRegion = "CA"
-	ENVIRONMENTCREATEREQUESTREGION_EU EnvironmentCreateRequestRegion = "EU"
-	ENVIRONMENTCREATEREQUESTREGION_NA EnvironmentCreateRequestRegion = "NA"
-	ENVIRONMENTCREATEREQUESTREGION_SG EnvironmentCreateRequestRegion = "SG"
-)
-
-// All allowed values of EnvironmentCreateRequestRegion enum
-var AllowedEnvironmentCreateRequestRegionEnumValues = []EnvironmentCreateRequestRegion{
-	"AP",
-	"AU",
-	"CA",
-	"EU",
-	"NA",
-	"SG",
+// EnvironmentCreateRequestRegion struct for EnvironmentCreateRequestRegion
+type EnvironmentCreateRequestRegion struct {
+	EnvironmentRegionCode *EnvironmentRegionCode
+	String                *string
 }
 
-func (v *EnvironmentCreateRequestRegion) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return err
-	}
-	enumTypeValue := EnvironmentCreateRequestRegion(value)
-	for _, existing := range AllowedEnvironmentCreateRequestRegionEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
+// Unmarshal JSON data into any of the pointers in the struct
+func (dst *EnvironmentCreateRequestRegion) UnmarshalJSON(data []byte) error {
+	var err error
+	// try to unmarshal JSON data into EnvironmentRegionCode
+	err = json.Unmarshal(data, &dst.EnvironmentRegionCode)
+	if err == nil {
+		jsonEnvironmentRegionCode, _ := json.Marshal(dst.EnvironmentRegionCode)
+		if string(jsonEnvironmentRegionCode) == "{}" { // empty struct
+			dst.EnvironmentRegionCode = nil
+		} else {
+			return nil // data stored in dst.EnvironmentRegionCode, return on the first match
 		}
-	}
-
-	*v = EnvironmentCreateRequestRegion(fmt.Sprintf("%s", "UNKNOWN"))
-	return nil
-}
-
-// NewEnvironmentCreateRequestRegionFromValue returns a pointer to a valid EnvironmentCreateRequestRegion
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
-func NewEnvironmentCreateRequestRegionFromValue(v string) (*EnvironmentCreateRequestRegion, error) {
-	ev := EnvironmentCreateRequestRegion(v)
-	if ev.IsValid() {
-		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for EnvironmentCreateRequestRegion: valid values are %v", v, AllowedEnvironmentCreateRequestRegionEnumValues)
+		dst.EnvironmentRegionCode = nil
 	}
-}
 
-// IsValid return true if the value is valid for the enum, false otherwise
-func (v EnvironmentCreateRequestRegion) IsValid() bool {
-	for _, existing := range AllowedEnvironmentCreateRequestRegionEnumValues {
-		if existing == v {
-			return true
+	// try to unmarshal JSON data into String
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			return nil // data stored in dst.String, return on the first match
 		}
+	} else {
+		dst.String = nil
 	}
-	return false
+
+	return fmt.Errorf("data failed to match schemas in anyOf(EnvironmentCreateRequestRegion)")
 }
 
-// Ptr returns reference to Environment_Create_Request_Region value
-func (v EnvironmentCreateRequestRegion) Ptr() *EnvironmentCreateRequestRegion {
-	return &v
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src EnvironmentCreateRequestRegion) MarshalJSON() ([]byte, error) {
+	if src.EnvironmentRegionCode != nil {
+		return json.Marshal(&src.EnvironmentRegionCode)
+	}
+
+	if src.String != nil {
+		return json.Marshal(&src.String)
+	}
+
+	return nil, nil // no data in anyOf schemas
+}
+
+func (o EnvironmentCreateRequestRegion) LogValue() slog.Value {
+	logAttrs := make([]slog.Attr, 0)
+
+	if !IsNil(o.String) {
+		logAttrs = append(logAttrs, slog.Any("String", *o.String))
+	}
+	if !IsNil(o.EnvironmentCreateRequestRegionCode) {
+		logAttrs = append(logAttrs, slog.Any("EnvironmentCreateRequestRegionCode", *o.EnvironmentCreateRequestRegionCode))
+	}
+
+	return slog.GroupValue(logAttrs...)
 }
 
 type NullableEnvironmentCreateRequestRegion struct {

@@ -1,19 +1,28 @@
 # EnvironmentCreateRequestRegion
 
-## Enum
+## Properties
 
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
 
-* `AP` (value: `"AP"`)
+## Methods
 
-* `AU` (value: `"AU"`)
+### NewEnvironmentCreateRequestRegion
 
-* `CA` (value: `"CA"`)
+`func NewEnvironmentCreateRequestRegion() *EnvironmentCreateRequestRegion`
 
-* `EU` (value: `"EU"`)
+NewEnvironmentCreateRequestRegion instantiates a new EnvironmentCreateRequestRegion object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
 
-* `NA` (value: `"NA"`)
+### NewEnvironmentCreateRequestRegionWithDefaults
 
-* `SG` (value: `"SG"`)
+`func NewEnvironmentCreateRequestRegionWithDefaults() *EnvironmentCreateRequestRegion`
+
+NewEnvironmentCreateRequestRegionWithDefaults instantiates a new EnvironmentCreateRequestRegion object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

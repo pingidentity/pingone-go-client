@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest("Name_example", openapiclient.Environment_Create_Request_Region("AP"), openapiclient.Environment_Create_Request_Type("PRODUCTION")) // EnvironmentCreateRequest | 
+	environmentCreateRequest := *openapiclient.NewEnvironmentCreateRequest("Name_example", *openapiclient.NewEnvironmentCreateRequestRegion(), openapiclient.EnvironmentTypeValue("PRODUCTION"), *openapiclient.NewEnvironmentLicense("TODO")) // EnvironmentCreateRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -551,7 +551,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest("Name_example", openapiclient.Environment_Replace_Request_Region("AP"), openapiclient.Environment_Replace_Request_Type("PRODUCTION")) // EnvironmentReplaceRequest | 
+	environmentReplaceRequest := *openapiclient.NewEnvironmentReplaceRequest("Name_example", *openapiclient.NewEnvironmentReplaceRequestRegion(), openapiclient.EnvironmentTypeValue("PRODUCTION")) // EnvironmentReplaceRequest | 
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 

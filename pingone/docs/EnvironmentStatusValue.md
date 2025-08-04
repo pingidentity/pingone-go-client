@@ -1,4 +1,4 @@
-# EnvironmentStatus
+# EnvironmentStatusValue
 
 ## Enum
 

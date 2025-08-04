@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Region** | [**EnvironmentReplaceRequestRegion**](EnvironmentReplaceRequestRegion.md) |  | 
-**Type** | [**EnvironmentReplaceRequestType**](EnvironmentReplaceRequestType.md) |  | 
+**Type** | [**EnvironmentTypeValue**](EnvironmentTypeValue.md) |  | 
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsReplaceRequest**](EnvironmentBillOfMaterialsReplaceRequest.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | Pointer to [**EnvironmentLicense**](EnvironmentLicense.md) |  | [optional] 
-**Status** | Pointer to [**EnvironmentReplaceRequestStatus**](EnvironmentReplaceRequestStatus.md) |  | [optional] 
+**Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironmentReplaceRequest
 
-`func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentReplaceRequestType, ) *EnvironmentReplaceRequest`
+`func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentTypeValue, ) *EnvironmentReplaceRequest`
 
 NewEnvironmentReplaceRequest instantiates a new EnvironmentReplaceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetRegion sets Region field to given value.
 
 ### GetType
 
-`func (o *EnvironmentReplaceRequest) GetType() EnvironmentReplaceRequestType`
+`func (o *EnvironmentReplaceRequest) GetType() EnvironmentTypeValue`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentReplaceRequestType, bool)`
+`func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentTypeValue, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *EnvironmentReplaceRequest) SetType(v EnvironmentReplaceRequestType)`
+`func (o *EnvironmentReplaceRequest) SetType(v EnvironmentTypeValue)`
 
 SetType sets Type field to given value.
 
@@ -194,20 +194,20 @@ HasLicense returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentReplaceRequestStatus`
+`func (o *EnvironmentReplaceRequest) GetStatus() EnvironmentStatusValue`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentReplaceRequestStatus, bool)`
+`func (o *EnvironmentReplaceRequest) GetStatusOk() (*EnvironmentStatusValue, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentReplaceRequestStatus)`
+`func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue)`
 
 SetStatus sets Status field to given value.
 

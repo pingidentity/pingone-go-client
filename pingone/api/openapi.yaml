@@ -3448,7 +3448,7 @@ components:
         region:
           $ref: '#/components/schemas/Environment_Region'
         type:
-          $ref: '#/components/schemas/Environment_Type'
+          $ref: '#/components/schemas/EnvironmentTypeValue'
         createdAt:
           format: date-time
           minLength: 1
@@ -3501,7 +3501,7 @@ components:
           title: Environment Soft Deleted At
           type: string
         status:
-          $ref: '#/components/schemas/Environment_Status'
+          $ref: '#/components/schemas/EnvironmentStatusValue'
       required:
       - createdAt
       - id
@@ -4440,7 +4440,7 @@ components:
         name: name
         icon: icon
         description: description
-        region: AP
+        region: Environment_Create_Request_Region
         type: PRODUCTION
         billOfMaterials:
           solutionType: CIAM_TRIAL
@@ -4568,7 +4568,9 @@ components:
         region:
           $ref: '#/components/schemas/Environment_Create_Request_Region'
         type:
-          $ref: '#/components/schemas/Environment_Create_Request_Type'
+          $ref: '#/components/schemas/EnvironmentTypeValue'
+        license:
+          $ref: '#/components/schemas/EnvironmentLicense'
         billOfMaterials:
           $ref: '#/components/schemas/EnvironmentBillOfMaterials'
         description:
@@ -4577,9 +4579,8 @@ components:
         icon:
           title: Environment Create Request Icon
           type: string
-        license:
-          $ref: '#/components/schemas/EnvironmentLicense'
       required:
+      - license
       - name
       - region
       - type
@@ -4703,6 +4704,16 @@ components:
         rlgVerifyRpm:
           $ref: '#/components/schemas/EnvironmentAPILimit'
       title: Environment License Quantities
+    EnvironmentRegionCode:
+      enum:
+      - AP
+      - AU
+      - CA
+      - EU
+      - NA
+      - SG
+      title: Environment Region Code
+      type: string
     EnvironmentReplaceRequest:
       example:
         license:
@@ -4711,7 +4722,7 @@ components:
         name: name
         icon: icon
         description: description
-        region: AP
+        region: Environment_Replace_Request_Region
         type: PRODUCTION
         billOfMaterials:
           products:
@@ -4839,7 +4850,7 @@ components:
         region:
           $ref: '#/components/schemas/Environment_Replace_Request_Region'
         type:
-          $ref: '#/components/schemas/Environment_Replace_Request_Type'
+          $ref: '#/components/schemas/EnvironmentTypeValue'
         billOfMaterials:
           $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
         description:
@@ -4851,7 +4862,7 @@ components:
         license:
           $ref: '#/components/schemas/EnvironmentLicense'
         status:
-          $ref: '#/components/schemas/Environment_Replace_Request_Status'
+          $ref: '#/components/schemas/EnvironmentStatusValue'
       required:
       - name
       - region
@@ -4859,6 +4870,18 @@ components:
       title: Environment Replace Request
       x-immutable:
       - region
+    EnvironmentStatusValue:
+      enum:
+      - ACTIVE
+      - DELETE_PENDING
+      title: Environment Status Value
+      type: string
+    EnvironmentTypeValue:
+      enum:
+      - PRODUCTION
+      - SANDBOX
+      title: Environment Type Value
+      type: string
     EnvironmentsCollection:
       example:
         size: 6
@@ -7159,29 +7182,11 @@ components:
       - title: DaVinci Variable Replace Request Value Choice 4
         type: string
       title: DaVinci Variable Replace Request Value
-    Environment_Region_Code:
-      enum:
-      - AP
-      - AU
-      - CA
-      - EU
-      - NA
-      - SG
-      minLength: 1
-      title: Environment Region Code
-      type: string
     Environment_Region:
       anyOf:
       - type: string
-      - $ref: '#/components/schemas/Environment_Region_Code'
+      - $ref: '#/components/schemas/EnvironmentRegionCode'
       title: Environment Region
-    Environment_Type:
-      enum:
-      - PRODUCTION
-      - SANDBOX
-      minLength: 1
-      title: Environment Type
-      type: string
     Environment__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
@@ -7197,12 +7202,6 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
       readOnly: true
       title: Environment _links
-    Environment_Status:
-      enum:
-      - ACTIVE
-      - DELETE_PENDING
-      title: Environment Status
-      type: string
     Environment_Bill_of_Materials_Solution_Type:
       enum:
       - CIAM_TRIAL
@@ -7260,47 +7259,15 @@ components:
       readOnly: true
       title: Environment Capabilities _links
     Environment_Create_Request_Region:
-      enum:
-      - AP
-      - AU
-      - CA
-      - EU
-      - NA
-      - SG
-      minLength: 1
+      anyOf:
+      - type: string
+      - $ref: '#/components/schemas/EnvironmentRegionCode'
       title: Environment Create Request Region
-      type: string
-    Environment_Create_Request_Type:
-      enum:
-      - PRODUCTION
-      - SANDBOX
-      minLength: 1
-      title: Environment Create Request Type
-      type: string
     Environment_Replace_Request_Region:
-      enum:
-      - AP
-      - AU
-      - CA
-      - EU
-      - NA
-      - SG
-      minLength: 1
+      anyOf:
+      - type: string
+      - $ref: '#/components/schemas/EnvironmentRegionCode'
       title: Environment Replace Request Region
-      type: string
-    Environment_Replace_Request_Type:
-      enum:
-      - PRODUCTION
-      - SANDBOX
-      minLength: 1
-      title: Environment Replace Request Type
-      type: string
-    Environment_Replace_Request_Status:
-      enum:
-      - ACTIVE
-      - DELETE_PENDING
-      title: Environment Replace Request Status
-      type: string
     Environments_Collection__embedded:
       example:
         environments:

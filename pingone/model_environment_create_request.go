@@ -27,11 +27,11 @@ var _ slog.LogValuer = &EnvironmentCreateRequest{}
 type EnvironmentCreateRequest struct {
 	Name                 string                         `json:"name"`
 	Region               EnvironmentCreateRequestRegion `json:"region"`
-	Type                 EnvironmentCreateRequestType   `json:"type"`
+	Type                 EnvironmentTypeValue           `json:"type"`
+	License              EnvironmentLicense             `json:"license"`
 	BillOfMaterials      *EnvironmentBillOfMaterials    `json:"billOfMaterials,omitempty"`
 	Description          *string                        `json:"description,omitempty"`
 	Icon                 *string                        `json:"icon,omitempty"`
-	License              *EnvironmentLicense            `json:"license,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,11 +41,12 @@ type _EnvironmentCreateRequest EnvironmentCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentCreateRequest(name string, region EnvironmentCreateRequestRegion, type_ EnvironmentCreateRequestType) *EnvironmentCreateRequest {
+func NewEnvironmentCreateRequest(name string, region EnvironmentCreateRequestRegion, type_ EnvironmentTypeValue, license EnvironmentLicense) *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
 	this.Name = name
 	this.Region = region
 	this.Type = type_
+	this.License = license
 	return &this
 }
 
@@ -106,9 +107,9 @@ func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentCreateRequestRegion) {
 }
 
 // GetType returns the Type field value
-func (o *EnvironmentCreateRequest) GetType() EnvironmentCreateRequestType {
+func (o *EnvironmentCreateRequest) GetType() EnvironmentTypeValue {
 	if o == nil {
-		var ret EnvironmentCreateRequestType
+		var ret EnvironmentTypeValue
 		return ret
 	}
 
@@ -117,7 +118,7 @@ func (o *EnvironmentCreateRequest) GetType() EnvironmentCreateRequestType {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentCreateRequestType, bool) {
+func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentTypeValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,8 +126,32 @@ func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentCreateRequestType, b
 }
 
 // SetType sets field value
-func (o *EnvironmentCreateRequest) SetType(v EnvironmentCreateRequestType) {
+func (o *EnvironmentCreateRequest) SetType(v EnvironmentTypeValue) {
 	o.Type = v
+}
+
+// GetLicense returns the License field value
+func (o *EnvironmentCreateRequest) GetLicense() EnvironmentLicense {
+	if o == nil {
+		var ret EnvironmentLicense
+		return ret
+	}
+
+	return o.License
+}
+
+// GetLicenseOk returns a tuple with the License field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetLicenseOk() (*EnvironmentLicense, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.License, true
+}
+
+// SetLicense sets field value
+func (o *EnvironmentCreateRequest) SetLicense(v EnvironmentLicense) {
+	o.License = v
 }
 
 // GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
@@ -225,38 +250,6 @@ func (o *EnvironmentCreateRequest) SetIcon(v string) {
 	o.Icon = &v
 }
 
-// GetLicense returns the License field value if set, zero value otherwise.
-func (o *EnvironmentCreateRequest) GetLicense() EnvironmentLicense {
-	if o == nil || IsNil(o.License) {
-		var ret EnvironmentLicense
-		return ret
-	}
-	return *o.License
-}
-
-// GetLicenseOk returns a tuple with the License field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetLicenseOk() (*EnvironmentLicense, bool) {
-	if o == nil || IsNil(o.License) {
-		return nil, false
-	}
-	return o.License, true
-}
-
-// HasLicense returns a boolean if a field has been set.
-func (o *EnvironmentCreateRequest) HasLicense() bool {
-	if o != nil && !IsNil(o.License) {
-		return true
-	}
-
-	return false
-}
-
-// SetLicense gets a reference to the given EnvironmentLicense and assigns it to the License field.
-func (o *EnvironmentCreateRequest) SetLicense(v EnvironmentLicense) {
-	o.License = &v
-}
-
 func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -270,6 +263,7 @@ func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["region"] = o.Region
 	toSerialize["type"] = o.Type
+	toSerialize["license"] = o.License
 	if !IsNil(o.BillOfMaterials) {
 		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
@@ -278,9 +272,6 @@ func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
-	}
-	if !IsNil(o.License) {
-		toSerialize["license"] = o.License
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -298,6 +289,7 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"region",
 		"type",
+		"license",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -330,10 +322,10 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "license")
 		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "icon")
-		delete(additionalProperties, "license")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -346,6 +338,7 @@ func (o EnvironmentCreateRequest) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("region", o.Region))
 	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	logAttrs = append(logAttrs, slog.Any("license", o.License))
 	if !IsNil(o.BillOfMaterials) {
 		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
 	}
@@ -354,9 +347,6 @@ func (o EnvironmentCreateRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.Icon) {
 		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
-	}
-	if !IsNil(o.License) {
-		logAttrs = append(logAttrs, slog.Any("license", *o.License))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

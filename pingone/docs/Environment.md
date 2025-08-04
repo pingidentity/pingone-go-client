@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
-**Type** | [**EnvironmentType**](EnvironmentType.md) |  | 
+**Type** | [**EnvironmentTypeValue**](EnvironmentTypeValue.md) |  | 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
 **Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
@@ -21,13 +21,13 @@ Name | Type | Description | Notes
 **License** | Pointer to [**EnvironmentLicense**](EnvironmentLicense.md) |  | [optional] 
 **PingoneAccountId** | Pointer to **string** |  | [optional] 
 **SoftDeletedAt** | Pointer to **time.Time** |  | [optional] 
-**Status** | Pointer to [**EnvironmentStatus**](EnvironmentStatus.md) |  | [optional] 
+**Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironment
 
-`func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentType, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly, ) *Environment`
+`func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -84,20 +84,20 @@ SetRegion sets Region field to given value.
 
 ### GetType
 
-`func (o *Environment) GetType() EnvironmentType`
+`func (o *Environment) GetType() EnvironmentTypeValue`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Environment) GetTypeOk() (*EnvironmentType, bool)`
+`func (o *Environment) GetTypeOk() (*EnvironmentTypeValue, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Environment) SetType(v EnvironmentType)`
+`func (o *Environment) SetType(v EnvironmentTypeValue)`
 
 SetType sets Type field to given value.
 
@@ -434,20 +434,20 @@ HasSoftDeletedAt returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *Environment) GetStatus() EnvironmentStatus`
+`func (o *Environment) GetStatus() EnvironmentStatusValue`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Environment) GetStatusOk() (*EnvironmentStatus, bool)`
+`func (o *Environment) GetStatusOk() (*EnvironmentStatusValue, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Environment) SetStatus(v EnvironmentStatus)`
+`func (o *Environment) SetStatus(v EnvironmentStatusValue)`
 
 SetStatus sets Status field to given value.
 

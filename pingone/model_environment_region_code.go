@@ -19,7 +19,7 @@ import (
 // EnvironmentRegionCode the model 'EnvironmentRegionCode'
 type EnvironmentRegionCode string
 
-// List of Environment_Region_Code
+// List of EnvironmentRegionCode
 const (
 	ENVIRONMENTREGIONCODE_AP EnvironmentRegionCode = "AP"
 	ENVIRONMENTREGIONCODE_AU EnvironmentRegionCode = "AU"
@@ -78,7 +78,7 @@ func (v EnvironmentRegionCode) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to Environment_Region_Code value
+// Ptr returns reference to EnvironmentRegionCode value
 func (v EnvironmentRegionCode) Ptr() *EnvironmentRegionCode {
 	return &v
 }

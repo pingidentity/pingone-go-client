@@ -128,7 +128,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate,
 		Description:     pingone.PtrString("Test environment created by the PingOne Go SDK"),
 		Icon:            pingone.PtrString("https://bxretail.org/icon.png"),
-		License: &pingone.EnvironmentLicense{
+		License: pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
@@ -139,7 +139,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 	}
 
 	s.DefaultEnvironmentMinSchemaCreate = pingone.EnvironmentCreateRequest{
-		License: &pingone.EnvironmentLicense{
+		License: pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
@@ -149,7 +149,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		Type: "SANDBOX",
 	}
 
-	environmentStatus := pingone.ENVIRONMENTSTATUS_DELETE_PENDING
+	environmentStatus := pingone.ENVIRONMENTSTATUSVALUE_DELETE_PENDING
 
 	s.DefaultEnvironmentMaxSchemaReplace = pingone.EnvironmentReplaceRequest{
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMinSchemaReplace,

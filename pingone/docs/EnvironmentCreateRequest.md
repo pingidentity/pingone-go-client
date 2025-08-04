@@ -6,17 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Region** | [**EnvironmentCreateRequestRegion**](EnvironmentCreateRequestRegion.md) |  | 
-**Type** | [**EnvironmentCreateRequestType**](EnvironmentCreateRequestType.md) |  | 
+**Type** | [**EnvironmentTypeValue**](EnvironmentTypeValue.md) |  | 
+**License** | [**EnvironmentLicense**](EnvironmentLicense.md) |  | 
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
-**License** | Pointer to [**EnvironmentLicense**](EnvironmentLicense.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironmentCreateRequest
 
-`func NewEnvironmentCreateRequest(name string, region EnvironmentCreateRequestRegion, type_ EnvironmentCreateRequestType, ) *EnvironmentCreateRequest`
+`func NewEnvironmentCreateRequest(name string, region EnvironmentCreateRequestRegion, type_ EnvironmentTypeValue, license EnvironmentLicense, ) *EnvironmentCreateRequest`
 
 NewEnvironmentCreateRequest instantiates a new EnvironmentCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -73,22 +73,42 @@ SetRegion sets Region field to given value.
 
 ### GetType
 
-`func (o *EnvironmentCreateRequest) GetType() EnvironmentCreateRequestType`
+`func (o *EnvironmentCreateRequest) GetType() EnvironmentTypeValue`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentCreateRequestType, bool)`
+`func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentTypeValue, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *EnvironmentCreateRequest) SetType(v EnvironmentCreateRequestType)`
+`func (o *EnvironmentCreateRequest) SetType(v EnvironmentTypeValue)`
 
 SetType sets Type field to given value.
+
+
+### GetLicense
+
+`func (o *EnvironmentCreateRequest) GetLicense() EnvironmentLicense`
+
+GetLicense returns the License field if non-nil, zero value otherwise.
+
+### GetLicenseOk
+
+`func (o *EnvironmentCreateRequest) GetLicenseOk() (*EnvironmentLicense, bool)`
+
+GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLicense
+
+`func (o *EnvironmentCreateRequest) SetLicense(v EnvironmentLicense)`
+
+SetLicense sets License field to given value.
 
 
 ### GetBillOfMaterials
@@ -165,31 +185,6 @@ SetIcon sets Icon field to given value.
 `func (o *EnvironmentCreateRequest) HasIcon() bool`
 
 HasIcon returns a boolean if a field has been set.
-
-### GetLicense
-
-`func (o *EnvironmentCreateRequest) GetLicense() EnvironmentLicense`
-
-GetLicense returns the License field if non-nil, zero value otherwise.
-
-### GetLicenseOk
-
-`func (o *EnvironmentCreateRequest) GetLicenseOk() (*EnvironmentLicense, bool)`
-
-GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLicense
-
-`func (o *EnvironmentCreateRequest) SetLicense(v EnvironmentLicense)`
-
-SetLicense sets License field to given value.
-
-### HasLicense
-
-`func (o *EnvironmentCreateRequest) HasLicense() bool`
-
-HasLicense returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

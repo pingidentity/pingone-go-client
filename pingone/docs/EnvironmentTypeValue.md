@@ -1,4 +1,4 @@
-# EnvironmentReplaceRequestType
+# EnvironmentTypeValue
 
 ## Enum
 

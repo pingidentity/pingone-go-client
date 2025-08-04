@@ -30,7 +30,7 @@ var _ slog.LogValuer = &Environment{}
 type Environment struct {
 	Name                    string                            `json:"name"`
 	Region                  EnvironmentRegion                 `json:"region"`
-	Type                    EnvironmentType                   `json:"type"`
+	Type                    EnvironmentTypeValue              `json:"type"`
 	CreatedAt               time.Time                         `json:"createdAt"`
 	UpdatedAt               time.Time                         `json:"updatedAt"`
 	Id                      uuid.UUID                         `json:"id"`
@@ -45,7 +45,7 @@ type Environment struct {
 	License                 *EnvironmentLicense               `json:"license,omitempty"`
 	PingoneAccountId        *string                           `json:"pingoneAccountId,omitempty"`
 	SoftDeletedAt           *time.Time                        `json:"softDeletedAt,omitempty"`
-	Status                  *EnvironmentStatus                `json:"status,omitempty"`
+	Status                  *EnvironmentStatusValue           `json:"status,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
 
@@ -55,7 +55,7 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentType, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly) *Environment {
+func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly) *Environment {
 	this := Environment{}
 	this.Name = name
 	this.Region = region
@@ -124,9 +124,9 @@ func (o *Environment) SetRegion(v EnvironmentRegion) {
 }
 
 // GetType returns the Type field value
-func (o *Environment) GetType() EnvironmentType {
+func (o *Environment) GetType() EnvironmentTypeValue {
 	if o == nil {
-		var ret EnvironmentType
+		var ret EnvironmentTypeValue
 		return ret
 	}
 
@@ -135,7 +135,7 @@ func (o *Environment) GetType() EnvironmentType {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *Environment) GetTypeOk() (*EnvironmentType, bool) {
+func (o *Environment) GetTypeOk() (*EnvironmentTypeValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -143,7 +143,7 @@ func (o *Environment) GetTypeOk() (*EnvironmentType, bool) {
 }
 
 // SetType sets field value
-func (o *Environment) SetType(v EnvironmentType) {
+func (o *Environment) SetType(v EnvironmentTypeValue) {
 	o.Type = v
 }
 
@@ -564,9 +564,9 @@ func (o *Environment) SetSoftDeletedAt(v time.Time) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Environment) GetStatus() EnvironmentStatus {
+func (o *Environment) GetStatus() EnvironmentStatusValue {
 	if o == nil || IsNil(o.Status) {
-		var ret EnvironmentStatus
+		var ret EnvironmentStatusValue
 		return ret
 	}
 	return *o.Status
@@ -574,7 +574,7 @@ func (o *Environment) GetStatus() EnvironmentStatus {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetStatusOk() (*EnvironmentStatus, bool) {
+func (o *Environment) GetStatusOk() (*EnvironmentStatusValue, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -590,8 +590,8 @@ func (o *Environment) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given EnvironmentStatus and assigns it to the Status field.
-func (o *Environment) SetStatus(v EnvironmentStatus) {
+// SetStatus gets a reference to the given EnvironmentStatusValue and assigns it to the Status field.
+func (o *Environment) SetStatus(v EnvironmentStatusValue) {
 	o.Status = &v
 }
 
