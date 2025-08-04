@@ -82,8 +82,6 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DaVinciApplicationApi* | [**CreateDavinciApplication**](docs/DaVinciApplicationApi.md#createdavinciapplication) | **Post** /environments/{environmentID}/davinciApplications | 
 *DaVinciApplicationApi* | [**CreateFlowPolicyByDavinciApplicationId**](docs/DaVinciApplicationApi.md#createflowpolicybydavinciapplicationid) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies | 
-*DaVinciApplicationApi* | [**CreateKeyByDavinciApplicationId**](docs/DaVinciApplicationApi.md#createkeybydavinciapplicationid) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key | 
-*DaVinciApplicationApi* | [**CreateSecretByDavinciApplicationId**](docs/DaVinciApplicationApi.md#createsecretbydavinciapplicationid) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret | 
 *DaVinciApplicationApi* | [**DeleteDavinciApplicationById**](docs/DaVinciApplicationApi.md#deletedavinciapplicationbyid) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
 *DaVinciApplicationApi* | [**DeleteFlowPolicyByIdUsingDavinciApplicationId**](docs/DaVinciApplicationApi.md#deleteflowpolicybyidusingdavinciapplicationid) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
 *DaVinciApplicationApi* | [**GetDavinciApplicationById**](docs/DaVinciApplicationApi.md#getdavinciapplicationbyid) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
@@ -93,6 +91,8 @@ Class | Method | HTTP request | Description
 *DaVinciApplicationApi* | [**GetFlowPolicyByIdUsingDavinciApplicationId**](docs/DaVinciApplicationApi.md#getflowpolicybyidusingdavinciapplicationid) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
 *DaVinciApplicationApi* | [**ReplaceDavinciApplicationById**](docs/DaVinciApplicationApi.md#replacedavinciapplicationbyid) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
 *DaVinciApplicationApi* | [**ReplaceFlowPolicyByIdUsingDavinciApplicationId**](docs/DaVinciApplicationApi.md#replaceflowpolicybyidusingdavinciapplicationid) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
+*DaVinciApplicationApi* | [**RotateKeyByDavinciApplicationId**](docs/DaVinciApplicationApi.md#rotatekeybydavinciapplicationid) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key | 
+*DaVinciApplicationApi* | [**RotateSecretByDavinciApplicationId**](docs/DaVinciApplicationApi.md#rotatesecretbydavinciapplicationid) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret | 
 *DaVinciConnectorApi* | [**CreateConnectorInstance**](docs/DaVinciConnectorApi.md#createconnectorinstance) | **Post** /environments/{environmentID}/connectorInstances | 
 *DaVinciConnectorApi* | [**CreateConnectorInstanceById**](docs/DaVinciConnectorApi.md#createconnectorinstancebyid) | **Post** /environments/{environmentID}/connectorInstances/{connectorInstanceID} | 
 *DaVinciConnectorApi* | [**DeleteConnectorInstanceById**](docs/DaVinciConnectorApi.md#deleteconnectorinstancebyid) | **Delete** /environments/{environmentID}/connectorInstances/{connectorInstanceID} | 

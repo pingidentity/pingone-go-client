@@ -1100,7 +1100,7 @@ paths:
       x-permission: davinci:read:flowPolicies
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key:
     post:
-      operationId: createKeyByDavinciApplicationId
+      operationId: rotateKeyByDavinciApplicationId
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
@@ -1140,9 +1140,10 @@ paths:
       tags:
       - DaVinci Application
       x-permission: davinci:update:applications
+      x-pingidentity-operation-action: rotate
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret:
     post:
-      operationId: createSecretByDavinciApplicationId
+      operationId: rotateSecretByDavinciApplicationId
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
@@ -1182,6 +1183,7 @@ paths:
       tags:
       - DaVinci Application
       x-permission: davinci:update:applications
+      x-pingidentity-operation-action: rotate
   /environments/{environmentID}/variables:
     get:
       operationId: getVariables

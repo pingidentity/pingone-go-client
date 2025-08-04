@@ -6,8 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateDavinciApplication**](DaVinciApplicationApi.md#CreateDavinciApplication) | **Post** /environments/{environmentID}/davinciApplications | 
 [**CreateFlowPolicyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateFlowPolicyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies | 
-[**CreateKeyByDavinciApplicationId**](DaVinciApplicationApi.md#CreateKeyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key | 
-[**CreateSecretByDavinciApplicationId**](DaVinciApplicationApi.md#CreateSecretByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret | 
 [**DeleteDavinciApplicationById**](DaVinciApplicationApi.md#DeleteDavinciApplicationById) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
 [**DeleteFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#DeleteFlowPolicyByIdUsingDavinciApplicationId) | **Delete** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
 [**GetDavinciApplicationById**](DaVinciApplicationApi.md#GetDavinciApplicationById) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
@@ -17,6 +15,8 @@ Method | HTTP request | Description
 [**GetFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#GetFlowPolicyByIdUsingDavinciApplicationId) | **Get** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
 [**ReplaceDavinciApplicationById**](DaVinciApplicationApi.md#ReplaceDavinciApplicationById) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID} | 
 [**ReplaceFlowPolicyByIdUsingDavinciApplicationId**](DaVinciApplicationApi.md#ReplaceFlowPolicyByIdUsingDavinciApplicationId) | **Put** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID} | 
+[**RotateKeyByDavinciApplicationId**](DaVinciApplicationApi.md#RotateKeyByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key | 
+[**RotateSecretByDavinciApplicationId**](DaVinciApplicationApi.md#RotateSecretByDavinciApplicationId) | **Post** /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret | 
 
 
 
@@ -176,172 +176,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateKeyByDavinciApplicationId
-
-> DaVinciApplication CreateKeyByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
-)
-
-func main() {
-	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateKeyByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateKeyByDavinciApplicationId``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateKeyByDavinciApplicationId`: DaVinciApplication
-	fmt.Fprintf(os.Stdout, "Response from `DaVinciApplicationApi.CreateKeyByDavinciApplicationId`: %v\n", resp)
-}
-```
-
-### Required Permission(s)
-
-The following admin role permissions are required to call this endpoint:
-
-- `davinci:update:applications`
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateKeyByDavinciApplicationIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **requestBody** | **map[string]interface{}** |  | 
- **xPingExternalSessionID** | **string** |  | 
- **xPingExternalTransactionID** | **string** |  | 
-
-### Return type
-
-[**DaVinciApplication**](DaVinciApplication.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateKey+json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateSecretByDavinciApplicationId
-
-> DaVinciApplication CreateSecretByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
-)
-
-func main() {
-	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
-	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
-	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DaVinciApplicationApi.CreateSecretByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.CreateSecretByDavinciApplicationId``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateSecretByDavinciApplicationId`: DaVinciApplication
-	fmt.Fprintf(os.Stdout, "Response from `DaVinciApplicationApi.CreateSecretByDavinciApplicationId`: %v\n", resp)
-}
-```
-
-### Required Permission(s)
-
-The following admin role permissions are required to call this endpoint:
-
-- `davinci:update:applications`
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentID** | **uuid.UUID** |  | 
-**davinciApplicationID** | **uuid.UUID** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateSecretByDavinciApplicationIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **requestBody** | **map[string]interface{}** |  | 
- **xPingExternalSessionID** | **string** |  | 
- **xPingExternalTransactionID** | **string** |  | 
-
-### Return type
-
-[**DaVinciApplication**](DaVinciApplication.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateSecret+json
 - **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1080,6 +914,172 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RotateKeyByDavinciApplicationId
+
+> DaVinciApplication RotateKeyByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciApplicationApi.RotateKeyByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.RotateKeyByDavinciApplicationId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RotateKeyByDavinciApplicationId`: DaVinciApplication
+	fmt.Fprintf(os.Stdout, "Response from `DaVinciApplicationApi.RotateKeyByDavinciApplicationId`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `davinci:update:applications`
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRotateKeyByDavinciApplicationIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **requestBody** | **map[string]interface{}** |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
+
+### Return type
+
+[**DaVinciApplication**](DaVinciApplication.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateKey+json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RotateSecretByDavinciApplicationId
+
+> DaVinciApplication RotateSecretByDavinciApplicationId(ctx, environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	davinciApplicationID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciApplicationApi.RotateSecretByDavinciApplicationId(context.Background(), environmentID, davinciApplicationID).RequestBody(requestBody).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciApplicationApi.RotateSecretByDavinciApplicationId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RotateSecretByDavinciApplicationId`: DaVinciApplication
+	fmt.Fprintf(os.Stdout, "Response from `DaVinciApplicationApi.RotateSecretByDavinciApplicationId`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `davinci:update:applications`
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentID** | **uuid.UUID** |  | 
+**davinciApplicationID** | **uuid.UUID** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRotateSecretByDavinciApplicationIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **requestBody** | **map[string]interface{}** |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
+
+### Return type
+
+[**DaVinciApplication**](DaVinciApplication.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/vnd.pingidentity.davinciApplication.rotateSecret+json
 - **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
