@@ -13,6 +13,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"fmt"
 	"log/slog"
 
 	"github.com/google/uuid"
@@ -26,8 +27,8 @@ var _ slog.LogValuer = &EnvironmentLicense{}
 
 // EnvironmentLicense struct for EnvironmentLicense
 type EnvironmentLicense struct {
-	Id                   *uuid.UUID `json:"id,omitempty"`
-	Package              *string    `json:"package,omitempty"`
+	Id                   uuid.UUID `json:"id"`
+	Package              *string   `json:"package,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,8 +38,9 @@ type _EnvironmentLicense EnvironmentLicense
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentLicense() *EnvironmentLicense {
+func NewEnvironmentLicense(id uuid.UUID) *EnvironmentLicense {
 	this := EnvironmentLicense{}
+	this.Id = id
 	return &this
 }
 
@@ -50,36 +52,28 @@ func NewEnvironmentLicenseWithDefaults() *EnvironmentLicense {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *EnvironmentLicense) GetId() uuid.UUID {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret uuid.UUID
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *EnvironmentLicense) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *EnvironmentLicense) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given uuid.UUID and assigns it to the Id field.
+// SetId sets field value
 func (o *EnvironmentLicense) SetId(v uuid.UUID) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetPackage returns the Package field value if set, zero value otherwise.
@@ -124,9 +118,7 @@ func (o EnvironmentLicense) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentLicense) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Package) {
 		toSerialize["package"] = o.Package
 	}
@@ -139,6 +131,27 @@ func (o EnvironmentLicense) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *EnvironmentLicense) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varEnvironmentLicense := _EnvironmentLicense{}
 
 	err = json.Unmarshal(data, &varEnvironmentLicense)
@@ -163,9 +176,7 @@ func (o *EnvironmentLicense) UnmarshalJSON(data []byte) (err error) {
 func (o EnvironmentLicense) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	if !IsNil(o.Id) {
-		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
-	}
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	if !IsNil(o.Package) {
 		logAttrs = append(logAttrs, slog.Any("package", *o.Package))
 	}

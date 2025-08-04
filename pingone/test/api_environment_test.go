@@ -53,9 +53,9 @@ type EnvironmentApiServiceTestSuite struct {
 	DefaultEnvironmentMinSchemaCreate  pingone.EnvironmentCreateRequest
 	DefaultEnvironmentMinSchemaReplace pingone.EnvironmentReplaceRequest
 
-	DefaultEnvironmentBillOfMaterialsMaxSchemaCreate  pingone.EnvironmentBillOfMaterialsCreateRequest
+	DefaultEnvironmentBillOfMaterialsMaxSchemaCreate  pingone.EnvironmentBillOfMaterials
 	DefaultEnvironmentBillOfMaterialsMaxSchemaReplace pingone.EnvironmentBillOfMaterialsReplaceRequest
-	DefaultEnvironmentBillOfMaterialsMinSchemaCreate  pingone.EnvironmentBillOfMaterialsCreateRequest
+	DefaultEnvironmentBillOfMaterialsMinSchemaCreate  pingone.EnvironmentBillOfMaterials
 	DefaultEnvironmentBillOfMaterialsMinSchemaReplace pingone.EnvironmentBillOfMaterialsReplaceRequest
 }
 
@@ -79,7 +79,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 
 	regionCode := pingone.EnvironmentRegionCode(s.DefaultRegionCode)
 
-	s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate = pingone.EnvironmentBillOfMaterialsCreateRequest{
+	s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate = pingone.EnvironmentBillOfMaterials{
 		Products: []pingone.EnvironmentBillOfMaterialsProduct{
 			{
 				Type: "PING_ONE_AUTHORIZE",
@@ -92,7 +92,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 			},
 			{
 				Type: "PING_ONE_DAVINCI",
-				Tags: []pingone.EnvironmentBillOfMaterialsProductTags{
+				Tags: []string{
 					"DAVINCI_MINIMAL",
 				},
 			},
@@ -112,7 +112,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		Products: s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate.Products,
 	}
 
-	s.DefaultEnvironmentBillOfMaterialsMinSchemaCreate = pingone.EnvironmentBillOfMaterialsCreateRequest{
+	s.DefaultEnvironmentBillOfMaterialsMinSchemaCreate = pingone.EnvironmentBillOfMaterials{
 		Products: []pingone.EnvironmentBillOfMaterialsProduct{
 			{
 				Type: "PING_ONE_BASE",
@@ -128,50 +128,50 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMaxSchemaCreate,
 		Description:     pingone.PtrString("Test environment created by the PingOne Go SDK"),
 		Icon:            pingone.PtrString("https://bxretail.org/icon.png"),
-		License: pingone.ResourceRelationshipPingOne{
+		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentRegion{
+		Region: pingone.EnvironmentCreateRequestRegion{
 			EnvironmentRegionCode: &regionCode,
 		},
 		Type: "SANDBOX",
 	}
 
 	s.DefaultEnvironmentMinSchemaCreate = pingone.EnvironmentCreateRequest{
-		License: pingone.ResourceRelationshipPingOne{
+		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentRegion{
+		Region: pingone.EnvironmentCreateRequestRegion{
 			EnvironmentRegionCode: &regionCode,
 		},
 		Type: "SANDBOX",
 	}
 
-	environmentStatus := pingone.ENVIRONMENTSTATUSVALUE_DELETE_PENDING
+	environmentStatus := pingone.ENVIRONMENTSTATUS_DELETE_PENDING
 
 	s.DefaultEnvironmentMaxSchemaReplace = pingone.EnvironmentReplaceRequest{
 		BillOfMaterials: &s.DefaultEnvironmentBillOfMaterialsMinSchemaReplace,
 		Description:     pingone.PtrString("Test environment updated by the PingOne Go SDK"),
 		Icon:            pingone.PtrString("https://bxretail.org/icon1.png"),
-		License: pingone.ResourceRelationshipPingOne{
+		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
 		Type: "SANDBOX",
-		Region: pingone.EnvironmentRegion{
+		Region: pingone.EnvironmentReplaceRequestRegion{
 			EnvironmentRegionCode: &regionCode,
 		},
 		Status: &environmentStatus,
 	}
 
 	s.DefaultEnvironmentMinSchemaReplace = pingone.EnvironmentReplaceRequest{
-		License: pingone.ResourceRelationshipPingOne{
+		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
 		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentRegion{
+		Region: pingone.EnvironmentReplaceRequestRegion{
 			EnvironmentRegionCode: &regionCode,
 		},
 		Type: "SANDBOX",
@@ -322,7 +322,7 @@ func (s *EnvironmentApiServiceModifyTestSuite) SetupTest() {
 			},
 			{
 				Type: "PING_ONE_DAVINCI",
-				Tags: []pingone.EnvironmentBillOfMaterialsProductTags{
+				Tags: []string{
 					"DAVINCI_MINIMAL",
 				},
 			},
@@ -377,7 +377,7 @@ func (s *EnvironmentApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMat
 
 	// TODO: Check data
 	switch obj := payload.(type) {
-	case pingone.EnvironmentBillOfMaterialsCreateRequest:
+	case *pingone.EnvironmentBillOfMaterials:
 		assert.Equal(t, resp.SolutionType, obj.SolutionType)
 		assert.Equal(t, resp.Products, obj.Products)
 	case pingone.EnvironmentBillOfMaterialsReplaceRequest:

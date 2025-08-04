@@ -4591,11 +4591,14 @@ components:
       properties:
         id:
           format: uuid
+          minLength: 1
           title: Environment License Id
           type: string
         package:
           title: Environment License Package
           type: string
+      required:
+      - id
       title: Environment License
     EnvironmentLicenseQuantities:
       example:

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] 
+**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
 **Package** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewEnvironmentLicense
 
-`func NewEnvironmentLicense() *EnvironmentLicense`
+`func NewEnvironmentLicense(id uuid.UUID, ) *EnvironmentLicense`
 
 NewEnvironmentLicense instantiates a new EnvironmentLicense object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *EnvironmentLicense) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetPackage
 
