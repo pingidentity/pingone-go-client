@@ -153,7 +153,7 @@ func (a *DaVinciConnectorApiService) CreateConnectorInstanceExecute(r ApiCreateC
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -429,7 +429,7 @@ func (a *DaVinciConnectorApiService) CreateConnectorInstanceByIdExecute(r ApiCre
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -661,7 +661,7 @@ func (a *DaVinciConnectorApiService) DeleteConnectorInstanceByIdExecute(r ApiDel
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarHTTPResponse, err
@@ -887,7 +887,7 @@ func (a *DaVinciConnectorApiService) GetConnectorByIdExecute(r ApiGetConnectorBy
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1122,7 +1122,7 @@ func (a *DaVinciConnectorApiService) GetConnectorInstanceByIdExecute(r ApiGetCon
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1353,7 +1353,7 @@ func (a *DaVinciConnectorApiService) GetConnectorInstancesExecute(r ApiGetConnec
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1614,7 +1614,7 @@ func (a *DaVinciConnectorApiService) GetConnectorsExecute(r ApiGetConnectorsRequ
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1879,7 +1879,7 @@ func (a *DaVinciConnectorApiService) GetDetailsByConnectorIdExecute(r ApiGetDeta
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -2125,7 +2125,7 @@ func (a *DaVinciConnectorApiService) ReplaceConnectorInstanceByIdExecute(r ApiRe
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err

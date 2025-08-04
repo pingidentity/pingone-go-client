@@ -153,7 +153,7 @@ func (a *DaVinciApplicationApiService) CreateDavinciApplicationExecute(r ApiCrea
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -429,7 +429,7 @@ func (a *DaVinciApplicationApiService) CreateFlowPolicyByDavinciApplicationIdExe
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -661,7 +661,7 @@ func (a *DaVinciApplicationApiService) DeleteDavinciApplicationByIdExecute(r Api
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarHTTPResponse, err
@@ -888,7 +888,7 @@ func (a *DaVinciApplicationApiService) DeleteFlowPolicyByIdUsingDavinciApplicati
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarHTTPResponse, err
@@ -1114,7 +1114,7 @@ func (a *DaVinciApplicationApiService) GetDavinciApplicationByIdExecute(r ApiGet
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1345,7 +1345,7 @@ func (a *DaVinciApplicationApiService) GetDavinciApplicationsExecute(r ApiGetDav
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1614,7 +1614,7 @@ func (a *DaVinciApplicationApiService) GetEventsByDavinciApplicationIdAndFlowPol
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1849,7 +1849,7 @@ func (a *DaVinciApplicationApiService) GetFlowPoliciesByDavinciApplicationIdExec
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -2088,7 +2088,7 @@ func (a *DaVinciApplicationApiService) GetFlowPolicyByIdUsingDavinciApplicationI
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -2334,7 +2334,7 @@ func (a *DaVinciApplicationApiService) ReplaceDavinciApplicationByIdExecute(r Ap
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -2584,7 +2584,7 @@ func (a *DaVinciApplicationApiService) ReplaceFlowPolicyByIdUsingDavinciApplicat
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -2830,7 +2830,7 @@ func (a *DaVinciApplicationApiService) RotateKeyByDavinciApplicationIdExecute(r 
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -3076,7 +3076,7 @@ func (a *DaVinciApplicationApiService) RotateSecretByDavinciApplicationIdExecute
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err

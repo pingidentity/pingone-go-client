@@ -153,7 +153,7 @@ func (a *DaVinciVariableApiService) CreateVariableExecute(r ApiCreateVariableReq
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -415,7 +415,7 @@ func (a *DaVinciVariableApiService) DeleteVariableByIdExecute(r ApiDeleteVariabl
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarHTTPResponse, err
@@ -641,7 +641,7 @@ func (a *DaVinciVariableApiService) GetVariableByIdExecute(r ApiGetVariableByIdR
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -937,7 +937,7 @@ func (a *DaVinciVariableApiService) GetVariablesExecutePage(r ApiGetVariablesReq
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1213,7 +1213,7 @@ func (a *DaVinciVariableApiService) ReplaceVariableByIdExecute(r ApiReplaceVaria
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err

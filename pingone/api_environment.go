@@ -149,7 +149,7 @@ func (a *EnvironmentApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentR
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -359,7 +359,7 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarHTTPResponse, err
@@ -587,7 +587,7 @@ func (a *EnvironmentApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGe
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -850,7 +850,7 @@ func (a *EnvironmentApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByI
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1167,7 +1167,7 @@ func (a *EnvironmentApiService) GetEnvironmentsExecutePage(r ApiGetEnvironmentsR
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1391,7 +1391,7 @@ func (a *EnvironmentApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r A
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
@@ -1654,7 +1654,7 @@ func (a *EnvironmentApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnviro
 		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
 
 		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		localVarHTTPResponse.Body.Close()
+		_ = localVarHTTPResponse.Body.Close()
 		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 		if err != nil {
 			return localVarReturnValue, localVarHTTPResponse, err
