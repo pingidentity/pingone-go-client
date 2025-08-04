@@ -22,6 +22,7 @@ type EnvironmentRegionCode string
 // List of Environment_Region_Code
 const (
 	ENVIRONMENTREGIONCODE_AP EnvironmentRegionCode = "AP"
+	ENVIRONMENTREGIONCODE_AU EnvironmentRegionCode = "AU"
 	ENVIRONMENTREGIONCODE_CA EnvironmentRegionCode = "CA"
 	ENVIRONMENTREGIONCODE_EU EnvironmentRegionCode = "EU"
 	ENVIRONMENTREGIONCODE_NA EnvironmentRegionCode = "NA"
@@ -31,6 +32,7 @@ const (
 // All allowed values of EnvironmentRegionCode enum
 var AllowedEnvironmentRegionCodeEnumValues = []EnvironmentRegionCode{
 	"AP",
+	"AU",
 	"CA",
 	"EU",
 	"NA",

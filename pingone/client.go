@@ -1002,7 +1002,7 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	retryAfterTime, err := http.ParseTime(retryAfterHeader)
 
 	if err != nil {
-		return 0, fmt.Errorf("Uunable to parse retry-after header value: %v", err)
+		return 0, fmt.Errorf("unable to parse retry-after header value: %v", err)
 	}
 
 	return time.Until(retryAfterTime), nil
