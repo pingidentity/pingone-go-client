@@ -198,7 +198,7 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization()
 	assert.Equal(s.T(), 401, httpRes.StatusCode)
 	assert.EqualError(s.T(), err, "401 Unauthorized")
 
-	require.IsType(s.T(), &pingone.AccessFailedError{}, err)
+	require.IsType(s.T(), &pingone.UnauthorizedError{}, err)
 }
 
 func (s *EnvironmentApiServiceTestSuite) TestEnvironmentNeverFound() {
