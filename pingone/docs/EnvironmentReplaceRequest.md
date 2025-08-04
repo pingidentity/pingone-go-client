@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Region** | [**EnvironmentReplaceRequestRegion**](EnvironmentReplaceRequestRegion.md) |  | 
+**Region** | [**EnvironmentRegionCode**](EnvironmentRegionCode.md) |  | 
 **Type** | [**EnvironmentTypeValue**](EnvironmentTypeValue.md) |  | 
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterialsReplaceRequest**](EnvironmentBillOfMaterialsReplaceRequest.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironmentReplaceRequest
 
-`func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentTypeValue, ) *EnvironmentReplaceRequest`
+`func NewEnvironmentReplaceRequest(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue, ) *EnvironmentReplaceRequest`
 
 NewEnvironmentReplaceRequest instantiates a new EnvironmentReplaceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ SetName sets Name field to given value.
 
 ### GetRegion
 
-`func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentReplaceRequestRegion`
+`func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegionCode`
 
 GetRegion returns the Region field if non-nil, zero value otherwise.
 
 ### GetRegionOk
 
-`func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentReplaceRequestRegion, bool)`
+`func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegionCode, bool)`
 
 GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRegion
 
-`func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentReplaceRequestRegion)`
+`func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegionCode)`
 
 SetRegion sets Region field to given value.
 

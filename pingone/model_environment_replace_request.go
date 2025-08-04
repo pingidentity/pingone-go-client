@@ -26,7 +26,7 @@ var _ slog.LogValuer = &EnvironmentReplaceRequest{}
 // EnvironmentReplaceRequest struct for EnvironmentReplaceRequest
 type EnvironmentReplaceRequest struct {
 	Name                 string                                    `json:"name"`
-	Region               EnvironmentReplaceRequestRegion           `json:"region"`
+	Region               EnvironmentRegionCode                     `json:"region"`
 	Type                 EnvironmentTypeValue                      `json:"type"`
 	BillOfMaterials      *EnvironmentBillOfMaterialsReplaceRequest `json:"billOfMaterials,omitempty"`
 	Description          *string                                   `json:"description,omitempty"`
@@ -42,7 +42,7 @@ type _EnvironmentReplaceRequest EnvironmentReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentReplaceRequest(name string, region EnvironmentReplaceRequestRegion, type_ EnvironmentTypeValue) *EnvironmentReplaceRequest {
+func NewEnvironmentReplaceRequest(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue) *EnvironmentReplaceRequest {
 	this := EnvironmentReplaceRequest{}
 	this.Name = name
 	this.Region = region
@@ -83,9 +83,9 @@ func (o *EnvironmentReplaceRequest) SetName(v string) {
 }
 
 // GetRegion returns the Region field value
-func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentReplaceRequestRegion {
+func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegionCode {
 	if o == nil {
-		var ret EnvironmentReplaceRequestRegion
+		var ret EnvironmentRegionCode
 		return ret
 	}
 
@@ -94,7 +94,7 @@ func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentReplaceRequestRegion 
 
 // GetRegionOk returns a tuple with the Region field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentReplaceRequestRegion, bool) {
+func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegionCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentReplaceRequestReg
 }
 
 // SetRegion sets field value
-func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentReplaceRequestRegion) {
+func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegionCode) {
 	o.Region = v
 }
 

@@ -25,13 +25,13 @@ var _ slog.LogValuer = &EnvironmentCreateRequest{}
 
 // EnvironmentCreateRequest struct for EnvironmentCreateRequest
 type EnvironmentCreateRequest struct {
-	Name                 string                         `json:"name"`
-	Region               EnvironmentCreateRequestRegion `json:"region"`
-	Type                 EnvironmentTypeValue           `json:"type"`
-	License              EnvironmentLicense             `json:"license"`
-	BillOfMaterials      *EnvironmentBillOfMaterials    `json:"billOfMaterials,omitempty"`
-	Description          *string                        `json:"description,omitempty"`
-	Icon                 *string                        `json:"icon,omitempty"`
+	Name                 string                      `json:"name"`
+	Region               EnvironmentRegionCode       `json:"region"`
+	Type                 EnvironmentTypeValue        `json:"type"`
+	License              EnvironmentLicense          `json:"license"`
+	BillOfMaterials      *EnvironmentBillOfMaterials `json:"billOfMaterials,omitempty"`
+	Description          *string                     `json:"description,omitempty"`
+	Icon                 *string                     `json:"icon,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,7 +41,7 @@ type _EnvironmentCreateRequest EnvironmentCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentCreateRequest(name string, region EnvironmentCreateRequestRegion, type_ EnvironmentTypeValue, license EnvironmentLicense) *EnvironmentCreateRequest {
+func NewEnvironmentCreateRequest(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue, license EnvironmentLicense) *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
 	this.Name = name
 	this.Region = region
@@ -83,9 +83,9 @@ func (o *EnvironmentCreateRequest) SetName(v string) {
 }
 
 // GetRegion returns the Region field value
-func (o *EnvironmentCreateRequest) GetRegion() EnvironmentCreateRequestRegion {
+func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegionCode {
 	if o == nil {
-		var ret EnvironmentCreateRequestRegion
+		var ret EnvironmentRegionCode
 		return ret
 	}
 
@@ -94,7 +94,7 @@ func (o *EnvironmentCreateRequest) GetRegion() EnvironmentCreateRequestRegion {
 
 // GetRegionOk returns a tuple with the Region field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentCreateRequestRegion, bool) {
+func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegionCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentCreateRequestRegio
 }
 
 // SetRegion sets field value
-func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentCreateRequestRegion) {
+func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegionCode) {
 	o.Region = v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Region** | [**EnvironmentRegion**](EnvironmentRegion.md) |  | 
+**Region** | [**EnvironmentRegionCode**](EnvironmentRegionCode.md) |  | 
 **Type** | [**EnvironmentTypeValue**](EnvironmentTypeValue.md) |  | 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironment
 
-`func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly, ) *Environment`
+`func NewEnvironment(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -64,20 +64,20 @@ SetName sets Name field to given value.
 
 ### GetRegion
 
-`func (o *Environment) GetRegion() EnvironmentRegion`
+`func (o *Environment) GetRegion() EnvironmentRegionCode`
 
 GetRegion returns the Region field if non-nil, zero value otherwise.
 
 ### GetRegionOk
 
-`func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool)`
+`func (o *Environment) GetRegionOk() (*EnvironmentRegionCode, bool)`
 
 GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRegion
 
-`func (o *Environment) SetRegion(v EnvironmentRegion)`
+`func (o *Environment) SetRegion(v EnvironmentRegionCode)`
 
 SetRegion sets Region field to given value.
 

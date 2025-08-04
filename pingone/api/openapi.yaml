@@ -3323,7 +3323,7 @@ components:
         name: name
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         softDeletedAt: 2000-01-23T04:56:07.000+00:00
-        region: Environment_Region
+        region: AP
         billOfMaterials:
           solutionType: CIAM_TRIAL
           products:
@@ -3450,7 +3450,7 @@ components:
           title: Environment Name
           type: string
         region:
-          $ref: '#/components/schemas/Environment_Region'
+          $ref: '#/components/schemas/EnvironmentRegionCode'
         type:
           $ref: '#/components/schemas/EnvironmentTypeValue'
         createdAt:
@@ -4444,7 +4444,7 @@ components:
         name: name
         icon: icon
         description: description
-        region: Environment_Create_Request_Region
+        region: AP
         type: PRODUCTION
         billOfMaterials:
           solutionType: CIAM_TRIAL
@@ -4570,7 +4570,7 @@ components:
           title: Environment Create Request Name
           type: string
         region:
-          $ref: '#/components/schemas/Environment_Create_Request_Region'
+          $ref: '#/components/schemas/EnvironmentRegionCode'
         type:
           $ref: '#/components/schemas/EnvironmentTypeValue'
         license:
@@ -4727,7 +4727,7 @@ components:
         name: name
         icon: icon
         description: description
-        region: Environment_Replace_Request_Region
+        region: AP
         type: PRODUCTION
         billOfMaterials:
           products:
@@ -4853,7 +4853,7 @@ components:
           title: Environment Replace Request Name
           type: string
         region:
-          $ref: '#/components/schemas/Environment_Replace_Request_Region'
+          $ref: '#/components/schemas/EnvironmentRegionCode'
         type:
           $ref: '#/components/schemas/EnvironmentTypeValue'
         billOfMaterials:
@@ -7189,11 +7189,6 @@ components:
       - title: DaVinci Variable Replace Request Value Choice 4
         type: string
       title: DaVinci Variable Replace Request Value
-    Environment_Region:
-      anyOf:
-      - type: string
-      - $ref: '#/components/schemas/EnvironmentRegionCode'
-      title: Environment Region
     Environment__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
@@ -7264,16 +7259,6 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
       readOnly: true
       title: Environment Capabilities _links
-    Environment_Create_Request_Region:
-      anyOf:
-      - type: string
-      - $ref: '#/components/schemas/EnvironmentRegionCode'
-      title: Environment Create Request Region
-    Environment_Replace_Request_Region:
-      anyOf:
-      - type: string
-      - $ref: '#/components/schemas/EnvironmentRegionCode'
-      title: Environment Replace Request Region
     Environments_Collection__embedded:
       example:
         environments:

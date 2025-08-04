@@ -137,11 +137,9 @@ var (
 			License: pingone.EnvironmentLicense{
 				Id: licenseId,
 			},
-			Name: name,
-			Region: pingone.EnvironmentCreateRequestRegion{
-				EnvironmentRegionCode: &regionCode,
-			},
-			Type: "SANDBOX",
+			Name:   name,
+			Region: regionCode,
+			Type:   "SANDBOX",
 		}
 	}
 )

@@ -131,22 +131,18 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		License: pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
-		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentCreateRequestRegion{
-			EnvironmentRegionCode: &regionCode,
-		},
-		Type: "SANDBOX",
+		Name:   fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
+		Region: regionCode,
+		Type:   "SANDBOX",
 	}
 
 	s.DefaultEnvironmentMinSchemaCreate = pingone.EnvironmentCreateRequest{
 		License: pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
-		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentCreateRequestRegion{
-			EnvironmentRegionCode: &regionCode,
-		},
-		Type: "SANDBOX",
+		Name:   fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
+		Region: regionCode,
+		Type:   "SANDBOX",
 	}
 
 	environmentStatus := pingone.ENVIRONMENTSTATUSVALUE_DELETE_PENDING
@@ -158,11 +154,9 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
-		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Type: "SANDBOX",
-		Region: pingone.EnvironmentReplaceRequestRegion{
-			EnvironmentRegionCode: &regionCode,
-		},
+		Name:   fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
+		Type:   "SANDBOX",
+		Region: regionCode,
 		Status: &environmentStatus,
 	}
 
@@ -170,11 +164,9 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 		License: &pingone.EnvironmentLicense{
 			Id: s.DefaultLicenseId,
 		},
-		Name: fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
-		Region: pingone.EnvironmentReplaceRequestRegion{
-			EnvironmentRegionCode: &regionCode,
-		},
-		Type: "SANDBOX",
+		Name:   fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, testframework.RandomResourceName(), s.EnvironmentNameSuffix),
+		Region: regionCode,
+		Type:   "SANDBOX",
 	}
 }
 

@@ -29,7 +29,7 @@ var _ slog.LogValuer = &Environment{}
 // Environment struct for Environment
 type Environment struct {
 	Name                    string                            `json:"name"`
-	Region                  EnvironmentRegion                 `json:"region"`
+	Region                  EnvironmentRegionCode             `json:"region"`
 	Type                    EnvironmentTypeValue              `json:"type"`
 	CreatedAt               time.Time                         `json:"createdAt"`
 	UpdatedAt               time.Time                         `json:"updatedAt"`
@@ -55,7 +55,7 @@ type _Environment Environment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(name string, region EnvironmentRegion, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly) *Environment {
+func NewEnvironment(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue, createdAt time.Time, updatedAt time.Time, id uuid.UUID, organization ResourceRelationshipReadOnly) *Environment {
 	this := Environment{}
 	this.Name = name
 	this.Region = region
@@ -100,9 +100,9 @@ func (o *Environment) SetName(v string) {
 }
 
 // GetRegion returns the Region field value
-func (o *Environment) GetRegion() EnvironmentRegion {
+func (o *Environment) GetRegion() EnvironmentRegionCode {
 	if o == nil {
-		var ret EnvironmentRegion
+		var ret EnvironmentRegionCode
 		return ret
 	}
 
@@ -111,7 +111,7 @@ func (o *Environment) GetRegion() EnvironmentRegion {
 
 // GetRegionOk returns a tuple with the Region field value
 // and a boolean to check if the value has been set.
-func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
+func (o *Environment) GetRegionOk() (*EnvironmentRegionCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *Environment) GetRegionOk() (*EnvironmentRegion, bool) {
 }
 
 // SetRegion sets field value
-func (o *Environment) SetRegion(v EnvironmentRegion) {
+func (o *Environment) SetRegion(v EnvironmentRegionCode) {
 	o.Region = v
 }
 
