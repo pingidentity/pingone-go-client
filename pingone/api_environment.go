@@ -417,7 +417,7 @@ func (a *EnvironmentApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironm
 				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
 				if err != nil {
 					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
+					return localVarHTTPResponse, newErr
 				}
 				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
 					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
