@@ -45,7 +45,7 @@ func (v *EnvironmentStatusValue) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = EnvironmentStatusValue(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = EnvironmentStatusValue(fmt.Sprintf("%s", value))
 	return nil
 }
 

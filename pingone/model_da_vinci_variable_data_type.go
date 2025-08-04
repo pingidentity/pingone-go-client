@@ -71,7 +71,7 @@ func (v *DaVinciVariableDataType) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciVariableDataType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciVariableDataType(fmt.Sprintf("%s", value))
 	return nil
 }
 

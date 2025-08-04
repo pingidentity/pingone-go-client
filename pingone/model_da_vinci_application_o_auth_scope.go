@@ -49,7 +49,7 @@ func (v *DaVinciApplicationOAuthScope) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciApplicationOAuthScope(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciApplicationOAuthScope(fmt.Sprintf("%s", value))
 	return nil
 }
 

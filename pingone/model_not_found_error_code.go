@@ -43,7 +43,7 @@ func (v *NotFoundErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = NotFoundErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = NotFoundErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

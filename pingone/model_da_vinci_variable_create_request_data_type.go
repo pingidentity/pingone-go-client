@@ -51,7 +51,7 @@ func (v *DaVinciVariableCreateRequestDataType) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciVariableCreateRequestDataType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciVariableCreateRequestDataType(fmt.Sprintf("%s", value))
 	return nil
 }
 

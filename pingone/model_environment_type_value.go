@@ -45,7 +45,7 @@ func (v *EnvironmentTypeValue) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = EnvironmentTypeValue(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = EnvironmentTypeValue(fmt.Sprintf("%s", value))
 	return nil
 }
 

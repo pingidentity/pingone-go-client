@@ -45,7 +45,7 @@ func (v *UnauthorizedErrorDetailCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = UnauthorizedErrorDetailCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = UnauthorizedErrorDetailCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

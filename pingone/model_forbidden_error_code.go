@@ -43,7 +43,7 @@ func (v *ForbiddenErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = ForbiddenErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = ForbiddenErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

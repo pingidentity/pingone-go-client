@@ -43,7 +43,7 @@ func (v *InternalServerErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = InternalServerErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = InternalServerErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

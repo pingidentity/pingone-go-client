@@ -47,7 +47,7 @@ func (v *DaVinciConnectorMinimalResponseMetadataType) UnmarshalJSON(src []byte) 
 		}
 	}
 
-	*v = DaVinciConnectorMinimalResponseMetadataType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciConnectorMinimalResponseMetadataType(fmt.Sprintf("%s", value))
 	return nil
 }
 

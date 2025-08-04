@@ -43,7 +43,7 @@ func (v *TooManyRequestsErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = TooManyRequestsErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = TooManyRequestsErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

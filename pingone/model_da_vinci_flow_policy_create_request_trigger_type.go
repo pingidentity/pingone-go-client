@@ -43,7 +43,7 @@ func (v *DaVinciFlowPolicyCreateRequestTriggerType) UnmarshalJSON(src []byte) er
 		}
 	}
 
-	*v = DaVinciFlowPolicyCreateRequestTriggerType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciFlowPolicyCreateRequestTriggerType(fmt.Sprintf("%s", value))
 	return nil
 }
 

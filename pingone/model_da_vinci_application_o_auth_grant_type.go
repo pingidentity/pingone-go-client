@@ -47,7 +47,7 @@ func (v *DaVinciApplicationOAuthGrantType) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciApplicationOAuthGrantType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciApplicationOAuthGrantType(fmt.Sprintf("%s", value))
 	return nil
 }
 

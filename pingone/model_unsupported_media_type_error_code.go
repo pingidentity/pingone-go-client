@@ -43,7 +43,7 @@ func (v *UnsupportedMediaTypeErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = UnsupportedMediaTypeErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = UnsupportedMediaTypeErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

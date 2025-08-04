@@ -53,7 +53,7 @@ func (v *EnvironmentRegionCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = EnvironmentRegionCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = EnvironmentRegionCode(fmt.Sprintf("%s", value))
 	return nil
 }
 

@@ -91,7 +91,7 @@ func (v *EnvironmentBillOfMaterialsProductType) UnmarshalJSON(src []byte) error 
 		}
 	}
 
-	*v = EnvironmentBillOfMaterialsProductType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = EnvironmentBillOfMaterialsProductType(fmt.Sprintf("%s", value))
 	return nil
 }
 

@@ -49,7 +49,7 @@ func (v *DaVinciVariableCreateRequestContext) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciVariableCreateRequestContext(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciVariableCreateRequestContext(fmt.Sprintf("%s", value))
 	return nil
 }
 

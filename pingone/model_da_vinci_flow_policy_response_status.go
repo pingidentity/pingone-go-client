@@ -45,7 +45,7 @@ func (v *DaVinciFlowPolicyResponseStatus) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciFlowPolicyResponseStatus(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciFlowPolicyResponseStatus(fmt.Sprintf("%s", value))
 	return nil
 }
 

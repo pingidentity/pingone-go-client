@@ -47,7 +47,7 @@ func (v *BadRequestErrorCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = BadRequestErrorCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = BadRequestErrorCode(fmt.Sprintf("%s", value))
 	return nil
 }
 
