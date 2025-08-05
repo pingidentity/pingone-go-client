@@ -66,7 +66,7 @@ func main() {
 		slog.Error("Invalid environment ID format", "error", err)
 		os.Exit(1)
 	}
-	environment, httpResp, err := client.EnvironmentApi.GetEnvironmentById(
+	environment, httpResp, err := client.EnvironmentsApi.GetEnvironmentById(
 		context.Background(),
 		environmentID,
 	).Execute()

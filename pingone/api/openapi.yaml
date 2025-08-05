@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - Go SDK
-  version: 2025.08.04-development
+  version: 2025.08.05-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -31,13 +31,13 @@ security:
 tags:
 - description: Operations for managing DaVinci applications and application flows
     policies
-  name: DaVinci Application
+  name: DaVinci Applications
 - description: Operations for managing DaVinci connectors and connector instances
-  name: DaVinci Connector
+  name: DaVinci Connectors
 - description: Operations for managing DaVinci variables
-  name: DaVinci Variable
+  name: DaVinci Variables
 - description: Operations for managing PingOne environments
-  name: Environment
+  name: Environments
 paths:
   /environments:
     get:
@@ -89,10 +89,10 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentsCollection'
+                $ref: '#/components/schemas/EnvironmentsCollectionResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentsCollection'
+                $ref: '#/components/schemas/EnvironmentsCollectionResponse'
           description: Successful operation. This is also returned if the collection
             is empty.
         "400":
@@ -112,7 +112,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:read:environment
       x-pingidentity-paginatedresponse: true
     post:
@@ -131,10 +131,10 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
           description: Successfully created.
           headers:
             Location:
@@ -159,7 +159,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:create:environment
   /environments/{environmentID}:
     delete:
@@ -188,7 +188,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:delete:environment
     get:
       operationId: getEnvironmentById
@@ -208,10 +208,10 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
           description: Successful operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -230,7 +230,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:read:environment
     put:
       operationId: replaceEnvironmentById
@@ -249,19 +249,19 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
           description: Successful operation.
         "201":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/Environment'
+                $ref: '#/components/schemas/EnvironmentResponse'
           description: Successfully created.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -280,7 +280,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:update:environment
   /environments/{environmentID}/billOfMaterials:
     get:
@@ -316,7 +316,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:read:environment
     put:
       operationId: replaceBillOfMaterialsByEnvironmentId
@@ -357,7 +357,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Environment
+      - Environments
       x-permission: orgmgt:update:environment
   /environments/{environmentID}/connectorInstances:
     get:
@@ -371,7 +371,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceCollection'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceCollectionResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -392,7 +392,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:read:connections
     post:
       operationId: createConnectorInstance
@@ -411,7 +411,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
           description: Successfully created the resource.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -432,7 +432,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:create:connections
   /environments/{environmentID}/connectorInstances/{connectorInstanceID}:
     delete:
@@ -464,7 +464,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:delete:connections
     get:
       operationId: getConnectorInstanceById
@@ -478,7 +478,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -499,7 +499,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:read:connections
     post:
       operationId: createConnectorInstanceById
@@ -519,7 +519,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
           description: Successfully created the resource.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -540,7 +540,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:create:connections
     put:
       operationId: replaceConnectorInstanceById
@@ -560,7 +560,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstance'
+                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -581,7 +581,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:update:connections
   /environments/{environmentID}/connectors:
     get:
@@ -616,7 +616,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:read:connectors
   /environments/{environmentID}/connectors/{connectorID}:
     get:
@@ -652,7 +652,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:read:connectors
   /environments/{environmentID}/connectors/{connectorID}/details:
     get:
@@ -688,7 +688,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Connector
+      - DaVinci Connectors
       x-permission: davinci:read:connectors
   /environments/{environmentID}/davinciApplications:
     get:
@@ -702,7 +702,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationCollection'
+                $ref: '#/components/schemas/DaVinciApplicationCollectionResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -723,7 +723,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:read:applications
     post:
       operationId: createDavinciApplication
@@ -742,7 +742,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplication'
+                $ref: '#/components/schemas/DaVinciApplicationResponse'
           description: Successfully created the resource.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -763,7 +763,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:create:applications
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}:
     delete:
@@ -795,7 +795,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:delete:applications
     get:
       operationId: getDavinciApplicationById
@@ -809,7 +809,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplication'
+                $ref: '#/components/schemas/DaVinciApplicationResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -830,7 +830,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:read:applications
     put:
       operationId: replaceDavinciApplicationById
@@ -850,7 +850,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplication'
+                $ref: '#/components/schemas/DaVinciApplicationResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -871,7 +871,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:update:applications
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies:
     get:
@@ -907,7 +907,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:read:flowPolicies
     post:
       operationId: createFlowPolicyByDavinciApplicationId
@@ -948,7 +948,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:create:flowPolicies
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID}:
     delete:
@@ -981,7 +981,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:delete:flowPolicies
     get:
       operationId: getFlowPolicyByIdUsingDavinciApplicationId
@@ -1017,7 +1017,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:read:flowPolicies
     put:
       operationId: replaceFlowPolicyByIdUsingDavinciApplicationId
@@ -1059,7 +1059,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:update:flowPolicies
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID}/events:
     get:
@@ -1096,7 +1096,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:read:flowPolicies
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/key:
     post:
@@ -1117,7 +1117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplication'
+                $ref: '#/components/schemas/DaVinciApplicationResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1138,7 +1138,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/secret:
@@ -1160,7 +1160,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplication'
+                $ref: '#/components/schemas/DaVinciApplicationResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1181,7 +1181,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Application
+      - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
   /environments/{environmentID}/variables:
@@ -1221,7 +1221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariableCollection'
+                $ref: '#/components/schemas/DaVinciVariableCollectionResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1242,7 +1242,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Variable
+      - DaVinci Variables
       x-permission: davinci:read:constructs
       x-pingidentity-paginatedresponse: true
     post:
@@ -1262,7 +1262,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariable'
+                $ref: '#/components/schemas/DaVinciVariableResponse'
           description: Successfully created the resource.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1283,7 +1283,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Variable
+      - DaVinci Variables
       x-permission: davinci:create:constructs
   /environments/{environmentID}/variables/{variableID}:
     delete:
@@ -1315,7 +1315,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Variable
+      - DaVinci Variables
       x-permission: davinci:delete:constructs
     get:
       operationId: getVariableById
@@ -1329,7 +1329,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariable'
+                $ref: '#/components/schemas/DaVinciVariableResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1350,7 +1350,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Variable
+      - DaVinci Variables
       x-permission: davinci:read:constructs
     put:
       operationId: replaceVariableById
@@ -1370,7 +1370,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariable'
+                $ref: '#/components/schemas/DaVinciVariableResponse'
           description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1391,7 +1391,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Variable
+      - DaVinci Variables
       x-permission: davinci:update:constructs
 components:
   headers:
@@ -1623,99 +1623,7 @@ components:
       - message
       title: Bad Request Error
       x-go-generate-error: true
-    DaVinciApplication:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        apiKey:
-          value: value
-          enabled: true
-        _links:
-          flowPolicies:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          davinciApplication.rotateKey:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          davinciApplication.rotateSecret:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        name: name
-        id: id
-        oauth:
-          grantTypes:
-          - authorizationCode
-          - authorizationCode
-          logoutUris:
-          - logoutUris
-          - logoutUris
-          enforceSignedRequestOpenid: true
-          clientSecret: clientSecret
-          scopes:
-          - flow_analytics
-          - flow_analytics
-          redirectUris:
-          - redirectUris
-          - redirectUris
-          spjwksUrl: spjwksUrl
-          spJwksOpenid: spJwksOpenid
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        _links:
-          $ref: '#/components/schemas/DaVinci_Application__links'
-        apiKey:
-          $ref: '#/components/schemas/DaVinci_Application_Api_Key'
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
-        id:
-          minLength: 1
-          title: DaVinci Application Id
-          type: string
-        name:
-          minLength: 1
-          title: DaVinci Application Name
-          type: string
-        oauth:
-          $ref: '#/components/schemas/DaVinci_Application_OAuth'
-        createdAt:
-          format: date-time
-          title: DaVinci Application Created At
-          type: string
-        updatedAt:
-          format: date-time
-          title: DaVinci Application Updated At
-          type: string
-      required:
-      - _links
-      - apiKey
-      - environment
-      - id
-      - name
-      - oauth
-      title: DaVinci Application
-    DaVinciApplicationCollection:
+    DaVinciApplicationCollectionResponse:
       example:
         _links:
           environment:
@@ -1848,13 +1756,13 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Application_Collection__links'
+          $ref: '#/components/schemas/DaVinci_Application_Collection_Response__links'
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Application_Collection__embedded'
+          $ref: '#/components/schemas/DaVinci_Application_Collection_Response__embedded'
       required:
       - _embedded
       - _links
-      title: DaVinci Application Collection
+      title: DaVinci Application Collection Response
     DaVinciApplicationCreateRequest:
       additionalProperties: true
       example:
@@ -1903,6 +1811,98 @@ components:
       required:
       - name
       title: DaVinci Application Replace Request
+    DaVinciApplicationResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        apiKey:
+          value: value
+          enabled: true
+        _links:
+          flowPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          davinciApplication.rotateKey:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          davinciApplication.rotateSecret:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        name: name
+        id: id
+        oauth:
+          grantTypes:
+          - authorizationCode
+          - authorizationCode
+          logoutUris:
+          - logoutUris
+          - logoutUris
+          enforceSignedRequestOpenid: true
+          clientSecret: clientSecret
+          scopes:
+          - flow_analytics
+          - flow_analytics
+          redirectUris:
+          - redirectUris
+          - redirectUris
+          spjwksUrl: spjwksUrl
+          spJwksOpenid: spJwksOpenid
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Application_Response__links'
+        apiKey:
+          $ref: '#/components/schemas/DaVinci_Application_Response_Api_Key'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+        id:
+          minLength: 1
+          title: DaVinci Application Response Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Application Response Name
+          type: string
+        oauth:
+          $ref: '#/components/schemas/DaVinci_Application_Response_OAuth'
+        createdAt:
+          format: date-time
+          title: DaVinci Application Response Created At
+          type: string
+        updatedAt:
+          format: date-time
+          title: DaVinci Application Response Updated At
+          type: string
+      required:
+      - _links
+      - apiKey
+      - environment
+      - id
+      - name
+      - oauth
+      title: DaVinci Application Response
     DaVinciApplicationRotateKeyRequest:
       additionalProperties: true
       properties: {}
@@ -2075,102 +2075,12 @@ components:
       required:
       - environment
       title: DaVinci Connector Details Response
-    DaVinciConnectorInstance:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        connector:
-          id: id
-        _links:
-          connectorInstance.clone:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          gateways:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          notificationsPolicies:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          deviceAuthenticationPolicies:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          applications:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        name: name
-        id: id
-        properties:
-          key: ""
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance__links'
-        connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
-        id:
-          minLength: 1
-          title: DaVinci Connector Instance Id
-          type: string
-        name:
-          minLength: 1
-          title: DaVinci Connector Instance Name
-          type: string
-        createdAt:
-          format: date-time
-          title: DaVinci Connector Instance Created At
-          type: string
-        properties:
-          additionalProperties: true
-          properties: {}
-          title: DaVinci Connector Instance
-          type: object
-        updatedAt:
-          format: date-time
-          title: DaVinci Connector Instance Updated At
-          type: string
-      required:
-      - _links
-      - connector
-      - environment
-      - id
-      - name
-      title: DaVinci Connector Instance
     DaVinciConnectorInstanceCloneRequest:
       additionalProperties: true
       properties: {}
       title: DaVinci Connector Instance Clone Request
       type: object
-    DaVinciConnectorInstanceCollection:
+    DaVinciConnectorInstanceCollectionResponse:
       example:
         _embedded:
           connectorInstances:
@@ -2295,13 +2205,13 @@ components:
             type: type
       properties:
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection__embedded'
+          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection_Response__embedded'
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection__links'
+          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection_Response__links'
       required:
       - _embedded
       - _links
-      title: DaVinci Connector Instance Collection
+      title: DaVinci Connector Instance Collection Response
     DaVinciConnectorInstanceCreateRequest:
       additionalProperties: true
       example:
@@ -2350,6 +2260,96 @@ components:
       title: DaVinci Connector Instance Replace Request
       x-immutable:
       - connector
+    DaVinciConnectorInstanceResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        connector:
+          id: id
+        _links:
+          connectorInstance.clone:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          gateways:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          notificationsPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          deviceAuthenticationPolicies:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          applications:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        name: name
+        id: id
+        properties:
+          key: ""
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Connector_Instance_Response__links'
+        connector:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+        id:
+          minLength: 1
+          title: DaVinci Connector Instance Response Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Connector Instance Response Name
+          type: string
+        createdAt:
+          format: date-time
+          title: DaVinci Connector Instance Response Created At
+          type: string
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Connector Instance Response
+          type: object
+        updatedAt:
+          format: date-time
+          title: DaVinci Connector Instance Response Updated At
+          type: string
+      required:
+      - _links
+      - connector
+      - environment
+      - id
+      - name
+      title: DaVinci Connector Instance Response
     DaVinciConnectorMinimalResponse:
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
@@ -2891,87 +2891,7 @@ components:
       - name
       - status
       title: DaVinci Flow Policy Response
-    DaVinciVariable:
-      example:
-        _links:
-          environment:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        max: 0.8008281904610115
-        displayName: displayName
-        dataType: array
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        min: 6.027456183070403
-        name: name
-        context: context
-        mutable: true
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        value: true
-        flow:
-          id: id
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        _links:
-          $ref: '#/components/schemas/DaVinci_Variable__links'
-        dataType:
-          $ref: '#/components/schemas/DaVinci_Variable_Data_Type'
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
-        id:
-          format: uuid
-          minLength: 1
-          title: DaVinci Variable Id
-          type: string
-        name:
-          minLength: 1
-          title: DaVinci Variable Name
-          type: string
-        context:
-          title: DaVinci Variable Context
-          type: string
-        createdAt:
-          format: date-time
-          title: DaVinci Variable Created At
-          type: string
-        displayName:
-          title: DaVinci Variable Display Name
-          type: string
-        flow:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
-        max:
-          title: DaVinci Variable Max
-          type: number
-        min:
-          title: DaVinci Variable Min
-          type: number
-        mutable:
-          title: DaVinci Variable Mutable
-          type: boolean
-        updatedAt:
-          format: date-time
-          title: DaVinci Variable Updated At
-          type: string
-        value:
-          $ref: '#/components/schemas/DaVinci_Variable_Value'
-      required:
-      - _links
-      - dataType
-      - environment
-      - id
-      - name
-      title: DaVinci Variable
-    DaVinciVariableCollection:
+    DaVinciVariableCollectionResponse:
       example:
         size: 1.4658129805029452
         _embedded:
@@ -3054,21 +2974,21 @@ components:
         count: 5.962133916683182
       properties:
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Variable_Collection__embedded'
+          $ref: '#/components/schemas/DaVinci_Variable_Collection_Response__embedded'
         _links:
-          $ref: '#/components/schemas/DaVinci_Variable_Collection__links'
+          $ref: '#/components/schemas/DaVinci_Variable_Collection_Response__links'
         size:
-          title: DaVinci Variable Collection Size
+          title: DaVinci Variable Collection Response Size
           type: number
         count:
-          title: DaVinci Variable Collection Count
+          title: DaVinci Variable Collection Response Count
           type: number
       required:
       - _embedded
       - _links
       - count
       - size
-      title: DaVinci Variable Collection
+      title: DaVinci Variable Collection Response
     DaVinciVariableCreateRequest:
       additionalProperties: true
       example:
@@ -3178,361 +3098,86 @@ components:
       - name
       - flow
       - context
-    Environment:
+    DaVinciVariableResponse:
       example:
-        hardDeleteAllowedAt: 2000-01-23T04:56:07.000+00:00
         _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
           self:
             profile: https://openapi-generator.tech
             name: name
             href: https://openapi-generator.tech
             title: https://openapi-generator.tech
             type: type
-        icon: icon
-        description: description
-        environmentCapabilities:
-          canUseKerberosGateway: true
-          canUseProvisioning: true
-          canUseManualIdInspection: true
-          canUseIntelligenceRisk: true
-          canUseMfaPushNotifications: true
-          canUsePasswordPolicy: true
-          canSendVerificationFlowNotifications: true
-          _links:
-            self:
-              profile: https://openapi-generator.tech
-              name: name
-              href: https://openapi-generator.tech
-              title: https://openapi-generator.tech
-              type: type
-          canAssignUsersRoles: true
-          canUseBotMaliciousDeviceDetection: true
-          canSendMfaNotificationsOutsideWhitelist: true
-          canUseIntelligence: true
-          canUseIntelligenceAdvancedPredictors: true
-          canUsePingIDApp: true
-          canUseIdentities: true
-          canUseIntelligenceAnonymousNetworkDetection: true
-          canUseTotp: true
-          canUseCredentials: true
-          canUseMfa: true
-          canUseApplicationPermissions: true
-          canUseAamva: true
-          canPromoteToProd: true
-          canUseMfaVoiceOtp: true
-          canUseWinLogin: true
-          canUseCredentialSharingDetection: true
-          canUseDataBasedVerifications: true
-          canUseFaceMatch: true
-          canUseDaVinciAdminPortal: true
-          canUseMfaFido2Devices: true
-          canUseInboundProvisioning: true
-          canUseAccountProtection: true
-          canUseIntelligenceLimitedCompositePredictor: true
-          canUseRadiusGateway: true
-          canUseVerifyVoice: true
-          canUseCustomSchema: true
-          canUseIdentityProviders: true
-          canUseEmailOtp: true
-          canUseIntelligenceTrustDevicePredictor: true
-          canUsePasswordOnlyAuthentication: true
-          canUseVerificationFlow: true
-          canUsePingSmsAccount: true
-          canUsersUpdateSelf: true
-          canUseManualIDStepUpInspection: true
-          canAssignCustomRolesEverywhere: true
-          canCreateCustomDomain: true
-          canCreateConnections: true
-          canUseLdapGateway: true
-          canUsePasswordManagement: true
-          canUseWhatsAppOtp: true
-          canUseUniversalDeviceId: true
-          canUseIntelligenceGeoVelocity: true
-          canUseNewAccountFraudDetection: true
-          canUseDocumentMatch: true
-          canUseDynamicAuthorization: true
-          canUseApiAccessManagement: true
-          canUseIntelligenceDataConsent: true
-          environmentId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          canSendPasswordManagementNotifications: true
-          canUseVerify: true
-          _embedded:
-            key: "{}"
-          canUseFraudDataEnrichment: true
-          canUseVerifyPushNotifications: true
-          canUseProtectTransactions: true
-          canUseAccountOwnership: true
-          canUseOrchestration: true
-          canAddResources: true
-          canUseIntelligenceLastTransactionOlderThan: true
-          canUseCredentialsPushNotifications: true
-          canUseDataAnalyticsSupport: true
-          getcanUseUniversalCapture: true
-          canUseIntelligenceEditPolicyScores: true
-          canUseIntelligenceProtect: true
-          licenseQuantities:
-            rlgCredRpm:
-              limit: 5
-            numberOfAccountOwnership: 6
-            rlgAppRegRpm:
-              limit: 5
-            rlgDirAccessRps:
-              limit: 5
-            rlgDirFixedRps:
-              limit: 5
-            rlgCatchAllRps:
-              limit: 5
-            rlgConfigRpm:
-              limit: 5
-            rlgAuditRps:
-              limit: 5
-            rlgDvFlowExecRps:
-              limit: 5
-            rlgMfaPollingRps:
-              limit: 5
-            rlgVerifyRpm:
-              limit: 5
-            rlgTokenCheckRps:
-              limit: 5
-            rlgDirBulkRps:
-              limit: 5
-            rlgDvFlowCallbackRps:
-              limit: 5
-            numberOfAadhaar: 0
-            rlgMfaRps:
-              limit: 5
-            rlgAnalyticsRpm:
-              limit: 5
-            rlgDirWriteRps:
-              limit: 5
-            rlgDvFlowStartRps:
-              limit: 5
-            rlgRiskEvalsRps:
-              limit: 5
-            rlgAuthzRps:
-              limit: 5
-            rlgAuthnRps:
-              limit: 5
-            numberOfDataVerifications: 1
-            rlgMfaFixedRps:
-              limit: 5
-          canUsePlatform: true
-          canUseEditNotificationTemplate: true
-          canContactSupport: true
-          canUseDigitalVerifications: true
-          canUseAadhaar: true
-          canUseOATHToken: true
-          canUseIntelligenceNewDevicePredictor: true
-          canUseAccountTakeoverDetection: true
-          canUseYubikey: true
-          canUseIntelligenceReputation: true
-          canUseMyAccount: true
-          canUseSmsOtp: true
-        type: PRODUCTION
-        pingoneAccountId: pingoneAccountId
+        max: 0.8008281904610115
+        displayName: displayName
+        dataType: array
         createdAt: 2000-01-23T04:56:07.000+00:00
-        license:
-          package: package
+        environment:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        _embedded:
-          key: "{}"
-        organization:
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        min: 6.027456183070403
         name: name
+        context: context
+        mutable: true
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        softDeletedAt: 2000-01-23T04:56:07.000+00:00
-        region: AP
-        billOfMaterials:
-          solutionType: CIAM_TRIAL
-          products:
-          - bookmarks:
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            softwareLicense:
-              id: id
-            console:
-              href: href
-            description: description
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: IDENTITY_CLOUD
-            deployment:
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tags:
-            - tags
-            - tags
-          - bookmarks:
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            softwareLicense:
-              id: id
-            console:
-              href: href
-            description: description
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: IDENTITY_CLOUD
-            deployment:
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tags:
-            - tags
-            - tags
-          - bookmarks:
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            softwareLicense:
-              id: id
-            console:
-              href: href
-            description: description
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: IDENTITY_CLOUD
-            deployment:
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tags:
-            - tags
-            - tags
-          - bookmarks:
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            softwareLicense:
-              id: id
-            console:
-              href: href
-            description: description
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: IDENTITY_CLOUD
-            deployment:
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tags:
-            - tags
-            - tags
-          - bookmarks:
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            - name: name
-              href: href
-            softwareLicense:
-              id: id
-            console:
-              href: href
-            description: description
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: IDENTITY_CLOUD
-            deployment:
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tags:
-            - tags
-            - tags
+        value: true
+        flow:
+          id: id
         updatedAt: 2000-01-23T04:56:07.000+00:00
-        status: ACTIVE
       properties:
-        name:
-          minLength: 1
-          title: Environment Name
-          type: string
-        region:
-          $ref: '#/components/schemas/EnvironmentRegionCode'
-        type:
-          $ref: '#/components/schemas/EnvironmentTypeValue'
-        createdAt:
-          format: date-time
-          minLength: 1
-          readOnly: true
-          title: Environment Created At
-          type: string
-        updatedAt:
-          format: date-time
-          minLength: 1
-          readOnly: true
-          title: Environment Updated At
-          type: string
+        _links:
+          $ref: '#/components/schemas/DaVinci_Variable_Response__links'
+        dataType:
+          $ref: '#/components/schemas/DaVinci_Variable_Response_Data_Type'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
         id:
           format: uuid
           minLength: 1
-          title: Environment Id
+          title: DaVinci Variable Response Id
           type: string
-        organization:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
-        _embedded:
-          additionalProperties:
-            readOnly: true
-            title: Environment _embedded Additional Properties
-            type: object
-          readOnly: true
-          title: Environment _embedded
-        _links:
-          $ref: '#/components/schemas/Environment__links'
-        billOfMaterials:
-          $ref: '#/components/schemas/EnvironmentBillOfMaterials'
-        description:
-          title: Environment Description
+        name:
+          minLength: 1
+          title: DaVinci Variable Response Name
           type: string
-        environmentCapabilities:
-          $ref: '#/components/schemas/EnvironmentCapabilities'
-        hardDeleteAllowedAt:
+        context:
+          title: DaVinci Variable Response Context
+          type: string
+        createdAt:
           format: date-time
-          title: Environment Hard Delete Allowed At
+          title: DaVinci Variable Response Created At
           type: string
-        icon:
-          title: Environment Icon
+        displayName:
+          title: DaVinci Variable Response Display Name
           type: string
-        license:
-          $ref: '#/components/schemas/EnvironmentLicense'
-        pingoneAccountId:
-          title: Environment Pingone Account Id
-          type: string
-        softDeletedAt:
+        flow:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+        max:
+          title: DaVinci Variable Response Max
+          type: number
+        min:
+          title: DaVinci Variable Response Min
+          type: number
+        mutable:
+          title: DaVinci Variable Response Mutable
+          type: boolean
+        updatedAt:
           format: date-time
-          title: Environment Soft Deleted At
+          title: DaVinci Variable Response Updated At
           type: string
-        status:
-          $ref: '#/components/schemas/EnvironmentStatusValue'
+        value:
+          $ref: '#/components/schemas/DaVinci_Variable_Response_Value'
       required:
-      - createdAt
+      - _links
+      - dataType
+      - environment
       - id
       - name
-      - organization
-      - region
-      - type
-      - updatedAt
-      title: Environment
+      title: DaVinci Variable Response
     EnvironmentAPILimit:
       example:
         limit: 5
@@ -4893,6 +4538,361 @@ components:
       title: Environment Replace Request
       x-immutable:
       - region
+    EnvironmentResponse:
+      example:
+        hardDeleteAllowedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        icon: icon
+        description: description
+        environmentCapabilities:
+          canUseKerberosGateway: true
+          canUseProvisioning: true
+          canUseManualIdInspection: true
+          canUseIntelligenceRisk: true
+          canUseMfaPushNotifications: true
+          canUsePasswordPolicy: true
+          canSendVerificationFlowNotifications: true
+          _links:
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+          canAssignUsersRoles: true
+          canUseBotMaliciousDeviceDetection: true
+          canSendMfaNotificationsOutsideWhitelist: true
+          canUseIntelligence: true
+          canUseIntelligenceAdvancedPredictors: true
+          canUsePingIDApp: true
+          canUseIdentities: true
+          canUseIntelligenceAnonymousNetworkDetection: true
+          canUseTotp: true
+          canUseCredentials: true
+          canUseMfa: true
+          canUseApplicationPermissions: true
+          canUseAamva: true
+          canPromoteToProd: true
+          canUseMfaVoiceOtp: true
+          canUseWinLogin: true
+          canUseCredentialSharingDetection: true
+          canUseDataBasedVerifications: true
+          canUseFaceMatch: true
+          canUseDaVinciAdminPortal: true
+          canUseMfaFido2Devices: true
+          canUseInboundProvisioning: true
+          canUseAccountProtection: true
+          canUseIntelligenceLimitedCompositePredictor: true
+          canUseRadiusGateway: true
+          canUseVerifyVoice: true
+          canUseCustomSchema: true
+          canUseIdentityProviders: true
+          canUseEmailOtp: true
+          canUseIntelligenceTrustDevicePredictor: true
+          canUsePasswordOnlyAuthentication: true
+          canUseVerificationFlow: true
+          canUsePingSmsAccount: true
+          canUsersUpdateSelf: true
+          canUseManualIDStepUpInspection: true
+          canAssignCustomRolesEverywhere: true
+          canCreateCustomDomain: true
+          canCreateConnections: true
+          canUseLdapGateway: true
+          canUsePasswordManagement: true
+          canUseWhatsAppOtp: true
+          canUseUniversalDeviceId: true
+          canUseIntelligenceGeoVelocity: true
+          canUseNewAccountFraudDetection: true
+          canUseDocumentMatch: true
+          canUseDynamicAuthorization: true
+          canUseApiAccessManagement: true
+          canUseIntelligenceDataConsent: true
+          environmentId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          canSendPasswordManagementNotifications: true
+          canUseVerify: true
+          _embedded:
+            key: "{}"
+          canUseFraudDataEnrichment: true
+          canUseVerifyPushNotifications: true
+          canUseProtectTransactions: true
+          canUseAccountOwnership: true
+          canUseOrchestration: true
+          canAddResources: true
+          canUseIntelligenceLastTransactionOlderThan: true
+          canUseCredentialsPushNotifications: true
+          canUseDataAnalyticsSupport: true
+          getcanUseUniversalCapture: true
+          canUseIntelligenceEditPolicyScores: true
+          canUseIntelligenceProtect: true
+          licenseQuantities:
+            rlgCredRpm:
+              limit: 5
+            numberOfAccountOwnership: 6
+            rlgAppRegRpm:
+              limit: 5
+            rlgDirAccessRps:
+              limit: 5
+            rlgDirFixedRps:
+              limit: 5
+            rlgCatchAllRps:
+              limit: 5
+            rlgConfigRpm:
+              limit: 5
+            rlgAuditRps:
+              limit: 5
+            rlgDvFlowExecRps:
+              limit: 5
+            rlgMfaPollingRps:
+              limit: 5
+            rlgVerifyRpm:
+              limit: 5
+            rlgTokenCheckRps:
+              limit: 5
+            rlgDirBulkRps:
+              limit: 5
+            rlgDvFlowCallbackRps:
+              limit: 5
+            numberOfAadhaar: 0
+            rlgMfaRps:
+              limit: 5
+            rlgAnalyticsRpm:
+              limit: 5
+            rlgDirWriteRps:
+              limit: 5
+            rlgDvFlowStartRps:
+              limit: 5
+            rlgRiskEvalsRps:
+              limit: 5
+            rlgAuthzRps:
+              limit: 5
+            rlgAuthnRps:
+              limit: 5
+            numberOfDataVerifications: 1
+            rlgMfaFixedRps:
+              limit: 5
+          canUsePlatform: true
+          canUseEditNotificationTemplate: true
+          canContactSupport: true
+          canUseDigitalVerifications: true
+          canUseAadhaar: true
+          canUseOATHToken: true
+          canUseIntelligenceNewDevicePredictor: true
+          canUseAccountTakeoverDetection: true
+          canUseYubikey: true
+          canUseIntelligenceReputation: true
+          canUseMyAccount: true
+          canUseSmsOtp: true
+        type: PRODUCTION
+        pingoneAccountId: pingoneAccountId
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        license:
+          package: package
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        _embedded:
+          key: "{}"
+        organization:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        softDeletedAt: 2000-01-23T04:56:07.000+00:00
+        region: AP
+        billOfMaterials:
+          solutionType: CIAM_TRIAL
+          products:
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            softwareLicense:
+              id: id
+            console:
+              href: href
+            description: description
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: IDENTITY_CLOUD
+            deployment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - tags
+            - tags
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            softwareLicense:
+              id: id
+            console:
+              href: href
+            description: description
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: IDENTITY_CLOUD
+            deployment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - tags
+            - tags
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            softwareLicense:
+              id: id
+            console:
+              href: href
+            description: description
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: IDENTITY_CLOUD
+            deployment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - tags
+            - tags
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            softwareLicense:
+              id: id
+            console:
+              href: href
+            description: description
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: IDENTITY_CLOUD
+            deployment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - tags
+            - tags
+          - bookmarks:
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            - name: name
+              href: href
+            softwareLicense:
+              id: id
+            console:
+              href: href
+            description: description
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: IDENTITY_CLOUD
+            deployment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - tags
+            - tags
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        status: ACTIVE
+      properties:
+        name:
+          minLength: 1
+          title: Environment Response Name
+          type: string
+        region:
+          $ref: '#/components/schemas/EnvironmentRegionCode'
+        type:
+          $ref: '#/components/schemas/EnvironmentTypeValue'
+        createdAt:
+          format: date-time
+          minLength: 1
+          readOnly: true
+          title: Environment Response Created At
+          type: string
+        updatedAt:
+          format: date-time
+          minLength: 1
+          readOnly: true
+          title: Environment Response Updated At
+          type: string
+        id:
+          format: uuid
+          minLength: 1
+          title: Environment Response Id
+          type: string
+        organization:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+        _embedded:
+          additionalProperties:
+            readOnly: true
+            title: Environment Response _embedded Additional Properties
+            type: object
+          readOnly: true
+          title: Environment Response _embedded
+        _links:
+          $ref: '#/components/schemas/Environment_Response__links'
+        billOfMaterials:
+          $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+        description:
+          title: Environment Response Description
+          type: string
+        environmentCapabilities:
+          $ref: '#/components/schemas/EnvironmentCapabilities'
+        hardDeleteAllowedAt:
+          format: date-time
+          title: Environment Response Hard Delete Allowed At
+          type: string
+        icon:
+          title: Environment Response Icon
+          type: string
+        license:
+          $ref: '#/components/schemas/EnvironmentLicense'
+        pingoneAccountId:
+          title: Environment Response Pingone Account Id
+          type: string
+        softDeletedAt:
+          format: date-time
+          title: Environment Response Soft Deleted At
+          type: string
+        status:
+          $ref: '#/components/schemas/EnvironmentStatusValue'
+      required:
+      - createdAt
+      - id
+      - name
+      - organization
+      - region
+      - type
+      - updatedAt
+      title: Environment Response
     EnvironmentStatusValue:
       enum:
       - ACTIVE
@@ -4907,7 +4907,7 @@ components:
       minLength: 1
       title: Environment Type Value
       type: string
-    EnvironmentsCollection:
+    EnvironmentsCollectionResponse:
       example:
         size: 6
         _embedded:
@@ -4936,18 +4936,18 @@ components:
         count: 0
       properties:
         _embedded:
-          $ref: '#/components/schemas/Environments_Collection__embedded'
+          $ref: '#/components/schemas/Environments_Collection_Response__embedded'
         _links:
-          $ref: '#/components/schemas/Environments_Collection__links'
+          $ref: '#/components/schemas/Environments_Collection_Response__links'
         count:
           format: int32
-          title: Environments Collection Count
+          title: Environments Collection Response Count
           type: integer
         size:
           format: int32
-          title: Environments Collection Size
+          title: Environments Collection Response Size
           type: integer
-      title: Environments Collection
+      title: Environments Collection Response
     ForbiddenError:
       example:
         code: ACCESS_FAILED
@@ -5421,151 +5421,7 @@ components:
       - code
       - message
       title: Bad Request Error Detail
-    DaVinci_Application__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        flowPolicies:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        davinciApplication.rotateKey:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        davinciApplication.rotateSecret:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
-        flowPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
-        davinciApplication.rotateKey:
-          $ref: '#/components/schemas/JSONHALLink'
-        davinciApplication.rotateSecret:
-          $ref: '#/components/schemas/JSONHALLink'
-      required:
-      - davinciApplication.rotateKey
-      - davinciApplication.rotateSecret
-      - environment
-      - flowPolicies
-      - self
-      title: DaVinci Application _links
-    DaVinci_Application_Api_Key:
-      example:
-        value: value
-        enabled: true
-      properties:
-        enabled:
-          default: true
-          title: DaVinci Application Api Key Enabled
-          type: boolean
-        value:
-          format: password
-          minLength: 1
-          title: DaVinci Application Api Key Value
-          type: string
-      required:
-      - enabled
-      - value
-      title: DaVinci Application Api Key
-    DaVinci_Application_OAuth_Grant_Type:
-      enum:
-      - authorizationCode
-      - clientCredentials
-      - implicit
-      title: DaVinci Application OAuth Grant Type
-      type: string
-    DaVinci_Application_OAuth_Scope:
-      enum:
-      - flow_analytics
-      - offline_access
-      - openid
-      - profile
-      title: DaVinci Application OAuth Scope
-      type: string
-    DaVinci_Application_OAuth:
-      example:
-        grantTypes:
-        - authorizationCode
-        - authorizationCode
-        logoutUris:
-        - logoutUris
-        - logoutUris
-        enforceSignedRequestOpenid: true
-        clientSecret: clientSecret
-        scopes:
-        - flow_analytics
-        - flow_analytics
-        redirectUris:
-        - redirectUris
-        - redirectUris
-        spjwksUrl: spjwksUrl
-        spJwksOpenid: spJwksOpenid
-      properties:
-        clientSecret:
-          format: password
-          minLength: 1
-          title: DaVinci Application OAuth Client Secret
-          type: string
-        enforceSignedRequestOpenid:
-          title: DaVinci Application OAuth Enforce Signed Request Openid
-          type: boolean
-        grantTypes:
-          default:
-          - authorizationCode
-          items:
-            $ref: '#/components/schemas/DaVinci_Application_OAuth_Grant_Type'
-          type: array
-        logoutUris:
-          items:
-            title: DaVinci Application OAuth Logout Uri
-            type: string
-          type: array
-        redirectUris:
-          items:
-            title: DaVinci Application OAuth Redirect Uri
-            type: string
-          type: array
-        scopes:
-          default:
-          - openid
-          - profile
-          items:
-            $ref: '#/components/schemas/DaVinci_Application_OAuth_Scope'
-          type: array
-        spJwksOpenid:
-          title: DaVinci Application OAuth Sp Jwks Openid
-          type: string
-        spjwksUrl:
-          title: DaVinci Application OAuth Spjwks Url
-          type: string
-      required:
-      - clientSecret
-      title: DaVinci Application OAuth
-    DaVinci_Application_Collection__links:
+    DaVinci_Application_Collection_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
@@ -5589,8 +5445,8 @@ components:
       required:
       - environment
       - self
-      title: DaVinci Application Collection _links
-    DaVinci_Application_Collection__embedded:
+      title: DaVinci Application Collection Response _links
+    DaVinci_Application_Collection_Response__embedded:
       example:
         davinciApplications:
         - createdAt: 2000-01-23T04:56:07.000+00:00
@@ -5710,11 +5566,11 @@ components:
       properties:
         davinciApplications:
           items:
-            $ref: '#/components/schemas/DaVinciApplication'
+            $ref: '#/components/schemas/DaVinciApplicationResponse'
           type: array
       required:
       - davinciApplications
-      title: DaVinci Application Collection _embedded
+      title: DaVinci Application Collection Response _embedded
     DaVinci_Application_Replace_Request_OAuth_Grant_Type:
       enum:
       - authorizationCode
@@ -5771,6 +5627,150 @@ components:
         spjwksUrl:
           title: DaVinci Application Replace Request OAuth Spjwks Url
       title: DaVinci Application Replace Request OAuth
+    DaVinci_Application_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        flowPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        davinciApplication.rotateKey:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        davinciApplication.rotateSecret:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        flowPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        davinciApplication.rotateKey:
+          $ref: '#/components/schemas/JSONHALLink'
+        davinciApplication.rotateSecret:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - davinciApplication.rotateKey
+      - davinciApplication.rotateSecret
+      - environment
+      - flowPolicies
+      - self
+      title: DaVinci Application Response _links
+    DaVinci_Application_Response_Api_Key:
+      example:
+        value: value
+        enabled: true
+      properties:
+        enabled:
+          default: true
+          title: DaVinci Application Response Api Key Enabled
+          type: boolean
+        value:
+          format: password
+          minLength: 1
+          title: DaVinci Application Response Api Key Value
+          type: string
+      required:
+      - enabled
+      - value
+      title: DaVinci Application Response Api Key
+    DaVinci_Application_Response_OAuth_Grant_Type:
+      enum:
+      - authorizationCode
+      - clientCredentials
+      - implicit
+      title: DaVinci Application Response OAuth Grant Type
+      type: string
+    DaVinci_Application_Response_OAuth_Scope:
+      enum:
+      - flow_analytics
+      - offline_access
+      - openid
+      - profile
+      title: DaVinci Application Response OAuth Scope
+      type: string
+    DaVinci_Application_Response_OAuth:
+      example:
+        grantTypes:
+        - authorizationCode
+        - authorizationCode
+        logoutUris:
+        - logoutUris
+        - logoutUris
+        enforceSignedRequestOpenid: true
+        clientSecret: clientSecret
+        scopes:
+        - flow_analytics
+        - flow_analytics
+        redirectUris:
+        - redirectUris
+        - redirectUris
+        spjwksUrl: spjwksUrl
+        spJwksOpenid: spJwksOpenid
+      properties:
+        clientSecret:
+          format: password
+          minLength: 1
+          title: DaVinci Application Response OAuth Client Secret
+          type: string
+        enforceSignedRequestOpenid:
+          title: DaVinci Application Response OAuth Enforce Signed Request Openid
+          type: boolean
+        grantTypes:
+          default:
+          - authorizationCode
+          items:
+            $ref: '#/components/schemas/DaVinci_Application_Response_OAuth_Grant_Type'
+          type: array
+        logoutUris:
+          items:
+            title: DaVinci Application Response OAuth Logout Uri
+            type: string
+          type: array
+        redirectUris:
+          items:
+            title: DaVinci Application Response OAuth Redirect Uri
+            type: string
+          type: array
+        scopes:
+          default:
+          - openid
+          - profile
+          items:
+            $ref: '#/components/schemas/DaVinci_Application_Response_OAuth_Scope'
+          type: array
+        spJwksOpenid:
+          title: DaVinci Application Response OAuth Sp Jwks Openid
+          type: string
+        spjwksUrl:
+          title: DaVinci Application Response OAuth Spjwks Url
+          type: string
+      required:
+      - clientSecret
+      title: DaVinci Application Response OAuth
     DaVinci_Connector_Collection_Minimal_Response__embedded:
       example:
         connectors:
@@ -5969,73 +5969,7 @@ components:
       - name
       - value
       title: DaVinci Connector Details Response Section
-    DaVinci_Connector_Instance__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        connectorInstance.clone:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        gateways:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        notificationsPolicies:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        deviceAuthenticationPolicies:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        applications:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-        connectorInstance.clone:
-          $ref: '#/components/schemas/JSONHALLink'
-        applications:
-          $ref: '#/components/schemas/JSONHALLink'
-        deviceAuthenticationPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
-        gateways:
-          $ref: '#/components/schemas/JSONHALLink'
-        notificationsPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
-      required:
-      - connectorInstance.clone
-      - environment
-      - self
-      title: DaVinci Connector Instance _links
-    DaVinci_Connector_Instance_Collection__embedded:
+    DaVinci_Connector_Instance_Collection_Response__embedded:
       example:
         connectorInstances:
         - createdAt: 2000-01-23T04:56:07.000+00:00
@@ -6147,12 +6081,12 @@ components:
       properties:
         connectorInstances:
           items:
-            $ref: '#/components/schemas/DaVinciConnectorInstance'
+            $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
           type: array
       required:
       - connectorInstances
-      title: DaVinci Connector Instance Collection _embedded
-    DaVinci_Connector_Instance_Collection__links:
+      title: DaVinci Connector Instance Collection Response _embedded
+    DaVinci_Connector_Instance_Collection_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
@@ -6176,7 +6110,73 @@ components:
       required:
       - environment
       - self
-      title: DaVinci Connector Instance Collection _links
+      title: DaVinci Connector Instance Collection Response _links
+    DaVinci_Connector_Instance_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        connectorInstance.clone:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        gateways:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        notificationsPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        deviceAuthenticationPolicies:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        applications:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstance.clone:
+          $ref: '#/components/schemas/JSONHALLink'
+        applications:
+          $ref: '#/components/schemas/JSONHALLink'
+        deviceAuthenticationPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+        gateways:
+          $ref: '#/components/schemas/JSONHALLink'
+        notificationsPolicies:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - connectorInstance.clone
+      - environment
+      - self
+      title: DaVinci Connector Instance Response _links
     DaVinci_Connector_Minimal_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
@@ -7011,63 +7011,7 @@ components:
           title: DaVinci Flow Policy Response Trigger Option 1 Type
           type: string
       title: DaVinci Flow Policy Response Trigger Option 1
-    DaVinci_Variable__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        environment:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        environment:
-          $ref: '#/components/schemas/JSONHALLink'
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      required:
-      - environment
-      - self
-      title: DaVinci Variable _links
-    DaVinci_Variable_Data_Type:
-      enum:
-      - array
-      - boolean
-      - button
-      - list
-      - listInt
-      - mapping
-      - number
-      - object
-      - propertyGroup
-      - screenConfig
-      - secret
-      - skConnectorList
-      - skEvent
-      - string
-      - timestamp
-      minLength: 1
-      title: DaVinci Variable Data Type
-      type: string
-    DaVinci_Variable_Value:
-      oneOf:
-      - title: DaVinci Variable Value Choice 1
-        type: boolean
-      - title: DaVinci Variable Value Choice 2
-        type: number
-      - title: DaVinci Variable Value Choice 3
-        type: object
-      - title: DaVinci Variable Value Choice 4
-        type: string
-      title: DaVinci Variable Value
-    DaVinci_Variable_Collection__embedded:
+    DaVinci_Variable_Collection_Response__embedded:
       example:
         variables:
         - _links:
@@ -7129,12 +7073,12 @@ components:
       properties:
         variables:
           items:
-            $ref: '#/components/schemas/DaVinciVariable'
+            $ref: '#/components/schemas/DaVinciVariableResponse'
           type: array
       required:
       - variables
-      title: DaVinci Variable Collection _embedded
-    DaVinci_Variable_Collection__links:
+      title: DaVinci Variable Collection Response _embedded
+    DaVinci_Variable_Collection_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
@@ -7166,7 +7110,7 @@ components:
       required:
       - environment
       - self
-      title: DaVinci Variable Collection _links
+      title: DaVinci Variable Collection Response _links
     DaVinci_Variable_Create_Request_Context:
       enum:
       - company
@@ -7227,10 +7171,16 @@ components:
       - title: DaVinci Variable Replace Request Value Choice 4
         type: string
       title: DaVinci Variable Replace Request Value
-    Environment__links:
+    DaVinci_Variable_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
         self:
           profile: https://openapi-generator.tech
           name: name
@@ -7238,10 +7188,45 @@ components:
           title: https://openapi-generator.tech
           type: type
       properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
         self:
           $ref: '#/components/schemas/JSONHALLink'
-      readOnly: true
-      title: Environment _links
+      required:
+      - environment
+      - self
+      title: DaVinci Variable Response _links
+    DaVinci_Variable_Response_Data_Type:
+      enum:
+      - array
+      - boolean
+      - button
+      - list
+      - listInt
+      - mapping
+      - number
+      - object
+      - propertyGroup
+      - screenConfig
+      - secret
+      - skConnectorList
+      - skEvent
+      - string
+      - timestamp
+      minLength: 1
+      title: DaVinci Variable Response Data Type
+      type: string
+    DaVinci_Variable_Response_Value:
+      oneOf:
+      - title: DaVinci Variable Response Value Choice 1
+        type: boolean
+      - title: DaVinci Variable Response Value Choice 2
+        type: number
+      - title: DaVinci Variable Response Value Choice 3
+        type: object
+      - title: DaVinci Variable Response Value Choice 4
+        type: string
+      title: DaVinci Variable Response Value
     Environment_Bill_of_Materials_Solution_Type:
       enum:
       - CIAM_TRIAL
@@ -7297,7 +7282,22 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
       readOnly: true
       title: Environment Capabilities _links
-    Environments_Collection__embedded:
+    Environment_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      readOnly: true
+      title: Environment Response _links
+    Environments_Collection_Response__embedded:
       example:
         environments:
         - ""
@@ -7306,11 +7306,11 @@ components:
         environments:
           items:
             allOf:
-            - $ref: '#/components/schemas/Environment'
-            title: Environments Collection _embedded Environment
+            - $ref: '#/components/schemas/EnvironmentResponse'
+            title: Environments Collection Response _embedded Environment
           type: array
-      title: Environments Collection _embedded
-    Environments_Collection__links:
+      title: Environments Collection Response _embedded
+    Environments_Collection_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
       example:
@@ -7339,7 +7339,7 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
         self:
           $ref: '#/components/schemas/JSONHALLink'
-      title: Environments Collection _links
+      title: Environments Collection Response _links
     Forbidden_Error_Code:
       enum:
       - ACCESS_FAILED

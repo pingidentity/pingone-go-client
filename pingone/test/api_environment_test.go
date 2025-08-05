@@ -2,7 +2,7 @@
 /*
 PingOne User and Configuration Management API
 
-Testing EnvironmentApiService
+Testing EnvironmentsApiService
 
 */
 
@@ -22,12 +22,12 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type EnvironmentApiServiceNoAuthzTestSuite struct {
+type EnvironmentsApiServiceNoAuthzTestSuite struct {
 	suite.Suite
 	BadApiClient *pingone.APIClient
 }
 
-func (s *EnvironmentApiServiceNoAuthzTestSuite) SetupSuite() {
+func (s *EnvironmentsApiServiceNoAuthzTestSuite) SetupSuite() {
 	svcConfig := pingone.NewServiceConfiguration().WithAccessToken("bad-token")
 	configuration := pingone.NewConfiguration(svcConfig)
 	configuration.AppendUserAgent("testing")
@@ -39,7 +39,7 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) SetupSuite() {
 	}
 }
 
-type EnvironmentApiServiceTestSuite struct {
+type EnvironmentsApiServiceTestSuite struct {
 	testframework.PingOneTestSuite
 
 	DefaultRegionCode string
@@ -59,7 +59,7 @@ type EnvironmentApiServiceTestSuite struct {
 	DefaultEnvironmentBillOfMaterialsMinSchemaReplace pingone.EnvironmentBillOfMaterialsReplaceRequest
 }
 
-func (s *EnvironmentApiServiceTestSuite) SetupSuite() {
+func (s *EnvironmentsApiServiceTestSuite) SetupSuite() {
 	s.PingOneTestSuite.SetupSuite()
 
 	s.DefaultRegionCode = os.Getenv("PINGONE_ENVIRONMENT_REGION")
@@ -74,7 +74,7 @@ func (s *EnvironmentApiServiceTestSuite) SetupSuite() {
 	}
 }
 
-func (s *EnvironmentApiServiceTestSuite) SetupTest() {
+func (s *EnvironmentsApiServiceTestSuite) SetupTest() {
 	s.PingOneTestSuite.SetupTest()
 
 	regionCode := pingone.EnvironmentRegionCode(s.DefaultRegionCode)
@@ -170,19 +170,19 @@ func (s *EnvironmentApiServiceTestSuite) SetupTest() {
 	}
 }
 
-func (s *EnvironmentApiServiceTestSuite) TearDownTest() {
+func (s *EnvironmentsApiServiceTestSuite) TearDownTest() {
 	s.PingOneTestSuite.TearDownTest()
 }
 
-func (s *EnvironmentApiServiceTestSuite) TearDownSuite() {
+func (s *EnvironmentsApiServiceTestSuite) TearDownSuite() {
 	s.PingOneTestSuite.TearDownSuite()
 }
 
-func (s *EnvironmentApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization() {
+func (s *EnvironmentsApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization() {
 
 	environmentID := uuid.New()
 
-	resp, httpRes, err := s.BadApiClient.EnvironmentApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
+	resp, httpRes, err := s.BadApiClient.EnvironmentsApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
 
 	require.NotNil(s.T(), err)
 	require.Nil(s.T(), resp)
@@ -193,38 +193,38 @@ func (s *EnvironmentApiServiceNoAuthzTestSuite) TestEnvironmentNoAuthorization()
 	require.IsType(s.T(), &pingone.UnauthorizedError{}, err)
 }
 
-func (s *EnvironmentApiServiceTestSuite) TestEnvironmentNeverFound() {
+func (s *EnvironmentsApiServiceTestSuite) TestEnvironmentNeverFound() {
 
 	environmentID := uuid.New()
 
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
 	testframework.CheckNotFound(s.T(), resp, httpRes, err)
 	testframework.CheckPingOneAPIErrorResponse(s.T(), err, pingone.NotFoundError{}, regexp.MustCompile("Unable to find environment"))
 }
 
-func (s *EnvironmentApiServiceTestSuite) TestEnvironmentFullLifecycle() {
+func (s *EnvironmentsApiServiceTestSuite) TestEnvironmentFullLifecycle() {
 
 	// Min Schema
-	environmentID := s.test_pingone_EnvironmentApiService_Create(s.T(), s.DefaultEnvironmentMinSchemaCreate)
+	environmentID := s.test_pingone_EnvironmentsApiService_Create(s.T(), s.DefaultEnvironmentMinSchemaCreate)
 
-	s.test_pingone_EnvironmentApiService_Delete(s.T(), environmentID)
+	s.test_pingone_EnvironmentsApiService_Delete(s.T(), environmentID)
 
 	// Max Schema
-	environmentID = s.test_pingone_EnvironmentApiService_Create(s.T(), s.DefaultEnvironmentMaxSchemaCreate)
+	environmentID = s.test_pingone_EnvironmentsApiService_Create(s.T(), s.DefaultEnvironmentMaxSchemaCreate)
 
 	// Replace Max with Min
-	s.test_pingone_EnvironmentApiService_Replace(s.T(), environmentID, s.DefaultEnvironmentMinSchemaReplace)
+	s.test_pingone_EnvironmentsApiService_Replace(s.T(), environmentID, s.DefaultEnvironmentMinSchemaReplace)
 
 	// Replace Min with Max
-	s.test_pingone_EnvironmentApiService_Replace(s.T(), environmentID, s.DefaultEnvironmentMaxSchemaReplace)
+	s.test_pingone_EnvironmentsApiService_Replace(s.T(), environmentID, s.DefaultEnvironmentMaxSchemaReplace)
 
 	// Finally Delete
-	s.test_pingone_EnvironmentApiService_Delete(s.T(), environmentID)
+	s.test_pingone_EnvironmentsApiService_Delete(s.T(), environmentID)
 }
 
-func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Create(t *testing.T, payload pingone.EnvironmentCreateRequest) (environmentID uuid.UUID) {
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.CreateEnvironment(s.T().Context()).EnvironmentCreateRequest(payload).Execute()
-	testframework.CheckCreated(t, resp, &pingone.Environment{}, httpRes, err)
+func (s *EnvironmentsApiServiceTestSuite) test_pingone_EnvironmentsApiService_Create(t *testing.T, payload pingone.EnvironmentCreateRequest) (environmentID uuid.UUID) {
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.CreateEnvironment(s.T().Context()).EnvironmentCreateRequest(payload).Execute()
+	testframework.CheckCreated(t, resp, &pingone.EnvironmentResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
 	assert.NotNil(t, resp.Links)
@@ -232,14 +232,14 @@ func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Crea
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_EnvironmentApiService_Get(t, resp.Id, payload)
+	s.test_pingone_EnvironmentsApiService_Get(t, resp.Id, payload)
 
 	return resp.GetId()
 }
 
-func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Get(t *testing.T, environmentID uuid.UUID, payload any) {
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
-	testframework.CheckFound(t, resp, &pingone.Environment{}, httpRes, err)
+func (s *EnvironmentsApiServiceTestSuite) test_pingone_EnvironmentsApiService_Get(t *testing.T, environmentID uuid.UUID, payload any) {
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
+	testframework.CheckFound(t, resp, &pingone.EnvironmentResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
 	assert.NotNil(t, resp.Links)
@@ -252,16 +252,16 @@ func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Get(
 		assert.Equal(t, resp.Description, obj.Description)
 	case pingone.EnvironmentReplaceRequest:
 		assert.Equal(t, resp.Description, obj.Description)
-	case pingone.Environment:
+	case pingone.EnvironmentResponse:
 		assert.Equal(t, resp.Description, obj.Description)
 	default:
 		assert.Fail(t, "Unknown payload type")
 	}
 }
 
-func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Replace(t *testing.T, environmentID uuid.UUID, payload pingone.EnvironmentReplaceRequest) {
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.ReplaceEnvironmentById(s.T().Context(), environmentID).EnvironmentReplaceRequest(payload).Execute()
-	testframework.CheckReplaced(t, resp, &pingone.Environment{}, httpRes, err)
+func (s *EnvironmentsApiServiceTestSuite) test_pingone_EnvironmentsApiService_Replace(t *testing.T, environmentID uuid.UUID, payload pingone.EnvironmentReplaceRequest) {
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.ReplaceEnvironmentById(s.T().Context(), environmentID).EnvironmentReplaceRequest(payload).Execute()
+	testframework.CheckReplaced(t, resp, &pingone.EnvironmentResponse{}, httpRes, err)
 
 	require.Equal(t, resp.Id, environmentID)
 	assert.NotNil(t, resp.Links)
@@ -269,36 +269,36 @@ func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Repl
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_EnvironmentApiService_Get(t, resp.Id, payload)
+	s.test_pingone_EnvironmentsApiService_Get(t, resp.Id, payload)
 }
 
-func (s *EnvironmentApiServiceTestSuite) test_pingone_EnvironmentApiService_Delete(t *testing.T, environmentID uuid.UUID) {
-	httpRes, err := s.ApiClient.EnvironmentApi.DeleteEnvironmentById(s.T().Context(), environmentID).Execute()
+func (s *EnvironmentsApiServiceTestSuite) test_pingone_EnvironmentsApiService_Delete(t *testing.T, environmentID uuid.UUID) {
+	httpRes, err := s.ApiClient.EnvironmentsApi.DeleteEnvironmentById(s.T().Context(), environmentID).Execute()
 	testframework.CheckDeleted(t, httpRes, err)
 
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.GetEnvironmentById(s.T().Context(), environmentID).Execute()
 	testframework.CheckNotFound(t, resp, httpRes, err)
 }
 
-// func (s *EnvironmentApiServiceTestSuite) TestEnvironmentChangeEnvironmentType() {
+// func (s *EnvironmentsApiServiceTestSuite) TestEnvironmentChangeEnvironmentType() {
 // }
 
-// func (s *EnvironmentApiServiceTestSuite) TestEnvironmentChangeStatus() {
+// func (s *EnvironmentsApiServiceTestSuite) TestEnvironmentChangeStatus() {
 // }
 
-type EnvironmentApiServiceModifyTestSuite struct {
+type EnvironmentsApiServiceModifyTestSuite struct {
 	testframework.NewEnvironmentTestSuite
 
 	DefaultEnvironmentBillOfMaterialsMaxSchemaReplace pingone.EnvironmentBillOfMaterialsReplaceRequest
 	DefaultEnvironmentBillOfMaterialsMinSchemaReplace pingone.EnvironmentBillOfMaterialsReplaceRequest
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) SetupSuite() {
+func (s *EnvironmentsApiServiceModifyTestSuite) SetupSuite() {
 	s.NewEnvironmentTestSuite.SetupSuite()
 }
 
 // Set up the test with a new environment
-func (s *EnvironmentApiServiceModifyTestSuite) SetupTest() {
+func (s *EnvironmentsApiServiceModifyTestSuite) SetupTest() {
 	s.NewEnvironmentTestSuite.SetupTest()
 
 	s.DefaultEnvironmentBillOfMaterialsMaxSchemaReplace = pingone.EnvironmentBillOfMaterialsReplaceRequest{
@@ -339,15 +339,15 @@ func (s *EnvironmentApiServiceModifyTestSuite) SetupTest() {
 	}
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) TearDownTest() {
+func (s *EnvironmentsApiServiceModifyTestSuite) TearDownTest() {
 	s.NewEnvironmentTestSuite.TearDownTest()
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) TearDownSuite() {
+func (s *EnvironmentsApiServiceModifyTestSuite) TearDownSuite() {
 	s.NewEnvironmentTestSuite.TearDownSuite()
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) TestEnvironmentBillOfMaterialsFullLifecycle() {
+func (s *EnvironmentsApiServiceModifyTestSuite) TestEnvironmentBillOfMaterialsFullLifecycle() {
 	// Replace Max with Min
 	s.test_pingone_EnvironmentBillOfMaterialsApiService_Replace(s.T(), s.TestEnvironment.Environment.GetId(), s.DefaultEnvironmentBillOfMaterialsMinSchemaReplace)
 
@@ -359,8 +359,8 @@ func (s *EnvironmentApiServiceModifyTestSuite) TestEnvironmentBillOfMaterialsFul
 
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMaterialsApiService_Get(t *testing.T, environmentID uuid.UUID, payload any) {
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.GetBillOfMaterialsByEnvironmentId(s.T().Context(), environmentID).Execute()
+func (s *EnvironmentsApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMaterialsApiService_Get(t *testing.T, environmentID uuid.UUID, payload any) {
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.GetBillOfMaterialsByEnvironmentId(s.T().Context(), environmentID).Execute()
 	testframework.CheckFound(t, resp, &pingone.EnvironmentBillOfMaterials{}, httpRes, err)
 
 	assert.NotNil(t, resp.Links)
@@ -382,8 +382,8 @@ func (s *EnvironmentApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMat
 	}
 }
 
-func (s *EnvironmentApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMaterialsApiService_Replace(t *testing.T, environmentID uuid.UUID, payload pingone.EnvironmentBillOfMaterialsReplaceRequest) {
-	resp, httpRes, err := s.ApiClient.EnvironmentApi.ReplaceBillOfMaterialsByEnvironmentId(s.T().Context(), environmentID).EnvironmentBillOfMaterialsReplaceRequest(payload).Execute()
+func (s *EnvironmentsApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMaterialsApiService_Replace(t *testing.T, environmentID uuid.UUID, payload pingone.EnvironmentBillOfMaterialsReplaceRequest) {
+	resp, httpRes, err := s.ApiClient.EnvironmentsApi.ReplaceBillOfMaterialsByEnvironmentId(s.T().Context(), environmentID).EnvironmentBillOfMaterialsReplaceRequest(payload).Execute()
 	testframework.CheckReplaced(t, resp, &pingone.EnvironmentBillOfMaterials{}, httpRes, err)
 
 	assert.NotNil(t, resp.Links)
@@ -394,8 +394,8 @@ func (s *EnvironmentApiServiceModifyTestSuite) test_pingone_EnvironmentBillOfMat
 	s.test_pingone_EnvironmentBillOfMaterialsApiService_Get(t, environmentID, payload)
 }
 
-func Test_pingone_EnvironmentApiService(t *testing.T) {
-	// suite.Run(t, &EnvironmentApiServiceNoAuthzTestSuite{})
-	suite.Run(t, &EnvironmentApiServiceTestSuite{})
-	// suite.Run(t, &EnvironmentApiServiceModifyTestSuite{})
+func Test_pingone_EnvironmentsApiService(t *testing.T) {
+	// suite.Run(t, &EnvironmentsApiServiceNoAuthzTestSuite{})
+	suite.Run(t, &EnvironmentsApiServiceTestSuite{})
+	// suite.Run(t, &EnvironmentsApiServiceModifyTestSuite{})
 }

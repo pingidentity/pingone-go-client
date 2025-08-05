@@ -12,7 +12,7 @@ import (
 
 type TestEnvironment struct {
 	EnvironmentCreateRequest pingone.EnvironmentCreateRequest
-	Environment              *pingone.Environment
+	Environment              *pingone.EnvironmentResponse
 	// Population  *pingone.Population
 }
 
@@ -42,7 +42,7 @@ func (e *CreateConfig) IfNotExists() *CreateConfig {
 }
 
 func (e *TestEnvironment) Create(request CreateConfig) (err error) {
-	environmentResponse, httpResp, err := request.apiClient.EnvironmentApi.CreateEnvironment(request.ctx).EnvironmentCreateRequest(e.EnvironmentCreateRequest).Execute()
+	environmentResponse, httpResp, err := request.apiClient.EnvironmentsApi.CreateEnvironment(request.ctx).EnvironmentCreateRequest(e.EnvironmentCreateRequest).Execute()
 	if err != nil {
 		return fmt.Errorf("cannot create environment: %s", err.Error())
 	}
@@ -81,7 +81,7 @@ func (e *TestEnvironment) Delete(request DeleteConfig) (err error) {
 		return fmt.Errorf("environment is nil or ifExists is false")
 	}
 
-	httpResp, err := request.apiClient.EnvironmentApi.DeleteEnvironmentById(request.ctx, e.Environment.Id).Execute()
+	httpResp, err := request.apiClient.EnvironmentsApi.DeleteEnvironmentById(request.ctx, e.Environment.Id).Execute()
 	if err != nil {
 		if httpResp != nil && httpResp.StatusCode == 404 {
 			return nil

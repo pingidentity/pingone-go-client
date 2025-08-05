@@ -2,7 +2,7 @@
 /*
 PingOne User and Configuration Management API
 
-Testing DaVinciVariableApiService
+Testing DaVinciVariablesApiService
 
 */
 
@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type DaVinciVariableAPIServiceSharedEnvTestSuite struct {
+type DaVinciVariablesApiServiceSharedEnvTestSuite struct {
 	testframework.SharedEnvironmentTestSuite
 
 	DefaultDaVinciVariableMaxSchemaCreate  pingone.DaVinciVariableCreateRequest
@@ -31,12 +31,12 @@ type DaVinciVariableAPIServiceSharedEnvTestSuite struct {
 	DefaultDaVinciVariableMinSchemaReplace pingone.DaVinciVariableReplaceRequest
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupSuite() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) SetupSuite() {
 	s.SharedEnvironmentTestSuite.SetupSuite()
 }
 
 // Set up the test with a new environment
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupTest() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) SetupTest() {
 	s.SharedEnvironmentTestSuite.SetupTest()
 
 	s.DefaultDaVinciVariableMaxSchemaCreate = pingone.DaVinciVariableCreateRequest{
@@ -86,45 +86,45 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) SetupTest() {
 	}
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TearDownTest() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TearDownTest() {
 	s.SharedEnvironmentTestSuite.TearDownTest()
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TearDownSuite() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TearDownSuite() {
 	s.SharedEnvironmentTestSuite.TearDownSuite()
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableNeverFound() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TestDaVinciVariableNeverFound() {
 
 	davinciVariableID := uuid.New()
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
 	testframework.CheckNotFound(s.T(), resp, httpRes, err)
 	testframework.CheckPingOneAPIErrorResponse(s.T(), err, pingone.NotFoundError{}, regexp.MustCompile("The requested resource was not found"))
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) TestDaVinciVariableFullLifecycle() {
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TestDaVinciVariableFullLifecycle() {
 	// Min Schema
-	variableID := s.test_pingone_DaVinciVariableApiService_Create(s.T(), s.DefaultDaVinciVariableMinSchemaCreate)
+	variableID := s.test_pingone_DaVinciVariablesApiService_Create(s.T(), s.DefaultDaVinciVariableMinSchemaCreate)
 
-	s.test_pingone_DaVinciVariableApiService_Delete(s.T(), variableID)
+	s.test_pingone_DaVinciVariablesApiService_Delete(s.T(), variableID)
 
 	// Max Schema
-	variableID = s.test_pingone_DaVinciVariableApiService_Create(s.T(), s.DefaultDaVinciVariableMaxSchemaCreate)
+	variableID = s.test_pingone_DaVinciVariablesApiService_Create(s.T(), s.DefaultDaVinciVariableMaxSchemaCreate)
 
 	// Replace Max with Min
-	s.test_pingone_DaVinciVariableApiService_Replace(s.T(), variableID, s.DefaultDaVinciVariableMinSchemaReplace)
+	s.test_pingone_DaVinciVariablesApiService_Replace(s.T(), variableID, s.DefaultDaVinciVariableMinSchemaReplace)
 
 	// Replace Min with Max
-	s.test_pingone_DaVinciVariableApiService_Replace(s.T(), variableID, s.DefaultDaVinciVariableMaxSchemaReplace)
+	s.test_pingone_DaVinciVariablesApiService_Replace(s.T(), variableID, s.DefaultDaVinciVariableMaxSchemaReplace)
 
 	// Finally Delete
-	s.test_pingone_DaVinciVariableApiService_Delete(s.T(), variableID)
+	s.test_pingone_DaVinciVariablesApiService_Delete(s.T(), variableID)
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID uuid.UUID) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.CreateVariable(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
-	testframework.CheckCreated(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID uuid.UUID) {
+	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.CreateVariable(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
+	testframework.CheckCreated(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
 	assert.NotNil(t, resp.Links)
@@ -132,14 +132,14 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_DaVinciVariableApiService_Get(t, resp.Id, payload)
+	s.test_pingone_DaVinciVariablesApiService_Get(t, resp.Id, payload)
 
 	return resp.GetId()
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Get(t *testing.T, variableID uuid.UUID, payload any) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
-	testframework.CheckFound(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Get(t *testing.T, variableID uuid.UUID, payload any) {
+	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+	testframework.CheckFound(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
 	assert.NotNil(t, resp.Links)
@@ -159,9 +159,9 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	// }
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Replace(t *testing.T, variableID uuid.UUID, payload pingone.DaVinciVariableReplaceRequest) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.ReplaceVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
-	testframework.CheckReplaced(t, resp, &pingone.DaVinciVariable{}, httpRes, err)
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Replace(t *testing.T, variableID uuid.UUID, payload pingone.DaVinciVariableReplaceRequest) {
+	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.ReplaceVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
+	testframework.CheckReplaced(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
 	require.Equal(t, resp.Id, variableID)
@@ -170,17 +170,17 @@ func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariab
 	assert.NotNil(t, resp.UpdatedAt)
 	// TODO: Check data
 
-	s.test_pingone_DaVinciVariableApiService_Get(t, resp.Id, payload)
+	s.test_pingone_DaVinciVariablesApiService_Get(t, resp.Id, payload)
 }
 
-func (s *DaVinciVariableAPIServiceSharedEnvTestSuite) test_pingone_DaVinciVariableApiService_Delete(t *testing.T, variableID uuid.UUID) {
-	httpRes, err := s.ApiClient.DaVinciVariableApi.DeleteVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Delete(t *testing.T, variableID uuid.UUID) {
+	httpRes, err := s.ApiClient.DaVinciVariablesApi.DeleteVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	testframework.CheckDeleted(t, httpRes, err)
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariableApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	testframework.CheckNotFound(t, resp, httpRes, err)
 }
 
-func Test_pingone_DaVinciVariableAPIService(t *testing.T) {
-	suite.Run(t, &DaVinciVariableAPIServiceSharedEnvTestSuite{})
+func Test_pingone_DaVinciVariablesApiService(t *testing.T) {
+	suite.Run(t, &DaVinciVariablesApiServiceSharedEnvTestSuite{})
 }
