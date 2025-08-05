@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,13 +19,14 @@ import (
 // EnvironmentRegionCode the model 'EnvironmentRegionCode'
 type EnvironmentRegionCode string
 
-// List of Environment_Region_Code
+// List of EnvironmentRegionCode
 const (
 	ENVIRONMENTREGIONCODE_AP EnvironmentRegionCode = "AP"
 	ENVIRONMENTREGIONCODE_AU EnvironmentRegionCode = "AU"
 	ENVIRONMENTREGIONCODE_CA EnvironmentRegionCode = "CA"
 	ENVIRONMENTREGIONCODE_EU EnvironmentRegionCode = "EU"
 	ENVIRONMENTREGIONCODE_NA EnvironmentRegionCode = "NA"
+	ENVIRONMENTREGIONCODE_SG EnvironmentRegionCode = "SG"
 )
 
 // All allowed values of EnvironmentRegionCode enum
@@ -35,6 +36,7 @@ var AllowedEnvironmentRegionCodeEnumValues = []EnvironmentRegionCode{
 	"CA",
 	"EU",
 	"NA",
+	"SG",
 }
 
 func (v *EnvironmentRegionCode) UnmarshalJSON(src []byte) error {
@@ -51,7 +53,7 @@ func (v *EnvironmentRegionCode) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = EnvironmentRegionCode(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = EnvironmentRegionCode(fmt.Sprintf("%s", value))
 	return nil
 }
 
@@ -76,7 +78,7 @@ func (v EnvironmentRegionCode) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to Environment_Region_Code value
+// Ptr returns reference to EnvironmentRegionCode value
 func (v EnvironmentRegionCode) Ptr() *EnvironmentRegionCode {
 	return &v
 }

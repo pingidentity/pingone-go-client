@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciVariableLinks**](DaVinciVariableLinks.md) |  | 
+**DataType** | [**DaVinciVariableDataType**](DaVinciVariableDataType.md) |  | 
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
+**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
+**Name** | **string** |  | 
 **Context** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**DataType** | [**DaVinciVariableDataType**](DaVinciVariableDataType.md) |  | 
 **DisplayName** | Pointer to **string** |  | [optional] 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
-**Flow** | Pointer to [**ResourceRelationshipDaVinci**](ResourceRelationshipDaVinci.md) |  | [optional] 
-**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
+**Flow** | Pointer to [**ResourceRelationshipDaVinciReadOnly**](ResourceRelationshipDaVinciReadOnly.md) |  | [optional] 
 **Max** | Pointer to **float32** |  | [optional] 
 **Min** | Pointer to **float32** |  | [optional] 
 **Mutable** | Pointer to **bool** |  | [optional] 
-**Name** | **string** |  | 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Value** | Pointer to [**DaVinciVariableValue**](DaVinciVariableValue.md) |  | [optional] 
 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciVariable
 
-`func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id uuid.UUID, name string, ) *DaVinciVariable`
+`func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipReadOnly, id uuid.UUID, name string, ) *DaVinciVariable`
 
 NewDaVinciVariable instantiates a new DaVinciVariable object
 This constructor will assign default values to properties that have it defined,
@@ -56,6 +56,86 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciVariable) SetLinks(v DaVinciVariableLinks)`
 
 SetLinks sets Links field to given value.
+
+
+### GetDataType
+
+`func (o *DaVinciVariable) GetDataType() DaVinciVariableDataType`
+
+GetDataType returns the DataType field if non-nil, zero value otherwise.
+
+### GetDataTypeOk
+
+`func (o *DaVinciVariable) GetDataTypeOk() (*DaVinciVariableDataType, bool)`
+
+GetDataTypeOk returns a tuple with the DataType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataType
+
+`func (o *DaVinciVariable) SetDataType(v DaVinciVariableDataType)`
+
+SetDataType sets DataType field to given value.
+
+
+### GetEnvironment
+
+`func (o *DaVinciVariable) GetEnvironment() ResourceRelationshipReadOnly`
+
+GetEnvironment returns the Environment field if non-nil, zero value otherwise.
+
+### GetEnvironmentOk
+
+`func (o *DaVinciVariable) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
+
+GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironment
+
+`func (o *DaVinciVariable) SetEnvironment(v ResourceRelationshipReadOnly)`
+
+SetEnvironment sets Environment field to given value.
+
+
+### GetId
+
+`func (o *DaVinciVariable) GetId() uuid.UUID`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *DaVinciVariable) SetId(v uuid.UUID)`
+
+SetId sets Id field to given value.
+
+
+### GetName
+
+`func (o *DaVinciVariable) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *DaVinciVariable) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *DaVinciVariable) SetName(v string)`
+
+SetName sets Name field to given value.
 
 
 ### GetContext
@@ -108,26 +188,6 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetDataType
-
-`func (o *DaVinciVariable) GetDataType() DaVinciVariableDataType`
-
-GetDataType returns the DataType field if non-nil, zero value otherwise.
-
-### GetDataTypeOk
-
-`func (o *DaVinciVariable) GetDataTypeOk() (*DaVinciVariableDataType, bool)`
-
-GetDataTypeOk returns a tuple with the DataType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDataType
-
-`func (o *DaVinciVariable) SetDataType(v DaVinciVariableDataType)`
-
-SetDataType sets DataType field to given value.
-
-
 ### GetDisplayName
 
 `func (o *DaVinciVariable) GetDisplayName() string`
@@ -153,42 +213,22 @@ SetDisplayName sets DisplayName field to given value.
 
 HasDisplayName returns a boolean if a field has been set.
 
-### GetEnvironment
-
-`func (o *DaVinciVariable) GetEnvironment() ResourceRelationshipPingOne`
-
-GetEnvironment returns the Environment field if non-nil, zero value otherwise.
-
-### GetEnvironmentOk
-
-`func (o *DaVinciVariable) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
-
-GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnvironment
-
-`func (o *DaVinciVariable) SetEnvironment(v ResourceRelationshipPingOne)`
-
-SetEnvironment sets Environment field to given value.
-
-
 ### GetFlow
 
-`func (o *DaVinciVariable) GetFlow() ResourceRelationshipDaVinci`
+`func (o *DaVinciVariable) GetFlow() ResourceRelationshipDaVinciReadOnly`
 
 GetFlow returns the Flow field if non-nil, zero value otherwise.
 
 ### GetFlowOk
 
-`func (o *DaVinciVariable) GetFlowOk() (*ResourceRelationshipDaVinci, bool)`
+`func (o *DaVinciVariable) GetFlowOk() (*ResourceRelationshipDaVinciReadOnly, bool)`
 
 GetFlowOk returns a tuple with the Flow field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFlow
 
-`func (o *DaVinciVariable) SetFlow(v ResourceRelationshipDaVinci)`
+`func (o *DaVinciVariable) SetFlow(v ResourceRelationshipDaVinciReadOnly)`
 
 SetFlow sets Flow field to given value.
 
@@ -197,26 +237,6 @@ SetFlow sets Flow field to given value.
 `func (o *DaVinciVariable) HasFlow() bool`
 
 HasFlow returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *DaVinciVariable) GetId() uuid.UUID`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *DaVinciVariable) SetId(v uuid.UUID)`
-
-SetId sets Id field to given value.
-
 
 ### GetMax
 
@@ -292,26 +312,6 @@ SetMutable sets Mutable field to given value.
 `func (o *DaVinciVariable) HasMutable() bool`
 
 HasMutable returns a boolean if a field has been set.
-
-### GetName
-
-`func (o *DaVinciVariable) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *DaVinciVariable) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *DaVinciVariable) SetName(v string)`
-
-SetName sets Name field to given value.
-
 
 ### GetUpdatedAt
 

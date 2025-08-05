@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
 
 ## Methods
 
 ### NewDaVinciFlowPolicyCollectionLinks
 
-`func NewDaVinciFlowPolicyCollectionLinks(environment JSONHALLink, self JSONHALLink, ) *DaVinciFlowPolicyCollectionLinks`
+`func NewDaVinciFlowPolicyCollectionLinks(self JSONHALLink, environment JSONHALLink, ) *DaVinciFlowPolicyCollectionLinks`
 
 NewDaVinciFlowPolicyCollectionLinks instantiates a new DaVinciFlowPolicyCollectionLinks object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewDaVinciFlowPolicyCollectionLinksWithDefaults instantiates a new DaVinciFlowPolicyCollectionLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetEnvironment
-
-`func (o *DaVinciFlowPolicyCollectionLinks) GetEnvironment() JSONHALLink`
-
-GetEnvironment returns the Environment field if non-nil, zero value otherwise.
-
-### GetEnvironmentOk
-
-`func (o *DaVinciFlowPolicyCollectionLinks) GetEnvironmentOk() (*JSONHALLink, bool)`
-
-GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnvironment
-
-`func (o *DaVinciFlowPolicyCollectionLinks) SetEnvironment(v JSONHALLink)`
-
-SetEnvironment sets Environment field to given value.
-
 
 ### GetSelf
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowPolicyCollectionLinks) SetSelf(v JSONHALLink)`
 
 SetSelf sets Self field to given value.
+
+
+### GetEnvironment
+
+`func (o *DaVinciFlowPolicyCollectionLinks) GetEnvironment() JSONHALLink`
+
+GetEnvironment returns the Environment field if non-nil, zero value otherwise.
+
+### GetEnvironmentOk
+
+`func (o *DaVinciFlowPolicyCollectionLinks) GetEnvironmentOk() (*JSONHALLink, bool)`
+
+GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironment
+
+`func (o *DaVinciFlowPolicyCollectionLinks) SetEnvironment(v JSONHALLink)`
+
+SetEnvironment sets Environment field to given value.
 
 
 

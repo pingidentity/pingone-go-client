@@ -99,7 +99,7 @@ func (e *TestEnvironment) Delete(request DeleteConfig) (err error) {
 var (
 	DefaultEnvironmentDefinition = func(name, regionCodeStr string, licenseId uuid.UUID, withBootstrap bool) pingone.EnvironmentCreateRequest {
 
-		davinciTags := make([]pingone.EnvironmentBillOfMaterialsProductTags, 0)
+		davinciTags := make([]string, 0)
 		if !withBootstrap {
 			davinciTags = append(davinciTags, "DAVINCI_MINIMAL")
 		}
@@ -107,7 +107,7 @@ var (
 		regionCode := pingone.EnvironmentRegionCode(regionCodeStr)
 
 		return pingone.EnvironmentCreateRequest{
-			BillOfMaterials: &pingone.EnvironmentBillOfMaterialsCreateRequest{
+			BillOfMaterials: &pingone.EnvironmentBillOfMaterials{
 				Products: []pingone.EnvironmentBillOfMaterialsProduct{
 					{
 						Type: "PING_ONE_AUTHORIZE",
@@ -134,14 +134,12 @@ var (
 				},
 			},
 			Description: pingone.PtrString("Test environment created by the PingOne Go SDK"),
-			License: pingone.ResourceRelationshipPingOne{
+			License: pingone.EnvironmentLicense{
 				Id: licenseId,
 			},
-			Name: name,
-			Region: pingone.EnvironmentRegion{
-				EnvironmentRegionCode: &regionCode,
-			},
-			Type: "SANDBOX",
+			Name:   name,
+			Region: regionCode,
+			Type:   "SANDBOX",
 		}
 	}
 )

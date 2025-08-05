@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FlowDistributions** | [**[]DaVinciFlowPolicyCreateRequestFlowDistribution**](DaVinciFlowPolicyCreateRequestFlowDistribution.md) |  | 
-**Name** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to [**DaVinciFlowPolicyCreateRequestStatus**](DaVinciFlowPolicyCreateRequestStatus.md) |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] [default to "New Policy"]
+**Status** | Pointer to [**DaVinciFlowPolicyCreateRequestStatus**](DaVinciFlowPolicyCreateRequestStatus.md) |  | [optional] [default to DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_ENABLED]
 **Trigger** | Pointer to [**DaVinciFlowPolicyCreateRequestTrigger**](DaVinciFlowPolicyCreateRequestTrigger.md) |  | [optional] 
 
 ## Methods

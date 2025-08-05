@@ -3,6 +3,8 @@
 ## Enum
 
 
+* `IDENTITY_CLOUD` (value: `"IDENTITY_CLOUD"`)
+
 * `PING_ACCESS` (value: `"PING_ACCESS"`)
 
 * `PING_AUTHORIZE` (value: `"PING_AUTHORIZE"`)
@@ -36,6 +38,10 @@
 * `PING_ONE_FOR_SAAS` (value: `"PING_ONE_FOR_SAAS"`)
 
 * `PING_ONE_FRAUD` (value: `"PING_ONE_FRAUD"`)
+
+* `PING_ONE_ID` (value: `"PING_ONE_ID"`)
+
+* `PING_ONE_LEGACY` (value: `"PING_ONE_LEGACY"`)
 
 * `PING_ONE_MFA` (value: `"PING_ONE_MFA"`)
 

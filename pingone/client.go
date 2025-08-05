@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -48,7 +48,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne User and Configuration Management API API vdevelopment-2025-05-23T19-05-22
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - Go SDK API v2025.08.04-development
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -1002,7 +1002,7 @@ func parseRetryAfterHeader(resp *http.Response) (time.Duration, error) {
 	retryAfterTime, err := http.ParseTime(retryAfterHeader)
 
 	if err != nil {
-		return 0, fmt.Errorf("unable to parse Retry-After header value: %v", err)
+		return 0, fmt.Errorf("unable to parse retry-after header value: %v", err)
 	}
 
 	return time.Until(retryAfterTime), nil

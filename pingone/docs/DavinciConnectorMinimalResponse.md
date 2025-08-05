@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Links** | [**DaVinciConnectorMinimalResponseLinks**](DaVinciConnectorMinimalResponseLinks.md) |  | 
 **CreatedAt** | **time.Time** |  | 
 **Description** | **string** |  | 
-**Environment** | [**ResourceRelationshipPingOne**](ResourceRelationshipPingOne.md) |  | 
+**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **Id** | **string** |  | 
 **Metadata** | [**DaVinciConnectorMinimalResponseMetadata**](DaVinciConnectorMinimalResponseMetadata.md) |  | 
 **Name** | **string** |  | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciConnectorMinimalResponse
 
-`func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipPingOne, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string, ) *DaVinciConnectorMinimalResponse`
+`func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipReadOnly, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string, ) *DaVinciConnectorMinimalResponse`
 
 NewDaVinciConnectorMinimalResponse instantiates a new DaVinciConnectorMinimalResponse object
 This constructor will assign default values to properties that have it defined,
@@ -95,20 +95,20 @@ SetDescription sets Description field to given value.
 
 ### GetEnvironment
 
-`func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipPingOne`
+`func (o *DaVinciConnectorMinimalResponse) GetEnvironment() ResourceRelationshipReadOnly`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool)`
+`func (o *DaVinciConnectorMinimalResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DaVinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipPingOne)`
+`func (o *DaVinciConnectorMinimalResponse) SetEnvironment(v ResourceRelationshipReadOnly)`
 
 SetEnvironment sets Environment field to given value.
 

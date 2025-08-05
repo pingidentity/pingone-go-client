@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,7 +19,7 @@ import (
 // DaVinciVariableDataType the model 'DaVinciVariableDataType'
 type DaVinciVariableDataType string
 
-// List of DaVinciVariable_dataType
+// List of DaVinci_Variable_Data_Type
 const (
 	DAVINCIVARIABLEDATATYPE_ARRAY             DaVinciVariableDataType = "array"
 	DAVINCIVARIABLEDATATYPE_BOOLEAN           DaVinciVariableDataType = "boolean"
@@ -71,7 +71,7 @@ func (v *DaVinciVariableDataType) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciVariableDataType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciVariableDataType(fmt.Sprintf("%s", value))
 	return nil
 }
 
@@ -96,7 +96,7 @@ func (v DaVinciVariableDataType) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to DaVinciVariable_dataType value
+// Ptr returns reference to DaVinci_Variable_Data_Type value
 func (v DaVinciVariableDataType) Ptr() *DaVinciVariableDataType {
 	return &v
 }

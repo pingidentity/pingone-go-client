@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Name** | **string** |  | 
 **Context** | [**DaVinciVariableReplaceRequestContext**](DaVinciVariableReplaceRequestContext.md) |  | 
 **DataType** | [**DaVinciVariableReplaceRequestDataType**](DaVinciVariableReplaceRequestDataType.md) |  | 
+**Mutable** | **bool** |  | 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Flow** | Pointer to [**ResourceRelationshipDaVinci**](ResourceRelationshipDaVinci.md) |  | [optional] 
-**Max** | Pointer to **int32** |  | [optional] 
-**Min** | Pointer to **int32** |  | [optional] 
-**Mutable** | **bool** |  | 
-**Name** | **string** |  | 
+**Max** | Pointer to **int32** |  | [optional] [default to 2000]
+**Min** | Pointer to **int32** |  | [optional] [default to 0]
 **Value** | Pointer to [**DaVinciVariableReplaceRequestValue**](DaVinciVariableReplaceRequestValue.md) |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciVariableReplaceRequest
 
-`func NewDaVinciVariableReplaceRequest(context DaVinciVariableReplaceRequestContext, dataType DaVinciVariableReplaceRequestDataType, mutable bool, name string, ) *DaVinciVariableReplaceRequest`
+`func NewDaVinciVariableReplaceRequest(name string, context DaVinciVariableReplaceRequestContext, dataType DaVinciVariableReplaceRequestDataType, mutable bool, ) *DaVinciVariableReplaceRequest`
 
 NewDaVinciVariableReplaceRequest instantiates a new DaVinciVariableReplaceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -32,6 +32,26 @@ will change when the set of required properties is changed
 NewDaVinciVariableReplaceRequestWithDefaults instantiates a new DaVinciVariableReplaceRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetName
+
+`func (o *DaVinciVariableReplaceRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *DaVinciVariableReplaceRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *DaVinciVariableReplaceRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
 
 ### GetContext
 
@@ -71,6 +91,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciVariableReplaceRequest) SetDataType(v DaVinciVariableReplaceRequestDataType)`
 
 SetDataType sets DataType field to given value.
+
+
+### GetMutable
+
+`func (o *DaVinciVariableReplaceRequest) GetMutable() bool`
+
+GetMutable returns the Mutable field if non-nil, zero value otherwise.
+
+### GetMutableOk
+
+`func (o *DaVinciVariableReplaceRequest) GetMutableOk() (*bool, bool)`
+
+GetMutableOk returns a tuple with the Mutable field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMutable
+
+`func (o *DaVinciVariableReplaceRequest) SetMutable(v bool)`
+
+SetMutable sets Mutable field to given value.
 
 
 ### GetDisplayName
@@ -172,46 +212,6 @@ SetMin sets Min field to given value.
 `func (o *DaVinciVariableReplaceRequest) HasMin() bool`
 
 HasMin returns a boolean if a field has been set.
-
-### GetMutable
-
-`func (o *DaVinciVariableReplaceRequest) GetMutable() bool`
-
-GetMutable returns the Mutable field if non-nil, zero value otherwise.
-
-### GetMutableOk
-
-`func (o *DaVinciVariableReplaceRequest) GetMutableOk() (*bool, bool)`
-
-GetMutableOk returns a tuple with the Mutable field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMutable
-
-`func (o *DaVinciVariableReplaceRequest) SetMutable(v bool)`
-
-SetMutable sets Mutable field to given value.
-
-
-### GetName
-
-`func (o *DaVinciVariableReplaceRequest) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *DaVinciVariableReplaceRequest) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *DaVinciVariableReplaceRequest) SetName(v string)`
-
-SetName sets Name field to given value.
-
 
 ### GetValue
 

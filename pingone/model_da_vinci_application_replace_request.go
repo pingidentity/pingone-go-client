@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,9 +25,9 @@ var _ slog.LogValuer = &DaVinciApplicationReplaceRequest{}
 
 // DaVinciApplicationReplaceRequest struct for DaVinciApplicationReplaceRequest
 type DaVinciApplicationReplaceRequest struct {
-	ApiKeyEnabled        *bool                                  `json:"apiKeyEnabled,omitempty"`
 	Name                 string                                 `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	Oauth                *DaVinciApplicationReplaceRequestOauth `json:"oauth,omitempty"`
+	ApiKeyEnabled        *bool                                  `json:"apiKeyEnabled,omitempty"`
+	Oauth                *DaVinciApplicationReplaceRequestOAuth `json:"oauth,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -49,6 +49,30 @@ func NewDaVinciApplicationReplaceRequest(name string) *DaVinciApplicationReplace
 func NewDaVinciApplicationReplaceRequestWithDefaults() *DaVinciApplicationReplaceRequest {
 	this := DaVinciApplicationReplaceRequest{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *DaVinciApplicationReplaceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciApplicationReplaceRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciApplicationReplaceRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetApiKeyEnabled returns the ApiKeyEnabled field value if set, zero value otherwise.
@@ -83,34 +107,10 @@ func (o *DaVinciApplicationReplaceRequest) SetApiKeyEnabled(v bool) {
 	o.ApiKeyEnabled = &v
 }
 
-// GetName returns the Name field value
-func (o *DaVinciApplicationReplaceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciApplicationReplaceRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *DaVinciApplicationReplaceRequest) SetName(v string) {
-	o.Name = v
-}
-
 // GetOauth returns the Oauth field value if set, zero value otherwise.
-func (o *DaVinciApplicationReplaceRequest) GetOauth() DaVinciApplicationReplaceRequestOauth {
+func (o *DaVinciApplicationReplaceRequest) GetOauth() DaVinciApplicationReplaceRequestOAuth {
 	if o == nil || IsNil(o.Oauth) {
-		var ret DaVinciApplicationReplaceRequestOauth
+		var ret DaVinciApplicationReplaceRequestOAuth
 		return ret
 	}
 	return *o.Oauth
@@ -118,7 +118,7 @@ func (o *DaVinciApplicationReplaceRequest) GetOauth() DaVinciApplicationReplaceR
 
 // GetOauthOk returns a tuple with the Oauth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciApplicationReplaceRequest) GetOauthOk() (*DaVinciApplicationReplaceRequestOauth, bool) {
+func (o *DaVinciApplicationReplaceRequest) GetOauthOk() (*DaVinciApplicationReplaceRequestOAuth, bool) {
 	if o == nil || IsNil(o.Oauth) {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *DaVinciApplicationReplaceRequest) HasOauth() bool {
 	return false
 }
 
-// SetOauth gets a reference to the given DaVinciApplicationReplaceRequestOauth and assigns it to the Oauth field.
-func (o *DaVinciApplicationReplaceRequest) SetOauth(v DaVinciApplicationReplaceRequestOauth) {
+// SetOauth gets a reference to the given DaVinciApplicationReplaceRequestOAuth and assigns it to the Oauth field.
+func (o *DaVinciApplicationReplaceRequest) SetOauth(v DaVinciApplicationReplaceRequestOAuth) {
 	o.Oauth = &v
 }
 
@@ -149,10 +149,10 @@ func (o DaVinciApplicationReplaceRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciApplicationReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.ApiKeyEnabled) {
 		toSerialize["apiKeyEnabled"] = o.ApiKeyEnabled
 	}
-	toSerialize["name"] = o.Name
 	if !IsNil(o.Oauth) {
 		toSerialize["oauth"] = o.Oauth
 	}
@@ -199,8 +199,8 @@ func (o *DaVinciApplicationReplaceRequest) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "apiKeyEnabled")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "apiKeyEnabled")
 		delete(additionalProperties, "oauth")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -211,10 +211,10 @@ func (o *DaVinciApplicationReplaceRequest) UnmarshalJSON(data []byte) (err error
 func (o DaVinciApplicationReplaceRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.ApiKeyEnabled) {
 		logAttrs = append(logAttrs, slog.Any("apiKeyEnabled", *o.ApiKeyEnabled))
 	}
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.Oauth) {
 		logAttrs = append(logAttrs, slog.Any("oauth", *o.Oauth))
 	}

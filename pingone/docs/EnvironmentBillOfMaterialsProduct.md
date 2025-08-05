@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Type** | [**EnvironmentBillOfMaterialsProductType**](EnvironmentBillOfMaterialsProductType.md) |  | 
 **Bookmarks** | Pointer to [**[]EnvironmentBillOfMaterialsProductBookmark**](EnvironmentBillOfMaterialsProductBookmark.md) |  | [optional] 
 **Console** | Pointer to [**EnvironmentBillOfMaterialsProductConsole**](EnvironmentBillOfMaterialsProductConsole.md) |  | [optional] 
-**Deployment** | Pointer to [**EnvironmentBillOfMaterialsProductDeployment**](EnvironmentBillOfMaterialsProductDeployment.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] [readonly] 
+**Deployment** | Pointer to [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] [readonly] 
-**Tags** | Pointer to [**[]EnvironmentBillOfMaterialsProductTags**](EnvironmentBillOfMaterialsProductTags.md) |  | [optional] 
-**Type** | [**EnvironmentBillOfMaterialsProductType**](EnvironmentBillOfMaterialsProductType.md) |  | 
+**SoftwareLicense** | Pointer to [**ResourceRelationshipGeneric**](ResourceRelationshipGeneric.md) |  | [optional] 
+**Tags** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -30,6 +31,26 @@ will change when the set of required properties is changed
 NewEnvironmentBillOfMaterialsProductWithDefaults instantiates a new EnvironmentBillOfMaterialsProduct object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *EnvironmentBillOfMaterialsProduct) GetType() EnvironmentBillOfMaterialsProductType`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *EnvironmentBillOfMaterialsProduct) GetTypeOk() (*EnvironmentBillOfMaterialsProductType, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *EnvironmentBillOfMaterialsProduct) SetType(v EnvironmentBillOfMaterialsProductType)`
+
+SetType sets Type field to given value.
+
 
 ### GetBookmarks
 
@@ -83,20 +104,20 @@ HasConsole returns a boolean if a field has been set.
 
 ### GetDeployment
 
-`func (o *EnvironmentBillOfMaterialsProduct) GetDeployment() EnvironmentBillOfMaterialsProductDeployment`
+`func (o *EnvironmentBillOfMaterialsProduct) GetDeployment() ResourceRelationshipReadOnly`
 
 GetDeployment returns the Deployment field if non-nil, zero value otherwise.
 
 ### GetDeploymentOk
 
-`func (o *EnvironmentBillOfMaterialsProduct) GetDeploymentOk() (*EnvironmentBillOfMaterialsProductDeployment, bool)`
+`func (o *EnvironmentBillOfMaterialsProduct) GetDeploymentOk() (*ResourceRelationshipReadOnly, bool)`
 
 GetDeploymentOk returns a tuple with the Deployment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeployment
 
-`func (o *EnvironmentBillOfMaterialsProduct) SetDeployment(v EnvironmentBillOfMaterialsProductDeployment)`
+`func (o *EnvironmentBillOfMaterialsProduct) SetDeployment(v ResourceRelationshipReadOnly)`
 
 SetDeployment sets Deployment field to given value.
 
@@ -156,22 +177,47 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
+### GetSoftwareLicense
+
+`func (o *EnvironmentBillOfMaterialsProduct) GetSoftwareLicense() ResourceRelationshipGeneric`
+
+GetSoftwareLicense returns the SoftwareLicense field if non-nil, zero value otherwise.
+
+### GetSoftwareLicenseOk
+
+`func (o *EnvironmentBillOfMaterialsProduct) GetSoftwareLicenseOk() (*ResourceRelationshipGeneric, bool)`
+
+GetSoftwareLicenseOk returns a tuple with the SoftwareLicense field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSoftwareLicense
+
+`func (o *EnvironmentBillOfMaterialsProduct) SetSoftwareLicense(v ResourceRelationshipGeneric)`
+
+SetSoftwareLicense sets SoftwareLicense field to given value.
+
+### HasSoftwareLicense
+
+`func (o *EnvironmentBillOfMaterialsProduct) HasSoftwareLicense() bool`
+
+HasSoftwareLicense returns a boolean if a field has been set.
+
 ### GetTags
 
-`func (o *EnvironmentBillOfMaterialsProduct) GetTags() []EnvironmentBillOfMaterialsProductTags`
+`func (o *EnvironmentBillOfMaterialsProduct) GetTags() []string`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *EnvironmentBillOfMaterialsProduct) GetTagsOk() (*[]EnvironmentBillOfMaterialsProductTags, bool)`
+`func (o *EnvironmentBillOfMaterialsProduct) GetTagsOk() (*[]string, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *EnvironmentBillOfMaterialsProduct) SetTags(v []EnvironmentBillOfMaterialsProductTags)`
+`func (o *EnvironmentBillOfMaterialsProduct) SetTags(v []string)`
 
 SetTags sets Tags field to given value.
 
@@ -180,26 +226,6 @@ SetTags sets Tags field to given value.
 `func (o *EnvironmentBillOfMaterialsProduct) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *EnvironmentBillOfMaterialsProduct) GetType() EnvironmentBillOfMaterialsProductType`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *EnvironmentBillOfMaterialsProduct) GetTypeOk() (*EnvironmentBillOfMaterialsProductType, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *EnvironmentBillOfMaterialsProduct) SetType(v EnvironmentBillOfMaterialsProductType)`
-
-SetType sets Type field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

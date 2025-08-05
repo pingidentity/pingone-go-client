@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -28,10 +28,10 @@ var _ slog.LogValuer = &NotFoundError{}
 
 // NotFoundError struct for NotFoundError
 type NotFoundError struct {
-	Details              []ErrorResponseCommonDetails `json:"details,omitempty"`
-	Id                   *uuid.UUID                   `json:"id,omitempty"`
-	Message              string                       `json:"message"`
-	Code                 NotFoundErrorCode            `json:"code"`
+	Id                   uuid.UUID             `json:"id"`
+	Code                 NotFoundErrorCode     `json:"code"`
+	Message              string                `json:"message"`
+	Details              []NotFoundErrorDetail `json:"details,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,10 +41,11 @@ type _NotFoundError NotFoundError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNotFoundError(message string, code NotFoundErrorCode) *NotFoundError {
+func NewNotFoundError(id uuid.UUID, code NotFoundErrorCode, message string) *NotFoundError {
 	this := NotFoundError{}
-	this.Message = message
+	this.Id = id
 	this.Code = code
+	this.Message = message
 	return &this
 }
 
@@ -56,92 +57,28 @@ func NewNotFoundErrorWithDefaults() *NotFoundError {
 	return &this
 }
 
-// GetDetails returns the Details field value if set, zero value otherwise.
-func (o *NotFoundError) GetDetails() []ErrorResponseCommonDetails {
-	if o == nil || IsNil(o.Details) {
-		var ret []ErrorResponseCommonDetails
-		return ret
-	}
-	return o.Details
-}
-
-// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NotFoundError) GetDetailsOk() ([]ErrorResponseCommonDetails, bool) {
-	if o == nil || IsNil(o.Details) {
-		return nil, false
-	}
-	return o.Details, true
-}
-
-// HasDetails returns a boolean if a field has been set.
-func (o *NotFoundError) HasDetails() bool {
-	if o != nil && !IsNil(o.Details) {
-		return true
-	}
-
-	return false
-}
-
-// SetDetails gets a reference to the given []ErrorResponseCommonDetails and assigns it to the Details field.
-func (o *NotFoundError) SetDetails(v []ErrorResponseCommonDetails) {
-	o.Details = v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *NotFoundError) GetId() uuid.UUID {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret uuid.UUID
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *NotFoundError) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *NotFoundError) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given uuid.UUID and assigns it to the Id field.
+// SetId sets field value
 func (o *NotFoundError) SetId(v uuid.UUID) {
-	o.Id = &v
-}
-
-// GetMessage returns the Message field value
-func (o *NotFoundError) GetMessage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *NotFoundError) GetMessageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *NotFoundError) SetMessage(v string) {
-	o.Message = v
+	o.Id = v
 }
 
 // GetCode returns the Code field value
@@ -168,6 +105,62 @@ func (o *NotFoundError) SetCode(v NotFoundErrorCode) {
 	o.Code = v
 }
 
+// GetMessage returns the Message field value
+func (o *NotFoundError) GetMessage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *NotFoundError) GetMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *NotFoundError) SetMessage(v string) {
+	o.Message = v
+}
+
+// GetDetails returns the Details field value if set, zero value otherwise.
+func (o *NotFoundError) GetDetails() []NotFoundErrorDetail {
+	if o == nil || IsNil(o.Details) {
+		var ret []NotFoundErrorDetail
+		return ret
+	}
+	return o.Details
+}
+
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NotFoundError) GetDetailsOk() ([]NotFoundErrorDetail, bool) {
+	if o == nil || IsNil(o.Details) {
+		return nil, false
+	}
+	return o.Details, true
+}
+
+// HasDetails returns a boolean if a field has been set.
+func (o *NotFoundError) HasDetails() bool {
+	if o != nil && !IsNil(o.Details) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given []NotFoundErrorDetail and assigns it to the Details field.
+func (o *NotFoundError) SetDetails(v []NotFoundErrorDetail) {
+	o.Details = v
+}
+
 func (o NotFoundError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -178,14 +171,12 @@ func (o NotFoundError) MarshalJSON() ([]byte, error) {
 
 func (o NotFoundError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["code"] = o.Code
+	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	toSerialize["message"] = o.Message
-	toSerialize["code"] = o.Code
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -199,8 +190,9 @@ func (o *NotFoundError) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"message",
+		"id",
 		"code",
+		"message",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -230,10 +222,10 @@ func (o *NotFoundError) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "details")
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "message")
 		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -243,14 +235,12 @@ func (o *NotFoundError) UnmarshalJSON(data []byte) (err error) {
 func (o NotFoundError) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("code", o.Code))
+	logAttrs = append(logAttrs, slog.Any("message", o.Message))
 	if !IsNil(o.Details) {
 		logAttrs = append(logAttrs, slog.Any("details", o.Details))
 	}
-	if !IsNil(o.Id) {
-		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
-	}
-	logAttrs = append(logAttrs, slog.Any("message", o.Message))
-	logAttrs = append(logAttrs, slog.Any("code", o.Code))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
@@ -260,7 +250,6 @@ func (o NotFoundError) Error() string {
 
 	message := []string{}
 	message = append(message, string(o.Code))
-	message = append(message, string(o.Message))
 
 	return strings.Join(message, ": ")
 }

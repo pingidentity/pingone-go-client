@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Embedded** | [**DaVinciApplicationCollectionEmbedded**](DaVinciApplicationCollectionEmbedded.md) |  | 
 **Links** | [**DaVinciApplicationCollectionLinks**](DaVinciApplicationCollectionLinks.md) |  | 
+**Embedded** | [**DaVinciApplicationCollectionEmbedded**](DaVinciApplicationCollectionEmbedded.md) |  | 
 
 ## Methods
 
 ### NewDaVinciApplicationCollection
 
-`func NewDaVinciApplicationCollection(embedded DaVinciApplicationCollectionEmbedded, links DaVinciApplicationCollectionLinks, ) *DaVinciApplicationCollection`
+`func NewDaVinciApplicationCollection(links DaVinciApplicationCollectionLinks, embedded DaVinciApplicationCollectionEmbedded, ) *DaVinciApplicationCollection`
 
 NewDaVinciApplicationCollection instantiates a new DaVinciApplicationCollection object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewDaVinciApplicationCollectionWithDefaults instantiates a new DaVinciApplicationCollection object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetEmbedded
-
-`func (o *DaVinciApplicationCollection) GetEmbedded() DaVinciApplicationCollectionEmbedded`
-
-GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
-
-### GetEmbeddedOk
-
-`func (o *DaVinciApplicationCollection) GetEmbeddedOk() (*DaVinciApplicationCollectionEmbedded, bool)`
-
-GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmbedded
-
-`func (o *DaVinciApplicationCollection) SetEmbedded(v DaVinciApplicationCollectionEmbedded)`
-
-SetEmbedded sets Embedded field to given value.
-
 
 ### GetLinks
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciApplicationCollection) SetLinks(v DaVinciApplicationCollectionLinks)`
 
 SetLinks sets Links field to given value.
+
+
+### GetEmbedded
+
+`func (o *DaVinciApplicationCollection) GetEmbedded() DaVinciApplicationCollectionEmbedded`
+
+GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
+
+### GetEmbeddedOk
+
+`func (o *DaVinciApplicationCollection) GetEmbeddedOk() (*DaVinciApplicationCollectionEmbedded, bool)`
+
+GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmbedded
+
+`func (o *DaVinciApplicationCollection) SetEmbedded(v DaVinciApplicationCollectionEmbedded)`
+
+SetEmbedded sets Embedded field to given value.
 
 
 

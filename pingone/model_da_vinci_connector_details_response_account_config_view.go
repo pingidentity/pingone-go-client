@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciConnectorDetailsResponseAccountConfigView{}
 
 // DaVinciConnectorDetailsResponseAccountConfigView struct for DaVinciConnectorDetailsResponseAccountConfigView
 type DaVinciConnectorDetailsResponseAccountConfigView struct {
-	ComponentViewSize    *string                  `json:"componentViewSize,omitempty"`
 	Items                []map[string]interface{} `json:"items"`
+	ComponentViewSize    *string                  `json:"componentViewSize,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -48,6 +48,30 @@ func NewDaVinciConnectorDetailsResponseAccountConfigView(items []map[string]inte
 func NewDaVinciConnectorDetailsResponseAccountConfigViewWithDefaults() *DaVinciConnectorDetailsResponseAccountConfigView {
 	this := DaVinciConnectorDetailsResponseAccountConfigView{}
 	return &this
+}
+
+// GetItems returns the Items field value
+func (o *DaVinciConnectorDetailsResponseAccountConfigView) GetItems() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorDetailsResponseAccountConfigView) GetItemsOk() ([]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Items, true
+}
+
+// SetItems sets field value
+func (o *DaVinciConnectorDetailsResponseAccountConfigView) SetItems(v []map[string]interface{}) {
+	o.Items = v
 }
 
 // GetComponentViewSize returns the ComponentViewSize field value if set, zero value otherwise.
@@ -82,30 +106,6 @@ func (o *DaVinciConnectorDetailsResponseAccountConfigView) SetComponentViewSize(
 	o.ComponentViewSize = &v
 }
 
-// GetItems returns the Items field value
-func (o *DaVinciConnectorDetailsResponseAccountConfigView) GetItems() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciConnectorDetailsResponseAccountConfigView) GetItemsOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *DaVinciConnectorDetailsResponseAccountConfigView) SetItems(v []map[string]interface{}) {
-	o.Items = v
-}
-
 func (o DaVinciConnectorDetailsResponseAccountConfigView) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -116,10 +116,10 @@ func (o DaVinciConnectorDetailsResponseAccountConfigView) MarshalJSON() ([]byte,
 
 func (o DaVinciConnectorDetailsResponseAccountConfigView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["items"] = o.Items
 	if !IsNil(o.ComponentViewSize) {
 		toSerialize["componentViewSize"] = o.ComponentViewSize
 	}
-	toSerialize["items"] = o.Items
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -163,8 +163,8 @@ func (o *DaVinciConnectorDetailsResponseAccountConfigView) UnmarshalJSON(data []
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "componentViewSize")
 		delete(additionalProperties, "items")
+		delete(additionalProperties, "componentViewSize")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -174,10 +174,10 @@ func (o *DaVinciConnectorDetailsResponseAccountConfigView) UnmarshalJSON(data []
 func (o DaVinciConnectorDetailsResponseAccountConfigView) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("items", o.Items))
 	if !IsNil(o.ComponentViewSize) {
 		logAttrs = append(logAttrs, slog.Any("componentViewSize", *o.ComponentViewSize))
 	}
-	logAttrs = append(logAttrs, slog.Any("items", o.Items))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

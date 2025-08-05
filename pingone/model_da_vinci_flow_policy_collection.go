@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowPolicyCollection{}
 
 // DaVinciFlowPolicyCollection struct for DaVinciFlowPolicyCollection
 type DaVinciFlowPolicyCollection struct {
-	Embedded             DaVinciFlowPolicyCollectionEmbedded `json:"_embedded"`
 	Links                DaVinciFlowPolicyCollectionLinks    `json:"_links"`
+	Embedded             DaVinciFlowPolicyCollectionEmbedded `json:"_embedded"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,10 +36,10 @@ type _DaVinciFlowPolicyCollection DaVinciFlowPolicyCollection
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowPolicyCollection(embedded DaVinciFlowPolicyCollectionEmbedded, links DaVinciFlowPolicyCollectionLinks) *DaVinciFlowPolicyCollection {
+func NewDaVinciFlowPolicyCollection(links DaVinciFlowPolicyCollectionLinks, embedded DaVinciFlowPolicyCollectionEmbedded) *DaVinciFlowPolicyCollection {
 	this := DaVinciFlowPolicyCollection{}
-	this.Embedded = embedded
 	this.Links = links
+	this.Embedded = embedded
 	return &this
 }
 
@@ -49,30 +49,6 @@ func NewDaVinciFlowPolicyCollection(embedded DaVinciFlowPolicyCollectionEmbedded
 func NewDaVinciFlowPolicyCollectionWithDefaults() *DaVinciFlowPolicyCollection {
 	this := DaVinciFlowPolicyCollection{}
 	return &this
-}
-
-// GetEmbedded returns the Embedded field value
-func (o *DaVinciFlowPolicyCollection) GetEmbedded() DaVinciFlowPolicyCollectionEmbedded {
-	if o == nil {
-		var ret DaVinciFlowPolicyCollectionEmbedded
-		return ret
-	}
-
-	return o.Embedded
-}
-
-// GetEmbeddedOk returns a tuple with the Embedded field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyCollection) GetEmbeddedOk() (*DaVinciFlowPolicyCollectionEmbedded, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Embedded, true
-}
-
-// SetEmbedded sets field value
-func (o *DaVinciFlowPolicyCollection) SetEmbedded(v DaVinciFlowPolicyCollectionEmbedded) {
-	o.Embedded = v
 }
 
 // GetLinks returns the Links field value
@@ -99,6 +75,30 @@ func (o *DaVinciFlowPolicyCollection) SetLinks(v DaVinciFlowPolicyCollectionLink
 	o.Links = v
 }
 
+// GetEmbedded returns the Embedded field value
+func (o *DaVinciFlowPolicyCollection) GetEmbedded() DaVinciFlowPolicyCollectionEmbedded {
+	if o == nil {
+		var ret DaVinciFlowPolicyCollectionEmbedded
+		return ret
+	}
+
+	return o.Embedded
+}
+
+// GetEmbeddedOk returns a tuple with the Embedded field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyCollection) GetEmbeddedOk() (*DaVinciFlowPolicyCollectionEmbedded, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Embedded, true
+}
+
+// SetEmbedded sets field value
+func (o *DaVinciFlowPolicyCollection) SetEmbedded(v DaVinciFlowPolicyCollectionEmbedded) {
+	o.Embedded = v
+}
+
 func (o DaVinciFlowPolicyCollection) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -109,8 +109,8 @@ func (o DaVinciFlowPolicyCollection) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowPolicyCollection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["_embedded"] = o.Embedded
 	toSerialize["_links"] = o.Links
+	toSerialize["_embedded"] = o.Embedded
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -124,8 +124,8 @@ func (o *DaVinciFlowPolicyCollection) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"_embedded",
 		"_links",
+		"_embedded",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -155,8 +155,8 @@ func (o *DaVinciFlowPolicyCollection) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
+		delete(additionalProperties, "_embedded")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -166,8 +166,8 @@ func (o *DaVinciFlowPolicyCollection) UnmarshalJSON(data []byte) (err error) {
 func (o DaVinciFlowPolicyCollection) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("_embedded", o.Embedded))
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
+	logAttrs = append(logAttrs, slog.Any("_embedded", o.Embedded))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

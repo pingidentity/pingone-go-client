@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,7 +19,7 @@ import (
 // DaVinciConnectorMinimalResponseMetadataType the model 'DaVinciConnectorMinimalResponseMetadataType'
 type DaVinciConnectorMinimalResponseMetadataType string
 
-// List of DaVinciConnectorMinimalResponse_metadata_type
+// List of DaVinci_Connector_Minimal_Response_Metadata_Type
 const (
 	DAVINCICONNECTORMINIMALRESPONSEMETADATATYPE_CORE    DaVinciConnectorMinimalResponseMetadataType = "core"
 	DAVINCICONNECTORMINIMALRESPONSEMETADATATYPE_PING    DaVinciConnectorMinimalResponseMetadataType = "ping"
@@ -47,7 +47,7 @@ func (v *DaVinciConnectorMinimalResponseMetadataType) UnmarshalJSON(src []byte) 
 		}
 	}
 
-	*v = DaVinciConnectorMinimalResponseMetadataType(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciConnectorMinimalResponseMetadataType(fmt.Sprintf("%s", value))
 	return nil
 }
 
@@ -72,7 +72,7 @@ func (v DaVinciConnectorMinimalResponseMetadataType) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to DaVinciConnectorMinimalResponse_metadata_type value
+// Ptr returns reference to DaVinci_Connector_Minimal_Response_Metadata_Type value
 func (v DaVinciConnectorMinimalResponseMetadataType) Ptr() *DaVinciConnectorMinimalResponseMetadataType {
 	return &v
 }

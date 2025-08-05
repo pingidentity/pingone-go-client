@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,13 +25,13 @@ var _ slog.LogValuer = &EnvironmentCreateRequest{}
 
 // EnvironmentCreateRequest struct for EnvironmentCreateRequest
 type EnvironmentCreateRequest struct {
-	Description          *string                                  `json:"description,omitempty"`
-	Icon                 *string                                  `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne              `json:"license"`
-	Name                 string                                   `json:"name"`
-	Region               EnvironmentRegion                        `json:"region"`
-	Type                 EnvironmentType                          `json:"type"`
-	BillOfMaterials      *EnvironmentBillOfMaterialsCreateRequest `json:"billOfMaterials,omitempty"`
+	Name                 string                      `json:"name"`
+	Region               EnvironmentRegionCode       `json:"region"`
+	Type                 EnvironmentTypeValue        `json:"type"`
+	License              EnvironmentLicense          `json:"license"`
+	BillOfMaterials      *EnvironmentBillOfMaterials `json:"billOfMaterials,omitempty"`
+	Description          *string                     `json:"description,omitempty"`
+	Icon                 *string                     `json:"icon,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,12 +41,12 @@ type _EnvironmentCreateRequest EnvironmentCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *EnvironmentCreateRequest {
+func NewEnvironmentCreateRequest(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue, license EnvironmentLicense) *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
-	this.License = license
 	this.Name = name
 	this.Region = region
 	this.Type = type_
+	this.License = license
 	return &this
 }
 
@@ -56,6 +56,134 @@ func NewEnvironmentCreateRequest(license ResourceRelationshipPingOne, name strin
 func NewEnvironmentCreateRequestWithDefaults() *EnvironmentCreateRequest {
 	this := EnvironmentCreateRequest{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *EnvironmentCreateRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *EnvironmentCreateRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetRegion returns the Region field value
+func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegionCode {
+	if o == nil {
+		var ret EnvironmentRegionCode
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegionCode, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegionCode) {
+	o.Region = v
+}
+
+// GetType returns the Type field value
+func (o *EnvironmentCreateRequest) GetType() EnvironmentTypeValue {
+	if o == nil {
+		var ret EnvironmentTypeValue
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentTypeValue, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *EnvironmentCreateRequest) SetType(v EnvironmentTypeValue) {
+	o.Type = v
+}
+
+// GetLicense returns the License field value
+func (o *EnvironmentCreateRequest) GetLicense() EnvironmentLicense {
+	if o == nil {
+		var ret EnvironmentLicense
+		return ret
+	}
+
+	return o.License
+}
+
+// GetLicenseOk returns a tuple with the License field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetLicenseOk() (*EnvironmentLicense, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.License, true
+}
+
+// SetLicense sets field value
+func (o *EnvironmentCreateRequest) SetLicense(v EnvironmentLicense) {
+	o.License = v
+}
+
+// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
+func (o *EnvironmentCreateRequest) GetBillOfMaterials() EnvironmentBillOfMaterials {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		var ret EnvironmentBillOfMaterials
+		return ret
+	}
+	return *o.BillOfMaterials
+}
+
+// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterials, bool) {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		return nil, false
+	}
+	return o.BillOfMaterials, true
+}
+
+// HasBillOfMaterials returns a boolean if a field has been set.
+func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool {
+	if o != nil && !IsNil(o.BillOfMaterials) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterials and assigns it to the BillOfMaterials field.
+func (o *EnvironmentCreateRequest) SetBillOfMaterials(v EnvironmentBillOfMaterials) {
+	o.BillOfMaterials = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -122,134 +250,6 @@ func (o *EnvironmentCreateRequest) SetIcon(v string) {
 	o.Icon = &v
 }
 
-// GetLicense returns the License field value
-func (o *EnvironmentCreateRequest) GetLicense() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
-		return ret
-	}
-
-	return o.License
-}
-
-// GetLicenseOk returns a tuple with the License field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetLicenseOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.License, true
-}
-
-// SetLicense sets field value
-func (o *EnvironmentCreateRequest) SetLicense(v ResourceRelationshipPingOne) {
-	o.License = v
-}
-
-// GetName returns the Name field value
-func (o *EnvironmentCreateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *EnvironmentCreateRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetRegion returns the Region field value
-func (o *EnvironmentCreateRequest) GetRegion() EnvironmentRegion {
-	if o == nil {
-		var ret EnvironmentRegion
-		return ret
-	}
-
-	return o.Region
-}
-
-// GetRegionOk returns a tuple with the Region field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetRegionOk() (*EnvironmentRegion, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Region, true
-}
-
-// SetRegion sets field value
-func (o *EnvironmentCreateRequest) SetRegion(v EnvironmentRegion) {
-	o.Region = v
-}
-
-// GetType returns the Type field value
-func (o *EnvironmentCreateRequest) GetType() EnvironmentType {
-	if o == nil {
-		var ret EnvironmentType
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetTypeOk() (*EnvironmentType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *EnvironmentCreateRequest) SetType(v EnvironmentType) {
-	o.Type = v
-}
-
-// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *EnvironmentCreateRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsCreateRequest {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret EnvironmentBillOfMaterialsCreateRequest
-		return ret
-	}
-	return *o.BillOfMaterials
-}
-
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentCreateRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsCreateRequest, bool) {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		return nil, false
-	}
-	return o.BillOfMaterials, true
-}
-
-// HasBillOfMaterials returns a boolean if a field has been set.
-func (o *EnvironmentCreateRequest) HasBillOfMaterials() bool {
-	if o != nil && !IsNil(o.BillOfMaterials) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsCreateRequest and assigns it to the BillOfMaterials field.
-func (o *EnvironmentCreateRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsCreateRequest) {
-	o.BillOfMaterials = &v
-}
-
 func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -260,18 +260,18 @@ func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
+	toSerialize["type"] = o.Type
+	toSerialize["license"] = o.License
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
-	}
-	toSerialize["license"] = o.License
-	toSerialize["name"] = o.Name
-	toSerialize["region"] = o.Region
-	toSerialize["type"] = o.Type
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -286,10 +286,10 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"license",
 		"name",
 		"region",
 		"type",
+		"license",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -319,13 +319,13 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "icon")
-		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "license")
 		delete(additionalProperties, "billOfMaterials")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "icon")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -335,18 +335,18 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 func (o EnvironmentCreateRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("region", o.Region))
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	logAttrs = append(logAttrs, slog.Any("license", o.License))
+	if !IsNil(o.BillOfMaterials) {
+		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	}
 	if !IsNil(o.Description) {
 		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
 	}
 	if !IsNil(o.Icon) {
 		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
-	}
-	logAttrs = append(logAttrs, slog.Any("license", o.License))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	logAttrs = append(logAttrs, slog.Any("region", o.Region))
-	logAttrs = append(logAttrs, slog.Any("type", o.Type))
-	if !IsNil(o.BillOfMaterials) {
-		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

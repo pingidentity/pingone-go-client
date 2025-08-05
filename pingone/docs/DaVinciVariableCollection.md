@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Embedded** | [**DaVinciVariableCollectionEmbedded**](DaVinciVariableCollectionEmbedded.md) |  | 
 **Links** | [**DaVinciVariableCollectionLinks**](DaVinciVariableCollectionLinks.md) |  | 
-**Count** | **float32** |  | 
 **Size** | **float32** |  | 
+**Count** | **float32** |  | 
 
 ## Methods
 
 ### NewDaVinciVariableCollection
 
-`func NewDaVinciVariableCollection(embedded DaVinciVariableCollectionEmbedded, links DaVinciVariableCollectionLinks, count float32, size float32, ) *DaVinciVariableCollection`
+`func NewDaVinciVariableCollection(embedded DaVinciVariableCollectionEmbedded, links DaVinciVariableCollectionLinks, size float32, count float32, ) *DaVinciVariableCollection`
 
 NewDaVinciVariableCollection instantiates a new DaVinciVariableCollection object
 This constructor will assign default values to properties that have it defined,
@@ -68,26 +68,6 @@ and a boolean to check if the value has been set.
 SetLinks sets Links field to given value.
 
 
-### GetCount
-
-`func (o *DaVinciVariableCollection) GetCount() float32`
-
-GetCount returns the Count field if non-nil, zero value otherwise.
-
-### GetCountOk
-
-`func (o *DaVinciVariableCollection) GetCountOk() (*float32, bool)`
-
-GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCount
-
-`func (o *DaVinciVariableCollection) SetCount(v float32)`
-
-SetCount sets Count field to given value.
-
-
 ### GetSize
 
 `func (o *DaVinciVariableCollection) GetSize() float32`
@@ -106,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciVariableCollection) SetSize(v float32)`
 
 SetSize sets Size field to given value.
+
+
+### GetCount
+
+`func (o *DaVinciVariableCollection) GetCount() float32`
+
+GetCount returns the Count field if non-nil, zero value otherwise.
+
+### GetCountOk
+
+`func (o *DaVinciVariableCollection) GetCountOk() (*float32, bool)`
+
+GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCount
+
+`func (o *DaVinciVariableCollection) SetCount(v float32)`
+
+SetCount sets Count field to given value.
 
 
 

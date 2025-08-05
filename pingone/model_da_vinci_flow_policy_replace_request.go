@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,9 +25,9 @@ var _ slog.LogValuer = &DaVinciFlowPolicyReplaceRequest{}
 
 // DaVinciFlowPolicyReplaceRequest struct for DaVinciFlowPolicyReplaceRequest
 type DaVinciFlowPolicyReplaceRequest struct {
-	FlowDistributions    []DaVinciFlowPolicyReplaceRequestFlowDistribution `json:"flowDistributions,omitempty"`
 	Name                 string                                            `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	Status               *DaVinciFlowPolicyCreateRequestStatus             `json:"status,omitempty"`
+	FlowDistributions    []DaVinciFlowPolicyReplaceRequestFlowDistribution `json:"flowDistributions,omitempty"`
+	Status               *DaVinciFlowPolicyReplaceRequestStatus            `json:"status,omitempty"`
 	Trigger              *DaVinciFlowPolicyReplaceRequestTrigger           `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -41,6 +41,8 @@ type _DaVinciFlowPolicyReplaceRequest DaVinciFlowPolicyReplaceRequest
 func NewDaVinciFlowPolicyReplaceRequest(name string) *DaVinciFlowPolicyReplaceRequest {
 	this := DaVinciFlowPolicyReplaceRequest{}
 	this.Name = name
+	var status DaVinciFlowPolicyReplaceRequestStatus = DAVINCIFLOWPOLICYREPLACEREQUESTSTATUS_ENABLED
+	this.Status = &status
 	return &this
 }
 
@@ -49,7 +51,35 @@ func NewDaVinciFlowPolicyReplaceRequest(name string) *DaVinciFlowPolicyReplaceRe
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciFlowPolicyReplaceRequestWithDefaults() *DaVinciFlowPolicyReplaceRequest {
 	this := DaVinciFlowPolicyReplaceRequest{}
+	var name string = "New Policy"
+	this.Name = name
+	var status DaVinciFlowPolicyReplaceRequestStatus = DAVINCIFLOWPOLICYREPLACEREQUESTSTATUS_ENABLED
+	this.Status = &status
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *DaVinciFlowPolicyReplaceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyReplaceRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciFlowPolicyReplaceRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetFlowDistributions returns the FlowDistributions field value if set, zero value otherwise.
@@ -84,34 +114,10 @@ func (o *DaVinciFlowPolicyReplaceRequest) SetFlowDistributions(v []DaVinciFlowPo
 	o.FlowDistributions = v
 }
 
-// GetName returns the Name field value
-func (o *DaVinciFlowPolicyReplaceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyReplaceRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *DaVinciFlowPolicyReplaceRequest) SetName(v string) {
-	o.Name = v
-}
-
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *DaVinciFlowPolicyReplaceRequest) GetStatus() DaVinciFlowPolicyCreateRequestStatus {
+func (o *DaVinciFlowPolicyReplaceRequest) GetStatus() DaVinciFlowPolicyReplaceRequestStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret DaVinciFlowPolicyCreateRequestStatus
+		var ret DaVinciFlowPolicyReplaceRequestStatus
 		return ret
 	}
 	return *o.Status
@@ -119,7 +125,7 @@ func (o *DaVinciFlowPolicyReplaceRequest) GetStatus() DaVinciFlowPolicyCreateReq
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyReplaceRequest) GetStatusOk() (*DaVinciFlowPolicyCreateRequestStatus, bool) {
+func (o *DaVinciFlowPolicyReplaceRequest) GetStatusOk() (*DaVinciFlowPolicyReplaceRequestStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -135,8 +141,8 @@ func (o *DaVinciFlowPolicyReplaceRequest) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given DaVinciFlowPolicyCreateRequestStatus and assigns it to the Status field.
-func (o *DaVinciFlowPolicyReplaceRequest) SetStatus(v DaVinciFlowPolicyCreateRequestStatus) {
+// SetStatus gets a reference to the given DaVinciFlowPolicyReplaceRequestStatus and assigns it to the Status field.
+func (o *DaVinciFlowPolicyReplaceRequest) SetStatus(v DaVinciFlowPolicyReplaceRequestStatus) {
 	o.Status = &v
 }
 
@@ -182,10 +188,10 @@ func (o DaVinciFlowPolicyReplaceRequest) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowPolicyReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.FlowDistributions) {
 		toSerialize["flowDistributions"] = o.FlowDistributions
 	}
-	toSerialize["name"] = o.Name
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
@@ -235,8 +241,8 @@ func (o *DaVinciFlowPolicyReplaceRequest) UnmarshalJSON(data []byte) (err error)
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "flowDistributions")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "flowDistributions")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "trigger")
 		o.AdditionalProperties = additionalProperties
@@ -248,10 +254,10 @@ func (o *DaVinciFlowPolicyReplaceRequest) UnmarshalJSON(data []byte) (err error)
 func (o DaVinciFlowPolicyReplaceRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.FlowDistributions) {
 		logAttrs = append(logAttrs, slog.Any("flowDistributions", o.FlowDistributions))
 	}
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
 	}

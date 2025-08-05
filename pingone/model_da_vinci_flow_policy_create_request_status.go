@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -19,7 +19,7 @@ import (
 // DaVinciFlowPolicyCreateRequestStatus the model 'DaVinciFlowPolicyCreateRequestStatus'
 type DaVinciFlowPolicyCreateRequestStatus string
 
-// List of DaVinciFlowPolicyCreateRequest_status
+// List of DaVinci_Flow_Policy_Create_Request_Status
 const (
 	DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_DISABLED DaVinciFlowPolicyCreateRequestStatus = "disabled"
 	DAVINCIFLOWPOLICYCREATEREQUESTSTATUS_ENABLED  DaVinciFlowPolicyCreateRequestStatus = "enabled"
@@ -45,7 +45,7 @@ func (v *DaVinciFlowPolicyCreateRequestStatus) UnmarshalJSON(src []byte) error {
 		}
 	}
 
-	*v = DaVinciFlowPolicyCreateRequestStatus(fmt.Sprintf("%s", "UNKNOWN"))
+	*v = DaVinciFlowPolicyCreateRequestStatus(fmt.Sprintf("%s", value))
 	return nil
 }
 
@@ -70,7 +70,7 @@ func (v DaVinciFlowPolicyCreateRequestStatus) IsValid() bool {
 	return false
 }
 
-// Ptr returns reference to DaVinciFlowPolicyCreateRequest_status value
+// Ptr returns reference to DaVinci_Flow_Policy_Create_Request_Status value
 func (v DaVinciFlowPolicyCreateRequestStatus) Ptr() *DaVinciFlowPolicyCreateRequestStatus {
 	return &v
 }

@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -48,6 +48,8 @@ func NewDaVinciApplicationApiKey(enabled bool, value string) *DaVinciApplication
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciApplicationApiKeyWithDefaults() *DaVinciApplicationApiKey {
 	this := DaVinciApplicationApiKey{}
+	var enabled bool = true
+	this.Enabled = enabled
 	return &this
 }
 
@@ -167,7 +169,7 @@ func (o DaVinciApplicationApiKey) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("enabled", o.Enabled))
-	logAttrs = append(logAttrs, slog.Any("value", o.Value))
+	logAttrs = append(logAttrs, slog.String("value", "****"))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -26,15 +26,15 @@ var _ slog.LogValuer = &DaVinciFlowPolicyResponse{}
 
 // DaVinciFlowPolicyResponse struct for DaVinciFlowPolicyResponse
 type DaVinciFlowPolicyResponse struct {
-	Links                DaVinciFlowPolicyResponseLinks              `json:"_links"`
-	CreatedAt            *time.Time                                  `json:"createdAt,omitempty"`
-	Environment          ResourceRelationshipPingOne                 `json:"environment"`
-	FlowDistributions    []DaVinciFlowPolicyResponseFlowDistribution `json:"flowDistributions"`
-	Id                   string                                      `json:"id"`
-	Name                 string                                      `json:"name"`
-	Status               DaVinciFlowPolicyCreateRequestStatus        `json:"status"`
-	Trigger              NullableDaVinciFlowPolicyResponseTrigger    `json:"trigger,omitempty"`
-	UpdatedAt            *time.Time                                  `json:"updatedAt,omitempty"`
+	Links                DaVinciFlowPolicyResponseLinks                  `json:"_links"`
+	Environment          ResourceRelationshipReadOnly                    `json:"environment"`
+	FlowDistributions    []DaVinciFlowPolicyResponseFlowDistribution     `json:"flowDistributions"`
+	Id                   string                                          `json:"id"`
+	Name                 string                                          `json:"name"`
+	Status               DaVinciFlowPolicyResponseStatus                 `json:"status"`
+	CreatedAt            *time.Time                                      `json:"createdAt,omitempty"`
+	Trigger              NullableDaVinciFlowPolicyResponseTriggerOption1 `json:"trigger,omitempty"`
+	UpdatedAt            *time.Time                                      `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,7 +44,7 @@ type _DaVinciFlowPolicyResponse DaVinciFlowPolicyResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowPolicyResponse(links DaVinciFlowPolicyResponseLinks, environment ResourceRelationshipPingOne, flowDistributions []DaVinciFlowPolicyResponseFlowDistribution, id string, name string, status DaVinciFlowPolicyCreateRequestStatus) *DaVinciFlowPolicyResponse {
+func NewDaVinciFlowPolicyResponse(links DaVinciFlowPolicyResponseLinks, environment ResourceRelationshipReadOnly, flowDistributions []DaVinciFlowPolicyResponseFlowDistribution, id string, name string, status DaVinciFlowPolicyResponseStatus) *DaVinciFlowPolicyResponse {
 	this := DaVinciFlowPolicyResponse{}
 	this.Links = links
 	this.Environment = environment
@@ -87,42 +87,10 @@ func (o *DaVinciFlowPolicyResponse) SetLinks(v DaVinciFlowPolicyResponseLinks) {
 	o.Links = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *DaVinciFlowPolicyResponse) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *DaVinciFlowPolicyResponse) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *DaVinciFlowPolicyResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
 // GetEnvironment returns the Environment field value
-func (o *DaVinciFlowPolicyResponse) GetEnvironment() ResourceRelationshipPingOne {
+func (o *DaVinciFlowPolicyResponse) GetEnvironment() ResourceRelationshipReadOnly {
 	if o == nil {
-		var ret ResourceRelationshipPingOne
+		var ret ResourceRelationshipReadOnly
 		return ret
 	}
 
@@ -131,7 +99,7 @@ func (o *DaVinciFlowPolicyResponse) GetEnvironment() ResourceRelationshipPingOne
 
 // GetEnvironmentOk returns a tuple with the Environment field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyResponse) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
+func (o *DaVinciFlowPolicyResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,7 +107,7 @@ func (o *DaVinciFlowPolicyResponse) GetEnvironmentOk() (*ResourceRelationshipPin
 }
 
 // SetEnvironment sets field value
-func (o *DaVinciFlowPolicyResponse) SetEnvironment(v ResourceRelationshipPingOne) {
+func (o *DaVinciFlowPolicyResponse) SetEnvironment(v ResourceRelationshipReadOnly) {
 	o.Environment = v
 }
 
@@ -216,9 +184,9 @@ func (o *DaVinciFlowPolicyResponse) SetName(v string) {
 }
 
 // GetStatus returns the Status field value
-func (o *DaVinciFlowPolicyResponse) GetStatus() DaVinciFlowPolicyCreateRequestStatus {
+func (o *DaVinciFlowPolicyResponse) GetStatus() DaVinciFlowPolicyResponseStatus {
 	if o == nil {
-		var ret DaVinciFlowPolicyCreateRequestStatus
+		var ret DaVinciFlowPolicyResponseStatus
 		return ret
 	}
 
@@ -227,7 +195,7 @@ func (o *DaVinciFlowPolicyResponse) GetStatus() DaVinciFlowPolicyCreateRequestSt
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyResponse) GetStatusOk() (*DaVinciFlowPolicyCreateRequestStatus, bool) {
+func (o *DaVinciFlowPolicyResponse) GetStatusOk() (*DaVinciFlowPolicyResponseStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -235,14 +203,46 @@ func (o *DaVinciFlowPolicyResponse) GetStatusOk() (*DaVinciFlowPolicyCreateReque
 }
 
 // SetStatus sets field value
-func (o *DaVinciFlowPolicyResponse) SetStatus(v DaVinciFlowPolicyCreateRequestStatus) {
+func (o *DaVinciFlowPolicyResponse) SetStatus(v DaVinciFlowPolicyResponseStatus) {
 	o.Status = v
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *DaVinciFlowPolicyResponse) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *DaVinciFlowPolicyResponse) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *DaVinciFlowPolicyResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
 // GetTrigger returns the Trigger field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTrigger {
+func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTriggerOption1 {
 	if o == nil || IsNil(o.Trigger.Get()) {
-		var ret DaVinciFlowPolicyResponseTrigger
+		var ret DaVinciFlowPolicyResponseTriggerOption1
 		return ret
 	}
 	return *o.Trigger.Get()
@@ -251,7 +251,7 @@ func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTrigge
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTrigger, bool) {
+func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTriggerOption1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -267,8 +267,8 @@ func (o *DaVinciFlowPolicyResponse) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given NullableDaVinciFlowPolicyResponseTrigger and assigns it to the Trigger field.
-func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTrigger) {
+// SetTrigger gets a reference to the given NullableDaVinciFlowPolicyResponseTriggerOption1 and assigns it to the Trigger field.
+func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTriggerOption1) {
 	o.Trigger.Set(&v)
 }
 
@@ -325,14 +325,14 @@ func (o DaVinciFlowPolicyResponse) MarshalJSON() ([]byte, error) {
 func (o DaVinciFlowPolicyResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
 	toSerialize["environment"] = o.Environment
 	toSerialize["flowDistributions"] = o.FlowDistributions
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
 	if o.Trigger.IsSet() {
 		toSerialize["trigger"] = o.Trigger.Get()
 	}
@@ -388,12 +388,12 @@ func (o *DaVinciFlowPolicyResponse) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
-		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "flowDistributions")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "trigger")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
@@ -406,14 +406,14 @@ func (o DaVinciFlowPolicyResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
-	if !IsNil(o.CreatedAt) {
-		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
-	}
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	logAttrs = append(logAttrs, slog.Any("flowDistributions", o.FlowDistributions))
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	logAttrs = append(logAttrs, slog.Any("status", o.Status))
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
 	if !IsNil(o.Trigger) {
 		logAttrs = append(logAttrs, slog.Any("trigger", o.Trigger))
 	}

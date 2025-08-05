@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,14 +25,14 @@ var _ slog.LogValuer = &EnvironmentReplaceRequest{}
 
 // EnvironmentReplaceRequest struct for EnvironmentReplaceRequest
 type EnvironmentReplaceRequest struct {
+	Name                 string                                    `json:"name"`
+	Region               EnvironmentRegionCode                     `json:"region"`
+	Type                 EnvironmentTypeValue                      `json:"type"`
+	BillOfMaterials      *EnvironmentBillOfMaterialsReplaceRequest `json:"billOfMaterials,omitempty"`
 	Description          *string                                   `json:"description,omitempty"`
 	Icon                 *string                                   `json:"icon,omitempty"`
-	License              ResourceRelationshipPingOne               `json:"license"`
-	Name                 string                                    `json:"name"`
-	Region               EnvironmentRegion                         `json:"region"`
-	Type                 EnvironmentType                           `json:"type"`
+	License              *EnvironmentLicense                       `json:"license,omitempty"`
 	Status               *EnvironmentStatusValue                   `json:"status,omitempty"`
-	BillOfMaterials      *EnvironmentBillOfMaterialsReplaceRequest `json:"billOfMaterials,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,9 +42,8 @@ type _EnvironmentReplaceRequest EnvironmentReplaceRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name string, region EnvironmentRegion, type_ EnvironmentType) *EnvironmentReplaceRequest {
+func NewEnvironmentReplaceRequest(name string, region EnvironmentRegionCode, type_ EnvironmentTypeValue) *EnvironmentReplaceRequest {
 	this := EnvironmentReplaceRequest{}
-	this.License = license
 	this.Name = name
 	this.Region = region
 	this.Type = type_
@@ -57,6 +56,110 @@ func NewEnvironmentReplaceRequest(license ResourceRelationshipPingOne, name stri
 func NewEnvironmentReplaceRequestWithDefaults() *EnvironmentReplaceRequest {
 	this := EnvironmentReplaceRequest{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *EnvironmentReplaceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *EnvironmentReplaceRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetRegion returns the Region field value
+func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegionCode {
+	if o == nil {
+		var ret EnvironmentRegionCode
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegionCode, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegionCode) {
+	o.Region = v
+}
+
+// GetType returns the Type field value
+func (o *EnvironmentReplaceRequest) GetType() EnvironmentTypeValue {
+	if o == nil {
+		var ret EnvironmentTypeValue
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentTypeValue, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *EnvironmentReplaceRequest) SetType(v EnvironmentTypeValue) {
+	o.Type = v
+}
+
+// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
+func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsReplaceRequest {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		var ret EnvironmentBillOfMaterialsReplaceRequest
+		return ret
+	}
+	return *o.BillOfMaterials
+}
+
+// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsReplaceRequest, bool) {
+	if o == nil || IsNil(o.BillOfMaterials) {
+		return nil, false
+	}
+	return o.BillOfMaterials, true
+}
+
+// HasBillOfMaterials returns a boolean if a field has been set.
+func (o *EnvironmentReplaceRequest) HasBillOfMaterials() bool {
+	if o != nil && !IsNil(o.BillOfMaterials) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsReplaceRequest and assigns it to the BillOfMaterials field.
+func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsReplaceRequest) {
+	o.BillOfMaterials = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -123,100 +226,36 @@ func (o *EnvironmentReplaceRequest) SetIcon(v string) {
 	o.Icon = &v
 }
 
-// GetLicense returns the License field value
-func (o *EnvironmentReplaceRequest) GetLicense() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
+// GetLicense returns the License field value if set, zero value otherwise.
+func (o *EnvironmentReplaceRequest) GetLicense() EnvironmentLicense {
+	if o == nil || IsNil(o.License) {
+		var ret EnvironmentLicense
 		return ret
 	}
-
-	return o.License
+	return *o.License
 }
 
-// GetLicenseOk returns a tuple with the License field value
+// GetLicenseOk returns a tuple with the License field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetLicenseOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
+func (o *EnvironmentReplaceRequest) GetLicenseOk() (*EnvironmentLicense, bool) {
+	if o == nil || IsNil(o.License) {
 		return nil, false
 	}
-	return &o.License, true
+	return o.License, true
 }
 
-// SetLicense sets field value
-func (o *EnvironmentReplaceRequest) SetLicense(v ResourceRelationshipPingOne) {
-	o.License = v
-}
-
-// GetName returns the Name field value
-func (o *EnvironmentReplaceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
+// HasLicense returns a boolean if a field has been set.
+func (o *EnvironmentReplaceRequest) HasLicense() bool {
+	if o != nil && !IsNil(o.License) {
+		return true
 	}
 
-	return o.Name
+	return false
 }
 
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *EnvironmentReplaceRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetRegion returns the Region field value
-func (o *EnvironmentReplaceRequest) GetRegion() EnvironmentRegion {
-	if o == nil {
-		var ret EnvironmentRegion
-		return ret
-	}
-
-	return o.Region
-}
-
-// GetRegionOk returns a tuple with the Region field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetRegionOk() (*EnvironmentRegion, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Region, true
-}
-
-// SetRegion sets field value
-func (o *EnvironmentReplaceRequest) SetRegion(v EnvironmentRegion) {
-	o.Region = v
-}
-
-// GetType returns the Type field value
-func (o *EnvironmentReplaceRequest) GetType() EnvironmentType {
-	if o == nil {
-		var ret EnvironmentType
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetTypeOk() (*EnvironmentType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *EnvironmentReplaceRequest) SetType(v EnvironmentType) {
-	o.Type = v
+// SetLicense gets a reference to the given EnvironmentLicense and assigns it to the License field.
+func (o *EnvironmentReplaceRequest) SetLicense(v EnvironmentLicense) {
+	o.License = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -251,38 +290,6 @@ func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue) {
 	o.Status = &v
 }
 
-// GetBillOfMaterials returns the BillOfMaterials field value if set, zero value otherwise.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterials() EnvironmentBillOfMaterialsReplaceRequest {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		var ret EnvironmentBillOfMaterialsReplaceRequest
-		return ret
-	}
-	return *o.BillOfMaterials
-}
-
-// GetBillOfMaterialsOk returns a tuple with the BillOfMaterials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentReplaceRequest) GetBillOfMaterialsOk() (*EnvironmentBillOfMaterialsReplaceRequest, bool) {
-	if o == nil || IsNil(o.BillOfMaterials) {
-		return nil, false
-	}
-	return o.BillOfMaterials, true
-}
-
-// HasBillOfMaterials returns a boolean if a field has been set.
-func (o *EnvironmentReplaceRequest) HasBillOfMaterials() bool {
-	if o != nil && !IsNil(o.BillOfMaterials) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillOfMaterials gets a reference to the given EnvironmentBillOfMaterialsReplaceRequest and assigns it to the BillOfMaterials field.
-func (o *EnvironmentReplaceRequest) SetBillOfMaterials(v EnvironmentBillOfMaterialsReplaceRequest) {
-	o.BillOfMaterials = &v
-}
-
 func (o EnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -293,21 +300,23 @@ func (o EnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["region"] = o.Region
+	toSerialize["type"] = o.Type
+	if !IsNil(o.BillOfMaterials) {
+		toSerialize["billOfMaterials"] = o.BillOfMaterials
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
-	toSerialize["license"] = o.License
-	toSerialize["name"] = o.Name
-	toSerialize["region"] = o.Region
-	toSerialize["type"] = o.Type
+	if !IsNil(o.License) {
+		toSerialize["license"] = o.License
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.BillOfMaterials) {
-		toSerialize["billOfMaterials"] = o.BillOfMaterials
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -322,7 +331,6 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"license",
 		"name",
 		"region",
 		"type",
@@ -355,14 +363,14 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "icon")
-		delete(additionalProperties, "license")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "region")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "status")
 		delete(additionalProperties, "billOfMaterials")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "license")
+		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -372,21 +380,23 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 func (o EnvironmentReplaceRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
+	logAttrs = append(logAttrs, slog.Any("region", o.Region))
+	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	if !IsNil(o.BillOfMaterials) {
+		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
+	}
 	if !IsNil(o.Description) {
 		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
 	}
 	if !IsNil(o.Icon) {
 		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
 	}
-	logAttrs = append(logAttrs, slog.Any("license", o.License))
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	logAttrs = append(logAttrs, slog.Any("region", o.Region))
-	logAttrs = append(logAttrs, slog.Any("type", o.Type))
+	if !IsNil(o.License) {
+		logAttrs = append(logAttrs, slog.Any("license", *o.License))
+	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
-	}
-	if !IsNil(o.BillOfMaterials) {
-		logAttrs = append(logAttrs, slog.Any("billOfMaterials", *o.BillOfMaterials))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

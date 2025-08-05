@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowPolicyCreateRequestTrigger{}
 // DaVinciFlowPolicyCreateRequestTrigger struct for DaVinciFlowPolicyCreateRequestTrigger
 type DaVinciFlowPolicyCreateRequestTrigger struct {
 	Configuration        *DaVinciFlowPolicyCreateRequestTriggerConfiguration `json:"configuration,omitempty"`
-	Type                 *string                                             `json:"type,omitempty"`
+	Type                 *DaVinciFlowPolicyCreateRequestTriggerType          `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,6 +37,8 @@ type _DaVinciFlowPolicyCreateRequestTrigger DaVinciFlowPolicyCreateRequestTrigge
 // will change when the set of required properties is changed
 func NewDaVinciFlowPolicyCreateRequestTrigger() *DaVinciFlowPolicyCreateRequestTrigger {
 	this := DaVinciFlowPolicyCreateRequestTrigger{}
+	var type_ DaVinciFlowPolicyCreateRequestTriggerType = DAVINCIFLOWPOLICYCREATEREQUESTTRIGGERTYPE_AUTHENTICATION
+	this.Type = &type_
 	return &this
 }
 
@@ -45,6 +47,8 @@ func NewDaVinciFlowPolicyCreateRequestTrigger() *DaVinciFlowPolicyCreateRequestT
 // but it doesn't guarantee that properties required by API are set
 func NewDaVinciFlowPolicyCreateRequestTriggerWithDefaults() *DaVinciFlowPolicyCreateRequestTrigger {
 	this := DaVinciFlowPolicyCreateRequestTrigger{}
+	var type_ DaVinciFlowPolicyCreateRequestTriggerType = DAVINCIFLOWPOLICYCREATEREQUESTTRIGGERTYPE_AUTHENTICATION
+	this.Type = &type_
 	return &this
 }
 
@@ -81,9 +85,9 @@ func (o *DaVinciFlowPolicyCreateRequestTrigger) SetConfiguration(v DaVinciFlowPo
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *DaVinciFlowPolicyCreateRequestTrigger) GetType() string {
+func (o *DaVinciFlowPolicyCreateRequestTrigger) GetType() DaVinciFlowPolicyCreateRequestTriggerType {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret DaVinciFlowPolicyCreateRequestTriggerType
 		return ret
 	}
 	return *o.Type
@@ -91,7 +95,7 @@ func (o *DaVinciFlowPolicyCreateRequestTrigger) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowPolicyCreateRequestTrigger) GetTypeOk() (*string, bool) {
+func (o *DaVinciFlowPolicyCreateRequestTrigger) GetTypeOk() (*DaVinciFlowPolicyCreateRequestTriggerType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -107,8 +111,8 @@ func (o *DaVinciFlowPolicyCreateRequestTrigger) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *DaVinciFlowPolicyCreateRequestTrigger) SetType(v string) {
+// SetType gets a reference to the given DaVinciFlowPolicyCreateRequestTriggerType and assigns it to the Type field.
+func (o *DaVinciFlowPolicyCreateRequestTrigger) SetType(v DaVinciFlowPolicyCreateRequestTriggerType) {
 	o.Type = &v
 }
 

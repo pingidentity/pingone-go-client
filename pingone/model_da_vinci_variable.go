@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne User and Configuration Management API
+PingOne Platform User and Configuration Management API - Go SDK
 
-The PingOne User and Configuration Management API provides the interface to configure and manage users in the PingOne directory and the administration configuration of your PingOne organization.
+PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
 Contact: developerexperiences@pingidentity.com
 */
@@ -28,20 +28,20 @@ var _ slog.LogValuer = &DaVinciVariable{}
 
 // DaVinciVariable struct for DaVinciVariable
 type DaVinciVariable struct {
-	Links                DaVinciVariableLinks         `json:"_links"`
-	Context              *string                      `json:"context,omitempty"`
-	CreatedAt            *time.Time                   `json:"createdAt,omitempty"`
-	DataType             DaVinciVariableDataType      `json:"dataType"`
-	DisplayName          *string                      `json:"displayName,omitempty"`
-	Environment          ResourceRelationshipPingOne  `json:"environment"`
-	Flow                 *ResourceRelationshipDaVinci `json:"flow,omitempty"`
-	Id                   uuid.UUID                    `json:"id"`
-	Max                  *float32                     `json:"max,omitempty"`
-	Min                  *float32                     `json:"min,omitempty"`
-	Mutable              *bool                        `json:"mutable,omitempty"`
-	Name                 string                       `json:"name"`
-	UpdatedAt            *time.Time                   `json:"updatedAt,omitempty"`
-	Value                *DaVinciVariableValue        `json:"value,omitempty"`
+	Links                DaVinciVariableLinks                 `json:"_links"`
+	DataType             DaVinciVariableDataType              `json:"dataType"`
+	Environment          ResourceRelationshipReadOnly         `json:"environment"`
+	Id                   uuid.UUID                            `json:"id"`
+	Name                 string                               `json:"name"`
+	Context              *string                              `json:"context,omitempty"`
+	CreatedAt            *time.Time                           `json:"createdAt,omitempty"`
+	DisplayName          *string                              `json:"displayName,omitempty"`
+	Flow                 *ResourceRelationshipDaVinciReadOnly `json:"flow,omitempty"`
+	Max                  *float32                             `json:"max,omitempty"`
+	Min                  *float32                             `json:"min,omitempty"`
+	Mutable              *bool                                `json:"mutable,omitempty"`
+	UpdatedAt            *time.Time                           `json:"updatedAt,omitempty"`
+	Value                *DaVinciVariableValue                `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,7 +51,7 @@ type _DaVinciVariable DaVinciVariable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipPingOne, id uuid.UUID, name string) *DaVinciVariable {
+func NewDaVinciVariable(links DaVinciVariableLinks, dataType DaVinciVariableDataType, environment ResourceRelationshipReadOnly, id uuid.UUID, name string) *DaVinciVariable {
 	this := DaVinciVariable{}
 	this.Links = links
 	this.DataType = dataType
@@ -91,6 +91,102 @@ func (o *DaVinciVariable) GetLinksOk() (*DaVinciVariableLinks, bool) {
 // SetLinks sets field value
 func (o *DaVinciVariable) SetLinks(v DaVinciVariableLinks) {
 	o.Links = v
+}
+
+// GetDataType returns the DataType field value
+func (o *DaVinciVariable) GetDataType() DaVinciVariableDataType {
+	if o == nil {
+		var ret DaVinciVariableDataType
+		return ret
+	}
+
+	return o.DataType
+}
+
+// GetDataTypeOk returns a tuple with the DataType field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariable) GetDataTypeOk() (*DaVinciVariableDataType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DataType, true
+}
+
+// SetDataType sets field value
+func (o *DaVinciVariable) SetDataType(v DaVinciVariableDataType) {
+	o.DataType = v
+}
+
+// GetEnvironment returns the Environment field value
+func (o *DaVinciVariable) GetEnvironment() ResourceRelationshipReadOnly {
+	if o == nil {
+		var ret ResourceRelationshipReadOnly
+		return ret
+	}
+
+	return o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariable) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Environment, true
+}
+
+// SetEnvironment sets field value
+func (o *DaVinciVariable) SetEnvironment(v ResourceRelationshipReadOnly) {
+	o.Environment = v
+}
+
+// GetId returns the Id field value
+func (o *DaVinciVariable) GetId() uuid.UUID {
+	if o == nil {
+		var ret uuid.UUID
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *DaVinciVariable) SetId(v uuid.UUID) {
+	o.Id = v
+}
+
+// GetName returns the Name field value
+func (o *DaVinciVariable) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *DaVinciVariable) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *DaVinciVariable) SetName(v string) {
+	o.Name = v
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.
@@ -157,30 +253,6 @@ func (o *DaVinciVariable) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetDataType returns the DataType field value
-func (o *DaVinciVariable) GetDataType() DaVinciVariableDataType {
-	if o == nil {
-		var ret DaVinciVariableDataType
-		return ret
-	}
-
-	return o.DataType
-}
-
-// GetDataTypeOk returns a tuple with the DataType field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetDataTypeOk() (*DaVinciVariableDataType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DataType, true
-}
-
-// SetDataType sets field value
-func (o *DaVinciVariable) SetDataType(v DaVinciVariableDataType) {
-	o.DataType = v
-}
-
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *DaVinciVariable) GetDisplayName() string {
 	if o == nil || IsNil(o.DisplayName) {
@@ -213,34 +285,10 @@ func (o *DaVinciVariable) SetDisplayName(v string) {
 	o.DisplayName = &v
 }
 
-// GetEnvironment returns the Environment field value
-func (o *DaVinciVariable) GetEnvironment() ResourceRelationshipPingOne {
-	if o == nil {
-		var ret ResourceRelationshipPingOne
-		return ret
-	}
-
-	return o.Environment
-}
-
-// GetEnvironmentOk returns a tuple with the Environment field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetEnvironmentOk() (*ResourceRelationshipPingOne, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Environment, true
-}
-
-// SetEnvironment sets field value
-func (o *DaVinciVariable) SetEnvironment(v ResourceRelationshipPingOne) {
-	o.Environment = v
-}
-
 // GetFlow returns the Flow field value if set, zero value otherwise.
-func (o *DaVinciVariable) GetFlow() ResourceRelationshipDaVinci {
+func (o *DaVinciVariable) GetFlow() ResourceRelationshipDaVinciReadOnly {
 	if o == nil || IsNil(o.Flow) {
-		var ret ResourceRelationshipDaVinci
+		var ret ResourceRelationshipDaVinciReadOnly
 		return ret
 	}
 	return *o.Flow
@@ -248,7 +296,7 @@ func (o *DaVinciVariable) GetFlow() ResourceRelationshipDaVinci {
 
 // GetFlowOk returns a tuple with the Flow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetFlowOk() (*ResourceRelationshipDaVinci, bool) {
+func (o *DaVinciVariable) GetFlowOk() (*ResourceRelationshipDaVinciReadOnly, bool) {
 	if o == nil || IsNil(o.Flow) {
 		return nil, false
 	}
@@ -264,33 +312,9 @@ func (o *DaVinciVariable) HasFlow() bool {
 	return false
 }
 
-// SetFlow gets a reference to the given ResourceRelationshipDaVinci and assigns it to the Flow field.
-func (o *DaVinciVariable) SetFlow(v ResourceRelationshipDaVinci) {
+// SetFlow gets a reference to the given ResourceRelationshipDaVinciReadOnly and assigns it to the Flow field.
+func (o *DaVinciVariable) SetFlow(v ResourceRelationshipDaVinciReadOnly) {
 	o.Flow = &v
-}
-
-// GetId returns the Id field value
-func (o *DaVinciVariable) GetId() uuid.UUID {
-	if o == nil {
-		var ret uuid.UUID
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *DaVinciVariable) SetId(v uuid.UUID) {
-	o.Id = v
 }
 
 // GetMax returns the Max field value if set, zero value otherwise.
@@ -389,30 +413,6 @@ func (o *DaVinciVariable) SetMutable(v bool) {
 	o.Mutable = &v
 }
 
-// GetName returns the Name field value
-func (o *DaVinciVariable) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciVariable) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *DaVinciVariable) SetName(v string) {
-	o.Name = v
-}
-
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *DaVinciVariable) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -488,21 +488,22 @@ func (o DaVinciVariable) MarshalJSON() ([]byte, error) {
 func (o DaVinciVariable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
+	toSerialize["dataType"] = o.DataType
+	toSerialize["environment"] = o.Environment
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	toSerialize["dataType"] = o.DataType
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	toSerialize["environment"] = o.Environment
 	if !IsNil(o.Flow) {
 		toSerialize["flow"] = o.Flow
 	}
-	toSerialize["id"] = o.Id
 	if !IsNil(o.Max) {
 		toSerialize["max"] = o.Max
 	}
@@ -512,7 +513,6 @@ func (o DaVinciVariable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mutable) {
 		toSerialize["mutable"] = o.Mutable
 	}
-	toSerialize["name"] = o.Name
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
@@ -567,17 +567,17 @@ func (o *DaVinciVariable) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "createdAt")
-		delete(additionalProperties, "dataType")
 		delete(additionalProperties, "displayName")
-		delete(additionalProperties, "environment")
 		delete(additionalProperties, "flow")
-		delete(additionalProperties, "id")
 		delete(additionalProperties, "max")
 		delete(additionalProperties, "min")
 		delete(additionalProperties, "mutable")
-		delete(additionalProperties, "name")
 		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
@@ -590,21 +590,22 @@ func (o DaVinciVariable) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
+	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
+	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
+	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.Context) {
 		logAttrs = append(logAttrs, slog.Any("context", *o.Context))
 	}
 	if !IsNil(o.CreatedAt) {
 		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
 	}
-	logAttrs = append(logAttrs, slog.Any("dataType", o.DataType))
 	if !IsNil(o.DisplayName) {
 		logAttrs = append(logAttrs, slog.Any("displayName", *o.DisplayName))
 	}
-	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	if !IsNil(o.Flow) {
 		logAttrs = append(logAttrs, slog.Any("flow", *o.Flow))
 	}
-	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	if !IsNil(o.Max) {
 		logAttrs = append(logAttrs, slog.Any("max", *o.Max))
 	}
@@ -614,7 +615,6 @@ func (o DaVinciVariable) LogValue() slog.Value {
 	if !IsNil(o.Mutable) {
 		logAttrs = append(logAttrs, slog.Any("mutable", *o.Mutable))
 	}
-	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.UpdatedAt) {
 		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
 	}

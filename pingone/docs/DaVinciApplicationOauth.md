@@ -1,4 +1,4 @@
-# DaVinciApplicationOauth
+# DaVinciApplicationOAuth
 
 ## Properties
 
@@ -6,204 +6,224 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClientSecret** | **string** |  | 
 **EnforceSignedRequestOpenid** | Pointer to **bool** |  | [optional] 
-**GrantTypes** | [**[]DaVinciApplicationOauthGrantTypes**](DaVinciApplicationOauthGrantTypes.md) |  | 
-**LogoutUris** | **[]string** |  | 
-**RedirectUris** | **[]string** |  | 
-**Scopes** | [**[]DaVinciApplicationOauthScopes**](DaVinciApplicationOauthScopes.md) |  | 
+**GrantTypes** | Pointer to [**[]DaVinciApplicationOAuthGrantType**](DaVinciApplicationOAuthGrantType.md) |  | [optional] [default to [authorizationCode]]
+**LogoutUris** | Pointer to **[]string** |  | [optional] 
+**RedirectUris** | Pointer to **[]string** |  | [optional] 
+**Scopes** | Pointer to [**[]DaVinciApplicationOAuthScope**](DaVinciApplicationOAuthScope.md) |  | [optional] [default to [openid, profile]]
 **SpJwksOpenid** | Pointer to **string** |  | [optional] 
 **SpjwksUrl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
-### NewDaVinciApplicationOauth
+### NewDaVinciApplicationOAuth
 
-`func NewDaVinciApplicationOauth(clientSecret string, grantTypes []DaVinciApplicationOauthGrantTypes, logoutUris []string, redirectUris []string, scopes []DaVinciApplicationOauthScopes, ) *DaVinciApplicationOauth`
+`func NewDaVinciApplicationOAuth(clientSecret string, ) *DaVinciApplicationOAuth`
 
-NewDaVinciApplicationOauth instantiates a new DaVinciApplicationOauth object
+NewDaVinciApplicationOAuth instantiates a new DaVinciApplicationOAuth object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDaVinciApplicationOauthWithDefaults
+### NewDaVinciApplicationOAuthWithDefaults
 
-`func NewDaVinciApplicationOauthWithDefaults() *DaVinciApplicationOauth`
+`func NewDaVinciApplicationOAuthWithDefaults() *DaVinciApplicationOAuth`
 
-NewDaVinciApplicationOauthWithDefaults instantiates a new DaVinciApplicationOauth object
+NewDaVinciApplicationOAuthWithDefaults instantiates a new DaVinciApplicationOAuth object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetClientSecret
 
-`func (o *DaVinciApplicationOauth) GetClientSecret() string`
+`func (o *DaVinciApplicationOAuth) GetClientSecret() string`
 
 GetClientSecret returns the ClientSecret field if non-nil, zero value otherwise.
 
 ### GetClientSecretOk
 
-`func (o *DaVinciApplicationOauth) GetClientSecretOk() (*string, bool)`
+`func (o *DaVinciApplicationOAuth) GetClientSecretOk() (*string, bool)`
 
 GetClientSecretOk returns a tuple with the ClientSecret field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClientSecret
 
-`func (o *DaVinciApplicationOauth) SetClientSecret(v string)`
+`func (o *DaVinciApplicationOAuth) SetClientSecret(v string)`
 
 SetClientSecret sets ClientSecret field to given value.
 
 
 ### GetEnforceSignedRequestOpenid
 
-`func (o *DaVinciApplicationOauth) GetEnforceSignedRequestOpenid() bool`
+`func (o *DaVinciApplicationOAuth) GetEnforceSignedRequestOpenid() bool`
 
 GetEnforceSignedRequestOpenid returns the EnforceSignedRequestOpenid field if non-nil, zero value otherwise.
 
 ### GetEnforceSignedRequestOpenidOk
 
-`func (o *DaVinciApplicationOauth) GetEnforceSignedRequestOpenidOk() (*bool, bool)`
+`func (o *DaVinciApplicationOAuth) GetEnforceSignedRequestOpenidOk() (*bool, bool)`
 
 GetEnforceSignedRequestOpenidOk returns a tuple with the EnforceSignedRequestOpenid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnforceSignedRequestOpenid
 
-`func (o *DaVinciApplicationOauth) SetEnforceSignedRequestOpenid(v bool)`
+`func (o *DaVinciApplicationOAuth) SetEnforceSignedRequestOpenid(v bool)`
 
 SetEnforceSignedRequestOpenid sets EnforceSignedRequestOpenid field to given value.
 
 ### HasEnforceSignedRequestOpenid
 
-`func (o *DaVinciApplicationOauth) HasEnforceSignedRequestOpenid() bool`
+`func (o *DaVinciApplicationOAuth) HasEnforceSignedRequestOpenid() bool`
 
 HasEnforceSignedRequestOpenid returns a boolean if a field has been set.
 
 ### GetGrantTypes
 
-`func (o *DaVinciApplicationOauth) GetGrantTypes() []DaVinciApplicationOauthGrantTypes`
+`func (o *DaVinciApplicationOAuth) GetGrantTypes() []DaVinciApplicationOAuthGrantType`
 
 GetGrantTypes returns the GrantTypes field if non-nil, zero value otherwise.
 
 ### GetGrantTypesOk
 
-`func (o *DaVinciApplicationOauth) GetGrantTypesOk() (*[]DaVinciApplicationOauthGrantTypes, bool)`
+`func (o *DaVinciApplicationOAuth) GetGrantTypesOk() (*[]DaVinciApplicationOAuthGrantType, bool)`
 
 GetGrantTypesOk returns a tuple with the GrantTypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGrantTypes
 
-`func (o *DaVinciApplicationOauth) SetGrantTypes(v []DaVinciApplicationOauthGrantTypes)`
+`func (o *DaVinciApplicationOAuth) SetGrantTypes(v []DaVinciApplicationOAuthGrantType)`
 
 SetGrantTypes sets GrantTypes field to given value.
 
+### HasGrantTypes
+
+`func (o *DaVinciApplicationOAuth) HasGrantTypes() bool`
+
+HasGrantTypes returns a boolean if a field has been set.
 
 ### GetLogoutUris
 
-`func (o *DaVinciApplicationOauth) GetLogoutUris() []string`
+`func (o *DaVinciApplicationOAuth) GetLogoutUris() []string`
 
 GetLogoutUris returns the LogoutUris field if non-nil, zero value otherwise.
 
 ### GetLogoutUrisOk
 
-`func (o *DaVinciApplicationOauth) GetLogoutUrisOk() (*[]string, bool)`
+`func (o *DaVinciApplicationOAuth) GetLogoutUrisOk() (*[]string, bool)`
 
 GetLogoutUrisOk returns a tuple with the LogoutUris field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogoutUris
 
-`func (o *DaVinciApplicationOauth) SetLogoutUris(v []string)`
+`func (o *DaVinciApplicationOAuth) SetLogoutUris(v []string)`
 
 SetLogoutUris sets LogoutUris field to given value.
 
+### HasLogoutUris
+
+`func (o *DaVinciApplicationOAuth) HasLogoutUris() bool`
+
+HasLogoutUris returns a boolean if a field has been set.
 
 ### GetRedirectUris
 
-`func (o *DaVinciApplicationOauth) GetRedirectUris() []string`
+`func (o *DaVinciApplicationOAuth) GetRedirectUris() []string`
 
 GetRedirectUris returns the RedirectUris field if non-nil, zero value otherwise.
 
 ### GetRedirectUrisOk
 
-`func (o *DaVinciApplicationOauth) GetRedirectUrisOk() (*[]string, bool)`
+`func (o *DaVinciApplicationOAuth) GetRedirectUrisOk() (*[]string, bool)`
 
 GetRedirectUrisOk returns a tuple with the RedirectUris field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRedirectUris
 
-`func (o *DaVinciApplicationOauth) SetRedirectUris(v []string)`
+`func (o *DaVinciApplicationOAuth) SetRedirectUris(v []string)`
 
 SetRedirectUris sets RedirectUris field to given value.
 
+### HasRedirectUris
+
+`func (o *DaVinciApplicationOAuth) HasRedirectUris() bool`
+
+HasRedirectUris returns a boolean if a field has been set.
 
 ### GetScopes
 
-`func (o *DaVinciApplicationOauth) GetScopes() []DaVinciApplicationOauthScopes`
+`func (o *DaVinciApplicationOAuth) GetScopes() []DaVinciApplicationOAuthScope`
 
 GetScopes returns the Scopes field if non-nil, zero value otherwise.
 
 ### GetScopesOk
 
-`func (o *DaVinciApplicationOauth) GetScopesOk() (*[]DaVinciApplicationOauthScopes, bool)`
+`func (o *DaVinciApplicationOAuth) GetScopesOk() (*[]DaVinciApplicationOAuthScope, bool)`
 
 GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScopes
 
-`func (o *DaVinciApplicationOauth) SetScopes(v []DaVinciApplicationOauthScopes)`
+`func (o *DaVinciApplicationOAuth) SetScopes(v []DaVinciApplicationOAuthScope)`
 
 SetScopes sets Scopes field to given value.
 
+### HasScopes
+
+`func (o *DaVinciApplicationOAuth) HasScopes() bool`
+
+HasScopes returns a boolean if a field has been set.
 
 ### GetSpJwksOpenid
 
-`func (o *DaVinciApplicationOauth) GetSpJwksOpenid() string`
+`func (o *DaVinciApplicationOAuth) GetSpJwksOpenid() string`
 
 GetSpJwksOpenid returns the SpJwksOpenid field if non-nil, zero value otherwise.
 
 ### GetSpJwksOpenidOk
 
-`func (o *DaVinciApplicationOauth) GetSpJwksOpenidOk() (*string, bool)`
+`func (o *DaVinciApplicationOAuth) GetSpJwksOpenidOk() (*string, bool)`
 
 GetSpJwksOpenidOk returns a tuple with the SpJwksOpenid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpJwksOpenid
 
-`func (o *DaVinciApplicationOauth) SetSpJwksOpenid(v string)`
+`func (o *DaVinciApplicationOAuth) SetSpJwksOpenid(v string)`
 
 SetSpJwksOpenid sets SpJwksOpenid field to given value.
 
 ### HasSpJwksOpenid
 
-`func (o *DaVinciApplicationOauth) HasSpJwksOpenid() bool`
+`func (o *DaVinciApplicationOAuth) HasSpJwksOpenid() bool`
 
 HasSpJwksOpenid returns a boolean if a field has been set.
 
 ### GetSpjwksUrl
 
-`func (o *DaVinciApplicationOauth) GetSpjwksUrl() string`
+`func (o *DaVinciApplicationOAuth) GetSpjwksUrl() string`
 
 GetSpjwksUrl returns the SpjwksUrl field if non-nil, zero value otherwise.
 
 ### GetSpjwksUrlOk
 
-`func (o *DaVinciApplicationOauth) GetSpjwksUrlOk() (*string, bool)`
+`func (o *DaVinciApplicationOAuth) GetSpjwksUrlOk() (*string, bool)`
 
 GetSpjwksUrlOk returns a tuple with the SpjwksUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpjwksUrl
 
-`func (o *DaVinciApplicationOauth) SetSpjwksUrl(v string)`
+`func (o *DaVinciApplicationOAuth) SetSpjwksUrl(v string)`
 
 SetSpjwksUrl sets SpjwksUrl field to given value.
 
 ### HasSpjwksUrl
 
-`func (o *DaVinciApplicationOauth) HasSpjwksUrl() bool`
+`func (o *DaVinciApplicationOAuth) HasSpjwksUrl() bool`
 
 HasSpjwksUrl returns a boolean if a field has been set.
 
