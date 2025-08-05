@@ -286,7 +286,7 @@ func main() {
     var environmentId string = "YOUR_ENVIRONMENT_ID"
     var variableId string = "YOUR_VARIABLE_ID"
 
-    variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+    variable, httpResp, err := client.DaVinciVariablesApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
     if err != nil {
         slog.Error("Failed to read variable", "error", err)
         // Check httpResp for more details if available
@@ -313,7 +313,7 @@ The SDK uses the [`iter`](https://pkg.go.dev/iter) package (Go 1.23+) for easy p
 
 ```go
 // Assume client and environmentId are initialized
-pagedIterator, _, err := client.DaVinciVariableApi.GetVariables(context.Background(), environmentId).Execute()
+pagedIterator, _, err := client.DaVinciVariablesApi.GetVariables(context.Background(), environmentId).Execute()
 if err != nil {
     slog.Error("Failed to initiate variable listing", "error", err)
     return
@@ -357,7 +357,7 @@ The SDK returns custom error types for service errors. Use the standard `errors`
 
 ```go
 // Assume client, environmentId, variableId are initialized
-variable, httpResp, err := client.DaVinciVariableApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
+variable, httpResp, err := client.DaVinciVariablesApi.GetVariableById(context.Background(), environmentId, variableId).Execute()
 if err != nil {
     var notFoundErr *pingone.NotFoundError // Use pointer for errors.As with struct types
     var invalidRequestErr *pingone.InvalidRequestError

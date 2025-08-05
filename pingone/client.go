@@ -48,7 +48,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - Go SDK API v2025.08.04-development
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - Go SDK API v2025.08.05-development
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -56,13 +56,13 @@ type APIClient struct {
 
 	// API Services
 
-	DaVinciApplicationApi *DaVinciApplicationApiService
+	DaVinciApplicationsApi *DaVinciApplicationsApiService
 
-	DaVinciConnectorApi *DaVinciConnectorApiService
+	DaVinciConnectorsApi *DaVinciConnectorsApiService
 
-	DaVinciVariableApi *DaVinciVariableApiService
+	DaVinciVariablesApi *DaVinciVariablesApiService
 
-	EnvironmentApi *EnvironmentApiService
+	EnvironmentsApi *EnvironmentsApiService
 
 	// Static APIs
 	// LinkApi *LinkApiService
@@ -128,10 +128,10 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.common.client = c
 
 	// API Services
-	c.DaVinciApplicationApi = (*DaVinciApplicationApiService)(&c.common)
-	c.DaVinciConnectorApi = (*DaVinciConnectorApiService)(&c.common)
-	c.DaVinciVariableApi = (*DaVinciVariableApiService)(&c.common)
-	c.EnvironmentApi = (*EnvironmentApiService)(&c.common)
+	c.DaVinciApplicationsApi = (*DaVinciApplicationsApiService)(&c.common)
+	c.DaVinciConnectorsApi = (*DaVinciConnectorsApiService)(&c.common)
+	c.DaVinciVariablesApi = (*DaVinciVariablesApiService)(&c.common)
+	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
 
 	// Static APIs
 	// c.LinkApi = (*LinkApiService)(&c.common)
