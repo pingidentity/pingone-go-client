@@ -2878,7 +2878,7 @@ components:
           title: DaVinci Flow Policy Response Created At
           type: string
         trigger:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Option_1'
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger'
         updatedAt:
           format: date-time
           title: DaVinci Flow Policy Response Updated At
@@ -6926,53 +6926,50 @@ components:
       minLength: 1
       title: DaVinci Flow Policy Response Status
       type: string
-    DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration_MFA:
+    DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA:
       example:
         timeFormat: timeFormat
         time: 1.4658129805029452
         enabled: true
       properties:
         enabled:
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration MFA Enabled
+          title: DaVinci Flow Policy Response Trigger Configuration MFA Enabled
           type: boolean
         time:
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration MFA Time
+          title: DaVinci Flow Policy Response Trigger Configuration MFA Time
           type: number
         timeFormat:
           minLength: 1
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration MFA Time
-            Format
+          title: DaVinci Flow Policy Response Trigger Configuration MFA Time Format
           type: string
       required:
       - enabled
       - time
       - timeFormat
-      title: DaVinci Flow Policy Response Trigger Option 1 Configuration MFA
-    DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration_Password:
+      title: DaVinci Flow Policy Response Trigger Configuration MFA
+    DaVinci_Flow_Policy_Response_Trigger_Configuration_Password:
       example:
         timeFormat: timeFormat
         time: 5.962133916683182
         enabled: true
       properties:
         enabled:
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration Password
-            Enabled
+          title: DaVinci Flow Policy Response Trigger Configuration Password Enabled
           type: boolean
         time:
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration Password
-            Time
+          title: DaVinci Flow Policy Response Trigger Configuration Password Time
           type: number
         timeFormat:
           minLength: 1
-          title: DaVinci Flow Policy Response Trigger Option 1 Configuration Password
-            Time Format
+          title: DaVinci Flow Policy Response Trigger Configuration Password Time
+            Format
           type: string
       required:
       - enabled
       - time
       - timeFormat
-      title: DaVinci Flow Policy Response Trigger Option 1 Configuration Password
-    DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration:
+      title: DaVinci Flow Policy Response Trigger Configuration Password
+    DaVinci_Flow_Policy_Response_Trigger_Configuration:
       example:
         mfa:
           timeFormat: timeFormat
@@ -6984,14 +6981,14 @@ components:
           enabled: true
       properties:
         mfa:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration_MFA'
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA'
         pwd:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration_Password'
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_Password'
       required:
       - mfa
       - pwd
-      title: DaVinci Flow Policy Response Trigger Option 1 Configuration
-    DaVinci_Flow_Policy_Response_Trigger_Option_1:
+      title: DaVinci Flow Policy Response Trigger Configuration
+    DaVinci_Flow_Policy_Response_Trigger:
       example:
         configuration:
           mfa:
@@ -7003,14 +7000,13 @@ components:
             time: 5.962133916683182
             enabled: true
         type: type
-      nullable: true
       properties:
         configuration:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Option_1_Configuration'
+          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration'
         type:
-          title: DaVinci Flow Policy Response Trigger Option 1 Type
+          title: DaVinci Flow Policy Response Trigger Type
           type: string
-      title: DaVinci Flow Policy Response Trigger Option 1
+      title: DaVinci Flow Policy Response Trigger
     DaVinci_Variable_Collection_Response__embedded:
       example:
         variables:

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Status** | [**DaVinciFlowPolicyResponseStatus**](DaVinciFlowPolicyResponseStatus.md) |  | 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Trigger** | Pointer to [**NullableDaVinciFlowPolicyResponseTriggerOption1**](DaVinciFlowPolicyResponseTriggerOption1.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciFlowPolicyResponseTrigger**](DaVinciFlowPolicyResponseTrigger.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -180,20 +180,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTriggerOption1`
+`func (o *DaVinciFlowPolicyResponse) GetTrigger() DaVinciFlowPolicyResponseTrigger`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTriggerOption1, bool)`
+`func (o *DaVinciFlowPolicyResponse) GetTriggerOk() (*DaVinciFlowPolicyResponseTrigger, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTriggerOption1)`
+`func (o *DaVinciFlowPolicyResponse) SetTrigger(v DaVinciFlowPolicyResponseTrigger)`
 
 SetTrigger sets Trigger field to given value.
 
@@ -203,16 +203,6 @@ SetTrigger sets Trigger field to given value.
 
 HasTrigger returns a boolean if a field has been set.
 
-### SetTriggerNil
-
-`func (o *DaVinciFlowPolicyResponse) SetTriggerNil(b bool)`
-
-SetTriggerNil sets the value for Trigger to be an explicit nil
-
-### UnsetTrigger
-`func (o *DaVinciFlowPolicyResponse) UnsetTrigger()`
-
-UnsetTrigger ensures that no value is present for Trigger, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *DaVinciFlowPolicyResponse) GetUpdatedAt() time.Time`
