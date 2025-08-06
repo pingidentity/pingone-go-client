@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - Go SDK
-  version: 2025.08.05-development
+  version: 2025.08.06-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -34,6 +34,8 @@ tags:
   name: DaVinci Applications
 - description: Operations for managing DaVinci connectors and connector instances
   name: DaVinci Connectors
+- description: Operations for managing DaVinci flows
+  name: DaVinci Flows
 - description: Operations for managing DaVinci variables
   name: DaVinci Variables
 - description: Operations for managing PingOne environments
@@ -1184,6 +1186,203 @@ paths:
       - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
+  /environments/{environmentID}/flows:
+    get:
+      operationId: getFlows
+      parameters:
+      - explode: true
+        in: query
+        name: attributes
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowCollection'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:read:dvFlows
+    post:
+      operationId: createFlow
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successfully created the resource.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:create:dvFlows
+  /environments/{environmentID}/flows/{flowID}:
+    delete:
+      operationId: deleteFlowById
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "204":
+          description: Successfully removed. No content.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:delete:dvFlows
+    get:
+      operationId: getFlowById
+      parameters:
+      - explode: true
+        in: query
+        name: attributes
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:read:dvFlows
+    put:
+      operationId: replaceFlowById
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:update:dvFlows
   /environments/{environmentID}/variables:
     get:
       operationId: getVariables
@@ -1429,6 +1628,15 @@ components:
       required: true
       schema:
         format: uuid
+        type: string
+      style: simple
+    com.pingidentity.path.environments.flows.flowID:
+      explode: false
+      in: path
+      name: flowID
+      required: true
+      schema:
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
         type: string
       style: simple
     com.pingidentity.path.environments.connectorInstances.connectorInstanceID:
@@ -2427,6 +2635,1052 @@ components:
       - updatedAt
       - version
       title: DaVinci Connector Minimal Response
+    DaVinciFlowCollection:
+      example:
+        _embedded:
+          flows:
+          - settings:
+              csp: csp
+              jsLinks:
+              - crossorigin: crossorigin
+                referrerpolicy: referrerpolicy
+                defer: true
+                integrity: integrity
+                label: label
+                type: type
+                value: value
+              - crossorigin: crossorigin
+                referrerpolicy: referrerpolicy
+                defer: true
+                integrity: integrity
+                label: label
+                type: type
+                value: value
+              flowTimeoutInSeconds: 1.0246457001441578
+              intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+              intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+            connectors:
+            - id: id
+            - id: id
+            color: color
+            outputSchema:
+              output:
+                additionalProperties: true
+                type: object
+                properties:
+                  key: ""
+            _links:
+              flow.enabled:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              connectors:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              connectorInstances:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.deploy:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              version:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.validate:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+            inputSchema:
+            - isExpanded: true
+              preferredControlType: preferredControlType
+              propertyName: propertyName
+              description: description
+              preferredDataType:
+              - ""
+              - ""
+              required: true
+            - isExpanded: true
+              preferredControlType: preferredControlType
+              propertyName: propertyName
+              description: description
+              preferredDataType:
+              - ""
+              - ""
+              required: true
+            description: description
+            dvlinterWarningCount: 1.4658129805029452
+            trigger:
+              configuration:
+                mfa:
+                  timeFormat: timeFormat
+                  time: 1.4894159098541704
+                  enabled: true
+                pwd:
+                  timeFormat: timeFormat
+                  time: 6.84685269835264
+                  enabled: true
+              type: type
+            currentVersion: 0.8008281904610115
+            deployedAt: 2000-01-23T04:56:07.000+00:00
+            enabled: true
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            publishedVersion: 1.2315135367772556
+            name: name
+            id: id
+            graphData:
+              boxSelectionEnabled: true
+              renderer:
+                name: name
+              zoomingEnabled: true
+              data: ""
+              maxZoom: 9.301444243932576
+              userPanningEnabled: true
+              minZoom: 3.616076749251911
+              userZoomingEnabled: true
+              zoom: 7.386281948385884
+              allLinterErrors:
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              elements:
+                nodes:
+                - data:
+                    linterError:
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    capabilityName: capabilityName
+                    connectorId: connectorId
+                    name: name
+                    connectionId: connectionId
+                    idUnique: idUnique
+                    id: id
+                    label: label
+                    nodeType: nodeType
+                    type: type
+                    properties: null
+                    status: status
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
+                  locked: true
+                  selected: true
+                  group: group
+                - data:
+                    linterError:
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    capabilityName: capabilityName
+                    connectorId: connectorId
+                    name: name
+                    connectionId: connectionId
+                    idUnique: idUnique
+                    id: id
+                    label: label
+                    nodeType: nodeType
+                    type: type
+                    properties: null
+                    status: status
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
+                  locked: true
+                  selected: true
+                  group: group
+                edges:
+                - data:
+                    id: id
+                    source: source
+                    target: target
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                  locked: true
+                  selected: true
+                  group: group
+                - data:
+                    id: id
+                    source: source
+                    target: target
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                  locked: true
+                  selected: true
+                  group: group
+              pan:
+                x: 2.027123023002322
+                "y": 4.145608029883936
+              panningEnabled: true
+            dvlinterErrorCount: 6.027456183070403
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - settings:
+              csp: csp
+              jsLinks:
+              - crossorigin: crossorigin
+                referrerpolicy: referrerpolicy
+                defer: true
+                integrity: integrity
+                label: label
+                type: type
+                value: value
+              - crossorigin: crossorigin
+                referrerpolicy: referrerpolicy
+                defer: true
+                integrity: integrity
+                label: label
+                type: type
+                value: value
+              flowTimeoutInSeconds: 1.0246457001441578
+              intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+              intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+            connectors:
+            - id: id
+            - id: id
+            color: color
+            outputSchema:
+              output:
+                additionalProperties: true
+                type: object
+                properties:
+                  key: ""
+            _links:
+              flow.enabled:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              connectors:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.clone:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              connectorInstances:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.deploy:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              version:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.validate:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+            inputSchema:
+            - isExpanded: true
+              preferredControlType: preferredControlType
+              propertyName: propertyName
+              description: description
+              preferredDataType:
+              - ""
+              - ""
+              required: true
+            - isExpanded: true
+              preferredControlType: preferredControlType
+              propertyName: propertyName
+              description: description
+              preferredDataType:
+              - ""
+              - ""
+              required: true
+            description: description
+            dvlinterWarningCount: 1.4658129805029452
+            trigger:
+              configuration:
+                mfa:
+                  timeFormat: timeFormat
+                  time: 1.4894159098541704
+                  enabled: true
+                pwd:
+                  timeFormat: timeFormat
+                  time: 6.84685269835264
+                  enabled: true
+              type: type
+            currentVersion: 0.8008281904610115
+            deployedAt: 2000-01-23T04:56:07.000+00:00
+            enabled: true
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            publishedVersion: 1.2315135367772556
+            name: name
+            id: id
+            graphData:
+              boxSelectionEnabled: true
+              renderer:
+                name: name
+              zoomingEnabled: true
+              data: ""
+              maxZoom: 9.301444243932576
+              userPanningEnabled: true
+              minZoom: 3.616076749251911
+              userZoomingEnabled: true
+              zoom: 7.386281948385884
+              allLinterErrors:
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              elements:
+                nodes:
+                - data:
+                    linterError:
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    capabilityName: capabilityName
+                    connectorId: connectorId
+                    name: name
+                    connectionId: connectionId
+                    idUnique: idUnique
+                    id: id
+                    label: label
+                    nodeType: nodeType
+                    type: type
+                    properties: null
+                    status: status
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
+                  locked: true
+                  selected: true
+                  group: group
+                - data:
+                    linterError:
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    - code: code
+                      recommendation: recommendation
+                      message: message
+                      type: type
+                      flowId: flowId
+                      nodeId: nodeId
+                    capabilityName: capabilityName
+                    connectorId: connectorId
+                    name: name
+                    connectionId: connectionId
+                    idUnique: idUnique
+                    id: id
+                    label: label
+                    nodeType: nodeType
+                    type: type
+                    properties: null
+                    status: status
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
+                  locked: true
+                  selected: true
+                  group: group
+                edges:
+                - data:
+                    id: id
+                    source: source
+                    target: target
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                  locked: true
+                  selected: true
+                  group: group
+                - data:
+                    id: id
+                    source: source
+                    target: target
+                  removed: true
+                  classes: classes
+                  selectable: true
+                  grabbable: true
+                  pannable: true
+                  position:
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+                  locked: true
+                  selected: true
+                  group: group
+              pan:
+                x: 2.027123023002322
+                "y": 4.145608029883936
+              panningEnabled: true
+            dvlinterErrorCount: 6.027456183070403
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 7.457744773683766
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinci_Flow_Collection__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Collection__links'
+        count:
+          title: DaVinci Flow Collection Count
+          type: number
+      required:
+      - _embedded
+      - _links
+      - count
+      title: DaVinci Flow Collection
+    DaVinciFlowCreateRequest:
+      additionalProperties: true
+      example:
+        settings:
+          csp: csp
+          css: css
+          jsLinks:
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          customErrorShowFooter: true
+          customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
+          flowTimeoutInSeconds: 7
+          customTitle: customTitle
+          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          useCustomScript: true
+          useCSP: true
+          logLevel: 1
+          requireAuthenticationToInitiate: true
+          useCustomFlowPlayer: true
+          cssLinks:
+          - cssLinks
+          - cssLinks
+          defaultErrorScreenBrandLogo: true
+          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          useCustomCSS: true
+          validateOnSave: true
+          flowHttpTimeoutInSeconds: 4
+          scrubSensitiveInfo: true
+          useIntermediateLoadingScreen: true
+          customLogoURLSelection: 2
+          jsCustomFlowPlayer: jsCustomFlowPlayer
+          customFaviconLink: customFaviconLink
+          sensitiveInfoFields:
+          - sensitiveInfoFields
+          - sensitiveInfoFields
+        color: color
+        outputSchema:
+          output: "{}"
+        inputSchema:
+        - preferredControlType: button
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        - preferredControlType: button
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        name: name
+        description: description
+        graphData:
+          boxSelectionEnabled: true
+          renderer: "{}"
+          zoomingEnabled: true
+          data: "{}"
+          maxZoom: 5.637376656633329
+          elements:
+            nodes:
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: "{}"
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              locked: true
+              selected: true
+              group: group
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: "{}"
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              locked: true
+              selected: true
+              group: group
+            edges:
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 0.8008281904610115
+                "y": 6.027456183070403
+              locked: true
+              selected: true
+              group: group
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 0.8008281904610115
+                "y": 6.027456183070403
+              locked: true
+              selected: true
+              group: group
+          userPanningEnabled: true
+          minZoom: 2.3021358869347655
+          userZoomingEnabled: true
+          zoom: 3
+          pan:
+            x: 7.061401241503109
+            "y": 9.301444243932576
+          panningEnabled: true
+        trigger:
+          type: AUTHENTICATION
+      properties:
+        name:
+          maxLength: 256
+          minLength: 1
+          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_-]).?(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Create Request Name
+          type: string
+        color:
+          title: DaVinci Flow Create Request Color
+          type: string
+        description:
+          maxLength: 1024
+          pattern: "^\\s*[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]?(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Create Request Description
+          type: string
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataRequest'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Flow_Create_Request_Output_Schema'
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsRequest'
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Flow_Create_Request_Trigger'
+      required:
+      - name
+      title: DaVinci Flow Create Request
+    DaVinciFlowGraphDataRequest:
+      additionalProperties: {}
+      example:
+        boxSelectionEnabled: true
+        renderer: "{}"
+        zoomingEnabled: true
+        data: "{}"
+        maxZoom: 5.637376656633329
+        elements:
+          nodes:
+          - data:
+              capabilityName: capabilityName
+              connectorId: connectorId
+              name: name
+              connectionId: connectionId
+              id: id
+              label: label
+              nodeType: nodeType
+              type: type
+              properties: "{}"
+              status: status
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+            locked: true
+            selected: true
+            group: group
+          - data:
+              capabilityName: capabilityName
+              connectorId: connectorId
+              name: name
+              connectionId: connectionId
+              id: id
+              label: label
+              nodeType: nodeType
+              type: type
+              properties: "{}"
+              status: status
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+            locked: true
+            selected: true
+            group: group
+          edges:
+          - data:
+              id: id
+              source: source
+              target: target
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 0.8008281904610115
+              "y": 6.027456183070403
+            locked: true
+            selected: true
+            group: group
+          - data:
+              id: id
+              source: source
+              target: target
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 0.8008281904610115
+              "y": 6.027456183070403
+            locked: true
+            selected: true
+            group: group
+        userPanningEnabled: true
+        minZoom: 2.3021358869347655
+        userZoomingEnabled: true
+        zoom: 3
+        pan:
+          x: 7.061401241503109
+          "y": 9.301444243932576
+        panningEnabled: true
+      properties:
+        boxSelectionEnabled:
+          title: DaVinci Flow Graph Data Request Box Selection Enabled
+        data:
+          title: DaVinci Flow Graph Data Request Data
+        elements:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements'
+        maxZoom:
+          title: DaVinci Flow Graph Data Request Max Zoom
+        minZoom:
+          title: DaVinci Flow Graph Data Request Min Zoom
+        pan:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Pan'
+        panningEnabled:
+          title: DaVinci Flow Graph Data Request Panning Enabled
+        renderer:
+          title: DaVinci Flow Graph Data Request Renderer
+        userPanningEnabled:
+          title: DaVinci Flow Graph Data Request User Panning Enabled
+        userZoomingEnabled:
+          title: DaVinci Flow Graph Data Request User Zooming Enabled
+        zoom:
+          title: DaVinci Flow Graph Data Request Zoom
+        zoomingEnabled:
+          title: DaVinci Flow Graph Data Request Zooming Enabled
+      title: DaVinci Flow Graph Data Request
+    DaVinciFlowGraphDataResponse:
+      example:
+        boxSelectionEnabled: true
+        renderer:
+          name: name
+        zoomingEnabled: true
+        data: ""
+        maxZoom: 9.301444243932576
+        userPanningEnabled: true
+        minZoom: 3.616076749251911
+        userZoomingEnabled: true
+        zoom: 7.386281948385884
+        allLinterErrors:
+        - code: code
+          recommendation: recommendation
+          message: message
+          type: type
+          flowId: flowId
+          nodeId: nodeId
+        - code: code
+          recommendation: recommendation
+          message: message
+          type: type
+          flowId: flowId
+          nodeId: nodeId
+        elements:
+          nodes:
+          - data:
+              linterError:
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              capabilityName: capabilityName
+              connectorId: connectorId
+              name: name
+              connectionId: connectionId
+              idUnique: idUnique
+              id: id
+              label: label
+              nodeType: nodeType
+              type: type
+              properties: null
+              status: status
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+            locked: true
+            selected: true
+            group: group
+          - data:
+              linterError:
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              - code: code
+                recommendation: recommendation
+                message: message
+                type: type
+                flowId: flowId
+                nodeId: nodeId
+              capabilityName: capabilityName
+              connectorId: connectorId
+              name: name
+              connectionId: connectionId
+              idUnique: idUnique
+              id: id
+              label: label
+              nodeType: nodeType
+              type: type
+              properties: null
+              status: status
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+            locked: true
+            selected: true
+            group: group
+          edges:
+          - data:
+              id: id
+              source: source
+              target: target
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            locked: true
+            selected: true
+            group: group
+          - data:
+              id: id
+              source: source
+              target: target
+            removed: true
+            classes: classes
+            selectable: true
+            grabbable: true
+            pannable: true
+            position:
+              x: 5.962133916683182
+              "y": 5.637376656633329
+            locked: true
+            selected: true
+            group: group
+        pan:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+        panningEnabled: true
+      properties:
+        boxSelectionEnabled:
+          title: DaVinci Flow Graph Data Response Box Selection Enabled
+          type: boolean
+        data: {}
+        elements:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements'
+        maxZoom:
+          title: DaVinci Flow Graph Data Response Max Zoom
+          type: number
+        minZoom:
+          title: DaVinci Flow Graph Data Response Min Zoom
+          type: number
+        pan:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Pan'
+        panningEnabled:
+          title: DaVinci Flow Graph Data Response Panning Enabled
+          type: boolean
+        renderer:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Renderer'
+        userPanningEnabled:
+          title: DaVinci Flow Graph Data Response User Panning Enabled
+          type: boolean
+        userZoomingEnabled:
+          title: DaVinci Flow Graph Data Response User Zooming Enabled
+          type: boolean
+        zoom:
+          title: DaVinci Flow Graph Data Response Zoom
+          type: number
+        zoomingEnabled:
+          title: DaVinci Flow Graph Data Response Zooming Enabled
+          type: boolean
+        allLinterErrors:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_All_Linter_Error'
+          type: array
+      required:
+      - boxSelectionEnabled
+      - data
+      - elements
+      - maxZoom
+      - minZoom
+      - pan
+      - panningEnabled
+      - renderer
+      - userPanningEnabled
+      - userZoomingEnabled
+      - zoom
+      - zoomingEnabled
+      title: DaVinci Flow Graph Data Response
+    DaVinciFlowInputSchemaRequest:
+      items:
+        $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item'
+      type: array
+    DaVinciFlowInputSchemaResponse:
+      items:
+        $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item'
+      type: array
     DaVinciFlowPolicyCollection:
       example:
         _links:
@@ -2891,6 +4145,773 @@ components:
       - name
       - status
       title: DaVinci Flow Policy Response
+    DaVinciFlowReplaceRequest:
+      additionalProperties: true
+      example:
+        settings:
+          csp: csp
+          css: css
+          jsLinks:
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          customErrorShowFooter: true
+          customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
+          flowTimeoutInSeconds: 7
+          customTitle: customTitle
+          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          useCustomScript: true
+          useCSP: true
+          logLevel: 1
+          requireAuthenticationToInitiate: true
+          useCustomFlowPlayer: true
+          cssLinks:
+          - cssLinks
+          - cssLinks
+          defaultErrorScreenBrandLogo: true
+          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          useCustomCSS: true
+          validateOnSave: true
+          flowHttpTimeoutInSeconds: 4
+          scrubSensitiveInfo: true
+          useIntermediateLoadingScreen: true
+          customLogoURLSelection: 2
+          jsCustomFlowPlayer: jsCustomFlowPlayer
+          customFaviconLink: customFaviconLink
+          sensitiveInfoFields:
+          - sensitiveInfoFields
+          - sensitiveInfoFields
+        color: color
+        outputSchema:
+          output: "{}"
+        inputSchema:
+        - preferredControlType: button
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        - preferredControlType: button
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        name: name
+        description: description
+        graphData:
+          boxSelectionEnabled: true
+          renderer: "{}"
+          zoomingEnabled: true
+          data: "{}"
+          maxZoom: 5.637376656633329
+          elements:
+            nodes:
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: "{}"
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              locked: true
+              selected: true
+              group: group
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: "{}"
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              locked: true
+              selected: true
+              group: group
+            edges:
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 0.8008281904610115
+                "y": 6.027456183070403
+              locked: true
+              selected: true
+              group: group
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 0.8008281904610115
+                "y": 6.027456183070403
+              locked: true
+              selected: true
+              group: group
+          userPanningEnabled: true
+          minZoom: 2.3021358869347655
+          userZoomingEnabled: true
+          zoom: 3
+          pan:
+            x: 7.061401241503109
+            "y": 9.301444243932576
+          panningEnabled: true
+        trigger:
+          type: AUTHENTICATION
+      properties:
+        name:
+          maxLength: 256
+          minLength: 1
+          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_-]).?(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Replace Request Name
+          type: string
+        color:
+          title: DaVinci Flow Replace Request Color
+          type: string
+        description:
+          maxLength: 1024
+          pattern: "^\\s*[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Replace Request Description
+          type: string
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataRequest'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Flow_Replace_Request_Output_Schema'
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsRequest'
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Flow_Replace_Request_Trigger'
+      required:
+      - name
+      title: DaVinci Flow Replace Request
+    DaVinciFlowResponse:
+      example:
+        settings:
+          csp: csp
+          jsLinks:
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          flowTimeoutInSeconds: 1.0246457001441578
+          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+        connectors:
+        - id: id
+        - id: id
+        color: color
+        outputSchema:
+          output:
+            additionalProperties: true
+            type: object
+            properties:
+              key: ""
+        _links:
+          flow.enabled:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          connectors:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.clone:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          connectorInstances:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.deploy:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          version:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.validate:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        inputSchema:
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          description: description
+          preferredDataType:
+          - ""
+          - ""
+          required: true
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          description: description
+          preferredDataType:
+          - ""
+          - ""
+          required: true
+        description: description
+        dvlinterWarningCount: 1.4658129805029452
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.4894159098541704
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 6.84685269835264
+              enabled: true
+          type: type
+        currentVersion: 0.8008281904610115
+        deployedAt: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        publishedVersion: 1.2315135367772556
+        name: name
+        id: id
+        graphData:
+          boxSelectionEnabled: true
+          renderer:
+            name: name
+          zoomingEnabled: true
+          data: ""
+          maxZoom: 9.301444243932576
+          userPanningEnabled: true
+          minZoom: 3.616076749251911
+          userZoomingEnabled: true
+          zoom: 7.386281948385884
+          allLinterErrors:
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          elements:
+            nodes:
+            - data:
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: null
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+            - data:
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: null
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+            edges:
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+          pan:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+          panningEnabled: true
+        dvlinterErrorCount: 6.027456183070403
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Response__links'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+        id:
+          minLength: 1
+          title: DaVinci Flow Response Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Flow Response Name
+          type: string
+        color:
+          title: DaVinci Flow Response Color
+          type: string
+        connectors:
+          items:
+            $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+          type: array
+        createdAt:
+          format: date-time
+          title: DaVinci Flow Response Created At
+          type: string
+        currentVersion:
+          title: DaVinci Flow Response Current Version
+          type: number
+        deployedAt:
+          format: date-time
+          title: DaVinci Flow Response Deployed At
+          type: string
+        description:
+          title: DaVinci Flow Response Description
+          type: string
+        dvlinterErrorCount:
+          title: DaVinci Flow Response Dvlinter Error Count
+          type: number
+        dvlinterWarningCount:
+          title: DaVinci Flow Response Dvlinter Warning Count
+          type: number
+        enabled:
+          title: DaVinci Flow Response Enabled
+          type: boolean
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataResponse'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Output_Schema'
+        publishedVersion:
+          title: DaVinci Flow Response Published Version
+          type: number
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsResponse'
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Trigger'
+        updatedAt:
+          format: date-time
+          title: DaVinci Flow Response Updated At
+          type: string
+      required:
+      - _links
+      - environment
+      - id
+      - name
+      title: DaVinci Flow Response
+    DaVinciFlowSettingsRequest:
+      additionalProperties: true
+      example:
+        csp: csp
+        css: css
+        jsLinks:
+        - crossorigin: crossorigin
+          referrerpolicy: referrerpolicy
+          defer: true
+          integrity: integrity
+          label: label
+          type: type
+          value: value
+        - crossorigin: crossorigin
+          referrerpolicy: referrerpolicy
+          defer: true
+          integrity: integrity
+          label: label
+          type: type
+          value: value
+        customErrorShowFooter: true
+        customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
+        flowTimeoutInSeconds: 7
+        customTitle: customTitle
+        intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+        useCustomScript: true
+        useCSP: true
+        logLevel: 1
+        requireAuthenticationToInitiate: true
+        useCustomFlowPlayer: true
+        cssLinks:
+        - cssLinks
+        - cssLinks
+        defaultErrorScreenBrandLogo: true
+        intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+        useCustomCSS: true
+        validateOnSave: true
+        flowHttpTimeoutInSeconds: 4
+        scrubSensitiveInfo: true
+        useIntermediateLoadingScreen: true
+        customLogoURLSelection: 2
+        jsCustomFlowPlayer: jsCustomFlowPlayer
+        customFaviconLink: customFaviconLink
+        sensitiveInfoFields:
+        - sensitiveInfoFields
+        - sensitiveInfoFields
+      properties:
+        csp:
+          title: DaVinci Flow Settings Request Csp
+          type: string
+        css:
+          title: DaVinci Flow Settings Request Css
+          type: string
+        cssLinks:
+          items:
+            title: DaVinci Flow Settings Request Css Link
+            type: string
+          type: array
+        customErrorScreenBrandLogoUrl:
+          title: DaVinci Flow Settings Request Custom Error Screen Brand Logo Url
+          type: string
+        customErrorShowFooter:
+          title: DaVinci Flow Settings Request Custom Error Show Footer
+          type: boolean
+        customFaviconLink:
+          title: DaVinci Flow Settings Request Custom Favicon Link
+          type: string
+        customLogoURLSelection:
+          title: DaVinci Flow Settings Request Custom Logo URL Selection
+          type: integer
+        customTitle:
+          title: DaVinci Flow Settings Request Custom Title
+          type: string
+        defaultErrorScreenBrandLogo:
+          title: DaVinci Flow Settings Request Default Error Screen Brand Logo
+          type: boolean
+        flowHttpTimeoutInSeconds:
+          title: DaVinci Flow Settings Request Flow Http Timeout In Seconds
+          type: integer
+        flowTimeoutInSeconds:
+          title: DaVinci Flow Settings Request Flow Timeout In Seconds
+          type: integer
+        intermediateLoadingScreenCSS:
+          title: DaVinci Flow Settings Request Intermediate Loading Screen CSS
+          type: string
+        intermediateLoadingScreenHTML:
+          title: DaVinci Flow Settings Request Intermediate Loading Screen HTML
+          type: string
+        jsCustomFlowPlayer:
+          title: DaVinci Flow Settings Request Js Custom Flow Player
+          type: string
+        jsLinks:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Settings_Request_Js_Link'
+          type: array
+        logLevel:
+          maximum: 4
+          minimum: 1
+          title: DaVinci Flow Settings Request Log Level
+          type: integer
+        requireAuthenticationToInitiate:
+          title: DaVinci Flow Settings Request Require Authentication To Initiate
+          type: boolean
+        scrubSensitiveInfo:
+          title: DaVinci Flow Settings Request Scrub Sensitive Info
+          type: boolean
+        sensitiveInfoFields:
+          items:
+            title: DaVinci Flow Settings Request Sensitive Info Field
+            type: string
+          type: array
+        useCSP:
+          title: DaVinci Flow Settings Request Use CSP
+          type: boolean
+        useCustomCSS:
+          title: DaVinci Flow Settings Request Use Custom CSS
+          type: boolean
+        useCustomFlowPlayer:
+          title: DaVinci Flow Settings Request Use Custom Flow Player
+          type: boolean
+        useCustomScript:
+          title: DaVinci Flow Settings Request Use Custom Script
+          type: boolean
+        useIntermediateLoadingScreen:
+          title: DaVinci Flow Settings Request Use Intermediate Loading Screen
+          type: boolean
+        validateOnSave:
+          title: DaVinci Flow Settings Request Validate On Save
+          type: boolean
+      title: DaVinci Flow Settings Request
+    DaVinciFlowSettingsResponse:
+      additionalProperties: {}
+      example:
+        csp: csp
+        jsLinks:
+        - crossorigin: crossorigin
+          referrerpolicy: referrerpolicy
+          defer: true
+          integrity: integrity
+          label: label
+          type: type
+          value: value
+        - crossorigin: crossorigin
+          referrerpolicy: referrerpolicy
+          defer: true
+          integrity: integrity
+          label: label
+          type: type
+          value: value
+        flowTimeoutInSeconds: 1.0246457001441578
+        intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+        intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+      properties:
+        csp:
+          title: DaVinci Flow Settings Response Csp
+        flowTimeoutInSeconds:
+          title: DaVinci Flow Settings Response Flow Timeout In Seconds
+        intermediateLoadingScreenCSS:
+          title: DaVinci Flow Settings Response Intermediate Loading Screen CSS
+        intermediateLoadingScreenHTML:
+          title: DaVinci Flow Settings Response Intermediate Loading Screen HTML
+        jsLinks:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Settings_Response_Js_Link'
+          title: DaVinci Flow Settings Response Js Links
+      title: DaVinci Flow Settings Response
+    DaVinciImportFlowResponse:
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response__links'
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+        flow:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Flow'
+        publishedVersion:
+          title: DaVinci Import Flow Response Published Version
+          type: number
+        version:
+          title: DaVinci Import Flow Response Version
+          type: number
+        alias:
+          title: DaVinci Import Flow Response Alias
+          type: string
+        clonedFrom:
+          title: DaVinci Import Flow Response Cloned From
+          type: number
+        color:
+          title: DaVinci Import Flow Response Color
+          type: string
+        connectors:
+          items:
+            $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+          type: array
+        createdAt:
+          format: date-time
+          title: DaVinci Import Flow Response Created At
+          type: string
+        deployedAt:
+          format: date-time
+          title: DaVinci Import Flow Response Deployed At
+          type: string
+        description:
+          title: DaVinci Import Flow Response Description
+          type: string
+        enabled:
+          title: DaVinci Import Flow Response Enabled
+          type: boolean
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataResponse'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Output_Schema'
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsResponse'
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Trigger'
+        updatedAt:
+          format: date-time
+          title: DaVinci Import Flow Response Updated At
+          type: string
+        updates:
+          items:
+            title: DaVinci Import Flow Response Update
+            type: string
+          type: array
+        variables:
+          items:
+            additionalProperties: true
+            properties: {}
+            title: DaVinci Import Flow Response Variable
+            type: object
+          type: array
+      required:
+      - _links
+      - environment
+      - flow
+      - publishedVersion
+      - version
+      title: DaVinci Import Flow Response
+    DaVinciImportSubflowResponse:
+      allOf:
+      - $ref: '#/components/schemas/DaVinciImportFlowResponse'
+      - properties:
+          _embedded:
+            items:
+              $ref: '#/components/schemas/DaVinciImportFlowResponse'
+            type: array
+        title: DaVinci Import Subflow Response Base 2
+      title: DaVinci Import Subflow Response
     DaVinciVariableCollectionResponse:
       example:
         size: 1.4658129805029452
@@ -6264,6 +8285,1778 @@ components:
           title: DaVinci Connector Minimal Response Metadata Vendor
           type: string
       title: DaVinci Connector Minimal Response Metadata
+    DaVinci_Flow_Collection__embedded:
+      example:
+        flows:
+        - settings:
+            csp: csp
+            jsLinks:
+            - crossorigin: crossorigin
+              referrerpolicy: referrerpolicy
+              defer: true
+              integrity: integrity
+              label: label
+              type: type
+              value: value
+            - crossorigin: crossorigin
+              referrerpolicy: referrerpolicy
+              defer: true
+              integrity: integrity
+              label: label
+              type: type
+              value: value
+            flowTimeoutInSeconds: 1.0246457001441578
+            intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+            intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          connectors:
+          - id: id
+          - id: id
+          color: color
+          outputSchema:
+            output:
+              additionalProperties: true
+              type: object
+              properties:
+                key: ""
+          _links:
+            flow.enabled:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            connectors:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            connectorInstances:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.deploy:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            version:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.validate:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+          inputSchema:
+          - isExpanded: true
+            preferredControlType: preferredControlType
+            propertyName: propertyName
+            description: description
+            preferredDataType:
+            - ""
+            - ""
+            required: true
+          - isExpanded: true
+            preferredControlType: preferredControlType
+            propertyName: propertyName
+            description: description
+            preferredDataType:
+            - ""
+            - ""
+            required: true
+          description: description
+          dvlinterWarningCount: 1.4658129805029452
+          trigger:
+            configuration:
+              mfa:
+                timeFormat: timeFormat
+                time: 1.4894159098541704
+                enabled: true
+              pwd:
+                timeFormat: timeFormat
+                time: 6.84685269835264
+                enabled: true
+            type: type
+          currentVersion: 0.8008281904610115
+          deployedAt: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          publishedVersion: 1.2315135367772556
+          name: name
+          id: id
+          graphData:
+            boxSelectionEnabled: true
+            renderer:
+              name: name
+            zoomingEnabled: true
+            data: ""
+            maxZoom: 9.301444243932576
+            userPanningEnabled: true
+            minZoom: 3.616076749251911
+            userZoomingEnabled: true
+            zoom: 7.386281948385884
+            allLinterErrors:
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            elements:
+              nodes:
+              - data:
+                  linterError:
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  capabilityName: capabilityName
+                  connectorId: connectorId
+                  name: name
+                  connectionId: connectionId
+                  idUnique: idUnique
+                  id: id
+                  label: label
+                  nodeType: nodeType
+                  type: type
+                  properties: null
+                  status: status
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
+                locked: true
+                selected: true
+                group: group
+              - data:
+                  linterError:
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  capabilityName: capabilityName
+                  connectorId: connectorId
+                  name: name
+                  connectionId: connectionId
+                  idUnique: idUnique
+                  id: id
+                  label: label
+                  nodeType: nodeType
+                  type: type
+                  properties: null
+                  status: status
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
+                locked: true
+                selected: true
+                group: group
+              edges:
+              - data:
+                  id: id
+                  source: source
+                  target: target
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                locked: true
+                selected: true
+                group: group
+              - data:
+                  id: id
+                  source: source
+                  target: target
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                locked: true
+                selected: true
+                group: group
+            pan:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+            panningEnabled: true
+          dvlinterErrorCount: 6.027456183070403
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - settings:
+            csp: csp
+            jsLinks:
+            - crossorigin: crossorigin
+              referrerpolicy: referrerpolicy
+              defer: true
+              integrity: integrity
+              label: label
+              type: type
+              value: value
+            - crossorigin: crossorigin
+              referrerpolicy: referrerpolicy
+              defer: true
+              integrity: integrity
+              label: label
+              type: type
+              value: value
+            flowTimeoutInSeconds: 1.0246457001441578
+            intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+            intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          connectors:
+          - id: id
+          - id: id
+          color: color
+          outputSchema:
+            output:
+              additionalProperties: true
+              type: object
+              properties:
+                key: ""
+          _links:
+            flow.enabled:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            connectors:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.clone:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            connectorInstances:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.deploy:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            version:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.validate:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+          inputSchema:
+          - isExpanded: true
+            preferredControlType: preferredControlType
+            propertyName: propertyName
+            description: description
+            preferredDataType:
+            - ""
+            - ""
+            required: true
+          - isExpanded: true
+            preferredControlType: preferredControlType
+            propertyName: propertyName
+            description: description
+            preferredDataType:
+            - ""
+            - ""
+            required: true
+          description: description
+          dvlinterWarningCount: 1.4658129805029452
+          trigger:
+            configuration:
+              mfa:
+                timeFormat: timeFormat
+                time: 1.4894159098541704
+                enabled: true
+              pwd:
+                timeFormat: timeFormat
+                time: 6.84685269835264
+                enabled: true
+            type: type
+          currentVersion: 0.8008281904610115
+          deployedAt: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          publishedVersion: 1.2315135367772556
+          name: name
+          id: id
+          graphData:
+            boxSelectionEnabled: true
+            renderer:
+              name: name
+            zoomingEnabled: true
+            data: ""
+            maxZoom: 9.301444243932576
+            userPanningEnabled: true
+            minZoom: 3.616076749251911
+            userZoomingEnabled: true
+            zoom: 7.386281948385884
+            allLinterErrors:
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            elements:
+              nodes:
+              - data:
+                  linterError:
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  capabilityName: capabilityName
+                  connectorId: connectorId
+                  name: name
+                  connectionId: connectionId
+                  idUnique: idUnique
+                  id: id
+                  label: label
+                  nodeType: nodeType
+                  type: type
+                  properties: null
+                  status: status
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
+                locked: true
+                selected: true
+                group: group
+              - data:
+                  linterError:
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  - code: code
+                    recommendation: recommendation
+                    message: message
+                    type: type
+                    flowId: flowId
+                    nodeId: nodeId
+                  capabilityName: capabilityName
+                  connectorId: connectorId
+                  name: name
+                  connectionId: connectionId
+                  idUnique: idUnique
+                  id: id
+                  label: label
+                  nodeType: nodeType
+                  type: type
+                  properties: null
+                  status: status
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
+                locked: true
+                selected: true
+                group: group
+              edges:
+              - data:
+                  id: id
+                  source: source
+                  target: target
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                locked: true
+                selected: true
+                group: group
+              - data:
+                  id: id
+                  source: source
+                  target: target
+                removed: true
+                classes: classes
+                selectable: true
+                grabbable: true
+                pannable: true
+                position:
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+                locked: true
+                selected: true
+                group: group
+            pan:
+              x: 2.027123023002322
+              "y": 4.145608029883936
+            panningEnabled: true
+          dvlinterErrorCount: 6.027456183070403
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        flows:
+          items:
+            $ref: '#/components/schemas/DaVinciFlowResponse'
+          type: array
+      required:
+      - flows
+      title: DaVinci Flow Collection _embedded
+    DaVinci_Flow_Collection__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Flow Collection _links
+    DaVinci_Flow_Create_Request_Output_Schema:
+      example:
+        output: "{}"
+      properties:
+        output:
+          title: DaVinci Flow Create Request Output Schema Output
+          type: object
+      title: DaVinci Flow Create Request Output Schema
+    DaVinci_Flow_Create_Request_Trigger_Type:
+      enum:
+      - AUTHENTICATION
+      minLength: 1
+      title: DaVinci Flow Create Request Trigger Type
+      type: string
+    DaVinci_Flow_Create_Request_Trigger:
+      example:
+        type: AUTHENTICATION
+      properties:
+        type:
+          $ref: '#/components/schemas/DaVinci_Flow_Create_Request_Trigger_Type'
+      required:
+      - type
+      title: DaVinci Flow Create Request Trigger
+    DaVinci_Flow_Graph_Data_Request_Elements_Edge_Data:
+      example:
+        id: id
+        source: source
+        target: target
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Edge Data Id
+        source:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Edge Data Source
+        target:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Edge Data Target
+      required:
+      - id
+      - source
+      - target
+      title: DaVinci Flow Graph Data Request Elements Edge Data
+    DaVinci_Flow_Graph_Data_Request_Elements_Edge_Position:
+      example:
+        x: 0.8008281904610115
+        "y": 6.027456183070403
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Request Elements Edge Position X
+        "y":
+          title: DaVinci Flow Graph Data Request Elements Edge Position Y
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Request Elements Edge Position
+    DaVinci_Flow_Graph_Data_Request_Elements_Edge:
+      additionalProperties: true
+      example:
+        data:
+          id: id
+          source: source
+          target: target
+        removed: true
+        classes: classes
+        selectable: true
+        grabbable: true
+        pannable: true
+        position:
+          x: 0.8008281904610115
+          "y": 6.027456183070403
+        locked: true
+        selected: true
+        group: group
+      properties:
+        data:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Edge_Data'
+        classes:
+          title: DaVinci Flow Graph Data Request Elements Edge Classes
+        grabbable:
+          title: DaVinci Flow Graph Data Request Elements Edge Grabbable
+        group:
+          title: DaVinci Flow Graph Data Request Elements Edge Group
+        locked:
+          title: DaVinci Flow Graph Data Request Elements Edge Locked
+        pannable:
+          title: DaVinci Flow Graph Data Request Elements Edge Pannable
+        position:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Edge_Position'
+        removed:
+          title: DaVinci Flow Graph Data Request Elements Edge Removed
+        selectable:
+          title: DaVinci Flow Graph Data Request Elements Edge Selectable
+        selected:
+          title: DaVinci Flow Graph Data Request Elements Edge Selected
+      required:
+      - data
+      title: DaVinci Flow Graph Data Request Elements Edge
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data:
+      additionalProperties: true
+      example:
+        capabilityName: capabilityName
+        connectorId: connectorId
+        name: name
+        connectionId: connectionId
+        id: id
+        label: label
+        nodeType: nodeType
+        type: type
+        properties: "{}"
+        status: status
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Id
+        nodeType:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Node Type
+        capabilityName:
+          title: DaVinci Flow Graph Data Request Elements Node Data Capability Name
+        connectionId:
+          title: DaVinci Flow Graph Data Request Elements Node Data Connection Id
+        connectorId:
+          title: DaVinci Flow Graph Data Request Elements Node Data Connector Id
+        label:
+          title: DaVinci Flow Graph Data Request Elements Node Data Label
+        name:
+          title: DaVinci Flow Graph Data Request Elements Node Data Name
+        properties:
+          title: DaVinci Flow Graph Data Request Elements Node Data
+        status:
+          title: DaVinci Flow Graph Data Request Elements Node Data Status
+        type:
+          title: DaVinci Flow Graph Data Request Elements Node Data Type
+      required:
+      - id
+      - nodeType
+      title: DaVinci Flow Graph Data Request Elements Node Data
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Position:
+      example:
+        x: 1.4658129805029452
+        "y": 5.962133916683182
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Request Elements Node Position X
+        "y":
+          title: DaVinci Flow Graph Data Request Elements Node Position Y
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Request Elements Node Position
+    DaVinci_Flow_Graph_Data_Request_Elements_Node:
+      additionalProperties: true
+      example:
+        data:
+          capabilityName: capabilityName
+          connectorId: connectorId
+          name: name
+          connectionId: connectionId
+          id: id
+          label: label
+          nodeType: nodeType
+          type: type
+          properties: "{}"
+          status: status
+        removed: true
+        classes: classes
+        selectable: true
+        grabbable: true
+        pannable: true
+        position:
+          x: 1.4658129805029452
+          "y": 5.962133916683182
+        locked: true
+        selected: true
+        group: group
+      properties:
+        data:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data'
+        classes:
+          title: DaVinci Flow Graph Data Request Elements Node Classes
+        grabbable:
+          title: DaVinci Flow Graph Data Request Elements Node Grabbable
+        group:
+          title: DaVinci Flow Graph Data Request Elements Node Group
+        locked:
+          title: DaVinci Flow Graph Data Request Elements Node Locked
+        pannable:
+          title: DaVinci Flow Graph Data Request Elements Node Pannable
+        position:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Position'
+        removed:
+          title: DaVinci Flow Graph Data Request Elements Node Removed
+        selectable:
+          title: DaVinci Flow Graph Data Request Elements Node Selectable
+        selected:
+          title: DaVinci Flow Graph Data Request Elements Node Selected
+      required:
+      - data
+      title: DaVinci Flow Graph Data Request Elements Node
+    DaVinci_Flow_Graph_Data_Request_Elements:
+      additionalProperties: true
+      example:
+        nodes:
+        - data:
+            capabilityName: capabilityName
+            connectorId: connectorId
+            name: name
+            connectionId: connectionId
+            id: id
+            label: label
+            nodeType: nodeType
+            type: type
+            properties: "{}"
+            status: status
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+          locked: true
+          selected: true
+          group: group
+        - data:
+            capabilityName: capabilityName
+            connectorId: connectorId
+            name: name
+            connectionId: connectionId
+            id: id
+            label: label
+            nodeType: nodeType
+            type: type
+            properties: "{}"
+            status: status
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+          locked: true
+          selected: true
+          group: group
+        edges:
+        - data:
+            id: id
+            source: source
+            target: target
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 0.8008281904610115
+            "y": 6.027456183070403
+          locked: true
+          selected: true
+          group: group
+        - data:
+            id: id
+            source: source
+            target: target
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 0.8008281904610115
+            "y": 6.027456183070403
+          locked: true
+          selected: true
+          group: group
+      properties:
+        edges:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Edge'
+          title: DaVinci Flow Graph Data Request Elements Edges
+        nodes:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node'
+          title: DaVinci Flow Graph Data Request Elements Nodes
+      title: DaVinci Flow Graph Data Request Elements
+    DaVinci_Flow_Graph_Data_Request_Pan:
+      example:
+        x: 7.061401241503109
+        "y": 9.301444243932576
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Request Pan X
+        "y":
+          title: DaVinci Flow Graph Data Request Pan Y
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Request Pan
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data:
+      example:
+        id: id
+        source: source
+        target: target
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Id
+          type: string
+        source:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Source
+          type: string
+        target:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Target
+          type: string
+      required:
+      - id
+      - source
+      - target
+      title: DaVinci Flow Graph Data Response Elements Edge Data
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position:
+      example:
+        x: 5.962133916683182
+        "y": 5.637376656633329
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Response Elements Edge Position X
+          type: number
+        "y":
+          title: DaVinci Flow Graph Data Response Elements Edge Position Y
+          type: number
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Response Elements Edge Position
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge:
+      example:
+        data:
+          id: id
+          source: source
+          target: target
+        removed: true
+        classes: classes
+        selectable: true
+        grabbable: true
+        pannable: true
+        position:
+          x: 5.962133916683182
+          "y": 5.637376656633329
+        locked: true
+        selected: true
+        group: group
+      properties:
+        classes:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Classes
+          type: string
+        data:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data'
+        grabbable:
+          title: DaVinci Flow Graph Data Response Elements Edge Grabbable
+          type: boolean
+        group:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Group
+          type: string
+        locked:
+          title: DaVinci Flow Graph Data Response Elements Edge Locked
+          type: boolean
+        pannable:
+          title: DaVinci Flow Graph Data Response Elements Edge Pannable
+          type: boolean
+        position:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position'
+        removed:
+          title: DaVinci Flow Graph Data Response Elements Edge Removed
+          type: boolean
+        selectable:
+          title: DaVinci Flow Graph Data Response Elements Edge Selectable
+          type: boolean
+        selected:
+          title: DaVinci Flow Graph Data Response Elements Edge Selected
+          type: boolean
+      required:
+      - classes
+      - data
+      - grabbable
+      - group
+      - locked
+      - pannable
+      - position
+      - removed
+      - selectable
+      - selected
+      title: DaVinci Flow Graph Data Response Elements Edge
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Linter_Error_Item:
+      example:
+        code: code
+        recommendation: recommendation
+        message: message
+        type: type
+        flowId: flowId
+        nodeId: nodeId
+      properties:
+        code:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Code
+          type: string
+        message:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Message
+          type: string
+        type:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Type
+          type: string
+        recommendation:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Recommendation
+          type: string
+        flowId:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Flow Id
+          type: string
+        nodeId:
+          title: DaVinci Flow Graph Data Response Elements Node Data Linter Error
+            Item Node Id
+          type: string
+      required:
+      - code
+      - flowId
+      - message
+      - recommendation
+      - type
+      title: DaVinci Flow Graph Data Response Elements Node Data Linter Error Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Background_Color:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Background Color
+            Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Background Color
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Code:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Code Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Code
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_CSS:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_HTML:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_Script:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
+            Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item_Preferred_Data_Type:
+      anyOf:
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      items: {}
+      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+        Value Item Preferred Data Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item:
+      properties:
+        preferredDataType:
+          anyOf:
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          items: {}
+          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+            Value Item Preferred Data Type
+        propertyName:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+            Value Item Property Name
+          type: string
+        preferredControlType:
+          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+            Value Item Preferred Control Type
+          type: string
+        value:
+          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+            Value Item Value
+          type: string
+      required:
+      - preferredDataType
+      - propertyName
+      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+        Value Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List:
+      properties:
+        value:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item'
+          type: array
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Input_Schema:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
+            Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Message:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Message Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Message
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Node_Title:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Node Title Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Node Title
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Output_Schema:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
+            Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item:
+      additionalProperties: true
+      properties:
+        name:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Name
+          type: string
+        key:
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Key
+          type: number
+        label:
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Label
+          type: string
+        nameDefault:
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Name Default
+          type: string
+        type:
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Type
+          type: string
+        value:
+          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+            Value Item Value
+          type: string
+      required:
+      - name
+      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables Value
+        Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables:
+      properties:
+        value:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item'
+          type: array
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Show_Continue_Button:
+      properties:
+        value:
+          title: DaVinci Flow Graph Data Response Elements Node Data Show Continue
+            Button Value
+          type: boolean
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Show Continue Button
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Type:
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Type Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item_Preferred_Data_Type:
+      anyOf:
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      items: {}
+      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
+        Value Item Preferred Data Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item:
+      properties:
+        name:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
+            List Value Item Name
+          type: string
+        preferredDataType:
+          anyOf:
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          items: {}
+          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
+            List Value Item Preferred Data Type
+        preferredControlType:
+          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
+            List Value Item Preferred Control Type
+          type: string
+        value:
+          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
+            List Value Item Value
+          type: string
+      required:
+      - name
+      - preferredDataType
+      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
+        Value Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List:
+      properties:
+        value:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item'
+          type: array
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data:
+      additionalProperties: true
+      example:
+        linterError:
+        - code: code
+          recommendation: recommendation
+          message: message
+          type: type
+          flowId: flowId
+          nodeId: nodeId
+        - code: code
+          recommendation: recommendation
+          message: message
+          type: type
+          flowId: flowId
+          nodeId: nodeId
+        capabilityName: capabilityName
+        connectorId: connectorId
+        name: name
+        connectionId: connectionId
+        idUnique: idUnique
+        id: id
+        label: label
+        nodeType: nodeType
+        type: type
+        properties: null
+        status: status
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Id
+          type: string
+        nodeType:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Node Type
+          type: string
+        capabilityName:
+          title: DaVinci Flow Graph Data Response Elements Node Data Capability Name
+          type: string
+        connectionId:
+          title: DaVinci Flow Graph Data Response Elements Node Data Connection Id
+          type: string
+        connectorId:
+          title: DaVinci Flow Graph Data Response Elements Node Data Connector Id
+          type: string
+        idUnique:
+          title: DaVinci Flow Graph Data Response Elements Node Data Id Unique
+          type: string
+        label:
+          title: DaVinci Flow Graph Data Response Elements Node Data Label
+          type: string
+        linterError:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Linter_Error_Item'
+          type: array
+        name:
+          title: DaVinci Flow Graph Data Response Elements Node Data Name
+          type: string
+        properties:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data'
+        status:
+          title: DaVinci Flow Graph Data Response Elements Node Data Status
+          type: string
+        type:
+          title: DaVinci Flow Graph Data Response Elements Node Data Type
+          type: string
+      required:
+      - id
+      - nodeType
+      title: DaVinci Flow Graph Data Response Elements Node Data
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Position:
+      example:
+        x: 2.3021358869347655
+        "y": 7.061401241503109
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Response Elements Node Position X
+          type: number
+        "y":
+          title: DaVinci Flow Graph Data Response Elements Node Position Y
+          type: number
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Response Elements Node Position
+    DaVinci_Flow_Graph_Data_Response_Elements_Node:
+      example:
+        data:
+          linterError:
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          capabilityName: capabilityName
+          connectorId: connectorId
+          name: name
+          connectionId: connectionId
+          idUnique: idUnique
+          id: id
+          label: label
+          nodeType: nodeType
+          type: type
+          properties: null
+          status: status
+        removed: true
+        classes: classes
+        selectable: true
+        grabbable: true
+        pannable: true
+        position:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+        locked: true
+        selected: true
+        group: group
+      properties:
+        classes:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Classes
+          type: string
+        data:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data'
+        grabbable:
+          title: DaVinci Flow Graph Data Response Elements Node Grabbable
+          type: boolean
+        group:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Group
+          type: string
+        locked:
+          title: DaVinci Flow Graph Data Response Elements Node Locked
+          type: boolean
+        pannable:
+          title: DaVinci Flow Graph Data Response Elements Node Pannable
+          type: boolean
+        position:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Position'
+        removed:
+          title: DaVinci Flow Graph Data Response Elements Node Removed
+          type: boolean
+        selectable:
+          title: DaVinci Flow Graph Data Response Elements Node Selectable
+          type: boolean
+        selected:
+          title: DaVinci Flow Graph Data Response Elements Node Selected
+          type: boolean
+      required:
+      - classes
+      - data
+      - grabbable
+      - group
+      - locked
+      - pannable
+      - position
+      - removed
+      - selectable
+      - selected
+      title: DaVinci Flow Graph Data Response Elements Node
+    DaVinci_Flow_Graph_Data_Response_Elements:
+      example:
+        nodes:
+        - data:
+            linterError:
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            capabilityName: capabilityName
+            connectorId: connectorId
+            name: name
+            connectionId: connectionId
+            idUnique: idUnique
+            id: id
+            label: label
+            nodeType: nodeType
+            type: type
+            properties: null
+            status: status
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+          locked: true
+          selected: true
+          group: group
+        - data:
+            linterError:
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            - code: code
+              recommendation: recommendation
+              message: message
+              type: type
+              flowId: flowId
+              nodeId: nodeId
+            capabilityName: capabilityName
+            connectorId: connectorId
+            name: name
+            connectionId: connectionId
+            idUnique: idUnique
+            id: id
+            label: label
+            nodeType: nodeType
+            type: type
+            properties: null
+            status: status
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+          locked: true
+          selected: true
+          group: group
+        edges:
+        - data:
+            id: id
+            source: source
+            target: target
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          locked: true
+          selected: true
+          group: group
+        - data:
+            id: id
+            source: source
+            target: target
+          removed: true
+          classes: classes
+          selectable: true
+          grabbable: true
+          pannable: true
+          position:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          locked: true
+          selected: true
+          group: group
+      properties:
+        edges:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge'
+          type: array
+        nodes:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node'
+          type: array
+      required:
+      - edges
+      - nodes
+      title: DaVinci Flow Graph Data Response Elements
+    DaVinci_Flow_Graph_Data_Response_Pan:
+      example:
+        x: 2.027123023002322
+        "y": 4.145608029883936
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Response Pan X
+          type: number
+        "y":
+          title: DaVinci Flow Graph Data Response Pan Y
+          type: number
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Response Pan
+    DaVinci_Flow_Graph_Data_Response_Renderer:
+      example:
+        name: name
+      properties:
+        name:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Renderer Name
+          type: string
+      required:
+      - name
+      title: DaVinci Flow Graph Data Response Renderer
+    DaVinci_Flow_Graph_Data_Response_All_Linter_Error:
+      example:
+        code: code
+        recommendation: recommendation
+        message: message
+        type: type
+        flowId: flowId
+        nodeId: nodeId
+      properties:
+        code:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response All Linter Error Code
+          type: string
+        message:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response All Linter Error Message
+          type: string
+        type:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response All Linter Error Type
+          type: string
+        recommendation:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response All Linter Error Recommendation
+          type: string
+        flowId:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response All Linter Error Flow Id
+          type: string
+        nodeId:
+          title: DaVinci Flow Graph Data Response All Linter Error Node Id
+          type: string
+      required:
+      - code
+      - flowId
+      - message
+      - recommendation
+      - type
+      title: DaVinci Flow Graph Data Response All Linter Error
+    DaVinci_Flow_Input_Schema_Request_Item_Preferred_Data_Type:
+      enum:
+      - array
+      - boolean
+      - number
+      - object
+      - string
+      minLength: 1
+      title: DaVinci Flow Input Schema Request Item Preferred Data Type
+      type: string
+    DaVinci_Flow_Input_Schema_Request_Item_Preferred_Control_Type:
+      enum:
+      - button
+      - colorPicker
+      - contentEditableTextArea
+      - cssArea
+      - dropDown
+      - dropDownMultiSelect
+      - dropDownMultiSelect2
+      - dropDownWithCreate
+      - functionArgumentList
+      - keyValueList
+      - label
+      - radioSelect
+      - textArea
+      - textField
+      - textFieldArrayView
+      - toggleSwitch
+      title: DaVinci Flow Input Schema Request Item Preferred Control Type
+      type: string
+    DaVinci_Flow_Input_Schema_Request_Item:
+      example:
+        preferredControlType: button
+        propertyName: propertyName
+        preferredDataType: array
+        description: description
+        required: true
+      properties:
+        propertyName:
+          minLength: 1
+          title: DaVinci Flow Input Schema Request Item Property Name
+          type: string
+        preferredDataType:
+          $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item_Preferred_Data_Type'
+        description:
+          title: DaVinci Flow Input Schema Request Item Description
+          type: string
+        preferredControlType:
+          $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item_Preferred_Control_Type'
+        required:
+          title: DaVinci Flow Input Schema Request Item Required
+          type: boolean
+      required:
+      - preferredDataType
+      - propertyName
+      title: DaVinci Flow Input Schema Request Item
+    DaVinci_Flow_Input_Schema_Response_Item_Preferred_Data_Type:
+      anyOf:
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - format: int32
+        type: integer
+      - type: number
+      - type: string
+      items: {}
+      title: DaVinci Flow Input Schema Response Item Preferred Data Type
+    DaVinci_Flow_Input_Schema_Response_Item:
+      example:
+        isExpanded: true
+        preferredControlType: preferredControlType
+        propertyName: propertyName
+        description: description
+        preferredDataType:
+        - ""
+        - ""
+        required: true
+      properties:
+        description:
+          minLength: 1
+          title: DaVinci Flow Input Schema Response Item Description
+          type: string
+        isExpanded:
+          title: DaVinci Flow Input Schema Response Item Is Expanded
+          type: boolean
+        preferredControlType:
+          minLength: 1
+          title: DaVinci Flow Input Schema Response Item Preferred Control Type
+          type: string
+        preferredDataType:
+          anyOf:
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          - type: boolean
+          - format: int32
+            type: integer
+          - type: number
+          - type: string
+          items: {}
+          title: DaVinci Flow Input Schema Response Item Preferred Data Type
+        propertyName:
+          minLength: 1
+          title: DaVinci Flow Input Schema Response Item Property Name
+          type: string
+        required:
+          title: DaVinci Flow Input Schema Response Item Required
+          type: boolean
+      required:
+      - description
+      - isExpanded
+      - preferredControlType
+      - preferredDataType
+      - propertyName
+      - required
+      title: DaVinci Flow Input Schema Response Item
     DaVinci_Flow_Policy_Collection__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
@@ -7007,6 +10800,450 @@ components:
           title: DaVinci Flow Policy Response Trigger Type
           type: string
       title: DaVinci Flow Policy Response Trigger
+    DaVinci_Flow_Replace_Request_Output_Schema:
+      example:
+        output: "{}"
+      properties:
+        output:
+          title: DaVinci Flow Replace Request Output Schema Output
+          type: object
+      title: DaVinci Flow Replace Request Output Schema
+    DaVinci_Flow_Replace_Request_Trigger_Type:
+      enum:
+      - AUTHENTICATION
+      minLength: 1
+      title: DaVinci Flow Replace Request Trigger Type
+      type: string
+    DaVinci_Flow_Replace_Request_Trigger:
+      example:
+        type: AUTHENTICATION
+      properties:
+        type:
+          $ref: '#/components/schemas/DaVinci_Flow_Replace_Request_Trigger_Type'
+      required:
+      - type
+      title: DaVinci Flow Replace Request Trigger
+    DaVinci_Flow_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        flow.enabled:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        connectors:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.clone:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        connectorInstances:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.deploy:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        version:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.validate:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstances:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectors:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.deploy:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.clone:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.enabled:
+          $ref: '#/components/schemas/JSONHALLink'
+        version:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.validate:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - connectorInstances
+      - connectors
+      - environment
+      - flow.clone
+      - flow.deploy
+      - flow.enabled
+      - self
+      - version
+      title: DaVinci Flow Response _links
+    DaVinci_Flow_Response_Output_Schema_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Flow Response Output Schema Output Type
+      type: string
+    DaVinci_Flow_Response_Output_Schema_Output:
+      example:
+        additionalProperties: true
+        type: object
+        properties:
+          key: ""
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Flow Response Output Schema Output
+          type: object
+        type:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Output_Schema_Output_Type'
+        additionalProperties:
+          title: DaVinci Flow Response Output Schema Output Additional Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Flow Response Output Schema Output
+    DaVinci_Flow_Response_Output_Schema:
+      example:
+        output:
+          additionalProperties: true
+          type: object
+          properties:
+            key: ""
+      properties:
+        output:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Output_Schema_Output'
+      required:
+      - output
+      title: DaVinci Flow Response Output Schema
+    DaVinci_Flow_Response_Trigger_Configuration_MFA:
+      example:
+        timeFormat: timeFormat
+        time: 1.4894159098541704
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Response Trigger Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Response Trigger Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Response Trigger Configuration MFA Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Response Trigger Configuration MFA
+    DaVinci_Flow_Response_Trigger_Configuration_Password:
+      example:
+        timeFormat: timeFormat
+        time: 6.84685269835264
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Response Trigger Configuration Password Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Response Trigger Configuration Password Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Response Trigger Configuration Password Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Response Trigger Configuration Password
+    DaVinci_Flow_Response_Trigger_Configuration:
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.4894159098541704
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 6.84685269835264
+          enabled: true
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration_Password'
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Flow Response Trigger Configuration
+    DaVinci_Flow_Response_Trigger:
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.4894159098541704
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 6.84685269835264
+            enabled: true
+        type: type
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration'
+        type:
+          title: DaVinci Flow Response Trigger Type
+          type: string
+      title: DaVinci Flow Response Trigger
+    DaVinci_Flow_Settings_Request_Js_Link:
+      example:
+        crossorigin: crossorigin
+        referrerpolicy: referrerpolicy
+        defer: true
+        integrity: integrity
+        label: label
+        type: type
+        value: value
+      properties:
+        label:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Label
+          type: string
+        value:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Value
+          type: string
+        defer:
+          title: DaVinci Flow Settings Request Js Link Defer
+          type: boolean
+        crossorigin:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Crossorigin
+          type: string
+        integrity:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Integrity
+          type: string
+        referrerpolicy:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Referrerpolicy
+          type: string
+        type:
+          minLength: 1
+          title: DaVinci Flow Settings Request Js Link Type
+          type: string
+      required:
+      - crossorigin
+      - defer
+      - integrity
+      - label
+      - referrerpolicy
+      - type
+      - value
+      title: DaVinci Flow Settings Request Js Link
+    DaVinci_Flow_Settings_Response_Js_Link:
+      additionalProperties: true
+      example:
+        crossorigin: crossorigin
+        referrerpolicy: referrerpolicy
+        defer: true
+        integrity: integrity
+        label: label
+        type: type
+        value: value
+      properties:
+        crossorigin:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Crossorigin
+        defer:
+          title: DaVinci Flow Settings Response Js Link Defer
+        integrity:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Integrity
+        label:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Label
+        referrerpolicy:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Referrerpolicy
+        type:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Type
+        value:
+          minLength: 1
+          title: DaVinci Flow Settings Response Js Link Value
+      required:
+      - crossorigin
+      - defer
+      - integrity
+      - label
+      - referrerpolicy
+      - type
+      - value
+      title: DaVinci Flow Settings Response Js Link
+    DaVinci_Import_Flow_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstances:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectors:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.deploy:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.clone:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.enabled:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.export:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.validate:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - connectorInstances
+      - connectors
+      - environment
+      - flow.clone
+      - flow.deploy
+      - flow.enabled
+      - flow.export
+      - self
+      title: DaVinci Import Flow Response _links
+    DaVinci_Import_Flow_Response_Flow:
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Import Flow Response Flow Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Import Flow Response Flow Name
+          type: string
+      required:
+      - id
+      - name
+      title: DaVinci Import Flow Response Flow
+    DaVinci_Import_Flow_Response_Output_Schema_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Import Flow Response Output Schema Output Type
+      type: string
+    DaVinci_Import_Flow_Response_Output_Schema_Output:
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Import Flow Response Output Schema Output
+          type: object
+        type:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Output_Schema_Output_Type'
+        additionalProperties:
+          title: DaVinci Import Flow Response Output Schema Output Additional Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Import Flow Response Output Schema Output
+    DaVinci_Import_Flow_Response_Output_Schema:
+      properties:
+        output:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Output_Schema_Output'
+      required:
+      - output
+      title: DaVinci Import Flow Response Output Schema
+    DaVinci_Import_Flow_Response_Trigger_Configuration_MFA:
+      properties:
+        enabled:
+          title: DaVinci Import Flow Response Trigger Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Import Flow Response Trigger Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Import Flow Response Trigger Configuration MFA Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Import Flow Response Trigger Configuration MFA
+    DaVinci_Import_Flow_Response_Trigger_Configuration_Password:
+      properties:
+        enabled:
+          title: DaVinci Import Flow Response Trigger Configuration Password Enabled
+          type: boolean
+        time:
+          title: DaVinci Import Flow Response Trigger Configuration Password Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Import Flow Response Trigger Configuration Password Time
+            Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Import Flow Response Trigger Configuration Password
+    DaVinci_Import_Flow_Response_Trigger_Configuration:
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration_Password'
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Import Flow Response Trigger Configuration
+    DaVinci_Import_Flow_Response_Trigger:
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration'
+        type:
+          title: DaVinci Import Flow Response Trigger Type
+          type: string
+      title: DaVinci Import Flow Response Trigger
     DaVinci_Variable_Collection_Response__embedded:
       example:
         variables:
@@ -7601,19 +11838,23 @@ x-permissions:
 - name: davinci:create:applications
 - name: davinci:create:connections
 - name: davinci:create:constructs
+- name: davinci:create:dvFlows
 - name: davinci:create:flowPolicies
 - name: davinci:delete:applications
 - name: davinci:delete:connections
 - name: davinci:delete:constructs
+- name: davinci:delete:dvFlows
 - name: davinci:delete:flowPolicies
 - name: davinci:read:applications
 - name: davinci:read:connections
 - name: davinci:read:connectors
 - name: davinci:read:constructs
+- name: davinci:read:dvFlows
 - name: davinci:read:flowPolicies
 - name: davinci:update:applications
 - name: davinci:update:connections
 - name: davinci:update:constructs
+- name: davinci:update:dvFlows
 - name: davinci:update:flowPolicies
 - name: orgmgt:create:environment
 - name: orgmgt:delete:environment
