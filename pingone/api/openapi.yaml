@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - Go SDK
-  version: 2025.08.05-development
+  version: 2025.08.06-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -38,6 +38,8 @@ tags:
   name: DaVinci Variables
 - description: Operations for managing PingOne environments
   name: Environments
+- description: Operations for retrieving PingOne total identity reports
+  name: Total Identities
 paths:
   /environments:
     get:
@@ -1184,6 +1186,47 @@ paths:
       - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
+  /environments/{environmentID}/totalIdentities:
+    get:
+      operationId: getTotalIdentities
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/TotalIdentitiesCountCollectionResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalIdentitiesCountCollectionResponse'
+          description: Successful operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Total Identities
+      x-permission: orgmgt:read:environment
   /environments/{environmentID}/variables:
     get:
       operationId: getVariables
@@ -5238,6 +5281,46 @@ components:
       - message
       title: Too Many Requests Error
       x-go-generate-error: true
+    TotalIdentitiesCountCollectionResponse:
+      example:
+        size: 6
+        _embedded:
+          totalIdentities:
+          - ""
+          - ""
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 0
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/Total_Identities_Count_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/Total_Identities_Count_Collection_Response__links'
+        count:
+          format: int32
+          title: Total Identities Count Collection Response Count
+          type: integer
+        size:
+          format: int32
+          title: Total Identities Count Collection Response Size
+          type: integer
+      title: Total Identities Count Collection Response
+    TotalIdentitiesCountResponse:
+      properties:
+        date:
+          format: date-time
+          title: Total Identities Count Response Date
+          type: string
+        totalIdentities:
+          format: int32
+          title: Total Identities Count Response Total Identities
+          type: integer
+      title: Total Identities Count Response
     UnauthorizedError:
       example:
         code: ACCESS_FAILED
@@ -7508,6 +7591,33 @@ components:
       - code
       - message
       title: Too Many Requests Error Detail
+    Total_Identities_Count_Collection_Response__embedded:
+      example:
+        totalIdentities:
+        - ""
+        - ""
+      properties:
+        totalIdentities:
+          items:
+            allOf:
+            - $ref: '#/components/schemas/TotalIdentitiesCountResponse'
+            title: Total Identities Count Collection Response _embedded Total Identity
+          type: array
+      title: Total Identities Count Collection Response _embedded
+    Total_Identities_Count_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Total Identities Count Collection Response _links
     Unauthorized_Error_Code:
       enum:
       - ACCESS_FAILED
