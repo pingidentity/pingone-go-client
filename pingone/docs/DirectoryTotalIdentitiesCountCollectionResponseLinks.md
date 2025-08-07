@@ -1,4 +1,4 @@
-# TotalIdentitiesCountCollectionResponseLinks
+# DirectoryTotalIdentitiesCountCollectionResponseLinks
 
 ## Properties
 
@@ -8,45 +8,45 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewTotalIdentitiesCountCollectionResponseLinks
+### NewDirectoryTotalIdentitiesCountCollectionResponseLinks
 
-`func NewTotalIdentitiesCountCollectionResponseLinks() *TotalIdentitiesCountCollectionResponseLinks`
+`func NewDirectoryTotalIdentitiesCountCollectionResponseLinks() *DirectoryTotalIdentitiesCountCollectionResponseLinks`
 
-NewTotalIdentitiesCountCollectionResponseLinks instantiates a new TotalIdentitiesCountCollectionResponseLinks object
+NewDirectoryTotalIdentitiesCountCollectionResponseLinks instantiates a new DirectoryTotalIdentitiesCountCollectionResponseLinks object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewTotalIdentitiesCountCollectionResponseLinksWithDefaults
+### NewDirectoryTotalIdentitiesCountCollectionResponseLinksWithDefaults
 
-`func NewTotalIdentitiesCountCollectionResponseLinksWithDefaults() *TotalIdentitiesCountCollectionResponseLinks`
+`func NewDirectoryTotalIdentitiesCountCollectionResponseLinksWithDefaults() *DirectoryTotalIdentitiesCountCollectionResponseLinks`
 
-NewTotalIdentitiesCountCollectionResponseLinksWithDefaults instantiates a new TotalIdentitiesCountCollectionResponseLinks object
+NewDirectoryTotalIdentitiesCountCollectionResponseLinksWithDefaults instantiates a new DirectoryTotalIdentitiesCountCollectionResponseLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetSelf
 
-`func (o *TotalIdentitiesCountCollectionResponseLinks) GetSelf() JSONHALLink`
+`func (o *DirectoryTotalIdentitiesCountCollectionResponseLinks) GetSelf() JSONHALLink`
 
 GetSelf returns the Self field if non-nil, zero value otherwise.
 
 ### GetSelfOk
 
-`func (o *TotalIdentitiesCountCollectionResponseLinks) GetSelfOk() (*JSONHALLink, bool)`
+`func (o *DirectoryTotalIdentitiesCountCollectionResponseLinks) GetSelfOk() (*JSONHALLink, bool)`
 
 GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSelf
 
-`func (o *TotalIdentitiesCountCollectionResponseLinks) SetSelf(v JSONHALLink)`
+`func (o *DirectoryTotalIdentitiesCountCollectionResponseLinks) SetSelf(v JSONHALLink)`
 
 SetSelf sets Self field to given value.
 
 ### HasSelf
 
-`func (o *TotalIdentitiesCountCollectionResponseLinks) HasSelf() bool`
+`func (o *DirectoryTotalIdentitiesCountCollectionResponseLinks) HasSelf() bool`
 
 HasSelf returns a boolean if a field has been set.
 

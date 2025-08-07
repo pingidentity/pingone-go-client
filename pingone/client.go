@@ -1,6 +1,6 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne Platform User and Configuration Management API - Go SDK
+PingOne Platform User and Configuration Management API - SDK Generator
 
 PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
@@ -48,7 +48,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - Go SDK API v2025.08.06-development
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2025.08.07-development
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -62,9 +62,9 @@ type APIClient struct {
 
 	DaVinciVariablesApi *DaVinciVariablesApiService
 
-	EnvironmentsApi *EnvironmentsApiService
+	DirectoryTotalIdentitiesApi *DirectoryTotalIdentitiesApiService
 
-	TotalIdentitiesApi *TotalIdentitiesApiService
+	EnvironmentsApi *EnvironmentsApiService
 
 	// Static APIs
 	// LinkApi *LinkApiService
@@ -133,8 +133,8 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.DaVinciApplicationsApi = (*DaVinciApplicationsApiService)(&c.common)
 	c.DaVinciConnectorsApi = (*DaVinciConnectorsApiService)(&c.common)
 	c.DaVinciVariablesApi = (*DaVinciVariablesApiService)(&c.common)
+	c.DirectoryTotalIdentitiesApi = (*DirectoryTotalIdentitiesApiService)(&c.common)
 	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
-	c.TotalIdentitiesApi = (*TotalIdentitiesApiService)(&c.common)
 
 	// Static APIs
 	// c.LinkApi = (*LinkApiService)(&c.common)

@@ -1,6 +1,6 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne Platform User and Configuration Management API - Go SDK
+PingOne Platform User and Configuration Management API - SDK Generator
 
 PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
@@ -17,40 +17,40 @@ import (
 	"time"
 )
 
-// checks if the TotalIdentitiesCountResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &TotalIdentitiesCountResponse{}
+// checks if the DirectoryTotalIdentitiesCountResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DirectoryTotalIdentitiesCountResponse{}
 
-// checks if the TotalIdentitiesCountResponse type satisfies the LogValuer interface at compile time
-var _ slog.LogValuer = &TotalIdentitiesCountResponse{}
+// checks if the DirectoryTotalIdentitiesCountResponse type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DirectoryTotalIdentitiesCountResponse{}
 
-// TotalIdentitiesCountResponse struct for TotalIdentitiesCountResponse
-type TotalIdentitiesCountResponse struct {
+// DirectoryTotalIdentitiesCountResponse struct for DirectoryTotalIdentitiesCountResponse
+type DirectoryTotalIdentitiesCountResponse struct {
 	Date                 *time.Time `json:"date,omitempty"`
 	TotalIdentities      *int32     `json:"totalIdentities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _TotalIdentitiesCountResponse TotalIdentitiesCountResponse
+type _DirectoryTotalIdentitiesCountResponse DirectoryTotalIdentitiesCountResponse
 
-// NewTotalIdentitiesCountResponse instantiates a new TotalIdentitiesCountResponse object
+// NewDirectoryTotalIdentitiesCountResponse instantiates a new DirectoryTotalIdentitiesCountResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTotalIdentitiesCountResponse() *TotalIdentitiesCountResponse {
-	this := TotalIdentitiesCountResponse{}
+func NewDirectoryTotalIdentitiesCountResponse() *DirectoryTotalIdentitiesCountResponse {
+	this := DirectoryTotalIdentitiesCountResponse{}
 	return &this
 }
 
-// NewTotalIdentitiesCountResponseWithDefaults instantiates a new TotalIdentitiesCountResponse object
+// NewDirectoryTotalIdentitiesCountResponseWithDefaults instantiates a new DirectoryTotalIdentitiesCountResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTotalIdentitiesCountResponseWithDefaults() *TotalIdentitiesCountResponse {
-	this := TotalIdentitiesCountResponse{}
+func NewDirectoryTotalIdentitiesCountResponseWithDefaults() *DirectoryTotalIdentitiesCountResponse {
+	this := DirectoryTotalIdentitiesCountResponse{}
 	return &this
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *TotalIdentitiesCountResponse) GetDate() time.Time {
+func (o *DirectoryTotalIdentitiesCountResponse) GetDate() time.Time {
 	if o == nil || IsNil(o.Date) {
 		var ret time.Time
 		return ret
@@ -60,7 +60,7 @@ func (o *TotalIdentitiesCountResponse) GetDate() time.Time {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalIdentitiesCountResponse) GetDateOk() (*time.Time, bool) {
+func (o *DirectoryTotalIdentitiesCountResponse) GetDateOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *TotalIdentitiesCountResponse) GetDateOk() (*time.Time, bool) {
 }
 
 // HasDate returns a boolean if a field has been set.
-func (o *TotalIdentitiesCountResponse) HasDate() bool {
+func (o *DirectoryTotalIdentitiesCountResponse) HasDate() bool {
 	if o != nil && !IsNil(o.Date) {
 		return true
 	}
@@ -77,12 +77,12 @@ func (o *TotalIdentitiesCountResponse) HasDate() bool {
 }
 
 // SetDate gets a reference to the given time.Time and assigns it to the Date field.
-func (o *TotalIdentitiesCountResponse) SetDate(v time.Time) {
+func (o *DirectoryTotalIdentitiesCountResponse) SetDate(v time.Time) {
 	o.Date = &v
 }
 
 // GetTotalIdentities returns the TotalIdentities field value if set, zero value otherwise.
-func (o *TotalIdentitiesCountResponse) GetTotalIdentities() int32 {
+func (o *DirectoryTotalIdentitiesCountResponse) GetTotalIdentities() int32 {
 	if o == nil || IsNil(o.TotalIdentities) {
 		var ret int32
 		return ret
@@ -92,7 +92,7 @@ func (o *TotalIdentitiesCountResponse) GetTotalIdentities() int32 {
 
 // GetTotalIdentitiesOk returns a tuple with the TotalIdentities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TotalIdentitiesCountResponse) GetTotalIdentitiesOk() (*int32, bool) {
+func (o *DirectoryTotalIdentitiesCountResponse) GetTotalIdentitiesOk() (*int32, bool) {
 	if o == nil || IsNil(o.TotalIdentities) {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *TotalIdentitiesCountResponse) GetTotalIdentitiesOk() (*int32, bool) {
 }
 
 // HasTotalIdentities returns a boolean if a field has been set.
-func (o *TotalIdentitiesCountResponse) HasTotalIdentities() bool {
+func (o *DirectoryTotalIdentitiesCountResponse) HasTotalIdentities() bool {
 	if o != nil && !IsNil(o.TotalIdentities) {
 		return true
 	}
@@ -109,11 +109,11 @@ func (o *TotalIdentitiesCountResponse) HasTotalIdentities() bool {
 }
 
 // SetTotalIdentities gets a reference to the given int32 and assigns it to the TotalIdentities field.
-func (o *TotalIdentitiesCountResponse) SetTotalIdentities(v int32) {
+func (o *DirectoryTotalIdentitiesCountResponse) SetTotalIdentities(v int32) {
 	o.TotalIdentities = &v
 }
 
-func (o TotalIdentitiesCountResponse) MarshalJSON() ([]byte, error) {
+func (o DirectoryTotalIdentitiesCountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -121,7 +121,7 @@ func (o TotalIdentitiesCountResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o TotalIdentitiesCountResponse) ToMap() (map[string]interface{}, error) {
+func (o DirectoryTotalIdentitiesCountResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
@@ -137,16 +137,16 @@ func (o TotalIdentitiesCountResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *TotalIdentitiesCountResponse) UnmarshalJSON(data []byte) (err error) {
-	varTotalIdentitiesCountResponse := _TotalIdentitiesCountResponse{}
+func (o *DirectoryTotalIdentitiesCountResponse) UnmarshalJSON(data []byte) (err error) {
+	varDirectoryTotalIdentitiesCountResponse := _DirectoryTotalIdentitiesCountResponse{}
 
-	err = json.Unmarshal(data, &varTotalIdentitiesCountResponse)
+	err = json.Unmarshal(data, &varDirectoryTotalIdentitiesCountResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = TotalIdentitiesCountResponse(varTotalIdentitiesCountResponse)
+	*o = DirectoryTotalIdentitiesCountResponse(varDirectoryTotalIdentitiesCountResponse)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -159,7 +159,7 @@ func (o *TotalIdentitiesCountResponse) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-func (o TotalIdentitiesCountResponse) LogValue() slog.Value {
+func (o DirectoryTotalIdentitiesCountResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	if !IsNil(o.Date) {
@@ -173,38 +173,38 @@ func (o TotalIdentitiesCountResponse) LogValue() slog.Value {
 	return slog.GroupValue(logAttrs...)
 }
 
-type NullableTotalIdentitiesCountResponse struct {
-	value *TotalIdentitiesCountResponse
+type NullableDirectoryTotalIdentitiesCountResponse struct {
+	value *DirectoryTotalIdentitiesCountResponse
 	isSet bool
 }
 
-func (v NullableTotalIdentitiesCountResponse) Get() *TotalIdentitiesCountResponse {
+func (v NullableDirectoryTotalIdentitiesCountResponse) Get() *DirectoryTotalIdentitiesCountResponse {
 	return v.value
 }
 
-func (v *NullableTotalIdentitiesCountResponse) Set(val *TotalIdentitiesCountResponse) {
+func (v *NullableDirectoryTotalIdentitiesCountResponse) Set(val *DirectoryTotalIdentitiesCountResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTotalIdentitiesCountResponse) IsSet() bool {
+func (v NullableDirectoryTotalIdentitiesCountResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTotalIdentitiesCountResponse) Unset() {
+func (v *NullableDirectoryTotalIdentitiesCountResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTotalIdentitiesCountResponse(val *TotalIdentitiesCountResponse) *NullableTotalIdentitiesCountResponse {
-	return &NullableTotalIdentitiesCountResponse{value: val, isSet: true}
+func NewNullableDirectoryTotalIdentitiesCountResponse(val *DirectoryTotalIdentitiesCountResponse) *NullableDirectoryTotalIdentitiesCountResponse {
+	return &NullableDirectoryTotalIdentitiesCountResponse{value: val, isSet: true}
 }
 
-func (v NullableTotalIdentitiesCountResponse) MarshalJSON() ([]byte, error) {
+func (v NullableDirectoryTotalIdentitiesCountResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTotalIdentitiesCountResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableDirectoryTotalIdentitiesCountResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -3,8 +3,8 @@ api/openapi.yaml
 api_da_vinci_applications.go
 api_da_vinci_connectors.go
 api_da_vinci_variables.go
+api_directory_total_identities.go
 api_environments.go
-api_total_identities.go
 client.go
 configuration.go
 docs/BadRequestError.md
@@ -104,6 +104,11 @@ docs/DaVinciVariableResponseDataType.md
 docs/DaVinciVariableResponseLinks.md
 docs/DaVinciVariableResponseValue.md
 docs/DaVinciVariablesApi.md
+docs/DirectoryTotalIdentitiesApi.md
+docs/DirectoryTotalIdentitiesCountCollectionResponse.md
+docs/DirectoryTotalIdentitiesCountCollectionResponseEmbedded.md
+docs/DirectoryTotalIdentitiesCountCollectionResponseLinks.md
+docs/DirectoryTotalIdentitiesCountResponse.md
 docs/EnvironmentAPILimit.md
 docs/EnvironmentBillOfMaterials.md
 docs/EnvironmentBillOfMaterialsProduct.md
@@ -151,11 +156,6 @@ docs/TooManyRequestsErrorCode.md
 docs/TooManyRequestsErrorDetail.md
 docs/TooManyRequestsErrorDetailCode.md
 docs/TooManyRequestsErrorDetailInnerError.md
-docs/TotalIdentitiesApi.md
-docs/TotalIdentitiesCountCollectionResponse.md
-docs/TotalIdentitiesCountCollectionResponseEmbedded.md
-docs/TotalIdentitiesCountCollectionResponseLinks.md
-docs/TotalIdentitiesCountResponse.md
 docs/UnauthorizedError.md
 docs/UnauthorizedErrorCode.md
 docs/UnauthorizedErrorDetail.md
@@ -257,6 +257,10 @@ model_da_vinci_variable_response.go
 model_da_vinci_variable_response__links.go
 model_da_vinci_variable_response_data_type.go
 model_da_vinci_variable_response_value.go
+model_directory_total_identities_count_collection_response.go
+model_directory_total_identities_count_collection_response__embedded.go
+model_directory_total_identities_count_collection_response__links.go
+model_directory_total_identities_count_response.go
 model_environment_api_limit.go
 model_environment_bill_of_materials.go
 model_environment_bill_of_materials_product.go
@@ -303,10 +307,6 @@ model_too_many_requests_error_code.go
 model_too_many_requests_error_detail.go
 model_too_many_requests_error_detail_code.go
 model_too_many_requests_error_detail_inner_error.go
-model_total_identities_count_collection_response.go
-model_total_identities_count_collection_response__embedded.go
-model_total_identities_count_collection_response__links.go
-model_total_identities_count_response.go
 model_unauthorized_error.go
 model_unauthorized_error_code.go
 model_unauthorized_error_detail.go
@@ -318,6 +318,6 @@ response.go
 test/api_da_vinci_applications_test.go
 test/api_da_vinci_connectors_test.go
 test/api_da_vinci_variables_test.go
+test/api_directory_total_identities_test.go
 test/api_environments_test.go
-test/api_total_identities_test.go
 utils.go

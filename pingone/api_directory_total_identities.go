@@ -1,6 +1,6 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne Platform User and Configuration Management API - Go SDK
+PingOne Platform User and Configuration Management API - SDK Generator
 
 PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
@@ -25,12 +25,12 @@ import (
 	"github.com/google/uuid"
 )
 
-// TotalIdentitiesApiService TotalIdentitiesApi service
-type TotalIdentitiesApiService service
+// DirectoryTotalIdentitiesApiService DirectoryTotalIdentitiesApi service
+type DirectoryTotalIdentitiesApiService service
 
 type ApiGetTotalIdentitiesRequest struct {
 	ctx                        context.Context
-	ApiService                 *TotalIdentitiesApiService
+	ApiService                 *DirectoryTotalIdentitiesApiService
 	environmentID              uuid.UUID
 	filter                     *string
 	xPingExternalSessionID     *string
@@ -52,7 +52,7 @@ func (r ApiGetTotalIdentitiesRequest) XPingExternalTransactionID(xPingExternalTr
 	return r
 }
 
-func (r ApiGetTotalIdentitiesRequest) Execute() (*TotalIdentitiesCountCollectionResponse, *http.Response, error) {
+func (r ApiGetTotalIdentitiesRequest) Execute() (*DirectoryTotalIdentitiesCountCollectionResponse, *http.Response, error) {
 	return r.ApiService.GetTotalIdentitiesExecute(r)
 }
 
@@ -64,7 +64,7 @@ GetTotalIdentities Method for GetTotalIdentities
 	@param environmentID
 	@return ApiGetTotalIdentitiesRequest
 */
-func (a *TotalIdentitiesApiService) GetTotalIdentities(ctx context.Context, environmentID uuid.UUID) ApiGetTotalIdentitiesRequest {
+func (a *DirectoryTotalIdentitiesApiService) GetTotalIdentities(ctx context.Context, environmentID uuid.UUID) ApiGetTotalIdentitiesRequest {
 	return ApiGetTotalIdentitiesRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -74,16 +74,16 @@ func (a *TotalIdentitiesApiService) GetTotalIdentities(ctx context.Context, envi
 
 // Execute executes the request
 //
-//	@return TotalIdentitiesCountCollectionResponse
-func (a *TotalIdentitiesApiService) GetTotalIdentitiesExecute(r ApiGetTotalIdentitiesRequest) (*TotalIdentitiesCountCollectionResponse, *http.Response, error) {
+//	@return DirectoryTotalIdentitiesCountCollectionResponse
+func (a *DirectoryTotalIdentitiesApiService) GetTotalIdentitiesExecute(r ApiGetTotalIdentitiesRequest) (*DirectoryTotalIdentitiesCountCollectionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TotalIdentitiesCountCollectionResponse
+		localVarReturnValue *DirectoryTotalIdentitiesCountCollectionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TotalIdentitiesApiService.GetTotalIdentities")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DirectoryTotalIdentitiesApiService.GetTotalIdentities")
 	if err != nil {
 		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
