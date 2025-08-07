@@ -28,12 +28,12 @@ var _ slog.LogValuer = &DaVinciConnectorMinimalResponse{}
 type DaVinciConnectorMinimalResponse struct {
 	Links                DaVinciConnectorMinimalResponseLinks    `json:"_links"`
 	CreatedAt            time.Time                               `json:"createdAt"`
-	Description          string                                  `json:"description"`
+	Description          *string                                 `json:"description,omitempty"`
 	Environment          ResourceRelationshipPingOne             `json:"environment"`
 	Id                   string                                  `json:"id"`
 	Metadata             DaVinciConnectorMinimalResponseMetadata `json:"metadata"`
 	Name                 string                                  `json:"name"`
-	UpdatedAt            time.Time                               `json:"updatedAt"`
+	UpdatedAt            *time.Time                              `json:"updatedAt,omitempty"`
 	Version              string                                  `json:"version"`
 	AdditionalProperties map[string]interface{}
 }
@@ -44,16 +44,14 @@ type _DaVinciConnectorMinimalResponse DaVinciConnectorMinimalResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipPingOne, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string) *DaVinciConnectorMinimalResponse {
+func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, environment ResourceRelationshipPingOne, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, version string) *DaVinciConnectorMinimalResponse {
 	this := DaVinciConnectorMinimalResponse{}
 	this.Links = links
 	this.CreatedAt = createdAt
-	this.Description = description
 	this.Environment = environment
 	this.Id = id
 	this.Metadata = metadata
 	this.Name = name
-	this.UpdatedAt = updatedAt
 	this.Version = version
 	return &this
 }
@@ -116,26 +114,26 @@ func (o *DaVinciConnectorMinimalResponse) SetCreatedAt(v time.Time) {
 
 // GetDescription returns the Description field value
 func (o *DaVinciConnectorMinimalResponse) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Description
+	return *o.Description
 }
 
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *DaVinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
 // SetDescription sets field value
 func (o *DaVinciConnectorMinimalResponse) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
 // GetEnvironment returns the Environment field value
@@ -236,26 +234,26 @@ func (o *DaVinciConnectorMinimalResponse) SetName(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value
 func (o *DaVinciConnectorMinimalResponse) GetUpdatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
 
-	return o.UpdatedAt
+	return *o.UpdatedAt
 }
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *DaVinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value
 func (o *DaVinciConnectorMinimalResponse) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+	o.UpdatedAt = &v
 }
 
 // GetVersion returns the Version field value
@@ -294,12 +292,16 @@ func (o DaVinciConnectorMinimalResponse) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
 	toSerialize["createdAt"] = o.CreatedAt
-	toSerialize["description"] = o.Description
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["environment"] = o.Environment
 	toSerialize["id"] = o.Id
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["name"] = o.Name
-	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
 	toSerialize["version"] = o.Version
 
 	for key, value := range o.AdditionalProperties {
@@ -316,12 +318,10 @@ func (o *DaVinciConnectorMinimalResponse) UnmarshalJSON(data []byte) (err error)
 	requiredProperties := []string{
 		"_links",
 		"createdAt",
-		"description",
 		"environment",
 		"id",
 		"metadata",
 		"name",
-		"updatedAt",
 		"version",
 	}
 
@@ -372,7 +372,9 @@ func (o DaVinciConnectorMinimalResponse) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
 	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
-	logAttrs = append(logAttrs, slog.Any("description", o.Description))
+	if !IsNil(o.Description) {
+		logAttrs = append(logAttrs, slog.Any("description", o.Description))
+	}
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("metadata", o.Metadata))
