@@ -9,8 +9,8 @@ info:
     applications with the PingOne platform.
   license:
     name: Apache 2.0
-  title: PingOne Platform User and Configuration Management API - Go SDK
-  version: 2025.08.06-development
+  title: PingOne Platform User and Configuration Management API - SDK Generator
+  version: 2025.08.07-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -36,10 +36,10 @@ tags:
   name: DaVinci Connectors
 - description: Operations for managing DaVinci variables
   name: DaVinci Variables
+- description: Operations for retrieving PingOne directory total identity reports
+  name: Directory Total Identities
 - description: Operations for managing PingOne environments
   name: Environments
-- description: Operations for retrieving PingOne total identity reports
-  name: Total Identities
 paths:
   /environments:
     get:
@@ -1205,10 +1205,10 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/TotalIdentitiesCountCollectionResponse'
+                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/TotalIdentitiesCountCollectionResponse'
+                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
           description: Successful operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
@@ -1225,7 +1225,7 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Total Identities
+      - Directory Total Identities
       x-permission: orgmgt:read:environment
   /environments/{environmentID}/variables:
     get:
@@ -3221,6 +3221,46 @@ components:
       - id
       - name
       title: DaVinci Variable Response
+    DirectoryTotalIdentitiesCountCollectionResponse:
+      example:
+        size: 6
+        _embedded:
+          totalIdentities:
+          - ""
+          - ""
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 0
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__links'
+        count:
+          format: int32
+          title: Directory Total Identities Count Collection Response Count
+          type: integer
+        size:
+          format: int32
+          title: Directory Total Identities Count Collection Response Size
+          type: integer
+      title: Directory Total Identities Count Collection Response
+    DirectoryTotalIdentitiesCountResponse:
+      properties:
+        date:
+          format: date-time
+          title: Directory Total Identities Count Response Date
+          type: string
+        totalIdentities:
+          format: int32
+          title: Directory Total Identities Count Response Total Identities
+          type: integer
+      title: Directory Total Identities Count Response
     EnvironmentAPILimit:
       example:
         limit: 5
@@ -5281,46 +5321,6 @@ components:
       - message
       title: Too Many Requests Error
       x-go-generate-error: true
-    TotalIdentitiesCountCollectionResponse:
-      example:
-        size: 6
-        _embedded:
-          totalIdentities:
-          - ""
-          - ""
-        _links:
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        count: 0
-      properties:
-        _embedded:
-          $ref: '#/components/schemas/Total_Identities_Count_Collection_Response__embedded'
-        _links:
-          $ref: '#/components/schemas/Total_Identities_Count_Collection_Response__links'
-        count:
-          format: int32
-          title: Total Identities Count Collection Response Count
-          type: integer
-        size:
-          format: int32
-          title: Total Identities Count Collection Response Size
-          type: integer
-      title: Total Identities Count Collection Response
-    TotalIdentitiesCountResponse:
-      properties:
-        date:
-          format: date-time
-          title: Total Identities Count Response Date
-          type: string
-        totalIdentities:
-          format: int32
-          title: Total Identities Count Response Total Identities
-          type: integer
-      title: Total Identities Count Response
     UnauthorizedError:
       example:
         code: ACCESS_FAILED
@@ -7306,6 +7306,34 @@ components:
       - title: DaVinci Variable Response Value Choice 4
         type: string
       title: DaVinci Variable Response Value
+    Directory_Total_Identities_Count_Collection_Response__embedded:
+      example:
+        totalIdentities:
+        - ""
+        - ""
+      properties:
+        totalIdentities:
+          items:
+            allOf:
+            - $ref: '#/components/schemas/DirectoryTotalIdentitiesCountResponse'
+            title: Directory Total Identities Count Collection Response _embedded
+              Total Identity
+          type: array
+      title: Directory Total Identities Count Collection Response _embedded
+    Directory_Total_Identities_Count_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Directory Total Identities Count Collection Response _links
     Environment_Bill_of_Materials_Solution_Type:
       enum:
       - CIAM_TRIAL
@@ -7591,33 +7619,6 @@ components:
       - code
       - message
       title: Too Many Requests Error Detail
-    Total_Identities_Count_Collection_Response__embedded:
-      example:
-        totalIdentities:
-        - ""
-        - ""
-      properties:
-        totalIdentities:
-          items:
-            allOf:
-            - $ref: '#/components/schemas/TotalIdentitiesCountResponse'
-            title: Total Identities Count Collection Response _embedded Total Identity
-          type: array
-      title: Total Identities Count Collection Response _embedded
-    Total_Identities_Count_Collection_Response__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      title: Total Identities Count Collection Response _links
     Unauthorized_Error_Code:
       enum:
       - ACCESS_FAILED

@@ -1,16 +1,16 @@
-# \TotalIdentitiesApi
+# \DirectoryTotalIdentitiesApi
 
 All URIs are relative to *https://api.pingone.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetTotalIdentities**](TotalIdentitiesApi.md#GetTotalIdentities) | **Get** /environments/{environmentID}/totalIdentities | 
+[**GetTotalIdentities**](DirectoryTotalIdentitiesApi.md#GetTotalIdentities) | **Get** /environments/{environmentID}/totalIdentities | 
 
 
 
 ## GetTotalIdentities
 
-> TotalIdentitiesCountCollectionResponse GetTotalIdentities(ctx, environmentID).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+> DirectoryTotalIdentitiesCountCollectionResponse GetTotalIdentities(ctx, environmentID).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -34,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TotalIdentitiesApi.GetTotalIdentities(context.Background(), environmentID).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	resp, r, err := apiClient.DirectoryTotalIdentitiesApi.GetTotalIdentities(context.Background(), environmentID).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TotalIdentitiesApi.GetTotalIdentities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DirectoryTotalIdentitiesApi.GetTotalIdentities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTotalIdentities`: TotalIdentitiesCountCollectionResponse
-	fmt.Fprintf(os.Stdout, "Response from `TotalIdentitiesApi.GetTotalIdentities`: %v\n", resp)
+	// response from `GetTotalIdentities`: DirectoryTotalIdentitiesCountCollectionResponse
+	fmt.Fprintf(os.Stdout, "Response from `DirectoryTotalIdentitiesApi.GetTotalIdentities`: %v\n", resp)
 }
 ```
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TotalIdentitiesCountCollectionResponse**](TotalIdentitiesCountCollectionResponse.md)
+[**DirectoryTotalIdentitiesCountCollectionResponse**](DirectoryTotalIdentitiesCountCollectionResponse.md)
 
 ### Authorization
 

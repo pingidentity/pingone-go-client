@@ -1,6 +1,6 @@
 // Copyright © 2025 Ping Identity Corporation
 /*
-PingOne Platform User and Configuration Management API - Go SDK
+PingOne Platform User and Configuration Management API - SDK Generator
 
 PingOne is a cloud-based framework for secure identity access management. The PingOne API gives developers the tools to integrate enterprise and third-party applications with the PingOne platform.
 
