@@ -9,7 +9,7 @@
 The **PingOne Go Client SDK** provides functions and structures to facilitate interaction with the PingOne Management API.
 
 > [!IMPORTANT]  
-> Content in this repository is under active development and hasn't yet been released.
+> Content in this repository is under active development and is being built out incrementally. If there are operations you need that aren't yet available, please raise an issue on this project.
 
 ## ✨ Why use the PingOne Go SDK?
 
