@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**DavinciApplication** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **FlowIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 **VersionFlowIdIndex** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 
@@ -13,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciFlowPolicyResponseLinks
 
-`func NewDaVinciFlowPolicyResponseLinks(self JSONHALLink, environment JSONHALLink, ) *DaVinciFlowPolicyResponseLinks`
+`func NewDaVinciFlowPolicyResponseLinks(self JSONHALLink, environment JSONHALLink, davinciApplication JSONHALLink, ) *DaVinciFlowPolicyResponseLinks`
 
 NewDaVinciFlowPolicyResponseLinks instantiates a new DaVinciFlowPolicyResponseLinks object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +67,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowPolicyResponseLinks) SetEnvironment(v JSONHALLink)`
 
 SetEnvironment sets Environment field to given value.
+
+
+### GetDavinciApplication
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetDavinciApplication() JSONHALLink`
+
+GetDavinciApplication returns the DavinciApplication field if non-nil, zero value otherwise.
+
+### GetDavinciApplicationOk
+
+`func (o *DaVinciFlowPolicyResponseLinks) GetDavinciApplicationOk() (*JSONHALLink, bool)`
+
+GetDavinciApplicationOk returns a tuple with the DavinciApplication field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDavinciApplication
+
+`func (o *DaVinciFlowPolicyResponseLinks) SetDavinciApplication(v JSONHALLink)`
+
+SetDavinciApplication sets DavinciApplication field to given value.
 
 
 ### GetFlowIndex

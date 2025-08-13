@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **Environment** | [**JSONHALLink**](JSONHALLink.md) |  | 
+**DavinciApplication** | [**JSONHALLink**](JSONHALLink.md) |  | 
 
 ## Methods
 
 ### NewDaVinciFlowPolicyCollectionLinks
 
-`func NewDaVinciFlowPolicyCollectionLinks(self JSONHALLink, environment JSONHALLink, ) *DaVinciFlowPolicyCollectionLinks`
+`func NewDaVinciFlowPolicyCollectionLinks(self JSONHALLink, environment JSONHALLink, davinciApplication JSONHALLink, ) *DaVinciFlowPolicyCollectionLinks`
 
 NewDaVinciFlowPolicyCollectionLinks instantiates a new DaVinciFlowPolicyCollectionLinks object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowPolicyCollectionLinks) SetEnvironment(v JSONHALLink)`
 
 SetEnvironment sets Environment field to given value.
+
+
+### GetDavinciApplication
+
+`func (o *DaVinciFlowPolicyCollectionLinks) GetDavinciApplication() JSONHALLink`
+
+GetDavinciApplication returns the DavinciApplication field if non-nil, zero value otherwise.
+
+### GetDavinciApplicationOk
+
+`func (o *DaVinciFlowPolicyCollectionLinks) GetDavinciApplicationOk() (*JSONHALLink, bool)`
+
+GetDavinciApplicationOk returns a tuple with the DavinciApplication field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDavinciApplication
+
+`func (o *DaVinciFlowPolicyCollectionLinks) SetDavinciApplication(v JSONHALLink)`
+
+SetDavinciApplication sets DavinciApplication field to given value.
 
 
 
