@@ -28,7 +28,7 @@ var _ slog.LogValuer = &ForbiddenError{}
 
 // ForbiddenError struct for ForbiddenError
 type ForbiddenError struct {
-	Id                   uuid.UUID              `json:"id"`
+	Id                   *uuid.UUID             `json:"id,omitempty"`
 	Code                 ForbiddenErrorCode     `json:"code"`
 	Message              string                 `json:"message"`
 	Details              []ForbiddenErrorDetail `json:"details,omitempty"`
@@ -41,9 +41,8 @@ type _ForbiddenError ForbiddenError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewForbiddenError(id uuid.UUID, code ForbiddenErrorCode, message string) *ForbiddenError {
+func NewForbiddenError(code ForbiddenErrorCode, message string) *ForbiddenError {
 	this := ForbiddenError{}
-	this.Id = id
 	this.Code = code
 	this.Message = message
 	return &this
@@ -57,28 +56,35 @@ func NewForbiddenErrorWithDefaults() *ForbiddenError {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *ForbiddenError) GetId() uuid.UUID {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret uuid.UUID
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ForbiddenError) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ForbiddenError) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+	return false
 }
 
 // SetId sets field value
 func (o *ForbiddenError) SetId(v uuid.UUID) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetCode returns the Code field value
@@ -171,7 +177,9 @@ func (o ForbiddenError) MarshalJSON() ([]byte, error) {
 
 func (o ForbiddenError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["code"] = o.Code
 	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
@@ -190,7 +198,6 @@ func (o *ForbiddenError) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"code",
 		"message",
 	}
@@ -235,7 +242,9 @@ func (o *ForbiddenError) UnmarshalJSON(data []byte) (err error) {
 func (o ForbiddenError) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	}
 	logAttrs = append(logAttrs, slog.Any("code", o.Code))
 	logAttrs = append(logAttrs, slog.Any("message", o.Message))
 	if !IsNil(o.Details) {
@@ -247,7 +256,6 @@ func (o ForbiddenError) LogValue() slog.Value {
 }
 
 func (o ForbiddenError) Error() string {
-
 	message := []string{}
 	message = append(message, string(o.Code))
 
