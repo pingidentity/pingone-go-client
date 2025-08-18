@@ -1,5 +1,6 @@
 README.md
 api/openapi.yaml
+api_configuration_management.go
 api_da_vinci_applications.go
 api_da_vinci_connectors.go
 api_da_vinci_variables.go
@@ -12,6 +13,7 @@ docs/BadRequestErrorCode.md
 docs/BadRequestErrorDetail.md
 docs/BadRequestErrorDetailCode.md
 docs/BadRequestErrorDetailInnerError.md
+docs/ConfigurationManagementApi.md
 docs/DaVinciApplicationCollectionResponse.md
 docs/DaVinciApplicationCollectionResponseEmbedded.md
 docs/DaVinciApplicationCollectionResponseLinks.md
@@ -151,6 +153,14 @@ docs/ResourceRelationshipDaVinci.md
 docs/ResourceRelationshipDaVinciReadOnly.md
 docs/ResourceRelationshipGeneric.md
 docs/ResourceRelationshipReadOnly.md
+docs/SnapshotRequest.md
+docs/SnapshotResourceInformation.md
+docs/SnapshotVersionCollectionResponse.md
+docs/SnapshotVersionCollectionResponseEmbedded.md
+docs/SnapshotVersionCollectionResponseLinks.md
+docs/SnapshotView.md
+docs/SnapshotViewLinks.md
+docs/SnapshotViewStatus.md
 docs/TooManyRequestsError.md
 docs/TooManyRequestsErrorCode.md
 docs/TooManyRequestsErrorDetail.md
@@ -302,6 +312,14 @@ model_resource_relationship_da_vinci.go
 model_resource_relationship_da_vinci_read_only.go
 model_resource_relationship_generic.go
 model_resource_relationship_read_only.go
+model_snapshot_request.go
+model_snapshot_resource_information.go
+model_snapshot_version_collection_response.go
+model_snapshot_version_collection_response__embedded.go
+model_snapshot_version_collection_response__links.go
+model_snapshot_view.go
+model_snapshot_view__links.go
+model_snapshot_view_status.go
 model_too_many_requests_error.go
 model_too_many_requests_error_code.go
 model_too_many_requests_error_detail.go
@@ -315,6 +333,7 @@ model_unsupported_media_type_error.go
 model_unsupported_media_type_error_code.go
 model_unsupported_media_type_error_detail.go
 response.go
+test/api_configuration_management_test.go
 test/api_da_vinci_applications_test.go
 test/api_da_vinci_connectors_test.go
 test/api_da_vinci_variables_test.go
