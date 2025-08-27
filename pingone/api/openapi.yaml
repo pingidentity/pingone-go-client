@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.08.18-development
+  version: 2025.08.27-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -29,8 +29,6 @@ security:
 - bearerAuth: []
 - oauth2: []
 tags:
-- description: Operations for managing PingOne configuration management actions
-  name: Configuration Management
 - description: Operations for managing DaVinci applications and application flows
     policies
   name: DaVinci Applications
@@ -224,9 +222,9 @@ paths:
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
-          $ref: '#/components/responses/http.403.Forbidden'
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1190,39 +1188,37 @@ paths:
       - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
-  /environments/{environmentID}/snapshots:
-    post:
-      operationId: createSnapshot
+  /environments/{environmentID}/flows:
+    get:
+      operationId: getFlows
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - explode: true
         in: query
-        name: expand
+        name: attributes
         required: false
         schema:
           type: string
         style: form
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SnapshotRequest'
-        required: true
       responses:
-        "201":
+        "200":
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/SnapshotView'
-          description: Created
+                $ref: '#/components/schemas/DaVinciFlowCollection'
+          description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
           $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1232,80 +1228,37 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Configuration Management
-      x-feature-flag: p1ax-1984-configuration-promotion
-      x-permission: promotion:create:snapshot
-  /environments/{environmentID}/snapshots/{snapshotID}:
-    get:
-      operationId: getSnapshotById
+      - DaVinci Flows
+      x-permission: davinci:read:dvFlows
+    post:
+      operationId: createFlow
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
-      - explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: filter
-        required: false
-        schema:
-          type: string
-        style: form
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowCreateRequest'
+        required: true
       responses:
-        "200":
+        "201":
           content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/SnapshotView'
-          description: OK
-        "400":
-          $ref: '#/components/responses/http.400.BadRequest'
-        "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
-        "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
-        "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
-        "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
-        "502":
-          $ref: '#/components/responses/http.502.BadGateway'
-        "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
-      tags:
-      - Configuration Management
-      x-feature-flag: p1ax-1984-configuration-promotion
-      x-permission: promotion:read:snapshot
-  /environments/{environmentID}/snapshots/{snapshotID}/versions:
-    get:
-      operationId: getVersionsBySnapshotId
-      parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
-      responses:
-        "200":
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
-          description: OK
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successfully created the resource.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1315,16 +1268,232 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Configuration Management
-      x-feature-flag: p1ax-1984-configuration-promotion
-      x-permission: promotion:read:snapshot
-  /environments/{environmentID}/snapshots/{snapshotID}/versions/{versionID}:
-    get:
-      operationId: getVersionByIdUsingSnapshotId
+      - DaVinci Flows
+      x-permission: davinci:create:dvFlows
+  /environments/{environmentID}/flows/{flowID}:
+    delete:
+      operationId: deleteFlowById
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.versions.versionID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "204":
+          description: Successfully removed. No content.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:delete:dvFlows
+    get:
+      operationId: getFlowById
+      parameters:
+      - explode: true
+        in: query
+        name: attributes
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:read:dvFlows
+    put:
+      operationId: replaceFlowById
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaVinciFlowReplaceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:update:dvFlows
+  /environments/{environmentID}/flows/{flowID}/versions:
+    get:
+      operationId: getVersionsByFlowId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowVersionCollectionResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:read:flowVersions
+  /environments/{environmentID}/flows/{flowID}/versions/{versionID}:
+    delete:
+      operationId: deleteVersionByIdUsingFlowId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.versions.versionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "204":
+          description: Successfully removed. No content.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:delete:flowVersions
+    get:
+      operationId: getVersionByIdUsingFlowId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.versions.versionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaVinciFlowVersionResponse'
+          description: Successful Operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:read:flowVersions
+  /environments/{environmentID}/flows/{flowID}/versions/{versionID}/details:
+    get:
+      operationId: getDetailsByFlowIdAndVersionId
+      parameters:
       - explode: true
         in: query
         name: expand
@@ -1332,28 +1501,28 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
-        in: query
-        name: filter
-        required: false
-        schema:
-          type: string
-        style: form
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.versions.versionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
       responses:
         "200":
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/SnapshotView'
-          description: OK
+                $ref: '#/components/schemas/DaVinciFlowVersionDetailResponse'
+          description: Successful Operation.
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
           $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "404":
+          $ref: '#/components/responses/http.404.NotFound'
+        "415":
+          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1363,9 +1532,8 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - Configuration Management
-      x-feature-flag: p1ax-1984-configuration-promotion
-      x-permission: promotion:read:snapshot
+      - DaVinci Flows
+      x-permission: davinci:read:flowVersions
   /environments/{environmentID}/totalIdentities:
     get:
       operationId: getTotalIdentities
@@ -1681,6 +1849,15 @@ components:
         format: uuid
         type: string
       style: simple
+    com.pingidentity.path.environments.flows.versions.versionID:
+      explode: false
+      in: path
+      name: versionID
+      required: true
+      schema:
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        type: string
+      style: simple
     com.pingidentity.path.environments.connectors.connectorID:
       explode: false
       in: path
@@ -1706,24 +1883,6 @@ components:
       required: true
       schema:
         pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
-        type: string
-      style: simple
-    com.pingidentity.path.environments.snapshots.snapshotID:
-      explode: false
-      in: path
-      name: snapshotID
-      required: true
-      schema:
-        format: uuid
-        type: string
-      style: simple
-    com.pingidentity.path.environments.snapshots.versions.versionID:
-      explode: false
-      in: path
-      name: versionID
-      required: true
-      schema:
-        format: uuid
         type: string
       style: simple
   responses:
@@ -2677,6 +2836,92 @@ components:
       - updatedAt
       - version
       title: DaVinci Connector Minimal Response
+    DaVinciExportFlowVersionResponse:
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response__links'
+        environment:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Environment'
+        flow:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Flow'
+        publishedVersion:
+          title: DaVinci Export Flow Version Response Published Version
+          type: number
+        version:
+          title: DaVinci Export Flow Version Response Version
+          type: number
+        alias:
+          title: DaVinci Export Flow Version Response Alias
+          type: string
+        clonedFrom:
+          title: DaVinci Export Flow Version Response Cloned From
+          type: number
+        color:
+          title: DaVinci Export Flow Version Response Color
+          type: string
+        connectors:
+          items:
+            $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Connector'
+          type: array
+        createdAt:
+          format: date-time
+          title: DaVinci Export Flow Version Response Created At
+          type: string
+        deployedAt:
+          format: date-time
+          title: DaVinci Export Flow Version Response Deployed At
+          type: string
+        description:
+          title: DaVinci Export Flow Version Response Description
+          type: string
+        enabled:
+          title: DaVinci Export Flow Version Response Enabled
+          type: boolean
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataResponse'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema'
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsResponse'
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger'
+        updatedAt:
+          format: date-time
+          title: DaVinci Export Flow Version Response Updated At
+          type: string
+        updates:
+          items:
+            title: DaVinci Export Flow Version Response Update
+            type: string
+          type: array
+        variables:
+          items:
+            additionalProperties: true
+            properties: {}
+            title: DaVinci Export Flow Version Response Variable
+            type: object
+          type: array
+      required:
+      - _links
+      - environment
+      - flow
+      - publishedVersion
+      - version
+      title: DaVinci Export Flow Version Response
+    DaVinciExportFlowVersionSubflowsResponse:
+      allOf:
+      - $ref: '#/components/schemas/DaVinciExportFlowVersionResponse'
+      - properties:
+          _embedded:
+            items:
+              $ref: '#/components/schemas/DaVinciExportFlowVersionResponse'
+            type: array
+        title: DaVinci Export Flow Version Subflows Response Base 2
+      title: DaVinci Export Flow Version Subflows Response
     DaVinciFlowCollection:
       example:
         _embedded:
@@ -4670,7 +4915,7 @@ components:
         _links:
           $ref: '#/components/schemas/DaVinci_Flow_Response__links'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
           minLength: 1
           title: DaVinci Flow Response Id
@@ -4684,7 +4929,7 @@ components:
           type: string
         connectors:
           items:
-            $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+            $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
           type: array
         createdAt:
           format: date-time
@@ -4900,12 +5145,581 @@ components:
             $ref: '#/components/schemas/DaVinci_Flow_Settings_Response_Js_Link'
           title: DaVinci Flow Settings Response Js Links
       title: DaVinci Flow Settings Response
+    DaVinciFlowVersionCollectionResponse:
+      example:
+        _embedded:
+          versions:
+          - clonedFrom: 6.027456183070403
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.revert:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              details:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.export:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+            alias: alias
+            version: 0.8008281904610115
+            flow:
+              name: name
+              id: id
+            deployedAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - clonedFrom: 6.027456183070403
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            environment:
+              id: id
+            _links:
+              environment:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.revert:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              details:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              flow.export:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+            alias: alias
+            version: 0.8008281904610115
+            flow:
+              name: name
+              id: id
+            deployedAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Collection_Response__links'
+      required:
+      - _embedded
+      - _links
+      title: DaVinci Flow Version Collection Response
+    DaVinciFlowVersionDetailResponse:
+      example:
+        settings:
+          csp: csp
+          jsLinks:
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          flowTimeoutInSeconds: 1.0246457001441578
+          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+        connectors:
+        - id: id
+        - id: id
+        color: color
+        outputSchema:
+          output:
+            additionalProperties: true
+            type: object
+            properties:
+              key: ""
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.revert:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          variables.<nodeId>.<index>:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          connectorInstances.<nodeId>:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.export:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        inputSchema:
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          description: description
+          preferredDataType:
+          - ""
+          - ""
+          required: true
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          description: description
+          preferredDataType:
+          - ""
+          - ""
+          required: true
+        description: description
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.4658129805029452
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 5.962133916683182
+              enabled: true
+          type: type
+        updates:
+        - updates
+        - updates
+        version: 5.637376656633329
+        enabled: true
+        skcomponents:
+        - name: name
+          options:
+            defaultLoadingColor: defaultLoadingColor
+            identityProviderIdEntry: identityProviderIdEntry
+            browsertoken: browsertoken
+            buttonImagePlacement: left
+            buttonType: back-to-previous
+            environmentId: environmentId
+            otpInput: otpInput
+            host: host
+            idpConnector: idpConnector
+            appSessionId: appSessionId
+            errorId: errorId
+            id: id
+            returnUrl: returnUrl
+            class: class
+            contentType: image
+            value: value
+            micUrl: https://devsdk.singularkey.com/react-mic/latest/react-mic.js
+            height: 600px
+            showPreview: "yes"
+            buttonImage: buttonImage
+            buttonImageClass: buttonImageClass
+            propertyname: propertyname
+            createP1User: createP1User
+            collectBehavioralData: true
+            label: label
+            previewType: image
+            cdn: cdn
+            pollChallengeStatus: true
+            userId: userId
+            identityProviderId: identityProviderId
+            customLoadingIndicator: customLoadingIndicator
+            imgUrl: imgUrl
+            populationIdEntry: populationIdEntry
+            pollInterval: 0
+            pollRetries: 6
+            siteKey: siteKey
+            customLoadingIndicatorClass: customLoadingIndicatorClass
+            form: form
+            appid: appid
+            appsecret: appsecret
+            messageClass: messageClass
+            width: 600px
+            identityProviderType: identityProviderType
+            populationId: populationId
+          id: id
+          nodeId: nodeId
+        - name: name
+          options:
+            defaultLoadingColor: defaultLoadingColor
+            identityProviderIdEntry: identityProviderIdEntry
+            browsertoken: browsertoken
+            buttonImagePlacement: left
+            buttonType: back-to-previous
+            environmentId: environmentId
+            otpInput: otpInput
+            host: host
+            idpConnector: idpConnector
+            appSessionId: appSessionId
+            errorId: errorId
+            id: id
+            returnUrl: returnUrl
+            class: class
+            contentType: image
+            value: value
+            micUrl: https://devsdk.singularkey.com/react-mic/latest/react-mic.js
+            height: 600px
+            showPreview: "yes"
+            buttonImage: buttonImage
+            buttonImageClass: buttonImageClass
+            propertyname: propertyname
+            createP1User: createP1User
+            collectBehavioralData: true
+            label: label
+            previewType: image
+            cdn: cdn
+            pollChallengeStatus: true
+            userId: userId
+            identityProviderId: identityProviderId
+            customLoadingIndicator: customLoadingIndicator
+            imgUrl: imgUrl
+            populationIdEntry: populationIdEntry
+            pollInterval: 0
+            pollRetries: 6
+            siteKey: siteKey
+            customLoadingIndicatorClass: customLoadingIndicatorClass
+            form: form
+            appid: appid
+            appsecret: appsecret
+            messageClass: messageClass
+            width: 600px
+            identityProviderType: identityProviderType
+            populationId: populationId
+          id: id
+          nodeId: nodeId
+        graphData:
+          boxSelectionEnabled: true
+          renderer:
+            name: name
+          zoomingEnabled: true
+          data: ""
+          maxZoom: 9.301444243932576
+          userPanningEnabled: true
+          minZoom: 3.616076749251911
+          userZoomingEnabled: true
+          zoom: 7.386281948385884
+          allLinterErrors:
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          elements:
+            nodes:
+            - data:
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: null
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+            - data:
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                capabilityName: capabilityName
+                connectorId: connectorId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                label: label
+                nodeType: nodeType
+                type: type
+                properties: null
+                status: status
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+            edges:
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+            - data:
+                id: id
+                source: source
+                target: target
+              removed: true
+              classes: classes
+              selectable: true
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+          pan:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+          panningEnabled: true
+        flow:
+          name: name
+          id: id
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response__links'
+        color:
+          title: DaVinci Flow Version Detail Response Color
+          type: string
+        connectors:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Connector'
+          type: array
+        description:
+          title: DaVinci Flow Version Detail Response Description
+          type: string
+        enabled:
+          title: DaVinci Flow Version Detail Response Enabled
+          type: boolean
+        flow:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Flow'
+        graphData:
+          $ref: '#/components/schemas/DaVinciFlowGraphDataResponse'
+        inputSchema:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item'
+          type: array
+        outputSchema:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema'
+        settings:
+          $ref: '#/components/schemas/DaVinciFlowSettingsResponse'
+        skcomponents:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent'
+          type: array
+        trigger:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger'
+        updates:
+          items:
+            title: DaVinci Flow Version Detail Response Update
+            type: string
+          type: array
+        version:
+          title: DaVinci Flow Version Detail Response Version
+          type: number
+      required:
+      - _links
+      title: DaVinci Flow Version Detail Response
+    DaVinciFlowVersionResponse:
+      example:
+        clonedFrom: 6.027456183070403
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.revert:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          details:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flow.export:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        alias: alias
+        version: 0.8008281904610115
+        flow:
+          name: name
+          id: id
+        deployedAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Response__links'
+        environment:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Response_Environment'
+        flow:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Response_Flow'
+        version:
+          title: DaVinci Flow Version Response Version
+          type: number
+        alias:
+          title: DaVinci Flow Version Response Alias
+          type: string
+        clonedFrom:
+          title: DaVinci Flow Version Response Cloned From
+          type: number
+        createdAt:
+          format: date-time
+          title: DaVinci Flow Version Response Created At
+          type: string
+        deployedAt:
+          format: date-time
+          title: DaVinci Flow Version Response Deployed At
+          type: string
+        updatedAt:
+          format: date-time
+          title: DaVinci Flow Version Response Updated At
+          type: string
+      required:
+      - _links
+      - environment
+      - flow
+      - version
+      title: DaVinci Flow Version Response
     DaVinciImportFlowResponse:
       properties:
         _links:
           $ref: '#/components/schemas/DaVinci_Import_Flow_Response__links'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         flow:
           $ref: '#/components/schemas/DaVinci_Import_Flow_Response_Flow'
         publishedVersion:
@@ -4925,7 +5739,7 @@ components:
           type: string
         connectors:
           items:
-            $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+            $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
           type: array
         createdAt:
           format: date-time
@@ -4976,7 +5790,7 @@ components:
       - publishedVersion
       - version
       title: DaVinci Import Flow Response
-    DaVinciImportSubflowResponse:
+    DaVinciImportSubflowsResponse:
       allOf:
       - $ref: '#/components/schemas/DaVinciImportFlowResponse'
       - properties:
@@ -4984,8 +5798,8 @@ components:
             items:
               $ref: '#/components/schemas/DaVinciImportFlowResponse'
             type: array
-        title: DaVinci Import Subflow Response Base 2
-      title: DaVinci Import Subflow Response
+        title: DaVinci Import Subflows Response Base 2
+      title: DaVinci Import Subflows Response
     DaVinciVariableCollectionResponse:
       example:
         size: 1.4658129805029452
@@ -7329,156 +8143,6 @@ components:
       required:
       - id
       title: Resource Relationship Read-Only
-    SnapshotRequest:
-      example:
-        baseResourceURL: baseResourceURL
-      properties:
-        baseResourceURL:
-          minLength: 1
-          title: Snapshot Request Base Resource URL
-          type: string
-      required:
-      - baseResourceURL
-      title: Snapshot Request
-    SnapshotResourceInformation:
-      example:
-        name: name
-        id: id
-        category: category
-      properties:
-        category:
-          title: Snapshot Resource Information Category
-          type: string
-        id:
-          title: Snapshot Resource Information Id
-          type: string
-        name:
-          title: Snapshot Resource Information Name
-          type: string
-      title: Snapshot Resource Information
-    SnapshotVersionCollectionResponse:
-      example:
-        size: 6
-        _embedded:
-          versions:
-          - ""
-          - ""
-        _links:
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        count: 0
-      properties:
-        _embedded:
-          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__embedded'
-        _links:
-          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__links'
-        count:
-          format: int32
-          title: Snapshot Version Collection Response Count
-          type: integer
-        size:
-          format: int32
-          title: Snapshot Version Collection Response Size
-          type: integer
-      title: Snapshot Version Collection Response
-    SnapshotView:
-      example:
-        completedAt: 2000-01-23T04:56:07.000+00:00
-        snapshotId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        _links:
-          self:
-            profile: https://openapi-generator.tech
-            name: name
-            href: https://openapi-generator.tech
-            title: https://openapi-generator.tech
-            type: type
-        configuration: configuration
-        resource:
-          name: name
-          id: id
-          category: category
-        startedAt: 2000-01-23T04:56:07.000+00:00
-        referencedResources:
-        - referencedResources
-        - referencedResources
-        error: error
-        versionedAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        environment:
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        resourceUrl: resourceUrl
-        _embedded:
-          key: "{}"
-        importMetadata:
-          key: "{}"
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        status: COMPLETE
-      properties:
-        _embedded:
-          additionalProperties:
-            readOnly: true
-            title: Snapshot View _embedded Additional Properties
-            type: object
-          readOnly: true
-          title: Snapshot View _embedded
-        _links:
-          $ref: '#/components/schemas/Snapshot_View__links'
-        completedAt:
-          format: date-time
-          title: Snapshot View Completed At
-          type: string
-        configuration:
-          title: Snapshot View Configuration
-          type: string
-        createdAt:
-          format: date-time
-          title: Snapshot View Created At
-          type: string
-        environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
-        error:
-          title: Snapshot View Error
-          type: string
-        id:
-          format: uuid
-          readOnly: true
-          title: Snapshot View Id
-          type: string
-        importMetadata:
-          additionalProperties:
-            title: Snapshot View Import Metadata Additional Properties
-            type: object
-          title: Snapshot View Import Metadata
-        referencedResources:
-          items:
-            title: Snapshot View Referenced Resource
-            type: string
-          type: array
-          uniqueItems: true
-        resource:
-          $ref: '#/components/schemas/SnapshotResourceInformation'
-        resourceUrl:
-          title: Snapshot View Resource Url
-          type: string
-        snapshotId:
-          format: uuid
-          title: Snapshot View Snapshot Id
-          type: string
-        startedAt:
-          format: date-time
-          title: Snapshot View Started At
-          type: string
-        status:
-          $ref: '#/components/schemas/Snapshot_View_Status'
-        versionedAt:
-          format: date-time
-          title: Snapshot View Versioned At
-          type: string
-      title: Snapshot View
     TooManyRequestsError:
       example:
         code: REQUEST_LIMITED
@@ -8547,6 +9211,136 @@ components:
           title: DaVinci Connector Minimal Response Metadata Vendor
           type: string
       title: DaVinci Connector Minimal Response Metadata
+    DaVinci_Export_Flow_Version_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Export Flow Version Response _links
+    DaVinci_Export_Flow_Version_Response_Environment:
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Environment Id
+          type: string
+      required:
+      - id
+      title: DaVinci Export Flow Version Response Environment
+    DaVinci_Export_Flow_Version_Response_Flow:
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Flow Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Flow Name
+          type: string
+      required:
+      - id
+      - name
+      title: DaVinci Export Flow Version Response Flow
+    DaVinci_Export_Flow_Version_Response_Connector:
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Connector Id
+          type: string
+      required:
+      - id
+      title: DaVinci Export Flow Version Response Connector
+    DaVinci_Export_Flow_Version_Response_Output_Schema_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Export Flow Version Response Output Schema Output Type
+      type: string
+    DaVinci_Export_Flow_Version_Response_Output_Schema_Output:
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Export Flow Version Response Output Schema Output
+          type: object
+        type:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema_Output_Type'
+        additionalProperties:
+          title: DaVinci Export Flow Version Response Output Schema Output Additional
+            Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Export Flow Version Response Output Schema Output
+    DaVinci_Export_Flow_Version_Response_Output_Schema:
+      properties:
+        output:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema_Output'
+      required:
+      - output
+      title: DaVinci Export Flow Version Response Output Schema
+    DaVinci_Export_Flow_Version_Response_Trigger_Configuration_MFA:
+      properties:
+        enabled:
+          title: DaVinci Export Flow Version Response Trigger Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Export Flow Version Response Trigger Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Trigger Configuration MFA Time
+            Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Export Flow Version Response Trigger Configuration MFA
+    DaVinci_Export_Flow_Version_Response_Trigger_Configuration_Password:
+      properties:
+        enabled:
+          title: DaVinci Export Flow Version Response Trigger Configuration Password
+            Enabled
+          type: boolean
+        time:
+          title: DaVinci Export Flow Version Response Trigger Configuration Password
+            Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Export Flow Version Response Trigger Configuration Password
+            Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Export Flow Version Response Trigger Configuration Password
+    DaVinci_Export_Flow_Version_Response_Trigger_Configuration:
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration_Password'
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Export Flow Version Response Trigger Configuration
+    DaVinci_Export_Flow_Version_Response_Trigger:
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration'
+        type:
+          title: DaVinci Export Flow Version Response Trigger Type
+          type: string
+      title: DaVinci Export Flow Version Response Trigger
     DaVinci_Flow_Collection__embedded:
       example:
         flows:
@@ -11412,6 +12206,715 @@ components:
       - type
       - value
       title: DaVinci Flow Settings Response Js Link
+    DaVinci_Flow_Version_Collection_Response__embedded:
+      example:
+        versions:
+        - clonedFrom: 6.027456183070403
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.revert:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            details:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.export:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+          alias: alias
+          version: 0.8008281904610115
+          flow:
+            name: name
+            id: id
+          deployedAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - clonedFrom: 6.027456183070403
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          environment:
+            id: id
+          _links:
+            environment:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.revert:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            details:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            flow.export:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+          alias: alias
+          version: 0.8008281904610115
+          flow:
+            name: name
+            id: id
+          deployedAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        versions:
+          items:
+            $ref: '#/components/schemas/DaVinciFlowVersionResponse'
+          type: array
+      required:
+      - versions
+      title: DaVinci Flow Version Collection Response _embedded
+    DaVinci_Flow_Version_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - self
+      title: DaVinci Flow Version Collection Response _links
+    DaVinci_Flow_Version_Detail_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.revert:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        variables.<nodeId>.<index>:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        connectorInstances.<nodeId>:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.export:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.export:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.revert:
+          $ref: '#/components/schemas/JSONHALLink'
+        connectorInstances.<nodeId>:
+          $ref: '#/components/schemas/JSONHALLink'
+        variables.<nodeId>.<index>:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - environment
+      - flow.export
+      - flow.revert
+      - self
+      title: DaVinci Flow Version Detail Response _links
+    DaVinci_Flow_Version_Detail_Response_Connector:
+      example:
+        id: id
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Version Detail Response Connector Id
+          type: string
+      required:
+      - id
+      title: DaVinci Flow Version Detail Response Connector
+    DaVinci_Flow_Version_Detail_Response_Flow:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Version Detail Response Flow Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Flow Version Detail Response Flow Name
+          type: string
+      required:
+      - id
+      - name
+      title: DaVinci Flow Version Detail Response Flow
+    DaVinci_Flow_Version_Detail_Response_Output_Schema_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Flow Version Detail Response Output Schema Output Type
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Output_Schema_Output:
+      example:
+        additionalProperties: true
+        type: object
+        properties:
+          key: ""
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Flow Version Detail Response Output Schema Output
+          type: object
+        type:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema_Output_Type'
+        additionalProperties:
+          title: DaVinci Flow Version Detail Response Output Schema Output Additional
+            Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Flow Version Detail Response Output Schema Output
+    DaVinci_Flow_Version_Detail_Response_Output_Schema:
+      example:
+        output:
+          additionalProperties: true
+          type: object
+          properties:
+            key: ""
+      properties:
+        output:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema_Output'
+      required:
+      - output
+      title: DaVinci Flow Version Detail Response Output Schema
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Button_Image_Placement:
+      enum:
+      - left
+      - right
+      title: DaVinci Flow Version Detail Response Skcomponent Options Button Image
+        Placement
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Button_Type:
+      enum:
+      - back-to-previous
+      - form-submit
+      - mfa-reset
+      - next-event
+      - nuance-audio
+      - otp
+      title: DaVinci Flow Version Detail Response Skcomponent Options Button Type
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Content_Type:
+      enum:
+      - image
+      - text
+      title: DaVinci Flow Version Detail Response Skcomponent Options Content Type
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Preview_Type:
+      default: image
+      enum:
+      - image
+      - text
+      title: DaVinci Flow Version Detail Response Skcomponent Options Preview Type
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Show_Preview:
+      default: "yes"
+      enum:
+      - "no"
+      - "yes"
+      title: DaVinci Flow Version Detail Response Skcomponent Options Show Preview
+      type: string
+    DaVinci_Flow_Version_Detail_Response_Skcomponent_Options:
+      example:
+        defaultLoadingColor: defaultLoadingColor
+        identityProviderIdEntry: identityProviderIdEntry
+        browsertoken: browsertoken
+        buttonImagePlacement: left
+        buttonType: back-to-previous
+        environmentId: environmentId
+        otpInput: otpInput
+        host: host
+        idpConnector: idpConnector
+        appSessionId: appSessionId
+        errorId: errorId
+        id: id
+        returnUrl: returnUrl
+        class: class
+        contentType: image
+        value: value
+        micUrl: https://devsdk.singularkey.com/react-mic/latest/react-mic.js
+        height: 600px
+        showPreview: "yes"
+        buttonImage: buttonImage
+        buttonImageClass: buttonImageClass
+        propertyname: propertyname
+        createP1User: createP1User
+        collectBehavioralData: true
+        label: label
+        previewType: image
+        cdn: cdn
+        pollChallengeStatus: true
+        userId: userId
+        identityProviderId: identityProviderId
+        customLoadingIndicator: customLoadingIndicator
+        imgUrl: imgUrl
+        populationIdEntry: populationIdEntry
+        pollInterval: 0
+        pollRetries: 6
+        siteKey: siteKey
+        customLoadingIndicatorClass: customLoadingIndicatorClass
+        form: form
+        appid: appid
+        appsecret: appsecret
+        messageClass: messageClass
+        width: 600px
+        identityProviderType: identityProviderType
+        populationId: populationId
+      properties:
+        appSessionId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options App Session
+            Id
+          type: string
+        appid:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Appid
+          type: string
+        appsecret:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Appsecret
+          type: string
+        browsertoken:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Browsertoken
+          type: string
+        buttonImage:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Button Image
+          type: string
+        buttonImageClass:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Button Image
+            Class
+          type: string
+        buttonImagePlacement:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Button_Image_Placement'
+        buttonType:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Button_Type'
+        cdn:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Cdn
+          type: string
+        class:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Class
+          type: string
+        collectBehavioralData:
+          default: true
+          title: DaVinci Flow Version Detail Response Skcomponent Options Collect
+            Behavioral Data
+          type: boolean
+        contentType:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Content_Type'
+        createP1User:
+          title: DaVinci Flow Version Detail Response Skcomponent Options CreateP
+            1 User
+          type: string
+        customLoadingIndicator:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Custom Loading
+            Indicator
+          type: string
+        customLoadingIndicatorClass:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Custom Loading
+            Indicator Class
+          type: string
+        defaultLoadingColor:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Default
+            Loading Color
+          type: string
+        environmentId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Environment
+            Id
+          type: string
+        errorId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Error Id
+          type: string
+        form:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Form
+          type: string
+        height:
+          default: 600px
+          title: DaVinci Flow Version Detail Response Skcomponent Options Height
+          type: string
+        host:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Host
+          type: string
+        id:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Id
+          type: string
+        identityProviderId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Identity
+            Provider Id
+          type: string
+        identityProviderIdEntry:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Identity
+            Provider Id Entry
+          type: string
+        identityProviderType:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Identity
+            Provider Type
+          type: string
+        idpConnector:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Idp Connector
+          type: string
+        imgUrl:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Img Url
+          type: string
+        label:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Label
+          type: string
+        messageClass:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Message
+            Class
+          type: string
+        micUrl:
+          default: https://devsdk.singularkey.com/react-mic/latest/react-mic.js
+          title: DaVinci Flow Version Detail Response Skcomponent Options Mic Url
+          type: string
+        otpInput:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Otp Input
+          type: string
+        pollChallengeStatus:
+          default: true
+          title: DaVinci Flow Version Detail Response Skcomponent Options Poll Challenge
+            Status
+          type: boolean
+        pollInterval:
+          default: 2000
+          title: DaVinci Flow Version Detail Response Skcomponent Options Poll Interval
+          type: integer
+        pollRetries:
+          default: 60
+          title: DaVinci Flow Version Detail Response Skcomponent Options Poll Retries
+          type: integer
+        populationId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Population
+            Id
+          type: string
+        populationIdEntry:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Population
+            Id Entry
+          type: string
+        previewType:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Preview_Type'
+        propertyname:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Propertyname
+          type: string
+        returnUrl:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Return Url
+          type: string
+        showPreview:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Show_Preview'
+        siteKey:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Site Key
+          type: string
+        userId:
+          title: DaVinci Flow Version Detail Response Skcomponent Options User Id
+          type: string
+        value:
+          title: DaVinci Flow Version Detail Response Skcomponent Options Value
+          type: string
+        width:
+          default: 600px
+          title: DaVinci Flow Version Detail Response Skcomponent Options Width
+          type: string
+      title: DaVinci Flow Version Detail Response Skcomponent Options
+    DaVinci_Flow_Version_Detail_Response_Skcomponent:
+      example:
+        name: name
+        options:
+          defaultLoadingColor: defaultLoadingColor
+          identityProviderIdEntry: identityProviderIdEntry
+          browsertoken: browsertoken
+          buttonImagePlacement: left
+          buttonType: back-to-previous
+          environmentId: environmentId
+          otpInput: otpInput
+          host: host
+          idpConnector: idpConnector
+          appSessionId: appSessionId
+          errorId: errorId
+          id: id
+          returnUrl: returnUrl
+          class: class
+          contentType: image
+          value: value
+          micUrl: https://devsdk.singularkey.com/react-mic/latest/react-mic.js
+          height: 600px
+          showPreview: "yes"
+          buttonImage: buttonImage
+          buttonImageClass: buttonImageClass
+          propertyname: propertyname
+          createP1User: createP1User
+          collectBehavioralData: true
+          label: label
+          previewType: image
+          cdn: cdn
+          pollChallengeStatus: true
+          userId: userId
+          identityProviderId: identityProviderId
+          customLoadingIndicator: customLoadingIndicator
+          imgUrl: imgUrl
+          populationIdEntry: populationIdEntry
+          pollInterval: 0
+          pollRetries: 6
+          siteKey: siteKey
+          customLoadingIndicatorClass: customLoadingIndicatorClass
+          form: form
+          appid: appid
+          appsecret: appsecret
+          messageClass: messageClass
+          width: 600px
+          identityProviderType: identityProviderType
+          populationId: populationId
+        id: id
+        nodeId: nodeId
+      properties:
+        id:
+          title: DaVinci Flow Version Detail Response Skcomponent Id
+          type: string
+        name:
+          title: DaVinci Flow Version Detail Response Skcomponent Name
+          type: string
+        nodeId:
+          title: DaVinci Flow Version Detail Response Skcomponent Node Id
+          type: string
+        options:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options'
+      title: DaVinci Flow Version Detail Response Skcomponent
+    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_MFA:
+      example:
+        timeFormat: timeFormat
+        time: 1.4658129805029452
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Time
+            Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Version Detail Response Trigger Configuration MFA
+    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_Password:
+      example:
+        timeFormat: timeFormat
+        time: 5.962133916683182
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Version Detail Response Trigger Configuration Password
+            Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Version Detail Response Trigger Configuration Password
+            Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Version Detail Response Trigger Configuration Password
+            Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Version Detail Response Trigger Configuration Password
+    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration:
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.4658129805029452
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 5.962133916683182
+          enabled: true
+      properties:
+        mfa:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_MFA'
+        pwd:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_Password'
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Flow Version Detail Response Trigger Configuration
+    DaVinci_Flow_Version_Detail_Response_Trigger:
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.4658129805029452
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 5.962133916683182
+            enabled: true
+        type: type
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration'
+        type:
+          title: DaVinci Flow Version Detail Response Trigger Type
+          type: string
+      title: DaVinci Flow Version Detail Response Trigger
+    DaVinci_Flow_Version_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.revert:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        details:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flow.export:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: '#/components/schemas/JSONHALLink'
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+        details:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.export:
+          $ref: '#/components/schemas/JSONHALLink'
+        flow.revert:
+          $ref: '#/components/schemas/JSONHALLink'
+      required:
+      - details
+      - environment
+      - flow.export
+      - flow.revert
+      - self
+      title: DaVinci Flow Version Response _links
+    DaVinci_Flow_Version_Response_Environment:
+      example:
+        id: id
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Version Response Environment Id
+          type: string
+      required:
+      - id
+      title: DaVinci Flow Version Response Environment
+    DaVinci_Flow_Version_Response_Flow:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Version Response Flow Id
+          type: string
+        name:
+          minLength: 1
+          title: DaVinci Flow Version Response Flow Name
+          type: string
+      required:
+      - id
+      - name
+      title: DaVinci Flow Version Response Flow
     DaVinci_Import_Flow_Response__links:
       additionalProperties:
         $ref: '#/components/schemas/JSONHALLink'
@@ -12011,56 +13514,6 @@ components:
       - code
       - message
       title: Not Found Error Detail
-    Snapshot_Version_Collection_Response__embedded:
-      example:
-        versions:
-        - ""
-        - ""
-      properties:
-        versions:
-          items:
-            allOf:
-            - $ref: '#/components/schemas/SnapshotView'
-            title: Snapshot Version Collection Response _embedded Version
-          type: array
-      title: Snapshot Version Collection Response _embedded
-    Snapshot_Version_Collection_Response__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      title: Snapshot Version Collection Response _links
-    Snapshot_View__links:
-      additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
-      example:
-        self:
-          profile: https://openapi-generator.tech
-          name: name
-          href: https://openapi-generator.tech
-          title: https://openapi-generator.tech
-          type: type
-      properties:
-        self:
-          $ref: '#/components/schemas/JSONHALLink'
-      readOnly: true
-      title: Snapshot View _links
-    Snapshot_View_Status:
-      enum:
-      - COMPLETE
-      - ERROR
-      - IN_PROGRESS
-      - WAITING
-      title: Snapshot View Status
-      type: string
     Too_Many_Requests_Error_Code:
       enum:
       - REQUEST_LIMITED
@@ -12219,12 +13672,14 @@ x-permissions:
 - name: davinci:delete:constructs
 - name: davinci:delete:dvFlows
 - name: davinci:delete:flowPolicies
+- name: davinci:delete:flowVersions
 - name: davinci:read:applications
 - name: davinci:read:connections
 - name: davinci:read:connectors
 - name: davinci:read:constructs
 - name: davinci:read:dvFlows
 - name: davinci:read:flowPolicies
+- name: davinci:read:flowVersions
 - name: davinci:update:applications
 - name: davinci:update:connections
 - name: davinci:update:constructs
@@ -12234,5 +13689,3 @@ x-permissions:
 - name: orgmgt:delete:environment
 - name: orgmgt:read:environment
 - name: orgmgt:update:environment
-- name: promotion:create:snapshot
-- name: promotion:read:snapshot
