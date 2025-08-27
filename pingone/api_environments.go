@@ -885,6 +885,15 @@ func (a *EnvironmentsApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentBy
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
 				}
+				// check if environment exists - P14C-63085
+				_, _, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					var notFoundErr NotFoundError
+					if errors.As(err, &notFoundErr) {
+						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
+						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -893,6 +902,21 @@ func (a *EnvironmentsApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentBy
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}

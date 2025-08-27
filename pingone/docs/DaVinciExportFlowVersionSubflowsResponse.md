@@ -1,573 +1,573 @@
-# DaVinciImportSubflowResponse
+# DaVinciExportFlowVersionSubflowsResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**DaVinciImportFlowResponseLinks**](DaVinciImportFlowResponseLinks.md) |  | 
-**Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
-**Flow** | [**DaVinciImportFlowResponseFlow**](DaVinciImportFlowResponseFlow.md) |  | 
+**Links** | [**DaVinciExportFlowVersionResponseLinks**](DaVinciExportFlowVersionResponseLinks.md) |  | 
+**Environment** | [**DaVinciExportFlowVersionResponseEnvironment**](DaVinciExportFlowVersionResponseEnvironment.md) |  | 
+**Flow** | [**DaVinciExportFlowVersionResponseFlow**](DaVinciExportFlowVersionResponseFlow.md) |  | 
 **PublishedVersion** | **float32** |  | 
 **Version** | **float32** |  | 
 **Alias** | Pointer to **string** |  | [optional] 
 **ClonedFrom** | Pointer to **float32** |  | [optional] 
 **Color** | Pointer to **string** |  | [optional] 
-**Connectors** | Pointer to [**[]ResourceRelationshipDaVinciReadOnly**](ResourceRelationshipDaVinciReadOnly.md) |  | [optional] 
+**Connectors** | Pointer to [**[]DaVinciExportFlowVersionResponseConnector**](DaVinciExportFlowVersionResponseConnector.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeployedAt** | Pointer to **time.Time** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **GraphData** | Pointer to [**DaVinciFlowGraphDataResponse**](DaVinciFlowGraphDataResponse.md) |  | [optional] 
 **InputSchema** | Pointer to [**[]DaVinciFlowInputSchemaResponseItem**](DaVinciFlowInputSchemaResponseItem.md) |  | [optional] 
-**OutputSchema** | Pointer to [**DaVinciImportFlowResponseOutputSchema**](DaVinciImportFlowResponseOutputSchema.md) |  | [optional] 
+**OutputSchema** | Pointer to [**DaVinciExportFlowVersionResponseOutputSchema**](DaVinciExportFlowVersionResponseOutputSchema.md) |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
-**Trigger** | Pointer to [**DaVinciImportFlowResponseTrigger**](DaVinciImportFlowResponseTrigger.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciExportFlowVersionResponseTrigger**](DaVinciExportFlowVersionResponseTrigger.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Updates** | Pointer to **[]string** |  | [optional] 
 **Variables** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**Embedded** | Pointer to [**[]DaVinciImportFlowResponse**](DaVinciImportFlowResponse.md) |  | [optional] 
+**Embedded** | Pointer to [**[]DaVinciExportFlowVersionResponse**](DaVinciExportFlowVersionResponse.md) |  | [optional] 
 
 ## Methods
 
-### NewDaVinciImportSubflowResponse
+### NewDaVinciExportFlowVersionSubflowsResponse
 
-`func NewDaVinciImportSubflowResponse(links DaVinciImportFlowResponseLinks, environment ResourceRelationshipReadOnly, flow DaVinciImportFlowResponseFlow, publishedVersion float32, version float32, ) *DaVinciImportSubflowResponse`
+`func NewDaVinciExportFlowVersionSubflowsResponse(links DaVinciExportFlowVersionResponseLinks, environment DaVinciExportFlowVersionResponseEnvironment, flow DaVinciExportFlowVersionResponseFlow, publishedVersion float32, version float32, ) *DaVinciExportFlowVersionSubflowsResponse`
 
-NewDaVinciImportSubflowResponse instantiates a new DaVinciImportSubflowResponse object
+NewDaVinciExportFlowVersionSubflowsResponse instantiates a new DaVinciExportFlowVersionSubflowsResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDaVinciImportSubflowResponseWithDefaults
+### NewDaVinciExportFlowVersionSubflowsResponseWithDefaults
 
-`func NewDaVinciImportSubflowResponseWithDefaults() *DaVinciImportSubflowResponse`
+`func NewDaVinciExportFlowVersionSubflowsResponseWithDefaults() *DaVinciExportFlowVersionSubflowsResponse`
 
-NewDaVinciImportSubflowResponseWithDefaults instantiates a new DaVinciImportSubflowResponse object
+NewDaVinciExportFlowVersionSubflowsResponseWithDefaults instantiates a new DaVinciExportFlowVersionSubflowsResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *DaVinciImportSubflowResponse) GetLinks() DaVinciImportFlowResponseLinks`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetLinks() DaVinciExportFlowVersionResponseLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DaVinciImportSubflowResponse) GetLinksOk() (*DaVinciImportFlowResponseLinks, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetLinksOk() (*DaVinciExportFlowVersionResponseLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DaVinciImportSubflowResponse) SetLinks(v DaVinciImportFlowResponseLinks)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetLinks(v DaVinciExportFlowVersionResponseLinks)`
 
 SetLinks sets Links field to given value.
 
 
 ### GetEnvironment
 
-`func (o *DaVinciImportSubflowResponse) GetEnvironment() ResourceRelationshipReadOnly`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEnvironment() DaVinciExportFlowVersionResponseEnvironment`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *DaVinciImportSubflowResponse) GetEnvironmentOk() (*ResourceRelationshipReadOnly, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEnvironmentOk() (*DaVinciExportFlowVersionResponseEnvironment, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *DaVinciImportSubflowResponse) SetEnvironment(v ResourceRelationshipReadOnly)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetEnvironment(v DaVinciExportFlowVersionResponseEnvironment)`
 
 SetEnvironment sets Environment field to given value.
 
 
 ### GetFlow
 
-`func (o *DaVinciImportSubflowResponse) GetFlow() DaVinciImportFlowResponseFlow`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetFlow() DaVinciExportFlowVersionResponseFlow`
 
 GetFlow returns the Flow field if non-nil, zero value otherwise.
 
 ### GetFlowOk
 
-`func (o *DaVinciImportSubflowResponse) GetFlowOk() (*DaVinciImportFlowResponseFlow, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetFlowOk() (*DaVinciExportFlowVersionResponseFlow, bool)`
 
 GetFlowOk returns a tuple with the Flow field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFlow
 
-`func (o *DaVinciImportSubflowResponse) SetFlow(v DaVinciImportFlowResponseFlow)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetFlow(v DaVinciExportFlowVersionResponseFlow)`
 
 SetFlow sets Flow field to given value.
 
 
 ### GetPublishedVersion
 
-`func (o *DaVinciImportSubflowResponse) GetPublishedVersion() float32`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetPublishedVersion() float32`
 
 GetPublishedVersion returns the PublishedVersion field if non-nil, zero value otherwise.
 
 ### GetPublishedVersionOk
 
-`func (o *DaVinciImportSubflowResponse) GetPublishedVersionOk() (*float32, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetPublishedVersionOk() (*float32, bool)`
 
 GetPublishedVersionOk returns a tuple with the PublishedVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublishedVersion
 
-`func (o *DaVinciImportSubflowResponse) SetPublishedVersion(v float32)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetPublishedVersion(v float32)`
 
 SetPublishedVersion sets PublishedVersion field to given value.
 
 
 ### GetVersion
 
-`func (o *DaVinciImportSubflowResponse) GetVersion() float32`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetVersion() float32`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *DaVinciImportSubflowResponse) GetVersionOk() (*float32, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetVersionOk() (*float32, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *DaVinciImportSubflowResponse) SetVersion(v float32)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetVersion(v float32)`
 
 SetVersion sets Version field to given value.
 
 
 ### GetAlias
 
-`func (o *DaVinciImportSubflowResponse) GetAlias() string`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetAlias() string`
 
 GetAlias returns the Alias field if non-nil, zero value otherwise.
 
 ### GetAliasOk
 
-`func (o *DaVinciImportSubflowResponse) GetAliasOk() (*string, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetAliasOk() (*string, bool)`
 
 GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlias
 
-`func (o *DaVinciImportSubflowResponse) SetAlias(v string)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetAlias(v string)`
 
 SetAlias sets Alias field to given value.
 
 ### HasAlias
 
-`func (o *DaVinciImportSubflowResponse) HasAlias() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasAlias() bool`
 
 HasAlias returns a boolean if a field has been set.
 
 ### GetClonedFrom
 
-`func (o *DaVinciImportSubflowResponse) GetClonedFrom() float32`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetClonedFrom() float32`
 
 GetClonedFrom returns the ClonedFrom field if non-nil, zero value otherwise.
 
 ### GetClonedFromOk
 
-`func (o *DaVinciImportSubflowResponse) GetClonedFromOk() (*float32, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetClonedFromOk() (*float32, bool)`
 
 GetClonedFromOk returns a tuple with the ClonedFrom field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClonedFrom
 
-`func (o *DaVinciImportSubflowResponse) SetClonedFrom(v float32)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetClonedFrom(v float32)`
 
 SetClonedFrom sets ClonedFrom field to given value.
 
 ### HasClonedFrom
 
-`func (o *DaVinciImportSubflowResponse) HasClonedFrom() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasClonedFrom() bool`
 
 HasClonedFrom returns a boolean if a field has been set.
 
 ### GetColor
 
-`func (o *DaVinciImportSubflowResponse) GetColor() string`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetColor() string`
 
 GetColor returns the Color field if non-nil, zero value otherwise.
 
 ### GetColorOk
 
-`func (o *DaVinciImportSubflowResponse) GetColorOk() (*string, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetColorOk() (*string, bool)`
 
 GetColorOk returns a tuple with the Color field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetColor
 
-`func (o *DaVinciImportSubflowResponse) SetColor(v string)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetColor(v string)`
 
 SetColor sets Color field to given value.
 
 ### HasColor
 
-`func (o *DaVinciImportSubflowResponse) HasColor() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasColor() bool`
 
 HasColor returns a boolean if a field has been set.
 
 ### GetConnectors
 
-`func (o *DaVinciImportSubflowResponse) GetConnectors() []ResourceRelationshipDaVinciReadOnly`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetConnectors() []DaVinciExportFlowVersionResponseConnector`
 
 GetConnectors returns the Connectors field if non-nil, zero value otherwise.
 
 ### GetConnectorsOk
 
-`func (o *DaVinciImportSubflowResponse) GetConnectorsOk() (*[]ResourceRelationshipDaVinciReadOnly, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetConnectorsOk() (*[]DaVinciExportFlowVersionResponseConnector, bool)`
 
 GetConnectorsOk returns a tuple with the Connectors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectors
 
-`func (o *DaVinciImportSubflowResponse) SetConnectors(v []ResourceRelationshipDaVinciReadOnly)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetConnectors(v []DaVinciExportFlowVersionResponseConnector)`
 
 SetConnectors sets Connectors field to given value.
 
 ### HasConnectors
 
-`func (o *DaVinciImportSubflowResponse) HasConnectors() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasConnectors() bool`
 
 HasConnectors returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *DaVinciImportSubflowResponse) GetCreatedAt() time.Time`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetCreatedAt() time.Time`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *DaVinciImportSubflowResponse) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetCreatedAtOk() (*time.Time, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *DaVinciImportSubflowResponse) SetCreatedAt(v time.Time)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 ### HasCreatedAt
 
-`func (o *DaVinciImportSubflowResponse) HasCreatedAt() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
 
 ### GetDeployedAt
 
-`func (o *DaVinciImportSubflowResponse) GetDeployedAt() time.Time`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetDeployedAt() time.Time`
 
 GetDeployedAt returns the DeployedAt field if non-nil, zero value otherwise.
 
 ### GetDeployedAtOk
 
-`func (o *DaVinciImportSubflowResponse) GetDeployedAtOk() (*time.Time, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetDeployedAtOk() (*time.Time, bool)`
 
 GetDeployedAtOk returns a tuple with the DeployedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeployedAt
 
-`func (o *DaVinciImportSubflowResponse) SetDeployedAt(v time.Time)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetDeployedAt(v time.Time)`
 
 SetDeployedAt sets DeployedAt field to given value.
 
 ### HasDeployedAt
 
-`func (o *DaVinciImportSubflowResponse) HasDeployedAt() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasDeployedAt() bool`
 
 HasDeployedAt returns a boolean if a field has been set.
 
 ### GetDescription
 
-`func (o *DaVinciImportSubflowResponse) GetDescription() string`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetDescription() string`
 
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
-`func (o *DaVinciImportSubflowResponse) GetDescriptionOk() (*string, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetDescriptionOk() (*string, bool)`
 
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-`func (o *DaVinciImportSubflowResponse) SetDescription(v string)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
 
 ### HasDescription
 
-`func (o *DaVinciImportSubflowResponse) HasDescription() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
 
 ### GetEnabled
 
-`func (o *DaVinciImportSubflowResponse) GetEnabled() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEnabled() bool`
 
 GetEnabled returns the Enabled field if non-nil, zero value otherwise.
 
 ### GetEnabledOk
 
-`func (o *DaVinciImportSubflowResponse) GetEnabledOk() (*bool, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEnabledOk() (*bool, bool)`
 
 GetEnabledOk returns a tuple with the Enabled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnabled
 
-`func (o *DaVinciImportSubflowResponse) SetEnabled(v bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
 
 ### HasEnabled
 
-`func (o *DaVinciImportSubflowResponse) HasEnabled() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
 
 ### GetGraphData
 
-`func (o *DaVinciImportSubflowResponse) GetGraphData() DaVinciFlowGraphDataResponse`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetGraphData() DaVinciFlowGraphDataResponse`
 
 GetGraphData returns the GraphData field if non-nil, zero value otherwise.
 
 ### GetGraphDataOk
 
-`func (o *DaVinciImportSubflowResponse) GetGraphDataOk() (*DaVinciFlowGraphDataResponse, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetGraphDataOk() (*DaVinciFlowGraphDataResponse, bool)`
 
 GetGraphDataOk returns a tuple with the GraphData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGraphData
 
-`func (o *DaVinciImportSubflowResponse) SetGraphData(v DaVinciFlowGraphDataResponse)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetGraphData(v DaVinciFlowGraphDataResponse)`
 
 SetGraphData sets GraphData field to given value.
 
 ### HasGraphData
 
-`func (o *DaVinciImportSubflowResponse) HasGraphData() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasGraphData() bool`
 
 HasGraphData returns a boolean if a field has been set.
 
 ### GetInputSchema
 
-`func (o *DaVinciImportSubflowResponse) GetInputSchema() []DaVinciFlowInputSchemaResponseItem`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetInputSchema() []DaVinciFlowInputSchemaResponseItem`
 
 GetInputSchema returns the InputSchema field if non-nil, zero value otherwise.
 
 ### GetInputSchemaOk
 
-`func (o *DaVinciImportSubflowResponse) GetInputSchemaOk() (*[]DaVinciFlowInputSchemaResponseItem, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetInputSchemaOk() (*[]DaVinciFlowInputSchemaResponseItem, bool)`
 
 GetInputSchemaOk returns a tuple with the InputSchema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputSchema
 
-`func (o *DaVinciImportSubflowResponse) SetInputSchema(v []DaVinciFlowInputSchemaResponseItem)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetInputSchema(v []DaVinciFlowInputSchemaResponseItem)`
 
 SetInputSchema sets InputSchema field to given value.
 
 ### HasInputSchema
 
-`func (o *DaVinciImportSubflowResponse) HasInputSchema() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasInputSchema() bool`
 
 HasInputSchema returns a boolean if a field has been set.
 
 ### GetOutputSchema
 
-`func (o *DaVinciImportSubflowResponse) GetOutputSchema() DaVinciImportFlowResponseOutputSchema`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchema() DaVinciExportFlowVersionResponseOutputSchema`
 
 GetOutputSchema returns the OutputSchema field if non-nil, zero value otherwise.
 
 ### GetOutputSchemaOk
 
-`func (o *DaVinciImportSubflowResponse) GetOutputSchemaOk() (*DaVinciImportFlowResponseOutputSchema, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchemaOk() (*DaVinciExportFlowVersionResponseOutputSchema, bool)`
 
 GetOutputSchemaOk returns a tuple with the OutputSchema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputSchema
 
-`func (o *DaVinciImportSubflowResponse) SetOutputSchema(v DaVinciImportFlowResponseOutputSchema)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetOutputSchema(v DaVinciExportFlowVersionResponseOutputSchema)`
 
 SetOutputSchema sets OutputSchema field to given value.
 
 ### HasOutputSchema
 
-`func (o *DaVinciImportSubflowResponse) HasOutputSchema() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasOutputSchema() bool`
 
 HasOutputSchema returns a boolean if a field has been set.
 
 ### GetSettings
 
-`func (o *DaVinciImportSubflowResponse) GetSettings() DaVinciFlowSettingsResponse`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetSettings() DaVinciFlowSettingsResponse`
 
 GetSettings returns the Settings field if non-nil, zero value otherwise.
 
 ### GetSettingsOk
 
-`func (o *DaVinciImportSubflowResponse) GetSettingsOk() (*DaVinciFlowSettingsResponse, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetSettingsOk() (*DaVinciFlowSettingsResponse, bool)`
 
 GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSettings
 
-`func (o *DaVinciImportSubflowResponse) SetSettings(v DaVinciFlowSettingsResponse)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetSettings(v DaVinciFlowSettingsResponse)`
 
 SetSettings sets Settings field to given value.
 
 ### HasSettings
 
-`func (o *DaVinciImportSubflowResponse) HasSettings() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasSettings() bool`
 
 HasSettings returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciImportSubflowResponse) GetTrigger() DaVinciImportFlowResponseTrigger`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTrigger() DaVinciExportFlowVersionResponseTrigger`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciImportSubflowResponse) GetTriggerOk() (*DaVinciImportFlowResponseTrigger, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTriggerOk() (*DaVinciExportFlowVersionResponseTrigger, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciImportSubflowResponse) SetTrigger(v DaVinciImportFlowResponseTrigger)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetTrigger(v DaVinciExportFlowVersionResponseTrigger)`
 
 SetTrigger sets Trigger field to given value.
 
 ### HasTrigger
 
-`func (o *DaVinciImportSubflowResponse) HasTrigger() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasTrigger() bool`
 
 HasTrigger returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *DaVinciImportSubflowResponse) GetUpdatedAt() time.Time`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetUpdatedAt() time.Time`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *DaVinciImportSubflowResponse) GetUpdatedAtOk() (*time.Time, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetUpdatedAtOk() (*time.Time, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *DaVinciImportSubflowResponse) SetUpdatedAt(v time.Time)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetUpdatedAt(v time.Time)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
 ### HasUpdatedAt
 
-`func (o *DaVinciImportSubflowResponse) HasUpdatedAt() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetUpdates
 
-`func (o *DaVinciImportSubflowResponse) GetUpdates() []string`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetUpdates() []string`
 
 GetUpdates returns the Updates field if non-nil, zero value otherwise.
 
 ### GetUpdatesOk
 
-`func (o *DaVinciImportSubflowResponse) GetUpdatesOk() (*[]string, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetUpdatesOk() (*[]string, bool)`
 
 GetUpdatesOk returns a tuple with the Updates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdates
 
-`func (o *DaVinciImportSubflowResponse) SetUpdates(v []string)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetUpdates(v []string)`
 
 SetUpdates sets Updates field to given value.
 
 ### HasUpdates
 
-`func (o *DaVinciImportSubflowResponse) HasUpdates() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasUpdates() bool`
 
 HasUpdates returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *DaVinciImportSubflowResponse) GetVariables() []map[string]interface{}`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetVariables() []map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *DaVinciImportSubflowResponse) GetVariablesOk() (*[]map[string]interface{}, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetVariablesOk() (*[]map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *DaVinciImportSubflowResponse) SetVariables(v []map[string]interface{})`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetVariables(v []map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
 ### HasVariables
 
-`func (o *DaVinciImportSubflowResponse) HasVariables() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasVariables() bool`
 
 HasVariables returns a boolean if a field has been set.
 
 ### GetEmbedded
 
-`func (o *DaVinciImportSubflowResponse) GetEmbedded() []DaVinciImportFlowResponse`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEmbedded() []DaVinciExportFlowVersionResponse`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *DaVinciImportSubflowResponse) GetEmbeddedOk() (*[]DaVinciImportFlowResponse, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetEmbeddedOk() (*[]DaVinciExportFlowVersionResponse, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *DaVinciImportSubflowResponse) SetEmbedded(v []DaVinciImportFlowResponse)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetEmbedded(v []DaVinciExportFlowVersionResponse)`
 
 SetEmbedded sets Embedded field to given value.
 
 ### HasEmbedded
 
-`func (o *DaVinciImportSubflowResponse) HasEmbedded() bool`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) HasEmbedded() bool`
 
 HasEmbedded returns a boolean if a field has been set.
 
