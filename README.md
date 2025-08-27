@@ -9,7 +9,7 @@
 The **PingOne Go Client SDK** provides functions and structures to facilitate interaction with the PingOne Management API.
 
 > [!IMPORTANT]  
-> Content in this repository is under active development and hasn't yet been released.
+> Content in this repository is under active development and is being built out incrementally. If there are operations you need that aren't yet available, please see the [Feedback and Issues](#feedback-and-issues) section.
 
 ## ✨ Why use the PingOne Go SDK?
 
@@ -21,6 +21,21 @@ This SDK simplifies working with PingOne's user and management APIs by offering:
 * **Forward Compatibility**: Follows documented best practices to reduce breaking changes with new platform features.
 * **Type Safety**: Provides strong typing for requests and responses, minimizing runtime errors.
 * **Authentication Handling**: Manages OAuth2 token acquisition and renewal automatically.
+
+
+## 🔍 Developer Use Cases
+
+This SDK is designed to help developers integrate PingOne capabilities into their Go applications. Common use cases include:
+
+* **Embed PingOne User Management Into Your App**: Build user profile management into your existing applications
+* **Configuration Management**: Manage applications, permissions, roles, policies and tenant settings
+* **Directory Management**: Programmatically manage users, groups, and population data
+* **Custom Integrations**: Create connectors between PingOne and your internal systems
+* **Automation**: Build scripts and tools to automate PingOne configuration management
+* **Event Processing**: Programmatically retrieve audit events or usage metrics for internal reporting
+* **Compliance Reporting**: Generate reports on user data or usage for audit and compliance purposes
+
+Have you built an interesting project you'd like to share with the community? **[We'd love to hear about it on the PingOne Community pages!](https://support.pingidentity.com/s/topic/0TO1W000000ddO4WAI/pingone)**
 
 
 ## 🛠️ Prerequisites
@@ -396,3 +411,27 @@ This SDK is organized into the following packages:
   * [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/oidc)
 * **`testframework`**: Utilities for structuring tests against PingOne services.
   * [Documentation](https://pkg.go.dev/github.com/pingidentity/pingone-go-client/testframework)
+
+## Contributing
+
+### SDK Code Generation
+
+This SDK uses [OpenAPI Generator](https://openapi-generator.tech/) to automatically generate the client code in the `pingone` directory from the [PingOne OpenAPI Specifications](https://github.com/pingidentity/pingone-openapi-specifications). This ensures the SDK stays up-to-date with the latest PingOne API changes.
+
+### Feedback and Issues
+
+We welcome your feedback!  Please use this repository's issue tracker to submit feedback, bug reports, or enhancement requests. For existing issues, you can add a 👍 reaction to help our team gauge priority.
+
+### Pull Request Guidelines
+
+Due to our automated generation process, **we cannot merge pull requests that modify the generated files in the `pingone` directory.** Any manual changes would be overwritten by our pipeline.
+
+We welcome pull requests for:
+
+  * Repository management (e.g., scripts, GitHub Actions)
+  * Documentation updates
+  * Other Go project files not under the `pingone` directory.
+
+Please see our [contributing guide](CONTRIBUTING.md) for more information.
+
+**Note:** While we cannot merge pull requests that modify the `pingone` directory files, they can be a valuable way to illustrate a proposed change when you submit an issue. We will use the illustated changes in triage to port into the SDK build pipeline, however we will close the pull request without merging to the main branch.

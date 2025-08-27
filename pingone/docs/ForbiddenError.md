@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | [**uuid.UUID**](uuid.UUID.md) |  | 
 **Code** | [**ForbiddenErrorCode**](ForbiddenErrorCode.md) |  | 
 **Message** | **string** |  | 
 **Details** | Pointer to [**[]ForbiddenErrorDetail**](ForbiddenErrorDetail.md) |  | [optional] 
+**Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] 
 
 ## Methods
 
 ### NewForbiddenError
 
-`func NewForbiddenError(id uuid.UUID, code ForbiddenErrorCode, message string, ) *ForbiddenError`
+`func NewForbiddenError(code ForbiddenErrorCode, message string, ) *ForbiddenError`
 
 NewForbiddenError instantiates a new ForbiddenError object
 This constructor will assign default values to properties that have it defined,
@@ -27,26 +27,6 @@ will change when the set of required properties is changed
 NewForbiddenErrorWithDefaults instantiates a new ForbiddenError object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *ForbiddenError) GetId() uuid.UUID`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *ForbiddenError) GetIdOk() (*uuid.UUID, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *ForbiddenError) SetId(v uuid.UUID)`
-
-SetId sets Id field to given value.
-
 
 ### GetCode
 
@@ -112,6 +92,31 @@ SetDetails sets Details field to given value.
 `func (o *ForbiddenError) HasDetails() bool`
 
 HasDetails returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *ForbiddenError) GetId() uuid.UUID`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ForbiddenError) GetIdOk() (*uuid.UUID, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ForbiddenError) SetId(v uuid.UUID)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ForbiddenError) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

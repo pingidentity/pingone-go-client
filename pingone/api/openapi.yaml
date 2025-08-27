@@ -1,7 +1,7 @@
 openapi: 3.1.1
 info:
   contact:
-    email: developerexperiences@pingidentity.com
+    email: devex@pingidentity.com
     name: Ping Identity Developer Experiences
     url: https://developer.pingidentity.com
   description: PingOne is a cloud-based framework for secure identity access management.
@@ -9,8 +9,8 @@ info:
     applications with the PingOne platform.
   license:
     name: Apache 2.0
-  title: PingOne Platform User and Configuration Management API - Go SDK
-  version: 2025.08.06-development
+  title: PingOne Platform User and Configuration Management API - SDK Generator
+  version: 2025.08.18-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -29,6 +29,8 @@ security:
 - bearerAuth: []
 - oauth2: []
 tags:
+- description: Operations for managing PingOne configuration management actions
+  name: Configuration Management
 - description: Operations for managing DaVinci applications and application flows
     policies
   name: DaVinci Applications
@@ -38,6 +40,8 @@ tags:
   name: DaVinci Flows
 - description: Operations for managing DaVinci variables
   name: DaVinci Variables
+- description: Operations for retrieving PingOne directory total identity reports
+  name: Directory Total Identities
 - description: Operations for managing PingOne environments
   name: Environments
 paths:
@@ -48,7 +52,7 @@ paths:
       - explode: true
         in: query
         name: expand
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -199,7 +203,7 @@ paths:
       - explode: true
         in: query
         name: expand
-        required: true
+        required: false
         schema:
           type: string
         style: form
@@ -220,9 +224,9 @@ paths:
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: '#/components/responses/http.403.Forbidden'
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: '#/components/responses/http.404.NotFound'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1186,77 +1190,39 @@ paths:
       - DaVinci Applications
       x-permission: davinci:update:applications
       x-pingidentity-operation-action: rotate
-  /environments/{environmentID}/flows:
-    get:
-      operationId: getFlows
+  /environments/{environmentID}/snapshots:
+    post:
+      operationId: createSnapshot
       parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - explode: true
         in: query
-        name: attributes
+        name: expand
         required: false
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DaVinciFlowCollection'
-          description: Successful Operation.
-        "400":
-          $ref: '#/components/responses/http.400.BadRequest'
-        "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
-        "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
-        "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
-        "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
-        "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
-        "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
-        "502":
-          $ref: '#/components/responses/http.502.BadGateway'
-        "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
-      tags:
-      - DaVinci Flows
-      x-permission: davinci:read:dvFlows
-    post:
-      operationId: createFlow
-      parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciFlowCreateRequest'
+              $ref: '#/components/schemas/SnapshotRequest'
         required: true
       responses:
         "201":
           content:
-            application/json:
+            '*/*':
               schema:
-                $ref: '#/components/schemas/DaVinciFlowResponse'
-          description: Successfully created the resource.
+                $ref: '#/components/schemas/SnapshotView'
+          description: Created
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
           $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
-        "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
-        "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1266,71 +1232,44 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Flows
-      x-permission: davinci:create:dvFlows
-  /environments/{environmentID}/flows/{flowID}:
-    delete:
-      operationId: deleteFlowById
+      - Configuration Management
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:create:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}:
+    get:
+      operationId: getSnapshotById
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
-      responses:
-        "204":
-          description: Successfully removed. No content.
-        "400":
-          $ref: '#/components/responses/http.400.BadRequest'
-        "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
-        "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
-        "404":
-          $ref: '#/components/responses/http.404.NotFound'
-        "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
-        "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
-        "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
-        "502":
-          $ref: '#/components/responses/http.502.BadGateway'
-        "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
-      tags:
-      - DaVinci Flows
-      x-permission: davinci:delete:dvFlows
-    get:
-      operationId: getFlowById
-      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
       - explode: true
         in: query
-        name: attributes
+        name: expand
         required: false
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
       responses:
         "200":
           content:
-            application/json:
+            '*/*':
               schema:
-                $ref: '#/components/schemas/DaVinciFlowResponse'
-          description: Successful Operation.
+                $ref: '#/components/schemas/SnapshotView'
+          description: OK
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
           $ref: '#/components/responses/http.403.Forbidden.P14C63085'
-        "404":
-          $ref: '#/components/responses/http.404.NotFound'
-        "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1340,38 +1279,33 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Flows
-      x-permission: davinci:read:dvFlows
-    put:
-      operationId: replaceFlowById
+      - Configuration Management
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}/versions:
+    get:
+      operationId: getVersionsBySnapshotId
       parameters:
       - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.flows.flowID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
       - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DaVinciFlowReplaceRequest'
-        required: true
       responses:
         "200":
           content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowResponse'
-          description: Successful Operation.
+                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
+          description: OK
         "400":
           $ref: '#/components/responses/http.400.BadRequest'
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
           $ref: '#/components/responses/http.403.Forbidden.P14C63085'
-        "404":
-          $ref: '#/components/responses/http.404.NotFound'
-        "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1381,8 +1315,98 @@ paths:
         "503":
           $ref: '#/components/responses/http.503.ServiceUnavailable'
       tags:
-      - DaVinci Flows
-      x-permission: davinci:update:dvFlows
+      - Configuration Management
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}/versions/{versionID}:
+    get:
+      operationId: getVersionByIdUsingSnapshotId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.versions.versionID'
+      - explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SnapshotView'
+          description: OK
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Configuration Management
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
+  /environments/{environmentID}/totalIdentities:
+    get:
+      operationId: getTotalIdentities
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
+          description: Successful operation.
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Directory Total Identities
+      x-permission: orgmgt:read:environment
   /environments/{environmentID}/variables:
     get:
       operationId: getVariables
@@ -1682,6 +1706,24 @@ components:
       required: true
       schema:
         pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        type: string
+      style: simple
+    com.pingidentity.path.environments.snapshots.snapshotID:
+      explode: false
+      in: path
+      name: snapshotID
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    com.pingidentity.path.environments.snapshots.versions.versionID:
+      explode: false
+      in: path
+      name: versionID
+      required: true
+      schema:
+        format: uuid
         type: string
       style: simple
   responses:
@@ -2084,7 +2126,7 @@ components:
         apiKey:
           $ref: '#/components/schemas/DaVinci_Application_Response_Api_Key'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
           minLength: 1
           title: DaVinci Application Response Id
@@ -2254,7 +2296,7 @@ components:
           value: value
       properties:
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         _links:
           $ref: '#/components/schemas/DaVinci_Connector_Details_Response__links'
         accountConfigView:
@@ -2527,9 +2569,9 @@ components:
         _links:
           $ref: '#/components/schemas/DaVinci_Connector_Instance_Response__links'
         connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
           minLength: 1
           title: DaVinci Connector Instance Response Id
@@ -2604,7 +2646,7 @@ components:
           title: DaVinci Connector Minimal Response Description
           type: string
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
           minLength: 1
           title: DaVinci Connector Minimal Response Id
@@ -3696,11 +3738,19 @@ components:
             href: https://openapi-generator.tech
             title: https://openapi-generator.tech
             type: type
+          davinciApplication:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
         _embedded:
           flowPolicies:
           - createdAt: 2000-01-23T04:56:07.000+00:00
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            application:
+              id: id
             _links:
               environment:
                 profile: https://openapi-generator.tech
@@ -3715,6 +3765,12 @@ components:
                 title: https://openapi-generator.tech
                 type: type
               self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              davinciApplication:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
@@ -3763,6 +3819,8 @@ components:
           - createdAt: 2000-01-23T04:56:07.000+00:00
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            application:
+              id: id
             _links:
               environment:
                 profile: https://openapi-generator.tech
@@ -3777,6 +3835,12 @@ components:
                 title: https://openapi-generator.tech
                 type: type
               self:
+                profile: https://openapi-generator.tech
+                name: name
+                href: https://openapi-generator.tech
+                title: https://openapi-generator.tech
+                type: type
+              davinciApplication:
                 profile: https://openapi-generator.tech
                 name: name
                 href: https://openapi-generator.tech
@@ -4049,6 +4113,8 @@ components:
         createdAt: 2000-01-23T04:56:07.000+00:00
         environment:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        application:
+          id: id
         _links:
           environment:
             profile: https://openapi-generator.tech
@@ -4063,6 +4129,12 @@ components:
             title: https://openapi-generator.tech
             type: type
           self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          davinciApplication:
             profile: https://openapi-generator.tech
             name: name
             href: https://openapi-generator.tech
@@ -4112,7 +4184,7 @@ components:
         _links:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Response__links'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         flowDistributions:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution'
@@ -4127,6 +4199,8 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Status'
+        application:
+          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
         createdAt:
           format: date-time
           title: DaVinci Flow Policy Response Created At
@@ -5155,7 +5229,7 @@ components:
         dataType:
           $ref: '#/components/schemas/DaVinci_Variable_Response_Data_Type'
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
           format: uuid
           minLength: 1
@@ -5176,7 +5250,7 @@ components:
           title: DaVinci Variable Response Display Name
           type: string
         flow:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
         max:
           title: DaVinci Variable Response Max
           type: number
@@ -5199,6 +5273,46 @@ components:
       - id
       - name
       title: DaVinci Variable Response
+    DirectoryTotalIdentitiesCountCollectionResponse:
+      example:
+        size: 6
+        _embedded:
+          totalIdentities:
+          - ""
+          - ""
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 0
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__links'
+        count:
+          format: int32
+          title: Directory Total Identities Count Collection Response Count
+          type: integer
+        size:
+          format: int32
+          title: Directory Total Identities Count Collection Response Size
+          type: integer
+      title: Directory Total Identities Count Collection Response
+    DirectoryTotalIdentitiesCountResponse:
+      properties:
+        date:
+          format: date-time
+          title: Directory Total Identities Count Response Date
+          type: string
+        totalIdentities:
+          format: int32
+          title: Directory Total Identities Count Response Total Identities
+          type: integer
+      title: Directory Total Identities Count Response
     EnvironmentAPILimit:
       example:
         limit: 5
@@ -5378,7 +5492,7 @@ components:
         console:
           $ref: '#/components/schemas/EnvironmentBillOfMaterialsProductConsole'
         deployment:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         description:
           title: Environment Bill of Materials Product Description
           type: string
@@ -6870,7 +6984,7 @@ components:
           title: Environment Response Id
           type: string
         organization:
-          $ref: '#/components/schemas/ResourceRelationshipRead-Only'
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         _embedded:
           additionalProperties:
             readOnly: true
@@ -6986,11 +7100,6 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         message: message
       properties:
-        id:
-          format: uuid
-          minLength: 1
-          title: Forbidden Error Id
-          type: string
         code:
           $ref: '#/components/schemas/Forbidden_Error_Code'
         message:
@@ -7001,9 +7110,12 @@ components:
           items:
             $ref: '#/components/schemas/Forbidden_Error_Detail'
           type: array
+        id:
+          format: uuid
+          title: Forbidden Error Id
+          type: string
       required:
       - code
-      - id
       - message
       title: Forbidden Error
       x-go-generate-error: true
@@ -7182,7 +7294,7 @@ components:
       required:
       - id
       title: Resource Relationship DaVinci
-    ResourceRelationshipDaVinciRead-Only:
+    ResourceRelationshipDaVinciReadOnly:
       example:
         id: id
       properties:
@@ -7204,7 +7316,7 @@ components:
           title: Resource Relationship Generic Id
           type: string
       title: Resource Relationship Generic
-    ResourceRelationshipRead-Only:
+    ResourceRelationshipReadOnly:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
@@ -7217,6 +7329,156 @@ components:
       required:
       - id
       title: Resource Relationship Read-Only
+    SnapshotRequest:
+      example:
+        baseResourceURL: baseResourceURL
+      properties:
+        baseResourceURL:
+          minLength: 1
+          title: Snapshot Request Base Resource URL
+          type: string
+      required:
+      - baseResourceURL
+      title: Snapshot Request
+    SnapshotResourceInformation:
+      example:
+        name: name
+        id: id
+        category: category
+      properties:
+        category:
+          title: Snapshot Resource Information Category
+          type: string
+        id:
+          title: Snapshot Resource Information Id
+          type: string
+        name:
+          title: Snapshot Resource Information Name
+          type: string
+      title: Snapshot Resource Information
+    SnapshotVersionCollectionResponse:
+      example:
+        size: 6
+        _embedded:
+          versions:
+          - ""
+          - ""
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 0
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__links'
+        count:
+          format: int32
+          title: Snapshot Version Collection Response Count
+          type: integer
+        size:
+          format: int32
+          title: Snapshot Version Collection Response Size
+          type: integer
+      title: Snapshot Version Collection Response
+    SnapshotView:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        snapshotId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        configuration: configuration
+        resource:
+          name: name
+          id: id
+          category: category
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        referencedResources:
+        - referencedResources
+        - referencedResources
+        error: error
+        versionedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        resourceUrl: resourceUrl
+        _embedded:
+          key: "{}"
+        importMetadata:
+          key: "{}"
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        status: COMPLETE
+      properties:
+        _embedded:
+          additionalProperties:
+            readOnly: true
+            title: Snapshot View _embedded Additional Properties
+            type: object
+          readOnly: true
+          title: Snapshot View _embedded
+        _links:
+          $ref: '#/components/schemas/Snapshot_View__links'
+        completedAt:
+          format: date-time
+          title: Snapshot View Completed At
+          type: string
+        configuration:
+          title: Snapshot View Configuration
+          type: string
+        createdAt:
+          format: date-time
+          title: Snapshot View Created At
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+        error:
+          title: Snapshot View Error
+          type: string
+        id:
+          format: uuid
+          readOnly: true
+          title: Snapshot View Id
+          type: string
+        importMetadata:
+          additionalProperties:
+            title: Snapshot View Import Metadata Additional Properties
+            type: object
+          title: Snapshot View Import Metadata
+        referencedResources:
+          items:
+            title: Snapshot View Referenced Resource
+            type: string
+          type: array
+          uniqueItems: true
+        resource:
+          $ref: '#/components/schemas/SnapshotResourceInformation'
+        resourceUrl:
+          title: Snapshot View Resource Url
+          type: string
+        snapshotId:
+          format: uuid
+          title: Snapshot View Snapshot Id
+          type: string
+        startedAt:
+          format: date-time
+          title: Snapshot View Started At
+          type: string
+        status:
+          $ref: '#/components/schemas/Snapshot_View_Status'
+        versionedAt:
+          format: date-time
+          title: Snapshot View Versioned At
+          type: string
+      title: Snapshot View
     TooManyRequestsError:
       example:
         code: REQUEST_LIMITED
@@ -10073,12 +10335,21 @@ components:
           href: https://openapi-generator.tech
           title: https://openapi-generator.tech
           type: type
+        davinciApplication:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
       properties:
         self:
           $ref: '#/components/schemas/JSONHALLink'
         environment:
           $ref: '#/components/schemas/JSONHALLink'
+        davinciApplication:
+          $ref: '#/components/schemas/JSONHALLink'
       required:
+      - davinciApplication
       - environment
       - self
       title: DaVinci Flow Policy Collection _links
@@ -10088,6 +10359,8 @@ components:
         - createdAt: 2000-01-23T04:56:07.000+00:00
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          application:
+            id: id
           _links:
             environment:
               profile: https://openapi-generator.tech
@@ -10102,6 +10375,12 @@ components:
               title: https://openapi-generator.tech
               type: type
             self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            davinciApplication:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
@@ -10150,6 +10429,8 @@ components:
         - createdAt: 2000-01-23T04:56:07.000+00:00
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          application:
+            id: id
           _links:
             environment:
               profile: https://openapi-generator.tech
@@ -10164,6 +10445,12 @@ components:
               title: https://openapi-generator.tech
               type: type
             self:
+              profile: https://openapi-generator.tech
+              name: name
+              href: https://openapi-generator.tech
+              title: https://openapi-generator.tech
+              type: type
+            davinciApplication:
               profile: https://openapi-generator.tech
               name: name
               href: https://openapi-generator.tech
@@ -10647,6 +10934,12 @@ components:
           href: https://openapi-generator.tech
           title: https://openapi-generator.tech
           type: type
+        davinciApplication:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
         version.<flowId>.<index>:
           profile: https://openapi-generator.tech
           name: name
@@ -10658,11 +10951,14 @@ components:
           $ref: '#/components/schemas/JSONHALLink'
         environment:
           $ref: '#/components/schemas/JSONHALLink'
+        davinciApplication:
+          $ref: '#/components/schemas/JSONHALLink'
         flow.<index>:
           $ref: '#/components/schemas/JSONHALLink'
         version.<flowId>.<index>:
           $ref: '#/components/schemas/JSONHALLink'
       required:
+      - davinciApplication
       - environment
       - self
       title: DaVinci Flow Policy Response _links
@@ -11460,6 +11756,34 @@ components:
       - title: DaVinci Variable Response Value Choice 4
         type: string
       title: DaVinci Variable Response Value
+    Directory_Total_Identities_Count_Collection_Response__embedded:
+      example:
+        totalIdentities:
+        - ""
+        - ""
+      properties:
+        totalIdentities:
+          items:
+            allOf:
+            - $ref: '#/components/schemas/DirectoryTotalIdentitiesCountResponse'
+            title: Directory Total Identities Count Collection Response _embedded
+              Total Identity
+          type: array
+      title: Directory Total Identities Count Collection Response _embedded
+    Directory_Total_Identities_Count_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Directory Total Identities Count Collection Response _links
     Environment_Bill_of_Materials_Solution_Type:
       enum:
       - CIAM_TRIAL
@@ -11687,6 +12011,56 @@ components:
       - code
       - message
       title: Not Found Error Detail
+    Snapshot_Version_Collection_Response__embedded:
+      example:
+        versions:
+        - ""
+        - ""
+      properties:
+        versions:
+          items:
+            allOf:
+            - $ref: '#/components/schemas/SnapshotView'
+            title: Snapshot Version Collection Response _embedded Version
+          type: array
+      title: Snapshot Version Collection Response _embedded
+    Snapshot_Version_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Snapshot Version Collection Response _links
+    Snapshot_View__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      readOnly: true
+      title: Snapshot View _links
+    Snapshot_View_Status:
+      enum:
+      - COMPLETE
+      - ERROR
+      - IN_PROGRESS
+      - WAITING
+      title: Snapshot View Status
+      type: string
     Too_Many_Requests_Error_Code:
       enum:
       - REQUEST_LIMITED
@@ -11860,3 +12234,5 @@ x-permissions:
 - name: orgmgt:delete:environment
 - name: orgmgt:read:environment
 - name: orgmgt:update:environment
+- name: promotion:create:snapshot
+- name: promotion:read:snapshot

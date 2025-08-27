@@ -2,6 +2,15 @@
 
 Thank you for your interest in contributing to the pingone-go-client project! This document provides guidelines and instructions for contributing to this project.
 
+## Code Generation and Contribution Scope
+
+**Important:** The files in the `pingone` directory are automatically generated using [OpenAPI Generator](https://openapi-generator.tech/) from specifications found in the [PingOne OpenAPI Specifications](https://github.com/pingidentity/pingone-openapi-specifications) repository.
+
+* ✅ **Welcome contributions:** All files outside the `pingone` directory
+* ❌ **Will not merge:** Direct changes to files in the `pingone` directory (they will be overwritten)
+
+You can still modify files in the `pingone` directory to test ideas or highlight issues, but these changes won't be merged to main. Instead, use them to demonstrate potential improvements that can be incorporated into the OpenAPI generation process.
+
 ## Development Workflow
 
 ### Setting Up Your Development Environment
