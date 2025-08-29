@@ -26,7 +26,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 // DaVinciFlowGraphDataResponse struct for DaVinciFlowGraphDataResponse
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
-	Data                 interface{}                                  `json:"data"`
+	Data                 interface{}                                  `json:"data,omitempty"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
 	MaxZoom              float32                                      `json:"maxZoom"`
 	MinZoom              float32                                      `json:"minZoom"`
@@ -36,7 +36,7 @@ type DaVinciFlowGraphDataResponse struct {
 	UserPanningEnabled   bool                                         `json:"userPanningEnabled"`
 	UserZoomingEnabled   bool                                         `json:"userZoomingEnabled"`
 	Zoom                 float32                                      `json:"zoom"`
-	ZoomingEnabled       bool                                         `json:"zoomingEnabled"`
+	ZoomingEnabled       *bool                                        `json:"zoomingEnabled,omitempty"`
 	AllLinterErrors      []DaVinciFlowGraphDataResponseAllLinterError `json:"allLinterErrors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -47,10 +47,9 @@ type _DaVinciFlowGraphDataResponse DaVinciFlowGraphDataResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, data interface{}, elements DaVinciFlowGraphDataResponseElements, maxZoom float32, minZoom float32, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, zoomingEnabled bool) *DaVinciFlowGraphDataResponse {
+func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom float32, minZoom float32, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32) *DaVinciFlowGraphDataResponse {
 	this := DaVinciFlowGraphDataResponse{}
 	this.BoxSelectionEnabled = boxSelectionEnabled
-	this.Data = data
 	this.Elements = elements
 	this.MaxZoom = maxZoom
 	this.MinZoom = minZoom
@@ -60,7 +59,6 @@ func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, data interface{},
 	this.UserPanningEnabled = userPanningEnabled
 	this.UserZoomingEnabled = userZoomingEnabled
 	this.Zoom = zoom
-	this.ZoomingEnabled = zoomingEnabled
 	return &this
 }
 
@@ -338,28 +336,36 @@ func (o *DaVinciFlowGraphDataResponse) SetZoom(v float32) {
 	o.Zoom = v
 }
 
-// GetZoomingEnabled returns the ZoomingEnabled field value
+// GetZoomingEnabled returns the ZoomingEnabled field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.ZoomingEnabled) {
 		var ret bool
 		return ret
 	}
-
-	return o.ZoomingEnabled
+	return *o.ZoomingEnabled
 }
 
-// GetZoomingEnabledOk returns a tuple with the ZoomingEnabled field value
+// GetZoomingEnabledOk returns a tuple with the ZoomingEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ZoomingEnabled) {
 		return nil, false
 	}
-	return &o.ZoomingEnabled, true
+	return o.ZoomingEnabled, true
 }
 
-// SetZoomingEnabled sets field value
+// HasZoomingEnabled returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponse) HasZoomingEnabled() bool {
+	if o != nil && !IsNil(o.ZoomingEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetZoomingEnabled gets a reference to the given bool and assigns it to the ZoomingEnabled field.
 func (o *DaVinciFlowGraphDataResponse) SetZoomingEnabled(v bool) {
-	o.ZoomingEnabled = v
+	o.ZoomingEnabled = &v
 }
 
 // GetAllLinterErrors returns the AllLinterErrors field value if set, zero value otherwise.
@@ -417,7 +423,9 @@ func (o DaVinciFlowGraphDataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["userPanningEnabled"] = o.UserPanningEnabled
 	toSerialize["userZoomingEnabled"] = o.UserZoomingEnabled
 	toSerialize["zoom"] = o.Zoom
-	toSerialize["zoomingEnabled"] = o.ZoomingEnabled
+	if !IsNil(o.ZoomingEnabled) {
+		toSerialize["zoomingEnabled"] = o.ZoomingEnabled
+	}
 	if !IsNil(o.AllLinterErrors) {
 		toSerialize["allLinterErrors"] = o.AllLinterErrors
 	}
@@ -435,7 +443,6 @@ func (o *DaVinciFlowGraphDataResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"boxSelectionEnabled",
-		"data",
 		"elements",
 		"maxZoom",
 		"minZoom",
@@ -445,7 +452,6 @@ func (o *DaVinciFlowGraphDataResponse) UnmarshalJSON(data []byte) (err error) {
 		"userPanningEnabled",
 		"userZoomingEnabled",
 		"zoom",
-		"zoomingEnabled",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -498,7 +504,9 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("boxSelectionEnabled", o.BoxSelectionEnabled))
-	logAttrs = append(logAttrs, slog.Any("data", o.Data))
+	if o.Data != nil {
+		logAttrs = append(logAttrs, slog.Any("data", o.Data))
+	}
 	logAttrs = append(logAttrs, slog.Any("elements", o.Elements))
 	logAttrs = append(logAttrs, slog.Any("maxZoom", o.MaxZoom))
 	logAttrs = append(logAttrs, slog.Any("minZoom", o.MinZoom))
@@ -508,7 +516,9 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("userPanningEnabled", o.UserPanningEnabled))
 	logAttrs = append(logAttrs, slog.Any("userZoomingEnabled", o.UserZoomingEnabled))
 	logAttrs = append(logAttrs, slog.Any("zoom", o.Zoom))
-	logAttrs = append(logAttrs, slog.Any("zoomingEnabled", o.ZoomingEnabled))
+	if !IsNil(o.ZoomingEnabled) {
+		logAttrs = append(logAttrs, slog.Any("zoomingEnabled", *o.ZoomingEnabled))
+	}
 	if !IsNil(o.AllLinterErrors) {
 		logAttrs = append(logAttrs, slog.Any("allLinterErrors", o.AllLinterErrors))
 	}
