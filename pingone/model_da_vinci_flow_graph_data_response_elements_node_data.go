@@ -34,7 +34,7 @@ type DaVinciFlowGraphDataResponseElementsNodeData struct {
 	Label                *string                                                       `json:"label,omitempty"`
 	LinterError          []DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem `json:"linterError,omitempty"`
 	Name                 *string                                                       `json:"name,omitempty"`
-	Properties           *DaVinciFlowGraphDataResponseElementsNodeData                 `json:"properties,omitempty"`
+	Properties           map[string]interface{}                                        `json:"properties,omitempty"`
 	Status               *string                                                       `json:"status,omitempty"`
 	Type                 *string                                                       `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -334,17 +334,17 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetName(v string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetProperties() DaVinciFlowGraphDataResponseElementsNodeData {
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
-		var ret DaVinciFlowGraphDataResponseElementsNodeData
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Properties
+	return o.Properties
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataResponseElementsNodeData, bool) {
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetPropertiesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
@@ -360,9 +360,9 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeData) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given DaVinciFlowGraphDataResponseElementsNodeData and assigns it to the Properties field.
-func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetProperties(v DaVinciFlowGraphDataResponseElementsNodeData) {
-	o.Properties = &v
+// SetProperties sets the Properties field value.
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetProperties(v map[string]interface{}) {
+	o.Properties = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -560,7 +560,7 @@ func (o DaVinciFlowGraphDataResponseElementsNodeData) LogValue() slog.Value {
 		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
 	}
 	if !IsNil(o.Properties) {
-		logAttrs = append(logAttrs, slog.Any("properties", *o.Properties))
+		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
 	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
