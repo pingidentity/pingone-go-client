@@ -27,8 +27,8 @@ type DaVinciFlowGraphDataRequest struct {
 	BoxSelectionEnabled  *bool                                `json:"boxSelectionEnabled,omitempty"`
 	Data                 map[string]interface{}               `json:"data,omitempty"`
 	Elements             *DaVinciFlowGraphDataRequestElements `json:"elements,omitempty"`
-	MaxZoom              *float32                             `json:"maxZoom,omitempty"`
-	MinZoom              *float32                             `json:"minZoom,omitempty"`
+	MaxZoom              *BigFloat                            `json:"maxZoom,omitempty"`
+	MinZoom              *BigFloat                            `json:"minZoom,omitempty"`
 	Pan                  *DaVinciFlowGraphDataRequestPan      `json:"pan,omitempty"`
 	PanningEnabled       *bool                                `json:"panningEnabled,omitempty"`
 	Renderer             map[string]interface{}               `json:"renderer,omitempty"`
@@ -155,9 +155,9 @@ func (o *DaVinciFlowGraphDataRequest) SetElements(v DaVinciFlowGraphDataRequestE
 }
 
 // GetMaxZoom returns the MaxZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequest) GetMaxZoom() float32 {
+func (o *DaVinciFlowGraphDataRequest) GetMaxZoom() BigFloat {
 	if o == nil || IsNil(o.MaxZoom) {
-		var ret float32
+		var ret BigFloat
 		return ret
 	}
 	return *o.MaxZoom
@@ -165,7 +165,7 @@ func (o *DaVinciFlowGraphDataRequest) GetMaxZoom() float32 {
 
 // GetMaxZoomOk returns a tuple with the MaxZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequest) GetMaxZoomOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequest) GetMaxZoomOk() (*BigFloat, bool) {
 	if o == nil || IsNil(o.MaxZoom) {
 		return nil, false
 	}
@@ -181,15 +181,15 @@ func (o *DaVinciFlowGraphDataRequest) HasMaxZoom() bool {
 	return false
 }
 
-// SetMaxZoom gets a reference to the given float32 and assigns it to the MaxZoom field.
-func (o *DaVinciFlowGraphDataRequest) SetMaxZoom(v float32) {
+// SetMaxZoom gets a reference to the given BigFloat and assigns it to the MaxZoom field.
+func (o *DaVinciFlowGraphDataRequest) SetMaxZoom(v BigFloat) {
 	o.MaxZoom = &v
 }
 
 // GetMinZoom returns the MinZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequest) GetMinZoom() float32 {
+func (o *DaVinciFlowGraphDataRequest) GetMinZoom() BigFloat {
 	if o == nil || IsNil(o.MinZoom) {
-		var ret float32
+		var ret BigFloat
 		return ret
 	}
 	return *o.MinZoom
@@ -197,7 +197,7 @@ func (o *DaVinciFlowGraphDataRequest) GetMinZoom() float32 {
 
 // GetMinZoomOk returns a tuple with the MinZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequest) GetMinZoomOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequest) GetMinZoomOk() (*BigFloat, bool) {
 	if o == nil || IsNil(o.MinZoom) {
 		return nil, false
 	}
@@ -213,8 +213,8 @@ func (o *DaVinciFlowGraphDataRequest) HasMinZoom() bool {
 	return false
 }
 
-// SetMinZoom gets a reference to the given float32 and assigns it to the MinZoom field.
-func (o *DaVinciFlowGraphDataRequest) SetMinZoom(v float32) {
+// SetMinZoom gets a reference to the given BigFloat and assigns it to the MinZoom field.
+func (o *DaVinciFlowGraphDataRequest) SetMinZoom(v BigFloat) {
 	o.MinZoom = &v
 }
 
