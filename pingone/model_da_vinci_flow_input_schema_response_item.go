@@ -26,7 +26,7 @@ var _ slog.LogValuer = &DaVinciFlowInputSchemaResponseItem{}
 // DaVinciFlowInputSchemaResponseItem struct for DaVinciFlowInputSchemaResponseItem
 type DaVinciFlowInputSchemaResponseItem struct {
 	Description          string `json:"description"`
-	IsExpanded           bool   `json:"isExpanded"`
+	IsExpanded           *bool  `json:"isExpanded,omitempty"`
 	PreferredControlType string `json:"preferredControlType"`
 	PreferredDataType    string `json:"preferredDataType"`
 	PropertyName         string `json:"propertyName"`
@@ -40,7 +40,7 @@ type _DaVinciFlowInputSchemaResponseItem DaVinciFlowInputSchemaResponseItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded bool, preferredControlType string, preferredDataType string, propertyName string, required bool) *DaVinciFlowInputSchemaResponseItem {
+func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded *bool, preferredControlType string, preferredDataType string, propertyName string, required bool) *DaVinciFlowInputSchemaResponseItem {
 	this := DaVinciFlowInputSchemaResponseItem{}
 	this.Description = description
 	this.IsExpanded = isExpanded
@@ -83,28 +83,39 @@ func (o *DaVinciFlowInputSchemaResponseItem) SetDescription(v string) {
 	o.Description = v
 }
 
-// GetIsExpanded returns the IsExpanded field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpanded() bool {
+// GetIsExpanded returns the IsExpanded field value if set, nil otherwise
+func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpanded() *bool {
 	if o == nil {
-		var ret bool
-		return ret
+		return nil
 	}
 
 	return o.IsExpanded
 }
 
-// GetIsExpandedOk returns a tuple with the IsExpanded field value
+// GetIsExpandedOk returns a tuple with the IsExpanded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpandedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.IsExpanded == nil {
 		return nil, false
 	}
-	return &o.IsExpanded, true
+	return o.IsExpanded, true
+}
+
+// HasIsExpanded returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) HasIsExpanded() bool {
+	if o != nil && o.IsExpanded != nil {
+		return true
+	}
+
+	return false
 }
 
 // SetIsExpanded sets field value
 func (o *DaVinciFlowInputSchemaResponseItem) SetIsExpanded(v bool) {
-	o.IsExpanded = v
+	if o == nil {
+		return
+	}
+	o.IsExpanded = &v
 }
 
 // GetPreferredControlType returns the PreferredControlType field value
@@ -214,7 +225,9 @@ func (o DaVinciFlowInputSchemaResponseItem) MarshalJSON() ([]byte, error) {
 func (o DaVinciFlowInputSchemaResponseItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["description"] = o.Description
-	toSerialize["isExpanded"] = o.IsExpanded
+	if o.IsExpanded != nil {
+		toSerialize["isExpanded"] = o.IsExpanded
+	}
 	toSerialize["preferredControlType"] = o.PreferredControlType
 	toSerialize["preferredDataType"] = o.PreferredDataType
 	toSerialize["propertyName"] = o.PropertyName
@@ -233,7 +246,6 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"description",
-		"isExpanded",
 		"preferredControlType",
 		"preferredDataType",
 		"propertyName",
@@ -283,7 +295,9 @@ func (o DaVinciFlowInputSchemaResponseItem) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("description", o.Description))
-	logAttrs = append(logAttrs, slog.Any("isExpanded", o.IsExpanded))
+	if o.IsExpanded != nil {
+		logAttrs = append(logAttrs, slog.Any("isExpanded", o.IsExpanded))
+	}
 	logAttrs = append(logAttrs, slog.Any("preferredControlType", o.PreferredControlType))
 	logAttrs = append(logAttrs, slog.Any("preferredDataType", o.PreferredDataType))
 	logAttrs = append(logAttrs, slog.Any("propertyName", o.PropertyName))

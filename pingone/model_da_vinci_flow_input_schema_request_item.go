@@ -28,6 +28,7 @@ type DaVinciFlowInputSchemaRequestItem struct {
 	PropertyName         string                                                 `json:"propertyName"`
 	PreferredDataType    DaVinciFlowInputSchemaRequestItemPreferredDataType     `json:"preferredDataType"`
 	Description          *string                                                `json:"description,omitempty"`
+	IsExpanded           *bool                                                  `json:"isExpanded,omitempty"`
 	PreferredControlType *DaVinciFlowInputSchemaRequestItemPreferredControlType `json:"preferredControlType,omitempty"`
 	Required             *bool                                                  `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -134,6 +135,38 @@ func (o *DaVinciFlowInputSchemaRequestItem) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetIsExpanded returns the IsExpanded field value if set, zero value otherwise.
+func (o *DaVinciFlowInputSchemaRequestItem) GetIsExpanded() bool {
+	if o == nil || IsNil(o.IsExpanded) {
+		var ret bool
+		return ret
+	}
+	return *o.IsExpanded
+}
+
+// GetIsExpandedOk returns a tuple with the IsExpanded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowInputSchemaRequestItem) GetIsExpandedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsExpanded) {
+		return nil, false
+	}
+	return o.IsExpanded, true
+}
+
+// HasIsExpanded returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaRequestItem) HasIsExpanded() bool {
+	if o != nil && !IsNil(o.IsExpanded) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsExpanded gets a reference to the given bool and assigns it to the IsExpanded field.
+func (o *DaVinciFlowInputSchemaRequestItem) SetIsExpanded(v bool) {
+	o.IsExpanded = &v
+}
+
 // GetPreferredControlType returns the PreferredControlType field value if set, zero value otherwise.
 func (o *DaVinciFlowInputSchemaRequestItem) GetPreferredControlType() DaVinciFlowInputSchemaRequestItemPreferredControlType {
 	if o == nil || IsNil(o.PreferredControlType) {
@@ -213,6 +246,9 @@ func (o DaVinciFlowInputSchemaRequestItem) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.IsExpanded) {
+		toSerialize["isExpanded"] = o.IsExpanded
+	}
 	if !IsNil(o.PreferredControlType) {
 		toSerialize["preferredControlType"] = o.PreferredControlType
 	}
@@ -266,6 +302,7 @@ func (o *DaVinciFlowInputSchemaRequestItem) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "propertyName")
 		delete(additionalProperties, "preferredDataType")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "isExpanded")
 		delete(additionalProperties, "preferredControlType")
 		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
@@ -281,6 +318,9 @@ func (o DaVinciFlowInputSchemaRequestItem) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("preferredDataType", o.PreferredDataType))
 	if !IsNil(o.Description) {
 		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
+	if !IsNil(o.IsExpanded) {
+		logAttrs = append(logAttrs, slog.Any("isExpanded", *o.IsExpanded))
 	}
 	if !IsNil(o.PreferredControlType) {
 		logAttrs = append(logAttrs, slog.Any("preferredControlType", *o.PreferredControlType))
