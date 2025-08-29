@@ -25,12 +25,12 @@ var _ slog.LogValuer = &DaVinciFlowInputSchemaResponseItem{}
 
 // DaVinciFlowInputSchemaResponseItem struct for DaVinciFlowInputSchemaResponseItem
 type DaVinciFlowInputSchemaResponseItem struct {
-	Description          string        `json:"description"`
-	IsExpanded           bool          `json:"isExpanded"`
-	PreferredControlType string        `json:"preferredControlType"`
-	PreferredDataType    []interface{} `json:"preferredDataType"`
-	PropertyName         string        `json:"propertyName"`
-	Required             bool          `json:"required"`
+	Description          string `json:"description"`
+	IsExpanded           bool   `json:"isExpanded"`
+	PreferredControlType string `json:"preferredControlType"`
+	PreferredDataType    string `json:"preferredDataType"`
+	PropertyName         string `json:"propertyName"`
+	Required             bool   `json:"required"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,7 +40,7 @@ type _DaVinciFlowInputSchemaResponseItem DaVinciFlowInputSchemaResponseItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded bool, preferredControlType string, preferredDataType []interface{}, propertyName string, required bool) *DaVinciFlowInputSchemaResponseItem {
+func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded bool, preferredControlType string, preferredDataType string, propertyName string, required bool) *DaVinciFlowInputSchemaResponseItem {
 	this := DaVinciFlowInputSchemaResponseItem{}
 	this.Description = description
 	this.IsExpanded = isExpanded
@@ -132,9 +132,9 @@ func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredControlType(v string) {
 }
 
 // GetPreferredDataType returns the PreferredDataType field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() []interface{} {
+func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() string {
 	if o == nil {
-		var ret []interface{}
+		var ret string
 		return ret
 	}
 
@@ -143,15 +143,15 @@ func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() []interface{
 
 // GetPreferredDataTypeOk returns a tuple with the PreferredDataType field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataTypeOk() ([]interface{}, bool) {
+func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.PreferredDataType, true
+	return &o.PreferredDataType, true
 }
 
 // SetPreferredDataType sets field value
-func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredDataType(v []interface{}) {
+func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredDataType(v string) {
 	o.PreferredDataType = v
 }
 
