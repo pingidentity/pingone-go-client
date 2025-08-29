@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowResponseOutputSchema{}
 
 // DaVinciFlowResponseOutputSchema struct for DaVinciFlowResponseOutputSchema
 type DaVinciFlowResponseOutputSchema struct {
-	Output               DaVinciFlowResponseOutputSchemaOutput `json:"output"`
+	Output               map[string]interface{} `json:"output"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,7 +35,7 @@ type _DaVinciFlowResponseOutputSchema DaVinciFlowResponseOutputSchema
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowResponseOutputSchema(output DaVinciFlowResponseOutputSchemaOutput) *DaVinciFlowResponseOutputSchema {
+func NewDaVinciFlowResponseOutputSchema(output map[string]interface{}) *DaVinciFlowResponseOutputSchema {
 	this := DaVinciFlowResponseOutputSchema{}
 	this.Output = output
 	return &this
@@ -50,9 +50,9 @@ func NewDaVinciFlowResponseOutputSchemaWithDefaults() *DaVinciFlowResponseOutput
 }
 
 // GetOutput returns the Output field value
-func (o *DaVinciFlowResponseOutputSchema) GetOutput() DaVinciFlowResponseOutputSchemaOutput {
+func (o *DaVinciFlowResponseOutputSchema) GetOutput() map[string]interface{} {
 	if o == nil {
-		var ret DaVinciFlowResponseOutputSchemaOutput
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -61,15 +61,15 @@ func (o *DaVinciFlowResponseOutputSchema) GetOutput() DaVinciFlowResponseOutputS
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseOutputSchema) GetOutputOk() (*DaVinciFlowResponseOutputSchemaOutput, bool) {
-	if o == nil {
+func (o *DaVinciFlowResponseOutputSchema) GetOutputOk() (map[string]interface{}, bool) {
+	if o == nil || o.Output == nil {
 		return nil, false
 	}
-	return &o.Output, true
+	return o.Output, true
 }
 
 // SetOutput sets field value
-func (o *DaVinciFlowResponseOutputSchema) SetOutput(v DaVinciFlowResponseOutputSchemaOutput) {
+func (o *DaVinciFlowResponseOutputSchema) SetOutput(v map[string]interface{}) {
 	o.Output = v
 }
 
