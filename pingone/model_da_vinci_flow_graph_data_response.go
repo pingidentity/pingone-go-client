@@ -26,7 +26,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 // DaVinciFlowGraphDataResponse struct for DaVinciFlowGraphDataResponse
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
-	Data                 interface{}                                  `json:"data,omitempty"`
+	Data                 map[string]interface{}                       `json:"data,omitempty"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
 	MaxZoom              float32                                      `json:"maxZoom"`
 	MinZoom              float32                                      `json:"minZoom"`
@@ -96,9 +96,9 @@ func (o *DaVinciFlowGraphDataResponse) SetBoxSelectionEnabled(v bool) {
 
 // GetData returns the Data field value
 // If the value is explicit nil, the zero value for interface{} will be returned
-func (o *DaVinciFlowGraphDataResponse) GetData() interface{} {
+func (o *DaVinciFlowGraphDataResponse) GetData() map[string]interface{} {
 	if o == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -108,7 +108,7 @@ func (o *DaVinciFlowGraphDataResponse) GetData() interface{} {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DaVinciFlowGraphDataResponse) GetDataOk() (*interface{}, bool) {
+func (o *DaVinciFlowGraphDataResponse) GetDataOk() (*map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *DaVinciFlowGraphDataResponse) GetDataOk() (*interface{}, bool) {
 }
 
 // SetData sets field value
-func (o *DaVinciFlowGraphDataResponse) SetData(v interface{}) {
+func (o *DaVinciFlowGraphDataResponse) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
