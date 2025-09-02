@@ -25,12 +25,12 @@ var _ slog.LogValuer = &DaVinciFlowInputSchemaResponseItem{}
 
 // DaVinciFlowInputSchemaResponseItem struct for DaVinciFlowInputSchemaResponseItem
 type DaVinciFlowInputSchemaResponseItem struct {
-	Description          string `json:"description"`
-	IsExpanded           *bool  `json:"isExpanded,omitempty"`
-	PreferredControlType string `json:"preferredControlType"`
-	PreferredDataType    string `json:"preferredDataType"`
-	PropertyName         string `json:"propertyName"`
-	Required             *bool  `json:"required,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	IsExpanded           *bool   `json:"isExpanded,omitempty"`
+	PreferredControlType string  `json:"preferredControlType"`
+	PreferredDataType    string  `json:"preferredDataType"`
+	PropertyName         string  `json:"propertyName"`
+	Required             *bool   `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,14 +40,11 @@ type _DaVinciFlowInputSchemaResponseItem DaVinciFlowInputSchemaResponseItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded *bool, preferredControlType string, preferredDataType string, propertyName string, required *bool) *DaVinciFlowInputSchemaResponseItem {
+func NewDaVinciFlowInputSchemaResponseItem(preferredControlType string, preferredDataType string, propertyName string) *DaVinciFlowInputSchemaResponseItem {
 	this := DaVinciFlowInputSchemaResponseItem{}
-	this.Description = description
-	this.IsExpanded = isExpanded
 	this.PreferredControlType = preferredControlType
 	this.PreferredDataType = preferredDataType
 	this.PropertyName = propertyName
-	this.Required = required
 	return &this
 }
 
@@ -59,28 +56,39 @@ func NewDaVinciFlowInputSchemaResponseItemWithDefaults() *DaVinciFlowInputSchema
 	return &this
 }
 
-// GetDescription returns the Description field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetDescription() string {
+// GetDescription returns the Description field value if set, nil otherwise
+func (o *DaVinciFlowInputSchemaResponseItem) GetDescription() *string {
 	if o == nil {
-		var ret string
-		return ret
+		return nil
 	}
 
 	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowInputSchemaResponseItem) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
 }
 
 // SetDescription sets field value
 func (o *DaVinciFlowInputSchemaResponseItem) SetDescription(v string) {
-	o.Description = v
+	if o == nil {
+		return
+	}
+	o.Description = &v
 }
 
 // GetIsExpanded returns the IsExpanded field value if set, nil otherwise
@@ -235,7 +243,9 @@ func (o DaVinciFlowInputSchemaResponseItem) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowInputSchemaResponseItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["description"] = o.Description
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
 	if o.IsExpanded != nil {
 		toSerialize["isExpanded"] = o.IsExpanded
 	}
@@ -258,7 +268,6 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"description",
 		"preferredControlType",
 		"preferredDataType",
 		"propertyName",
@@ -306,7 +315,9 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 func (o DaVinciFlowInputSchemaResponseItem) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("description", o.Description))
+	if o.Description != nil {
+		logAttrs = append(logAttrs, slog.Any("description", o.Description))
+	}
 	if o.IsExpanded != nil {
 		logAttrs = append(logAttrs, slog.Any("isExpanded", o.IsExpanded))
 	}
