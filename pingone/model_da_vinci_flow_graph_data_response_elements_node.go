@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElementsNode{}
 
 // DaVinciFlowGraphDataResponseElementsNode struct for DaVinciFlowGraphDataResponseElementsNode
 type DaVinciFlowGraphDataResponseElementsNode struct {
-	Classes              string                                           `json:"classes"`
+	Classes              *string                                          `json:"classes,omitempty"`
 	Data                 DaVinciFlowGraphDataResponseElementsNodeData     `json:"data"`
 	Grabbable            bool                                             `json:"grabbable"`
 	Group                string                                           `json:"group"`
@@ -44,9 +44,8 @@ type _DaVinciFlowGraphDataResponseElementsNode DaVinciFlowGraphDataResponseEleme
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponseElementsNode(classes string, data DaVinciFlowGraphDataResponseElementsNodeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsNodePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsNode {
+func NewDaVinciFlowGraphDataResponseElementsNode(data DaVinciFlowGraphDataResponseElementsNodeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsNodePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsNode {
 	this := DaVinciFlowGraphDataResponseElementsNode{}
-	this.Classes = classes
 	this.Data = data
 	this.Grabbable = grabbable
 	this.Group = group
@@ -67,28 +66,36 @@ func NewDaVinciFlowGraphDataResponseElementsNodeWithDefaults() *DaVinciFlowGraph
 	return &this
 }
 
-// GetClasses returns the Classes field value
+// GetClasses returns the Classes field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponseElementsNode) GetClasses() string {
-	if o == nil {
+	if o == nil || o.Classes == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Classes
+	return *o.Classes
 }
 
-// GetClassesOk returns a tuple with the Classes field value
+// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataResponseElementsNode) GetClassesOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Classes == nil {
 		return nil, false
 	}
-	return &o.Classes, true
+	return o.Classes, true
 }
 
-// SetClasses sets field value
+// HasClasses returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElementsNode) HasClasses() bool {
+	if o != nil && o.Classes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClasses gets a reference to the given string and assigns it to the Classes field.
 func (o *DaVinciFlowGraphDataResponseElementsNode) SetClasses(v string) {
-	o.Classes = v
+	o.Classes = &v
 }
 
 // GetData returns the Data field value
@@ -317,7 +324,9 @@ func (o DaVinciFlowGraphDataResponseElementsNode) MarshalJSON() ([]byte, error) 
 
 func (o DaVinciFlowGraphDataResponseElementsNode) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["classes"] = o.Classes
+	if o.Classes != nil {
+		toSerialize["classes"] = o.Classes
+	}
 	toSerialize["data"] = o.Data
 	toSerialize["grabbable"] = o.Grabbable
 	toSerialize["group"] = o.Group
@@ -340,7 +349,6 @@ func (o *DaVinciFlowGraphDataResponseElementsNode) UnmarshalJSON(data []byte) (e
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"classes",
 		"data",
 		"grabbable",
 		"group",
@@ -379,7 +387,10 @@ func (o *DaVinciFlowGraphDataResponseElementsNode) UnmarshalJSON(data []byte) (e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "classes")
+		// Only delete classes from additionalProperties if it was provided in the JSON
+		if _, exists := allProperties["classes"]; exists {
+			delete(additionalProperties, "classes")
+		}
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "grabbable")
 		delete(additionalProperties, "group")
@@ -398,7 +409,9 @@ func (o *DaVinciFlowGraphDataResponseElementsNode) UnmarshalJSON(data []byte) (e
 func (o DaVinciFlowGraphDataResponseElementsNode) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("classes", o.Classes))
+	if o.Classes != nil {
+		logAttrs = append(logAttrs, slog.Any("classes", o.Classes))
+	}
 	logAttrs = append(logAttrs, slog.Any("data", o.Data))
 	logAttrs = append(logAttrs, slog.Any("grabbable", o.Grabbable))
 	logAttrs = append(logAttrs, slog.Any("group", o.Group))

@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElementsEdge{}
 
 // DaVinciFlowGraphDataResponseElementsEdge struct for DaVinciFlowGraphDataResponseElementsEdge
 type DaVinciFlowGraphDataResponseElementsEdge struct {
-	Classes              string                                           `json:"classes"`
+	Classes              *string                                          `json:"classes,omitempty"`
 	Data                 DaVinciFlowGraphDataResponseElementsEdgeData     `json:"data"`
 	Grabbable            bool                                             `json:"grabbable"`
 	Group                string                                           `json:"group"`
@@ -44,9 +44,8 @@ type _DaVinciFlowGraphDataResponseElementsEdge DaVinciFlowGraphDataResponseEleme
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponseElementsEdge(classes string, data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsEdge {
+func NewDaVinciFlowGraphDataResponseElementsEdge(data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsEdge {
 	this := DaVinciFlowGraphDataResponseElementsEdge{}
-	this.Classes = classes
 	this.Data = data
 	this.Grabbable = grabbable
 	this.Group = group
@@ -67,28 +66,36 @@ func NewDaVinciFlowGraphDataResponseElementsEdgeWithDefaults() *DaVinciFlowGraph
 	return &this
 }
 
-// GetClasses returns the Classes field value
+// GetClasses returns the Classes field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClasses() string {
-	if o == nil {
+	if o == nil || o.Classes == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Classes
+	return *o.Classes
 }
 
-// GetClassesOk returns a tuple with the Classes field value
+// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClassesOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Classes == nil {
 		return nil, false
 	}
-	return &o.Classes, true
+	return o.Classes, true
 }
 
-// SetClasses sets field value
+// HasClasses returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElementsEdge) HasClasses() bool {
+	if o != nil && o.Classes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClasses gets a reference to the given string and assigns it to the Classes field.
 func (o *DaVinciFlowGraphDataResponseElementsEdge) SetClasses(v string) {
-	o.Classes = v
+	o.Classes = &v
 }
 
 // GetData returns the Data field value
@@ -317,7 +324,9 @@ func (o DaVinciFlowGraphDataResponseElementsEdge) MarshalJSON() ([]byte, error) 
 
 func (o DaVinciFlowGraphDataResponseElementsEdge) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["classes"] = o.Classes
+	if o.Classes != nil {
+		toSerialize["classes"] = o.Classes
+	}
 	toSerialize["data"] = o.Data
 	toSerialize["grabbable"] = o.Grabbable
 	toSerialize["group"] = o.Group
@@ -340,7 +349,6 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"classes",
 		"data",
 		"grabbable",
 		"group",
@@ -398,7 +406,9 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 func (o DaVinciFlowGraphDataResponseElementsEdge) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("classes", o.Classes))
+	if o.Classes != nil {
+		logAttrs = append(logAttrs, slog.Any("classes", o.Classes))
+	}
 	logAttrs = append(logAttrs, slog.Any("data", o.Data))
 	logAttrs = append(logAttrs, slog.Any("grabbable", o.Grabbable))
 	logAttrs = append(logAttrs, slog.Any("group", o.Group))
