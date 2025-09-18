@@ -25,7 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowReplaceRequestTrigger{}
 
 // DaVinciFlowReplaceRequestTrigger struct for DaVinciFlowReplaceRequestTrigger
 type DaVinciFlowReplaceRequestTrigger struct {
-	Type                 DaVinciFlowReplaceRequestTriggerType `json:"type"`
+	Configuration        *DaVinciFlowReplaceRequestTriggerConfiguration `json:"configuration,omitempty"`
+	Type                 DaVinciFlowReplaceRequestTriggerType           `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -73,6 +74,38 @@ func (o *DaVinciFlowReplaceRequestTrigger) SetType(v DaVinciFlowReplaceRequestTr
 	o.Type = v
 }
 
+// GetConfiguration returns the Configuration field value if set, zero value otherwise.
+func (o *DaVinciFlowReplaceRequestTrigger) GetConfiguration() DaVinciFlowReplaceRequestTriggerConfiguration {
+	if o == nil || IsNil(o.Configuration) {
+		var ret DaVinciFlowReplaceRequestTriggerConfiguration
+		return ret
+	}
+	return *o.Configuration
+}
+
+// GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowReplaceRequestTrigger) GetConfigurationOk() (*DaVinciFlowReplaceRequestTriggerConfiguration, bool) {
+	if o == nil || IsNil(o.Configuration) {
+		return nil, false
+	}
+	return o.Configuration, true
+}
+
+// HasConfiguration returns a boolean if a field has been set.
+func (o *DaVinciFlowReplaceRequestTrigger) HasConfiguration() bool {
+	if o != nil && !IsNil(o.Configuration) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfiguration gets a reference to the given DaVinciFlowReplaceRequestTriggerConfiguration and assigns it to the Configuration field.
+func (o *DaVinciFlowReplaceRequestTrigger) SetConfiguration(v DaVinciFlowReplaceRequestTriggerConfiguration) {
+	o.Configuration = &v
+}
+
 func (o DaVinciFlowReplaceRequestTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -83,6 +116,9 @@ func (o DaVinciFlowReplaceRequestTrigger) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowReplaceRequestTrigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Configuration) {
+		toSerialize["configuration"] = o.Configuration
+	}
 	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
@@ -127,6 +163,7 @@ func (o *DaVinciFlowReplaceRequestTrigger) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "configuration")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -137,6 +174,9 @@ func (o *DaVinciFlowReplaceRequestTrigger) UnmarshalJSON(data []byte) (err error
 func (o DaVinciFlowReplaceRequestTrigger) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
+	if !IsNil(o.Configuration) {
+		logAttrs = append(logAttrs, slog.Any("configuration", *o.Configuration))
+	}
 	logAttrs = append(logAttrs, slog.Any("type", o.Type))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
