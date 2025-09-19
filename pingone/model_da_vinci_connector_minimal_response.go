@@ -28,12 +28,12 @@ var _ slog.LogValuer = &DaVinciConnectorMinimalResponse{}
 type DaVinciConnectorMinimalResponse struct {
 	Links                DaVinciConnectorMinimalResponseLinks    `json:"_links"`
 	CreatedAt            time.Time                               `json:"createdAt"`
-	Description          string                                  `json:"description"`
+	Description          *string                                 `json:"description,omitempty"`
 	Environment          ResourceRelationshipReadOnly            `json:"environment"`
 	Id                   string                                  `json:"id"`
 	Metadata             DaVinciConnectorMinimalResponseMetadata `json:"metadata"`
 	Name                 string                                  `json:"name"`
-	UpdatedAt            time.Time                               `json:"updatedAt"`
+	UpdatedAt            *time.Time                              `json:"updatedAt,omitempty"`
 	Version              string                                  `json:"version"`
 	AdditionalProperties map[string]interface{}
 }
@@ -48,12 +48,12 @@ func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLin
 	this := DaVinciConnectorMinimalResponse{}
 	this.Links = links
 	this.CreatedAt = createdAt
-	this.Description = description
+	this.Description = &description
 	this.Environment = environment
 	this.Id = id
 	this.Metadata = metadata
 	this.Name = name
-	this.UpdatedAt = updatedAt
+	this.UpdatedAt = &updatedAt
 	this.Version = version
 	return &this
 }
@@ -114,28 +114,36 @@ func (o *DaVinciConnectorMinimalResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *DaVinciConnectorMinimalResponse) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *DaVinciConnectorMinimalResponse) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *DaVinciConnectorMinimalResponse) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
 // GetEnvironment returns the Environment field value
@@ -234,28 +242,36 @@ func (o *DaVinciConnectorMinimalResponse) SetName(v string) {
 	o.Name = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *DaVinciConnectorMinimalResponse) GetUpdatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.UpdatedAt
+	return *o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.UpdatedAt, true
 }
 
-// SetUpdatedAt sets field value
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *DaVinciConnectorMinimalResponse) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
 func (o *DaVinciConnectorMinimalResponse) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+	o.UpdatedAt = &v
 }
 
 // GetVersion returns the Version field value
@@ -294,12 +310,16 @@ func (o DaVinciConnectorMinimalResponse) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
 	toSerialize["createdAt"] = o.CreatedAt
-	toSerialize["description"] = o.Description
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["environment"] = o.Environment
 	toSerialize["id"] = o.Id
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["name"] = o.Name
-	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
 	toSerialize["version"] = o.Version
 
 	for key, value := range o.AdditionalProperties {
@@ -316,12 +336,10 @@ func (o *DaVinciConnectorMinimalResponse) UnmarshalJSON(data []byte) (err error)
 	requiredProperties := []string{
 		"_links",
 		"createdAt",
-		"description",
 		"environment",
 		"id",
 		"metadata",
 		"name",
-		"updatedAt",
 		"version",
 	}
 
@@ -372,12 +390,16 @@ func (o DaVinciConnectorMinimalResponse) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
 	logAttrs = append(logAttrs, slog.Any("createdAt", o.CreatedAt))
-	logAttrs = append(logAttrs, slog.Any("description", o.Description))
+	if !IsNil(o.Description) {
+		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
 	logAttrs = append(logAttrs, slog.Any("environment", o.Environment))
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("metadata", o.Metadata))
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	logAttrs = append(logAttrs, slog.Any("updatedAt", o.UpdatedAt))
+	if !IsNil(o.UpdatedAt) {
+		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
+	}
 	logAttrs = append(logAttrs, slog.Any("version", o.Version))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
