@@ -10,16 +10,22 @@ import (
 )
 
 const (
-	OIDCDiscoveryURLPath = "/as/.well-known/openid-configuration"
-	SignoffURLPath       = "/as/signoff"
-	UserInfoURLPath      = "/as/userinfo"
+	AuthorizationURLPath       = "/as/authorize"
+	DeviceAuthorizationURLPath = "/as/device_authorization"
+	OIDCDiscoveryURLPath       = "/as/.well-known/openid-configuration"
+	SignoffURLPath             = "/as/signoff"
+	TokenURLPath               = "/as/token"
+	UserInfoURLPath            = "/as/userinfo"
 )
 
 type OIDCEndpoint struct {
 	endpoints.ExtendedEndpoint
-	OIDCDiscoveryURLPath string
-	SignoffURLPath       string
-	UserInfoURLPath      string
+	AuthorizationURLPath       string
+	DeviceAuthorizationURLPath string
+	OIDCDiscoveryURLPath       string
+	SignoffURLPath             string
+	TokenURLPath               string
+	UserInfoURLPath            string
 }
 
 // PingOneOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.
@@ -31,10 +37,13 @@ func PingOneOIDCEndpoint(host string) OIDCEndpoint {
 		Host:   host,
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     endpoints.PingOneExtendedEndpoint(host),
-		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
-		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
-		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
+		AuthorizationURLPath:       u.JoinPath(AuthorizationURLPath).String(),
+		DeviceAuthorizationURLPath: u.JoinPath(DeviceAuthorizationURLPath).String(),
+		ExtendedEndpoint:           endpoints.PingOneExtendedEndpoint(host),
+		OIDCDiscoveryURLPath:       u.JoinPath(OIDCDiscoveryURLPath).String(),
+		SignoffURLPath:             u.JoinPath(SignoffURLPath).String(),
+		TokenURLPath:               u.JoinPath(TokenURLPath).String(),
+		UserInfoURLPath:            u.JoinPath(UserInfoURLPath).String(),
 	}
 }
 
@@ -56,9 +65,12 @@ func PingOneEnvironmentOIDCEndpoint(rootDomain, environmentID string) OIDCEndpoi
 		panic("endpoints: invalid environment ID")
 	}
 	return OIDCEndpoint{
-		ExtendedEndpoint:     endpoints.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
-		OIDCDiscoveryURLPath: u.JoinPath(OIDCDiscoveryURLPath).String(),
-		SignoffURLPath:       u.JoinPath(SignoffURLPath).String(),
-		UserInfoURLPath:      u.JoinPath(UserInfoURLPath).String(),
+		AuthorizationURLPath:       u.JoinPath(AuthorizationURLPath).String(),
+		DeviceAuthorizationURLPath: u.JoinPath(DeviceAuthorizationURLPath).String(),
+		ExtendedEndpoint:           endpoints.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
+		OIDCDiscoveryURLPath:       u.JoinPath(OIDCDiscoveryURLPath).String(),
+		SignoffURLPath:             u.JoinPath(SignoffURLPath).String(),
+		TokenURLPath:               u.JoinPath(TokenURLPath).String(),
+		UserInfoURLPath:            u.JoinPath(UserInfoURLPath).String(),
 	}
 }

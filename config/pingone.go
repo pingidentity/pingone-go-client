@@ -12,22 +12,42 @@ import (
 	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/clientcredentials"
 )
 
+type AuthCode struct {
+	AuthCodeClientID      *string   `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
+	AuthCodeEnvironmentID *string   `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
+	AuthCodePort          *string   `envconfig:"PINGONE_AUTH_CODE_PORT" json:"authCodePort,omitempty"`
+	AuthCodeScopes        *[]string `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
+}
+
+type ClientCredentials struct {
+	ClientCredentialsClientID      *string `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_ID" json:"clientCredentialsClientId,omitempty"`
+	ClientCredentialsClientSecret  *string `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET" json:"clientCredentialsClientSecret,omitempty"`
+	ClientCredentialsEnvironmentID *string `envconfig:"PINGONE_CLIENT_CREDENTIALS_ENVIRONMENT_ID" json:"clientCredentialsEnvironmentId,omitempty"`
+}
+
+type DeviceCode struct {
+	DeviceCodeClientID      *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
+	DeviceCodeEnvironmentID *string   `envconfig:"PINGONE_DEVICE_CODE_ENVIRONMENT_ID" json:"deviceCodeEnvironmentId,omitempty"`
+	DeviceCodeScopes        *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
+}
 type Configuration struct {
 	Auth struct {
-		ClientID     *string              `envconfig:"PINGONE_CLIENT_ID" json:"clientId,omitempty"`
-		ClientSecret *string              `envconfig:"PINGONE_CLIENT_SECRET" json:"clientSecret,omitempty"`
-		AccessToken  *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
-		GrantType    *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
+		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
+		AccessTokenExpiry *int                 `envconfig:"PINGONE_API_ACCESS_TOKEN_EXPIRY" json:"accessTokenExpiry,omitempty"`
+		AuthEnvironmentID *string              `envconfig:"PINGONE_AUTH_ENVIRONMENT_ID" json:"authEnvironmentId,omitempty"`
+		AuthCode          *AuthCode            `envconfig:"PINGONE_AUTH_CODE" json:"authCode,omitempty"`
+		ClientCredentials *ClientCredentials   `envconfig:"PINGONE_CLIENT_CREDENTIALS" json:"clientCredentials,omitempty"`
+		DeviceCode        *DeviceCode          `envconfig:"PINGONE_DEVICE_CODE" json:"deviceCode,omitempty"`
+		GrantType         *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
 	} `json:"auth"`
 	Endpoint struct {
-		AuthEnvironmentID *string `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
-		TopLevelDomain    *string `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
-		RootDomain        *string `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
-		APIDomain         *string `envconfig:"PINGONE_API_DOMAIN" json:"apiDomain,omitempty"`
-		CustomDomain      *string `envconfig:"PINGONE_CUSTOM_DOMAIN" json:"customDomain,omitempty"`
+		EnvironmentID  *string `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
+		TopLevelDomain *string `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
+		RootDomain     *string `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
+		APIDomain      *string `envconfig:"PINGONE_API_DOMAIN" json:"apiDomain,omitempty"`
+		CustomDomain   *string `envconfig:"PINGONE_CUSTOM_DOMAIN" json:"customDomain,omitempty"`
 	} `json:"endpoint"`
 }
 
@@ -43,13 +63,31 @@ func NewConfiguration() *Configuration {
 	return cfg
 }
 
-func (c *Configuration) WithAuthEnvironmentID(environmentID string) *Configuration {
-	c.Endpoint.AuthEnvironmentID = &environmentID
+func (c *Configuration) GetConfiguration() *Configuration {
+	return c
+}
+
+func (c *Configuration) GetAccessToken() string {
+	if c.Auth.AccessToken != nil {
+		return *c.Auth.AccessToken
+	}
+	return ""
+}
+
+func (c *Configuration) GetAccessTokenExpiry() int {
+	if c.Auth.AccessTokenExpiry != nil {
+		return *c.Auth.AccessTokenExpiry
+	}
+	return 0
+}
+
+func (c *Configuration) WithEnvironmentID(environmentID string) *Configuration {
+	c.Endpoint.EnvironmentID = &environmentID
 	return c
 }
 
 func (c *Configuration) WithClientID(clientID string) *Configuration {
-	c.Auth.ClientID = &clientID
+	c.Auth.ClientCredentials.ClientCredentialsClientID = &clientID
 	return c
 }
 
@@ -59,7 +97,7 @@ func (c *Configuration) WithGrantType(grantType svcOAuth2.GrantType) *Configurat
 }
 
 func (c *Configuration) WithClientSecret(clientSecret string) *Configuration {
-	c.Auth.ClientSecret = &clientSecret
+	c.Auth.ClientCredentials.ClientCredentialsClientSecret = &clientSecret
 	return c
 }
 
@@ -132,28 +170,18 @@ func (c *Configuration) TokenSource(ctx context.Context) (*oauth2.TokenSource, e
 		return nil, err
 	}
 
-	if c.Auth.GrantType != nil && *c.Auth.GrantType == svcOAuth2.GrantTypeClientCredentials {
-		if c.Auth.ClientID == nil || *c.Auth.ClientID == "" {
-			return nil, fmt.Errorf("client ID is required for client credentials grant type")
+	if c.Auth.GrantType != nil {
+		switch *c.Auth.GrantType {
+		case svcOAuth2.GrantTypeAuthCode:
+			return c.Auth.AuthCode.AuthCodeTokenSource(ctx, endpoints)
+		case svcOAuth2.GrantTypeClientCredentials:
+			return c.Auth.ClientCredentials.ClientCredentialsTokenSource(ctx, endpoints)
+		case svcOAuth2.GrantTypeDeviceCode:
+			return c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints)
 		}
-
-		slog.Debug("Using client credentials token source with provided client ID", "client ID", *c.Auth.ClientID)
-		if c.Auth.ClientSecret != nil && *c.Auth.ClientSecret != "" {
-			config := &clientcredentials.Config{
-				ClientID:     *c.Auth.ClientID,
-				ClientSecret: *c.Auth.ClientSecret,
-				TokenURL:     endpoints.TokenURL,
-			}
-			ts := config.TokenSource(ctx)
-			slog.Debug("Using standard client credentials token source as client secret has been provided")
-			return &ts, nil
-		}
-
-		// tmp until private keys are supported
-		return nil, fmt.Errorf("client secret is required for client credentials grant type")
 	}
 
-	return nil, fmt.Errorf("unsupported grant type: %s", *c.Auth.GrantType)
+	return nil, fmt.Errorf("unsupported grant type")
 }
 
 func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
@@ -162,7 +190,7 @@ func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 		return endpoints.PingOneOIDCEndpoint(*v), nil
 	}
 
-	if e := c.Endpoint.AuthEnvironmentID; e != nil && *e != "" {
+	if e := c.Endpoint.EnvironmentID; e != nil && *e != "" {
 		if v := c.Endpoint.RootDomain; v != nil && *v != "" {
 			return endpoints.PingOneEnvironmentOIDCEndpoint(*v, *e), nil
 		}

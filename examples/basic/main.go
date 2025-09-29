@@ -43,7 +43,7 @@ func main() {
 
 	serviceCfg.WithClientID(clientID)
 	serviceCfg.WithClientSecret(clientSecret)
-	serviceCfg.WithAuthEnvironmentID(authEnvironmentID)
+	serviceCfg.WithEnvironmentID(authEnvironmentID)
 	serviceCfg.WithRootDomain("pingone.com")
 
 	// Create client configuration
