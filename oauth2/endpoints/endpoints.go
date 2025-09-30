@@ -1,5 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 
+// Package endpoints provides OAuth2 endpoint construction utilities for PingOne services.
+// It handles the creation of OAuth2 endpoint configurations for different PingOne deployment
+// scenarios including custom domains and environment-specific endpoints across regions.
 package endpoints
 
 import (
@@ -10,14 +13,22 @@ import (
 )
 
 const (
-	AuthURLPath            = "/as/authorize"
-	DeviceAuthURLPath      = "/as/device_authorization"
-	IntrospectionURLPath   = "/as/introspect"
-	IssuerURLPath          = "/as"
-	JWKSURLPath            = "/as/jwks"
-	PARURLPath             = "/as/par"
+	// AuthURLPath is the URL path for OAuth2 authorization endpoints.
+	AuthURLPath = "/as/authorize"
+	// DeviceAuthURLPath is the URL path for OAuth2 device authorization endpoints.
+	DeviceAuthURLPath = "/as/device_authorization"
+	// IntrospectionURLPath is the URL path for OAuth2 token introspection endpoints.
+	IntrospectionURLPath = "/as/introspect"
+	// IssuerURLPath is the URL path for OAuth2 issuer endpoints.
+	IssuerURLPath = "/as"
+	// JWKSURLPath is the URL path for JSON Web Key Set endpoints.
+	JWKSURLPath = "/as/jwks"
+	// PARURLPath is the URL path for Pushed Authorization Request endpoints.
+	PARURLPath = "/as/par"
+	// TokenRevocationURLPath is the URL path for OAuth2 token revocation endpoints.
 	TokenRevocationURLPath = "/as/revoke"
-	TokenURLPath           = "/as/token"
+	// TokenURLPath is the URL path for OAuth2 token endpoints.
+	TokenURLPath = "/as/token"
 )
 
 // PingOneEndpoint returns a new oauth2.Endpoint object for the given custom domain configured on the PingOne environment.
@@ -59,12 +70,20 @@ func PingOneEnvironmentEndpoint(rootDomain, environmentID string) oauth2.Endpoin
 	}
 }
 
+// ExtendedEndpoint represents an OAuth2 endpoint with additional PingOne-specific endpoints.
+// It extends the standard OAuth2 endpoint with additional URLs for token introspection,
+// JWKS, PAR (Pushed Authorization Requests), and token revocation functionality.
 type ExtendedEndpoint struct {
 	oauth2.Endpoint
-	IntrospectionURL   string
-	IssuerURLPath      string
-	JWKSURL            string
-	PARURL             string
+	// IntrospectionURL is the endpoint URL for OAuth2 token introspection.
+	IntrospectionURL string
+	// IssuerURLPath is the issuer URL path for the OAuth2 authorization server.
+	IssuerURLPath string
+	// JWKSURL is the endpoint URL for retrieving JSON Web Key Sets.
+	JWKSURL string
+	// PARURL is the endpoint URL for Pushed Authorization Requests.
+	PARURL string
+	// TokenRevocationURL is the endpoint URL for OAuth2 token revocation.
 	TokenRevocationURL string
 }
 

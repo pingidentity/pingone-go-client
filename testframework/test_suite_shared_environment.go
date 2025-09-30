@@ -9,15 +9,25 @@ import (
 	"github.com/google/uuid"
 )
 
+// SharedEnvironmentTestSuite extends PingOneTestSuite to provide a shared test environment.
+// This suite creates a single PingOne environment that is shared across all test methods
+// in the suite, improving test performance by reducing environment creation overhead.
 type SharedEnvironmentTestSuite struct {
 	PingOneTestSuite
+	// EnvironmentNamePrefix is prepended to generated environment names.
 	EnvironmentNamePrefix string
+	// EnvironmentNameSuffix is appended to generated environment names.
 	EnvironmentNameSuffix string
-	TestEnvironment       *TestEnvironment
-	WithBootstrap         bool
+	// TestEnvironment contains the shared test environment for all tests in the suite.
+	TestEnvironment *TestEnvironment
+	// WithBootstrap determines whether the environment includes full DaVinci features.
+	WithBootstrap bool
 }
 
-// Set up the entire suite with a shared environment
+// SetupSuite creates a shared PingOne environment for all test methods in the suite.
+// This method requires the PINGONE_ENVIRONMENT_REGION and PINGONE_LICENSE_ID environment
+// variables to be set. It generates a unique environment name and creates an environment
+// with all PingOne services. The environment is shared across all tests to improve performance.
 func (s *SharedEnvironmentTestSuite) SetupSuite() {
 	s.PingOneTestSuite.SetupSuite()
 

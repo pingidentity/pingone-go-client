@@ -9,19 +9,32 @@ import (
 	"github.com/google/uuid"
 )
 
+// NewEnvironmentTestSuite extends PingOneTestSuite to provide automatic test environment creation.
+// This suite creates a fresh PingOne environment for each test and cleans it up afterward,
+// ensuring test isolation and preventing test interference.
 type NewEnvironmentTestSuite struct {
 	PingOneTestSuite
+	// EnvironmentNamePrefix is prepended to generated environment names.
 	EnvironmentNamePrefix string
+	// EnvironmentNameSuffix is appended to generated environment names.
 	EnvironmentNameSuffix string
-	TestEnvironment       *TestEnvironment
-	WithBootstrap         bool
+	// TestEnvironment contains the created test environment for the current test.
+	TestEnvironment *TestEnvironment
+	// WithBootstrap determines whether the environment includes full DaVinci features.
+	WithBootstrap bool
 }
 
+// SetupSuite initializes the test suite by calling the parent suite setup.
+// This ensures the PingOne API client is properly configured before environment operations.
 func (s *NewEnvironmentTestSuite) SetupSuite() {
 	s.PingOneTestSuite.SetupSuite()
 }
 
-// Set up the test with a new environment
+// SetupTest creates a new PingOne environment for each test method.
+// This method requires the PINGONE_ENVIRONMENT_REGION and PINGONE_LICENSE_ID environment
+// variables to be set. It generates a unique environment name using the configured prefix,
+// random string, and suffix. The environment includes all PingOne services configured
+// according to the WithBootstrap setting.
 func (s *NewEnvironmentTestSuite) SetupTest() {
 	s.PingOneTestSuite.SetupTest()
 
