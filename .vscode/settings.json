@@ -1,0 +1,115 @@
+{
+  // Go language configuration
+  "go.lintTool": "golangci-lint",
+  "go.generateTestsFlags": [
+    "-parallel"
+  ],
+  "gopls": {
+    "build.buildFlags": [
+      // uncomment to build compile beta functionality in vscode
+      //"-tags=beta"
+    ]
+  },
+  // File associations
+  "files.associations": {
+    "*.go": "go",
+    "*.mod": "go.mod",
+    "*.sum": "go.sum",
+    "*.tmpl": "go-template"
+  },
+  // File exclusions for better performance
+  "files.exclude": {
+    "**/vendor": true,
+    "**/*.exe": true,
+    "**/coverage.out": true,
+    "**/coverage.html": true,
+    "**/results.sarif": true
+  },
+  // Search exclusions
+  "search.exclude": {
+    "**/vendor": true,
+    "**/coverage.out": true,
+    "**/coverage.html": true
+  },
+  // Watcher exclusions for performance
+  "files.watcherExclude": {
+    "**/vendor/**": true,
+    "**/coverage.out": true,
+    "**/coverage.html": true
+  },
+  // JSON configuration
+  "json.format.enable": true,
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  // Markdown configuration
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  // YAML configuration
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  // Go file configuration
+  "[go]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  },
+  // Shell script configuration
+  "[shellscript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  // Makefile configuration
+  "[makefile]": {
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  // Spell checker configuration
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "apikey",
+    "davinci",
+    "depscheck",
+    "devcheck",
+    "golangci",
+    "GOPATH",
+    "gosec",
+    "oauth",
+    "oidc",
+    "openapi",
+    "patrickcping",
+    "pingidentity",
+    "pingone",
+    "pkcs",
+    "sarif",
+    "testframework"
+  ],
+  "cSpell.ignoreWords": [
+    "bool",
+    "func",
+    "int64",
+    "string",
+    "struct",
+    "uint"
+  ],
+  "cSpell.languageSettings": [
+    {
+      "languageId": "go",
+      "caseSensitive": true
+    }
+  ]
+}

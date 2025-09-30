@@ -1,60 +1,214 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Code",
+            "name": "Run Basic Example",
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceFolder}",
-            "args": [],
-            "showLog": true,
-            "dlvFlags": [
-                "--log"
-            ]
-        },
-        {
-            "name": "Test Current File",
-            "type": "go",
-            "request": "launch",
-            "mode": "test",
-            "program": "${file}",
-            "args": [],
-            "showLog": true,
-            "dlvFlags": [
-                "--log"
-            ]
-        },
-        {
-            "name": "Debug Example",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
             "program": "${workspaceFolder}/examples/basic",
             "env": {
                 "PINGONE_CLIENT_ID": "${input:clientId}",
                 "PINGONE_CLIENT_SECRET": "${input:clientSecret}",
-                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}"
+                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}",
+                "PINGONE_REGION": "${input:region}"
             },
-            "args": []
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - Current File",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "args": [
+                "-test.v",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - Specific Test",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "args": [
+                "-test.v",
+                "-test.run=${input:testName}",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - Config Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/config",
+            "args": [
+                "-test.v",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - OAuth2 Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/oauth2",
+            "args": [
+                "-test.v",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - OIDC Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/oidc",
+            "args": [
+                "-test.v",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Unit Tests - Test Framework",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/testframework",
+            "args": [
+                "-test.v",
+                "-test.timeout=5m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Integration Tests - Current File",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "env": {
+                "PINGONE_CLIENT_ID": "${input:clientId}",
+                "PINGONE_CLIENT_SECRET": "${input:clientSecret}",
+                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}",
+                "PINGONE_REGION": "${input:region}"
+            },
+            "args": [
+                "-test.v",
+                "-test.timeout=30m",
+                "-tags=integration"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Integration Tests - PingOne Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/pingone",
+            "env": {
+                "PINGONE_CLIENT_ID": "${input:clientId}",
+                "PINGONE_CLIENT_SECRET": "${input:clientSecret}",
+                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}",
+                "PINGONE_REGION": "${input:region}"
+            },
+            "args": [
+                "-test.v",
+                "-test.timeout=30m"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Integration Tests - Specific Test",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "env": {
+                "PINGONE_CLIENT_ID": "${input:clientId}",
+                "PINGONE_CLIENT_SECRET": "${input:clientSecret}",
+                "PINGONE_ENVIRONMENT_ID": "${input:environmentId}",
+                "PINGONE_REGION": "${input:region}"
+            },
+            "args": [
+                "-test.v",
+                "-test.run=${input:testName}",
+                "-test.timeout=30m",
+                "-tags=integration"
+            ],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Build SDK Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [],
+            "console": "integratedTerminal",
+            "showLog": true
+        },
+        {
+            "name": "Beta Build (with beta tags)",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "buildFlags": "-tags=beta",
+            "env": {},
+            "args": [],
+            "console": "integratedTerminal",
+            "showLog": true
         }
     ],
     "inputs": [
         {
+            "id": "testName",
+            "description": "Enter the test function name (e.g., TestNewConfiguration)",
+            "default": "Test",
+            "type": "promptString"
+        },
+        {
             "id": "clientId",
-            "type": "promptString",
-            "description": "PingOne Client ID"
+            "description": "Enter PingOne Client ID",
+            "type": "promptString"
         },
         {
             "id": "clientSecret",
-            "type": "promptString",
-            "description": "PingOne Client Secret",
-            "password": true
+            "description": "Enter PingOne Client Secret",
+            "type": "promptString"
         },
         {
             "id": "environmentId",
-            "type": "promptString",
-            "description": "PingOne Environment ID"
+            "description": "Enter PingOne Environment ID",
+            "type": "promptString"
+        },
+        {
+            "id": "region",
+            "description": "Enter PingOne Region (e.g., NorthAmerica, Europe, AsiaPacific)",
+            "default": "NorthAmerica",
+            "type": "promptString"
         }
     ]
 }
