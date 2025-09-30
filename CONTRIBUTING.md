@@ -1,6 +1,16 @@
-# Contributing to pingone-go-client
+# Contributing to the PingOne Go SDK
 
-Thank you for your interest in contributing to the pingone-go-client project! This document provides guidelines and instructions for contributing to this project.
+We appreciate your help!  We welcome contributions in the form of creating issues or pull requests.
+
+Know that:
+
+1. If you have any questions, please ask!  We'll help as best we can
+2. While we appreciate perfect PRs, it's not essential. We'll fix up any housekeeping changes before merge.  Any PRs that need further work, we'll point you in the right direction or can take on ourselves.
+3. We may not be able to respond quickly, our development cycles are on a priority basis.
+4. We base our priorities on customer need and the number of votes on issues/PRs by the number of 👍 reactions.  If there is an existing issue or PR for something you'd like, please vote!
+5. Some files are created and maintained by an internal generator project. These files are marked with comments at the top of the file. We may not be able to merge changes to these files as changes will be overwritten by the generator.
+
+The following guides are there to help you get started with SDK development, logging issues and creating PRs.  Following the guides allows us to respond quicker and will result in faster PR merges.
 
 ## Code Generation and Contribution Scope
 
@@ -11,67 +21,26 @@ Thank you for your interest in contributing to the pingone-go-client project! Th
 
 You can still modify files in the `pingone` directory to test ideas or highlight issues, but these changes won't be merged to main. Instead, use them to demonstrate potential improvements that can be incorporated into the OpenAPI generation process.
 
-## Development Workflow
+## Beta Development
 
-### Setting Up Your Development Environment
+This SDK supports beta functionality for non-GA PingOne platform features. Beta releases are identified by a `-beta` suffix in the version tag (e.g., `v1.2.3-beta`).
 
-1. Fork the repository on GitHub
-2. Clone your fork locally
-3. Install Go (version 1.24 or higher is required)
-4. Run `go mod download` to install dependencies
+**Key Beta Development Concepts:**
 
-### Testing Your Changes
+* **Go Build Tags**: Beta functionality uses the `//go:build beta` build tag to separate beta code from GA releases
+* **Beta Files**: Include `//go:build beta` at the top of files containing beta-specific code
+* **GA Stubs**: Use `//go:build !beta` for GA-only files that provide stubs for beta functionality
+* **Automatic Building**: Goreleaser automatically includes beta code when building releases with `-beta` tags
 
-Before submitting a pull request, make sure your changes pass all tests:
+For detailed beta development guidance, see the [Beta Development Guide](contributing/beta.md).
 
-```shell
-# Run unit tests
-go test ./config/... ./oauth2/... ./oidc/... -v
+## Getting Started
 
-# Run linting checks
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-golangci-lint run
-```
+- [Set Up Your Development Environment](contributing/development-environment.md)
+- [SDK Design](contributing/sdk-design.md)
+- [Beta Development Guide](contributing/beta.md)
+- [Testing Strategy](contributing/acceptance-test-strategy.md)
 
-### Continuous Integration
+## Process
 
-All pull requests are automatically tested using GitHub Actions. The following checks will run:
-
-1. **Unit Tests**: Verifies that your code changes don't break existing functionality
-2. **Linting**: Ensures code quality and consistency
-3. **CodeQL Analysis**: Performs static code analysis to identify security vulnerabilities
-4. **Security Scanning**: Uses gosec to detect potential security issues in the code
-
-Make sure all CI checks pass before your pull request can be merged.
-
-### Security Best Practices
-
-When contributing code, please follow these security best practices:
-
-- Avoid hardcoding sensitive information like credentials or tokens
-- Use proper input validation for all external inputs
-- Follow the principle of least privilege when implementing functionality
-- Make sure all API endpoints are properly authenticated and authorized
-- Document any security considerations for your code
-
-## Pull Request Process
-
-1. Create a branch for your changes
-2. Make your changes with appropriate tests
-3. Ensure all tests pass locally
-4. Update documentation if needed
-5. Submit a pull request
-6. Address any feedback from reviewers
-
-## Code Style
-
-This project follows standard Go code style. Please ensure your code:
-
-- Is properly formatted with `gofmt`
-- Passes linting checks
-- Includes appropriate comments and documentation
-- Has meaningful test coverage
-
-## Licensing
-
-By contributing to this project, you agree that your contributions will be licensed under the project's license.
+- [Pull Request Checklist](contributing/pr-checklist.md)
