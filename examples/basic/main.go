@@ -1,3 +1,5 @@
+// Copyright © 2025 Ping Identity Corporation
+
 // Package main demonstrates basic usage of the PingOne Go Client SDK.
 // This example shows how to configure authentication, create an API client,
 // and make a simple API call to retrieve environment information from PingOne.

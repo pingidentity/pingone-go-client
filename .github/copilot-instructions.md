@@ -1,5 +1,15 @@
 # GitHub Copilot Instructions for PingOne Go Client SDK
 
+## Copyright Notice Requirement
+
+**CRITICAL:** Every Go file (.go) must include the copyright notice at the very top of the file, before any other content including package declarations, imports, or comments.
+
+```go
+// Copyright © 2025 Ping Identity Corporation
+```
+
+This copyright notice is mandatory for all Go files in the repository and must be the first line of every .go file. No exceptions.
+
 ## Code Documentation Standards
 
 **Important Note:** The documentation standards outlined in this section apply only to manually written code in the core SDK packages (`config`, `oauth2`, `oidc`, `testframework`, etc.). The files in the `pingone/` directory are automatically generated from OpenAPI specifications and should not be manually modified or documented, as any changes will be overwritten by the code generator.
