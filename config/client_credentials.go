@@ -3,28 +3,33 @@ package config
 import (
 	"context"
 	"fmt"
-	"log/slog"
 
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
 
-func (c *ClientCredentials) ClientCredentialsTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (*oauth2.TokenSource, error) {
+func (c *ClientCredentials) ClientCredentialsTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
 	if c.ClientCredentialsClientID == nil || *c.ClientCredentialsClientID == "" {
 		return nil, fmt.Errorf("client ID is required for client credentials grant type")
 	}
 
-	slog.Debug("Using client credentials token source with provided client ID", "client ID", *c.ClientCredentialsClientID)
+	// Validate that scopes are provided - no default values allowed
+	if c.ClientCredentialsScopes == nil || len(*c.ClientCredentialsScopes) == 0 {
+		return nil, fmt.Errorf("scopes are required for client credentials grant type - user must supply scopes")
+	}
+
 	if c.ClientCredentialsClientSecret != nil && *c.ClientCredentialsClientSecret != "" {
 		config := &clientcredentials.Config{
 			ClientID:     *c.ClientCredentialsClientID,
 			ClientSecret: *c.ClientCredentialsClientSecret,
-			TokenURL:     endpoints.TokenURL,
+			TokenURL:     endpoints.TokenURLPath,
+			Scopes:       *c.ClientCredentialsScopes,
+			AuthStyle:    oauth2.AuthStyleInHeader,
 		}
+
 		ts := config.TokenSource(ctx)
-		slog.Debug("Using standard client credentials token source as client secret has been provided")
-		return &ts, nil
+		return ts, nil
 	}
 
 	// tmp until private keys are supported

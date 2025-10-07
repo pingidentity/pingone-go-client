@@ -12,14 +12,14 @@ const (
 
 var AllowedTokenAuthMethods = map[GrantType][]TokenAuthType{
 	GrantTypeAuthCode: {
-		TokenAuthTypeAuthCode,
+		TokenAuthTypeNone,
 	},
 	GrantTypeClientCredentials: {
 		TokenAuthTypeClientSecretBasic,
 		TokenAuthTypeClientSecretPost,
 	},
 	GrantTypeDeviceCode: {
-		TokenAuthTypeDeviceCode,
+		TokenAuthTypeNone,
 	},
 }
 
