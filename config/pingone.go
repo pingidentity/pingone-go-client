@@ -293,13 +293,11 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	if c.Auth.GrantType != nil {
 		switch *c.Auth.GrantType {
 		case svcOAuth2.GrantTypeAuthCode:
-			// TODO: Implement AuthCodeTokenSource method
-			return nil, fmt.Errorf("auth code grant type not yet implemented")
+			return c.Auth.AuthCode.AuthCodeTokenSource(ctx, endpoints)
 		case svcOAuth2.GrantTypeClientCredentials:
 			return c.Auth.ClientCredentials.ClientCredentialsTokenSource(ctx, endpoints)
 		case svcOAuth2.GrantTypeDeviceCode:
-			// TODO: Implement DeviceAuthTokenSource method
-			return nil, fmt.Errorf("device code grant type not yet implemented")
+			return c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints)
 		}
 	}
 

@@ -13,7 +13,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (*oauth2.TokenSource, error) {
+func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
 	if a.AuthCodeClientID == nil || *a.AuthCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for client credentials grant type")
 	}
@@ -55,7 +55,7 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	client.Get("...")
 	ts := config.TokenSource(ctx, tok)
 	slog.Debug("Using standard auth code token source as client secret has been provided")
-	return &ts, nil
+	return ts, nil
 }
 
 func openBrowser(url string) {
