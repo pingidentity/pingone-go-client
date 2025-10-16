@@ -4,6 +4,7 @@ package config
 
 import (
 	"context"
+	"crypto/sha256"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -13,6 +14,69 @@ import (
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 )
+
+// ExternalTokenSourceProvider is a function type that can provide an external token source
+type ExternalTokenSourceProvider func(ctx context.Context, config *Configuration) oauth2.TokenSource
+
+// Global variable to hold the external token source provider
+var externalTokenSourceProvider ExternalTokenSourceProvider
+
+// SetExternalTokenSourceProvider allows external packages (like pingcli) to register a token source provider
+func SetExternalTokenSourceProvider(provider ExternalTokenSourceProvider) {
+	externalTokenSourceProvider = provider
+}
+
+func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
+	var environmentID, clientID string
+
+	switch grantType {
+	case svcOAuth2.GrantTypeDeviceCode:
+		if c.Auth.DeviceCode != nil {
+			if c.Auth.DeviceCode.DeviceCodeEnvironmentID != nil {
+				environmentID = *c.Auth.DeviceCode.DeviceCodeEnvironmentID
+			}
+			if c.Auth.DeviceCode.DeviceCodeClientID != nil {
+				clientID = *c.Auth.DeviceCode.DeviceCodeClientID
+			}
+		}
+	case svcOAuth2.GrantTypeAuthCode:
+		if c.Auth.AuthCode != nil {
+			if c.Auth.AuthCode.AuthCodeEnvironmentID != nil {
+				environmentID = *c.Auth.AuthCode.AuthCodeEnvironmentID
+			}
+			if c.Auth.AuthCode.AuthCodeClientID != nil {
+				clientID = *c.Auth.AuthCode.AuthCodeClientID
+			}
+		}
+	case svcOAuth2.GrantTypeClientCredentials:
+		if c.Auth.ClientCredentials != nil {
+			if c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != nil {
+				environmentID = *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID
+			}
+			if c.Auth.ClientCredentials.ClientCredentialsClientID != nil {
+				clientID = *c.Auth.ClientCredentials.ClientCredentialsClientID
+			}
+		}
+	default:
+		return "", fmt.Errorf("unsupported grant type: %s", grantType)
+	}
+
+	// Fallback to shared environment ID if grant-type-specific one is not available
+	if environmentID == "" && c.Endpoint.EnvironmentID != nil {
+		environmentID = *c.Endpoint.EnvironmentID
+	}
+
+	if environmentID == "" || clientID == "" {
+		return "", fmt.Errorf("environment ID and client ID are required for token key generation")
+	}
+
+	hash := sha256.Sum256([]byte(fmt.Sprintf("%s:%s:%s", environmentID, clientID, grantType)))
+	tokenKey := fmt.Sprintf("token-%x", hash[:8])
+
+	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
+
+	return tokenKey, nil
+}
 
 type AuthCode struct {
 	AuthCodeClientID      *string   `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
@@ -67,13 +131,6 @@ func NewConfiguration() *Configuration {
 func (c *Configuration) GetConfiguration() *Configuration {
 	return c
 }
-
-// func (c *Configuration) GetAccessToken() string {
-// 	if c.Auth.AccessToken != nil {
-// 		return *c.Auth.AccessToken
-// 	}
-// 	return ""
-// }
 
 func (c *Configuration) GetAccessTokenExpiry() int {
 	if c.Auth.AccessTokenExpiry != nil {
@@ -251,6 +308,14 @@ func (c *Configuration) Client(ctx context.Context, httpClient *http.Client) (*h
 	return client, nil
 }
 
+// getExternalTokenSource checks if there's an external token source provider registered
+func (c *Configuration) getExternalTokenSource(ctx context.Context) oauth2.TokenSource {
+	if externalTokenSourceProvider != nil {
+		return externalTokenSourceProvider(ctx, c)
+	}
+	return nil
+}
+
 func (c *Configuration) GetAccessToken(ctx context.Context) (string, error) {
 	ts, err := c.TokenSource(ctx)
 	if err != nil {
@@ -270,6 +335,11 @@ func (c *Configuration) GetAccessToken(ctx context.Context) (string, error) {
 }
 
 func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, error) {
+	// Check if there's an external token source provider (e.g., from pingcli credential cache)
+	if externalTS := c.getExternalTokenSource(ctx); externalTS != nil {
+		return externalTS, nil
+	}
+
 	// Client credentials flow should always use the OAuth2 token source for automatic refresh
 	if at := c.Auth.AccessToken; at != nil && *at != "" {
 		if c.Auth.GrantType != nil && *c.Auth.GrantType == svcOAuth2.GrantTypeClientCredentials {
@@ -285,23 +355,91 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 		}
 	}
 
+	// Check keychain for existing valid token before performing auth
+	if c.Auth.GrantType != nil {
+		tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
+		if err != nil {
+			slog.Debug("Could not generate token key for caching", "error", err)
+		} else {
+			keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+			if existingToken, err := keychainStorage.LoadToken(); err == nil && existingToken != nil && existingToken.Valid() {
+				slog.Debug("Using cached token from keychain", "tokenKey", tokenKey, "expires", existingToken.Expiry)
+				return oauth2.StaticTokenSource(existingToken), nil
+			}
+		}
+	}
+
 	endpoints, err := c.AuthEndpoints()
 	if err != nil {
 		return nil, err
 	}
 
+	// Perform authentication and cache the result
 	if c.Auth.GrantType != nil {
+		var tokenSource oauth2.TokenSource
+
+		// Generate unique token key for caching
+		tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
+		if err != nil {
+			return nil, fmt.Errorf("failed to generate token key: %w", err)
+		}
+
+		// Get the appropriate token source
 		switch *c.Auth.GrantType {
 		case svcOAuth2.GrantTypeAuthCode:
-			return c.Auth.AuthCode.AuthCodeTokenSource(ctx, endpoints)
+			if c.Auth.AuthCode == nil {
+				return nil, fmt.Errorf("auth code configuration is required for auth code grant type")
+			}
+			ts, err := c.Auth.AuthCode.AuthCodeTokenSource(ctx, endpoints)
+			if err != nil {
+				return nil, err
+			}
+			tokenSource = ts
 		case svcOAuth2.GrantTypeClientCredentials:
-			return c.Auth.ClientCredentials.ClientCredentialsTokenSource(ctx, endpoints)
+			if c.Auth.ClientCredentials == nil {
+				return nil, fmt.Errorf("client credentials configuration is required for client credentials grant type")
+			}
+			ts, err := c.Auth.ClientCredentials.ClientCredentialsTokenSource(ctx, endpoints)
+			if err != nil {
+				return nil, err
+			}
+			tokenSource = ts
 		case svcOAuth2.GrantTypeDeviceCode:
-			return c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints)
+			if c.Auth.DeviceCode == nil {
+				return nil, fmt.Errorf("device code configuration is required for device code grant type")
+			}
+			ts, err := c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints)
+			if err != nil {
+				return nil, err
+			}
+			tokenSource = ts
+		default:
+			return nil, fmt.Errorf("unsupported grant type: %s", *c.Auth.GrantType)
 		}
+
+		// Get token to validate and cache it
+		if tokenSource != nil && tokenKey != "" {
+			token, err := tokenSource.Token()
+			if err != nil {
+				return nil, fmt.Errorf("failed to get token: %w", err)
+			}
+
+			// Save token to keychain for future use
+			keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+			if err := keychainStorage.SaveToken(token); err != nil {
+				slog.Warn("Failed to save token to keychain", "error", err, "tokenKey", tokenKey)
+				// Don't return error here - token is still valid even if caching failed
+			} else {
+				slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
+			}
+
+			return oauth2.StaticTokenSource(token), nil
+		}
+
+		return tokenSource, nil
 	}
 
-	return nil, fmt.Errorf("unsupported grant type: %s", *c.Auth.GrantType)
+	return nil, fmt.Errorf("grant type is required")
 }
 
 func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
