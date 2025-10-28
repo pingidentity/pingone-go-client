@@ -5,24 +5,24 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoxSelectionEnabled** | **bool** |  | 
-**Data** | **interface{}** |  | 
 **Elements** | [**DaVinciFlowGraphDataResponseElements**](DaVinciFlowGraphDataResponseElements.md) |  | 
-**MaxZoom** | **float32** |  | 
-**MinZoom** | **float32** |  | 
+**MaxZoom** | [**big.Float**](big.Float.md) |  | 
+**MinZoom** | [**big.Float**](big.Float.md) |  | 
 **Pan** | [**DaVinciFlowGraphDataResponsePan**](DaVinciFlowGraphDataResponsePan.md) |  | 
 **PanningEnabled** | **bool** |  | 
 **Renderer** | [**DaVinciFlowGraphDataResponseRenderer**](DaVinciFlowGraphDataResponseRenderer.md) |  | 
 **UserPanningEnabled** | **bool** |  | 
 **UserZoomingEnabled** | **bool** |  | 
 **Zoom** | **float32** |  | 
-**ZoomingEnabled** | **bool** |  | 
 **AllLinterErrors** | Pointer to [**[]DaVinciFlowGraphDataResponseAllLinterError**](DaVinciFlowGraphDataResponseAllLinterError.md) |  | [optional] 
+**Data** | Pointer to **map[string]interface{}** |  | [optional] 
+**ZoomingEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowGraphDataResponse
 
-`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, data interface{}, elements DaVinciFlowGraphDataResponseElements, maxZoom float32, minZoom float32, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, zoomingEnabled bool, ) *DaVinciFlowGraphDataResponse`
+`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom big.Float, minZoom big.Float, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, ) *DaVinciFlowGraphDataResponse`
 
 NewDaVinciFlowGraphDataResponse instantiates a new DaVinciFlowGraphDataResponse object
 This constructor will assign default values to properties that have it defined,
@@ -57,36 +57,6 @@ and a boolean to check if the value has been set.
 SetBoxSelectionEnabled sets BoxSelectionEnabled field to given value.
 
 
-### GetData
-
-`func (o *DaVinciFlowGraphDataResponse) GetData() interface{}`
-
-GetData returns the Data field if non-nil, zero value otherwise.
-
-### GetDataOk
-
-`func (o *DaVinciFlowGraphDataResponse) GetDataOk() (*interface{}, bool)`
-
-GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetData
-
-`func (o *DaVinciFlowGraphDataResponse) SetData(v interface{})`
-
-SetData sets Data field to given value.
-
-
-### SetDataNil
-
-`func (o *DaVinciFlowGraphDataResponse) SetDataNil(b bool)`
-
-SetDataNil sets the value for Data to be an explicit nil
-
-### UnsetData
-`func (o *DaVinciFlowGraphDataResponse) UnsetData()`
-
-UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetElements
 
 `func (o *DaVinciFlowGraphDataResponse) GetElements() DaVinciFlowGraphDataResponseElements`
@@ -109,40 +79,40 @@ SetElements sets Elements field to given value.
 
 ### GetMaxZoom
 
-`func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() float32`
+`func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() big.Float`
 
 GetMaxZoom returns the MaxZoom field if non-nil, zero value otherwise.
 
 ### GetMaxZoomOk
 
-`func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*float32, bool)`
+`func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*big.Float, bool)`
 
 GetMaxZoomOk returns a tuple with the MaxZoom field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxZoom
 
-`func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v float32)`
+`func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v big.Float)`
 
 SetMaxZoom sets MaxZoom field to given value.
 
 
 ### GetMinZoom
 
-`func (o *DaVinciFlowGraphDataResponse) GetMinZoom() float32`
+`func (o *DaVinciFlowGraphDataResponse) GetMinZoom() big.Float`
 
 GetMinZoom returns the MinZoom field if non-nil, zero value otherwise.
 
 ### GetMinZoomOk
 
-`func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*float32, bool)`
+`func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*big.Float, bool)`
 
 GetMinZoomOk returns a tuple with the MinZoom field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinZoom
 
-`func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v float32)`
+`func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v big.Float)`
 
 SetMinZoom sets MinZoom field to given value.
 
@@ -267,26 +237,6 @@ and a boolean to check if the value has been set.
 SetZoom sets Zoom field to given value.
 
 
-### GetZoomingEnabled
-
-`func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabled() bool`
-
-GetZoomingEnabled returns the ZoomingEnabled field if non-nil, zero value otherwise.
-
-### GetZoomingEnabledOk
-
-`func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabledOk() (*bool, bool)`
-
-GetZoomingEnabledOk returns a tuple with the ZoomingEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetZoomingEnabled
-
-`func (o *DaVinciFlowGraphDataResponse) SetZoomingEnabled(v bool)`
-
-SetZoomingEnabled sets ZoomingEnabled field to given value.
-
-
 ### GetAllLinterErrors
 
 `func (o *DaVinciFlowGraphDataResponse) GetAllLinterErrors() []DaVinciFlowGraphDataResponseAllLinterError`
@@ -311,6 +261,56 @@ SetAllLinterErrors sets AllLinterErrors field to given value.
 `func (o *DaVinciFlowGraphDataResponse) HasAllLinterErrors() bool`
 
 HasAllLinterErrors returns a boolean if a field has been set.
+
+### GetData
+
+`func (o *DaVinciFlowGraphDataResponse) GetData() map[string]interface{}`
+
+GetData returns the Data field if non-nil, zero value otherwise.
+
+### GetDataOk
+
+`func (o *DaVinciFlowGraphDataResponse) GetDataOk() (*map[string]interface{}, bool)`
+
+GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetData
+
+`func (o *DaVinciFlowGraphDataResponse) SetData(v map[string]interface{})`
+
+SetData sets Data field to given value.
+
+### HasData
+
+`func (o *DaVinciFlowGraphDataResponse) HasData() bool`
+
+HasData returns a boolean if a field has been set.
+
+### GetZoomingEnabled
+
+`func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabled() bool`
+
+GetZoomingEnabled returns the ZoomingEnabled field if non-nil, zero value otherwise.
+
+### GetZoomingEnabledOk
+
+`func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabledOk() (*bool, bool)`
+
+GetZoomingEnabledOk returns a tuple with the ZoomingEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetZoomingEnabled
+
+`func (o *DaVinciFlowGraphDataResponse) SetZoomingEnabled(v bool)`
+
+SetZoomingEnabled sets ZoomingEnabled field to given value.
+
+### HasZoomingEnabled
+
+`func (o *DaVinciFlowGraphDataResponse) HasZoomingEnabled() bool`
+
+HasZoomingEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

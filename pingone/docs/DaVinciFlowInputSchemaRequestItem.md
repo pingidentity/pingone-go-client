@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **PropertyName** | **string** |  | 
 **PreferredDataType** | [**DaVinciFlowInputSchemaRequestItemPreferredDataType**](DaVinciFlowInputSchemaRequestItemPreferredDataType.md) |  | 
 **Description** | Pointer to **string** |  | [optional] 
+**IsExpanded** | Pointer to **bool** |  | [optional] 
 **PreferredControlType** | Pointer to [**DaVinciFlowInputSchemaRequestItemPreferredControlType**](DaVinciFlowInputSchemaRequestItemPreferredControlType.md) |  | [optional] 
 **Required** | Pointer to **bool** |  | [optional] 
 
@@ -93,6 +94,31 @@ SetDescription sets Description field to given value.
 `func (o *DaVinciFlowInputSchemaRequestItem) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetIsExpanded
+
+`func (o *DaVinciFlowInputSchemaRequestItem) GetIsExpanded() bool`
+
+GetIsExpanded returns the IsExpanded field if non-nil, zero value otherwise.
+
+### GetIsExpandedOk
+
+`func (o *DaVinciFlowInputSchemaRequestItem) GetIsExpandedOk() (*bool, bool)`
+
+GetIsExpandedOk returns a tuple with the IsExpanded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsExpanded
+
+`func (o *DaVinciFlowInputSchemaRequestItem) SetIsExpanded(v bool)`
+
+SetIsExpanded sets IsExpanded field to given value.
+
+### HasIsExpanded
+
+`func (o *DaVinciFlowInputSchemaRequestItem) HasIsExpanded() bool`
+
+HasIsExpanded returns a boolean if a field has been set.
 
 ### GetPreferredControlType
 

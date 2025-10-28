@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Classes** | **string** |  | 
 **Data** | [**DaVinciFlowGraphDataResponseElementsEdgeData**](DaVinciFlowGraphDataResponseElementsEdgeData.md) |  | 
 **Grabbable** | **bool** |  | 
 **Group** | **string** |  | 
@@ -14,12 +13,13 @@ Name | Type | Description | Notes
 **Removed** | **bool** |  | 
 **Selectable** | **bool** |  | 
 **Selected** | **bool** |  | 
+**Classes** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowGraphDataResponseElementsEdge
 
-`func NewDaVinciFlowGraphDataResponseElementsEdge(classes string, data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool, ) *DaVinciFlowGraphDataResponseElementsEdge`
+`func NewDaVinciFlowGraphDataResponseElementsEdge(data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool, ) *DaVinciFlowGraphDataResponseElementsEdge`
 
 NewDaVinciFlowGraphDataResponseElementsEdge instantiates a new DaVinciFlowGraphDataResponseElementsEdge object
 This constructor will assign default values to properties that have it defined,
@@ -33,26 +33,6 @@ will change when the set of required properties is changed
 NewDaVinciFlowGraphDataResponseElementsEdgeWithDefaults instantiates a new DaVinciFlowGraphDataResponseElementsEdge object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetClasses
-
-`func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClasses() string`
-
-GetClasses returns the Classes field if non-nil, zero value otherwise.
-
-### GetClassesOk
-
-`func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClassesOk() (*string, bool)`
-
-GetClassesOk returns a tuple with the Classes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClasses
-
-`func (o *DaVinciFlowGraphDataResponseElementsEdge) SetClasses(v string)`
-
-SetClasses sets Classes field to given value.
-
 
 ### GetData
 
@@ -233,6 +213,31 @@ and a boolean to check if the value has been set.
 
 SetSelected sets Selected field to given value.
 
+
+### GetClasses
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClasses() string`
+
+GetClasses returns the Classes field if non-nil, zero value otherwise.
+
+### GetClassesOk
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClassesOk() (*string, bool)`
+
+GetClassesOk returns a tuple with the Classes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClasses
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdge) SetClasses(v string)`
+
+SetClasses sets Classes field to given value.
+
+### HasClasses
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdge) HasClasses() bool`
+
+HasClasses returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

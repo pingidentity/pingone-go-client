@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Label** | Pointer to **string** |  | [optional] 
 **LinterError** | Pointer to [**[]DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem**](DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Properties** | Pointer to [**DaVinciFlowGraphDataResponseElementsNodeData**](DaVinciFlowGraphDataResponseElementsNodeData.md) |  | [optional] 
+**Properties** | Pointer to [**DaVinciFlowGraphDataResponseElementsNodeDataProperties**](DaVinciFlowGraphDataResponseElementsNodeDataProperties.md) |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
@@ -253,20 +253,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetProperties() DaVinciFlowGraphDataResponseElementsNodeData`
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetProperties() DaVinciFlowGraphDataResponseElementsNodeDataProperties`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataResponseElementsNodeData, bool)`
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataResponseElementsNodeDataProperties, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetProperties(v DaVinciFlowGraphDataResponseElementsNodeData)`
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetProperties(v DaVinciFlowGraphDataResponseElementsNodeDataProperties)`
 
 SetProperties sets Properties field to given value.
 

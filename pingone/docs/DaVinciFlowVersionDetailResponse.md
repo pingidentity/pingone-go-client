@@ -5,8 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciFlowVersionDetailResponseLinks**](DaVinciFlowVersionDetailResponseLinks.md) |  | 
+**Alias** | Pointer to **string** |  | [optional] 
 **Color** | Pointer to **string** |  | [optional] 
 **Connectors** | Pointer to [**[]DaVinciFlowVersionDetailResponseConnector**](DaVinciFlowVersionDetailResponseConnector.md) |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**DeployedAt** | Pointer to **time.Time** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **Flow** | Pointer to [**DaVinciFlowVersionDetailResponseFlow**](DaVinciFlowVersionDetailResponseFlow.md) |  | [optional] 
@@ -16,6 +19,7 @@ Name | Type | Description | Notes
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
 **Skcomponents** | Pointer to [**[]DaVinciFlowVersionDetailResponseSkcomponent**](DaVinciFlowVersionDetailResponseSkcomponent.md) |  | [optional] 
 **Trigger** | Pointer to [**DaVinciFlowVersionDetailResponseTrigger**](DaVinciFlowVersionDetailResponseTrigger.md) |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Updates** | Pointer to **[]string** |  | [optional] 
 **Version** | Pointer to **float32** |  | [optional] 
 
@@ -57,6 +61,31 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
+
+### GetAlias
+
+`func (o *DaVinciFlowVersionDetailResponse) GetAlias() string`
+
+GetAlias returns the Alias field if non-nil, zero value otherwise.
+
+### GetAliasOk
+
+`func (o *DaVinciFlowVersionDetailResponse) GetAliasOk() (*string, bool)`
+
+GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlias
+
+`func (o *DaVinciFlowVersionDetailResponse) SetAlias(v string)`
+
+SetAlias sets Alias field to given value.
+
+### HasAlias
+
+`func (o *DaVinciFlowVersionDetailResponse) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
 
 ### GetColor
 
@@ -107,6 +136,56 @@ SetConnectors sets Connectors field to given value.
 `func (o *DaVinciFlowVersionDetailResponse) HasConnectors() bool`
 
 HasConnectors returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *DaVinciFlowVersionDetailResponse) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetDeployedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) GetDeployedAt() time.Time`
+
+GetDeployedAt returns the DeployedAt field if non-nil, zero value otherwise.
+
+### GetDeployedAtOk
+
+`func (o *DaVinciFlowVersionDetailResponse) GetDeployedAtOk() (*time.Time, bool)`
+
+GetDeployedAtOk returns a tuple with the DeployedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeployedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) SetDeployedAt(v time.Time)`
+
+SetDeployedAt sets DeployedAt field to given value.
+
+### HasDeployedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) HasDeployedAt() bool`
+
+HasDeployedAt returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -332,6 +411,31 @@ SetTrigger sets Trigger field to given value.
 `func (o *DaVinciFlowVersionDetailResponse) HasTrigger() bool`
 
 HasTrigger returns a boolean if a field has been set.
+
+### GetUpdatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *DaVinciFlowVersionDetailResponse) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+### HasUpdatedAt
+
+`func (o *DaVinciFlowVersionDetailResponse) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetUpdates
 

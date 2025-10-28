@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **DefaultErrorScreenBrandLogo** | Pointer to **bool** |  | [optional] 
 **FlowHttpTimeoutInSeconds** | Pointer to **int32** |  | [optional] 
 **FlowTimeoutInSeconds** | Pointer to **int32** |  | [optional] 
-**IntermediateLoadingScreenCSS** | Pointer to **string** |  | [optional] 
-**IntermediateLoadingScreenHTML** | Pointer to **string** |  | [optional] 
+**IntermediateLoadingScreenCSS** | Pointer to [**DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS**](DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS.md) |  | [optional] 
+**IntermediateLoadingScreenHTML** | Pointer to [**DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML**](DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML.md) |  | [optional] 
 **JsCustomFlowPlayer** | Pointer to **string** |  | [optional] 
 **JsLinks** | Pointer to [**[]DaVinciFlowSettingsRequestJsLink**](DaVinciFlowSettingsRequestJsLink.md) |  | [optional] 
 **LogLevel** | Pointer to **int32** |  | [optional] 
@@ -326,20 +326,20 @@ HasFlowTimeoutInSeconds returns a boolean if a field has been set.
 
 ### GetIntermediateLoadingScreenCSS
 
-`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSS() string`
+`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSS() DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS`
 
 GetIntermediateLoadingScreenCSS returns the IntermediateLoadingScreenCSS field if non-nil, zero value otherwise.
 
 ### GetIntermediateLoadingScreenCSSOk
 
-`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSSOk() (*string, bool)`
+`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSSOk() (*DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS, bool)`
 
 GetIntermediateLoadingScreenCSSOk returns a tuple with the IntermediateLoadingScreenCSS field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIntermediateLoadingScreenCSS
 
-`func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenCSS(v string)`
+`func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenCSS(v DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS)`
 
 SetIntermediateLoadingScreenCSS sets IntermediateLoadingScreenCSS field to given value.
 
@@ -351,20 +351,20 @@ HasIntermediateLoadingScreenCSS returns a boolean if a field has been set.
 
 ### GetIntermediateLoadingScreenHTML
 
-`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTML() string`
+`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTML() DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML`
 
 GetIntermediateLoadingScreenHTML returns the IntermediateLoadingScreenHTML field if non-nil, zero value otherwise.
 
 ### GetIntermediateLoadingScreenHTMLOk
 
-`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTMLOk() (*string, bool)`
+`func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTMLOk() (*DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML, bool)`
 
 GetIntermediateLoadingScreenHTMLOk returns a tuple with the IntermediateLoadingScreenHTML field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIntermediateLoadingScreenHTML
 
-`func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenHTML(v string)`
+`func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenHTML(v DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML)`
 
 SetIntermediateLoadingScreenHTML sets IntermediateLoadingScreenHTML field to given value.
 
