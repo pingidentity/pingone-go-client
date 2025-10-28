@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.08.27-development
+  version: 2025.10.28-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -222,9 +222,9 @@ paths:
         "401":
           $ref: '#/components/responses/http.401.Unauthorized'
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: '#/components/responses/http.403.Forbidden'
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: '#/components/responses/http.404.NotFound'
         "429":
           $ref: '#/components/responses/http.429.TooManyRequests'
         "500":
@@ -1534,6 +1534,189 @@ paths:
       tags:
       - DaVinci Flows
       x-permission: davinci:read:flowVersions
+  /environments/{environmentID}/snapshots:
+    post:
+      operationId: createSnapshot
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SnapshotView'
+          description: Created
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Environments
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:create:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}:
+    get:
+      operationId: getSnapshotById
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
+      - explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SnapshotView'
+          description: OK
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Environments
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}/versions:
+    get:
+      operationId: getVersionsBySnapshotId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Environments
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
+  /environments/{environmentID}/snapshots/{snapshotID}/versions/{versionID}:
+    get:
+      operationId: getVersionByIdUsingSnapshotId
+      parameters:
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
+      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.versions.versionID'
+      - explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
+      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SnapshotView'
+          description: OK
+        "400":
+          $ref: '#/components/responses/http.400.BadRequest'
+        "401":
+          $ref: '#/components/responses/http.401.Unauthorized'
+        "403":
+          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+        "429":
+          $ref: '#/components/responses/http.429.TooManyRequests'
+        "500":
+          $ref: '#/components/responses/http.500.InternalServerError'
+        "502":
+          $ref: '#/components/responses/http.502.BadGateway'
+        "503":
+          $ref: '#/components/responses/http.503.ServiceUnavailable'
+      tags:
+      - Environments
+      x-feature-flag: p1ax-1984-configuration-promotion
+      x-permission: promotion:read:snapshot
   /environments/{environmentID}/totalIdentities:
     get:
       operationId: getTotalIdentities
@@ -1864,7 +2047,7 @@ components:
       name: connectorID
       required: true
       schema:
-        format: uuid
+        pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
         type: string
       style: simple
     com.pingidentity.path.environments.davinciApplications.davinciApplicationID:
@@ -1883,6 +2066,24 @@ components:
       required: true
       schema:
         pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+        type: string
+      style: simple
+    com.pingidentity.path.environments.snapshots.snapshotID:
+      explode: false
+      in: path
+      name: snapshotID
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    com.pingidentity.path.environments.snapshots.versions.versionID:
+      explode: false
+      in: path
+      name: versionID
+      required: true
+      schema:
+        format: uuid
         type: string
       style: simple
   responses:
@@ -2800,10 +3001,6 @@ components:
           minLength: 1
           title: DaVinci Connector Minimal Response Created At
           type: string
-        description:
-          minLength: 1
-          title: DaVinci Connector Minimal Response Description
-          type: string
         environment:
           $ref: '#/components/schemas/ResourceRelationshipReadOnly'
         id:
@@ -2816,24 +3013,24 @@ components:
           minLength: 1
           title: DaVinci Connector Minimal Response Name
           type: string
-        updatedAt:
-          format: date-time
-          minLength: 1
-          title: DaVinci Connector Minimal Response Updated At
-          type: string
         version:
           minLength: 1
           title: DaVinci Connector Minimal Response Version
           type: string
+        description:
+          title: DaVinci Connector Minimal Response Description
+          type: string
+        updatedAt:
+          format: date-time
+          title: DaVinci Connector Minimal Response Updated At
+          type: string
       required:
       - _links
       - createdAt
-      - description
       - environment
       - id
       - metadata
       - name
-      - updatedAt
       - version
       title: DaVinci Connector Minimal Response
     DaVinciExportFlowVersionResponse:
@@ -2943,6 +3140,7 @@ components:
                 label: label
                 type: type
                 value: value
+              useIntermediateLoadingScreen: true
               flowTimeoutInSeconds: 1.0246457001441578
               intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
               intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -3055,7 +3253,7 @@ components:
               renderer:
                 name: name
               zoomingEnabled: true
-              data: ""
+              data: "{}"
               maxZoom: 9.301444243932576
               userPanningEnabled: true
               minZoom: 3.616076749251911
@@ -3099,16 +3297,17 @@ components:
                     label: label
                     nodeType: nodeType
                     type: type
-                    properties: null
+                    properties:
+                      key: ""
                     status: status
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 2.3021358869347655
-                    "y": 7.061401241503109
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3135,16 +3334,17 @@ components:
                     label: label
                     nodeType: nodeType
                     type: type
-                    properties: null
+                    properties:
+                      key: ""
                     status: status
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 2.3021358869347655
-                    "y": 7.061401241503109
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3154,13 +3354,13 @@ components:
                     source: source
                     target: target
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.962133916683182
-                    "y": 5.637376656633329
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -3169,13 +3369,13 @@ components:
                     source: source
                     target: target
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.962133916683182
-                    "y": 5.637376656633329
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -3202,6 +3402,7 @@ components:
                 label: label
                 type: type
                 value: value
+              useIntermediateLoadingScreen: true
               flowTimeoutInSeconds: 1.0246457001441578
               intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
               intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -3314,7 +3515,7 @@ components:
               renderer:
                 name: name
               zoomingEnabled: true
-              data: ""
+              data: "{}"
               maxZoom: 9.301444243932576
               userPanningEnabled: true
               minZoom: 3.616076749251911
@@ -3358,16 +3559,17 @@ components:
                     label: label
                     nodeType: nodeType
                     type: type
-                    properties: null
+                    properties:
+                      key: ""
                     status: status
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 2.3021358869347655
-                    "y": 7.061401241503109
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3394,16 +3596,17 @@ components:
                     label: label
                     nodeType: nodeType
                     type: type
-                    properties: null
+                    properties:
+                      key: ""
                     status: status
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 2.3021358869347655
-                    "y": 7.061401241503109
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3413,13 +3616,13 @@ components:
                     source: source
                     target: target
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.962133916683182
-                    "y": 5.637376656633329
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -3428,13 +3631,13 @@ components:
                     source: source
                     target: target
                   removed: true
-                  classes: classes
                   selectable: true
+                  classes: classes
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.962133916683182
-                    "y": 5.637376656633329
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -3496,7 +3699,7 @@ components:
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
           flowTimeoutInSeconds: 7
           customTitle: customTitle
-          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
           useCustomScript: true
           useCSP: true
           logLevel: 1
@@ -3506,7 +3709,7 @@ components:
           - cssLinks
           - cssLinks
           defaultErrorScreenBrandLogo: true
-          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
           flowHttpTimeoutInSeconds: 4
@@ -3758,8 +3961,10 @@ components:
         elements:
           $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements'
         maxZoom:
+          format: bigFloat
           title: DaVinci Flow Graph Data Request Max Zoom
         minZoom:
+          format: bigFloat
           title: DaVinci Flow Graph Data Request Min Zoom
         pan:
           $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Request_Pan'
@@ -3782,7 +3987,7 @@ components:
         renderer:
           name: name
         zoomingEnabled: true
-        data: ""
+        data: "{}"
         maxZoom: 9.301444243932576
         userPanningEnabled: true
         minZoom: 3.616076749251911
@@ -3826,16 +4031,17 @@ components:
               label: label
               nodeType: nodeType
               type: type
-              properties: null
+              properties:
+                key: ""
               status: status
             removed: true
-            classes: classes
             selectable: true
+            classes: classes
             grabbable: true
             pannable: true
             position:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
+              x: 5.962133916683182
+              "y": 5.637376656633329
             locked: true
             selected: true
             group: group
@@ -3862,16 +4068,17 @@ components:
               label: label
               nodeType: nodeType
               type: type
-              properties: null
+              properties:
+                key: ""
               status: status
             removed: true
-            classes: classes
             selectable: true
+            classes: classes
             grabbable: true
             pannable: true
             position:
-              x: 2.3021358869347655
-              "y": 7.061401241503109
+              x: 5.962133916683182
+              "y": 5.637376656633329
             locked: true
             selected: true
             group: group
@@ -3881,13 +4088,13 @@ components:
               source: source
               target: target
             removed: true
-            classes: classes
             selectable: true
+            classes: classes
             grabbable: true
             pannable: true
             position:
-              x: 5.962133916683182
-              "y": 5.637376656633329
+              x: 2.3021358869347655
+              "y": 7.061401241503109
             locked: true
             selected: true
             group: group
@@ -3896,13 +4103,13 @@ components:
               source: source
               target: target
             removed: true
-            classes: classes
             selectable: true
+            classes: classes
             grabbable: true
             pannable: true
             position:
-              x: 5.962133916683182
-              "y": 5.637376656633329
+              x: 2.3021358869347655
+              "y": 7.061401241503109
             locked: true
             selected: true
             group: group
@@ -3914,13 +4121,14 @@ components:
         boxSelectionEnabled:
           title: DaVinci Flow Graph Data Response Box Selection Enabled
           type: boolean
-        data: {}
         elements:
           $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements'
         maxZoom:
+          format: bigFloat
           title: DaVinci Flow Graph Data Response Max Zoom
           type: number
         minZoom:
+          format: bigFloat
           title: DaVinci Flow Graph Data Response Min Zoom
           type: number
         pan:
@@ -3939,16 +4147,18 @@ components:
         zoom:
           title: DaVinci Flow Graph Data Response Zoom
           type: number
-        zoomingEnabled:
-          title: DaVinci Flow Graph Data Response Zooming Enabled
-          type: boolean
         allLinterErrors:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_All_Linter_Error'
           type: array
+        data:
+          title: DaVinci Flow Graph Data Response Data
+          type: object
+        zoomingEnabled:
+          title: DaVinci Flow Graph Data Response Zooming Enabled
+          type: boolean
       required:
       - boxSelectionEnabled
-      - data
       - elements
       - maxZoom
       - minZoom
@@ -3958,7 +4168,6 @@ components:
       - userPanningEnabled
       - userZoomingEnabled
       - zoom
-      - zoomingEnabled
       title: DaVinci Flow Graph Data Response
     DaVinciFlowInputSchemaRequest:
       items:
@@ -4489,7 +4698,7 @@ components:
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
           flowTimeoutInSeconds: 7
           customTitle: customTitle
-          intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+          intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
           useCustomScript: true
           useCSP: true
           logLevel: 1
@@ -4499,7 +4708,7 @@ components:
           - cssLinks
           - cssLinks
           defaultErrorScreenBrandLogo: true
-          intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+          intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
           flowHttpTimeoutInSeconds: 4
@@ -4669,6 +4878,7 @@ components:
             label: label
             type: type
             value: value
+          useIntermediateLoadingScreen: true
           flowTimeoutInSeconds: 1.0246457001441578
           intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
           intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -4781,7 +4991,7 @@ components:
           renderer:
             name: name
           zoomingEnabled: true
-          data: ""
+          data: "{}"
           maxZoom: 9.301444243932576
           userPanningEnabled: true
           minZoom: 3.616076749251911
@@ -4825,16 +5035,17 @@ components:
                 label: label
                 nodeType: nodeType
                 type: type
-                properties: null
+                properties:
+                  key: ""
                 status: status
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 2.3021358869347655
-                "y": 7.061401241503109
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -4861,16 +5072,17 @@ components:
                 label: label
                 nodeType: nodeType
                 type: type
-                properties: null
+                properties:
+                  key: ""
                 status: status
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 2.3021358869347655
-                "y": 7.061401241503109
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -4880,13 +5092,13 @@ components:
                 source: source
                 target: target
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -4895,13 +5107,13 @@ components:
                 source: source
                 target: target
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -5003,7 +5215,7 @@ components:
         customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
         flowTimeoutInSeconds: 7
         customTitle: customTitle
-        intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
+        intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
         useCustomScript: true
         useCSP: true
         logLevel: 1
@@ -5013,7 +5225,7 @@ components:
         - cssLinks
         - cssLinks
         defaultErrorScreenBrandLogo: true
-        intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
+        intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
         useCustomCSS: true
         validateOnSave: true
         flowHttpTimeoutInSeconds: 4
@@ -5062,11 +5274,9 @@ components:
           title: DaVinci Flow Settings Request Flow Timeout In Seconds
           type: integer
         intermediateLoadingScreenCSS:
-          title: DaVinci Flow Settings Request Intermediate Loading Screen CSS
-          type: string
+          $ref: '#/components/schemas/DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS'
         intermediateLoadingScreenHTML:
-          title: DaVinci Flow Settings Request Intermediate Loading Screen HTML
-          type: string
+          $ref: '#/components/schemas/DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML'
         jsCustomFlowPlayer:
           title: DaVinci Flow Settings Request Js Custom Flow Player
           type: string
@@ -5128,6 +5338,7 @@ components:
           label: label
           type: type
           value: value
+        useIntermediateLoadingScreen: true
         flowTimeoutInSeconds: 1.0246457001441578
         intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
         intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -5144,6 +5355,8 @@ components:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Settings_Response_Js_Link'
           title: DaVinci Flow Settings Response Js Links
+        useIntermediateLoadingScreen:
+          title: DaVinci Flow Settings Response Use Intermediate Loading Screen
       title: DaVinci Flow Settings Response
     DaVinciFlowVersionCollectionResponse:
       example:
@@ -5274,6 +5487,7 @@ components:
             label: label
             type: type
             value: value
+          useIntermediateLoadingScreen: true
           flowTimeoutInSeconds: 1.0246457001441578
           intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
           intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -5357,7 +5571,9 @@ components:
         - updates
         - updates
         version: 5.637376656633329
+        deployedAt: 2000-01-23T04:56:07.000+00:00
         enabled: true
+        createdAt: 2000-01-23T04:56:07.000+00:00
         skcomponents:
         - name: name
           options:
@@ -5455,12 +5671,13 @@ components:
             populationId: populationId
           id: id
           nodeId: nodeId
+        alias: alias
         graphData:
           boxSelectionEnabled: true
           renderer:
             name: name
           zoomingEnabled: true
-          data: ""
+          data: "{}"
           maxZoom: 9.301444243932576
           userPanningEnabled: true
           minZoom: 3.616076749251911
@@ -5504,16 +5721,17 @@ components:
                 label: label
                 nodeType: nodeType
                 type: type
-                properties: null
+                properties:
+                  key: ""
                 status: status
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 2.3021358869347655
-                "y": 7.061401241503109
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -5540,16 +5758,17 @@ components:
                 label: label
                 nodeType: nodeType
                 type: type
-                properties: null
+                properties:
+                  key: ""
                 status: status
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 2.3021358869347655
-                "y": 7.061401241503109
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -5559,13 +5778,13 @@ components:
                 source: source
                 target: target
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -5574,13 +5793,13 @@ components:
                 source: source
                 target: target
               removed: true
-              classes: classes
               selectable: true
+              classes: classes
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -5591,9 +5810,13 @@ components:
         flow:
           name: name
           id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
           $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response__links'
+        alias:
+          title: DaVinci Flow Version Detail Response Alias
+          type: string
         color:
           title: DaVinci Flow Version Detail Response Color
           type: string
@@ -5601,6 +5824,14 @@ components:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Connector'
           type: array
+        createdAt:
+          format: date-time
+          title: DaVinci Flow Version Detail Response Created At
+          type: string
+        deployedAt:
+          format: date-time
+          title: DaVinci Flow Version Detail Response Deployed At
+          type: string
         description:
           title: DaVinci Flow Version Detail Response Description
           type: string
@@ -5625,6 +5856,10 @@ components:
           type: array
         trigger:
           $ref: '#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger'
+        updatedAt:
+          format: date-time
+          title: DaVinci Flow Version Detail Response Updated At
+          type: string
         updates:
           items:
             title: DaVinci Flow Version Detail Response Update
@@ -6129,7 +6364,7 @@ components:
       title: Directory Total Identities Count Response
     EnvironmentAPILimit:
       example:
-        limit: 5
+        limit: 7
       properties:
         limit:
           format: int64
@@ -6667,11 +6902,13 @@ components:
         canAssignUsersRoles: true
         canUseBotMaliciousDeviceDetection: true
         canSendMfaNotificationsOutsideWhitelist: true
+        canUseScheduledFlows: true
         canUseIntelligence: true
         canUseIntelligenceAdvancedPredictors: true
         canUsePingIDApp: true
         canUseIdentities: true
         canUseIntelligenceAnonymousNetworkDetection: true
+        canUsePingIdDesktop: true
         canUseTotp: true
         canUseCredentials: true
         canUseMfa: true
@@ -6697,8 +6934,11 @@ components:
         canUsePasswordOnlyAuthentication: true
         canUseVerificationFlow: true
         canUsePingSmsAccount: true
+        canUseDataVerificationGroup5: true
         canUsersUpdateSelf: true
+        canUseDataVerificationGroup4: true
         canUseManualIDStepUpInspection: true
+        canUseDataVerificationGroup3: true
         canAssignCustomRolesEverywhere: true
         canCreateCustomDomain: true
         canCreateConnections: true
@@ -6720,6 +6960,8 @@ components:
         canUseFraudDataEnrichment: true
         canUseVerifyPushNotifications: true
         canUseProtectTransactions: true
+        canUseDataVerificationGroup2: true
+        canUseDataVerificationGroup1: true
         canUseAccountOwnership: true
         canUseOrchestration: true
         canAddResources: true
@@ -6728,53 +6970,70 @@ components:
         canUseDataAnalyticsSupport: true
         getcanUseUniversalCapture: true
         canUseIntelligenceEditPolicyScores: true
+        canUseLiveAgent: true
+        canUsePingIdDesktopGen2: true
         canUseIntelligenceProtect: true
         licenseQuantities:
-          rlgCredRpm:
-            limit: 5
-          numberOfAccountOwnership: 6
-          rlgAppRegRpm:
-            limit: 5
-          rlgDirAccessRps:
-            limit: 5
+          rlgAuthnStartRps:
+            limit: 7
           rlgDirFixedRps:
-            limit: 5
-          rlgCatchAllRps:
-            limit: 5
+            limit: 7
           rlgConfigRpm:
-            limit: 5
+            limit: 7
           rlgAuditRps:
-            limit: 5
-          rlgDvFlowExecRps:
-            limit: 5
+            limit: 7
           rlgMfaPollingRps:
-            limit: 5
+            limit: 7
           rlgVerifyRpm:
-            limit: 5
+            limit: 7
           rlgTokenCheckRps:
-            limit: 5
+            limit: 7
           rlgDirBulkRps:
-            limit: 5
+            limit: 7
           rlgDvFlowCallbackRps:
-            limit: 5
-          numberOfAadhaar: 0
-          rlgMfaRps:
-            limit: 5
-          rlgAnalyticsRpm:
-            limit: 5
-          rlgDirWriteRps:
-            limit: 5
+            limit: 7
+          numberOfLiveAgent: 4
           rlgDvFlowStartRps:
-            limit: 5
+            limit: 7
           rlgRiskEvalsRps:
-            limit: 5
+            limit: 7
+          numberOfDeviceReputationScoring: 3
+          numberOfDataVerifications: 9
+          rlgCredRpm:
+            limit: 7
+          numberOfAccountOwnership: 6
+          numberOfDataVerificationGroup1: 1
+          rlgAppRegRpm:
+            limit: 7
+          rlgDirAccessRps:
+            limit: 7
+          rlgCatchAllRps:
+            limit: 7
+          rlgPrivilegeRps:
+            limit: 7
+          rlgDvFlowExecRps:
+            limit: 7
+          numberOfDataVerificationGroup4: 2
+          numberOfDataVerificationGroup5: 7
+          numberOfDataVerificationGroup2: 5
+          numberOfAadhaar: 0
+          numberOfDataVerificationGroup3: 5
+          rlgMfaRps:
+            limit: 7
+          rlgAnalyticsRpm:
+            limit: 7
+          rlgDirWriteRps:
+            limit: 7
+          numberOfGlobalWatchlist: 2
           rlgAuthzRps:
-            limit: 5
+            limit: 7
+          rlgAuthzBulkRps:
+            limit: 7
           rlgAuthnRps:
-            limit: 5
-          numberOfDataVerifications: 1
+            limit: 7
           rlgMfaFixedRps:
-            limit: 5
+            limit: 7
+        canUseGlobalWatchlist: true
         canUsePlatform: true
         canUseEditNotificationTemplate: true
         canContactSupport: true
@@ -6782,6 +7041,7 @@ components:
         canUseAadhaar: true
         canUseOATHToken: true
         canUseIntelligenceNewDevicePredictor: true
+        canUseDeviceReputationScoring: true
         canUseAccountTakeoverDetection: true
         canUseYubikey: true
         canUseIntelligenceReputation: true
@@ -6872,6 +7132,24 @@ components:
         canUseDataBasedVerifications:
           title: Environment Capabilities Can Use Data Based Verifications
           type: boolean
+        canUseDataVerificationGroup1:
+          title: Environment Capabilities Can Use Data Verification Group 1
+          type: boolean
+        canUseDataVerificationGroup2:
+          title: Environment Capabilities Can Use Data Verification Group 2
+          type: boolean
+        canUseDataVerificationGroup3:
+          title: Environment Capabilities Can Use Data Verification Group 3
+          type: boolean
+        canUseDataVerificationGroup4:
+          title: Environment Capabilities Can Use Data Verification Group 4
+          type: boolean
+        canUseDataVerificationGroup5:
+          title: Environment Capabilities Can Use Data Verification Group 5
+          type: boolean
+        canUseDeviceReputationScoring:
+          title: Environment Capabilities Can Use Device Reputation Scoring
+          type: boolean
         canUseDigitalVerifications:
           title: Environment Capabilities Can Use Digital Verifications
           type: boolean
@@ -6892,6 +7170,9 @@ components:
           type: boolean
         canUseFraudDataEnrichment:
           title: Environment Capabilities Can Use Fraud Data Enrichment
+          type: boolean
+        canUseGlobalWatchlist:
+          title: Environment Capabilities Can Use Global Watchlist
           type: boolean
         canUseIdentities:
           title: Environment Capabilities Can Use Identities
@@ -6948,6 +7229,9 @@ components:
         canUseLdapGateway:
           title: Environment Capabilities Can Use Ldap Gateway
           type: boolean
+        canUseLiveAgent:
+          title: Environment Capabilities Can Use Live Agent
+          type: boolean
         canUseManualIDStepUpInspection:
           title: Environment Capabilities Can Use Manual ID Step Up Inspection
           type: boolean
@@ -6990,6 +7274,12 @@ components:
         canUsePingIDApp:
           title: Environment Capabilities Can Use Ping ID App
           type: boolean
+        canUsePingIdDesktop:
+          title: Environment Capabilities Can Use Ping Id Desktop
+          type: boolean
+        canUsePingIdDesktopGen2:
+          title: Environment Capabilities Can Use Ping Id Desktop Gen 2
+          type: boolean
         canUsePingSmsAccount:
           title: Environment Capabilities Can Use Ping Sms Account
           type: boolean
@@ -7004,6 +7294,9 @@ components:
           type: boolean
         canUseRadiusGateway:
           title: Environment Capabilities Can Use Radius Gateway
+          type: boolean
+        canUseScheduledFlows:
+          title: Environment Capabilities Can Use Scheduled Flows
           type: boolean
         canUseSmsOtp:
           title: Environment Capabilities Can Use Sms Otp
@@ -7219,51 +7512,65 @@ components:
       title: Environment License
     EnvironmentLicenseQuantities:
       example:
-        rlgCredRpm:
-          limit: 5
-        numberOfAccountOwnership: 6
-        rlgAppRegRpm:
-          limit: 5
-        rlgDirAccessRps:
-          limit: 5
+        rlgAuthnStartRps:
+          limit: 7
         rlgDirFixedRps:
-          limit: 5
-        rlgCatchAllRps:
-          limit: 5
+          limit: 7
         rlgConfigRpm:
-          limit: 5
+          limit: 7
         rlgAuditRps:
-          limit: 5
-        rlgDvFlowExecRps:
-          limit: 5
+          limit: 7
         rlgMfaPollingRps:
-          limit: 5
+          limit: 7
         rlgVerifyRpm:
-          limit: 5
+          limit: 7
         rlgTokenCheckRps:
-          limit: 5
+          limit: 7
         rlgDirBulkRps:
-          limit: 5
+          limit: 7
         rlgDvFlowCallbackRps:
-          limit: 5
-        numberOfAadhaar: 0
-        rlgMfaRps:
-          limit: 5
-        rlgAnalyticsRpm:
-          limit: 5
-        rlgDirWriteRps:
-          limit: 5
+          limit: 7
+        numberOfLiveAgent: 4
         rlgDvFlowStartRps:
-          limit: 5
+          limit: 7
         rlgRiskEvalsRps:
-          limit: 5
+          limit: 7
+        numberOfDeviceReputationScoring: 3
+        numberOfDataVerifications: 9
+        rlgCredRpm:
+          limit: 7
+        numberOfAccountOwnership: 6
+        numberOfDataVerificationGroup1: 1
+        rlgAppRegRpm:
+          limit: 7
+        rlgDirAccessRps:
+          limit: 7
+        rlgCatchAllRps:
+          limit: 7
+        rlgPrivilegeRps:
+          limit: 7
+        rlgDvFlowExecRps:
+          limit: 7
+        numberOfDataVerificationGroup4: 2
+        numberOfDataVerificationGroup5: 7
+        numberOfDataVerificationGroup2: 5
+        numberOfAadhaar: 0
+        numberOfDataVerificationGroup3: 5
+        rlgMfaRps:
+          limit: 7
+        rlgAnalyticsRpm:
+          limit: 7
+        rlgDirWriteRps:
+          limit: 7
+        numberOfGlobalWatchlist: 2
         rlgAuthzRps:
-          limit: 5
+          limit: 7
+        rlgAuthzBulkRps:
+          limit: 7
         rlgAuthnRps:
-          limit: 5
-        numberOfDataVerifications: 1
+          limit: 7
         rlgMfaFixedRps:
-          limit: 5
+          limit: 7
       properties:
         numberOfAadhaar:
           format: int64
@@ -7273,9 +7580,46 @@ components:
           format: int64
           title: Environment License Quantities Number Of Account Ownership
           type: integer
+        numberOfDataVerificationGroup1:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            1
+          type: integer
+        numberOfDataVerificationGroup2:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            2
+          type: integer
+        numberOfDataVerificationGroup3:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            3
+          type: integer
+        numberOfDataVerificationGroup4:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            4
+          type: integer
+        numberOfDataVerificationGroup5:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            5
+          type: integer
         numberOfDataVerifications:
           format: int64
           title: Environment License Quantities Number Of Data Verifications
+          type: integer
+        numberOfDeviceReputationScoring:
+          format: int64
+          title: Environment License Quantities Number Of Device Reputation Scoring
+          type: integer
+        numberOfGlobalWatchlist:
+          format: int64
+          title: Environment License Quantities Number Of Global Watchlist
+          type: integer
+        numberOfLiveAgent:
+          format: int64
+          title: Environment License Quantities Number Of Live Agent
           type: integer
         rlgAnalyticsRpm:
           $ref: '#/components/schemas/EnvironmentAPILimit'
@@ -7284,6 +7628,10 @@ components:
         rlgAuditRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
         rlgAuthnRps:
+          $ref: '#/components/schemas/EnvironmentAPILimit'
+        rlgAuthnStartRps:
+          $ref: '#/components/schemas/EnvironmentAPILimit'
+        rlgAuthzBulkRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
         rlgAuthzRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
@@ -7312,6 +7660,8 @@ components:
         rlgMfaPollingRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
         rlgMfaRps:
+          $ref: '#/components/schemas/EnvironmentAPILimit'
+        rlgPrivilegeRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
         rlgRiskEvalsRps:
           $ref: '#/components/schemas/EnvironmentAPILimit'
@@ -7517,11 +7867,13 @@ components:
           canAssignUsersRoles: true
           canUseBotMaliciousDeviceDetection: true
           canSendMfaNotificationsOutsideWhitelist: true
+          canUseScheduledFlows: true
           canUseIntelligence: true
           canUseIntelligenceAdvancedPredictors: true
           canUsePingIDApp: true
           canUseIdentities: true
           canUseIntelligenceAnonymousNetworkDetection: true
+          canUsePingIdDesktop: true
           canUseTotp: true
           canUseCredentials: true
           canUseMfa: true
@@ -7547,8 +7899,11 @@ components:
           canUsePasswordOnlyAuthentication: true
           canUseVerificationFlow: true
           canUsePingSmsAccount: true
+          canUseDataVerificationGroup5: true
           canUsersUpdateSelf: true
+          canUseDataVerificationGroup4: true
           canUseManualIDStepUpInspection: true
+          canUseDataVerificationGroup3: true
           canAssignCustomRolesEverywhere: true
           canCreateCustomDomain: true
           canCreateConnections: true
@@ -7570,6 +7925,8 @@ components:
           canUseFraudDataEnrichment: true
           canUseVerifyPushNotifications: true
           canUseProtectTransactions: true
+          canUseDataVerificationGroup2: true
+          canUseDataVerificationGroup1: true
           canUseAccountOwnership: true
           canUseOrchestration: true
           canAddResources: true
@@ -7578,53 +7935,70 @@ components:
           canUseDataAnalyticsSupport: true
           getcanUseUniversalCapture: true
           canUseIntelligenceEditPolicyScores: true
+          canUseLiveAgent: true
+          canUsePingIdDesktopGen2: true
           canUseIntelligenceProtect: true
           licenseQuantities:
-            rlgCredRpm:
-              limit: 5
-            numberOfAccountOwnership: 6
-            rlgAppRegRpm:
-              limit: 5
-            rlgDirAccessRps:
-              limit: 5
+            rlgAuthnStartRps:
+              limit: 7
             rlgDirFixedRps:
-              limit: 5
-            rlgCatchAllRps:
-              limit: 5
+              limit: 7
             rlgConfigRpm:
-              limit: 5
+              limit: 7
             rlgAuditRps:
-              limit: 5
-            rlgDvFlowExecRps:
-              limit: 5
+              limit: 7
             rlgMfaPollingRps:
-              limit: 5
+              limit: 7
             rlgVerifyRpm:
-              limit: 5
+              limit: 7
             rlgTokenCheckRps:
-              limit: 5
+              limit: 7
             rlgDirBulkRps:
-              limit: 5
+              limit: 7
             rlgDvFlowCallbackRps:
-              limit: 5
-            numberOfAadhaar: 0
-            rlgMfaRps:
-              limit: 5
-            rlgAnalyticsRpm:
-              limit: 5
-            rlgDirWriteRps:
-              limit: 5
+              limit: 7
+            numberOfLiveAgent: 4
             rlgDvFlowStartRps:
-              limit: 5
+              limit: 7
             rlgRiskEvalsRps:
-              limit: 5
+              limit: 7
+            numberOfDeviceReputationScoring: 3
+            numberOfDataVerifications: 9
+            rlgCredRpm:
+              limit: 7
+            numberOfAccountOwnership: 6
+            numberOfDataVerificationGroup1: 1
+            rlgAppRegRpm:
+              limit: 7
+            rlgDirAccessRps:
+              limit: 7
+            rlgCatchAllRps:
+              limit: 7
+            rlgPrivilegeRps:
+              limit: 7
+            rlgDvFlowExecRps:
+              limit: 7
+            numberOfDataVerificationGroup4: 2
+            numberOfDataVerificationGroup5: 7
+            numberOfDataVerificationGroup2: 5
+            numberOfAadhaar: 0
+            numberOfDataVerificationGroup3: 5
+            rlgMfaRps:
+              limit: 7
+            rlgAnalyticsRpm:
+              limit: 7
+            rlgDirWriteRps:
+              limit: 7
+            numberOfGlobalWatchlist: 2
             rlgAuthzRps:
-              limit: 5
+              limit: 7
+            rlgAuthzBulkRps:
+              limit: 7
             rlgAuthnRps:
-              limit: 5
-            numberOfDataVerifications: 1
+              limit: 7
             rlgMfaFixedRps:
-              limit: 5
+              limit: 7
+          canUseGlobalWatchlist: true
           canUsePlatform: true
           canUseEditNotificationTemplate: true
           canContactSupport: true
@@ -7632,6 +8006,7 @@ components:
           canUseAadhaar: true
           canUseOATHToken: true
           canUseIntelligenceNewDevicePredictor: true
+          canUseDeviceReputationScoring: true
           canUseAccountTakeoverDetection: true
           canUseYubikey: true
           canUseIntelligenceReputation: true
@@ -8143,6 +8518,161 @@ components:
       required:
       - id
       title: Resource Relationship Read-Only
+    SnapshotRequest:
+      example:
+        baseResourceURL: baseResourceURL
+      properties:
+        baseResourceURL:
+          minLength: 1
+          title: Snapshot Request Base Resource URL
+          type: string
+      required:
+      - baseResourceURL
+      title: Snapshot Request
+    SnapshotResourceInformation:
+      example:
+        name: name
+        id: id
+        category: category
+      properties:
+        category:
+          title: Snapshot Resource Information Category
+          type: string
+        id:
+          title: Snapshot Resource Information Id
+          type: string
+        name:
+          title: Snapshot Resource Information Name
+          type: string
+      title: Snapshot Resource Information
+    SnapshotVersionCollectionResponse:
+      example:
+        size: 6
+        _embedded:
+          versions:
+          - ""
+          - ""
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        count: 0
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__embedded'
+        _links:
+          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__links'
+        count:
+          format: int32
+          title: Snapshot Version Collection Response Count
+          type: integer
+        size:
+          format: int32
+          title: Snapshot Version Collection Response Size
+          type: integer
+      title: Snapshot Version Collection Response
+    SnapshotView:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        snapshotId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        configuration: configuration
+        resource:
+          name: name
+          id: id
+          category: category
+        errorCode: 0
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        referencedResources:
+        - referencedResources
+        - referencedResources
+        error: error
+        versionedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        resourceUrl: resourceUrl
+        _embedded:
+          key: "{}"
+        importMetadata:
+          key: "{}"
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        status: COMPLETE
+      properties:
+        _embedded:
+          additionalProperties:
+            readOnly: true
+            title: Snapshot View _embedded Additional Properties
+            type: object
+          readOnly: true
+          title: Snapshot View _embedded
+        _links:
+          $ref: '#/components/schemas/Snapshot_View__links'
+        completedAt:
+          format: date-time
+          title: Snapshot View Completed At
+          type: string
+        configuration:
+          title: Snapshot View Configuration
+          type: string
+        createdAt:
+          format: date-time
+          title: Snapshot View Created At
+          type: string
+        environment:
+          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+        error:
+          title: Snapshot View Error
+          type: string
+        errorCode:
+          format: int32
+          title: Snapshot View Error Code
+          type: integer
+        id:
+          format: uuid
+          readOnly: true
+          title: Snapshot View Id
+          type: string
+        importMetadata:
+          additionalProperties:
+            title: Snapshot View Import Metadata Additional Properties
+            type: object
+          title: Snapshot View Import Metadata
+        referencedResources:
+          items:
+            title: Snapshot View Referenced Resource
+            type: string
+          type: array
+          uniqueItems: true
+        resource:
+          $ref: '#/components/schemas/SnapshotResourceInformation'
+        resourceUrl:
+          title: Snapshot View Resource Url
+          type: string
+        snapshotId:
+          format: uuid
+          title: Snapshot View Snapshot Id
+          type: string
+        startedAt:
+          format: date-time
+          title: Snapshot View Started At
+          type: string
+        status:
+          $ref: '#/components/schemas/Snapshot_View_Status'
+        versionedAt:
+          format: date-time
+          title: Snapshot View Versioned At
+          type: string
+      title: Snapshot View
     TooManyRequestsError:
       example:
         code: REQUEST_LIMITED
@@ -9361,6 +9891,7 @@ components:
               label: label
               type: type
               value: value
+            useIntermediateLoadingScreen: true
             flowTimeoutInSeconds: 1.0246457001441578
             intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
             intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -9473,7 +10004,7 @@ components:
             renderer:
               name: name
             zoomingEnabled: true
-            data: ""
+            data: "{}"
             maxZoom: 9.301444243932576
             userPanningEnabled: true
             minZoom: 3.616076749251911
@@ -9517,16 +10048,17 @@ components:
                   label: label
                   nodeType: nodeType
                   type: type
-                  properties: null
+                  properties:
+                    key: ""
                   status: status
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 2.3021358869347655
-                  "y": 7.061401241503109
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -9553,16 +10085,17 @@ components:
                   label: label
                   nodeType: nodeType
                   type: type
-                  properties: null
+                  properties:
+                    key: ""
                   status: status
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 2.3021358869347655
-                  "y": 7.061401241503109
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -9572,13 +10105,13 @@ components:
                   source: source
                   target: target
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.962133916683182
-                  "y": 5.637376656633329
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -9587,13 +10120,13 @@ components:
                   source: source
                   target: target
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.962133916683182
-                  "y": 5.637376656633329
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -9620,6 +10153,7 @@ components:
               label: label
               type: type
               value: value
+            useIntermediateLoadingScreen: true
             flowTimeoutInSeconds: 1.0246457001441578
             intermediateLoadingScreenHTML: intermediateLoadingScreenHTML
             intermediateLoadingScreenCSS: intermediateLoadingScreenCSS
@@ -9732,7 +10266,7 @@ components:
             renderer:
               name: name
             zoomingEnabled: true
-            data: ""
+            data: "{}"
             maxZoom: 9.301444243932576
             userPanningEnabled: true
             minZoom: 3.616076749251911
@@ -9776,16 +10310,17 @@ components:
                   label: label
                   nodeType: nodeType
                   type: type
-                  properties: null
+                  properties:
+                    key: ""
                   status: status
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 2.3021358869347655
-                  "y": 7.061401241503109
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -9812,16 +10347,17 @@ components:
                   label: label
                   nodeType: nodeType
                   type: type
-                  properties: null
+                  properties:
+                    key: ""
                   status: status
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 2.3021358869347655
-                  "y": 7.061401241503109
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -9831,13 +10367,13 @@ components:
                   source: source
                   target: target
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.962133916683182
-                  "y": 5.637376656633329
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -9846,13 +10382,13 @@ components:
                   source: source
                   target: target
                 removed: true
-                classes: classes
                 selectable: true
+                classes: classes
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.962133916683182
-                  "y": 5.637376656633329
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -10197,104 +10733,6 @@ components:
       - x
       - "y"
       title: DaVinci Flow Graph Data Request Pan
-    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data:
-      example:
-        id: id
-        source: source
-        target: target
-      properties:
-        id:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Edge Data Id
-          type: string
-        source:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Edge Data Source
-          type: string
-        target:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Edge Data Target
-          type: string
-      required:
-      - id
-      - source
-      - target
-      title: DaVinci Flow Graph Data Response Elements Edge Data
-    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position:
-      example:
-        x: 5.962133916683182
-        "y": 5.637376656633329
-      properties:
-        x:
-          title: DaVinci Flow Graph Data Response Elements Edge Position X
-          type: number
-        "y":
-          title: DaVinci Flow Graph Data Response Elements Edge Position Y
-          type: number
-      required:
-      - x
-      - "y"
-      title: DaVinci Flow Graph Data Response Elements Edge Position
-    DaVinci_Flow_Graph_Data_Response_Elements_Edge:
-      example:
-        data:
-          id: id
-          source: source
-          target: target
-        removed: true
-        classes: classes
-        selectable: true
-        grabbable: true
-        pannable: true
-        position:
-          x: 5.962133916683182
-          "y": 5.637376656633329
-        locked: true
-        selected: true
-        group: group
-      properties:
-        classes:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Edge Classes
-          type: string
-        data:
-          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data'
-        grabbable:
-          title: DaVinci Flow Graph Data Response Elements Edge Grabbable
-          type: boolean
-        group:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Edge Group
-          type: string
-        locked:
-          title: DaVinci Flow Graph Data Response Elements Edge Locked
-          type: boolean
-        pannable:
-          title: DaVinci Flow Graph Data Response Elements Edge Pannable
-          type: boolean
-        position:
-          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position'
-        removed:
-          title: DaVinci Flow Graph Data Response Elements Edge Removed
-          type: boolean
-        selectable:
-          title: DaVinci Flow Graph Data Response Elements Edge Selectable
-          type: boolean
-        selected:
-          title: DaVinci Flow Graph Data Response Elements Edge Selected
-          type: boolean
-      required:
-      - classes
-      - data
-      - grabbable
-      - group
-      - locked
-      - pannable
-      - position
-      - removed
-      - selectable
-      - selected
-      title: DaVinci Flow Graph Data Response Elements Edge
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Linter_Error_Item:
       example:
         code: code
@@ -10340,308 +10778,6 @@ components:
       - recommendation
       - type
       title: DaVinci Flow Graph Data Response Elements Node Data Linter Error Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Background_Color:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Background Color
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Background Color
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Code:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Code Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Code
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_CSS:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_HTML:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_Script:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item_Preferred_Data_Type:
-      anyOf:
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-        Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item:
-      properties:
-        preferredDataType:
-          anyOf:
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Preferred Data Type
-        propertyName:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Property Name
-          type: string
-        preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Preferred Control Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Value
-          type: string
-      required:
-      - preferredDataType
-      - propertyName
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-        Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List:
-      properties:
-        value:
-          items:
-            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item'
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Input_Schema:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Message:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Message Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Message
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Node_Title:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Node Title Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Node Title
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Output_Schema:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item:
-      additionalProperties: true
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Name
-          type: string
-        key:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Key
-          type: number
-        label:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Label
-          type: string
-        nameDefault:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Name Default
-          type: string
-        type:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Value
-          type: string
-      required:
-      - name
-      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables Value
-        Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables:
-      properties:
-        value:
-          items:
-            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item'
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Show_Continue_Button:
-      properties:
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Show Continue
-            Button Value
-          type: boolean
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Show Continue Button
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Type:
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Type Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item_Preferred_Data_Type:
-      anyOf:
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
-        Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item:
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Name
-          type: string
-        preferredDataType:
-          anyOf:
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Preferred Data Type
-        preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Preferred Control Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Value
-          type: string
-      required:
-      - name
-      - preferredDataType
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
-        Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List:
-      properties:
-        value:
-          items:
-            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item'
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data:
       additionalProperties: true
       example:
@@ -10667,7 +10803,8 @@ components:
         label: label
         nodeType: nodeType
         type: type
-        properties: null
+        properties:
+          key: ""
         status: status
       properties:
         id:
@@ -10701,11 +10838,14 @@ components:
           title: DaVinci Flow Graph Data Response Elements Node Data Name
           type: string
         properties:
-          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data'
+          additionalProperties: true
+          title: DaVinci Flow Graph Data Response Elements Node Data
+          type: object
         status:
           title: DaVinci Flow Graph Data Response Elements Node Data Status
           type: string
         type:
+          minLength: 1
           title: DaVinci Flow Graph Data Response Elements Node Data Type
           type: string
       required:
@@ -10714,8 +10854,8 @@ components:
       title: DaVinci Flow Graph Data Response Elements Node Data
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Position:
       example:
-        x: 2.3021358869347655
-        "y": 7.061401241503109
+        x: 5.962133916683182
+        "y": 5.637376656633329
       properties:
         x:
           title: DaVinci Flow Graph Data Response Elements Node Position X
@@ -10752,24 +10892,21 @@ components:
           label: label
           nodeType: nodeType
           type: type
-          properties: null
+          properties:
+            key: ""
           status: status
         removed: true
-        classes: classes
         selectable: true
+        classes: classes
         grabbable: true
         pannable: true
         position:
-          x: 2.3021358869347655
-          "y": 7.061401241503109
+          x: 5.962133916683182
+          "y": 5.637376656633329
         locked: true
         selected: true
         group: group
       properties:
-        classes:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Classes
-          type: string
         data:
           $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data'
         grabbable:
@@ -10796,8 +10933,10 @@ components:
         selected:
           title: DaVinci Flow Graph Data Response Elements Node Selected
           type: boolean
+        classes:
+          title: DaVinci Flow Graph Data Response Elements Node Classes
+          type: string
       required:
-      - classes
       - data
       - grabbable
       - group
@@ -10808,6 +10947,102 @@ components:
       - selectable
       - selected
       title: DaVinci Flow Graph Data Response Elements Node
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data:
+      example:
+        id: id
+        source: source
+        target: target
+      properties:
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Id
+          type: string
+        source:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Source
+          type: string
+        target:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Data Target
+          type: string
+      required:
+      - id
+      - source
+      - target
+      title: DaVinci Flow Graph Data Response Elements Edge Data
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position:
+      example:
+        x: 2.3021358869347655
+        "y": 7.061401241503109
+      properties:
+        x:
+          title: DaVinci Flow Graph Data Response Elements Edge Position X
+          type: number
+        "y":
+          title: DaVinci Flow Graph Data Response Elements Edge Position Y
+          type: number
+      required:
+      - x
+      - "y"
+      title: DaVinci Flow Graph Data Response Elements Edge Position
+    DaVinci_Flow_Graph_Data_Response_Elements_Edge:
+      example:
+        data:
+          id: id
+          source: source
+          target: target
+        removed: true
+        selectable: true
+        classes: classes
+        grabbable: true
+        pannable: true
+        position:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+        locked: true
+        selected: true
+        group: group
+      properties:
+        data:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Data'
+        grabbable:
+          title: DaVinci Flow Graph Data Response Elements Edge Grabbable
+          type: boolean
+        group:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Edge Group
+          type: string
+        locked:
+          title: DaVinci Flow Graph Data Response Elements Edge Locked
+          type: boolean
+        pannable:
+          title: DaVinci Flow Graph Data Response Elements Edge Pannable
+          type: boolean
+        position:
+          $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position'
+        removed:
+          title: DaVinci Flow Graph Data Response Elements Edge Removed
+          type: boolean
+        selectable:
+          title: DaVinci Flow Graph Data Response Elements Edge Selectable
+          type: boolean
+        selected:
+          title: DaVinci Flow Graph Data Response Elements Edge Selected
+          type: boolean
+        classes:
+          title: DaVinci Flow Graph Data Response Elements Edge Classes
+          type: string
+      required:
+      - data
+      - grabbable
+      - group
+      - locked
+      - pannable
+      - position
+      - removed
+      - selectable
+      - selected
+      title: DaVinci Flow Graph Data Response Elements Edge
     DaVinci_Flow_Graph_Data_Response_Elements:
       example:
         nodes:
@@ -10834,16 +11069,17 @@ components:
             label: label
             nodeType: nodeType
             type: type
-            properties: null
+            properties:
+              key: ""
             status: status
           removed: true
-          classes: classes
           selectable: true
+          classes: classes
           grabbable: true
           pannable: true
           position:
-            x: 2.3021358869347655
-            "y": 7.061401241503109
+            x: 5.962133916683182
+            "y": 5.637376656633329
           locked: true
           selected: true
           group: group
@@ -10870,11 +11106,28 @@ components:
             label: label
             nodeType: nodeType
             type: type
-            properties: null
+            properties:
+              key: ""
             status: status
           removed: true
-          classes: classes
           selectable: true
+          classes: classes
+          grabbable: true
+          pannable: true
+          position:
+            x: 5.962133916683182
+            "y": 5.637376656633329
+          locked: true
+          selected: true
+          group: group
+        edges:
+        - data:
+            id: id
+            source: source
+            target: target
+          removed: true
+          selectable: true
+          classes: classes
           grabbable: true
           pannable: true
           position:
@@ -10883,48 +11136,31 @@ components:
           locked: true
           selected: true
           group: group
-        edges:
         - data:
             id: id
             source: source
             target: target
           removed: true
-          classes: classes
           selectable: true
+          classes: classes
           grabbable: true
           pannable: true
           position:
-            x: 5.962133916683182
-            "y": 5.637376656633329
-          locked: true
-          selected: true
-          group: group
-        - data:
-            id: id
-            source: source
-            target: target
-          removed: true
-          classes: classes
-          selectable: true
-          grabbable: true
-          pannable: true
-          position:
-            x: 5.962133916683182
-            "y": 5.637376656633329
+            x: 2.3021358869347655
+            "y": 7.061401241503109
           locked: true
           selected: true
           group: group
       properties:
-        edges:
-          items:
-            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge'
-          type: array
         nodes:
           items:
             $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node'
           type: array
+        edges:
+          items:
+            $ref: '#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Edge'
+          type: array
       required:
-      - edges
       - nodes
       title: DaVinci Flow Graph Data Response Elements
     DaVinci_Flow_Graph_Data_Response_Pan:
@@ -12120,6 +12356,14 @@ components:
           title: DaVinci Flow Response Trigger Type
           type: string
       title: DaVinci Flow Response Trigger
+    DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS:
+      anyOf:
+      - type: string
+      title: DaVinci Flow Settings Request Intermediate Loading Screen CSS
+    DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML:
+      anyOf:
+      - type: string
+      title: DaVinci Flow Settings Request Intermediate Loading Screen HTML
     DaVinci_Flow_Settings_Request_Js_Link:
       example:
         crossorigin: crossorigin
@@ -13514,6 +13758,56 @@ components:
       - code
       - message
       title: Not Found Error Detail
+    Snapshot_Version_Collection_Response__embedded:
+      example:
+        versions:
+        - ""
+        - ""
+      properties:
+        versions:
+          items:
+            allOf:
+            - $ref: '#/components/schemas/SnapshotView'
+            title: Snapshot Version Collection Response _embedded Version
+          type: array
+      title: Snapshot Version Collection Response _embedded
+    Snapshot_Version_Collection_Response__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      title: Snapshot Version Collection Response _links
+    Snapshot_View__links:
+      additionalProperties:
+        $ref: '#/components/schemas/JSONHALLink'
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: '#/components/schemas/JSONHALLink'
+      readOnly: true
+      title: Snapshot View _links
+    Snapshot_View_Status:
+      enum:
+      - COMPLETE
+      - ERROR
+      - IN_PROGRESS
+      - WAITING
+      title: Snapshot View Status
+      type: string
     Too_Many_Requests_Error_Code:
       enum:
       - REQUEST_LIMITED
@@ -13689,3 +13983,5 @@ x-permissions:
 - name: orgmgt:delete:environment
 - name: orgmgt:read:environment
 - name: orgmgt:update:environment
+- name: promotion:create:snapshot
+- name: promotion:read:snapshot

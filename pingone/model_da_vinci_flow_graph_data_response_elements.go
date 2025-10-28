@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElements{}
 
 // DaVinciFlowGraphDataResponseElements struct for DaVinciFlowGraphDataResponseElements
 type DaVinciFlowGraphDataResponseElements struct {
-	Edges                []DaVinciFlowGraphDataResponseElementsEdge `json:"edges"`
 	Nodes                []DaVinciFlowGraphDataResponseElementsNode `json:"nodes"`
+	Edges                []DaVinciFlowGraphDataResponseElementsEdge `json:"edges,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,9 +36,8 @@ type _DaVinciFlowGraphDataResponseElements DaVinciFlowGraphDataResponseElements
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponseElements(edges []DaVinciFlowGraphDataResponseElementsEdge, nodes []DaVinciFlowGraphDataResponseElementsNode) *DaVinciFlowGraphDataResponseElements {
+func NewDaVinciFlowGraphDataResponseElements(nodes []DaVinciFlowGraphDataResponseElementsNode) *DaVinciFlowGraphDataResponseElements {
 	this := DaVinciFlowGraphDataResponseElements{}
-	this.Edges = edges
 	this.Nodes = nodes
 	return &this
 }
@@ -49,30 +48,6 @@ func NewDaVinciFlowGraphDataResponseElements(edges []DaVinciFlowGraphDataRespons
 func NewDaVinciFlowGraphDataResponseElementsWithDefaults() *DaVinciFlowGraphDataResponseElements {
 	this := DaVinciFlowGraphDataResponseElements{}
 	return &this
-}
-
-// GetEdges returns the Edges field value
-func (o *DaVinciFlowGraphDataResponseElements) GetEdges() []DaVinciFlowGraphDataResponseElementsEdge {
-	if o == nil {
-		var ret []DaVinciFlowGraphDataResponseElementsEdge
-		return ret
-	}
-
-	return o.Edges
-}
-
-// GetEdgesOk returns a tuple with the Edges field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponseElements) GetEdgesOk() ([]DaVinciFlowGraphDataResponseElementsEdge, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Edges, true
-}
-
-// SetEdges sets field value
-func (o *DaVinciFlowGraphDataResponseElements) SetEdges(v []DaVinciFlowGraphDataResponseElementsEdge) {
-	o.Edges = v
 }
 
 // GetNodes returns the Nodes field value
@@ -99,6 +74,38 @@ func (o *DaVinciFlowGraphDataResponseElements) SetNodes(v []DaVinciFlowGraphData
 	o.Nodes = v
 }
 
+// GetEdges returns the Edges field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponseElements) GetEdges() []DaVinciFlowGraphDataResponseElementsEdge {
+	if o == nil || IsNil(o.Edges) {
+		var ret []DaVinciFlowGraphDataResponseElementsEdge
+		return ret
+	}
+	return o.Edges
+}
+
+// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponseElements) GetEdgesOk() ([]DaVinciFlowGraphDataResponseElementsEdge, bool) {
+	if o == nil || IsNil(o.Edges) {
+		return nil, false
+	}
+	return o.Edges, true
+}
+
+// HasEdges returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElements) HasEdges() bool {
+	if o != nil && !IsNil(o.Edges) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdges gets a reference to the given []DaVinciFlowGraphDataResponseElementsEdge and assigns it to the Edges field.
+func (o *DaVinciFlowGraphDataResponseElements) SetEdges(v []DaVinciFlowGraphDataResponseElementsEdge) {
+	o.Edges = v
+}
+
 func (o DaVinciFlowGraphDataResponseElements) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -109,8 +116,10 @@ func (o DaVinciFlowGraphDataResponseElements) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowGraphDataResponseElements) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["edges"] = o.Edges
 	toSerialize["nodes"] = o.Nodes
+	if !IsNil(o.Edges) {
+		toSerialize["edges"] = o.Edges
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -124,7 +133,6 @@ func (o *DaVinciFlowGraphDataResponseElements) UnmarshalJSON(data []byte) (err e
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"edges",
 		"nodes",
 	}
 
@@ -155,8 +163,8 @@ func (o *DaVinciFlowGraphDataResponseElements) UnmarshalJSON(data []byte) (err e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "edges")
 		delete(additionalProperties, "nodes")
+		delete(additionalProperties, "edges")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -166,8 +174,10 @@ func (o *DaVinciFlowGraphDataResponseElements) UnmarshalJSON(data []byte) (err e
 func (o DaVinciFlowGraphDataResponseElements) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("edges", o.Edges))
 	logAttrs = append(logAttrs, slog.Any("nodes", o.Nodes))
+	if !IsNil(o.Edges) {
+		logAttrs = append(logAttrs, slog.Any("edges", o.Edges))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

@@ -25,7 +25,6 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElementsEdge{}
 
 // DaVinciFlowGraphDataResponseElementsEdge struct for DaVinciFlowGraphDataResponseElementsEdge
 type DaVinciFlowGraphDataResponseElementsEdge struct {
-	Classes              string                                           `json:"classes"`
 	Data                 DaVinciFlowGraphDataResponseElementsEdgeData     `json:"data"`
 	Grabbable            bool                                             `json:"grabbable"`
 	Group                string                                           `json:"group"`
@@ -35,6 +34,7 @@ type DaVinciFlowGraphDataResponseElementsEdge struct {
 	Removed              bool                                             `json:"removed"`
 	Selectable           bool                                             `json:"selectable"`
 	Selected             bool                                             `json:"selected"`
+	Classes              *string                                          `json:"classes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,9 +44,8 @@ type _DaVinciFlowGraphDataResponseElementsEdge DaVinciFlowGraphDataResponseEleme
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponseElementsEdge(classes string, data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsEdge {
+func NewDaVinciFlowGraphDataResponseElementsEdge(data DaVinciFlowGraphDataResponseElementsEdgeData, grabbable bool, group string, locked bool, pannable bool, position DaVinciFlowGraphDataResponseElementsEdgePosition, removed bool, selectable bool, selected bool) *DaVinciFlowGraphDataResponseElementsEdge {
 	this := DaVinciFlowGraphDataResponseElementsEdge{}
-	this.Classes = classes
 	this.Data = data
 	this.Grabbable = grabbable
 	this.Group = group
@@ -65,30 +64,6 @@ func NewDaVinciFlowGraphDataResponseElementsEdge(classes string, data DaVinciFlo
 func NewDaVinciFlowGraphDataResponseElementsEdgeWithDefaults() *DaVinciFlowGraphDataResponseElementsEdge {
 	this := DaVinciFlowGraphDataResponseElementsEdge{}
 	return &this
-}
-
-// GetClasses returns the Classes field value
-func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClasses() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Classes
-}
-
-// GetClassesOk returns a tuple with the Classes field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClassesOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Classes, true
-}
-
-// SetClasses sets field value
-func (o *DaVinciFlowGraphDataResponseElementsEdge) SetClasses(v string) {
-	o.Classes = v
 }
 
 // GetData returns the Data field value
@@ -307,6 +282,38 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) SetSelected(v bool) {
 	o.Selected = v
 }
 
+// GetClasses returns the Classes field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClasses() string {
+	if o == nil || IsNil(o.Classes) {
+		var ret string
+		return ret
+	}
+	return *o.Classes
+}
+
+// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponseElementsEdge) GetClassesOk() (*string, bool) {
+	if o == nil || IsNil(o.Classes) {
+		return nil, false
+	}
+	return o.Classes, true
+}
+
+// HasClasses returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElementsEdge) HasClasses() bool {
+	if o != nil && !IsNil(o.Classes) {
+		return true
+	}
+
+	return false
+}
+
+// SetClasses gets a reference to the given string and assigns it to the Classes field.
+func (o *DaVinciFlowGraphDataResponseElementsEdge) SetClasses(v string) {
+	o.Classes = &v
+}
+
 func (o DaVinciFlowGraphDataResponseElementsEdge) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -317,7 +324,6 @@ func (o DaVinciFlowGraphDataResponseElementsEdge) MarshalJSON() ([]byte, error) 
 
 func (o DaVinciFlowGraphDataResponseElementsEdge) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["classes"] = o.Classes
 	toSerialize["data"] = o.Data
 	toSerialize["grabbable"] = o.Grabbable
 	toSerialize["group"] = o.Group
@@ -327,6 +333,9 @@ func (o DaVinciFlowGraphDataResponseElementsEdge) ToMap() (map[string]interface{
 	toSerialize["removed"] = o.Removed
 	toSerialize["selectable"] = o.Selectable
 	toSerialize["selected"] = o.Selected
+	if !IsNil(o.Classes) {
+		toSerialize["classes"] = o.Classes
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -340,7 +349,6 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"classes",
 		"data",
 		"grabbable",
 		"group",
@@ -379,7 +387,6 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "classes")
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "grabbable")
 		delete(additionalProperties, "group")
@@ -389,6 +396,7 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "removed")
 		delete(additionalProperties, "selectable")
 		delete(additionalProperties, "selected")
+		delete(additionalProperties, "classes")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -398,7 +406,6 @@ func (o *DaVinciFlowGraphDataResponseElementsEdge) UnmarshalJSON(data []byte) (e
 func (o DaVinciFlowGraphDataResponseElementsEdge) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("classes", o.Classes))
 	logAttrs = append(logAttrs, slog.Any("data", o.Data))
 	logAttrs = append(logAttrs, slog.Any("grabbable", o.Grabbable))
 	logAttrs = append(logAttrs, slog.Any("group", o.Group))
@@ -408,6 +415,9 @@ func (o DaVinciFlowGraphDataResponseElementsEdge) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("removed", o.Removed))
 	logAttrs = append(logAttrs, slog.Any("selectable", o.Selectable))
 	logAttrs = append(logAttrs, slog.Any("selected", o.Selected))
+	if !IsNil(o.Classes) {
+		logAttrs = append(logAttrs, slog.Any("classes", *o.Classes))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
