@@ -1,5 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 
+// Package endpoints provides OpenID Connect (OIDC) endpoint construction utilities for PingOne services.
+// It handles the creation of OIDC endpoint configurations including discovery, userinfo, and signoff
+// endpoints for different PingOne deployment scenarios and regions.
 package endpoints
 
 import (
@@ -10,16 +13,28 @@ import (
 )
 
 const (
+	// OIDCDiscoveryURLPath is the URL path for OpenID Connect discovery endpoints.
+	// This endpoint provides metadata about the OpenID Connect provider configuration.
 	OIDCDiscoveryURLPath = "/as/.well-known/openid-configuration"
-	SignoffURLPath       = "/as/signoff"
-	UserInfoURLPath      = "/as/userinfo"
+	// SignoffURLPath is the URL path for OpenID Connect signoff endpoints.
+	// This endpoint handles user logout and session termination.
+	SignoffURLPath = "/as/signoff"
+	// UserInfoURLPath is the URL path for OpenID Connect userinfo endpoints.
+	// This endpoint provides user profile information for authenticated users.
+	UserInfoURLPath = "/as/userinfo"
 )
 
+// OIDCEndpoint represents a complete set of OpenID Connect endpoints for PingOne services.
+// It extends the OAuth2 ExtendedEndpoint with OIDC-specific endpoints including discovery,
+// userinfo, and signoff functionality.
 type OIDCEndpoint struct {
 	endpoints.ExtendedEndpoint
+	// OIDCDiscoveryURLPath is the URL for OpenID Connect provider discovery.
 	OIDCDiscoveryURLPath string
-	SignoffURLPath       string
-	UserInfoURLPath      string
+	// SignoffURLPath is the URL for OpenID Connect logout/signoff.
+	SignoffURLPath string
+	// UserInfoURLPath is the URL for OpenID Connect userinfo endpoint.
+	UserInfoURLPath string
 }
 
 // PingOneOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.

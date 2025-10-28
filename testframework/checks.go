@@ -11,22 +11,45 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// CheckCreated verifies that an API operation successfully created a resource.
+// The responseDataObj parameter contains the actual response data, expectedResponseDataType
+// specifies the expected type of the response, httpResponse is the HTTP response object,
+// and httpError is any error from the API call. This function validates that the operation
+// returned HTTP 201 Created status and the response data matches the expected type.
 func CheckCreated(t *testing.T, responseDataObj any, expectedResponseDataType any, httpResponse *http.Response, httpError error) {
 	checkAPISuccessWithResponseObject(t, responseDataObj, expectedResponseDataType, httpResponse, httpError, http.StatusCreated)
 }
 
+// CheckFound verifies that an API operation successfully retrieved a resource.
+// The responseDataObj parameter contains the actual response data, expectedResponseDataType
+// specifies the expected type of the response, httpResponse is the HTTP response object,
+// and httpError is any error from the API call. This function validates that the operation
+// returned HTTP 200 OK status and the response data matches the expected type.
 func CheckFound(t *testing.T, responseDataObj any, expectedResponseDataType any, httpResponse *http.Response, httpError error) {
 	checkAPISuccessWithResponseObject(t, responseDataObj, expectedResponseDataType, httpResponse, httpError, http.StatusOK)
 }
 
+// CheckReplaced verifies that an API operation successfully replaced/updated a resource.
+// The responseDataObj parameter contains the actual response data, expectedResponseDataType
+// specifies the expected type of the response, httpResponse is the HTTP response object,
+// and httpError is any error from the API call. This function validates that the operation
+// returned HTTP 200 OK status and the response data matches the expected type.
 func CheckReplaced(t *testing.T, responseDataObj any, expectedResponseDataType any, httpResponse *http.Response, httpError error) {
 	checkAPISuccessWithResponseObject(t, responseDataObj, expectedResponseDataType, httpResponse, httpError, http.StatusOK)
 }
 
+// CheckDeleted verifies that an API operation successfully deleted a resource.
+// The httpResponse parameter is the HTTP response object and httpError is any error
+// from the API call. This function validates that the operation returned HTTP 204 No Content
+// status, which is the standard response for successful deletion operations.
 func CheckDeleted(t *testing.T, httpResponse *http.Response, httpError error) {
 	checkAPISuccess(t, httpResponse, httpError, http.StatusNoContent)
 }
 
+// CheckNotFound verifies that an API operation correctly returned a not found error.
+// The responseDataObj parameter contains the actual response data, httpResponse is the
+// HTTP response object, and httpError is any error from the API call. This function
+// validates that the operation returned HTTP 404 Not Found status.
 func CheckNotFound(t *testing.T, responseDataObj any, httpResponse *http.Response, httpError error) {
 	checkAPIFailure(t, responseDataObj, httpResponse, httpError, http.StatusNotFound)
 }

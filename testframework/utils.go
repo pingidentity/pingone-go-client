@@ -7,7 +7,10 @@ import (
 	"math/big"
 )
 
-// randomString generates a random string of a given length.
+// randomString generates a random string of the specified length using lowercase letters.
+// The length parameter determines how many characters the returned string will contain.
+// This function uses cryptographically secure random number generation and panics if
+// random number generation fails, which is appropriate for utility functions.
 func randomString(length int) string {
 	const charset = "abcdefghijklmnopqrstuvwxyz"
 	b := make([]rune, length)
@@ -23,6 +26,9 @@ func randomString(length int) string {
 	return string(b)
 }
 
+// RandomResourceName generates a random resource name suitable for testing purposes.
+// It returns a 10-character string composed of lowercase letters. This function is
+// useful for creating unique test resource names to avoid conflicts in test environments.
 func RandomResourceName() string {
 	// Generate a random string of length 10
 	length := 10

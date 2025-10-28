@@ -1,3 +1,8 @@
+// Copyright © 2025 Ping Identity Corporation
+
+// Package main demonstrates basic usage of the PingOne Go Client SDK.
+// This example shows how to configure authentication, create an API client,
+// and make a simple API call to retrieve environment information from PingOne.
 package main
 
 import (
@@ -11,6 +16,12 @@ import (
 	"github.com/pingidentity/pingone-go-client/pingone"
 )
 
+// main demonstrates a basic PingOne API integration using the Go Client SDK.
+// This example requires the following environment variables to be set:
+// - PINGONE_CLIENT_ID: OAuth2 client ID from your PingOne application
+// - PINGONE_CLIENT_SECRET: OAuth2 client secret from your PingOne application
+// - PINGONE_ENVIRONMENT_ID: Environment ID for authentication
+// - PINGONE_MY_USER_ENVIRONMENT_ID: Environment ID to query (can be the same as auth environment)
 func main() {
 	// Configure logging
 	opts := &slog.HandlerOptions{
