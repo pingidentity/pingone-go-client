@@ -254,6 +254,7 @@ Class | Method | HTTP request | Description
  - [DaVinciFlowInputSchemaRequestItemPreferredControlType](docs/DaVinciFlowInputSchemaRequestItemPreferredControlType.md)
  - [DaVinciFlowInputSchemaRequestItemPreferredDataType](docs/DaVinciFlowInputSchemaRequestItemPreferredDataType.md)
  - [DaVinciFlowInputSchemaResponseItem](docs/DaVinciFlowInputSchemaResponseItem.md)
+ - [DaVinciFlowInputSchemaResponseItemPreferredDataType](docs/DaVinciFlowInputSchemaResponseItemPreferredDataType.md)
  - [DaVinciFlowPolicyCollection](docs/DaVinciFlowPolicyCollection.md)
  - [DaVinciFlowPolicyCollectionEmbedded](docs/DaVinciFlowPolicyCollectionEmbedded.md)
  - [DaVinciFlowPolicyCollectionLinks](docs/DaVinciFlowPolicyCollectionLinks.md)

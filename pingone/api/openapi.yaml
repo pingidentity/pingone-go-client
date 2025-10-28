@@ -3236,18 +3236,14 @@ components:
             - isExpanded: true
               preferredControlType: preferredControlType
               propertyName: propertyName
+              preferredDataType: array
               description: description
-              preferredDataType:
-              - ""
-              - ""
               required: true
             - isExpanded: true
               preferredControlType: preferredControlType
               propertyName: propertyName
+              preferredDataType: array
               description: description
-              preferredDataType:
-              - ""
-              - ""
               required: true
             description: description
             dvlinterWarningCount: 1.4658129805029452
@@ -3647,18 +3643,14 @@ components:
             - isExpanded: true
               preferredControlType: preferredControlType
               propertyName: propertyName
+              preferredDataType: array
               description: description
-              preferredDataType:
-              - ""
-              - ""
               required: true
             - isExpanded: true
               preferredControlType: preferredControlType
               propertyName: propertyName
+              preferredDataType: array
               description: description
-              preferredDataType:
-              - ""
-              - ""
               required: true
             description: description
             dvlinterWarningCount: 1.4658129805029452
@@ -4023,12 +4015,14 @@ components:
         outputSchema:
           output: "{}"
         inputSchema:
-        - preferredControlType: button
+        - isExpanded: true
+          preferredControlType: button
           propertyName: propertyName
           preferredDataType: array
           description: description
           required: true
-        - preferredControlType: button
+        - isExpanded: true
+          preferredControlType: button
           propertyName: propertyName
           preferredDataType: array
           description: description
@@ -5148,12 +5142,14 @@ components:
         outputSchema:
           output: "{}"
         inputSchema:
-        - preferredControlType: button
+        - isExpanded: true
+          preferredControlType: button
           propertyName: propertyName
           preferredDataType: array
           description: description
           required: true
-        - preferredControlType: button
+        - isExpanded: true
+          preferredControlType: button
           propertyName: propertyName
           preferredDataType: array
           description: description
@@ -5398,18 +5394,14 @@ components:
         - isExpanded: true
           preferredControlType: preferredControlType
           propertyName: propertyName
+          preferredDataType: array
           description: description
-          preferredDataType:
-          - ""
-          - ""
           required: true
         - isExpanded: true
           preferredControlType: preferredControlType
           propertyName: propertyName
+          preferredDataType: array
           description: description
-          preferredDataType:
-          - ""
-          - ""
           required: true
         description: description
         dvlinterWarningCount: 1.4658129805029452
@@ -6205,18 +6197,14 @@ components:
         - isExpanded: true
           preferredControlType: preferredControlType
           propertyName: propertyName
+          preferredDataType: array
           description: description
-          preferredDataType:
-          - ""
-          - ""
           required: true
         - isExpanded: true
           preferredControlType: preferredControlType
           propertyName: propertyName
+          preferredDataType: array
           description: description
-          preferredDataType:
-          - ""
-          - ""
           required: true
         description: description
         trigger:
@@ -10776,18 +10764,14 @@ components:
           - isExpanded: true
             preferredControlType: preferredControlType
             propertyName: propertyName
+            preferredDataType: array
             description: description
-            preferredDataType:
-            - ""
-            - ""
             required: true
           - isExpanded: true
             preferredControlType: preferredControlType
             propertyName: propertyName
+            preferredDataType: array
             description: description
-            preferredDataType:
-            - ""
-            - ""
             required: true
           description: description
           dvlinterWarningCount: 1.4658129805029452
@@ -11187,18 +11171,14 @@ components:
           - isExpanded: true
             preferredControlType: preferredControlType
             propertyName: propertyName
+            preferredDataType: array
             description: description
-            preferredDataType:
-            - ""
-            - ""
             required: true
           - isExpanded: true
             preferredControlType: preferredControlType
             propertyName: propertyName
+            preferredDataType: array
             description: description
-            preferredDataType:
-            - ""
-            - ""
             required: true
           description: description
           dvlinterWarningCount: 1.4658129805029452
@@ -13270,6 +13250,7 @@ components:
       type: string
     DaVinci_Flow_Input_Schema_Request_Item:
       example:
+        isExpanded: true
         preferredControlType: button
         propertyName: propertyName
         preferredDataType: array
@@ -13285,6 +13266,9 @@ components:
         description:
           title: DaVinci Flow Input Schema Request Item Description
           type: string
+        isExpanded:
+          title: DaVinci Flow Input Schema Request Item Is Expanded
+          type: boolean
         preferredControlType:
           $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item_Preferred_Control_Type'
         required:
@@ -13295,69 +13279,47 @@ components:
       - propertyName
       title: DaVinci Flow Input Schema Request Item
     DaVinci_Flow_Input_Schema_Response_Item_Preferred_Data_Type:
-      anyOf:
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      items: {}
+      enum:
+      - array
+      - boolean
+      - number
+      - object
+      - string
+      minLength: 1
       title: DaVinci Flow Input Schema Response Item Preferred Data Type
+      type: string
     DaVinci_Flow_Input_Schema_Response_Item:
       example:
         isExpanded: true
         preferredControlType: preferredControlType
         propertyName: propertyName
+        preferredDataType: array
         description: description
-        preferredDataType:
-        - ""
-        - ""
         required: true
       properties:
-        description:
-          minLength: 1
-          title: DaVinci Flow Input Schema Response Item Description
-          type: string
-        isExpanded:
-          title: DaVinci Flow Input Schema Response Item Is Expanded
-          type: boolean
         preferredControlType:
           minLength: 1
           title: DaVinci Flow Input Schema Response Item Preferred Control Type
           type: string
         preferredDataType:
-          anyOf:
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          items: {}
-          title: DaVinci Flow Input Schema Response Item Preferred Data Type
+          $ref: '#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item_Preferred_Data_Type'
         propertyName:
           minLength: 1
           title: DaVinci Flow Input Schema Response Item Property Name
           type: string
+        description:
+          title: DaVinci Flow Input Schema Response Item Description
+          type: string
+        isExpanded:
+          title: DaVinci Flow Input Schema Response Item Is Expanded
+          type: boolean
         required:
           title: DaVinci Flow Input Schema Response Item Required
           type: boolean
       required:
-      - description
-      - isExpanded
       - preferredControlType
       - preferredDataType
       - propertyName
-      - required
       title: DaVinci Flow Input Schema Response Item
     DaVinci_Flow_Policy_Collection__links:
       additionalProperties:

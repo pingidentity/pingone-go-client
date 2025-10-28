@@ -25,12 +25,12 @@ var _ slog.LogValuer = &DaVinciFlowInputSchemaResponseItem{}
 
 // DaVinciFlowInputSchemaResponseItem struct for DaVinciFlowInputSchemaResponseItem
 type DaVinciFlowInputSchemaResponseItem struct {
-	Description          string        `json:"description"`
-	IsExpanded           bool          `json:"isExpanded"`
-	PreferredControlType string        `json:"preferredControlType"`
-	PreferredDataType    []interface{} `json:"preferredDataType"`
-	PropertyName         string        `json:"propertyName"`
-	Required             bool          `json:"required"`
+	PreferredControlType string                                              `json:"preferredControlType"`
+	PreferredDataType    DaVinciFlowInputSchemaResponseItemPreferredDataType `json:"preferredDataType"`
+	PropertyName         string                                              `json:"propertyName"`
+	Description          *string                                             `json:"description,omitempty"`
+	IsExpanded           *bool                                               `json:"isExpanded,omitempty"`
+	Required             *bool                                               `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,14 +40,11 @@ type _DaVinciFlowInputSchemaResponseItem DaVinciFlowInputSchemaResponseItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded bool, preferredControlType string, preferredDataType []interface{}, propertyName string, required bool) *DaVinciFlowInputSchemaResponseItem {
+func NewDaVinciFlowInputSchemaResponseItem(preferredControlType string, preferredDataType DaVinciFlowInputSchemaResponseItemPreferredDataType, propertyName string) *DaVinciFlowInputSchemaResponseItem {
 	this := DaVinciFlowInputSchemaResponseItem{}
-	this.Description = description
-	this.IsExpanded = isExpanded
 	this.PreferredControlType = preferredControlType
 	this.PreferredDataType = preferredDataType
 	this.PropertyName = propertyName
-	this.Required = required
 	return &this
 }
 
@@ -57,54 +54,6 @@ func NewDaVinciFlowInputSchemaResponseItem(description string, isExpanded bool, 
 func NewDaVinciFlowInputSchemaResponseItemWithDefaults() *DaVinciFlowInputSchemaResponseItem {
 	this := DaVinciFlowInputSchemaResponseItem{}
 	return &this
-}
-
-// GetDescription returns the Description field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetDescription() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowInputSchemaResponseItem) GetDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Description, true
-}
-
-// SetDescription sets field value
-func (o *DaVinciFlowInputSchemaResponseItem) SetDescription(v string) {
-	o.Description = v
-}
-
-// GetIsExpanded returns the IsExpanded field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpanded() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsExpanded
-}
-
-// GetIsExpandedOk returns a tuple with the IsExpanded field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpandedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsExpanded, true
-}
-
-// SetIsExpanded sets field value
-func (o *DaVinciFlowInputSchemaResponseItem) SetIsExpanded(v bool) {
-	o.IsExpanded = v
 }
 
 // GetPreferredControlType returns the PreferredControlType field value
@@ -132,9 +81,9 @@ func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredControlType(v string) {
 }
 
 // GetPreferredDataType returns the PreferredDataType field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() []interface{} {
+func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() DaVinciFlowInputSchemaResponseItemPreferredDataType {
 	if o == nil {
-		var ret []interface{}
+		var ret DaVinciFlowInputSchemaResponseItemPreferredDataType
 		return ret
 	}
 
@@ -143,15 +92,15 @@ func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataType() []interface{
 
 // GetPreferredDataTypeOk returns a tuple with the PreferredDataType field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataTypeOk() ([]interface{}, bool) {
+func (o *DaVinciFlowInputSchemaResponseItem) GetPreferredDataTypeOk() (*DaVinciFlowInputSchemaResponseItemPreferredDataType, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.PreferredDataType, true
+	return &o.PreferredDataType, true
 }
 
 // SetPreferredDataType sets field value
-func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredDataType(v []interface{}) {
+func (o *DaVinciFlowInputSchemaResponseItem) SetPreferredDataType(v DaVinciFlowInputSchemaResponseItemPreferredDataType) {
 	o.PreferredDataType = v
 }
 
@@ -179,28 +128,100 @@ func (o *DaVinciFlowInputSchemaResponseItem) SetPropertyName(v string) {
 	o.PropertyName = v
 }
 
-// GetRequired returns the Required field value
-func (o *DaVinciFlowInputSchemaResponseItem) GetRequired() bool {
-	if o == nil {
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *DaVinciFlowInputSchemaResponseItem) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *DaVinciFlowInputSchemaResponseItem) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetIsExpanded returns the IsExpanded field value if set, zero value otherwise.
+func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpanded() bool {
+	if o == nil || IsNil(o.IsExpanded) {
 		var ret bool
 		return ret
 	}
-
-	return o.Required
+	return *o.IsExpanded
 }
 
-// GetRequiredOk returns a tuple with the Required field value
+// GetIsExpandedOk returns a tuple with the IsExpanded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowInputSchemaResponseItem) GetRequiredOk() (*bool, bool) {
-	if o == nil {
+func (o *DaVinciFlowInputSchemaResponseItem) GetIsExpandedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsExpanded) {
 		return nil, false
 	}
-	return &o.Required, true
+	return o.IsExpanded, true
 }
 
-// SetRequired sets field value
+// HasIsExpanded returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) HasIsExpanded() bool {
+	if o != nil && !IsNil(o.IsExpanded) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsExpanded gets a reference to the given bool and assigns it to the IsExpanded field.
+func (o *DaVinciFlowInputSchemaResponseItem) SetIsExpanded(v bool) {
+	o.IsExpanded = &v
+}
+
+// GetRequired returns the Required field value if set, zero value otherwise.
+func (o *DaVinciFlowInputSchemaResponseItem) GetRequired() bool {
+	if o == nil || IsNil(o.Required) {
+		var ret bool
+		return ret
+	}
+	return *o.Required
+}
+
+// GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) GetRequiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Required) {
+		return nil, false
+	}
+	return o.Required, true
+}
+
+// HasRequired returns a boolean if a field has been set.
+func (o *DaVinciFlowInputSchemaResponseItem) HasRequired() bool {
+	if o != nil && !IsNil(o.Required) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequired gets a reference to the given bool and assigns it to the Required field.
 func (o *DaVinciFlowInputSchemaResponseItem) SetRequired(v bool) {
-	o.Required = v
+	o.Required = &v
 }
 
 func (o DaVinciFlowInputSchemaResponseItem) MarshalJSON() ([]byte, error) {
@@ -213,12 +234,18 @@ func (o DaVinciFlowInputSchemaResponseItem) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciFlowInputSchemaResponseItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["description"] = o.Description
-	toSerialize["isExpanded"] = o.IsExpanded
 	toSerialize["preferredControlType"] = o.PreferredControlType
 	toSerialize["preferredDataType"] = o.PreferredDataType
 	toSerialize["propertyName"] = o.PropertyName
-	toSerialize["required"] = o.Required
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.IsExpanded) {
+		toSerialize["isExpanded"] = o.IsExpanded
+	}
+	if !IsNil(o.Required) {
+		toSerialize["required"] = o.Required
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -232,12 +259,9 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"description",
-		"isExpanded",
 		"preferredControlType",
 		"preferredDataType",
 		"propertyName",
-		"required",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -267,11 +291,11 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "isExpanded")
 		delete(additionalProperties, "preferredControlType")
 		delete(additionalProperties, "preferredDataType")
 		delete(additionalProperties, "propertyName")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isExpanded")
 		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -282,12 +306,18 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 func (o DaVinciFlowInputSchemaResponseItem) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("description", o.Description))
-	logAttrs = append(logAttrs, slog.Any("isExpanded", o.IsExpanded))
 	logAttrs = append(logAttrs, slog.Any("preferredControlType", o.PreferredControlType))
 	logAttrs = append(logAttrs, slog.Any("preferredDataType", o.PreferredDataType))
 	logAttrs = append(logAttrs, slog.Any("propertyName", o.PropertyName))
-	logAttrs = append(logAttrs, slog.Any("required", o.Required))
+	if !IsNil(o.Description) {
+		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
+	}
+	if !IsNil(o.IsExpanded) {
+		logAttrs = append(logAttrs, slog.Any("isExpanded", *o.IsExpanded))
+	}
+	if !IsNil(o.Required) {
+		logAttrs = append(logAttrs, slog.Any("required", *o.Required))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
