@@ -24,31 +24,31 @@ var _ slog.LogValuer = &DaVinciFlowSettingsRequest{}
 
 // DaVinciFlowSettingsRequest struct for DaVinciFlowSettingsRequest
 type DaVinciFlowSettingsRequest struct {
-	Csp                             *string                            `json:"csp,omitempty"`
-	Css                             *string                            `json:"css,omitempty"`
-	CssLinks                        []string                           `json:"cssLinks,omitempty"`
-	CustomErrorScreenBrandLogoUrl   *string                            `json:"customErrorScreenBrandLogoUrl,omitempty"`
-	CustomErrorShowFooter           *bool                              `json:"customErrorShowFooter,omitempty"`
-	CustomFaviconLink               *string                            `json:"customFaviconLink,omitempty"`
-	CustomLogoURLSelection          *int32                             `json:"customLogoURLSelection,omitempty"`
-	CustomTitle                     *string                            `json:"customTitle,omitempty"`
-	DefaultErrorScreenBrandLogo     *bool                              `json:"defaultErrorScreenBrandLogo,omitempty"`
-	FlowHttpTimeoutInSeconds        *int32                             `json:"flowHttpTimeoutInSeconds,omitempty"`
-	FlowTimeoutInSeconds            *int32                             `json:"flowTimeoutInSeconds,omitempty"`
-	IntermediateLoadingScreenCSS    *string                            `json:"intermediateLoadingScreenCSS,omitempty"`
-	IntermediateLoadingScreenHTML   *string                            `json:"intermediateLoadingScreenHTML,omitempty"`
-	JsCustomFlowPlayer              *string                            `json:"jsCustomFlowPlayer,omitempty"`
-	JsLinks                         []DaVinciFlowSettingsRequestJsLink `json:"jsLinks,omitempty"`
-	LogLevel                        *int32                             `json:"logLevel,omitempty"`
-	RequireAuthenticationToInitiate *bool                              `json:"requireAuthenticationToInitiate,omitempty"`
-	ScrubSensitiveInfo              *bool                              `json:"scrubSensitiveInfo,omitempty"`
-	SensitiveInfoFields             []string                           `json:"sensitiveInfoFields,omitempty"`
-	UseCSP                          *bool                              `json:"useCSP,omitempty"`
-	UseCustomCSS                    *bool                              `json:"useCustomCSS,omitempty"`
-	UseCustomFlowPlayer             *bool                              `json:"useCustomFlowPlayer,omitempty"`
-	UseCustomScript                 *bool                              `json:"useCustomScript,omitempty"`
-	UseIntermediateLoadingScreen    *bool                              `json:"useIntermediateLoadingScreen,omitempty"`
-	ValidateOnSave                  *bool                              `json:"validateOnSave,omitempty"`
+	Csp                             *string                                                  `json:"csp,omitempty"`
+	Css                             *string                                                  `json:"css,omitempty"`
+	CssLinks                        []string                                                 `json:"cssLinks,omitempty"`
+	CustomErrorScreenBrandLogoUrl   *string                                                  `json:"customErrorScreenBrandLogoUrl,omitempty"`
+	CustomErrorShowFooter           *bool                                                    `json:"customErrorShowFooter,omitempty"`
+	CustomFaviconLink               *string                                                  `json:"customFaviconLink,omitempty"`
+	CustomLogoURLSelection          *int32                                                   `json:"customLogoURLSelection,omitempty"`
+	CustomTitle                     *string                                                  `json:"customTitle,omitempty"`
+	DefaultErrorScreenBrandLogo     *bool                                                    `json:"defaultErrorScreenBrandLogo,omitempty"`
+	FlowHttpTimeoutInSeconds        *int32                                                   `json:"flowHttpTimeoutInSeconds,omitempty"`
+	FlowTimeoutInSeconds            *int32                                                   `json:"flowTimeoutInSeconds,omitempty"`
+	IntermediateLoadingScreenCSS    *DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS  `json:"intermediateLoadingScreenCSS,omitempty"`
+	IntermediateLoadingScreenHTML   *DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML `json:"intermediateLoadingScreenHTML,omitempty"`
+	JsCustomFlowPlayer              *string                                                  `json:"jsCustomFlowPlayer,omitempty"`
+	JsLinks                         []DaVinciFlowSettingsRequestJsLink                       `json:"jsLinks,omitempty"`
+	LogLevel                        *int32                                                   `json:"logLevel,omitempty"`
+	RequireAuthenticationToInitiate *bool                                                    `json:"requireAuthenticationToInitiate,omitempty"`
+	ScrubSensitiveInfo              *bool                                                    `json:"scrubSensitiveInfo,omitempty"`
+	SensitiveInfoFields             []string                                                 `json:"sensitiveInfoFields,omitempty"`
+	UseCSP                          *bool                                                    `json:"useCSP,omitempty"`
+	UseCustomCSS                    *bool                                                    `json:"useCustomCSS,omitempty"`
+	UseCustomFlowPlayer             *bool                                                    `json:"useCustomFlowPlayer,omitempty"`
+	UseCustomScript                 *bool                                                    `json:"useCustomScript,omitempty"`
+	UseIntermediateLoadingScreen    *bool                                                    `json:"useIntermediateLoadingScreen,omitempty"`
+	ValidateOnSave                  *bool                                                    `json:"validateOnSave,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -424,9 +424,9 @@ func (o *DaVinciFlowSettingsRequest) SetFlowTimeoutInSeconds(v int32) {
 }
 
 // GetIntermediateLoadingScreenCSS returns the IntermediateLoadingScreenCSS field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSS() string {
+func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSS() DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS {
 	if o == nil || IsNil(o.IntermediateLoadingScreenCSS) {
-		var ret string
+		var ret DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS
 		return ret
 	}
 	return *o.IntermediateLoadingScreenCSS
@@ -434,7 +434,7 @@ func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSS() string {
 
 // GetIntermediateLoadingScreenCSSOk returns a tuple with the IntermediateLoadingScreenCSS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSSOk() (*string, bool) {
+func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenCSSOk() (*DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS, bool) {
 	if o == nil || IsNil(o.IntermediateLoadingScreenCSS) {
 		return nil, false
 	}
@@ -450,15 +450,15 @@ func (o *DaVinciFlowSettingsRequest) HasIntermediateLoadingScreenCSS() bool {
 	return false
 }
 
-// SetIntermediateLoadingScreenCSS gets a reference to the given string and assigns it to the IntermediateLoadingScreenCSS field.
-func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenCSS(v string) {
+// SetIntermediateLoadingScreenCSS gets a reference to the given DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS and assigns it to the IntermediateLoadingScreenCSS field.
+func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenCSS(v DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS) {
 	o.IntermediateLoadingScreenCSS = &v
 }
 
 // GetIntermediateLoadingScreenHTML returns the IntermediateLoadingScreenHTML field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTML() string {
+func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTML() DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML {
 	if o == nil || IsNil(o.IntermediateLoadingScreenHTML) {
-		var ret string
+		var ret DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML
 		return ret
 	}
 	return *o.IntermediateLoadingScreenHTML
@@ -466,7 +466,7 @@ func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTML() string {
 
 // GetIntermediateLoadingScreenHTMLOk returns a tuple with the IntermediateLoadingScreenHTML field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTMLOk() (*string, bool) {
+func (o *DaVinciFlowSettingsRequest) GetIntermediateLoadingScreenHTMLOk() (*DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML, bool) {
 	if o == nil || IsNil(o.IntermediateLoadingScreenHTML) {
 		return nil, false
 	}
@@ -482,8 +482,8 @@ func (o *DaVinciFlowSettingsRequest) HasIntermediateLoadingScreenHTML() bool {
 	return false
 }
 
-// SetIntermediateLoadingScreenHTML gets a reference to the given string and assigns it to the IntermediateLoadingScreenHTML field.
-func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenHTML(v string) {
+// SetIntermediateLoadingScreenHTML gets a reference to the given DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML and assigns it to the IntermediateLoadingScreenHTML field.
+func (o *DaVinciFlowSettingsRequest) SetIntermediateLoadingScreenHTML(v DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML) {
 	o.IntermediateLoadingScreenHTML = &v
 }
 

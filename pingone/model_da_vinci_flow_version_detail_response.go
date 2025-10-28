@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"time"
 )
 
 // checks if the DaVinciFlowVersionDetailResponse type satisfies the MappedNullable interface at compile time
@@ -26,8 +27,11 @@ var _ slog.LogValuer = &DaVinciFlowVersionDetailResponse{}
 // DaVinciFlowVersionDetailResponse struct for DaVinciFlowVersionDetailResponse
 type DaVinciFlowVersionDetailResponse struct {
 	Links                DaVinciFlowVersionDetailResponseLinks         `json:"_links"`
+	Alias                *string                                       `json:"alias,omitempty"`
 	Color                *string                                       `json:"color,omitempty"`
 	Connectors           []DaVinciFlowVersionDetailResponseConnector   `json:"connectors,omitempty"`
+	CreatedAt            *time.Time                                    `json:"createdAt,omitempty"`
+	DeployedAt           *time.Time                                    `json:"deployedAt,omitempty"`
 	Description          *string                                       `json:"description,omitempty"`
 	Enabled              *bool                                         `json:"enabled,omitempty"`
 	Flow                 *DaVinciFlowVersionDetailResponseFlow         `json:"flow,omitempty"`
@@ -37,6 +41,7 @@ type DaVinciFlowVersionDetailResponse struct {
 	Settings             *DaVinciFlowSettingsResponse                  `json:"settings,omitempty"`
 	Skcomponents         []DaVinciFlowVersionDetailResponseSkcomponent `json:"skcomponents,omitempty"`
 	Trigger              *DaVinciFlowVersionDetailResponseTrigger      `json:"trigger,omitempty"`
+	UpdatedAt            *time.Time                                    `json:"updatedAt,omitempty"`
 	Updates              []string                                      `json:"updates,omitempty"`
 	Version              *float32                                      `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -84,6 +89,38 @@ func (o *DaVinciFlowVersionDetailResponse) GetLinksOk() (*DaVinciFlowVersionDeta
 // SetLinks sets field value
 func (o *DaVinciFlowVersionDetailResponse) SetLinks(v DaVinciFlowVersionDetailResponseLinks) {
 	o.Links = v
+}
+
+// GetAlias returns the Alias field value if set, zero value otherwise.
+func (o *DaVinciFlowVersionDetailResponse) GetAlias() string {
+	if o == nil || IsNil(o.Alias) {
+		var ret string
+		return ret
+	}
+	return *o.Alias
+}
+
+// GetAliasOk returns a tuple with the Alias field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowVersionDetailResponse) GetAliasOk() (*string, bool) {
+	if o == nil || IsNil(o.Alias) {
+		return nil, false
+	}
+	return o.Alias, true
+}
+
+// HasAlias returns a boolean if a field has been set.
+func (o *DaVinciFlowVersionDetailResponse) HasAlias() bool {
+	if o != nil && !IsNil(o.Alias) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlias gets a reference to the given string and assigns it to the Alias field.
+func (o *DaVinciFlowVersionDetailResponse) SetAlias(v string) {
+	o.Alias = &v
 }
 
 // GetColor returns the Color field value if set, zero value otherwise.
@@ -148,6 +185,70 @@ func (o *DaVinciFlowVersionDetailResponse) HasConnectors() bool {
 // SetConnectors gets a reference to the given []DaVinciFlowVersionDetailResponseConnector and assigns it to the Connectors field.
 func (o *DaVinciFlowVersionDetailResponse) SetConnectors(v []DaVinciFlowVersionDetailResponseConnector) {
 	o.Connectors = v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *DaVinciFlowVersionDetailResponse) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowVersionDetailResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *DaVinciFlowVersionDetailResponse) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *DaVinciFlowVersionDetailResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetDeployedAt returns the DeployedAt field value if set, zero value otherwise.
+func (o *DaVinciFlowVersionDetailResponse) GetDeployedAt() time.Time {
+	if o == nil || IsNil(o.DeployedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeployedAt
+}
+
+// GetDeployedAtOk returns a tuple with the DeployedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowVersionDetailResponse) GetDeployedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DeployedAt) {
+		return nil, false
+	}
+	return o.DeployedAt, true
+}
+
+// HasDeployedAt returns a boolean if a field has been set.
+func (o *DaVinciFlowVersionDetailResponse) HasDeployedAt() bool {
+	if o != nil && !IsNil(o.DeployedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeployedAt gets a reference to the given time.Time and assigns it to the DeployedAt field.
+func (o *DaVinciFlowVersionDetailResponse) SetDeployedAt(v time.Time) {
+	o.DeployedAt = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -438,6 +539,38 @@ func (o *DaVinciFlowVersionDetailResponse) SetTrigger(v DaVinciFlowVersionDetail
 	o.Trigger = &v
 }
 
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *DaVinciFlowVersionDetailResponse) GetUpdatedAt() time.Time {
+	if o == nil || IsNil(o.UpdatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowVersionDetailResponse) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.UpdatedAt) {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *DaVinciFlowVersionDetailResponse) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *DaVinciFlowVersionDetailResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
+}
+
 // GetUpdates returns the Updates field value if set, zero value otherwise.
 func (o *DaVinciFlowVersionDetailResponse) GetUpdates() []string {
 	if o == nil || IsNil(o.Updates) {
@@ -513,11 +646,20 @@ func (o DaVinciFlowVersionDetailResponse) MarshalJSON() ([]byte, error) {
 func (o DaVinciFlowVersionDetailResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["_links"] = o.Links
+	if !IsNil(o.Alias) {
+		toSerialize["alias"] = o.Alias
+	}
 	if !IsNil(o.Color) {
 		toSerialize["color"] = o.Color
 	}
 	if !IsNil(o.Connectors) {
 		toSerialize["connectors"] = o.Connectors
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if !IsNil(o.DeployedAt) {
+		toSerialize["deployedAt"] = o.DeployedAt
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
@@ -545,6 +687,9 @@ func (o DaVinciFlowVersionDetailResponse) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.Trigger) {
 		toSerialize["trigger"] = o.Trigger
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	if !IsNil(o.Updates) {
 		toSerialize["updates"] = o.Updates
@@ -596,8 +741,11 @@ func (o *DaVinciFlowVersionDetailResponse) UnmarshalJSON(data []byte) (err error
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
+		delete(additionalProperties, "alias")
 		delete(additionalProperties, "color")
 		delete(additionalProperties, "connectors")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "deployedAt")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "flow")
@@ -607,6 +755,7 @@ func (o *DaVinciFlowVersionDetailResponse) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "skcomponents")
 		delete(additionalProperties, "trigger")
+		delete(additionalProperties, "updatedAt")
 		delete(additionalProperties, "updates")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
@@ -619,11 +768,20 @@ func (o DaVinciFlowVersionDetailResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("_links", o.Links))
+	if !IsNil(o.Alias) {
+		logAttrs = append(logAttrs, slog.Any("alias", *o.Alias))
+	}
 	if !IsNil(o.Color) {
 		logAttrs = append(logAttrs, slog.Any("color", *o.Color))
 	}
 	if !IsNil(o.Connectors) {
 		logAttrs = append(logAttrs, slog.Any("connectors", o.Connectors))
+	}
+	if !IsNil(o.CreatedAt) {
+		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
+	if !IsNil(o.DeployedAt) {
+		logAttrs = append(logAttrs, slog.Any("deployedAt", *o.DeployedAt))
 	}
 	if !IsNil(o.Description) {
 		logAttrs = append(logAttrs, slog.Any("description", *o.Description))
@@ -651,6 +809,9 @@ func (o DaVinciFlowVersionDetailResponse) LogValue() slog.Value {
 	}
 	if !IsNil(o.Trigger) {
 		logAttrs = append(logAttrs, slog.Any("trigger", *o.Trigger))
+	}
+	if !IsNil(o.UpdatedAt) {
+		logAttrs = append(logAttrs, slog.Any("updatedAt", *o.UpdatedAt))
 	}
 	if !IsNil(o.Updates) {
 		logAttrs = append(logAttrs, slog.Any("updates", o.Updates))

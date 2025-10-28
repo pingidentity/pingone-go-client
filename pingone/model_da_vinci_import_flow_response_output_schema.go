@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciImportFlowResponseOutputSchema{}
 
 // DaVinciImportFlowResponseOutputSchema struct for DaVinciImportFlowResponseOutputSchema
 type DaVinciImportFlowResponseOutputSchema struct {
-	Output               DaVinciImportFlowResponseOutputSchemaOutput `json:"output"`
+	Output               map[string]interface{} `json:"output"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,7 +35,7 @@ type _DaVinciImportFlowResponseOutputSchema DaVinciImportFlowResponseOutputSchem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciImportFlowResponseOutputSchema(output DaVinciImportFlowResponseOutputSchemaOutput) *DaVinciImportFlowResponseOutputSchema {
+func NewDaVinciImportFlowResponseOutputSchema(output map[string]interface{}) *DaVinciImportFlowResponseOutputSchema {
 	this := DaVinciImportFlowResponseOutputSchema{}
 	this.Output = output
 	return &this
@@ -50,9 +50,9 @@ func NewDaVinciImportFlowResponseOutputSchemaWithDefaults() *DaVinciImportFlowRe
 }
 
 // GetOutput returns the Output field value
-func (o *DaVinciImportFlowResponseOutputSchema) GetOutput() DaVinciImportFlowResponseOutputSchemaOutput {
+func (o *DaVinciImportFlowResponseOutputSchema) GetOutput() map[string]interface{} {
 	if o == nil {
-		var ret DaVinciImportFlowResponseOutputSchemaOutput
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -61,15 +61,15 @@ func (o *DaVinciImportFlowResponseOutputSchema) GetOutput() DaVinciImportFlowRes
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponseOutputSchema) GetOutputOk() (*DaVinciImportFlowResponseOutputSchemaOutput, bool) {
+func (o *DaVinciImportFlowResponseOutputSchema) GetOutputOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Output, true
+	return o.Output, true
 }
 
 // SetOutput sets field value
-func (o *DaVinciImportFlowResponseOutputSchema) SetOutput(v DaVinciImportFlowResponseOutputSchemaOutput) {
+func (o *DaVinciImportFlowResponseOutputSchema) SetOutput(v map[string]interface{}) {
 	o.Output = v
 }
 
