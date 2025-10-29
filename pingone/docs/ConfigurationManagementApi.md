@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 ## GetVersionByIdUsingSnapshotId
 
-> SnapshotView GetVersionByIdUsingSnapshotId(ctx, environmentID, snapshotID, versionID).Expand(expand).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+> SnapshotView GetVersionByIdUsingSnapshotId(ctx, environmentID, snapshotID, versionID).Attributes(attributes).Expand(expand).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 
 
 
@@ -200,6 +200,7 @@ func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	snapshotID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
 	versionID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	attributes := "attributes_example" // string | 
 	expand := "expand_example" // string |  (optional)
 	filter := "filter_example" // string |  (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
@@ -207,7 +208,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConfigurationManagementApi.GetVersionByIdUsingSnapshotId(context.Background(), environmentID, snapshotID, versionID).Expand(expand).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	resp, r, err := apiClient.ConfigurationManagementApi.GetVersionByIdUsingSnapshotId(context.Background(), environmentID, snapshotID, versionID).Attributes(attributes).Expand(expand).Filter(filter).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConfigurationManagementApi.GetVersionByIdUsingSnapshotId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -243,6 +244,7 @@ Name | Type | Description  | Notes
 
 
 
+ **attributes** | **string** |  | 
  **expand** | **string** |  | 
  **filter** | **string** |  | 
  **xPingExternalSessionID** | **string** |  | 

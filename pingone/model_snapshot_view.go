@@ -34,6 +34,7 @@ type SnapshotView struct {
 	CreatedAt            *time.Time                        `json:"createdAt,omitempty"`
 	Environment          *ResourceRelationshipReadOnly     `json:"environment,omitempty"`
 	Error                *string                           `json:"error,omitempty"`
+	ErrorCode            *int32                            `json:"errorCode,omitempty"`
 	Id                   *uuid.UUID                        `json:"id,omitempty"`
 	ImportMetadata       map[string]map[string]interface{} `json:"importMetadata,omitempty"`
 	ReferencedResources  []string                          `json:"referencedResources,omitempty"`
@@ -287,6 +288,38 @@ func (o *SnapshotView) HasError() bool {
 // SetError gets a reference to the given string and assigns it to the Error field.
 func (o *SnapshotView) SetError(v string) {
 	o.Error = &v
+}
+
+// GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
+func (o *SnapshotView) GetErrorCode() int32 {
+	if o == nil || IsNil(o.ErrorCode) {
+		var ret int32
+		return ret
+	}
+	return *o.ErrorCode
+}
+
+// GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SnapshotView) GetErrorCodeOk() (*int32, bool) {
+	if o == nil || IsNil(o.ErrorCode) {
+		return nil, false
+	}
+	return o.ErrorCode, true
+}
+
+// HasErrorCode returns a boolean if a field has been set.
+func (o *SnapshotView) HasErrorCode() bool {
+	if o != nil && !IsNil(o.ErrorCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorCode gets a reference to the given int32 and assigns it to the ErrorCode field.
+func (o *SnapshotView) SetErrorCode(v int32) {
+	o.ErrorCode = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -608,6 +641,9 @@ func (o SnapshotView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+	if !IsNil(o.ErrorCode) {
+		toSerialize["errorCode"] = o.ErrorCode
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -664,6 +700,7 @@ func (o *SnapshotView) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "error")
+		delete(additionalProperties, "errorCode")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "importMetadata")
 		delete(additionalProperties, "referencedResources")
@@ -702,6 +739,9 @@ func (o SnapshotView) LogValue() slog.Value {
 	}
 	if !IsNil(o.Error) {
 		logAttrs = append(logAttrs, slog.Any("error", *o.Error))
+	}
+	if !IsNil(o.ErrorCode) {
+		logAttrs = append(logAttrs, slog.Any("errorCode", *o.ErrorCode))
 	}
 	if !IsNil(o.Id) {
 		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
