@@ -22,11 +22,13 @@ type DaVinciFlowCreateRequestTriggerType string
 // List of DaVinci_Flow_Create_Request_Trigger_Type
 const (
 	DAVINCIFLOWCREATEREQUESTTRIGGERTYPE_AUTHENTICATION DaVinciFlowCreateRequestTriggerType = "AUTHENTICATION"
+	DAVINCIFLOWCREATEREQUESTTRIGGERTYPE_SCHEDULE       DaVinciFlowCreateRequestTriggerType = "SCHEDULE"
 )
 
 // All allowed values of DaVinciFlowCreateRequestTriggerType enum
 var AllowedDaVinciFlowCreateRequestTriggerTypeEnumValues = []DaVinciFlowCreateRequestTriggerType{
 	"AUTHENTICATION",
+	"SCHEDULE",
 }
 
 func (v *DaVinciFlowCreateRequestTriggerType) UnmarshalJSON(src []byte) error {

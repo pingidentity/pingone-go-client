@@ -1,5 +1,6 @@
 README.md
 api/openapi.yaml
+api_configuration_management.go
 api_da_vinci_applications.go
 api_da_vinci_connectors.go
 api_da_vinci_flows.go
@@ -13,6 +14,7 @@ docs/BadRequestErrorCode.md
 docs/BadRequestErrorDetail.md
 docs/BadRequestErrorDetailCode.md
 docs/BadRequestErrorDetailInnerError.md
+docs/ConfigurationManagementApi.md
 docs/DaVinciApplicationCollectionResponse.md
 docs/DaVinciApplicationCollectionResponseEmbedded.md
 docs/DaVinciApplicationCollectionResponseLinks.md
@@ -605,6 +607,7 @@ model_unsupported_media_type_error.go
 model_unsupported_media_type_error_code.go
 model_unsupported_media_type_error_detail.go
 response.go
+test/api_configuration_management_test.go
 test/api_da_vinci_applications_test.go
 test/api_da_vinci_connectors_test.go
 test/api_da_vinci_flows_test.go
