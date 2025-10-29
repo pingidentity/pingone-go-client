@@ -1535,6 +1535,49 @@ paths:
       tags:
       - DaVinci Flows
       x-permission: davinci:read:flowVersions
+  /environments/{environmentID}/flows/{flowID}/versions/{versionID}/alias:
+    put:
+      operationId: replaceAliasByFlowIdAndVersionId
+      parameters:
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.flowID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.versions.versionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DaVinciFlowVersionAliasRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowVersionAliasResponse"
+          description: Successful Operation.
+        "400":
+          $ref: "#/components/responses/http.400.BadRequest"
+        "401":
+          $ref: "#/components/responses/http.401.Unauthorized"
+        "403":
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+        "404":
+          $ref: "#/components/responses/http.404.NotFound"
+        "415":
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/http.429.TooManyRequests"
+        "500":
+          $ref: "#/components/responses/http.500.InternalServerError"
+        "502":
+          $ref: "#/components/responses/http.502.BadGateway"
+        "503":
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:update:flowVersions
   /environments/{environmentID}/flows/{flowID}/versions/{versionID}/details:
     get:
       operationId: getDetailsByFlowIdAndVersionId
@@ -6125,6 +6168,53 @@ components:
       required:
       - type
       title: DaVinci Flow Trigger Response
+    DaVinciFlowVersionAliasRequest:
+      additionalProperties: true
+      example:
+        alias: alias
+      properties:
+        alias:
+          maxLength: 256
+          minLength: 1
+          pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
+          title: DaVinci Flow Version Alias Request Alias
+          type: string
+      required:
+      - alias
+      title: DaVinci Flow Version Alias Request
+    DaVinciFlowVersionAliasResponse:
+      example:
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          flowVersion:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        alias: alias
+      properties:
+        _links:
+          $ref: "#/components/schemas/DaVinci_Flow_Version_Alias_Response__links"
+        alias:
+          minLength: 1
+          title: DaVinci Flow Version Alias Response Alias
+          type: string
+      required:
+      - _links
+      - alias
+      title: DaVinci Flow Version Alias Response
     DaVinciFlowVersionCollectionResponse:
       example:
         _embedded:
@@ -14567,6 +14657,40 @@ components:
       - mfa
       - pwd
       title: DaVinci Flow Trigger Response Configuration
+    DaVinci_Flow_Version_Alias_Response__links:
+      additionalProperties:
+        $ref: "#/components/schemas/JSONHALLink"
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        flowVersion:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        environment:
+          $ref: "#/components/schemas/JSONHALLink"
+        self:
+          $ref: "#/components/schemas/JSONHALLink"
+        flowVersion:
+          $ref: "#/components/schemas/JSONHALLink"
+      required:
+      - environment
+      - flowVersion
+      - self
+      title: DaVinci Flow Version Alias Response _links
     DaVinci_Flow_Version_Collection_Response__embedded:
       example:
         versions:
@@ -15939,6 +16063,7 @@ x-permissions:
 - name: davinci:update:constructs
 - name: davinci:update:dvFlows
 - name: davinci:update:flowPolicies
+- name: davinci:update:flowVersions
 - name: orgmgt:create:environment
 - name: orgmgt:delete:environment
 - name: orgmgt:read:environment

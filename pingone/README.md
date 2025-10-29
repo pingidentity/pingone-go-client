@@ -114,6 +114,7 @@ Class | Method | HTTP request | Description
 *DaVinciFlowsApi* | [**GetFlows**](docs/DaVinciFlowsApi.md#getflows) | **Get** /environments/{environmentID}/flows | 
 *DaVinciFlowsApi* | [**GetVersionByIdUsingFlowId**](docs/DaVinciFlowsApi.md#getversionbyidusingflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions/{versionID} | 
 *DaVinciFlowsApi* | [**GetVersionsByFlowId**](docs/DaVinciFlowsApi.md#getversionsbyflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions | 
+*DaVinciFlowsApi* | [**ReplaceAliasByFlowIdAndVersionId**](docs/DaVinciFlowsApi.md#replacealiasbyflowidandversionid) | **Put** /environments/{environmentID}/flows/{flowID}/versions/{versionID}/alias | 
 *DaVinciFlowsApi* | [**ReplaceFlowById**](docs/DaVinciFlowsApi.md#replaceflowbyid) | **Put** /environments/{environmentID}/flows/{flowID} | 
 *DaVinciFlowsApi* | [**UpdateEnabledByFlowId**](docs/DaVinciFlowsApi.md#updateenabledbyflowid) | **Put** /environments/{environmentID}/flows/{flowID}/enabled | 
 *DaVinciVariablesApi* | [**CreateVariable**](docs/DaVinciVariablesApi.md#createvariable) | **Post** /environments/{environmentID}/variables | 
@@ -315,6 +316,9 @@ Class | Method | HTTP request | Description
  - [DaVinciFlowTriggerResponseConfigurationMFA](docs/DaVinciFlowTriggerResponseConfigurationMFA.md)
  - [DaVinciFlowTriggerResponseConfigurationPassword](docs/DaVinciFlowTriggerResponseConfigurationPassword.md)
  - [DaVinciFlowTriggerResponseType](docs/DaVinciFlowTriggerResponseType.md)
+ - [DaVinciFlowVersionAliasRequest](docs/DaVinciFlowVersionAliasRequest.md)
+ - [DaVinciFlowVersionAliasResponse](docs/DaVinciFlowVersionAliasResponse.md)
+ - [DaVinciFlowVersionAliasResponseLinks](docs/DaVinciFlowVersionAliasResponseLinks.md)
  - [DaVinciFlowVersionCollectionResponse](docs/DaVinciFlowVersionCollectionResponse.md)
  - [DaVinciFlowVersionCollectionResponseEmbedded](docs/DaVinciFlowVersionCollectionResponseEmbedded.md)
  - [DaVinciFlowVersionCollectionResponseLinks](docs/DaVinciFlowVersionCollectionResponseLinks.md)
