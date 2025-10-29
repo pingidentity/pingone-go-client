@@ -115,6 +115,7 @@ Class | Method | HTTP request | Description
 *DaVinciFlowsApi* | [**GetVersionByIdUsingFlowId**](docs/DaVinciFlowsApi.md#getversionbyidusingflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions/{versionID} | 
 *DaVinciFlowsApi* | [**GetVersionsByFlowId**](docs/DaVinciFlowsApi.md#getversionsbyflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions | 
 *DaVinciFlowsApi* | [**ReplaceFlowById**](docs/DaVinciFlowsApi.md#replaceflowbyid) | **Put** /environments/{environmentID}/flows/{flowID} | 
+*DaVinciFlowsApi* | [**UpdateEnabledByFlowId**](docs/DaVinciFlowsApi.md#updateenabledbyflowid) | **Put** /environments/{environmentID}/flows/{flowID}/enabled | 
 *DaVinciVariablesApi* | [**CreateVariable**](docs/DaVinciVariablesApi.md#createvariable) | **Post** /environments/{environmentID}/variables | 
 *DaVinciVariablesApi* | [**DeleteVariableById**](docs/DaVinciVariablesApi.md#deletevariablebyid) | **Delete** /environments/{environmentID}/variables/{variableID} | 
 *DaVinciVariablesApi* | [**GetVariableById**](docs/DaVinciVariablesApi.md#getvariablebyid) | **Get** /environments/{environmentID}/variables/{variableID} | 
@@ -188,6 +189,9 @@ Class | Method | HTTP request | Description
  - [DaVinciFlowCollectionLinks](docs/DaVinciFlowCollectionLinks.md)
  - [DaVinciFlowCreateRequest](docs/DaVinciFlowCreateRequest.md)
  - [DaVinciFlowCreateRequestOutputSchema](docs/DaVinciFlowCreateRequestOutputSchema.md)
+ - [DaVinciFlowEnableRequest](docs/DaVinciFlowEnableRequest.md)
+ - [DaVinciFlowEnabledResponse](docs/DaVinciFlowEnabledResponse.md)
+ - [DaVinciFlowEnabledResponseLinks](docs/DaVinciFlowEnabledResponseLinks.md)
  - [DaVinciFlowGraphDataRequest](docs/DaVinciFlowGraphDataRequest.md)
  - [DaVinciFlowGraphDataRequestElements](docs/DaVinciFlowGraphDataRequestElements.md)
  - [DaVinciFlowGraphDataRequestElementsEdge](docs/DaVinciFlowGraphDataRequestElementsEdge.md)

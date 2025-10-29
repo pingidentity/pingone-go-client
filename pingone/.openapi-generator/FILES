@@ -68,6 +68,9 @@ docs/DaVinciFlowCollectionEmbedded.md
 docs/DaVinciFlowCollectionLinks.md
 docs/DaVinciFlowCreateRequest.md
 docs/DaVinciFlowCreateRequestOutputSchema.md
+docs/DaVinciFlowEnableRequest.md
+docs/DaVinciFlowEnabledResponse.md
+docs/DaVinciFlowEnabledResponseLinks.md
 docs/DaVinciFlowGraphDataRequest.md
 docs/DaVinciFlowGraphDataRequestElements.md
 docs/DaVinciFlowGraphDataRequestElementsEdge.md
@@ -357,6 +360,9 @@ model_da_vinci_flow_collection__embedded.go
 model_da_vinci_flow_collection__links.go
 model_da_vinci_flow_create_request.go
 model_da_vinci_flow_create_request_output_schema.go
+model_da_vinci_flow_enable_request.go
+model_da_vinci_flow_enabled_response.go
+model_da_vinci_flow_enabled_response__links.go
 model_da_vinci_flow_graph_data_request.go
 model_da_vinci_flow_graph_data_request_elements.go
 model_da_vinci_flow_graph_data_request_elements_edge.go

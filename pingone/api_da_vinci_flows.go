@@ -2234,3 +2234,249 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+type ApiUpdateEnabledByFlowIdRequest struct {
+	ctx                        context.Context
+	ApiService                 *DaVinciFlowsApiService
+	environmentID              uuid.UUID
+	flowID                     string
+	daVinciFlowEnableRequest   *DaVinciFlowEnableRequest
+	xPingExternalSessionID     *string
+	xPingExternalTransactionID *string
+}
+
+func (r ApiUpdateEnabledByFlowIdRequest) DaVinciFlowEnableRequest(daVinciFlowEnableRequest DaVinciFlowEnableRequest) ApiUpdateEnabledByFlowIdRequest {
+	r.daVinciFlowEnableRequest = &daVinciFlowEnableRequest
+	return r
+}
+
+func (r ApiUpdateEnabledByFlowIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiUpdateEnabledByFlowIdRequest {
+	r.xPingExternalSessionID = &xPingExternalSessionID
+	return r
+}
+
+func (r ApiUpdateEnabledByFlowIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiUpdateEnabledByFlowIdRequest {
+	r.xPingExternalTransactionID = &xPingExternalTransactionID
+	return r
+}
+
+func (r ApiUpdateEnabledByFlowIdRequest) Execute() (*DaVinciFlowEnabledResponse, *http.Response, error) {
+	return r.ApiService.UpdateEnabledByFlowIdExecute(r)
+}
+
+/*
+UpdateEnabledByFlowId Method for UpdateEnabledByFlowId
+
+	@permission davinci:update:dvFlows
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param environmentID
+	@param flowID
+	@return ApiUpdateEnabledByFlowIdRequest
+*/
+func (a *DaVinciFlowsApiService) UpdateEnabledByFlowId(ctx context.Context, environmentID uuid.UUID, flowID string) ApiUpdateEnabledByFlowIdRequest {
+	return ApiUpdateEnabledByFlowIdRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		environmentID: environmentID,
+		flowID:        flowID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DaVinciFlowEnabledResponse
+func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabledByFlowIdRequest) (*DaVinciFlowEnabledResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DaVinciFlowEnabledResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.UpdateEnabledByFlowId")
+	if err != nil {
+		return localVarReturnValue, nil, &APIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/enabled"
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.daVinciFlowEnableRequest == nil {
+		return localVarReturnValue, nil, reportError("daVinciFlowEnableRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xPingExternalSessionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
+	}
+	if r.xPingExternalTransactionID != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.daVinciFlowEnableRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	var bodyBytes []byte
+	if req.Body != nil {
+		bodyBytes, _ = io.ReadAll(req.Body)
+	}
+
+	var localVarHTTPResponse *http.Response
+	var localVarBody []byte
+
+	for i := range maxRetries {
+		if req.Body != nil {
+			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		}
+
+		if i > 0 {
+			slog.Debug("Retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+		}
+
+		localVarHTTPResponse, err = a.client.callAPI(req)
+		if err != nil || localVarHTTPResponse == nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+
+		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
+
+		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
+		_ = localVarHTTPResponse.Body.Close()
+		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+
+		if localVarHTTPResponse.StatusCode >= 300 {
+			newErr := &APIError{
+				body:  localVarBody,
+				error: localVarHTTPResponse.Status,
+			}
+			if localVarHTTPResponse.StatusCode == 400 {
+				var v BadRequestError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 401 {
+				var v UnauthorizedError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 403 {
+				var v ForbiddenError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment exists - P14C-63085
+				_, _, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					var notFoundErr NotFoundError
+					if errors.As(err, &notFoundErr) {
+						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
+						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
+					}
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 404 {
+				var v NotFoundError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 415 {
+				var v UnsupportedMediaTypeError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 429 {
+				var v TooManyRequestsError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 500 {
+				var v InternalServerError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 502 {
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
+			}
+			if localVarHTTPResponse.StatusCode == 503 {
+				var v GeneralError
+				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+			}
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		break
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &APIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}

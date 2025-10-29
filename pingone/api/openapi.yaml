@@ -1387,6 +1387,49 @@ paths:
       tags:
       - DaVinci Flows
       x-permission: davinci:update:dvFlows
+  /environments/{environmentID}/flows/{flowID}/enabled:
+    put:
+      operationId: updateEnabledByFlowId
+      parameters:
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.flowID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DaVinciFlowEnableRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowEnabledResponse"
+          description: Successful Operation.
+        "400":
+          $ref: "#/components/responses/http.400.BadRequest"
+        "401":
+          $ref: "#/components/responses/http.401.Unauthorized"
+        "403":
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+        "404":
+          $ref: "#/components/responses/http.404.NotFound"
+        "415":
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/http.429.TooManyRequests"
+        "500":
+          $ref: "#/components/responses/http.500.InternalServerError"
+        "502":
+          $ref: "#/components/responses/http.502.BadGateway"
+        "503":
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:update:dvFlows
+      x-pingidentity-operation-action: update
   /environments/{environmentID}/flows/{flowID}/versions:
     get:
       operationId: getVersionsByFlowId
@@ -4163,6 +4206,38 @@ components:
       required:
       - name
       title: DaVinci Flow Create Request
+    DaVinciFlowEnableRequest:
+      additionalProperties: true
+      example:
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Enable Request Enabled
+          type: boolean
+      required:
+      - enabled
+      title: DaVinci Flow Enable Request
+    DaVinciFlowEnabledResponse:
+      additionalProperties: true
+      example:
+        _links:
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        enabled: true
+      properties:
+        _links:
+          $ref: "#/components/schemas/DaVinci_Flow_Enabled_Response__links"
+        enabled:
+          title: DaVinci Flow Enabled Response Enabled
+          type: boolean
+      required:
+      - _links
+      - enabled
+      title: DaVinci Flow Enabled Response
     DaVinciFlowGraphDataRequest:
       additionalProperties: {}
       example:
@@ -11510,6 +11585,22 @@ components:
           title: DaVinci Flow Create Request Output Schema Output
           type: object
       title: DaVinci Flow Create Request Output Schema
+    DaVinci_Flow_Enabled_Response__links:
+      additionalProperties:
+        $ref: "#/components/schemas/JSONHALLink"
+      example:
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+      properties:
+        self:
+          $ref: "#/components/schemas/JSONHALLink"
+      required:
+      - self
+      title: DaVinci Flow Enabled Response _links
     DaVinci_Flow_Graph_Data_Request_Elements_Edge_Data:
       example:
         id: id
