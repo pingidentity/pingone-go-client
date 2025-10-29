@@ -519,10 +519,16 @@ type ApiGetVersionByIdUsingSnapshotIdRequest struct {
 	environmentID              uuid.UUID
 	snapshotID                 uuid.UUID
 	versionID                  uuid.UUID
+	attributes                 *string
 	expand                     *string
 	filter                     *string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
+}
+
+func (r ApiGetVersionByIdUsingSnapshotIdRequest) Attributes(attributes string) ApiGetVersionByIdUsingSnapshotIdRequest {
+	r.attributes = &attributes
+	return r
 }
 
 func (r ApiGetVersionByIdUsingSnapshotIdRequest) Expand(expand string) ApiGetVersionByIdUsingSnapshotIdRequest {
@@ -593,10 +599,14 @@ func (a *ConfigurationManagementApiService) GetVersionByIdUsingSnapshotIdExecute
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.attributes == nil {
+		return localVarReturnValue, nil, reportError("attributes is required and must be specified")
+	}
 
 	if r.expand != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "attributes", r.attributes, "form", "")
 	if r.filter != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}

@@ -53,6 +53,12 @@ type EnvironmentCapabilities struct {
 	CanUseDaVinciAdminPortal                    *bool                             `json:"canUseDaVinciAdminPortal,omitempty"`
 	CanUseDataAnalyticsSupport                  *bool                             `json:"canUseDataAnalyticsSupport,omitempty"`
 	CanUseDataBasedVerifications                *bool                             `json:"canUseDataBasedVerifications,omitempty"`
+	CanUseDataVerificationGroup1                *bool                             `json:"canUseDataVerificationGroup1,omitempty"`
+	CanUseDataVerificationGroup2                *bool                             `json:"canUseDataVerificationGroup2,omitempty"`
+	CanUseDataVerificationGroup3                *bool                             `json:"canUseDataVerificationGroup3,omitempty"`
+	CanUseDataVerificationGroup4                *bool                             `json:"canUseDataVerificationGroup4,omitempty"`
+	CanUseDataVerificationGroup5                *bool                             `json:"canUseDataVerificationGroup5,omitempty"`
+	CanUseDeviceReputationScoring               *bool                             `json:"canUseDeviceReputationScoring,omitempty"`
 	CanUseDigitalVerifications                  *bool                             `json:"canUseDigitalVerifications,omitempty"`
 	CanUseDocumentMatch                         *bool                             `json:"canUseDocumentMatch,omitempty"`
 	CanUseDynamicAuthorization                  *bool                             `json:"canUseDynamicAuthorization,omitempty"`
@@ -60,6 +66,7 @@ type EnvironmentCapabilities struct {
 	CanUseEmailOtp                              *bool                             `json:"canUseEmailOtp,omitempty"`
 	CanUseFaceMatch                             *bool                             `json:"canUseFaceMatch,omitempty"`
 	CanUseFraudDataEnrichment                   *bool                             `json:"canUseFraudDataEnrichment,omitempty"`
+	CanUseGlobalWatchlist                       *bool                             `json:"canUseGlobalWatchlist,omitempty"`
 	CanUseIdentities                            *bool                             `json:"canUseIdentities,omitempty"`
 	CanUseIdentityProviders                     *bool                             `json:"canUseIdentityProviders,omitempty"`
 	CanUseInboundProvisioning                   *bool                             `json:"canUseInboundProvisioning,omitempty"`
@@ -78,6 +85,7 @@ type EnvironmentCapabilities struct {
 	CanUseIntelligenceTrustDevicePredictor      *bool                             `json:"canUseIntelligenceTrustDevicePredictor,omitempty"`
 	CanUseKerberosGateway                       *bool                             `json:"canUseKerberosGateway,omitempty"`
 	CanUseLdapGateway                           *bool                             `json:"canUseLdapGateway,omitempty"`
+	CanUseLiveAgent                             *bool                             `json:"canUseLiveAgent,omitempty"`
 	CanUseManualIDStepUpInspection              *bool                             `json:"canUseManualIDStepUpInspection,omitempty"`
 	CanUseManualIdInspection                    *bool                             `json:"canUseManualIdInspection,omitempty"`
 	CanUseMfa                                   *bool                             `json:"canUseMfa,omitempty"`
@@ -92,11 +100,14 @@ type EnvironmentCapabilities struct {
 	CanUsePasswordOnlyAuthentication            *bool                             `json:"canUsePasswordOnlyAuthentication,omitempty"`
 	CanUsePasswordPolicy                        *bool                             `json:"canUsePasswordPolicy,omitempty"`
 	CanUsePingIDApp                             *bool                             `json:"canUsePingIDApp,omitempty"`
+	CanUsePingIdDesktop                         *bool                             `json:"canUsePingIdDesktop,omitempty"`
+	CanUsePingIdDesktopGen2                     *bool                             `json:"canUsePingIdDesktopGen2,omitempty"`
 	CanUsePingSmsAccount                        *bool                             `json:"canUsePingSmsAccount,omitempty"`
 	CanUsePlatform                              *bool                             `json:"canUsePlatform,omitempty"`
 	CanUseProtectTransactions                   *bool                             `json:"canUseProtectTransactions,omitempty"`
 	CanUseProvisioning                          *bool                             `json:"canUseProvisioning,omitempty"`
 	CanUseRadiusGateway                         *bool                             `json:"canUseRadiusGateway,omitempty"`
+	CanUseScheduledFlows                        *bool                             `json:"canUseScheduledFlows,omitempty"`
 	CanUseSmsOtp                                *bool                             `json:"canUseSmsOtp,omitempty"`
 	CanUseTotp                                  *bool                             `json:"canUseTotp,omitempty"`
 	CanUseUniversalDeviceId                     *bool                             `json:"canUseUniversalDeviceId,omitempty"`
@@ -997,6 +1008,198 @@ func (o *EnvironmentCapabilities) SetCanUseDataBasedVerifications(v bool) {
 	o.CanUseDataBasedVerifications = &v
 }
 
+// GetCanUseDataVerificationGroup1 returns the CanUseDataVerificationGroup1 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup1() bool {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup1) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDataVerificationGroup1
+}
+
+// GetCanUseDataVerificationGroup1Ok returns a tuple with the CanUseDataVerificationGroup1 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup1Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup1) {
+		return nil, false
+	}
+	return o.CanUseDataVerificationGroup1, true
+}
+
+// HasCanUseDataVerificationGroup1 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup1() bool {
+	if o != nil && !IsNil(o.CanUseDataVerificationGroup1) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDataVerificationGroup1 gets a reference to the given bool and assigns it to the CanUseDataVerificationGroup1 field.
+func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup1(v bool) {
+	o.CanUseDataVerificationGroup1 = &v
+}
+
+// GetCanUseDataVerificationGroup2 returns the CanUseDataVerificationGroup2 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup2() bool {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup2) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDataVerificationGroup2
+}
+
+// GetCanUseDataVerificationGroup2Ok returns a tuple with the CanUseDataVerificationGroup2 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup2Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup2) {
+		return nil, false
+	}
+	return o.CanUseDataVerificationGroup2, true
+}
+
+// HasCanUseDataVerificationGroup2 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup2() bool {
+	if o != nil && !IsNil(o.CanUseDataVerificationGroup2) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDataVerificationGroup2 gets a reference to the given bool and assigns it to the CanUseDataVerificationGroup2 field.
+func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup2(v bool) {
+	o.CanUseDataVerificationGroup2 = &v
+}
+
+// GetCanUseDataVerificationGroup3 returns the CanUseDataVerificationGroup3 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup3() bool {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup3) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDataVerificationGroup3
+}
+
+// GetCanUseDataVerificationGroup3Ok returns a tuple with the CanUseDataVerificationGroup3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup3Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup3) {
+		return nil, false
+	}
+	return o.CanUseDataVerificationGroup3, true
+}
+
+// HasCanUseDataVerificationGroup3 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup3() bool {
+	if o != nil && !IsNil(o.CanUseDataVerificationGroup3) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDataVerificationGroup3 gets a reference to the given bool and assigns it to the CanUseDataVerificationGroup3 field.
+func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup3(v bool) {
+	o.CanUseDataVerificationGroup3 = &v
+}
+
+// GetCanUseDataVerificationGroup4 returns the CanUseDataVerificationGroup4 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup4() bool {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup4) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDataVerificationGroup4
+}
+
+// GetCanUseDataVerificationGroup4Ok returns a tuple with the CanUseDataVerificationGroup4 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup4Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup4) {
+		return nil, false
+	}
+	return o.CanUseDataVerificationGroup4, true
+}
+
+// HasCanUseDataVerificationGroup4 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup4() bool {
+	if o != nil && !IsNil(o.CanUseDataVerificationGroup4) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDataVerificationGroup4 gets a reference to the given bool and assigns it to the CanUseDataVerificationGroup4 field.
+func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup4(v bool) {
+	o.CanUseDataVerificationGroup4 = &v
+}
+
+// GetCanUseDataVerificationGroup5 returns the CanUseDataVerificationGroup5 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup5() bool {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup5) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDataVerificationGroup5
+}
+
+// GetCanUseDataVerificationGroup5Ok returns a tuple with the CanUseDataVerificationGroup5 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup5Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDataVerificationGroup5) {
+		return nil, false
+	}
+	return o.CanUseDataVerificationGroup5, true
+}
+
+// HasCanUseDataVerificationGroup5 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup5() bool {
+	if o != nil && !IsNil(o.CanUseDataVerificationGroup5) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDataVerificationGroup5 gets a reference to the given bool and assigns it to the CanUseDataVerificationGroup5 field.
+func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup5(v bool) {
+	o.CanUseDataVerificationGroup5 = &v
+}
+
+// GetCanUseDeviceReputationScoring returns the CanUseDeviceReputationScoring field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseDeviceReputationScoring() bool {
+	if o == nil || IsNil(o.CanUseDeviceReputationScoring) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseDeviceReputationScoring
+}
+
+// GetCanUseDeviceReputationScoringOk returns a tuple with the CanUseDeviceReputationScoring field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseDeviceReputationScoringOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseDeviceReputationScoring) {
+		return nil, false
+	}
+	return o.CanUseDeviceReputationScoring, true
+}
+
+// HasCanUseDeviceReputationScoring returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseDeviceReputationScoring() bool {
+	if o != nil && !IsNil(o.CanUseDeviceReputationScoring) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseDeviceReputationScoring gets a reference to the given bool and assigns it to the CanUseDeviceReputationScoring field.
+func (o *EnvironmentCapabilities) SetCanUseDeviceReputationScoring(v bool) {
+	o.CanUseDeviceReputationScoring = &v
+}
+
 // GetCanUseDigitalVerifications returns the CanUseDigitalVerifications field value if set, zero value otherwise.
 func (o *EnvironmentCapabilities) GetCanUseDigitalVerifications() bool {
 	if o == nil || IsNil(o.CanUseDigitalVerifications) {
@@ -1219,6 +1422,38 @@ func (o *EnvironmentCapabilities) HasCanUseFraudDataEnrichment() bool {
 // SetCanUseFraudDataEnrichment gets a reference to the given bool and assigns it to the CanUseFraudDataEnrichment field.
 func (o *EnvironmentCapabilities) SetCanUseFraudDataEnrichment(v bool) {
 	o.CanUseFraudDataEnrichment = &v
+}
+
+// GetCanUseGlobalWatchlist returns the CanUseGlobalWatchlist field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseGlobalWatchlist() bool {
+	if o == nil || IsNil(o.CanUseGlobalWatchlist) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseGlobalWatchlist
+}
+
+// GetCanUseGlobalWatchlistOk returns a tuple with the CanUseGlobalWatchlist field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseGlobalWatchlistOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseGlobalWatchlist) {
+		return nil, false
+	}
+	return o.CanUseGlobalWatchlist, true
+}
+
+// HasCanUseGlobalWatchlist returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseGlobalWatchlist() bool {
+	if o != nil && !IsNil(o.CanUseGlobalWatchlist) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseGlobalWatchlist gets a reference to the given bool and assigns it to the CanUseGlobalWatchlist field.
+func (o *EnvironmentCapabilities) SetCanUseGlobalWatchlist(v bool) {
+	o.CanUseGlobalWatchlist = &v
 }
 
 // GetCanUseIdentities returns the CanUseIdentities field value if set, zero value otherwise.
@@ -1797,6 +2032,38 @@ func (o *EnvironmentCapabilities) SetCanUseLdapGateway(v bool) {
 	o.CanUseLdapGateway = &v
 }
 
+// GetCanUseLiveAgent returns the CanUseLiveAgent field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseLiveAgent() bool {
+	if o == nil || IsNil(o.CanUseLiveAgent) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseLiveAgent
+}
+
+// GetCanUseLiveAgentOk returns a tuple with the CanUseLiveAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseLiveAgentOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseLiveAgent) {
+		return nil, false
+	}
+	return o.CanUseLiveAgent, true
+}
+
+// HasCanUseLiveAgent returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseLiveAgent() bool {
+	if o != nil && !IsNil(o.CanUseLiveAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseLiveAgent gets a reference to the given bool and assigns it to the CanUseLiveAgent field.
+func (o *EnvironmentCapabilities) SetCanUseLiveAgent(v bool) {
+	o.CanUseLiveAgent = &v
+}
+
 // GetCanUseManualIDStepUpInspection returns the CanUseManualIDStepUpInspection field value if set, zero value otherwise.
 func (o *EnvironmentCapabilities) GetCanUseManualIDStepUpInspection() bool {
 	if o == nil || IsNil(o.CanUseManualIDStepUpInspection) {
@@ -2245,6 +2512,70 @@ func (o *EnvironmentCapabilities) SetCanUsePingIDApp(v bool) {
 	o.CanUsePingIDApp = &v
 }
 
+// GetCanUsePingIdDesktop returns the CanUsePingIdDesktop field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUsePingIdDesktop() bool {
+	if o == nil || IsNil(o.CanUsePingIdDesktop) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUsePingIdDesktop
+}
+
+// GetCanUsePingIdDesktopOk returns a tuple with the CanUsePingIdDesktop field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUsePingIdDesktop) {
+		return nil, false
+	}
+	return o.CanUsePingIdDesktop, true
+}
+
+// HasCanUsePingIdDesktop returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUsePingIdDesktop() bool {
+	if o != nil && !IsNil(o.CanUsePingIdDesktop) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUsePingIdDesktop gets a reference to the given bool and assigns it to the CanUsePingIdDesktop field.
+func (o *EnvironmentCapabilities) SetCanUsePingIdDesktop(v bool) {
+	o.CanUsePingIdDesktop = &v
+}
+
+// GetCanUsePingIdDesktopGen2 returns the CanUsePingIdDesktopGen2 field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopGen2() bool {
+	if o == nil || IsNil(o.CanUsePingIdDesktopGen2) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUsePingIdDesktopGen2
+}
+
+// GetCanUsePingIdDesktopGen2Ok returns a tuple with the CanUsePingIdDesktopGen2 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopGen2Ok() (*bool, bool) {
+	if o == nil || IsNil(o.CanUsePingIdDesktopGen2) {
+		return nil, false
+	}
+	return o.CanUsePingIdDesktopGen2, true
+}
+
+// HasCanUsePingIdDesktopGen2 returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUsePingIdDesktopGen2() bool {
+	if o != nil && !IsNil(o.CanUsePingIdDesktopGen2) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUsePingIdDesktopGen2 gets a reference to the given bool and assigns it to the CanUsePingIdDesktopGen2 field.
+func (o *EnvironmentCapabilities) SetCanUsePingIdDesktopGen2(v bool) {
+	o.CanUsePingIdDesktopGen2 = &v
+}
+
 // GetCanUsePingSmsAccount returns the CanUsePingSmsAccount field value if set, zero value otherwise.
 func (o *EnvironmentCapabilities) GetCanUsePingSmsAccount() bool {
 	if o == nil || IsNil(o.CanUsePingSmsAccount) {
@@ -2403,6 +2734,38 @@ func (o *EnvironmentCapabilities) HasCanUseRadiusGateway() bool {
 // SetCanUseRadiusGateway gets a reference to the given bool and assigns it to the CanUseRadiusGateway field.
 func (o *EnvironmentCapabilities) SetCanUseRadiusGateway(v bool) {
 	o.CanUseRadiusGateway = &v
+}
+
+// GetCanUseScheduledFlows returns the CanUseScheduledFlows field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseScheduledFlows() bool {
+	if o == nil || IsNil(o.CanUseScheduledFlows) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseScheduledFlows
+}
+
+// GetCanUseScheduledFlowsOk returns a tuple with the CanUseScheduledFlows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseScheduledFlowsOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseScheduledFlows) {
+		return nil, false
+	}
+	return o.CanUseScheduledFlows, true
+}
+
+// HasCanUseScheduledFlows returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseScheduledFlows() bool {
+	if o != nil && !IsNil(o.CanUseScheduledFlows) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseScheduledFlows gets a reference to the given bool and assigns it to the CanUseScheduledFlows field.
+func (o *EnvironmentCapabilities) SetCanUseScheduledFlows(v bool) {
+	o.CanUseScheduledFlows = &v
 }
 
 // GetCanUseSmsOtp returns the CanUseSmsOtp field value if set, zero value otherwise.
@@ -2944,6 +3307,24 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CanUseDataBasedVerifications) {
 		toSerialize["canUseDataBasedVerifications"] = o.CanUseDataBasedVerifications
 	}
+	if !IsNil(o.CanUseDataVerificationGroup1) {
+		toSerialize["canUseDataVerificationGroup1"] = o.CanUseDataVerificationGroup1
+	}
+	if !IsNil(o.CanUseDataVerificationGroup2) {
+		toSerialize["canUseDataVerificationGroup2"] = o.CanUseDataVerificationGroup2
+	}
+	if !IsNil(o.CanUseDataVerificationGroup3) {
+		toSerialize["canUseDataVerificationGroup3"] = o.CanUseDataVerificationGroup3
+	}
+	if !IsNil(o.CanUseDataVerificationGroup4) {
+		toSerialize["canUseDataVerificationGroup4"] = o.CanUseDataVerificationGroup4
+	}
+	if !IsNil(o.CanUseDataVerificationGroup5) {
+		toSerialize["canUseDataVerificationGroup5"] = o.CanUseDataVerificationGroup5
+	}
+	if !IsNil(o.CanUseDeviceReputationScoring) {
+		toSerialize["canUseDeviceReputationScoring"] = o.CanUseDeviceReputationScoring
+	}
 	if !IsNil(o.CanUseDigitalVerifications) {
 		toSerialize["canUseDigitalVerifications"] = o.CanUseDigitalVerifications
 	}
@@ -2964,6 +3345,9 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CanUseFraudDataEnrichment) {
 		toSerialize["canUseFraudDataEnrichment"] = o.CanUseFraudDataEnrichment
+	}
+	if !IsNil(o.CanUseGlobalWatchlist) {
+		toSerialize["canUseGlobalWatchlist"] = o.CanUseGlobalWatchlist
 	}
 	if !IsNil(o.CanUseIdentities) {
 		toSerialize["canUseIdentities"] = o.CanUseIdentities
@@ -3019,6 +3403,9 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CanUseLdapGateway) {
 		toSerialize["canUseLdapGateway"] = o.CanUseLdapGateway
 	}
+	if !IsNil(o.CanUseLiveAgent) {
+		toSerialize["canUseLiveAgent"] = o.CanUseLiveAgent
+	}
 	if !IsNil(o.CanUseManualIDStepUpInspection) {
 		toSerialize["canUseManualIDStepUpInspection"] = o.CanUseManualIDStepUpInspection
 	}
@@ -3061,6 +3448,12 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CanUsePingIDApp) {
 		toSerialize["canUsePingIDApp"] = o.CanUsePingIDApp
 	}
+	if !IsNil(o.CanUsePingIdDesktop) {
+		toSerialize["canUsePingIdDesktop"] = o.CanUsePingIdDesktop
+	}
+	if !IsNil(o.CanUsePingIdDesktopGen2) {
+		toSerialize["canUsePingIdDesktopGen2"] = o.CanUsePingIdDesktopGen2
+	}
 	if !IsNil(o.CanUsePingSmsAccount) {
 		toSerialize["canUsePingSmsAccount"] = o.CanUsePingSmsAccount
 	}
@@ -3075,6 +3468,9 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CanUseRadiusGateway) {
 		toSerialize["canUseRadiusGateway"] = o.CanUseRadiusGateway
+	}
+	if !IsNil(o.CanUseScheduledFlows) {
+		toSerialize["canUseScheduledFlows"] = o.CanUseScheduledFlows
 	}
 	if !IsNil(o.CanUseSmsOtp) {
 		toSerialize["canUseSmsOtp"] = o.CanUseSmsOtp
@@ -3167,6 +3563,12 @@ func (o *EnvironmentCapabilities) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "canUseDaVinciAdminPortal")
 		delete(additionalProperties, "canUseDataAnalyticsSupport")
 		delete(additionalProperties, "canUseDataBasedVerifications")
+		delete(additionalProperties, "canUseDataVerificationGroup1")
+		delete(additionalProperties, "canUseDataVerificationGroup2")
+		delete(additionalProperties, "canUseDataVerificationGroup3")
+		delete(additionalProperties, "canUseDataVerificationGroup4")
+		delete(additionalProperties, "canUseDataVerificationGroup5")
+		delete(additionalProperties, "canUseDeviceReputationScoring")
 		delete(additionalProperties, "canUseDigitalVerifications")
 		delete(additionalProperties, "canUseDocumentMatch")
 		delete(additionalProperties, "canUseDynamicAuthorization")
@@ -3174,6 +3576,7 @@ func (o *EnvironmentCapabilities) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "canUseEmailOtp")
 		delete(additionalProperties, "canUseFaceMatch")
 		delete(additionalProperties, "canUseFraudDataEnrichment")
+		delete(additionalProperties, "canUseGlobalWatchlist")
 		delete(additionalProperties, "canUseIdentities")
 		delete(additionalProperties, "canUseIdentityProviders")
 		delete(additionalProperties, "canUseInboundProvisioning")
@@ -3192,6 +3595,7 @@ func (o *EnvironmentCapabilities) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "canUseIntelligenceTrustDevicePredictor")
 		delete(additionalProperties, "canUseKerberosGateway")
 		delete(additionalProperties, "canUseLdapGateway")
+		delete(additionalProperties, "canUseLiveAgent")
 		delete(additionalProperties, "canUseManualIDStepUpInspection")
 		delete(additionalProperties, "canUseManualIdInspection")
 		delete(additionalProperties, "canUseMfa")
@@ -3206,11 +3610,14 @@ func (o *EnvironmentCapabilities) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "canUsePasswordOnlyAuthentication")
 		delete(additionalProperties, "canUsePasswordPolicy")
 		delete(additionalProperties, "canUsePingIDApp")
+		delete(additionalProperties, "canUsePingIdDesktop")
+		delete(additionalProperties, "canUsePingIdDesktopGen2")
 		delete(additionalProperties, "canUsePingSmsAccount")
 		delete(additionalProperties, "canUsePlatform")
 		delete(additionalProperties, "canUseProtectTransactions")
 		delete(additionalProperties, "canUseProvisioning")
 		delete(additionalProperties, "canUseRadiusGateway")
+		delete(additionalProperties, "canUseScheduledFlows")
 		delete(additionalProperties, "canUseSmsOtp")
 		delete(additionalProperties, "canUseTotp")
 		delete(additionalProperties, "canUseUniversalDeviceId")
@@ -3315,6 +3722,24 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	if !IsNil(o.CanUseDataBasedVerifications) {
 		logAttrs = append(logAttrs, slog.Any("canUseDataBasedVerifications", *o.CanUseDataBasedVerifications))
 	}
+	if !IsNil(o.CanUseDataVerificationGroup1) {
+		logAttrs = append(logAttrs, slog.Any("canUseDataVerificationGroup1", *o.CanUseDataVerificationGroup1))
+	}
+	if !IsNil(o.CanUseDataVerificationGroup2) {
+		logAttrs = append(logAttrs, slog.Any("canUseDataVerificationGroup2", *o.CanUseDataVerificationGroup2))
+	}
+	if !IsNil(o.CanUseDataVerificationGroup3) {
+		logAttrs = append(logAttrs, slog.Any("canUseDataVerificationGroup3", *o.CanUseDataVerificationGroup3))
+	}
+	if !IsNil(o.CanUseDataVerificationGroup4) {
+		logAttrs = append(logAttrs, slog.Any("canUseDataVerificationGroup4", *o.CanUseDataVerificationGroup4))
+	}
+	if !IsNil(o.CanUseDataVerificationGroup5) {
+		logAttrs = append(logAttrs, slog.Any("canUseDataVerificationGroup5", *o.CanUseDataVerificationGroup5))
+	}
+	if !IsNil(o.CanUseDeviceReputationScoring) {
+		logAttrs = append(logAttrs, slog.Any("canUseDeviceReputationScoring", *o.CanUseDeviceReputationScoring))
+	}
 	if !IsNil(o.CanUseDigitalVerifications) {
 		logAttrs = append(logAttrs, slog.Any("canUseDigitalVerifications", *o.CanUseDigitalVerifications))
 	}
@@ -3335,6 +3760,9 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	}
 	if !IsNil(o.CanUseFraudDataEnrichment) {
 		logAttrs = append(logAttrs, slog.Any("canUseFraudDataEnrichment", *o.CanUseFraudDataEnrichment))
+	}
+	if !IsNil(o.CanUseGlobalWatchlist) {
+		logAttrs = append(logAttrs, slog.Any("canUseGlobalWatchlist", *o.CanUseGlobalWatchlist))
 	}
 	if !IsNil(o.CanUseIdentities) {
 		logAttrs = append(logAttrs, slog.Any("canUseIdentities", *o.CanUseIdentities))
@@ -3390,6 +3818,9 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	if !IsNil(o.CanUseLdapGateway) {
 		logAttrs = append(logAttrs, slog.Any("canUseLdapGateway", *o.CanUseLdapGateway))
 	}
+	if !IsNil(o.CanUseLiveAgent) {
+		logAttrs = append(logAttrs, slog.Any("canUseLiveAgent", *o.CanUseLiveAgent))
+	}
 	if !IsNil(o.CanUseManualIDStepUpInspection) {
 		logAttrs = append(logAttrs, slog.Any("canUseManualIDStepUpInspection", *o.CanUseManualIDStepUpInspection))
 	}
@@ -3432,6 +3863,12 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	if !IsNil(o.CanUsePingIDApp) {
 		logAttrs = append(logAttrs, slog.Any("canUsePingIDApp", *o.CanUsePingIDApp))
 	}
+	if !IsNil(o.CanUsePingIdDesktop) {
+		logAttrs = append(logAttrs, slog.Any("canUsePingIdDesktop", *o.CanUsePingIdDesktop))
+	}
+	if !IsNil(o.CanUsePingIdDesktopGen2) {
+		logAttrs = append(logAttrs, slog.Any("canUsePingIdDesktopGen2", *o.CanUsePingIdDesktopGen2))
+	}
 	if !IsNil(o.CanUsePingSmsAccount) {
 		logAttrs = append(logAttrs, slog.Any("canUsePingSmsAccount", *o.CanUsePingSmsAccount))
 	}
@@ -3446,6 +3883,9 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	}
 	if !IsNil(o.CanUseRadiusGateway) {
 		logAttrs = append(logAttrs, slog.Any("canUseRadiusGateway", *o.CanUseRadiusGateway))
+	}
+	if !IsNil(o.CanUseScheduledFlows) {
+		logAttrs = append(logAttrs, slog.Any("canUseScheduledFlows", *o.CanUseScheduledFlows))
 	}
 	if !IsNil(o.CanUseSmsOtp) {
 		logAttrs = append(logAttrs, slog.Any("canUseSmsOtp", *o.CanUseSmsOtp))

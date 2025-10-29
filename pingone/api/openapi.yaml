@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.08.18-development
+  version: 2025.10.29-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -29,7 +29,7 @@ security:
 - bearerAuth: []
 - oauth2: []
 tags:
-- description: Operations for managing PingOne configuration management actions
+- description: Operations for managing PingOne configuration management actions.
   name: Configuration Management
 - description: Operations for managing DaVinci applications and application flows
     policies
@@ -86,35 +86,35 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentsCollectionResponse'
+                $ref: "#/components/schemas/EnvironmentsCollectionResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentsCollectionResponse'
+                $ref: "#/components/schemas/EnvironmentsCollectionResponse"
           description: Successful operation. This is also returned if the collection
             is empty.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden'
+          $ref: "#/components/responses/http.403.Forbidden"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:read:environment
@@ -122,23 +122,23 @@ paths:
     post:
       operationId: createEnvironment
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EnvironmentCreateRequest'
+              $ref: "#/components/schemas/EnvironmentCreateRequest"
         required: true
       responses:
         "201":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
           description: Successfully created.
           headers:
             Location:
@@ -147,21 +147,21 @@ paths:
                 type: string
               style: simple
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden'
+          $ref: "#/components/responses/http.403.Forbidden"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:create:environment
@@ -169,35 +169,35 @@ paths:
     delete:
       operationId: deleteEnvironmentById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "204":
           description: Successfully removed. No content.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:delete:environment
     get:
       operationId: getEnvironmentById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
       - explode: true
         in: query
         name: expand
@@ -205,84 +205,84 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
           description: Successful operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden'
+          $ref: "#/components/responses/http.403.Forbidden"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:read:environment
     put:
       operationId: replaceEnvironmentById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EnvironmentReplaceRequest'
+              $ref: "#/components/schemas/EnvironmentReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
           description: Successful operation.
         "201":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentResponse'
+                $ref: "#/components/schemas/EnvironmentResponse"
           description: Successfully created.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:update:environment
@@ -290,76 +290,76 @@ paths:
     get:
       operationId: getBillOfMaterialsByEnvironmentId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentBillOfMaterialsResponse'
+                $ref: "#/components/schemas/EnvironmentBillOfMaterialsResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentBillOfMaterialsResponse'
+                $ref: "#/components/schemas/EnvironmentBillOfMaterialsResponse"
           description: Successful operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:read:environment
     put:
       operationId: replaceBillOfMaterialsByEnvironmentId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
+              $ref: "#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/EnvironmentBillOfMaterialsResponse'
+                $ref: "#/components/schemas/EnvironmentBillOfMaterialsResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentBillOfMaterialsResponse'
+                $ref: "#/components/schemas/EnvironmentBillOfMaterialsResponse"
           description: Successful operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Environments
       x-permission: orgmgt:update:environment
@@ -367,74 +367,74 @@ paths:
     get:
       operationId: getConnectorInstances
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceCollectionResponse'
+                $ref: "#/components/schemas/DaVinciConnectorInstanceCollectionResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:read:connections
     post:
       operationId: createConnectorInstance
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciConnectorInstanceCreateRequest'
+              $ref: "#/components/schemas/DaVinciConnectorInstanceCreateRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
+                $ref: "#/components/schemas/DaVinciConnectorInstanceResponse"
           description: Successfully created the resource.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:create:connections
@@ -442,148 +442,148 @@ paths:
     delete:
       operationId: deleteConnectorInstanceById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "204":
           description: Successfully removed. No content.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:delete:connections
     get:
       operationId: getConnectorInstanceById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
+                $ref: "#/components/schemas/DaVinciConnectorInstanceResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:read:connections
     post:
       operationId: createConnectorInstanceById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/vnd.pingidentity.connectorInstance.clone+json:
             schema:
-              $ref: '#/components/schemas/DaVinciConnectorInstanceCloneRequest'
+              $ref: "#/components/schemas/DaVinciConnectorInstanceCloneRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
+                $ref: "#/components/schemas/DaVinciConnectorInstanceResponse"
           description: Successfully created the resource.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:create:connections
     put:
       operationId: replaceConnectorInstanceById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectorInstances.connectorInstanceID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciConnectorInstanceReplaceRequest'
+              $ref: "#/components/schemas/DaVinciConnectorInstanceReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
+                $ref: "#/components/schemas/DaVinciConnectorInstanceResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:update:connections
@@ -591,34 +591,34 @@ paths:
     get:
       operationId: getConnectors
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorCollectionMinimalResponse'
+                $ref: "#/components/schemas/DaVinciConnectorCollectionMinimalResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:read:connectors
@@ -626,35 +626,35 @@ paths:
     get:
       operationId: getConnectorById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectors.connectorID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectors.connectorID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorMinimalResponse'
+                $ref: "#/components/schemas/DaVinciConnectorMinimalResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:read:connectors
@@ -662,35 +662,35 @@ paths:
     get:
       operationId: getDetailsByConnectorId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.connectors.connectorID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.connectors.connectorID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciConnectorDetailsResponse'
+                $ref: "#/components/schemas/DaVinciConnectorDetailsResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Connectors
       x-permission: davinci:read:connectors
@@ -698,74 +698,74 @@ paths:
     get:
       operationId: getDavinciApplications
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationCollectionResponse'
+                $ref: "#/components/schemas/DaVinciApplicationCollectionResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:read:applications
     post:
       operationId: createDavinciApplication
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciApplicationCreateRequest'
+              $ref: "#/components/schemas/DaVinciApplicationCreateRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationResponse'
+                $ref: "#/components/schemas/DaVinciApplicationResponse"
           description: Successfully created the resource.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:create:applications
@@ -773,107 +773,107 @@ paths:
     delete:
       operationId: deleteDavinciApplicationById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "204":
           description: Successfully removed. No content.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:delete:applications
     get:
       operationId: getDavinciApplicationById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationResponse'
+                $ref: "#/components/schemas/DaVinciApplicationResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:read:applications
     put:
       operationId: replaceDavinciApplicationById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciApplicationReplaceRequest'
+              $ref: "#/components/schemas/DaVinciApplicationReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationResponse'
+                $ref: "#/components/schemas/DaVinciApplicationResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:update:applications
@@ -881,76 +881,76 @@ paths:
     get:
       operationId: getFlowPoliciesByDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowPolicyCollection'
+                $ref: "#/components/schemas/DaVinciFlowPolicyCollection"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:read:flowPolicies
     post:
       operationId: createFlowPolicyByDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciFlowPolicyCreateRequest'
+              $ref: "#/components/schemas/DaVinciFlowPolicyCreateRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+                $ref: "#/components/schemas/DaVinciFlowPolicyResponse"
           description: Successfully created the resource.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:create:flowPolicies
@@ -958,110 +958,110 @@ paths:
     delete:
       operationId: deleteFlowPolicyByIdUsingDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "204":
           description: Successfully removed. No content.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:delete:flowPolicies
     get:
       operationId: getFlowPolicyByIdUsingDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+                $ref: "#/components/schemas/DaVinciFlowPolicyResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:read:flowPolicies
     put:
       operationId: replaceFlowPolicyByIdUsingDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciFlowPolicyReplaceRequest'
+              $ref: "#/components/schemas/DaVinciFlowPolicyReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+                $ref: "#/components/schemas/DaVinciFlowPolicyResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:update:flowPolicies
@@ -1069,36 +1069,36 @@ paths:
     get:
       operationId: getEventsByDavinciApplicationIdAndFlowPolicyId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.flowPolicies.flowPolicyID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciFlowPolicyEventsCollection'
+                $ref: "#/components/schemas/DaVinciFlowPolicyEventsCollection"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:read:flowPolicies
@@ -1106,41 +1106,41 @@ paths:
     post:
       operationId: rotateKeyByDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/vnd.pingidentity.davinciApplication.rotateKey+json:
             schema:
-              $ref: '#/components/schemas/DaVinciApplicationRotateKeyRequest'
+              $ref: "#/components/schemas/DaVinciApplicationRotateKeyRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationResponse'
+                $ref: "#/components/schemas/DaVinciApplicationResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:update:applications
@@ -1149,41 +1149,41 @@ paths:
     post:
       operationId: rotateSecretByDavinciApplicationId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.davinciApplications.davinciApplicationID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/vnd.pingidentity.davinciApplication.rotateSecret+json:
             schema:
-              $ref: '#/components/schemas/DaVinciApplicationRotateSecretRequest'
+              $ref: "#/components/schemas/DaVinciApplicationRotateSecretRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciApplicationResponse'
+                $ref: "#/components/schemas/DaVinciApplicationResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Applications
       x-permission: davinci:update:applications
@@ -1192,7 +1192,7 @@ paths:
     post:
       operationId: createSnapshot
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
       - explode: true
         in: query
         name: expand
@@ -1200,35 +1200,35 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SnapshotRequest'
+              $ref: "#/components/schemas/SnapshotRequest"
         required: true
       responses:
         "201":
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/SnapshotView'
+                $ref: "#/components/schemas/SnapshotView"
           description: Created
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Configuration Management
       x-feature-flag: p1ax-1984-configuration-promotion
@@ -1237,8 +1237,8 @@ paths:
     get:
       operationId: getSnapshotById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID"
       - explode: true
         in: query
         name: expand
@@ -1253,29 +1253,29 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/SnapshotView'
+                $ref: "#/components/schemas/SnapshotView"
           description: OK
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Configuration Management
       x-feature-flag: p1ax-1984-configuration-promotion
@@ -1284,34 +1284,34 @@ paths:
     get:
       operationId: getVersionsBySnapshotId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
+                $ref: "#/components/schemas/SnapshotVersionCollectionResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/SnapshotVersionCollectionResponse'
+                $ref: "#/components/schemas/SnapshotVersionCollectionResponse"
           description: OK
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Configuration Management
       x-feature-flag: p1ax-1984-configuration-promotion
@@ -1320,9 +1320,9 @@ paths:
     get:
       operationId: getVersionByIdUsingSnapshotId
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.snapshots.versions.versionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.snapshots.snapshotID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.snapshots.versions.versionID"
       - explode: true
         in: query
         name: expand
@@ -1332,34 +1332,41 @@ paths:
         style: form
       - explode: true
         in: query
+        name: attributes
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
         name: filter
         required: false
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/SnapshotView'
+                $ref: "#/components/schemas/SnapshotView"
           description: OK
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Configuration Management
       x-feature-flag: p1ax-1984-configuration-promotion
@@ -1368,7 +1375,7 @@ paths:
     get:
       operationId: getTotalIdentities
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
       - explode: true
         in: query
         name: filter
@@ -1376,32 +1383,32 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
+                $ref: "#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse'
+                $ref: "#/components/schemas/DirectoryTotalIdentitiesCountCollectionResponse"
           description: Successful operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - Directory Total Identities
       x-permission: orgmgt:read:environment
@@ -1409,7 +1416,7 @@ paths:
     get:
       operationId: getVariables
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
       - explode: true
         in: query
         name: limit
@@ -1435,33 +1442,33 @@ paths:
         schema:
           type: string
         style: form
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariableCollectionResponse'
+                $ref: "#/components/schemas/DaVinciVariableCollectionResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Variables
       x-permission: davinci:read:constructs
@@ -1469,40 +1476,40 @@ paths:
     post:
       operationId: createVariable
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciVariableCreateRequest'
+              $ref: "#/components/schemas/DaVinciVariableCreateRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariableResponse'
+                $ref: "#/components/schemas/DaVinciVariableResponse"
           description: Successfully created the resource.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085.DOCS8830'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: '#/components/responses/http.404.NotFound.DOCS8830'
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Variables
       x-permission: davinci:create:constructs
@@ -1510,107 +1517,107 @@ paths:
     delete:
       operationId: deleteVariableById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.variables.variableID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.variables.variableID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "204":
           description: Successfully removed. No content.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Variables
       x-permission: davinci:delete:constructs
     get:
       operationId: getVariableById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.variables.variableID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.variables.variableID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariableResponse'
+                $ref: "#/components/schemas/DaVinciVariableResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Variables
       x-permission: davinci:read:constructs
     put:
       operationId: replaceVariableById
       parameters:
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.environmentID'
-      - $ref: '#/components/parameters/com.pingidentity.path.environments.variables.variableID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalSessionID'
-      - $ref: '#/components/parameters/com.pingidentity.header.ExternalTransactionID'
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.variables.variableID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DaVinciVariableReplaceRequest'
+              $ref: "#/components/schemas/DaVinciVariableReplaceRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DaVinciVariableResponse'
+                $ref: "#/components/schemas/DaVinciVariableResponse"
           description: Successful Operation.
         "400":
-          $ref: '#/components/responses/http.400.BadRequest'
+          $ref: "#/components/responses/http.400.BadRequest"
         "401":
-          $ref: '#/components/responses/http.401.Unauthorized'
+          $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: '#/components/responses/http.403.Forbidden.P14C63085'
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
         "404":
-          $ref: '#/components/responses/http.404.NotFound'
+          $ref: "#/components/responses/http.404.NotFound"
         "415":
-          $ref: '#/components/responses/http.415.UnsupportedMediaType'
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
-          $ref: '#/components/responses/http.429.TooManyRequests'
+          $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
-          $ref: '#/components/responses/http.500.InternalServerError'
+          $ref: "#/components/responses/http.500.InternalServerError"
         "502":
-          $ref: '#/components/responses/http.502.BadGateway'
+          $ref: "#/components/responses/http.502.BadGateway"
         "503":
-          $ref: '#/components/responses/http.503.ServiceUnavailable'
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
       tags:
       - DaVinci Variables
       x-permission: davinci:update:constructs
@@ -1720,25 +1727,25 @@ components:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/BadRequestError'
+            $ref: "#/components/schemas/BadRequestError"
       description: Bad Request
     http.401.Unauthorized:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/UnauthorizedError'
+            $ref: "#/components/schemas/UnauthorizedError"
       description: Unauthorized
     http.403.Forbidden:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/ForbiddenError'
+            $ref: "#/components/schemas/ForbiddenError"
       description: Forbidden
     http.403.Forbidden.P14C63085:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/ForbiddenError'
+            $ref: "#/components/schemas/ForbiddenError"
       description: "Forbidden - Note: This may occur if the environment doesn't exist.\
         \ Check for environment existence with GET /environments/{environmentID} first."
       x-pingone-p14c-63085: true
@@ -1746,7 +1753,7 @@ components:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/ForbiddenError'
+            $ref: "#/components/schemas/ForbiddenError"
       description: "Forbidden - Note: This may occur if the environment doesn't exist.\
         \ Check for environment existence with GET /environments/{environmentID} first.\
         \ - Note: This may be due to eventual consistency if the environment was recently\
@@ -1757,13 +1764,13 @@ components:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/NotFoundError'
+            $ref: "#/components/schemas/NotFoundError"
       description: Not Found
     http.404.NotFound.DOCS8830:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/NotFoundError'
+            $ref: "#/components/schemas/NotFoundError"
       description: "Not Found - Note: This may be due to eventual consistency if the\
         \ environment was recently created. Try again after a short delay."
       x-pingone-docs-8830: true
@@ -1771,38 +1778,38 @@ components:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/UnsupportedMediaTypeError'
+            $ref: "#/components/schemas/UnsupportedMediaTypeError"
       description: Unsupported Media Type
     http.429.TooManyRequests:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/TooManyRequestsError'
+            $ref: "#/components/schemas/TooManyRequestsError"
       description: Too Many Requests
       headers:
         Retry-After:
-          $ref: '#/components/headers/http.RetryAfter'
+          $ref: "#/components/headers/http.RetryAfter"
     http.500.InternalServerError:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/InternalServerError'
+            $ref: "#/components/schemas/InternalServerError"
       description: Internal Server Error
     http.502.BadGateway:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/GeneralError'
+            $ref: "#/components/schemas/GeneralError"
       description: Bad Gateway
     http.503.ServiceUnavailable:
       content:
         '*/*':
           schema:
-            $ref: '#/components/schemas/GeneralError'
+            $ref: "#/components/schemas/GeneralError"
       description: Service Unavailable
       headers:
         Retry-After:
-          $ref: '#/components/headers/http.RetryAfter'
+          $ref: "#/components/headers/http.RetryAfter"
   schemas:
     BadRequestError:
       example:
@@ -1847,14 +1854,14 @@ components:
           title: Bad Request Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Bad_Request_Error_Code'
+          $ref: "#/components/schemas/Bad_Request_Error_Code"
         message:
           minLength: 1
           title: Bad Request Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Bad_Request_Error_Detail'
+            $ref: "#/components/schemas/Bad_Request_Error_Detail"
           type: array
       required:
       - code
@@ -1995,9 +2002,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Application_Collection_Response__links'
+          $ref: "#/components/schemas/DaVinci_Application_Collection_Response__links"
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Application_Collection_Response__embedded'
+          $ref: "#/components/schemas/DaVinci_Application_Collection_Response__embedded"
       required:
       - _embedded
       - _links
@@ -2046,7 +2053,7 @@ components:
         apiKeyEnabled:
           title: DaVinci Application Replace Request Api Key Enabled
         oauth:
-          $ref: '#/components/schemas/DaVinci_Application_Replace_Request_OAuth'
+          $ref: "#/components/schemas/DaVinci_Application_Replace_Request_OAuth"
       required:
       - name
       title: DaVinci Application Replace Request
@@ -2111,11 +2118,11 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Application_Response__links'
+          $ref: "#/components/schemas/DaVinci_Application_Response__links"
         apiKey:
-          $ref: '#/components/schemas/DaVinci_Application_Response_Api_Key'
+          $ref: "#/components/schemas/DaVinci_Application_Response_Api_Key"
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         id:
           minLength: 1
           title: DaVinci Application Response Id
@@ -2125,7 +2132,7 @@ components:
           title: DaVinci Application Response Name
           type: string
         oauth:
-          $ref: '#/components/schemas/DaVinci_Application_Response_OAuth'
+          $ref: "#/components/schemas/DaVinci_Application_Response_OAuth"
         createdAt:
           format: date-time
           title: DaVinci Application Response Created At
@@ -2233,9 +2240,9 @@ components:
             type: type
       properties:
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Connector_Collection_Minimal_Response__embedded'
+          $ref: "#/components/schemas/DaVinci_Connector_Collection_Minimal_Response__embedded"
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Collection_Minimal_Response__links'
+          $ref: "#/components/schemas/DaVinci_Connector_Collection_Minimal_Response__links"
       required:
       - _embedded
       - _links
@@ -2285,11 +2292,11 @@ components:
           value: value
       properties:
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Details_Response__links'
+          $ref: "#/components/schemas/DaVinci_Connector_Details_Response__links"
         accountConfigView:
-          $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Account_Config_View'
+          $ref: "#/components/schemas/DaVinci_Connector_Details_Response_Account_Config_View"
         capabilities:
           additionalProperties:
             additionalProperties: true
@@ -2297,10 +2304,10 @@ components:
             type: object
           title: DaVinci Connector Details Response Capabilities
         credentialsView:
-          $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Credentials_View'
+          $ref: "#/components/schemas/DaVinci_Connector_Details_Response_Credentials_View"
         flowSections:
           items:
-            $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Flow_Section'
+            $ref: "#/components/schemas/DaVinci_Connector_Details_Response_Flow_Section"
           type: array
         properties:
           additionalProperties: true
@@ -2309,7 +2316,7 @@ components:
           type: object
         sections:
           items:
-            $ref: '#/components/schemas/DaVinci_Connector_Details_Response_Section'
+            $ref: "#/components/schemas/DaVinci_Connector_Details_Response_Section"
           type: array
       required:
       - environment
@@ -2444,9 +2451,9 @@ components:
             type: type
       properties:
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection_Response__embedded'
+          $ref: "#/components/schemas/DaVinci_Connector_Instance_Collection_Response__embedded"
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance_Collection_Response__links'
+          $ref: "#/components/schemas/DaVinci_Connector_Instance_Collection_Response__links"
       required:
       - _embedded
       - _links
@@ -2466,7 +2473,7 @@ components:
           title: DaVinci Connector Instance Create Request Name
           type: string
         connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         properties:
           title: DaVinci Connector Instance Create Request
           type: object
@@ -2489,7 +2496,7 @@ components:
           title: DaVinci Connector Instance Replace Request Name
           type: string
         connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         properties:
           title: DaVinci Connector Instance Replace Request
           type: object
@@ -2556,11 +2563,11 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Instance_Response__links'
+          $ref: "#/components/schemas/DaVinci_Connector_Instance_Response__links"
         connector:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinciReadOnly"
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         id:
           minLength: 1
           title: DaVinci Connector Instance Response Id
@@ -2624,7 +2631,7 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response__links'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response__links"
         createdAt:
           format: date-time
           minLength: 1
@@ -2635,13 +2642,13 @@ components:
           title: DaVinci Connector Minimal Response Description
           type: string
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         id:
           minLength: 1
           title: DaVinci Connector Minimal Response Id
           type: string
         metadata:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata"
         name:
           minLength: 1
           title: DaVinci Connector Minimal Response Name
@@ -2831,9 +2838,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Collection__links'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Collection__links"
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Collection__embedded'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Collection__embedded"
       required:
       - _embedded
       - _links
@@ -2903,7 +2910,7 @@ components:
       properties:
         flowDistributions:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution"
           maxItems: 100
           minItems: 1
           title: DaVinci Flow Policy Create Request Flow Distributions
@@ -2913,9 +2920,9 @@ components:
           pattern: "^(?=\\S)[\\p{L}\\p{M}\\p{N}\\p{So}/.'_ -]*(?!.*((<)|(\\$\\{)))"
           title: DaVinci Flow Policy Create Request Name
         status:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Status'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Status"
         trigger:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger"
       required:
       - flowDistributions
       title: DaVinci Flow Policy Create Request
@@ -2962,9 +2969,9 @@ components:
               timestamp: timestamp
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__links'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__links"
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded"
       required:
       - _embedded
       - _links
@@ -3040,14 +3047,14 @@ components:
           title: DaVinci Flow Policy Replace Request Name
         flowDistributions:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution"
           maxItems: 100
           minItems: 1
           title: DaVinci Flow Policy Replace Request Flow Distributions
         status:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Status'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Status"
         trigger:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger"
       required:
       - name
       title: DaVinci Flow Policy Replace Request
@@ -3125,12 +3132,12 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response__links'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response__links"
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         flowDistributions:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution"
           type: array
         id:
           minLength: 1
@@ -3141,15 +3148,15 @@ components:
           title: DaVinci Flow Policy Response Name
           type: string
         status:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Status'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Status"
         application:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinciReadOnly"
         createdAt:
           format: date-time
           title: DaVinci Flow Policy Response Created At
           type: string
         trigger:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Trigger"
         updatedAt:
           format: date-time
           title: DaVinci Flow Policy Response Updated At
@@ -3245,9 +3252,9 @@ components:
         count: 5.962133916683182
       properties:
         _embedded:
-          $ref: '#/components/schemas/DaVinci_Variable_Collection_Response__embedded'
+          $ref: "#/components/schemas/DaVinci_Variable_Collection_Response__embedded"
         _links:
-          $ref: '#/components/schemas/DaVinci_Variable_Collection_Response__links'
+          $ref: "#/components/schemas/DaVinci_Variable_Collection_Response__links"
         size:
           title: DaVinci Variable Collection Response Size
           type: number
@@ -3281,9 +3288,9 @@ components:
           title: DaVinci Variable Create Request Name
           type: string
         context:
-          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Context'
+          $ref: "#/components/schemas/DaVinci_Variable_Create_Request_Context"
         dataType:
-          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Data_Type'
+          $ref: "#/components/schemas/DaVinci_Variable_Create_Request_Data_Type"
         mutable:
           title: DaVinci Variable Create Request Mutable
           type: boolean
@@ -3293,7 +3300,7 @@ components:
           title: DaVinci Variable Create Request Display Name
           type: string
         flow:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         max:
           default: 2000
           minimum: 0
@@ -3305,7 +3312,7 @@ components:
           title: DaVinci Variable Create Request Min
           type: integer
         value:
-          $ref: '#/components/schemas/DaVinci_Variable_Create_Request_Value'
+          $ref: "#/components/schemas/DaVinci_Variable_Create_Request_Value"
       required:
       - context
       - dataType
@@ -3333,9 +3340,9 @@ components:
           title: DaVinci Variable Replace Request Name
           type: string
         context:
-          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Context'
+          $ref: "#/components/schemas/DaVinci_Variable_Replace_Request_Context"
         dataType:
-          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Data_Type'
+          $ref: "#/components/schemas/DaVinci_Variable_Replace_Request_Data_Type"
         mutable:
           title: DaVinci Variable Replace Request Mutable
           type: boolean
@@ -3346,7 +3353,7 @@ components:
           title: DaVinci Variable Replace Request Display Name
           type: string
         flow:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinci'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         max:
           default: 2000
           minimum: 0
@@ -3358,7 +3365,7 @@ components:
           title: DaVinci Variable Replace Request Min
           type: integer
         value:
-          $ref: '#/components/schemas/DaVinci_Variable_Replace_Request_Value'
+          $ref: "#/components/schemas/DaVinci_Variable_Replace_Request_Value"
       required:
       - context
       - dataType
@@ -3401,11 +3408,11 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
-          $ref: '#/components/schemas/DaVinci_Variable_Response__links'
+          $ref: "#/components/schemas/DaVinci_Variable_Response__links"
         dataType:
-          $ref: '#/components/schemas/DaVinci_Variable_Response_Data_Type'
+          $ref: "#/components/schemas/DaVinci_Variable_Response_Data_Type"
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         id:
           format: uuid
           minLength: 1
@@ -3426,7 +3433,7 @@ components:
           title: DaVinci Variable Response Display Name
           type: string
         flow:
-          $ref: '#/components/schemas/ResourceRelationshipDaVinciReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipDaVinciReadOnly"
         max:
           title: DaVinci Variable Response Max
           type: number
@@ -3441,7 +3448,7 @@ components:
           title: DaVinci Variable Response Updated At
           type: string
         value:
-          $ref: '#/components/schemas/DaVinci_Variable_Response_Value'
+          $ref: "#/components/schemas/DaVinci_Variable_Response_Value"
       required:
       - _links
       - dataType
@@ -3466,9 +3473,9 @@ components:
         count: 0
       properties:
         _embedded:
-          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__embedded'
+          $ref: "#/components/schemas/Directory_Total_Identities_Count_Collection_Response__embedded"
         _links:
-          $ref: '#/components/schemas/Directory_Total_Identities_Count_Collection_Response__links'
+          $ref: "#/components/schemas/Directory_Total_Identities_Count_Collection_Response__links"
         count:
           format: int32
           title: Directory Total Identities Count Collection Response Count
@@ -3491,7 +3498,7 @@ components:
       title: Directory Total Identities Count Response
     EnvironmentAPILimit:
       example:
-        limit: 5
+        limit: 7
       properties:
         limit:
           format: int64
@@ -3620,12 +3627,12 @@ components:
       properties:
         products:
           items:
-            $ref: '#/components/schemas/EnvironmentBillOfMaterialsProduct'
+            $ref: "#/components/schemas/EnvironmentBillOfMaterialsProduct"
           maxItems: 100
           minItems: 0
           type: array
         solutionType:
-          $ref: '#/components/schemas/Environment_Bill_of_Materials_Solution_Type'
+          $ref: "#/components/schemas/Environment_Bill_of_Materials_Solution_Type"
       required:
       - products
       title: Environment Bill of Materials
@@ -3658,17 +3665,17 @@ components:
         - tags
       properties:
         type:
-          $ref: '#/components/schemas/Environment_Bill_of_Materials_Product_Type'
+          $ref: "#/components/schemas/Environment_Bill_of_Materials_Product_Type"
         bookmarks:
           items:
-            $ref: '#/components/schemas/EnvironmentBillOfMaterialsProductBookmark'
+            $ref: "#/components/schemas/EnvironmentBillOfMaterialsProductBookmark"
           maxItems: 5
           minItems: 0
           type: array
         console:
-          $ref: '#/components/schemas/EnvironmentBillOfMaterialsProductConsole'
+          $ref: "#/components/schemas/EnvironmentBillOfMaterialsProductConsole"
         deployment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         description:
           title: Environment Bill of Materials Product Description
           type: string
@@ -3679,7 +3686,7 @@ components:
           title: Environment Bill of Materials Product Id
           type: string
         softwareLicense:
-          $ref: '#/components/schemas/ResourceRelationshipGeneric'
+          $ref: "#/components/schemas/ResourceRelationshipGeneric"
         tags:
           items:
             title: Environment Bill of Materials Product Tag
@@ -3839,7 +3846,7 @@ components:
       properties:
         products:
           items:
-            $ref: '#/components/schemas/EnvironmentBillOfMaterialsProduct'
+            $ref: "#/components/schemas/EnvironmentBillOfMaterialsProduct"
           maxItems: 100
           minItems: 0
           type: array
@@ -3985,7 +3992,7 @@ components:
           title: Environment Bill of Materials Response _embedded
         _links:
           additionalProperties:
-            $ref: '#/components/schemas/JSONHALLink'
+            $ref: "#/components/schemas/JSONHALLink"
           readOnly: true
           title: Environment Bill of Materials Response _links
         createdAt:
@@ -3995,7 +4002,7 @@ components:
           type: string
         products:
           items:
-            $ref: '#/components/schemas/EnvironmentBillOfMaterialsProduct'
+            $ref: "#/components/schemas/EnvironmentBillOfMaterialsProduct"
           maxItems: 100
           minItems: 0
           type: array
@@ -4029,11 +4036,13 @@ components:
         canAssignUsersRoles: true
         canUseBotMaliciousDeviceDetection: true
         canSendMfaNotificationsOutsideWhitelist: true
+        canUseScheduledFlows: true
         canUseIntelligence: true
         canUseIntelligenceAdvancedPredictors: true
         canUsePingIDApp: true
         canUseIdentities: true
         canUseIntelligenceAnonymousNetworkDetection: true
+        canUsePingIdDesktop: true
         canUseTotp: true
         canUseCredentials: true
         canUseMfa: true
@@ -4059,8 +4068,11 @@ components:
         canUsePasswordOnlyAuthentication: true
         canUseVerificationFlow: true
         canUsePingSmsAccount: true
+        canUseDataVerificationGroup5: true
         canUsersUpdateSelf: true
+        canUseDataVerificationGroup4: true
         canUseManualIDStepUpInspection: true
+        canUseDataVerificationGroup3: true
         canAssignCustomRolesEverywhere: true
         canCreateCustomDomain: true
         canCreateConnections: true
@@ -4082,6 +4094,8 @@ components:
         canUseFraudDataEnrichment: true
         canUseVerifyPushNotifications: true
         canUseProtectTransactions: true
+        canUseDataVerificationGroup2: true
+        canUseDataVerificationGroup1: true
         canUseAccountOwnership: true
         canUseOrchestration: true
         canAddResources: true
@@ -4090,53 +4104,70 @@ components:
         canUseDataAnalyticsSupport: true
         getcanUseUniversalCapture: true
         canUseIntelligenceEditPolicyScores: true
+        canUseLiveAgent: true
+        canUsePingIdDesktopGen2: true
         canUseIntelligenceProtect: true
         licenseQuantities:
-          rlgCredRpm:
-            limit: 5
-          numberOfAccountOwnership: 6
-          rlgAppRegRpm:
-            limit: 5
-          rlgDirAccessRps:
-            limit: 5
+          rlgAuthnStartRps:
+            limit: 7
           rlgDirFixedRps:
-            limit: 5
-          rlgCatchAllRps:
-            limit: 5
+            limit: 7
           rlgConfigRpm:
-            limit: 5
+            limit: 7
           rlgAuditRps:
-            limit: 5
-          rlgDvFlowExecRps:
-            limit: 5
+            limit: 7
           rlgMfaPollingRps:
-            limit: 5
+            limit: 7
           rlgVerifyRpm:
-            limit: 5
+            limit: 7
           rlgTokenCheckRps:
-            limit: 5
+            limit: 7
           rlgDirBulkRps:
-            limit: 5
+            limit: 7
           rlgDvFlowCallbackRps:
-            limit: 5
-          numberOfAadhaar: 0
-          rlgMfaRps:
-            limit: 5
-          rlgAnalyticsRpm:
-            limit: 5
-          rlgDirWriteRps:
-            limit: 5
+            limit: 7
+          numberOfLiveAgent: 4
           rlgDvFlowStartRps:
-            limit: 5
+            limit: 7
           rlgRiskEvalsRps:
-            limit: 5
+            limit: 7
+          numberOfDeviceReputationScoring: 3
+          numberOfDataVerifications: 9
+          rlgCredRpm:
+            limit: 7
+          numberOfAccountOwnership: 6
+          numberOfDataVerificationGroup1: 1
+          rlgAppRegRpm:
+            limit: 7
+          rlgDirAccessRps:
+            limit: 7
+          rlgCatchAllRps:
+            limit: 7
+          rlgPrivilegeRps:
+            limit: 7
+          rlgDvFlowExecRps:
+            limit: 7
+          numberOfDataVerificationGroup4: 2
+          numberOfDataVerificationGroup5: 7
+          numberOfDataVerificationGroup2: 5
+          numberOfAadhaar: 0
+          numberOfDataVerificationGroup3: 5
+          rlgMfaRps:
+            limit: 7
+          rlgAnalyticsRpm:
+            limit: 7
+          rlgDirWriteRps:
+            limit: 7
+          numberOfGlobalWatchlist: 2
           rlgAuthzRps:
-            limit: 5
+            limit: 7
+          rlgAuthzBulkRps:
+            limit: 7
           rlgAuthnRps:
-            limit: 5
-          numberOfDataVerifications: 1
+            limit: 7
           rlgMfaFixedRps:
-            limit: 5
+            limit: 7
+        canUseGlobalWatchlist: true
         canUsePlatform: true
         canUseEditNotificationTemplate: true
         canContactSupport: true
@@ -4144,6 +4175,7 @@ components:
         canUseAadhaar: true
         canUseOATHToken: true
         canUseIntelligenceNewDevicePredictor: true
+        canUseDeviceReputationScoring: true
         canUseAccountTakeoverDetection: true
         canUseYubikey: true
         canUseIntelligenceReputation: true
@@ -4158,7 +4190,7 @@ components:
           readOnly: true
           title: Environment Capabilities _embedded
         _links:
-          $ref: '#/components/schemas/Environment_Capabilities__links'
+          $ref: "#/components/schemas/Environment_Capabilities__links"
         canAddResources:
           title: Environment Capabilities Can Add Resources
           type: boolean
@@ -4234,6 +4266,24 @@ components:
         canUseDataBasedVerifications:
           title: Environment Capabilities Can Use Data Based Verifications
           type: boolean
+        canUseDataVerificationGroup1:
+          title: Environment Capabilities Can Use Data Verification Group 1
+          type: boolean
+        canUseDataVerificationGroup2:
+          title: Environment Capabilities Can Use Data Verification Group 2
+          type: boolean
+        canUseDataVerificationGroup3:
+          title: Environment Capabilities Can Use Data Verification Group 3
+          type: boolean
+        canUseDataVerificationGroup4:
+          title: Environment Capabilities Can Use Data Verification Group 4
+          type: boolean
+        canUseDataVerificationGroup5:
+          title: Environment Capabilities Can Use Data Verification Group 5
+          type: boolean
+        canUseDeviceReputationScoring:
+          title: Environment Capabilities Can Use Device Reputation Scoring
+          type: boolean
         canUseDigitalVerifications:
           title: Environment Capabilities Can Use Digital Verifications
           type: boolean
@@ -4254,6 +4304,9 @@ components:
           type: boolean
         canUseFraudDataEnrichment:
           title: Environment Capabilities Can Use Fraud Data Enrichment
+          type: boolean
+        canUseGlobalWatchlist:
+          title: Environment Capabilities Can Use Global Watchlist
           type: boolean
         canUseIdentities:
           title: Environment Capabilities Can Use Identities
@@ -4310,6 +4363,9 @@ components:
         canUseLdapGateway:
           title: Environment Capabilities Can Use Ldap Gateway
           type: boolean
+        canUseLiveAgent:
+          title: Environment Capabilities Can Use Live Agent
+          type: boolean
         canUseManualIDStepUpInspection:
           title: Environment Capabilities Can Use Manual ID Step Up Inspection
           type: boolean
@@ -4352,6 +4408,12 @@ components:
         canUsePingIDApp:
           title: Environment Capabilities Can Use Ping ID App
           type: boolean
+        canUsePingIdDesktop:
+          title: Environment Capabilities Can Use Ping Id Desktop
+          type: boolean
+        canUsePingIdDesktopGen2:
+          title: Environment Capabilities Can Use Ping Id Desktop Gen 2
+          type: boolean
         canUsePingSmsAccount:
           title: Environment Capabilities Can Use Ping Sms Account
           type: boolean
@@ -4366,6 +4428,9 @@ components:
           type: boolean
         canUseRadiusGateway:
           title: Environment Capabilities Can Use Radius Gateway
+          type: boolean
+        canUseScheduledFlows:
+          title: Environment Capabilities Can Use Scheduled Flows
           type: boolean
         canUseSmsOtp:
           title: Environment Capabilities Can Use Sms Otp
@@ -4408,7 +4473,7 @@ components:
           title: Environment Capabilities Getcan Use Universal Capture
           type: boolean
         licenseQuantities:
-          $ref: '#/components/schemas/EnvironmentLicenseQuantities'
+          $ref: "#/components/schemas/EnvironmentLicenseQuantities"
       title: Environment Capabilities
     EnvironmentCreateRequest:
       example:
@@ -4544,13 +4609,13 @@ components:
           title: Environment Create Request Name
           type: string
         region:
-          $ref: '#/components/schemas/EnvironmentRegionCode'
+          $ref: "#/components/schemas/EnvironmentRegionCode"
         type:
-          $ref: '#/components/schemas/EnvironmentTypeValue'
+          $ref: "#/components/schemas/EnvironmentTypeValue"
         license:
-          $ref: '#/components/schemas/EnvironmentLicense'
+          $ref: "#/components/schemas/EnvironmentLicense"
         billOfMaterials:
-          $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+          $ref: "#/components/schemas/EnvironmentBillOfMaterials"
         description:
           title: Environment Create Request Description
           type: string
@@ -4581,51 +4646,65 @@ components:
       title: Environment License
     EnvironmentLicenseQuantities:
       example:
-        rlgCredRpm:
-          limit: 5
-        numberOfAccountOwnership: 6
-        rlgAppRegRpm:
-          limit: 5
-        rlgDirAccessRps:
-          limit: 5
+        rlgAuthnStartRps:
+          limit: 7
         rlgDirFixedRps:
-          limit: 5
-        rlgCatchAllRps:
-          limit: 5
+          limit: 7
         rlgConfigRpm:
-          limit: 5
+          limit: 7
         rlgAuditRps:
-          limit: 5
-        rlgDvFlowExecRps:
-          limit: 5
+          limit: 7
         rlgMfaPollingRps:
-          limit: 5
+          limit: 7
         rlgVerifyRpm:
-          limit: 5
+          limit: 7
         rlgTokenCheckRps:
-          limit: 5
+          limit: 7
         rlgDirBulkRps:
-          limit: 5
+          limit: 7
         rlgDvFlowCallbackRps:
-          limit: 5
-        numberOfAadhaar: 0
-        rlgMfaRps:
-          limit: 5
-        rlgAnalyticsRpm:
-          limit: 5
-        rlgDirWriteRps:
-          limit: 5
+          limit: 7
+        numberOfLiveAgent: 4
         rlgDvFlowStartRps:
-          limit: 5
+          limit: 7
         rlgRiskEvalsRps:
-          limit: 5
+          limit: 7
+        numberOfDeviceReputationScoring: 3
+        numberOfDataVerifications: 9
+        rlgCredRpm:
+          limit: 7
+        numberOfAccountOwnership: 6
+        numberOfDataVerificationGroup1: 1
+        rlgAppRegRpm:
+          limit: 7
+        rlgDirAccessRps:
+          limit: 7
+        rlgCatchAllRps:
+          limit: 7
+        rlgPrivilegeRps:
+          limit: 7
+        rlgDvFlowExecRps:
+          limit: 7
+        numberOfDataVerificationGroup4: 2
+        numberOfDataVerificationGroup5: 7
+        numberOfDataVerificationGroup2: 5
+        numberOfAadhaar: 0
+        numberOfDataVerificationGroup3: 5
+        rlgMfaRps:
+          limit: 7
+        rlgAnalyticsRpm:
+          limit: 7
+        rlgDirWriteRps:
+          limit: 7
+        numberOfGlobalWatchlist: 2
         rlgAuthzRps:
-          limit: 5
+          limit: 7
+        rlgAuthzBulkRps:
+          limit: 7
         rlgAuthnRps:
-          limit: 5
-        numberOfDataVerifications: 1
+          limit: 7
         rlgMfaFixedRps:
-          limit: 5
+          limit: 7
       properties:
         numberOfAadhaar:
           format: int64
@@ -4635,52 +4714,95 @@ components:
           format: int64
           title: Environment License Quantities Number Of Account Ownership
           type: integer
+        numberOfDataVerificationGroup1:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            1
+          type: integer
+        numberOfDataVerificationGroup2:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            2
+          type: integer
+        numberOfDataVerificationGroup3:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            3
+          type: integer
+        numberOfDataVerificationGroup4:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            4
+          type: integer
+        numberOfDataVerificationGroup5:
+          format: int64
+          title: Environment License Quantities Number Of Data Verification Group
+            5
+          type: integer
         numberOfDataVerifications:
           format: int64
           title: Environment License Quantities Number Of Data Verifications
           type: integer
+        numberOfDeviceReputationScoring:
+          format: int64
+          title: Environment License Quantities Number Of Device Reputation Scoring
+          type: integer
+        numberOfGlobalWatchlist:
+          format: int64
+          title: Environment License Quantities Number Of Global Watchlist
+          type: integer
+        numberOfLiveAgent:
+          format: int64
+          title: Environment License Quantities Number Of Live Agent
+          type: integer
         rlgAnalyticsRpm:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgAppRegRpm:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgAuditRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgAuthnRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
+        rlgAuthnStartRps:
+          $ref: "#/components/schemas/EnvironmentAPILimit"
+        rlgAuthzBulkRps:
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgAuthzRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgCatchAllRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgConfigRpm:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgCredRpm:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDirAccessRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDirBulkRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDirFixedRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDirWriteRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDvFlowCallbackRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDvFlowExecRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgDvFlowStartRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgMfaFixedRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgMfaPollingRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgMfaRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
+        rlgPrivilegeRps:
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgRiskEvalsRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgTokenCheckRps:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
         rlgVerifyRpm:
-          $ref: '#/components/schemas/EnvironmentAPILimit'
+          $ref: "#/components/schemas/EnvironmentAPILimit"
       title: Environment License Quantities
     EnvironmentRegionCode:
       enum:
@@ -4827,11 +4949,11 @@ components:
           title: Environment Replace Request Name
           type: string
         region:
-          $ref: '#/components/schemas/EnvironmentRegionCode'
+          $ref: "#/components/schemas/EnvironmentRegionCode"
         type:
-          $ref: '#/components/schemas/EnvironmentTypeValue'
+          $ref: "#/components/schemas/EnvironmentTypeValue"
         billOfMaterials:
-          $ref: '#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest'
+          $ref: "#/components/schemas/EnvironmentBillOfMaterialsReplaceRequest"
         description:
           title: Environment Replace Request Description
           type: string
@@ -4839,9 +4961,9 @@ components:
           title: Environment Replace Request Icon
           type: string
         license:
-          $ref: '#/components/schemas/EnvironmentLicense'
+          $ref: "#/components/schemas/EnvironmentLicense"
         status:
-          $ref: '#/components/schemas/EnvironmentStatusValue'
+          $ref: "#/components/schemas/EnvironmentStatusValue"
       required:
       - name
       - region
@@ -4879,11 +5001,13 @@ components:
           canAssignUsersRoles: true
           canUseBotMaliciousDeviceDetection: true
           canSendMfaNotificationsOutsideWhitelist: true
+          canUseScheduledFlows: true
           canUseIntelligence: true
           canUseIntelligenceAdvancedPredictors: true
           canUsePingIDApp: true
           canUseIdentities: true
           canUseIntelligenceAnonymousNetworkDetection: true
+          canUsePingIdDesktop: true
           canUseTotp: true
           canUseCredentials: true
           canUseMfa: true
@@ -4909,8 +5033,11 @@ components:
           canUsePasswordOnlyAuthentication: true
           canUseVerificationFlow: true
           canUsePingSmsAccount: true
+          canUseDataVerificationGroup5: true
           canUsersUpdateSelf: true
+          canUseDataVerificationGroup4: true
           canUseManualIDStepUpInspection: true
+          canUseDataVerificationGroup3: true
           canAssignCustomRolesEverywhere: true
           canCreateCustomDomain: true
           canCreateConnections: true
@@ -4932,6 +5059,8 @@ components:
           canUseFraudDataEnrichment: true
           canUseVerifyPushNotifications: true
           canUseProtectTransactions: true
+          canUseDataVerificationGroup2: true
+          canUseDataVerificationGroup1: true
           canUseAccountOwnership: true
           canUseOrchestration: true
           canAddResources: true
@@ -4940,53 +5069,70 @@ components:
           canUseDataAnalyticsSupport: true
           getcanUseUniversalCapture: true
           canUseIntelligenceEditPolicyScores: true
+          canUseLiveAgent: true
+          canUsePingIdDesktopGen2: true
           canUseIntelligenceProtect: true
           licenseQuantities:
-            rlgCredRpm:
-              limit: 5
-            numberOfAccountOwnership: 6
-            rlgAppRegRpm:
-              limit: 5
-            rlgDirAccessRps:
-              limit: 5
+            rlgAuthnStartRps:
+              limit: 7
             rlgDirFixedRps:
-              limit: 5
-            rlgCatchAllRps:
-              limit: 5
+              limit: 7
             rlgConfigRpm:
-              limit: 5
+              limit: 7
             rlgAuditRps:
-              limit: 5
-            rlgDvFlowExecRps:
-              limit: 5
+              limit: 7
             rlgMfaPollingRps:
-              limit: 5
+              limit: 7
             rlgVerifyRpm:
-              limit: 5
+              limit: 7
             rlgTokenCheckRps:
-              limit: 5
+              limit: 7
             rlgDirBulkRps:
-              limit: 5
+              limit: 7
             rlgDvFlowCallbackRps:
-              limit: 5
-            numberOfAadhaar: 0
-            rlgMfaRps:
-              limit: 5
-            rlgAnalyticsRpm:
-              limit: 5
-            rlgDirWriteRps:
-              limit: 5
+              limit: 7
+            numberOfLiveAgent: 4
             rlgDvFlowStartRps:
-              limit: 5
+              limit: 7
             rlgRiskEvalsRps:
-              limit: 5
+              limit: 7
+            numberOfDeviceReputationScoring: 3
+            numberOfDataVerifications: 9
+            rlgCredRpm:
+              limit: 7
+            numberOfAccountOwnership: 6
+            numberOfDataVerificationGroup1: 1
+            rlgAppRegRpm:
+              limit: 7
+            rlgDirAccessRps:
+              limit: 7
+            rlgCatchAllRps:
+              limit: 7
+            rlgPrivilegeRps:
+              limit: 7
+            rlgDvFlowExecRps:
+              limit: 7
+            numberOfDataVerificationGroup4: 2
+            numberOfDataVerificationGroup5: 7
+            numberOfDataVerificationGroup2: 5
+            numberOfAadhaar: 0
+            numberOfDataVerificationGroup3: 5
+            rlgMfaRps:
+              limit: 7
+            rlgAnalyticsRpm:
+              limit: 7
+            rlgDirWriteRps:
+              limit: 7
+            numberOfGlobalWatchlist: 2
             rlgAuthzRps:
-              limit: 5
+              limit: 7
+            rlgAuthzBulkRps:
+              limit: 7
             rlgAuthnRps:
-              limit: 5
-            numberOfDataVerifications: 1
+              limit: 7
             rlgMfaFixedRps:
-              limit: 5
+              limit: 7
+          canUseGlobalWatchlist: true
           canUsePlatform: true
           canUseEditNotificationTemplate: true
           canContactSupport: true
@@ -4994,6 +5140,7 @@ components:
           canUseAadhaar: true
           canUseOATHToken: true
           canUseIntelligenceNewDevicePredictor: true
+          canUseDeviceReputationScoring: true
           canUseAccountTakeoverDetection: true
           canUseYubikey: true
           canUseIntelligenceReputation: true
@@ -5139,9 +5286,9 @@ components:
           title: Environment Response Name
           type: string
         region:
-          $ref: '#/components/schemas/EnvironmentRegionCode'
+          $ref: "#/components/schemas/EnvironmentRegionCode"
         type:
-          $ref: '#/components/schemas/EnvironmentTypeValue'
+          $ref: "#/components/schemas/EnvironmentTypeValue"
         createdAt:
           format: date-time
           minLength: 1
@@ -5160,7 +5307,7 @@ components:
           title: Environment Response Id
           type: string
         organization:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         _embedded:
           additionalProperties:
             readOnly: true
@@ -5169,14 +5316,14 @@ components:
           readOnly: true
           title: Environment Response _embedded
         _links:
-          $ref: '#/components/schemas/Environment_Response__links'
+          $ref: "#/components/schemas/Environment_Response__links"
         billOfMaterials:
-          $ref: '#/components/schemas/EnvironmentBillOfMaterials'
+          $ref: "#/components/schemas/EnvironmentBillOfMaterials"
         description:
           title: Environment Response Description
           type: string
         environmentCapabilities:
-          $ref: '#/components/schemas/EnvironmentCapabilities'
+          $ref: "#/components/schemas/EnvironmentCapabilities"
         hardDeleteAllowedAt:
           format: date-time
           title: Environment Response Hard Delete Allowed At
@@ -5185,7 +5332,7 @@ components:
           title: Environment Response Icon
           type: string
         license:
-          $ref: '#/components/schemas/EnvironmentLicense'
+          $ref: "#/components/schemas/EnvironmentLicense"
         pingoneAccountId:
           title: Environment Response Pingone Account Id
           type: string
@@ -5194,7 +5341,7 @@ components:
           title: Environment Response Soft Deleted At
           type: string
         status:
-          $ref: '#/components/schemas/EnvironmentStatusValue'
+          $ref: "#/components/schemas/EnvironmentStatusValue"
       required:
       - createdAt
       - id
@@ -5247,9 +5394,9 @@ components:
         count: 0
       properties:
         _embedded:
-          $ref: '#/components/schemas/Environments_Collection_Response__embedded'
+          $ref: "#/components/schemas/Environments_Collection_Response__embedded"
         _links:
-          $ref: '#/components/schemas/Environments_Collection_Response__links'
+          $ref: "#/components/schemas/Environments_Collection_Response__links"
         count:
           format: int32
           title: Environments Collection Response Count
@@ -5277,14 +5424,14 @@ components:
         message: message
       properties:
         code:
-          $ref: '#/components/schemas/Forbidden_Error_Code'
+          $ref: "#/components/schemas/Forbidden_Error_Code"
         message:
           minLength: 1
           title: Forbidden Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Forbidden_Error_Detail'
+            $ref: "#/components/schemas/Forbidden_Error_Detail"
           type: array
         id:
           format: uuid
@@ -5318,7 +5465,7 @@ components:
           x-go-generate-error-code: true
         details:
           items:
-            $ref: '#/components/schemas/GeneralErrorDetail'
+            $ref: "#/components/schemas/GeneralErrorDetail"
           type: array
         id:
           title: General Error Id
@@ -5374,14 +5521,14 @@ components:
           title: Internal Server Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Internal_Server_Error_Code'
+          $ref: "#/components/schemas/Internal_Server_Error_Code"
         message:
           minLength: 1
           title: Internal Server Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Internal_Server_Error_Detail'
+            $ref: "#/components/schemas/Internal_Server_Error_Detail"
           type: array
       required:
       - code
@@ -5443,14 +5590,14 @@ components:
           title: Not Found Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Not_Found_Error_Code'
+          $ref: "#/components/schemas/Not_Found_Error_Code"
         message:
           minLength: 1
           title: Not Found Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Not_Found_Error_Detail'
+            $ref: "#/components/schemas/Not_Found_Error_Detail"
           type: array
       required:
       - code
@@ -5549,9 +5696,9 @@ components:
         count: 0
       properties:
         _embedded:
-          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__embedded'
+          $ref: "#/components/schemas/Snapshot_Version_Collection_Response__embedded"
         _links:
-          $ref: '#/components/schemas/Snapshot_Version_Collection_Response__links'
+          $ref: "#/components/schemas/Snapshot_Version_Collection_Response__links"
         count:
           format: int32
           title: Snapshot Version Collection Response Count
@@ -5577,6 +5724,7 @@ components:
           name: name
           id: id
           category: category
+        errorCode: 0
         startedAt: 2000-01-23T04:56:07.000+00:00
         referencedResources:
         - referencedResources
@@ -5602,7 +5750,7 @@ components:
           readOnly: true
           title: Snapshot View _embedded
         _links:
-          $ref: '#/components/schemas/Snapshot_View__links'
+          $ref: "#/components/schemas/Snapshot_View__links"
         completedAt:
           format: date-time
           title: Snapshot View Completed At
@@ -5615,10 +5763,14 @@ components:
           title: Snapshot View Created At
           type: string
         environment:
-          $ref: '#/components/schemas/ResourceRelationshipReadOnly'
+          $ref: "#/components/schemas/ResourceRelationshipReadOnly"
         error:
           title: Snapshot View Error
           type: string
+        errorCode:
+          format: int32
+          title: Snapshot View Error Code
+          type: integer
         id:
           format: uuid
           readOnly: true
@@ -5636,7 +5788,7 @@ components:
           type: array
           uniqueItems: true
         resource:
-          $ref: '#/components/schemas/SnapshotResourceInformation'
+          $ref: "#/components/schemas/SnapshotResourceInformation"
         resourceUrl:
           title: Snapshot View Resource Url
           type: string
@@ -5649,7 +5801,7 @@ components:
           title: Snapshot View Started At
           type: string
         status:
-          $ref: '#/components/schemas/Snapshot_View_Status'
+          $ref: "#/components/schemas/Snapshot_View_Status"
         versionedAt:
           format: date-time
           title: Snapshot View Versioned At
@@ -5682,14 +5834,14 @@ components:
           title: Too Many Requests Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Too_Many_Requests_Error_Code'
+          $ref: "#/components/schemas/Too_Many_Requests_Error_Code"
         message:
           minLength: 1
           title: Too Many Requests Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Too_Many_Requests_Error_Detail'
+            $ref: "#/components/schemas/Too_Many_Requests_Error_Detail"
           type: array
       required:
       - code
@@ -5720,14 +5872,14 @@ components:
           title: Unauthorized Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Unauthorized_Error_Code'
+          $ref: "#/components/schemas/Unauthorized_Error_Code"
         message:
           minLength: 1
           title: Unauthorized Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Unauthorized_Error_Detail'
+            $ref: "#/components/schemas/Unauthorized_Error_Detail"
           type: array
       required:
       - code
@@ -5758,14 +5910,14 @@ components:
           title: Unsupported Media Type Error Id
           type: string
         code:
-          $ref: '#/components/schemas/Unsupported_Media_Type_Error_Code'
+          $ref: "#/components/schemas/Unsupported_Media_Type_Error_Code"
         message:
           minLength: 1
           title: Unsupported Media Type Error Message
           type: string
         details:
           items:
-            $ref: '#/components/schemas/Unsupported_Media_Type_Error_Detail'
+            $ref: "#/components/schemas/Unsupported_Media_Type_Error_Detail"
           type: array
       required:
       - code
@@ -5866,13 +6018,13 @@ components:
         target: target
       properties:
         code:
-          $ref: '#/components/schemas/Bad_Request_Error_Detail_Code'
+          $ref: "#/components/schemas/Bad_Request_Error_Detail_Code"
         message:
           minLength: 1
           title: Bad Request Error Detail Message
           type: string
         innerError:
-          $ref: '#/components/schemas/Bad_Request_Error_Detail_Inner_Error'
+          $ref: "#/components/schemas/Bad_Request_Error_Detail_Inner_Error"
         target:
           title: Bad Request Error Detail Target
           type: string
@@ -5882,7 +6034,7 @@ components:
       title: Bad Request Error Detail
     DaVinci_Application_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -5898,9 +6050,9 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -6025,7 +6177,7 @@ components:
       properties:
         davinciApplications:
           items:
-            $ref: '#/components/schemas/DaVinciApplicationResponse'
+            $ref: "#/components/schemas/DaVinciApplicationResponse"
           type: array
       required:
       - davinciApplications
@@ -6067,7 +6219,7 @@ components:
             Openid
         grantTypes:
           items:
-            $ref: '#/components/schemas/DaVinci_Application_Replace_Request_OAuth_Grant_Type'
+            $ref: "#/components/schemas/DaVinci_Application_Replace_Request_OAuth_Grant_Type"
           title: DaVinci Application Replace Request OAuth Grant Types
         logoutUris:
           items:
@@ -6079,7 +6231,7 @@ components:
           title: DaVinci Application Replace Request OAuth Redirect Uris
         scopes:
           items:
-            $ref: '#/components/schemas/DaVinci_Application_Replace_Request_OAuth_Scope'
+            $ref: "#/components/schemas/DaVinci_Application_Replace_Request_OAuth_Scope"
           title: DaVinci Application Replace Request OAuth Scopes
         spJwksOpenid:
           title: DaVinci Application Replace Request OAuth Sp Jwks Openid
@@ -6088,7 +6240,7 @@ components:
       title: DaVinci Application Replace Request OAuth
     DaVinci_Application_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         flowPolicies:
           profile: https://openapi-generator.tech
@@ -6122,15 +6274,15 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         flowPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         davinciApplication.rotateKey:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         davinciApplication.rotateSecret:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - davinciApplication.rotateKey
       - davinciApplication.rotateSecret
@@ -6202,7 +6354,7 @@ components:
           default:
           - authorizationCode
           items:
-            $ref: '#/components/schemas/DaVinci_Application_Response_OAuth_Grant_Type'
+            $ref: "#/components/schemas/DaVinci_Application_Response_OAuth_Grant_Type"
           type: array
         logoutUris:
           items:
@@ -6219,7 +6371,7 @@ components:
           - openid
           - profile
           items:
-            $ref: '#/components/schemas/DaVinci_Application_Response_OAuth_Scope'
+            $ref: "#/components/schemas/DaVinci_Application_Response_OAuth_Scope"
           type: array
         spJwksOpenid:
           title: DaVinci Application Response OAuth Sp Jwks Openid
@@ -6298,14 +6450,14 @@ components:
       properties:
         connectors:
           items:
-            $ref: '#/components/schemas/DaVinciConnectorMinimalResponse'
+            $ref: "#/components/schemas/DaVinciConnectorMinimalResponse"
           type: array
       required:
       - connectors
       title: DaVinci Connector Collection Minimal Response _embedded
     DaVinci_Connector_Collection_Minimal_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -6321,16 +6473,16 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
       title: DaVinci Connector Collection Minimal Response _links
     DaVinci_Connector_Details_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -6346,9 +6498,9 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -6540,14 +6692,14 @@ components:
       properties:
         connectorInstances:
           items:
-            $ref: '#/components/schemas/DaVinciConnectorInstanceResponse'
+            $ref: "#/components/schemas/DaVinciConnectorInstanceResponse"
           type: array
       required:
       - connectorInstances
       title: DaVinci Connector Instance Collection Response _embedded
     DaVinci_Connector_Instance_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -6563,16 +6715,16 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
       title: DaVinci Connector Instance Collection Response _links
     DaVinci_Connector_Instance_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         connectorInstance.clone:
           profile: https://openapi-generator.tech
@@ -6618,19 +6770,19 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         connectorInstance.clone:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         applications:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         deviceAuthenticationPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         gateways:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         notificationsPolicies:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - connectorInstance.clone
       - environment
@@ -6638,7 +6790,7 @@ components:
       title: DaVinci Connector Instance Response _links
     DaVinci_Connector_Minimal_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -6654,9 +6806,9 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -6692,7 +6844,7 @@ components:
           imageFileName: imageFileName
       properties:
         canvas:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Logos_Canvas'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Logos_Canvas"
       title: DaVinci Connector Minimal Response Metadata Logos
     DaVinci_Connector_Minimal_Response_Metadata_Type:
       enum:
@@ -6714,18 +6866,18 @@ components:
           dark: dark
       properties:
         colors:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Colors'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Colors"
         logos:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Logos'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Logos"
         type:
-          $ref: '#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Type'
+          $ref: "#/components/schemas/DaVinci_Connector_Minimal_Response_Metadata_Type"
         vendor:
           title: DaVinci Connector Minimal Response Metadata Vendor
           type: string
       title: DaVinci Connector Minimal Response Metadata
     DaVinci_Flow_Policy_Collection__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -6747,11 +6899,11 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         davinciApplication:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - davinciApplication
       - environment
@@ -6903,7 +7055,7 @@ components:
       properties:
         flowPolicies:
           items:
-            $ref: '#/components/schemas/DaVinciFlowPolicyResponse'
+            $ref: "#/components/schemas/DaVinciFlowPolicyResponse"
           type: array
       required:
       - flowPolicies
@@ -6946,7 +7098,7 @@ components:
           title: DaVinci Flow Policy Create Request Flow Distribution Ip
         successNodes:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution_Success_Node'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Flow_Distribution_Success_Node"
           minItems: 1
           title: DaVinci Flow Policy Create Request Flow Distribution Success Nodes
         weight:
@@ -7014,9 +7166,9 @@ components:
           enabled: true
       properties:
         mfa:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_MFA'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_MFA"
         pwd:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_Password'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration_Password"
       title: DaVinci Flow Policy Create Request Trigger Configuration
     DaVinci_Flow_Policy_Create_Request_Trigger_Type:
       default: AUTHENTICATION
@@ -7040,13 +7192,13 @@ components:
         type: AUTHENTICATION
       properties:
         configuration:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Configuration"
         type:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Type'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Create_Request_Trigger_Type"
       title: DaVinci Flow Policy Create Request Trigger
     DaVinci_Flow_Policy_Events_Collection__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -7062,9 +7214,9 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -7129,12 +7281,12 @@ components:
           timestamp: timestamp
       properties:
         environment:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Environment'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Environment"
         flow:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Flow'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Flow"
         events:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Event'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event_Event"
           type: array
         successCount:
           title: DaVinci Flow Policy Events Collection _embedded Event Success Count
@@ -7176,7 +7328,7 @@ components:
       properties:
         events:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Events_Collection__embedded_Event"
           type: array
       required:
       - events
@@ -7218,7 +7370,7 @@ components:
           title: DaVinci Flow Policy Replace Request Flow Distribution Ip
         successNodes:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution_Success_Node'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Flow_Distribution_Success_Node"
           minItems: 1
           title: DaVinci Flow Policy Replace Request Flow Distribution Success Nodes
         weight:
@@ -7286,9 +7438,9 @@ components:
           enabled: true
       properties:
         mfa:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_MFA'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_MFA"
         pwd:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_Password'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration_Password"
       title: DaVinci Flow Policy Replace Request Trigger Configuration
     DaVinci_Flow_Policy_Replace_Request_Trigger_Type:
       default: AUTHENTICATION
@@ -7312,13 +7464,13 @@ components:
         type: AUTHENTICATION
       properties:
         configuration:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Configuration"
         type:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Type'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Replace_Request_Trigger_Type"
       title: DaVinci Flow Policy Replace Request Trigger
     DaVinci_Flow_Policy_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -7352,15 +7504,15 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         davinciApplication:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         flow.<index>:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         version.<flowId>.<index>:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - davinciApplication
       - environment
@@ -7403,7 +7555,7 @@ components:
           type: array
         successNodes:
           items:
-            $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution_Success_Node'
+            $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Flow_Distribution_Success_Node"
           type: array
         weight:
           title: DaVinci Flow Policy Response Flow Distribution Weight
@@ -7474,9 +7626,9 @@ components:
           enabled: true
       properties:
         mfa:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_MFA"
         pwd:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_Password'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration_Password"
       required:
       - mfa
       - pwd
@@ -7495,7 +7647,7 @@ components:
         type: type
       properties:
         configuration:
-          $ref: '#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration'
+          $ref: "#/components/schemas/DaVinci_Flow_Policy_Response_Trigger_Configuration"
         type:
           title: DaVinci Flow Policy Response Trigger Type
           type: string
@@ -7562,14 +7714,14 @@ components:
       properties:
         variables:
           items:
-            $ref: '#/components/schemas/DaVinciVariableResponse'
+            $ref: "#/components/schemas/DaVinciVariableResponse"
           type: array
       required:
       - variables
       title: DaVinci Variable Collection Response _embedded
     DaVinci_Variable_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         next:
           profile: https://openapi-generator.tech
@@ -7591,11 +7743,11 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         next:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -7662,7 +7814,7 @@ components:
       title: DaVinci Variable Replace Request Value
     DaVinci_Variable_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         environment:
           profile: https://openapi-generator.tech
@@ -7678,9 +7830,9 @@ components:
           type: type
       properties:
         environment:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       required:
       - environment
       - self
@@ -7725,14 +7877,14 @@ components:
         totalIdentities:
           items:
             allOf:
-            - $ref: '#/components/schemas/DirectoryTotalIdentitiesCountResponse'
+            - $ref: "#/components/schemas/DirectoryTotalIdentitiesCountResponse"
             title: Directory Total Identities Count Collection Response _embedded
               Total Identity
           type: array
       title: Directory Total Identities Count Collection Response _embedded
     Directory_Total_Identities_Count_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         self:
           profile: https://openapi-generator.tech
@@ -7742,7 +7894,7 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       title: Directory Total Identities Count Collection Response _links
     Environment_Bill_of_Materials_Solution_Type:
       enum:
@@ -7786,7 +7938,7 @@ components:
       type: string
     Environment_Capabilities__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         self:
           profile: https://openapi-generator.tech
@@ -7796,12 +7948,12 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       readOnly: true
       title: Environment Capabilities _links
     Environment_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         self:
           profile: https://openapi-generator.tech
@@ -7811,7 +7963,7 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       readOnly: true
       title: Environment Response _links
     Environments_Collection_Response__embedded:
@@ -7823,13 +7975,13 @@ components:
         environments:
           items:
             allOf:
-            - $ref: '#/components/schemas/EnvironmentResponse'
+            - $ref: "#/components/schemas/EnvironmentResponse"
             title: Environments Collection Response _embedded Environment
           type: array
       title: Environments Collection Response _embedded
     Environments_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         next:
           profile: https://openapi-generator.tech
@@ -7851,11 +8003,11 @@ components:
           type: type
       properties:
         next:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         prev:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       title: Environments Collection Response _links
     Forbidden_Error_Code:
       enum:
@@ -7889,13 +8041,13 @@ components:
         target: target
       properties:
         code:
-          $ref: '#/components/schemas/Forbidden_Error_Detail_Code'
+          $ref: "#/components/schemas/Forbidden_Error_Detail_Code"
         message:
           minLength: 1
           title: Forbidden Error Detail Message
           type: string
         innerError:
-          $ref: '#/components/schemas/Forbidden_Error_Detail_Inner_Error'
+          $ref: "#/components/schemas/Forbidden_Error_Detail_Inner_Error"
         target:
           title: Forbidden Error Detail Target
           type: string
@@ -7980,13 +8132,13 @@ components:
         versions:
           items:
             allOf:
-            - $ref: '#/components/schemas/SnapshotView'
+            - $ref: "#/components/schemas/SnapshotView"
             title: Snapshot Version Collection Response _embedded Version
           type: array
       title: Snapshot Version Collection Response _embedded
     Snapshot_Version_Collection_Response__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         self:
           profile: https://openapi-generator.tech
@@ -7996,11 +8148,11 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       title: Snapshot Version Collection Response _links
     Snapshot_View__links:
       additionalProperties:
-        $ref: '#/components/schemas/JSONHALLink'
+        $ref: "#/components/schemas/JSONHALLink"
       example:
         self:
           profile: https://openapi-generator.tech
@@ -8010,7 +8162,7 @@ components:
           type: type
       properties:
         self:
-          $ref: '#/components/schemas/JSONHALLink'
+          $ref: "#/components/schemas/JSONHALLink"
       readOnly: true
       title: Snapshot View _links
     Snapshot_View_Status:
@@ -8065,13 +8217,13 @@ components:
         target: target
       properties:
         code:
-          $ref: '#/components/schemas/Too_Many_Requests_Error_Detail_Code'
+          $ref: "#/components/schemas/Too_Many_Requests_Error_Detail_Code"
         message:
           minLength: 1
           title: Too Many Requests Error Detail Message
           type: string
         innerError:
-          $ref: '#/components/schemas/Too_Many_Requests_Error_Detail_Inner_Error'
+          $ref: "#/components/schemas/Too_Many_Requests_Error_Detail_Inner_Error"
         target:
           title: Too Many Requests Error Detail Target
           type: string
@@ -8102,7 +8254,7 @@ components:
         target: target
       properties:
         code:
-          $ref: '#/components/schemas/Unauthorized_Error_Detail_Code'
+          $ref: "#/components/schemas/Unauthorized_Error_Detail_Code"
         message:
           minLength: 1
           title: Unauthorized Error Detail Message
