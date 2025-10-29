@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **OutputSchema** | Pointer to [**DaVinciFlowVersionDetailResponseOutputSchema**](DaVinciFlowVersionDetailResponseOutputSchema.md) |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
 **Skcomponents** | Pointer to [**[]DaVinciFlowVersionDetailResponseSkcomponent**](DaVinciFlowVersionDetailResponseSkcomponent.md) |  | [optional] 
-**Trigger** | Pointer to [**DaVinciFlowVersionDetailResponseTrigger**](DaVinciFlowVersionDetailResponseTrigger.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciFlowTriggerResponse**](DaVinciFlowTriggerResponse.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Updates** | Pointer to **[]string** |  | [optional] 
 **Version** | Pointer to **float32** |  | [optional] 
@@ -389,20 +389,20 @@ HasSkcomponents returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciFlowVersionDetailResponse) GetTrigger() DaVinciFlowVersionDetailResponseTrigger`
+`func (o *DaVinciFlowVersionDetailResponse) GetTrigger() DaVinciFlowTriggerResponse`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciFlowVersionDetailResponse) GetTriggerOk() (*DaVinciFlowVersionDetailResponseTrigger, bool)`
+`func (o *DaVinciFlowVersionDetailResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciFlowVersionDetailResponse) SetTrigger(v DaVinciFlowVersionDetailResponseTrigger)`
+`func (o *DaVinciFlowVersionDetailResponse) SetTrigger(v DaVinciFlowTriggerResponse)`
 
 SetTrigger sets Trigger field to given value.
 

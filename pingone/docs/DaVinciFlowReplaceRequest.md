@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **InputSchema** | Pointer to [**[]DaVinciFlowInputSchemaRequestItem**](DaVinciFlowInputSchemaRequestItem.md) |  | [optional] 
 **OutputSchema** | Pointer to [**DaVinciFlowReplaceRequestOutputSchema**](DaVinciFlowReplaceRequestOutputSchema.md) |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsRequest**](DaVinciFlowSettingsRequest.md) |  | [optional] 
-**Trigger** | Pointer to [**DaVinciFlowReplaceRequestTrigger**](DaVinciFlowReplaceRequestTrigger.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciFlowTriggerRequest**](DaVinciFlowTriggerRequest.md) |  | [optional] 
 
 ## Methods
 
@@ -204,20 +204,20 @@ HasSettings returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciFlowReplaceRequest) GetTrigger() DaVinciFlowReplaceRequestTrigger`
+`func (o *DaVinciFlowReplaceRequest) GetTrigger() DaVinciFlowTriggerRequest`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciFlowReplaceRequest) GetTriggerOk() (*DaVinciFlowReplaceRequestTrigger, bool)`
+`func (o *DaVinciFlowReplaceRequest) GetTriggerOk() (*DaVinciFlowTriggerRequest, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciFlowReplaceRequest) SetTrigger(v DaVinciFlowReplaceRequestTrigger)`
+`func (o *DaVinciFlowReplaceRequest) SetTrigger(v DaVinciFlowTriggerRequest)`
 
 SetTrigger sets Trigger field to given value.
 

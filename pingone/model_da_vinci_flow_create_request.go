@@ -32,7 +32,7 @@ type DaVinciFlowCreateRequest struct {
 	InputSchema          []DaVinciFlowInputSchemaRequestItem   `json:"inputSchema,omitempty"`
 	OutputSchema         *DaVinciFlowCreateRequestOutputSchema `json:"outputSchema,omitempty"`
 	Settings             *DaVinciFlowSettingsRequest           `json:"settings,omitempty"`
-	Trigger              *DaVinciFlowCreateRequestTrigger      `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowTriggerRequest            `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,9 +273,9 @@ func (o *DaVinciFlowCreateRequest) SetSettings(v DaVinciFlowSettingsRequest) {
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
-func (o *DaVinciFlowCreateRequest) GetTrigger() DaVinciFlowCreateRequestTrigger {
+func (o *DaVinciFlowCreateRequest) GetTrigger() DaVinciFlowTriggerRequest {
 	if o == nil || IsNil(o.Trigger) {
-		var ret DaVinciFlowCreateRequestTrigger
+		var ret DaVinciFlowTriggerRequest
 		return ret
 	}
 	return *o.Trigger
@@ -283,7 +283,7 @@ func (o *DaVinciFlowCreateRequest) GetTrigger() DaVinciFlowCreateRequestTrigger 
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowCreateRequest) GetTriggerOk() (*DaVinciFlowCreateRequestTrigger, bool) {
+func (o *DaVinciFlowCreateRequest) GetTriggerOk() (*DaVinciFlowTriggerRequest, bool) {
 	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
@@ -299,8 +299,8 @@ func (o *DaVinciFlowCreateRequest) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given DaVinciFlowCreateRequestTrigger and assigns it to the Trigger field.
-func (o *DaVinciFlowCreateRequest) SetTrigger(v DaVinciFlowCreateRequestTrigger) {
+// SetTrigger gets a reference to the given DaVinciFlowTriggerRequest and assigns it to the Trigger field.
+func (o *DaVinciFlowCreateRequest) SetTrigger(v DaVinciFlowTriggerRequest) {
 	o.Trigger = &v
 }
 

@@ -43,7 +43,7 @@ type DaVinciExportFlowVersionResponse struct {
 	InputSchema          []DaVinciFlowInputSchemaResponseItem          `json:"inputSchema,omitempty"`
 	OutputSchema         *DaVinciExportFlowVersionResponseOutputSchema `json:"outputSchema,omitempty"`
 	Settings             *DaVinciFlowSettingsResponse                  `json:"settings,omitempty"`
-	Trigger              *DaVinciExportFlowVersionResponseTrigger      `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowTriggerResponse                   `json:"trigger,omitempty"`
 	UpdatedAt            *time.Time                                    `json:"updatedAt,omitempty"`
 	Updates              []string                                      `json:"updates,omitempty"`
 	Variables            []map[string]interface{}                      `json:"variables,omitempty"`
@@ -579,9 +579,9 @@ func (o *DaVinciExportFlowVersionResponse) SetSettings(v DaVinciFlowSettingsResp
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
-func (o *DaVinciExportFlowVersionResponse) GetTrigger() DaVinciExportFlowVersionResponseTrigger {
+func (o *DaVinciExportFlowVersionResponse) GetTrigger() DaVinciFlowTriggerResponse {
 	if o == nil || IsNil(o.Trigger) {
-		var ret DaVinciExportFlowVersionResponseTrigger
+		var ret DaVinciFlowTriggerResponse
 		return ret
 	}
 	return *o.Trigger
@@ -589,7 +589,7 @@ func (o *DaVinciExportFlowVersionResponse) GetTrigger() DaVinciExportFlowVersion
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciExportFlowVersionResponse) GetTriggerOk() (*DaVinciExportFlowVersionResponseTrigger, bool) {
+func (o *DaVinciExportFlowVersionResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool) {
 	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
@@ -605,8 +605,8 @@ func (o *DaVinciExportFlowVersionResponse) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given DaVinciExportFlowVersionResponseTrigger and assigns it to the Trigger field.
-func (o *DaVinciExportFlowVersionResponse) SetTrigger(v DaVinciExportFlowVersionResponseTrigger) {
+// SetTrigger gets a reference to the given DaVinciFlowTriggerResponse and assigns it to the Trigger field.
+func (o *DaVinciExportFlowVersionResponse) SetTrigger(v DaVinciFlowTriggerResponse) {
 	o.Trigger = &v
 }
 

@@ -40,7 +40,7 @@ type DaVinciFlowVersionDetailResponse struct {
 	OutputSchema         *DaVinciFlowVersionDetailResponseOutputSchema `json:"outputSchema,omitempty"`
 	Settings             *DaVinciFlowSettingsResponse                  `json:"settings,omitempty"`
 	Skcomponents         []DaVinciFlowVersionDetailResponseSkcomponent `json:"skcomponents,omitempty"`
-	Trigger              *DaVinciFlowVersionDetailResponseTrigger      `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowTriggerResponse                   `json:"trigger,omitempty"`
 	UpdatedAt            *time.Time                                    `json:"updatedAt,omitempty"`
 	Updates              []string                                      `json:"updates,omitempty"`
 	Version              *float32                                      `json:"version,omitempty"`
@@ -508,9 +508,9 @@ func (o *DaVinciFlowVersionDetailResponse) SetSkcomponents(v []DaVinciFlowVersio
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
-func (o *DaVinciFlowVersionDetailResponse) GetTrigger() DaVinciFlowVersionDetailResponseTrigger {
+func (o *DaVinciFlowVersionDetailResponse) GetTrigger() DaVinciFlowTriggerResponse {
 	if o == nil || IsNil(o.Trigger) {
-		var ret DaVinciFlowVersionDetailResponseTrigger
+		var ret DaVinciFlowTriggerResponse
 		return ret
 	}
 	return *o.Trigger
@@ -518,7 +518,7 @@ func (o *DaVinciFlowVersionDetailResponse) GetTrigger() DaVinciFlowVersionDetail
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowVersionDetailResponse) GetTriggerOk() (*DaVinciFlowVersionDetailResponseTrigger, bool) {
+func (o *DaVinciFlowVersionDetailResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool) {
 	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
@@ -534,8 +534,8 @@ func (o *DaVinciFlowVersionDetailResponse) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given DaVinciFlowVersionDetailResponseTrigger and assigns it to the Trigger field.
-func (o *DaVinciFlowVersionDetailResponse) SetTrigger(v DaVinciFlowVersionDetailResponseTrigger) {
+// SetTrigger gets a reference to the given DaVinciFlowTriggerResponse and assigns it to the Trigger field.
+func (o *DaVinciFlowVersionDetailResponse) SetTrigger(v DaVinciFlowTriggerResponse) {
 	o.Trigger = &v
 }
 

@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **InputSchema** | Pointer to [**[]DaVinciFlowInputSchemaResponseItem**](DaVinciFlowInputSchemaResponseItem.md) |  | [optional] 
 **OutputSchema** | Pointer to [**DaVinciExportFlowVersionResponseOutputSchema**](DaVinciExportFlowVersionResponseOutputSchema.md) |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
-**Trigger** | Pointer to [**DaVinciExportFlowVersionResponseTrigger**](DaVinciExportFlowVersionResponseTrigger.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciFlowTriggerResponse**](DaVinciFlowTriggerResponse.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Updates** | Pointer to **[]string** |  | [optional] 
 **Variables** | Pointer to **[]map[string]interface{}** |  | [optional] 
@@ -448,20 +448,20 @@ HasSettings returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTrigger() DaVinciExportFlowVersionResponseTrigger`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTrigger() DaVinciFlowTriggerResponse`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTriggerOk() (*DaVinciExportFlowVersionResponseTrigger, bool)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciExportFlowVersionSubflowsResponse) SetTrigger(v DaVinciExportFlowVersionResponseTrigger)`
+`func (o *DaVinciExportFlowVersionSubflowsResponse) SetTrigger(v DaVinciFlowTriggerResponse)`
 
 SetTrigger sets Trigger field to given value.
 

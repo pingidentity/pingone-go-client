@@ -1,4 +1,4 @@
-# DaVinciFlowResponseTriggerConfigurationPassword
+# DaVinciFlowTriggerResponseConfigurationPassword
 
 ## Properties
 
@@ -10,79 +10,79 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewDaVinciFlowResponseTriggerConfigurationPassword
+### NewDaVinciFlowTriggerResponseConfigurationPassword
 
-`func NewDaVinciFlowResponseTriggerConfigurationPassword(enabled bool, time float32, timeFormat string, ) *DaVinciFlowResponseTriggerConfigurationPassword`
+`func NewDaVinciFlowTriggerResponseConfigurationPassword(enabled bool, time float32, timeFormat string, ) *DaVinciFlowTriggerResponseConfigurationPassword`
 
-NewDaVinciFlowResponseTriggerConfigurationPassword instantiates a new DaVinciFlowResponseTriggerConfigurationPassword object
+NewDaVinciFlowTriggerResponseConfigurationPassword instantiates a new DaVinciFlowTriggerResponseConfigurationPassword object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDaVinciFlowResponseTriggerConfigurationPasswordWithDefaults
+### NewDaVinciFlowTriggerResponseConfigurationPasswordWithDefaults
 
-`func NewDaVinciFlowResponseTriggerConfigurationPasswordWithDefaults() *DaVinciFlowResponseTriggerConfigurationPassword`
+`func NewDaVinciFlowTriggerResponseConfigurationPasswordWithDefaults() *DaVinciFlowTriggerResponseConfigurationPassword`
 
-NewDaVinciFlowResponseTriggerConfigurationPasswordWithDefaults instantiates a new DaVinciFlowResponseTriggerConfigurationPassword object
+NewDaVinciFlowTriggerResponseConfigurationPasswordWithDefaults instantiates a new DaVinciFlowTriggerResponseConfigurationPassword object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetEnabled
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetEnabled() bool`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetEnabled() bool`
 
 GetEnabled returns the Enabled field if non-nil, zero value otherwise.
 
 ### GetEnabledOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetEnabledOk() (*bool, bool)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetEnabledOk() (*bool, bool)`
 
 GetEnabledOk returns a tuple with the Enabled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnabled
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) SetEnabled(v bool)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
 
 
 ### GetTime
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetTime() float32`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetTime() float32`
 
 GetTime returns the Time field if non-nil, zero value otherwise.
 
 ### GetTimeOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetTimeOk() (*float32, bool)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetTimeOk() (*float32, bool)`
 
 GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTime
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) SetTime(v float32)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) SetTime(v float32)`
 
 SetTime sets Time field to given value.
 
 
 ### GetTimeFormat
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetTimeFormat() string`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetTimeFormat() string`
 
 GetTimeFormat returns the TimeFormat field if non-nil, zero value otherwise.
 
 ### GetTimeFormatOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) GetTimeFormatOk() (*string, bool)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) GetTimeFormatOk() (*string, bool)`
 
 GetTimeFormatOk returns a tuple with the TimeFormat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeFormat
 
-`func (o *DaVinciFlowResponseTriggerConfigurationPassword) SetTimeFormat(v string)`
+`func (o *DaVinciFlowTriggerResponseConfigurationPassword) SetTimeFormat(v string)`
 
 SetTimeFormat sets TimeFormat field to given value.
 

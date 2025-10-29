@@ -1,4 +1,4 @@
-# DaVinciFlowResponseTriggerConfigurationMFA
+# DaVinciFlowTriggerRequestConfigurationMFA
 
 ## Properties
 
@@ -10,79 +10,79 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewDaVinciFlowResponseTriggerConfigurationMFA
+### NewDaVinciFlowTriggerRequestConfigurationMFA
 
-`func NewDaVinciFlowResponseTriggerConfigurationMFA(enabled bool, time float32, timeFormat string, ) *DaVinciFlowResponseTriggerConfigurationMFA`
+`func NewDaVinciFlowTriggerRequestConfigurationMFA(enabled bool, time float32, timeFormat string, ) *DaVinciFlowTriggerRequestConfigurationMFA`
 
-NewDaVinciFlowResponseTriggerConfigurationMFA instantiates a new DaVinciFlowResponseTriggerConfigurationMFA object
+NewDaVinciFlowTriggerRequestConfigurationMFA instantiates a new DaVinciFlowTriggerRequestConfigurationMFA object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDaVinciFlowResponseTriggerConfigurationMFAWithDefaults
+### NewDaVinciFlowTriggerRequestConfigurationMFAWithDefaults
 
-`func NewDaVinciFlowResponseTriggerConfigurationMFAWithDefaults() *DaVinciFlowResponseTriggerConfigurationMFA`
+`func NewDaVinciFlowTriggerRequestConfigurationMFAWithDefaults() *DaVinciFlowTriggerRequestConfigurationMFA`
 
-NewDaVinciFlowResponseTriggerConfigurationMFAWithDefaults instantiates a new DaVinciFlowResponseTriggerConfigurationMFA object
+NewDaVinciFlowTriggerRequestConfigurationMFAWithDefaults instantiates a new DaVinciFlowTriggerRequestConfigurationMFA object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetEnabled
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabled() bool`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetEnabled() bool`
 
 GetEnabled returns the Enabled field if non-nil, zero value otherwise.
 
 ### GetEnabledOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabledOk() (*bool, bool)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetEnabledOk() (*bool, bool)`
 
 GetEnabledOk returns a tuple with the Enabled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnabled
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetEnabled(v bool)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
 
 
 ### GetTime
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTime() float32`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetTime() float32`
 
 GetTime returns the Time field if non-nil, zero value otherwise.
 
 ### GetTimeOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeOk() (*float32, bool)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetTimeOk() (*float32, bool)`
 
 GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTime
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetTime(v float32)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) SetTime(v float32)`
 
 SetTime sets Time field to given value.
 
 
 ### GetTimeFormat
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormat() string`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetTimeFormat() string`
 
 GetTimeFormat returns the TimeFormat field if non-nil, zero value otherwise.
 
 ### GetTimeFormatOk
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormatOk() (*string, bool)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) GetTimeFormatOk() (*string, bool)`
 
 GetTimeFormatOk returns a tuple with the TimeFormat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeFormat
 
-`func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetTimeFormat(v string)`
+`func (o *DaVinciFlowTriggerRequestConfigurationMFA) SetTimeFormat(v string)`
 
 SetTimeFormat sets TimeFormat field to given value.
 

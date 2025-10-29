@@ -17,44 +17,44 @@ import (
 	"log/slog"
 )
 
-// checks if the DaVinciImportFlowResponseTriggerConfigurationMFA type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DaVinciImportFlowResponseTriggerConfigurationMFA{}
+// checks if the DaVinciFlowTriggerRequestConfigurationPassword type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DaVinciFlowTriggerRequestConfigurationPassword{}
 
-// checks if the DaVinciImportFlowResponseTriggerConfigurationMFA type satisfies the LogValuer interface at compile time
-var _ slog.LogValuer = &DaVinciImportFlowResponseTriggerConfigurationMFA{}
+// checks if the DaVinciFlowTriggerRequestConfigurationPassword type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciFlowTriggerRequestConfigurationPassword{}
 
-// DaVinciImportFlowResponseTriggerConfigurationMFA struct for DaVinciImportFlowResponseTriggerConfigurationMFA
-type DaVinciImportFlowResponseTriggerConfigurationMFA struct {
+// DaVinciFlowTriggerRequestConfigurationPassword struct for DaVinciFlowTriggerRequestConfigurationPassword
+type DaVinciFlowTriggerRequestConfigurationPassword struct {
 	Enabled              bool    `json:"enabled"`
 	Time                 float32 `json:"time"`
 	TimeFormat           string  `json:"timeFormat"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _DaVinciImportFlowResponseTriggerConfigurationMFA DaVinciImportFlowResponseTriggerConfigurationMFA
+type _DaVinciFlowTriggerRequestConfigurationPassword DaVinciFlowTriggerRequestConfigurationPassword
 
-// NewDaVinciImportFlowResponseTriggerConfigurationMFA instantiates a new DaVinciImportFlowResponseTriggerConfigurationMFA object
+// NewDaVinciFlowTriggerRequestConfigurationPassword instantiates a new DaVinciFlowTriggerRequestConfigurationPassword object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciImportFlowResponseTriggerConfigurationMFA(enabled bool, time float32, timeFormat string) *DaVinciImportFlowResponseTriggerConfigurationMFA {
-	this := DaVinciImportFlowResponseTriggerConfigurationMFA{}
+func NewDaVinciFlowTriggerRequestConfigurationPassword(enabled bool, time float32, timeFormat string) *DaVinciFlowTriggerRequestConfigurationPassword {
+	this := DaVinciFlowTriggerRequestConfigurationPassword{}
 	this.Enabled = enabled
 	this.Time = time
 	this.TimeFormat = timeFormat
 	return &this
 }
 
-// NewDaVinciImportFlowResponseTriggerConfigurationMFAWithDefaults instantiates a new DaVinciImportFlowResponseTriggerConfigurationMFA object
+// NewDaVinciFlowTriggerRequestConfigurationPasswordWithDefaults instantiates a new DaVinciFlowTriggerRequestConfigurationPassword object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDaVinciImportFlowResponseTriggerConfigurationMFAWithDefaults() *DaVinciImportFlowResponseTriggerConfigurationMFA {
-	this := DaVinciImportFlowResponseTriggerConfigurationMFA{}
+func NewDaVinciFlowTriggerRequestConfigurationPasswordWithDefaults() *DaVinciFlowTriggerRequestConfigurationPassword {
+	this := DaVinciFlowTriggerRequestConfigurationPassword{}
 	return &this
 }
 
 // GetEnabled returns the Enabled field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetEnabled() bool {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetEnabled() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -65,7 +65,7 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetEnabledOk() (*bool, bool) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,12 +73,12 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetEnabledOk() (*bool
 }
 
 // SetEnabled sets field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) SetEnabled(v bool) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) SetEnabled(v bool) {
 	o.Enabled = v
 }
 
 // GetTime returns the Time field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTime() float32 {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetTime() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -89,7 +89,7 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTime() float32 {
 
 // GetTimeOk returns a tuple with the Time field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeOk() (*float32, bool) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetTimeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,12 +97,12 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeOk() (*float32
 }
 
 // SetTime sets field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) SetTime(v float32) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) SetTime(v float32) {
 	o.Time = v
 }
 
 // GetTimeFormat returns the TimeFormat field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeFormat() string {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetTimeFormat() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -113,7 +113,7 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeFormat() strin
 
 // GetTimeFormatOk returns a tuple with the TimeFormat field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeFormatOk() (*string, bool) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) GetTimeFormatOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,11 +121,11 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) GetTimeFormatOk() (*s
 }
 
 // SetTimeFormat sets field value
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) SetTimeFormat(v string) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) SetTimeFormat(v string) {
 	o.TimeFormat = v
 }
 
-func (o DaVinciImportFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte, error) {
+func (o DaVinciFlowTriggerRequestConfigurationPassword) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -133,7 +133,7 @@ func (o DaVinciImportFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte,
 	return json.Marshal(toSerialize)
 }
 
-func (o DaVinciImportFlowResponseTriggerConfigurationMFA) ToMap() (map[string]interface{}, error) {
+func (o DaVinciFlowTriggerRequestConfigurationPassword) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enabled"] = o.Enabled
 	toSerialize["time"] = o.Time
@@ -146,7 +146,7 @@ func (o DaVinciImportFlowResponseTriggerConfigurationMFA) ToMap() (map[string]in
 	return toSerialize, nil
 }
 
-func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []byte) (err error) {
+func (o *DaVinciFlowTriggerRequestConfigurationPassword) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -170,15 +170,15 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []
 		}
 	}
 
-	varDaVinciImportFlowResponseTriggerConfigurationMFA := _DaVinciImportFlowResponseTriggerConfigurationMFA{}
+	varDaVinciFlowTriggerRequestConfigurationPassword := _DaVinciFlowTriggerRequestConfigurationPassword{}
 
-	err = json.Unmarshal(data, &varDaVinciImportFlowResponseTriggerConfigurationMFA)
+	err = json.Unmarshal(data, &varDaVinciFlowTriggerRequestConfigurationPassword)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DaVinciImportFlowResponseTriggerConfigurationMFA(varDaVinciImportFlowResponseTriggerConfigurationMFA)
+	*o = DaVinciFlowTriggerRequestConfigurationPassword(varDaVinciFlowTriggerRequestConfigurationPassword)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -192,7 +192,7 @@ func (o *DaVinciImportFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []
 	return err
 }
 
-func (o DaVinciImportFlowResponseTriggerConfigurationMFA) LogValue() slog.Value {
+func (o DaVinciFlowTriggerRequestConfigurationPassword) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("enabled", o.Enabled))
@@ -203,38 +203,38 @@ func (o DaVinciImportFlowResponseTriggerConfigurationMFA) LogValue() slog.Value 
 	return slog.GroupValue(logAttrs...)
 }
 
-type NullableDaVinciImportFlowResponseTriggerConfigurationMFA struct {
-	value *DaVinciImportFlowResponseTriggerConfigurationMFA
+type NullableDaVinciFlowTriggerRequestConfigurationPassword struct {
+	value *DaVinciFlowTriggerRequestConfigurationPassword
 	isSet bool
 }
 
-func (v NullableDaVinciImportFlowResponseTriggerConfigurationMFA) Get() *DaVinciImportFlowResponseTriggerConfigurationMFA {
+func (v NullableDaVinciFlowTriggerRequestConfigurationPassword) Get() *DaVinciFlowTriggerRequestConfigurationPassword {
 	return v.value
 }
 
-func (v *NullableDaVinciImportFlowResponseTriggerConfigurationMFA) Set(val *DaVinciImportFlowResponseTriggerConfigurationMFA) {
+func (v *NullableDaVinciFlowTriggerRequestConfigurationPassword) Set(val *DaVinciFlowTriggerRequestConfigurationPassword) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDaVinciImportFlowResponseTriggerConfigurationMFA) IsSet() bool {
+func (v NullableDaVinciFlowTriggerRequestConfigurationPassword) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDaVinciImportFlowResponseTriggerConfigurationMFA) Unset() {
+func (v *NullableDaVinciFlowTriggerRequestConfigurationPassword) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDaVinciImportFlowResponseTriggerConfigurationMFA(val *DaVinciImportFlowResponseTriggerConfigurationMFA) *NullableDaVinciImportFlowResponseTriggerConfigurationMFA {
-	return &NullableDaVinciImportFlowResponseTriggerConfigurationMFA{value: val, isSet: true}
+func NewNullableDaVinciFlowTriggerRequestConfigurationPassword(val *DaVinciFlowTriggerRequestConfigurationPassword) *NullableDaVinciFlowTriggerRequestConfigurationPassword {
+	return &NullableDaVinciFlowTriggerRequestConfigurationPassword{value: val, isSet: true}
 }
 
-func (v NullableDaVinciImportFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte, error) {
+func (v NullableDaVinciFlowTriggerRequestConfigurationPassword) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDaVinciImportFlowResponseTriggerConfigurationMFA) UnmarshalJSON(src []byte) error {
+func (v *NullableDaVinciFlowTriggerRequestConfigurationPassword) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -3087,7 +3087,7 @@ components:
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         trigger:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerResponse"
         updatedAt:
           format: date-time
           title: DaVinci Export Flow Version Response Updated At
@@ -3259,7 +3259,7 @@ components:
                   timeFormat: timeFormat
                   time: 5.025004791520295
                   enabled: true
-              type: type
+              type: AUTHENTICATION
             currentVersion: 0.8008281904610115
             deployedAt: 2000-01-23T04:56:07.000+00:00
             enabled: true
@@ -3666,7 +3666,7 @@ components:
                   timeFormat: timeFormat
                   time: 5.025004791520295
                   enabled: true
-              type: type
+              type: AUTHENTICATION
             currentVersion: 0.8008281904610115
             deployedAt: 2000-01-23T04:56:07.000+00:00
             enabled: true
@@ -4123,6 +4123,15 @@ components:
             "y": 9.301444243932576
           panningEnabled: true
         trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.0246457001441578
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 1.4894159098541704
+              enabled: true
           type: AUTHENTICATION
       properties:
         name:
@@ -4150,7 +4159,7 @@ components:
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsRequest"
         trigger:
-          $ref: "#/components/schemas/DaVinci_Flow_Create_Request_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerRequest"
       required:
       - name
       title: DaVinci Flow Create Request
@@ -5250,6 +5259,15 @@ components:
             "y": 9.301444243932576
           panningEnabled: true
         trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.0246457001441578
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 1.4894159098541704
+              enabled: true
           type: AUTHENTICATION
       properties:
         name:
@@ -5277,7 +5295,7 @@ components:
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsRequest"
         trigger:
-          $ref: "#/components/schemas/DaVinci_Flow_Replace_Request_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerRequest"
       required:
       - name
       title: DaVinci Flow Replace Request
@@ -5417,7 +5435,7 @@ components:
               timeFormat: timeFormat
               time: 5.025004791520295
               enabled: true
-          type: type
+          type: AUTHENTICATION
         currentVersion: 0.8008281904610115
         deployedAt: 2000-01-23T04:56:07.000+00:00
         enabled: true
@@ -5747,7 +5765,7 @@ components:
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         trigger:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerResponse"
         updatedAt:
           format: date-time
           title: DaVinci Flow Response Updated At
@@ -5992,6 +6010,46 @@ components:
         validateOnSave:
           title: DaVinci Flow Settings Response Validate On Save
       title: DaVinci Flow Settings Response
+    DaVinciFlowTriggerRequest:
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 1.0246457001441578
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 1.4894159098541704
+            enabled: true
+        type: AUTHENTICATION
+      properties:
+        type:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Request_Type"
+        configuration:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Request_Configuration"
+      required:
+      - type
+      title: DaVinci Flow Trigger Request
+    DaVinciFlowTriggerResponse:
+      example:
+        configuration:
+          mfa:
+            timeFormat: timeFormat
+            time: 4.965218492984954
+            enabled: true
+          pwd:
+            timeFormat: timeFormat
+            time: 5.025004791520295
+            enabled: true
+        type: AUTHENTICATION
+      properties:
+        type:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Response_Type"
+        configuration:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Response_Configuration"
+      required:
+      - type
+      title: DaVinci Flow Trigger Response
     DaVinciFlowVersionCollectionResponse:
       example:
         _embedded:
@@ -6213,17 +6271,17 @@ components:
           configuration:
             mfa:
               timeFormat: timeFormat
-              time: 1.4658129805029452
+              time: 4.965218492984954
               enabled: true
             pwd:
               timeFormat: timeFormat
-              time: 5.962133916683182
+              time: 5.025004791520295
               enabled: true
-          type: type
+          type: AUTHENTICATION
         updates:
         - updates
         - updates
-        version: 5.637376656633329
+        version: 1.4658129805029452
         deployedAt: 2000-01-23T04:56:07.000+00:00
         enabled: true
         createdAt: 2000-01-23T04:56:07.000+00:00
@@ -6634,7 +6692,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent"
           type: array
         trigger:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerResponse"
         updatedAt:
           format: date-time
           title: DaVinci Flow Version Detail Response Updated At
@@ -6780,7 +6838,7 @@ components:
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         trigger:
-          $ref: "#/components/schemas/DaVinci_Import_Flow_Response_Trigger"
+          $ref: "#/components/schemas/DaVinciFlowTriggerResponse"
         updatedAt:
           format: date-time
           title: DaVinci Import Flow Response Updated At
@@ -10594,62 +10652,6 @@ components:
       required:
       - output
       title: DaVinci Export Flow Version Response Output Schema
-    DaVinci_Export_Flow_Version_Response_Trigger_Configuration_MFA:
-      properties:
-        enabled:
-          title: DaVinci Export Flow Version Response Trigger Configuration MFA Enabled
-          type: boolean
-        time:
-          title: DaVinci Export Flow Version Response Trigger Configuration MFA Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Export Flow Version Response Trigger Configuration MFA Time
-            Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Export Flow Version Response Trigger Configuration MFA
-    DaVinci_Export_Flow_Version_Response_Trigger_Configuration_Password:
-      properties:
-        enabled:
-          title: DaVinci Export Flow Version Response Trigger Configuration Password
-            Enabled
-          type: boolean
-        time:
-          title: DaVinci Export Flow Version Response Trigger Configuration Password
-            Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Export Flow Version Response Trigger Configuration Password
-            Time Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Export Flow Version Response Trigger Configuration Password
-    DaVinci_Export_Flow_Version_Response_Trigger_Configuration:
-      properties:
-        mfa:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration_MFA"
-        pwd:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration_Password"
-      required:
-      - mfa
-      - pwd
-      title: DaVinci Export Flow Version Response Trigger Configuration
-    DaVinci_Export_Flow_Version_Response_Trigger:
-      properties:
-        configuration:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Trigger_Configuration"
-        type:
-          title: DaVinci Export Flow Version Response Trigger Type
-          type: string
-      title: DaVinci Export Flow Version Response Trigger
     DaVinci_Flow_Collection__embedded:
       example:
         flows:
@@ -10787,7 +10789,7 @@ components:
                 timeFormat: timeFormat
                 time: 5.025004791520295
                 enabled: true
-            type: type
+            type: AUTHENTICATION
           currentVersion: 0.8008281904610115
           deployedAt: 2000-01-23T04:56:07.000+00:00
           enabled: true
@@ -11194,7 +11196,7 @@ components:
                 timeFormat: timeFormat
                 time: 5.025004791520295
                 enabled: true
-            type: type
+            type: AUTHENTICATION
           currentVersion: 0.8008281904610115
           deployedAt: 2000-01-23T04:56:07.000+00:00
           enabled: true
@@ -11508,22 +11510,6 @@ components:
           title: DaVinci Flow Create Request Output Schema Output
           type: object
       title: DaVinci Flow Create Request Output Schema
-    DaVinci_Flow_Create_Request_Trigger_Type:
-      enum:
-      - AUTHENTICATION
-      - SCHEDULE
-      minLength: 1
-      title: DaVinci Flow Create Request Trigger Type
-      type: string
-    DaVinci_Flow_Create_Request_Trigger:
-      example:
-        type: AUTHENTICATION
-      properties:
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Create_Request_Trigger_Type"
-      required:
-      - type
-      title: DaVinci Flow Create Request Trigger
     DaVinci_Flow_Graph_Data_Request_Elements_Edge_Data:
       example:
         id: id
@@ -14109,22 +14095,6 @@ components:
           title: DaVinci Flow Replace Request Output Schema Output
           type: object
       title: DaVinci Flow Replace Request Output Schema
-    DaVinci_Flow_Replace_Request_Trigger_Type:
-      enum:
-      - AUTHENTICATION
-      - SCHEDULE
-      minLength: 1
-      title: DaVinci Flow Replace Request Trigger Type
-      type: string
-    DaVinci_Flow_Replace_Request_Trigger:
-      example:
-        type: AUTHENTICATION
-      properties:
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Replace_Request_Trigger_Type"
-      required:
-      - type
-      title: DaVinci Flow Replace Request Trigger
     DaVinci_Flow_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -14252,86 +14222,6 @@ components:
       required:
       - output
       title: DaVinci Flow Response Output Schema
-    DaVinci_Flow_Response_Trigger_Configuration_MFA:
-      example:
-        timeFormat: timeFormat
-        time: 4.965218492984954
-        enabled: true
-      properties:
-        enabled:
-          title: DaVinci Flow Response Trigger Configuration MFA Enabled
-          type: boolean
-        time:
-          title: DaVinci Flow Response Trigger Configuration MFA Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Flow Response Trigger Configuration MFA Time Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Flow Response Trigger Configuration MFA
-    DaVinci_Flow_Response_Trigger_Configuration_Password:
-      example:
-        timeFormat: timeFormat
-        time: 5.025004791520295
-        enabled: true
-      properties:
-        enabled:
-          title: DaVinci Flow Response Trigger Configuration Password Enabled
-          type: boolean
-        time:
-          title: DaVinci Flow Response Trigger Configuration Password Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Flow Response Trigger Configuration Password Time Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Flow Response Trigger Configuration Password
-    DaVinci_Flow_Response_Trigger_Configuration:
-      example:
-        mfa:
-          timeFormat: timeFormat
-          time: 4.965218492984954
-          enabled: true
-        pwd:
-          timeFormat: timeFormat
-          time: 5.025004791520295
-          enabled: true
-      properties:
-        mfa:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration_MFA"
-        pwd:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration_Password"
-      required:
-      - mfa
-      - pwd
-      title: DaVinci Flow Response Trigger Configuration
-    DaVinci_Flow_Response_Trigger:
-      example:
-        configuration:
-          mfa:
-            timeFormat: timeFormat
-            time: 4.965218492984954
-            enabled: true
-          pwd:
-            timeFormat: timeFormat
-            time: 5.025004791520295
-            enabled: true
-        type: type
-      properties:
-        configuration:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Trigger_Configuration"
-        type:
-          title: DaVinci Flow Response Trigger Type
-          type: string
-      title: DaVinci Flow Response Trigger
     DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS:
       oneOf:
       - title: DaVinci Flow Settings Request Intermediate Loading Screen CSS Choice
@@ -14450,6 +14340,142 @@ components:
       - type
       - value
       title: DaVinci Flow Settings Response Js Link
+    DaVinci_Flow_Trigger_Request_Type:
+      enum:
+      - AUTHENTICATION
+      - SCHEDULE
+      minLength: 1
+      title: DaVinci Flow Trigger Request Type
+      type: string
+    DaVinci_Flow_Trigger_Request_Configuration_MFA:
+      example:
+        timeFormat: timeFormat
+        time: 1.0246457001441578
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Trigger Request Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Trigger Request Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Trigger Request Configuration MFA Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Trigger Request Configuration MFA
+    DaVinci_Flow_Trigger_Request_Configuration_Password:
+      example:
+        timeFormat: timeFormat
+        time: 1.4894159098541704
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Trigger Request Configuration Password Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Trigger Request Configuration Password Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Trigger Request Configuration Password Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Trigger Request Configuration Password
+    DaVinci_Flow_Trigger_Request_Configuration:
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 1.0246457001441578
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 1.4894159098541704
+          enabled: true
+      properties:
+        mfa:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Request_Configuration_MFA"
+        pwd:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Request_Configuration_Password"
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Flow Trigger Request Configuration
+    DaVinci_Flow_Trigger_Response_Type:
+      enum:
+      - AUTHENTICATION
+      - SCHEDULE
+      minLength: 1
+      title: DaVinci Flow Trigger Response Type
+      type: string
+    DaVinci_Flow_Trigger_Response_Configuration_MFA:
+      example:
+        timeFormat: timeFormat
+        time: 4.965218492984954
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Trigger Response Configuration MFA Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Trigger Response Configuration MFA Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Trigger Response Configuration MFA Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Trigger Response Configuration MFA
+    DaVinci_Flow_Trigger_Response_Configuration_Password:
+      example:
+        timeFormat: timeFormat
+        time: 5.025004791520295
+        enabled: true
+      properties:
+        enabled:
+          title: DaVinci Flow Trigger Response Configuration Password Enabled
+          type: boolean
+        time:
+          title: DaVinci Flow Trigger Response Configuration Password Time
+          type: number
+        timeFormat:
+          minLength: 1
+          title: DaVinci Flow Trigger Response Configuration Password Time Format
+          type: string
+      required:
+      - enabled
+      - time
+      - timeFormat
+      title: DaVinci Flow Trigger Response Configuration Password
+    DaVinci_Flow_Trigger_Response_Configuration:
+      example:
+        mfa:
+          timeFormat: timeFormat
+          time: 4.965218492984954
+          enabled: true
+        pwd:
+          timeFormat: timeFormat
+          time: 5.025004791520295
+          enabled: true
+      properties:
+        mfa:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Response_Configuration_MFA"
+        pwd:
+          $ref: "#/components/schemas/DaVinci_Flow_Trigger_Response_Configuration_Password"
+      required:
+      - mfa
+      - pwd
+      title: DaVinci Flow Trigger Response Configuration
     DaVinci_Flow_Version_Collection_Response__embedded:
       example:
         versions:
@@ -14995,90 +15021,6 @@ components:
         options:
           $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Skcomponent_Options"
       title: DaVinci Flow Version Detail Response Skcomponent
-    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_MFA:
-      example:
-        timeFormat: timeFormat
-        time: 1.4658129805029452
-        enabled: true
-      properties:
-        enabled:
-          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Enabled
-          type: boolean
-        time:
-          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Flow Version Detail Response Trigger Configuration MFA Time
-            Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Flow Version Detail Response Trigger Configuration MFA
-    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_Password:
-      example:
-        timeFormat: timeFormat
-        time: 5.962133916683182
-        enabled: true
-      properties:
-        enabled:
-          title: DaVinci Flow Version Detail Response Trigger Configuration Password
-            Enabled
-          type: boolean
-        time:
-          title: DaVinci Flow Version Detail Response Trigger Configuration Password
-            Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Flow Version Detail Response Trigger Configuration Password
-            Time Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Flow Version Detail Response Trigger Configuration Password
-    DaVinci_Flow_Version_Detail_Response_Trigger_Configuration:
-      example:
-        mfa:
-          timeFormat: timeFormat
-          time: 1.4658129805029452
-          enabled: true
-        pwd:
-          timeFormat: timeFormat
-          time: 5.962133916683182
-          enabled: true
-      properties:
-        mfa:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_MFA"
-        pwd:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration_Password"
-      required:
-      - mfa
-      - pwd
-      title: DaVinci Flow Version Detail Response Trigger Configuration
-    DaVinci_Flow_Version_Detail_Response_Trigger:
-      example:
-        configuration:
-          mfa:
-            timeFormat: timeFormat
-            time: 1.4658129805029452
-            enabled: true
-          pwd:
-            timeFormat: timeFormat
-            time: 5.962133916683182
-            enabled: true
-        type: type
-      properties:
-        configuration:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Trigger_Configuration"
-        type:
-          title: DaVinci Flow Version Detail Response Trigger Type
-          type: string
-      title: DaVinci Flow Version Detail Response Trigger
     DaVinci_Flow_Version_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -15214,59 +15156,6 @@ components:
       required:
       - output
       title: DaVinci Import Flow Response Output Schema
-    DaVinci_Import_Flow_Response_Trigger_Configuration_MFA:
-      properties:
-        enabled:
-          title: DaVinci Import Flow Response Trigger Configuration MFA Enabled
-          type: boolean
-        time:
-          title: DaVinci Import Flow Response Trigger Configuration MFA Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Import Flow Response Trigger Configuration MFA Time Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Import Flow Response Trigger Configuration MFA
-    DaVinci_Import_Flow_Response_Trigger_Configuration_Password:
-      properties:
-        enabled:
-          title: DaVinci Import Flow Response Trigger Configuration Password Enabled
-          type: boolean
-        time:
-          title: DaVinci Import Flow Response Trigger Configuration Password Time
-          type: number
-        timeFormat:
-          minLength: 1
-          title: DaVinci Import Flow Response Trigger Configuration Password Time
-            Format
-          type: string
-      required:
-      - enabled
-      - time
-      - timeFormat
-      title: DaVinci Import Flow Response Trigger Configuration Password
-    DaVinci_Import_Flow_Response_Trigger_Configuration:
-      properties:
-        mfa:
-          $ref: "#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration_MFA"
-        pwd:
-          $ref: "#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration_Password"
-      required:
-      - mfa
-      - pwd
-      title: DaVinci Import Flow Response Trigger Configuration
-    DaVinci_Import_Flow_Response_Trigger:
-      properties:
-        configuration:
-          $ref: "#/components/schemas/DaVinci_Import_Flow_Response_Trigger_Configuration"
-        type:
-          title: DaVinci Import Flow Response Trigger Type
-          type: string
-      title: DaVinci Import Flow Response Trigger
     DaVinci_Variable_Collection_Response__embedded:
       example:
         variables:

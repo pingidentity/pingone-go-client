@@ -43,7 +43,7 @@ type DaVinciImportSubflowsResponse struct {
 	InputSchema          []DaVinciFlowInputSchemaResponseItem   `json:"inputSchema,omitempty"`
 	OutputSchema         *DaVinciImportFlowResponseOutputSchema `json:"outputSchema,omitempty"`
 	Settings             *DaVinciFlowSettingsResponse           `json:"settings,omitempty"`
-	Trigger              *DaVinciImportFlowResponseTrigger      `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowTriggerResponse            `json:"trigger,omitempty"`
 	UpdatedAt            *time.Time                             `json:"updatedAt,omitempty"`
 	Updates              []string                               `json:"updates,omitempty"`
 	Variables            []map[string]interface{}               `json:"variables,omitempty"`
@@ -580,9 +580,9 @@ func (o *DaVinciImportSubflowsResponse) SetSettings(v DaVinciFlowSettingsRespons
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
-func (o *DaVinciImportSubflowsResponse) GetTrigger() DaVinciImportFlowResponseTrigger {
+func (o *DaVinciImportSubflowsResponse) GetTrigger() DaVinciFlowTriggerResponse {
 	if o == nil || IsNil(o.Trigger) {
-		var ret DaVinciImportFlowResponseTrigger
+		var ret DaVinciFlowTriggerResponse
 		return ret
 	}
 	return *o.Trigger
@@ -590,7 +590,7 @@ func (o *DaVinciImportSubflowsResponse) GetTrigger() DaVinciImportFlowResponseTr
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportSubflowsResponse) GetTriggerOk() (*DaVinciImportFlowResponseTrigger, bool) {
+func (o *DaVinciImportSubflowsResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool) {
 	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
@@ -606,8 +606,8 @@ func (o *DaVinciImportSubflowsResponse) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given DaVinciImportFlowResponseTrigger and assigns it to the Trigger field.
-func (o *DaVinciImportSubflowsResponse) SetTrigger(v DaVinciImportFlowResponseTrigger) {
+// SetTrigger gets a reference to the given DaVinciFlowTriggerResponse and assigns it to the Trigger field.
+func (o *DaVinciImportSubflowsResponse) SetTrigger(v DaVinciFlowTriggerResponse) {
 	o.Trigger = &v
 }
 

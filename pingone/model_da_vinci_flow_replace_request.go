@@ -32,7 +32,7 @@ type DaVinciFlowReplaceRequest struct {
 	InputSchema          []DaVinciFlowInputSchemaRequestItem    `json:"inputSchema,omitempty"`
 	OutputSchema         *DaVinciFlowReplaceRequestOutputSchema `json:"outputSchema,omitempty"`
 	Settings             *DaVinciFlowSettingsRequest            `json:"settings,omitempty"`
-	Trigger              *DaVinciFlowReplaceRequestTrigger      `json:"trigger,omitempty"`
+	Trigger              *DaVinciFlowTriggerRequest             `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -273,9 +273,9 @@ func (o *DaVinciFlowReplaceRequest) SetSettings(v DaVinciFlowSettingsRequest) {
 }
 
 // GetTrigger returns the Trigger field value if set, zero value otherwise.
-func (o *DaVinciFlowReplaceRequest) GetTrigger() DaVinciFlowReplaceRequestTrigger {
+func (o *DaVinciFlowReplaceRequest) GetTrigger() DaVinciFlowTriggerRequest {
 	if o == nil || IsNil(o.Trigger) {
-		var ret DaVinciFlowReplaceRequestTrigger
+		var ret DaVinciFlowTriggerRequest
 		return ret
 	}
 	return *o.Trigger
@@ -283,7 +283,7 @@ func (o *DaVinciFlowReplaceRequest) GetTrigger() DaVinciFlowReplaceRequestTrigge
 
 // GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowReplaceRequest) GetTriggerOk() (*DaVinciFlowReplaceRequestTrigger, bool) {
+func (o *DaVinciFlowReplaceRequest) GetTriggerOk() (*DaVinciFlowTriggerRequest, bool) {
 	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
@@ -299,8 +299,8 @@ func (o *DaVinciFlowReplaceRequest) HasTrigger() bool {
 	return false
 }
 
-// SetTrigger gets a reference to the given DaVinciFlowReplaceRequestTrigger and assigns it to the Trigger field.
-func (o *DaVinciFlowReplaceRequest) SetTrigger(v DaVinciFlowReplaceRequestTrigger) {
+// SetTrigger gets a reference to the given DaVinciFlowTriggerRequest and assigns it to the Trigger field.
+func (o *DaVinciFlowReplaceRequest) SetTrigger(v DaVinciFlowTriggerRequest) {
 	o.Trigger = &v
 }
 

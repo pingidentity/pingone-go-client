@@ -17,44 +17,44 @@ import (
 	"log/slog"
 )
 
-// checks if the DaVinciFlowResponseTriggerConfigurationMFA type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DaVinciFlowResponseTriggerConfigurationMFA{}
+// checks if the DaVinciFlowTriggerResponseConfigurationMFA type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DaVinciFlowTriggerResponseConfigurationMFA{}
 
-// checks if the DaVinciFlowResponseTriggerConfigurationMFA type satisfies the LogValuer interface at compile time
-var _ slog.LogValuer = &DaVinciFlowResponseTriggerConfigurationMFA{}
+// checks if the DaVinciFlowTriggerResponseConfigurationMFA type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciFlowTriggerResponseConfigurationMFA{}
 
-// DaVinciFlowResponseTriggerConfigurationMFA struct for DaVinciFlowResponseTriggerConfigurationMFA
-type DaVinciFlowResponseTriggerConfigurationMFA struct {
+// DaVinciFlowTriggerResponseConfigurationMFA struct for DaVinciFlowTriggerResponseConfigurationMFA
+type DaVinciFlowTriggerResponseConfigurationMFA struct {
 	Enabled              bool    `json:"enabled"`
 	Time                 float32 `json:"time"`
 	TimeFormat           string  `json:"timeFormat"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _DaVinciFlowResponseTriggerConfigurationMFA DaVinciFlowResponseTriggerConfigurationMFA
+type _DaVinciFlowTriggerResponseConfigurationMFA DaVinciFlowTriggerResponseConfigurationMFA
 
-// NewDaVinciFlowResponseTriggerConfigurationMFA instantiates a new DaVinciFlowResponseTriggerConfigurationMFA object
+// NewDaVinciFlowTriggerResponseConfigurationMFA instantiates a new DaVinciFlowTriggerResponseConfigurationMFA object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowResponseTriggerConfigurationMFA(enabled bool, time float32, timeFormat string) *DaVinciFlowResponseTriggerConfigurationMFA {
-	this := DaVinciFlowResponseTriggerConfigurationMFA{}
+func NewDaVinciFlowTriggerResponseConfigurationMFA(enabled bool, time float32, timeFormat string) *DaVinciFlowTriggerResponseConfigurationMFA {
+	this := DaVinciFlowTriggerResponseConfigurationMFA{}
 	this.Enabled = enabled
 	this.Time = time
 	this.TimeFormat = timeFormat
 	return &this
 }
 
-// NewDaVinciFlowResponseTriggerConfigurationMFAWithDefaults instantiates a new DaVinciFlowResponseTriggerConfigurationMFA object
+// NewDaVinciFlowTriggerResponseConfigurationMFAWithDefaults instantiates a new DaVinciFlowTriggerResponseConfigurationMFA object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDaVinciFlowResponseTriggerConfigurationMFAWithDefaults() *DaVinciFlowResponseTriggerConfigurationMFA {
-	this := DaVinciFlowResponseTriggerConfigurationMFA{}
+func NewDaVinciFlowTriggerResponseConfigurationMFAWithDefaults() *DaVinciFlowTriggerResponseConfigurationMFA {
+	this := DaVinciFlowTriggerResponseConfigurationMFA{}
 	return &this
 }
 
 // GetEnabled returns the Enabled field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabled() bool {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetEnabled() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -65,7 +65,7 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabledOk() (*bool, bool) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,12 +73,12 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetEnabledOk() (*bool, bool
 }
 
 // SetEnabled sets field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetEnabled(v bool) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) SetEnabled(v bool) {
 	o.Enabled = v
 }
 
 // GetTime returns the Time field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTime() float32 {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetTime() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -89,7 +89,7 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTime() float32 {
 
 // GetTimeOk returns a tuple with the Time field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeOk() (*float32, bool) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetTimeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,12 +97,12 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeOk() (*float32, bool
 }
 
 // SetTime sets field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetTime(v float32) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) SetTime(v float32) {
 	o.Time = v
 }
 
 // GetTimeFormat returns the TimeFormat field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormat() string {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetTimeFormat() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -113,7 +113,7 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormat() string {
 
 // GetTimeFormatOk returns a tuple with the TimeFormat field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormatOk() (*string, bool) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) GetTimeFormatOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,11 +121,11 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) GetTimeFormatOk() (*string,
 }
 
 // SetTimeFormat sets field value
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) SetTimeFormat(v string) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) SetTimeFormat(v string) {
 	o.TimeFormat = v
 }
 
-func (o DaVinciFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte, error) {
+func (o DaVinciFlowTriggerResponseConfigurationMFA) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -133,7 +133,7 @@ func (o DaVinciFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte, error
 	return json.Marshal(toSerialize)
 }
 
-func (o DaVinciFlowResponseTriggerConfigurationMFA) ToMap() (map[string]interface{}, error) {
+func (o DaVinciFlowTriggerResponseConfigurationMFA) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enabled"] = o.Enabled
 	toSerialize["time"] = o.Time
@@ -146,7 +146,7 @@ func (o DaVinciFlowResponseTriggerConfigurationMFA) ToMap() (map[string]interfac
 	return toSerialize, nil
 }
 
-func (o *DaVinciFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []byte) (err error) {
+func (o *DaVinciFlowTriggerResponseConfigurationMFA) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -170,15 +170,15 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []byte) 
 		}
 	}
 
-	varDaVinciFlowResponseTriggerConfigurationMFA := _DaVinciFlowResponseTriggerConfigurationMFA{}
+	varDaVinciFlowTriggerResponseConfigurationMFA := _DaVinciFlowTriggerResponseConfigurationMFA{}
 
-	err = json.Unmarshal(data, &varDaVinciFlowResponseTriggerConfigurationMFA)
+	err = json.Unmarshal(data, &varDaVinciFlowTriggerResponseConfigurationMFA)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DaVinciFlowResponseTriggerConfigurationMFA(varDaVinciFlowResponseTriggerConfigurationMFA)
+	*o = DaVinciFlowTriggerResponseConfigurationMFA(varDaVinciFlowTriggerResponseConfigurationMFA)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -192,7 +192,7 @@ func (o *DaVinciFlowResponseTriggerConfigurationMFA) UnmarshalJSON(data []byte) 
 	return err
 }
 
-func (o DaVinciFlowResponseTriggerConfigurationMFA) LogValue() slog.Value {
+func (o DaVinciFlowTriggerResponseConfigurationMFA) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("enabled", o.Enabled))
@@ -203,38 +203,38 @@ func (o DaVinciFlowResponseTriggerConfigurationMFA) LogValue() slog.Value {
 	return slog.GroupValue(logAttrs...)
 }
 
-type NullableDaVinciFlowResponseTriggerConfigurationMFA struct {
-	value *DaVinciFlowResponseTriggerConfigurationMFA
+type NullableDaVinciFlowTriggerResponseConfigurationMFA struct {
+	value *DaVinciFlowTriggerResponseConfigurationMFA
 	isSet bool
 }
 
-func (v NullableDaVinciFlowResponseTriggerConfigurationMFA) Get() *DaVinciFlowResponseTriggerConfigurationMFA {
+func (v NullableDaVinciFlowTriggerResponseConfigurationMFA) Get() *DaVinciFlowTriggerResponseConfigurationMFA {
 	return v.value
 }
 
-func (v *NullableDaVinciFlowResponseTriggerConfigurationMFA) Set(val *DaVinciFlowResponseTriggerConfigurationMFA) {
+func (v *NullableDaVinciFlowTriggerResponseConfigurationMFA) Set(val *DaVinciFlowTriggerResponseConfigurationMFA) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDaVinciFlowResponseTriggerConfigurationMFA) IsSet() bool {
+func (v NullableDaVinciFlowTriggerResponseConfigurationMFA) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDaVinciFlowResponseTriggerConfigurationMFA) Unset() {
+func (v *NullableDaVinciFlowTriggerResponseConfigurationMFA) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDaVinciFlowResponseTriggerConfigurationMFA(val *DaVinciFlowResponseTriggerConfigurationMFA) *NullableDaVinciFlowResponseTriggerConfigurationMFA {
-	return &NullableDaVinciFlowResponseTriggerConfigurationMFA{value: val, isSet: true}
+func NewNullableDaVinciFlowTriggerResponseConfigurationMFA(val *DaVinciFlowTriggerResponseConfigurationMFA) *NullableDaVinciFlowTriggerResponseConfigurationMFA {
+	return &NullableDaVinciFlowTriggerResponseConfigurationMFA{value: val, isSet: true}
 }
 
-func (v NullableDaVinciFlowResponseTriggerConfigurationMFA) MarshalJSON() ([]byte, error) {
+func (v NullableDaVinciFlowTriggerResponseConfigurationMFA) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDaVinciFlowResponseTriggerConfigurationMFA) UnmarshalJSON(src []byte) error {
+func (v *NullableDaVinciFlowTriggerResponseConfigurationMFA) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

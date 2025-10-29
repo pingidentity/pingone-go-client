@@ -1,4 +1,4 @@
-# DaVinciFlowReplaceRequestTriggerType
+# DaVinciFlowTriggerRequestType
 
 ## Enum
 

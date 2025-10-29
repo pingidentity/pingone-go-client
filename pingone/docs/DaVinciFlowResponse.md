@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **OutputSchema** | Pointer to [**DaVinciFlowResponseOutputSchema**](DaVinciFlowResponseOutputSchema.md) |  | [optional] 
 **PublishedVersion** | Pointer to **float32** |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
-**Trigger** | Pointer to [**DaVinciFlowResponseTrigger**](DaVinciFlowResponseTrigger.md) |  | [optional] 
+**Trigger** | Pointer to [**DaVinciFlowTriggerResponse**](DaVinciFlowTriggerResponse.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -476,20 +476,20 @@ HasSettings returns a boolean if a field has been set.
 
 ### GetTrigger
 
-`func (o *DaVinciFlowResponse) GetTrigger() DaVinciFlowResponseTrigger`
+`func (o *DaVinciFlowResponse) GetTrigger() DaVinciFlowTriggerResponse`
 
 GetTrigger returns the Trigger field if non-nil, zero value otherwise.
 
 ### GetTriggerOk
 
-`func (o *DaVinciFlowResponse) GetTriggerOk() (*DaVinciFlowResponseTrigger, bool)`
+`func (o *DaVinciFlowResponse) GetTriggerOk() (*DaVinciFlowTriggerResponse, bool)`
 
 GetTriggerOk returns a tuple with the Trigger field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTrigger
 
-`func (o *DaVinciFlowResponse) SetTrigger(v DaVinciFlowResponseTrigger)`
+`func (o *DaVinciFlowResponse) SetTrigger(v DaVinciFlowTriggerResponse)`
 
 SetTrigger sets Trigger field to given value.
 
