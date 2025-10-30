@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **Environment** | Pointer to [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
+**ErrorCode** | Pointer to **int32** |  | [optional] 
 **Id** | Pointer to [**uuid.UUID**](uuid.UUID.md) |  | [optional] [readonly] 
 **ImportMetadata** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **ReferencedResources** | Pointer to **[]string** |  | [optional] 
@@ -214,6 +215,31 @@ SetError sets Error field to given value.
 `func (o *SnapshotView) HasError() bool`
 
 HasError returns a boolean if a field has been set.
+
+### GetErrorCode
+
+`func (o *SnapshotView) GetErrorCode() int32`
+
+GetErrorCode returns the ErrorCode field if non-nil, zero value otherwise.
+
+### GetErrorCodeOk
+
+`func (o *SnapshotView) GetErrorCodeOk() (*int32, bool)`
+
+GetErrorCodeOk returns a tuple with the ErrorCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrorCode
+
+`func (o *SnapshotView) SetErrorCode(v int32)`
+
+SetErrorCode sets ErrorCode field to given value.
+
+### HasErrorCode
+
+`func (o *SnapshotView) HasErrorCode() bool`
+
+HasErrorCode returns a boolean if a field has been set.
 
 ### GetId
 

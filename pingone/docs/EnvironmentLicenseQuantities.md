@@ -6,11 +6,21 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NumberOfAadhaar** | Pointer to **int64** |  | [optional] 
 **NumberOfAccountOwnership** | Pointer to **int64** |  | [optional] 
+**NumberOfDataVerificationGroup1** | Pointer to **int64** |  | [optional] 
+**NumberOfDataVerificationGroup2** | Pointer to **int64** |  | [optional] 
+**NumberOfDataVerificationGroup3** | Pointer to **int64** |  | [optional] 
+**NumberOfDataVerificationGroup4** | Pointer to **int64** |  | [optional] 
+**NumberOfDataVerificationGroup5** | Pointer to **int64** |  | [optional] 
 **NumberOfDataVerifications** | Pointer to **int64** |  | [optional] 
+**NumberOfDeviceReputationScoring** | Pointer to **int64** |  | [optional] 
+**NumberOfGlobalWatchlist** | Pointer to **int64** |  | [optional] 
+**NumberOfLiveAgent** | Pointer to **int64** |  | [optional] 
 **RlgAnalyticsRpm** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgAppRegRpm** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgAuditRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgAuthnRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
+**RlgAuthnStartRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
+**RlgAuthzBulkRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgAuthzRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgCatchAllRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgConfigRpm** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
@@ -25,6 +35,7 @@ Name | Type | Description | Notes
 **RlgMfaFixedRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgMfaPollingRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgMfaRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
+**RlgPrivilegeRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgRiskEvalsRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgTokenCheckRps** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
 **RlgVerifyRpm** | Pointer to [**EnvironmentAPILimit**](EnvironmentAPILimit.md) |  | [optional] 
@@ -98,6 +109,131 @@ SetNumberOfAccountOwnership sets NumberOfAccountOwnership field to given value.
 
 HasNumberOfAccountOwnership returns a boolean if a field has been set.
 
+### GetNumberOfDataVerificationGroup1
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup1() int64`
+
+GetNumberOfDataVerificationGroup1 returns the NumberOfDataVerificationGroup1 field if non-nil, zero value otherwise.
+
+### GetNumberOfDataVerificationGroup1Ok
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup1Ok() (*int64, bool)`
+
+GetNumberOfDataVerificationGroup1Ok returns a tuple with the NumberOfDataVerificationGroup1 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDataVerificationGroup1
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDataVerificationGroup1(v int64)`
+
+SetNumberOfDataVerificationGroup1 sets NumberOfDataVerificationGroup1 field to given value.
+
+### HasNumberOfDataVerificationGroup1
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerificationGroup1() bool`
+
+HasNumberOfDataVerificationGroup1 returns a boolean if a field has been set.
+
+### GetNumberOfDataVerificationGroup2
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup2() int64`
+
+GetNumberOfDataVerificationGroup2 returns the NumberOfDataVerificationGroup2 field if non-nil, zero value otherwise.
+
+### GetNumberOfDataVerificationGroup2Ok
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup2Ok() (*int64, bool)`
+
+GetNumberOfDataVerificationGroup2Ok returns a tuple with the NumberOfDataVerificationGroup2 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDataVerificationGroup2
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDataVerificationGroup2(v int64)`
+
+SetNumberOfDataVerificationGroup2 sets NumberOfDataVerificationGroup2 field to given value.
+
+### HasNumberOfDataVerificationGroup2
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerificationGroup2() bool`
+
+HasNumberOfDataVerificationGroup2 returns a boolean if a field has been set.
+
+### GetNumberOfDataVerificationGroup3
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup3() int64`
+
+GetNumberOfDataVerificationGroup3 returns the NumberOfDataVerificationGroup3 field if non-nil, zero value otherwise.
+
+### GetNumberOfDataVerificationGroup3Ok
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup3Ok() (*int64, bool)`
+
+GetNumberOfDataVerificationGroup3Ok returns a tuple with the NumberOfDataVerificationGroup3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDataVerificationGroup3
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDataVerificationGroup3(v int64)`
+
+SetNumberOfDataVerificationGroup3 sets NumberOfDataVerificationGroup3 field to given value.
+
+### HasNumberOfDataVerificationGroup3
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerificationGroup3() bool`
+
+HasNumberOfDataVerificationGroup3 returns a boolean if a field has been set.
+
+### GetNumberOfDataVerificationGroup4
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup4() int64`
+
+GetNumberOfDataVerificationGroup4 returns the NumberOfDataVerificationGroup4 field if non-nil, zero value otherwise.
+
+### GetNumberOfDataVerificationGroup4Ok
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup4Ok() (*int64, bool)`
+
+GetNumberOfDataVerificationGroup4Ok returns a tuple with the NumberOfDataVerificationGroup4 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDataVerificationGroup4
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDataVerificationGroup4(v int64)`
+
+SetNumberOfDataVerificationGroup4 sets NumberOfDataVerificationGroup4 field to given value.
+
+### HasNumberOfDataVerificationGroup4
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerificationGroup4() bool`
+
+HasNumberOfDataVerificationGroup4 returns a boolean if a field has been set.
+
+### GetNumberOfDataVerificationGroup5
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup5() int64`
+
+GetNumberOfDataVerificationGroup5 returns the NumberOfDataVerificationGroup5 field if non-nil, zero value otherwise.
+
+### GetNumberOfDataVerificationGroup5Ok
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerificationGroup5Ok() (*int64, bool)`
+
+GetNumberOfDataVerificationGroup5Ok returns a tuple with the NumberOfDataVerificationGroup5 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDataVerificationGroup5
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDataVerificationGroup5(v int64)`
+
+SetNumberOfDataVerificationGroup5 sets NumberOfDataVerificationGroup5 field to given value.
+
+### HasNumberOfDataVerificationGroup5
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerificationGroup5() bool`
+
+HasNumberOfDataVerificationGroup5 returns a boolean if a field has been set.
+
 ### GetNumberOfDataVerifications
 
 `func (o *EnvironmentLicenseQuantities) GetNumberOfDataVerifications() int64`
@@ -122,6 +258,81 @@ SetNumberOfDataVerifications sets NumberOfDataVerifications field to given value
 `func (o *EnvironmentLicenseQuantities) HasNumberOfDataVerifications() bool`
 
 HasNumberOfDataVerifications returns a boolean if a field has been set.
+
+### GetNumberOfDeviceReputationScoring
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDeviceReputationScoring() int64`
+
+GetNumberOfDeviceReputationScoring returns the NumberOfDeviceReputationScoring field if non-nil, zero value otherwise.
+
+### GetNumberOfDeviceReputationScoringOk
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfDeviceReputationScoringOk() (*int64, bool)`
+
+GetNumberOfDeviceReputationScoringOk returns a tuple with the NumberOfDeviceReputationScoring field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfDeviceReputationScoring
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfDeviceReputationScoring(v int64)`
+
+SetNumberOfDeviceReputationScoring sets NumberOfDeviceReputationScoring field to given value.
+
+### HasNumberOfDeviceReputationScoring
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfDeviceReputationScoring() bool`
+
+HasNumberOfDeviceReputationScoring returns a boolean if a field has been set.
+
+### GetNumberOfGlobalWatchlist
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfGlobalWatchlist() int64`
+
+GetNumberOfGlobalWatchlist returns the NumberOfGlobalWatchlist field if non-nil, zero value otherwise.
+
+### GetNumberOfGlobalWatchlistOk
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfGlobalWatchlistOk() (*int64, bool)`
+
+GetNumberOfGlobalWatchlistOk returns a tuple with the NumberOfGlobalWatchlist field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfGlobalWatchlist
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfGlobalWatchlist(v int64)`
+
+SetNumberOfGlobalWatchlist sets NumberOfGlobalWatchlist field to given value.
+
+### HasNumberOfGlobalWatchlist
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfGlobalWatchlist() bool`
+
+HasNumberOfGlobalWatchlist returns a boolean if a field has been set.
+
+### GetNumberOfLiveAgent
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfLiveAgent() int64`
+
+GetNumberOfLiveAgent returns the NumberOfLiveAgent field if non-nil, zero value otherwise.
+
+### GetNumberOfLiveAgentOk
+
+`func (o *EnvironmentLicenseQuantities) GetNumberOfLiveAgentOk() (*int64, bool)`
+
+GetNumberOfLiveAgentOk returns a tuple with the NumberOfLiveAgent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNumberOfLiveAgent
+
+`func (o *EnvironmentLicenseQuantities) SetNumberOfLiveAgent(v int64)`
+
+SetNumberOfLiveAgent sets NumberOfLiveAgent field to given value.
+
+### HasNumberOfLiveAgent
+
+`func (o *EnvironmentLicenseQuantities) HasNumberOfLiveAgent() bool`
+
+HasNumberOfLiveAgent returns a boolean if a field has been set.
 
 ### GetRlgAnalyticsRpm
 
@@ -222,6 +433,56 @@ SetRlgAuthnRps sets RlgAuthnRps field to given value.
 `func (o *EnvironmentLicenseQuantities) HasRlgAuthnRps() bool`
 
 HasRlgAuthnRps returns a boolean if a field has been set.
+
+### GetRlgAuthnStartRps
+
+`func (o *EnvironmentLicenseQuantities) GetRlgAuthnStartRps() EnvironmentAPILimit`
+
+GetRlgAuthnStartRps returns the RlgAuthnStartRps field if non-nil, zero value otherwise.
+
+### GetRlgAuthnStartRpsOk
+
+`func (o *EnvironmentLicenseQuantities) GetRlgAuthnStartRpsOk() (*EnvironmentAPILimit, bool)`
+
+GetRlgAuthnStartRpsOk returns a tuple with the RlgAuthnStartRps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRlgAuthnStartRps
+
+`func (o *EnvironmentLicenseQuantities) SetRlgAuthnStartRps(v EnvironmentAPILimit)`
+
+SetRlgAuthnStartRps sets RlgAuthnStartRps field to given value.
+
+### HasRlgAuthnStartRps
+
+`func (o *EnvironmentLicenseQuantities) HasRlgAuthnStartRps() bool`
+
+HasRlgAuthnStartRps returns a boolean if a field has been set.
+
+### GetRlgAuthzBulkRps
+
+`func (o *EnvironmentLicenseQuantities) GetRlgAuthzBulkRps() EnvironmentAPILimit`
+
+GetRlgAuthzBulkRps returns the RlgAuthzBulkRps field if non-nil, zero value otherwise.
+
+### GetRlgAuthzBulkRpsOk
+
+`func (o *EnvironmentLicenseQuantities) GetRlgAuthzBulkRpsOk() (*EnvironmentAPILimit, bool)`
+
+GetRlgAuthzBulkRpsOk returns a tuple with the RlgAuthzBulkRps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRlgAuthzBulkRps
+
+`func (o *EnvironmentLicenseQuantities) SetRlgAuthzBulkRps(v EnvironmentAPILimit)`
+
+SetRlgAuthzBulkRps sets RlgAuthzBulkRps field to given value.
+
+### HasRlgAuthzBulkRps
+
+`func (o *EnvironmentLicenseQuantities) HasRlgAuthzBulkRps() bool`
+
+HasRlgAuthzBulkRps returns a boolean if a field has been set.
 
 ### GetRlgAuthzRps
 
@@ -572,6 +833,31 @@ SetRlgMfaRps sets RlgMfaRps field to given value.
 `func (o *EnvironmentLicenseQuantities) HasRlgMfaRps() bool`
 
 HasRlgMfaRps returns a boolean if a field has been set.
+
+### GetRlgPrivilegeRps
+
+`func (o *EnvironmentLicenseQuantities) GetRlgPrivilegeRps() EnvironmentAPILimit`
+
+GetRlgPrivilegeRps returns the RlgPrivilegeRps field if non-nil, zero value otherwise.
+
+### GetRlgPrivilegeRpsOk
+
+`func (o *EnvironmentLicenseQuantities) GetRlgPrivilegeRpsOk() (*EnvironmentAPILimit, bool)`
+
+GetRlgPrivilegeRpsOk returns a tuple with the RlgPrivilegeRps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRlgPrivilegeRps
+
+`func (o *EnvironmentLicenseQuantities) SetRlgPrivilegeRps(v EnvironmentAPILimit)`
+
+SetRlgPrivilegeRps sets RlgPrivilegeRps field to given value.
+
+### HasRlgPrivilegeRps
+
+`func (o *EnvironmentLicenseQuantities) HasRlgPrivilegeRps() bool`
+
+HasRlgPrivilegeRps returns a boolean if a field has been set.
 
 ### GetRlgRiskEvalsRps
 
