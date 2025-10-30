@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -16,6 +17,17 @@ import (
 	"golang.org/x/oauth2"
 )
 
+//go:embed html/auth_success.html
+var authSuccessHTML string
+
+//go:embed html/auth_failed.html
+var authFailedHTML string
+
+const (
+	// DefaultAuthCodeRedirectURI is the default redirect URI for authorization code flow
+	DefaultAuthCodeRedirectURI = "http://localhost:8080/callback"
+)
+
 func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
 	if a.AuthCodeClientID == nil || *a.AuthCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for authorization code grant type")
@@ -24,7 +36,7 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	slog.Debug("Using authorization code token source with provided client ID", "client ID", *a.AuthCodeClientID)
 
 	// Use localhost callback if no redirect URI specified
-	redirectURI := "http://localhost:8080/callback"
+	redirectURI := DefaultAuthCodeRedirectURI
 	if a.AuthCodeRedirectURI != nil && *a.AuthCodeRedirectURI != "" {
 		redirectURI = *a.AuthCodeRedirectURI
 	}
@@ -127,8 +139,10 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 			}
 			errChan <- fmt.Errorf("authorization error: %s", errDesc)
 
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			fmt.Fprintf(w, "<html><body><h2>Authorization Failed</h2><p>%s</p><p>You can close this window.</p></body></html>", errDesc)
+			html := strings.ReplaceAll(authFailedHTML, "{{ERROR_MESSAGE}}", errDesc)
+			fmt.Fprint(w, html)
 			return
 		}
 
@@ -137,8 +151,10 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 		if code == "" {
 			errChan <- fmt.Errorf("no authorization code received")
 
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			fmt.Fprintf(w, "<html><body><h2>Authorization Failed</h2><p>No authorization code received</p><p>You can close this window.</p></body></html>")
+			html := strings.ReplaceAll(authFailedHTML, "{{ERROR_MESSAGE}}", "No authorization code received")
+			fmt.Fprint(w, html)
 			return
 		}
 
@@ -146,8 +162,9 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 		codeChan <- code
 
 		// Send success response
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "<html><body><h2>Authorization Successful</h2><p>You can close this window and return to the CLI.</p></body></html>")
+		fmt.Fprint(w, authSuccessHTML)
 	})
 
 	// Start server in background

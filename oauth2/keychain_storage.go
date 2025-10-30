@@ -3,6 +3,7 @@
 package oauth2
 
 import (
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -88,4 +89,17 @@ func (k *KeychainStorage) HasToken() (bool, error) {
 		return false, fmt.Errorf("failed to check token in keychain: %w", err)
 	}
 	return true, nil
+}
+
+// GenerateKeychainAccountName creates a unique account name based on environment ID, client ID, and grant type
+func GenerateKeychainAccountName(environmentID, clientID, grantType string) string {
+	if environmentID == "" && clientID == "" && grantType == "" {
+		return "default-token"
+	}
+
+	// Create a hash of environment ID + client ID + grant type for uniqueness
+	var b []byte
+	b = fmt.Appendf(b, "%s:%s:%s", environmentID, clientID, grantType)
+	hash := sha256.Sum256(b)
+	return fmt.Sprintf("token-%x", hash[:8]) // Use first 8 bytes of hash for shorter key
 }
