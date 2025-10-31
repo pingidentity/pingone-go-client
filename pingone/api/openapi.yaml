@@ -1428,6 +1428,49 @@ paths:
       tags:
       - DaVinci Flows
       x-permission: davinci:update:dvFlows
+  /environments/{environmentID}/flows/{flowID}#clone+json:
+    post:
+      operationId: cloneFlowByIdAsCloneJson
+      parameters:
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.flowID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
+      requestBody:
+        content:
+          application/vnd.pingidentity.flow.clone+json:
+            schema:
+              $ref: "#/components/schemas/DaVinciFlowCloneRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowResponse"
+          description: Successfully created the resource.
+        "400":
+          $ref: "#/components/responses/http.400.BadRequest"
+        "401":
+          $ref: "#/components/responses/http.401.Unauthorized"
+        "403":
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+        "404":
+          $ref: "#/components/responses/http.404.NotFound"
+        "415":
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/http.429.TooManyRequests"
+        "500":
+          $ref: "#/components/responses/http.500.InternalServerError"
+        "502":
+          $ref: "#/components/responses/http.502.BadGateway"
+        "503":
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:create:dvFlows
+      x-pingidentity-operation-action: clone
   /environments/{environmentID}/flows/{flowID}#deploy+json:
     post:
       operationId: deployFlowByIdAsDeployJson
@@ -1471,6 +1514,49 @@ paths:
       - DaVinci Flows
       x-permission: davinci:create:dvFlows
       x-pingidentity-operation-action: deploy
+  /environments/{environmentID}/flows/{flowID}#validate+json:
+    post:
+      operationId: validateFlowByIdAsValidateJson
+      parameters:
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.flowID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
+      requestBody:
+        content:
+          application/vnd.pingidentity.flow.validate+json:
+            schema:
+              $ref: "#/components/schemas/DaVinciFlowValidateRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowResponse"
+          description: Successful Operation.
+        "400":
+          $ref: "#/components/responses/http.400.BadRequest"
+        "401":
+          $ref: "#/components/responses/http.401.Unauthorized"
+        "403":
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+        "404":
+          $ref: "#/components/responses/http.404.NotFound"
+        "415":
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/http.429.TooManyRequests"
+        "500":
+          $ref: "#/components/responses/http.500.InternalServerError"
+        "502":
+          $ref: "#/components/responses/http.502.BadGateway"
+        "503":
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
+      tags:
+      - DaVinci Flows
+      x-permission: davinci:create:dvFlows
+      x-pingidentity-operation-action: validate
   /environments/{environmentID}/flows/{flowID}/enabled:
     put:
       operationId: updateEnabledByFlowId
@@ -3300,6 +3386,11 @@ components:
             type: array
         title: DaVinci Export Flow Version Subflows Response Base 2
       title: DaVinci Export Flow Version Subflows Response
+    DaVinciFlowCloneRequest:
+      additionalProperties: true
+      properties: {}
+      title: DaVinci Flow Clone Request
+      type: object
     DaVinciFlowCollection:
       example:
         _embedded:
@@ -6273,6 +6364,12 @@ components:
       required:
       - type
       title: DaVinci Flow Trigger Response
+    DaVinciFlowValidateRequest:
+      additionalProperties: true
+      properties:
+        graphData:
+          $ref: "#/components/schemas/DaVinciFlowGraphDataRequest"
+      title: DaVinci Flow Validate Request
     DaVinciFlowVersionAliasRequest:
       additionalProperties: true
       example:
@@ -9315,7 +9412,6 @@ components:
           title: Environment Response Soft Deleted At
           type: string
         status:
-          $ref: "#/components/schemas/EnvironmentStatusValue"
           $ref: "#/components/schemas/EnvironmentStatusValue"
       required:
       - createdAt

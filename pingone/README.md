@@ -111,6 +111,7 @@ Class | Method | HTTP request | Description
 *DaVinciFlowVersionsApi* | [**GetVersionByIdUsingFlowId**](docs/DaVinciFlowVersionsApi.md#getversionbyidusingflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions/{versionID} | 
 *DaVinciFlowVersionsApi* | [**GetVersionsByFlowId**](docs/DaVinciFlowVersionsApi.md#getversionsbyflowid) | **Get** /environments/{environmentID}/flows/{flowID}/versions | 
 *DaVinciFlowVersionsApi* | [**ReplaceAliasByFlowIdAndVersionId**](docs/DaVinciFlowVersionsApi.md#replacealiasbyflowidandversionid) | **Put** /environments/{environmentID}/flows/{flowID}/versions/{versionID}/alias | 
+*DaVinciFlowsApi* | [**CloneFlowByIdAsCloneJson**](docs/DaVinciFlowsApi.md#cloneflowbyidasclonejson) | **Post** /environments/{environmentID}/flows/{flowID}#clone+json | 
 *DaVinciFlowsApi* | [**CreateFlow**](docs/DaVinciFlowsApi.md#createflow) | **Post** /environments/{environmentID}/flows | 
 *DaVinciFlowsApi* | [**DeleteFlowById**](docs/DaVinciFlowsApi.md#deleteflowbyid) | **Delete** /environments/{environmentID}/flows/{flowID} | 
 *DaVinciFlowsApi* | [**DeployFlowByIdAsDeployJson**](docs/DaVinciFlowsApi.md#deployflowbyidasdeployjson) | **Post** /environments/{environmentID}/flows/{flowID}#deploy+json | 
@@ -118,6 +119,7 @@ Class | Method | HTTP request | Description
 *DaVinciFlowsApi* | [**GetFlows**](docs/DaVinciFlowsApi.md#getflows) | **Get** /environments/{environmentID}/flows | 
 *DaVinciFlowsApi* | [**ReplaceFlowById**](docs/DaVinciFlowsApi.md#replaceflowbyid) | **Put** /environments/{environmentID}/flows/{flowID} | 
 *DaVinciFlowsApi* | [**UpdateEnabledByFlowId**](docs/DaVinciFlowsApi.md#updateenabledbyflowid) | **Put** /environments/{environmentID}/flows/{flowID}/enabled | 
+*DaVinciFlowsApi* | [**ValidateFlowByIdAsValidateJson**](docs/DaVinciFlowsApi.md#validateflowbyidasvalidatejson) | **Post** /environments/{environmentID}/flows/{flowID}#validate+json | 
 *DaVinciVariablesApi* | [**CreateVariable**](docs/DaVinciVariablesApi.md#createvariable) | **Post** /environments/{environmentID}/variables | 
 *DaVinciVariablesApi* | [**DeleteVariableById**](docs/DaVinciVariablesApi.md#deletevariablebyid) | **Delete** /environments/{environmentID}/variables/{variableID} | 
 *DaVinciVariablesApi* | [**GetVariableById**](docs/DaVinciVariablesApi.md#getvariablebyid) | **Get** /environments/{environmentID}/variables/{variableID} | 
@@ -320,6 +322,7 @@ Class | Method | HTTP request | Description
  - [DaVinciFlowTriggerResponseConfigurationMFA](docs/DaVinciFlowTriggerResponseConfigurationMFA.md)
  - [DaVinciFlowTriggerResponseConfigurationPassword](docs/DaVinciFlowTriggerResponseConfigurationPassword.md)
  - [DaVinciFlowTriggerResponseType](docs/DaVinciFlowTriggerResponseType.md)
+ - [DaVinciFlowValidateRequest](docs/DaVinciFlowValidateRequest.md)
  - [DaVinciFlowVersionAliasRequest](docs/DaVinciFlowVersionAliasRequest.md)
  - [DaVinciFlowVersionAliasResponse](docs/DaVinciFlowVersionAliasResponse.md)
  - [DaVinciFlowVersionAliasResponseLinks](docs/DaVinciFlowVersionAliasResponseLinks.md)
