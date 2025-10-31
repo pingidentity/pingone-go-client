@@ -17,42 +17,42 @@ import (
 	"log/slog"
 )
 
-// checks if the DaVinciFlowResponseOutputSchema type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DaVinciFlowResponseOutputSchema{}
+// checks if the DaVinciFlowOutputSchemaResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DaVinciFlowOutputSchemaResponse{}
 
-// checks if the DaVinciFlowResponseOutputSchema type satisfies the LogValuer interface at compile time
-var _ slog.LogValuer = &DaVinciFlowResponseOutputSchema{}
+// checks if the DaVinciFlowOutputSchemaResponse type satisfies the LogValuer interface at compile time
+var _ slog.LogValuer = &DaVinciFlowOutputSchemaResponse{}
 
-// DaVinciFlowResponseOutputSchema struct for DaVinciFlowResponseOutputSchema
-type DaVinciFlowResponseOutputSchema struct {
-	Output               DaVinciFlowResponseOutputSchemaOutput `json:"output"`
+// DaVinciFlowOutputSchemaResponse struct for DaVinciFlowOutputSchemaResponse
+type DaVinciFlowOutputSchemaResponse struct {
+	Output               DaVinciFlowOutputSchemaResponseOutput `json:"output"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _DaVinciFlowResponseOutputSchema DaVinciFlowResponseOutputSchema
+type _DaVinciFlowOutputSchemaResponse DaVinciFlowOutputSchemaResponse
 
-// NewDaVinciFlowResponseOutputSchema instantiates a new DaVinciFlowResponseOutputSchema object
+// NewDaVinciFlowOutputSchemaResponse instantiates a new DaVinciFlowOutputSchemaResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowResponseOutputSchema(output DaVinciFlowResponseOutputSchemaOutput) *DaVinciFlowResponseOutputSchema {
-	this := DaVinciFlowResponseOutputSchema{}
+func NewDaVinciFlowOutputSchemaResponse(output DaVinciFlowOutputSchemaResponseOutput) *DaVinciFlowOutputSchemaResponse {
+	this := DaVinciFlowOutputSchemaResponse{}
 	this.Output = output
 	return &this
 }
 
-// NewDaVinciFlowResponseOutputSchemaWithDefaults instantiates a new DaVinciFlowResponseOutputSchema object
+// NewDaVinciFlowOutputSchemaResponseWithDefaults instantiates a new DaVinciFlowOutputSchemaResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDaVinciFlowResponseOutputSchemaWithDefaults() *DaVinciFlowResponseOutputSchema {
-	this := DaVinciFlowResponseOutputSchema{}
+func NewDaVinciFlowOutputSchemaResponseWithDefaults() *DaVinciFlowOutputSchemaResponse {
+	this := DaVinciFlowOutputSchemaResponse{}
 	return &this
 }
 
 // GetOutput returns the Output field value
-func (o *DaVinciFlowResponseOutputSchema) GetOutput() DaVinciFlowResponseOutputSchemaOutput {
+func (o *DaVinciFlowOutputSchemaResponse) GetOutput() DaVinciFlowOutputSchemaResponseOutput {
 	if o == nil {
-		var ret DaVinciFlowResponseOutputSchemaOutput
+		var ret DaVinciFlowOutputSchemaResponseOutput
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *DaVinciFlowResponseOutputSchema) GetOutput() DaVinciFlowResponseOutputS
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseOutputSchema) GetOutputOk() (*DaVinciFlowResponseOutputSchemaOutput, bool) {
+func (o *DaVinciFlowOutputSchemaResponse) GetOutputOk() (*DaVinciFlowOutputSchemaResponseOutput, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,11 +69,11 @@ func (o *DaVinciFlowResponseOutputSchema) GetOutputOk() (*DaVinciFlowResponseOut
 }
 
 // SetOutput sets field value
-func (o *DaVinciFlowResponseOutputSchema) SetOutput(v DaVinciFlowResponseOutputSchemaOutput) {
+func (o *DaVinciFlowOutputSchemaResponse) SetOutput(v DaVinciFlowOutputSchemaResponseOutput) {
 	o.Output = v
 }
 
-func (o DaVinciFlowResponseOutputSchema) MarshalJSON() ([]byte, error) {
+func (o DaVinciFlowOutputSchemaResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -81,7 +81,7 @@ func (o DaVinciFlowResponseOutputSchema) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DaVinciFlowResponseOutputSchema) ToMap() (map[string]interface{}, error) {
+func (o DaVinciFlowOutputSchemaResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["output"] = o.Output
 
@@ -92,7 +92,7 @@ func (o DaVinciFlowResponseOutputSchema) ToMap() (map[string]interface{}, error)
 	return toSerialize, nil
 }
 
-func (o *DaVinciFlowResponseOutputSchema) UnmarshalJSON(data []byte) (err error) {
+func (o *DaVinciFlowOutputSchemaResponse) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -114,15 +114,15 @@ func (o *DaVinciFlowResponseOutputSchema) UnmarshalJSON(data []byte) (err error)
 		}
 	}
 
-	varDaVinciFlowResponseOutputSchema := _DaVinciFlowResponseOutputSchema{}
+	varDaVinciFlowOutputSchemaResponse := _DaVinciFlowOutputSchemaResponse{}
 
-	err = json.Unmarshal(data, &varDaVinciFlowResponseOutputSchema)
+	err = json.Unmarshal(data, &varDaVinciFlowOutputSchemaResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DaVinciFlowResponseOutputSchema(varDaVinciFlowResponseOutputSchema)
+	*o = DaVinciFlowOutputSchemaResponse(varDaVinciFlowOutputSchemaResponse)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -134,7 +134,7 @@ func (o *DaVinciFlowResponseOutputSchema) UnmarshalJSON(data []byte) (err error)
 	return err
 }
 
-func (o DaVinciFlowResponseOutputSchema) LogValue() slog.Value {
+func (o DaVinciFlowOutputSchemaResponse) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("output", o.Output))
@@ -143,38 +143,38 @@ func (o DaVinciFlowResponseOutputSchema) LogValue() slog.Value {
 	return slog.GroupValue(logAttrs...)
 }
 
-type NullableDaVinciFlowResponseOutputSchema struct {
-	value *DaVinciFlowResponseOutputSchema
+type NullableDaVinciFlowOutputSchemaResponse struct {
+	value *DaVinciFlowOutputSchemaResponse
 	isSet bool
 }
 
-func (v NullableDaVinciFlowResponseOutputSchema) Get() *DaVinciFlowResponseOutputSchema {
+func (v NullableDaVinciFlowOutputSchemaResponse) Get() *DaVinciFlowOutputSchemaResponse {
 	return v.value
 }
 
-func (v *NullableDaVinciFlowResponseOutputSchema) Set(val *DaVinciFlowResponseOutputSchema) {
+func (v *NullableDaVinciFlowOutputSchemaResponse) Set(val *DaVinciFlowOutputSchemaResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDaVinciFlowResponseOutputSchema) IsSet() bool {
+func (v NullableDaVinciFlowOutputSchemaResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDaVinciFlowResponseOutputSchema) Unset() {
+func (v *NullableDaVinciFlowOutputSchemaResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDaVinciFlowResponseOutputSchema(val *DaVinciFlowResponseOutputSchema) *NullableDaVinciFlowResponseOutputSchema {
-	return &NullableDaVinciFlowResponseOutputSchema{value: val, isSet: true}
+func NewNullableDaVinciFlowOutputSchemaResponse(val *DaVinciFlowOutputSchemaResponse) *NullableDaVinciFlowOutputSchemaResponse {
+	return &NullableDaVinciFlowOutputSchemaResponse{value: val, isSet: true}
 }
 
-func (v NullableDaVinciFlowResponseOutputSchema) MarshalJSON() ([]byte, error) {
+func (v NullableDaVinciFlowOutputSchemaResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDaVinciFlowResponseOutputSchema) UnmarshalJSON(src []byte) error {
+func (v *NullableDaVinciFlowOutputSchemaResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

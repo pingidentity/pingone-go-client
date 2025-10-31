@@ -26,28 +26,28 @@ var _ slog.LogValuer = &DaVinciExportFlowVersionSubflowsResponse{}
 
 // DaVinciExportFlowVersionSubflowsResponse struct for DaVinciExportFlowVersionSubflowsResponse
 type DaVinciExportFlowVersionSubflowsResponse struct {
-	Links                DaVinciExportFlowVersionResponseLinks         `json:"_links"`
-	Environment          DaVinciExportFlowVersionResponseEnvironment   `json:"environment"`
-	Flow                 DaVinciExportFlowVersionResponseFlow          `json:"flow"`
-	PublishedVersion     float32                                       `json:"publishedVersion"`
-	Version              float32                                       `json:"version"`
-	Alias                *string                                       `json:"alias,omitempty"`
-	ClonedFrom           *float32                                      `json:"clonedFrom,omitempty"`
-	Color                *string                                       `json:"color,omitempty"`
-	Connectors           []DaVinciExportFlowVersionResponseConnector   `json:"connectors,omitempty"`
-	CreatedAt            *time.Time                                    `json:"createdAt,omitempty"`
-	DeployedAt           *time.Time                                    `json:"deployedAt,omitempty"`
-	Description          *string                                       `json:"description,omitempty"`
-	Enabled              *bool                                         `json:"enabled,omitempty"`
-	GraphData            *DaVinciFlowGraphDataResponse                 `json:"graphData,omitempty"`
-	InputSchema          []DaVinciFlowInputSchemaResponseItem          `json:"inputSchema,omitempty"`
-	OutputSchema         *DaVinciExportFlowVersionResponseOutputSchema `json:"outputSchema,omitempty"`
-	Settings             *DaVinciFlowSettingsResponse                  `json:"settings,omitempty"`
-	Trigger              *DaVinciFlowTriggerResponse                   `json:"trigger,omitempty"`
-	UpdatedAt            *time.Time                                    `json:"updatedAt,omitempty"`
-	Updates              []string                                      `json:"updates,omitempty"`
-	Variables            []map[string]interface{}                      `json:"variables,omitempty"`
-	Embedded             []DaVinciExportFlowVersionResponse            `json:"_embedded,omitempty"`
+	Links                DaVinciExportFlowVersionResponseLinks       `json:"_links"`
+	Environment          DaVinciExportFlowVersionResponseEnvironment `json:"environment"`
+	Flow                 DaVinciExportFlowVersionResponseFlow        `json:"flow"`
+	PublishedVersion     float32                                     `json:"publishedVersion"`
+	Version              float32                                     `json:"version"`
+	Alias                *string                                     `json:"alias,omitempty"`
+	ClonedFrom           *float32                                    `json:"clonedFrom,omitempty"`
+	Color                *string                                     `json:"color,omitempty"`
+	Connectors           []DaVinciExportFlowVersionResponseConnector `json:"connectors,omitempty"`
+	CreatedAt            *time.Time                                  `json:"createdAt,omitempty"`
+	DeployedAt           *time.Time                                  `json:"deployedAt,omitempty"`
+	Description          *string                                     `json:"description,omitempty"`
+	Enabled              *bool                                       `json:"enabled,omitempty"`
+	GraphData            *DaVinciFlowGraphDataResponse               `json:"graphData,omitempty"`
+	InputSchema          []DaVinciFlowInputSchemaResponseItem        `json:"inputSchema,omitempty"`
+	OutputSchema         *DaVinciFlowOutputSchemaResponse            `json:"outputSchema,omitempty"`
+	Settings             *DaVinciFlowSettingsResponse                `json:"settings,omitempty"`
+	Trigger              *DaVinciFlowTriggerResponse                 `json:"trigger,omitempty"`
+	UpdatedAt            *time.Time                                  `json:"updatedAt,omitempty"`
+	Updates              []string                                    `json:"updates,omitempty"`
+	Variables            []map[string]interface{}                    `json:"variables,omitempty"`
+	Embedded             []DaVinciExportFlowVersionResponse          `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -516,9 +516,9 @@ func (o *DaVinciExportFlowVersionSubflowsResponse) SetInputSchema(v []DaVinciFlo
 }
 
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise.
-func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchema() DaVinciExportFlowVersionResponseOutputSchema {
+func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchema() DaVinciFlowOutputSchemaResponse {
 	if o == nil || IsNil(o.OutputSchema) {
-		var ret DaVinciExportFlowVersionResponseOutputSchema
+		var ret DaVinciFlowOutputSchemaResponse
 		return ret
 	}
 	return *o.OutputSchema
@@ -526,7 +526,7 @@ func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchema() DaVinciExpo
 
 // GetOutputSchemaOk returns a tuple with the OutputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchemaOk() (*DaVinciExportFlowVersionResponseOutputSchema, bool) {
+func (o *DaVinciExportFlowVersionSubflowsResponse) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaResponse, bool) {
 	if o == nil || IsNil(o.OutputSchema) {
 		return nil, false
 	}
@@ -542,8 +542,8 @@ func (o *DaVinciExportFlowVersionSubflowsResponse) HasOutputSchema() bool {
 	return false
 }
 
-// SetOutputSchema gets a reference to the given DaVinciExportFlowVersionResponseOutputSchema and assigns it to the OutputSchema field.
-func (o *DaVinciExportFlowVersionSubflowsResponse) SetOutputSchema(v DaVinciExportFlowVersionResponseOutputSchema) {
+// SetOutputSchema gets a reference to the given DaVinciFlowOutputSchemaResponse and assigns it to the OutputSchema field.
+func (o *DaVinciExportFlowVersionSubflowsResponse) SetOutputSchema(v DaVinciFlowOutputSchemaResponse) {
 	o.OutputSchema = &v
 }
 

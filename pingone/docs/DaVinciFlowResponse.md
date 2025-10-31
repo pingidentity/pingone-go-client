@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Enabled** | Pointer to **bool** |  | [optional] 
 **GraphData** | Pointer to [**DaVinciFlowGraphDataResponse**](DaVinciFlowGraphDataResponse.md) |  | [optional] 
 **InputSchema** | Pointer to [**[]DaVinciFlowInputSchemaResponseItem**](DaVinciFlowInputSchemaResponseItem.md) |  | [optional] 
-**OutputSchema** | Pointer to [**DaVinciFlowResponseOutputSchema**](DaVinciFlowResponseOutputSchema.md) |  | [optional] 
+**OutputSchema** | Pointer to [**DaVinciFlowOutputSchemaResponse**](DaVinciFlowOutputSchemaResponse.md) |  | [optional] 
 **PublishedVersion** | Pointer to **float32** |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
 **Trigger** | Pointer to [**DaVinciFlowTriggerResponse**](DaVinciFlowTriggerResponse.md) |  | [optional] 
@@ -401,20 +401,20 @@ HasInputSchema returns a boolean if a field has been set.
 
 ### GetOutputSchema
 
-`func (o *DaVinciFlowResponse) GetOutputSchema() DaVinciFlowResponseOutputSchema`
+`func (o *DaVinciFlowResponse) GetOutputSchema() DaVinciFlowOutputSchemaResponse`
 
 GetOutputSchema returns the OutputSchema field if non-nil, zero value otherwise.
 
 ### GetOutputSchemaOk
 
-`func (o *DaVinciFlowResponse) GetOutputSchemaOk() (*DaVinciFlowResponseOutputSchema, bool)`
+`func (o *DaVinciFlowResponse) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaResponse, bool)`
 
 GetOutputSchemaOk returns a tuple with the OutputSchema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputSchema
 
-`func (o *DaVinciFlowResponse) SetOutputSchema(v DaVinciFlowResponseOutputSchema)`
+`func (o *DaVinciFlowResponse) SetOutputSchema(v DaVinciFlowOutputSchemaResponse)`
 
 SetOutputSchema sets OutputSchema field to given value.
 

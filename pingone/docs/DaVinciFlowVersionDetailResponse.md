@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Flow** | Pointer to [**DaVinciFlowVersionDetailResponseFlow**](DaVinciFlowVersionDetailResponseFlow.md) |  | [optional] 
 **GraphData** | Pointer to [**DaVinciFlowGraphDataResponse**](DaVinciFlowGraphDataResponse.md) |  | [optional] 
 **InputSchema** | Pointer to [**[]DaVinciFlowInputSchemaResponseItem**](DaVinciFlowInputSchemaResponseItem.md) |  | [optional] 
-**OutputSchema** | Pointer to [**DaVinciFlowVersionDetailResponseOutputSchema**](DaVinciFlowVersionDetailResponseOutputSchema.md) |  | [optional] 
+**OutputSchema** | Pointer to [**DaVinciFlowOutputSchemaResponse**](DaVinciFlowOutputSchemaResponse.md) |  | [optional] 
 **Settings** | Pointer to [**DaVinciFlowSettingsResponse**](DaVinciFlowSettingsResponse.md) |  | [optional] 
 **Skcomponents** | Pointer to [**[]DaVinciFlowVersionDetailResponseSkcomponent**](DaVinciFlowVersionDetailResponseSkcomponent.md) |  | [optional] 
 **Trigger** | Pointer to [**DaVinciFlowTriggerResponse**](DaVinciFlowTriggerResponse.md) |  | [optional] 
@@ -314,20 +314,20 @@ HasInputSchema returns a boolean if a field has been set.
 
 ### GetOutputSchema
 
-`func (o *DaVinciFlowVersionDetailResponse) GetOutputSchema() DaVinciFlowVersionDetailResponseOutputSchema`
+`func (o *DaVinciFlowVersionDetailResponse) GetOutputSchema() DaVinciFlowOutputSchemaResponse`
 
 GetOutputSchema returns the OutputSchema field if non-nil, zero value otherwise.
 
 ### GetOutputSchemaOk
 
-`func (o *DaVinciFlowVersionDetailResponse) GetOutputSchemaOk() (*DaVinciFlowVersionDetailResponseOutputSchema, bool)`
+`func (o *DaVinciFlowVersionDetailResponse) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaResponse, bool)`
 
 GetOutputSchemaOk returns a tuple with the OutputSchema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputSchema
 
-`func (o *DaVinciFlowVersionDetailResponse) SetOutputSchema(v DaVinciFlowVersionDetailResponseOutputSchema)`
+`func (o *DaVinciFlowVersionDetailResponse) SetOutputSchema(v DaVinciFlowOutputSchemaResponse)`
 
 SetOutputSchema sets OutputSchema field to given value.
 

@@ -1,94 +1,94 @@
-# DaVinciFlowResponseOutputSchemaOutput
+# DaVinciFlowOutputSchemaResponseOutput
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Properties** | **map[string]interface{}** |  | 
-**Type** | [**DaVinciFlowResponseOutputSchemaOutputType**](DaVinciFlowResponseOutputSchemaOutputType.md) |  | 
+**Type** | [**DaVinciFlowOutputSchemaResponseOutputType**](DaVinciFlowOutputSchemaResponseOutputType.md) |  | 
 **AdditionalPropertiesField** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
-### NewDaVinciFlowResponseOutputSchemaOutput
+### NewDaVinciFlowOutputSchemaResponseOutput
 
-`func NewDaVinciFlowResponseOutputSchemaOutput(properties map[string]interface{}, type_ DaVinciFlowResponseOutputSchemaOutputType, ) *DaVinciFlowResponseOutputSchemaOutput`
+`func NewDaVinciFlowOutputSchemaResponseOutput(properties map[string]interface{}, type_ DaVinciFlowOutputSchemaResponseOutputType, ) *DaVinciFlowOutputSchemaResponseOutput`
 
-NewDaVinciFlowResponseOutputSchemaOutput instantiates a new DaVinciFlowResponseOutputSchemaOutput object
+NewDaVinciFlowOutputSchemaResponseOutput instantiates a new DaVinciFlowOutputSchemaResponseOutput object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDaVinciFlowResponseOutputSchemaOutputWithDefaults
+### NewDaVinciFlowOutputSchemaResponseOutputWithDefaults
 
-`func NewDaVinciFlowResponseOutputSchemaOutputWithDefaults() *DaVinciFlowResponseOutputSchemaOutput`
+`func NewDaVinciFlowOutputSchemaResponseOutputWithDefaults() *DaVinciFlowOutputSchemaResponseOutput`
 
-NewDaVinciFlowResponseOutputSchemaOutputWithDefaults instantiates a new DaVinciFlowResponseOutputSchemaOutput object
+NewDaVinciFlowOutputSchemaResponseOutputWithDefaults instantiates a new DaVinciFlowOutputSchemaResponseOutput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetProperties
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetProperties() map[string]interface{}`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetProperties() map[string]interface{}`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetPropertiesOk() (*map[string]interface{}, bool)`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetPropertiesOk() (*map[string]interface{}, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) SetProperties(v map[string]interface{})`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) SetProperties(v map[string]interface{})`
 
 SetProperties sets Properties field to given value.
 
 
 ### GetType
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetType() DaVinciFlowResponseOutputSchemaOutputType`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetType() DaVinciFlowOutputSchemaResponseOutputType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetTypeOk() (*DaVinciFlowResponseOutputSchemaOutputType, bool)`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetTypeOk() (*DaVinciFlowOutputSchemaResponseOutputType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) SetType(v DaVinciFlowResponseOutputSchemaOutputType)`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) SetType(v DaVinciFlowOutputSchemaResponseOutputType)`
 
 SetType sets Type field to given value.
 
 
 ### GetAdditionalPropertiesField
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetAdditionalPropertiesField() bool`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetAdditionalPropertiesField() bool`
 
 GetAdditionalPropertiesField returns the AdditionalPropertiesField field if non-nil, zero value otherwise.
 
 ### GetAdditionalPropertiesFieldOk
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) GetAdditionalPropertiesFieldOk() (*bool, bool)`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) GetAdditionalPropertiesFieldOk() (*bool, bool)`
 
 GetAdditionalPropertiesFieldOk returns a tuple with the AdditionalPropertiesField field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalPropertiesField
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) SetAdditionalPropertiesField(v bool)`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) SetAdditionalPropertiesField(v bool)`
 
 SetAdditionalPropertiesField sets AdditionalPropertiesField field to given value.
 
 ### HasAdditionalPropertiesField
 
-`func (o *DaVinciFlowResponseOutputSchemaOutput) HasAdditionalPropertiesField() bool`
+`func (o *DaVinciFlowOutputSchemaResponseOutput) HasAdditionalPropertiesField() bool`
 
 HasAdditionalPropertiesField returns a boolean if a field has been set.
 

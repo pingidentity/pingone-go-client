@@ -41,7 +41,7 @@ type DaVinciFlowResponse struct {
 	Enabled              *bool                                 `json:"enabled,omitempty"`
 	GraphData            *DaVinciFlowGraphDataResponse         `json:"graphData,omitempty"`
 	InputSchema          []DaVinciFlowInputSchemaResponseItem  `json:"inputSchema,omitempty"`
-	OutputSchema         *DaVinciFlowResponseOutputSchema      `json:"outputSchema,omitempty"`
+	OutputSchema         *DaVinciFlowOutputSchemaResponse      `json:"outputSchema,omitempty"`
 	PublishedVersion     *float32                              `json:"publishedVersion,omitempty"`
 	Settings             *DaVinciFlowSettingsResponse          `json:"settings,omitempty"`
 	Trigger              *DaVinciFlowTriggerResponse           `json:"trigger,omitempty"`
@@ -521,9 +521,9 @@ func (o *DaVinciFlowResponse) SetInputSchema(v []DaVinciFlowInputSchemaResponseI
 }
 
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise.
-func (o *DaVinciFlowResponse) GetOutputSchema() DaVinciFlowResponseOutputSchema {
+func (o *DaVinciFlowResponse) GetOutputSchema() DaVinciFlowOutputSchemaResponse {
 	if o == nil || IsNil(o.OutputSchema) {
-		var ret DaVinciFlowResponseOutputSchema
+		var ret DaVinciFlowOutputSchemaResponse
 		return ret
 	}
 	return *o.OutputSchema
@@ -531,7 +531,7 @@ func (o *DaVinciFlowResponse) GetOutputSchema() DaVinciFlowResponseOutputSchema 
 
 // GetOutputSchemaOk returns a tuple with the OutputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponse) GetOutputSchemaOk() (*DaVinciFlowResponseOutputSchema, bool) {
+func (o *DaVinciFlowResponse) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaResponse, bool) {
 	if o == nil || IsNil(o.OutputSchema) {
 		return nil, false
 	}
@@ -547,8 +547,8 @@ func (o *DaVinciFlowResponse) HasOutputSchema() bool {
 	return false
 }
 
-// SetOutputSchema gets a reference to the given DaVinciFlowResponseOutputSchema and assigns it to the OutputSchema field.
-func (o *DaVinciFlowResponse) SetOutputSchema(v DaVinciFlowResponseOutputSchema) {
+// SetOutputSchema gets a reference to the given DaVinciFlowOutputSchemaResponse and assigns it to the OutputSchema field.
+func (o *DaVinciFlowResponse) SetOutputSchema(v DaVinciFlowOutputSchemaResponse) {
 	o.OutputSchema = &v
 }
 

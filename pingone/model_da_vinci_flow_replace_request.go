@@ -25,14 +25,14 @@ var _ slog.LogValuer = &DaVinciFlowReplaceRequest{}
 
 // DaVinciFlowReplaceRequest struct for DaVinciFlowReplaceRequest
 type DaVinciFlowReplaceRequest struct {
-	Name                 string                                 `json:"name" validate:"regexp=^\\\\s*([\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_-]).?(?!.*((<)|(\\\\$\\\\{)))"`
-	Color                *string                                `json:"color,omitempty"`
-	Description          *string                                `json:"description,omitempty" validate:"regexp=^\\\\s*[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	GraphData            *DaVinciFlowGraphDataRequest           `json:"graphData,omitempty"`
-	InputSchema          []DaVinciFlowInputSchemaRequestItem    `json:"inputSchema,omitempty"`
-	OutputSchema         *DaVinciFlowReplaceRequestOutputSchema `json:"outputSchema,omitempty"`
-	Settings             *DaVinciFlowSettingsRequest            `json:"settings,omitempty"`
-	Trigger              *DaVinciFlowTriggerRequest             `json:"trigger,omitempty"`
+	Name                 string                              `json:"name" validate:"regexp=^\\\\s*([\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_-]).?(?!.*((<)|(\\\\$\\\\{)))"`
+	Color                *string                             `json:"color,omitempty"`
+	Description          *string                             `json:"description,omitempty" validate:"regexp=^\\\\s*[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	GraphData            *DaVinciFlowGraphDataRequest        `json:"graphData,omitempty"`
+	InputSchema          []DaVinciFlowInputSchemaRequestItem `json:"inputSchema,omitempty"`
+	OutputSchema         *DaVinciFlowOutputSchemaRequest     `json:"outputSchema,omitempty"`
+	Settings             *DaVinciFlowSettingsRequest         `json:"settings,omitempty"`
+	Trigger              *DaVinciFlowTriggerRequest          `json:"trigger,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -209,9 +209,9 @@ func (o *DaVinciFlowReplaceRequest) SetInputSchema(v []DaVinciFlowInputSchemaReq
 }
 
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise.
-func (o *DaVinciFlowReplaceRequest) GetOutputSchema() DaVinciFlowReplaceRequestOutputSchema {
+func (o *DaVinciFlowReplaceRequest) GetOutputSchema() DaVinciFlowOutputSchemaRequest {
 	if o == nil || IsNil(o.OutputSchema) {
-		var ret DaVinciFlowReplaceRequestOutputSchema
+		var ret DaVinciFlowOutputSchemaRequest
 		return ret
 	}
 	return *o.OutputSchema
@@ -219,7 +219,7 @@ func (o *DaVinciFlowReplaceRequest) GetOutputSchema() DaVinciFlowReplaceRequestO
 
 // GetOutputSchemaOk returns a tuple with the OutputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowReplaceRequest) GetOutputSchemaOk() (*DaVinciFlowReplaceRequestOutputSchema, bool) {
+func (o *DaVinciFlowReplaceRequest) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaRequest, bool) {
 	if o == nil || IsNil(o.OutputSchema) {
 		return nil, false
 	}
@@ -235,8 +235,8 @@ func (o *DaVinciFlowReplaceRequest) HasOutputSchema() bool {
 	return false
 }
 
-// SetOutputSchema gets a reference to the given DaVinciFlowReplaceRequestOutputSchema and assigns it to the OutputSchema field.
-func (o *DaVinciFlowReplaceRequest) SetOutputSchema(v DaVinciFlowReplaceRequestOutputSchema) {
+// SetOutputSchema gets a reference to the given DaVinciFlowOutputSchemaRequest and assigns it to the OutputSchema field.
+func (o *DaVinciFlowReplaceRequest) SetOutputSchema(v DaVinciFlowOutputSchemaRequest) {
 	o.OutputSchema = &v
 }
 

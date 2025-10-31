@@ -13,7 +13,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -25,19 +24,14 @@ var _ slog.LogValuer = &DaVinciImportFlowResponseOutputSchema{}
 
 // DaVinciImportFlowResponseOutputSchema struct for DaVinciImportFlowResponseOutputSchema
 type DaVinciImportFlowResponseOutputSchema struct {
-	Output               map[string]interface{} `json:"output"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _DaVinciImportFlowResponseOutputSchema DaVinciImportFlowResponseOutputSchema
 
 // NewDaVinciImportFlowResponseOutputSchema instantiates a new DaVinciImportFlowResponseOutputSchema object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciImportFlowResponseOutputSchema(output map[string]interface{}) *DaVinciImportFlowResponseOutputSchema {
+func NewDaVinciImportFlowResponseOutputSchema() *DaVinciImportFlowResponseOutputSchema {
 	this := DaVinciImportFlowResponseOutputSchema{}
-	this.Output = output
 	return &this
 }
 
@@ -47,30 +41,6 @@ func NewDaVinciImportFlowResponseOutputSchema(output map[string]interface{}) *Da
 func NewDaVinciImportFlowResponseOutputSchemaWithDefaults() *DaVinciImportFlowResponseOutputSchema {
 	this := DaVinciImportFlowResponseOutputSchema{}
 	return &this
-}
-
-// GetOutput returns the Output field value
-func (o *DaVinciImportFlowResponseOutputSchema) GetOutput() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-
-	return o.Output
-}
-
-// GetOutputOk returns a tuple with the Output field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponseOutputSchema) GetOutputOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
-	}
-	return o.Output, true
-}
-
-// SetOutput sets field value
-func (o *DaVinciImportFlowResponseOutputSchema) SetOutput(v map[string]interface{}) {
-	o.Output = v
 }
 
 func (o DaVinciImportFlowResponseOutputSchema) MarshalJSON() ([]byte, error) {
@@ -83,62 +53,11 @@ func (o DaVinciImportFlowResponseOutputSchema) MarshalJSON() ([]byte, error) {
 
 func (o DaVinciImportFlowResponseOutputSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["output"] = o.Output
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
-}
-
-func (o *DaVinciImportFlowResponseOutputSchema) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"output",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varDaVinciImportFlowResponseOutputSchema := _DaVinciImportFlowResponseOutputSchema{}
-
-	err = json.Unmarshal(data, &varDaVinciImportFlowResponseOutputSchema)
-
-	if err != nil {
-		return err
-	}
-
-	*o = DaVinciImportFlowResponseOutputSchema(varDaVinciImportFlowResponseOutputSchema)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "output")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 func (o DaVinciImportFlowResponseOutputSchema) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
-
-	logAttrs = append(logAttrs, slog.Any("output", o.Output))
-	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
 }

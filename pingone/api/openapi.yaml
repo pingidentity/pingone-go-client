@@ -3348,7 +3348,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema"
+          $ref: "#/components/schemas/DaVinciFlowOutputSchemaResponse"
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         trigger:
@@ -4285,7 +4285,11 @@ components:
           - sensitiveInfoFields
         color: color
         outputSchema:
-          output: "{}"
+          output:
+            additionalProperties: true
+            type: object
+            properties:
+              key: ""
         inputSchema:
         - isExpanded: true
           preferredControlType: button
@@ -4425,7 +4429,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Create_Request_Output_Schema"
+          $ref: "#/components/schemas/DaVinciFlowOutputSchemaRequest"
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsRequest"
         trigger:
@@ -4913,6 +4917,32 @@ components:
       items:
         $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item"
       type: array
+    DaVinciFlowOutputSchemaRequest:
+      example:
+        output:
+          additionalProperties: true
+          type: object
+          properties:
+            key: ""
+      properties:
+        output:
+          $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Request_Output"
+      required:
+      - output
+      title: DaVinci Flow Output Schema Request
+    DaVinciFlowOutputSchemaResponse:
+      example:
+        output:
+          additionalProperties: true
+          type: object
+          properties:
+            key: ""
+      properties:
+        output:
+          $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Response_Output"
+      required:
+      - output
+      title: DaVinci Flow Output Schema Response
     DaVinciFlowPolicyCollection:
       example:
         _links:
@@ -5465,7 +5495,11 @@ components:
           - sensitiveInfoFields
         color: color
         outputSchema:
-          output: "{}"
+          output:
+            additionalProperties: true
+            type: object
+            properties:
+              key: ""
         inputSchema:
         - isExpanded: true
           preferredControlType: button
@@ -5605,7 +5639,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Request_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Replace_Request_Output_Schema"
+          $ref: "#/components/schemas/DaVinciFlowOutputSchemaRequest"
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsRequest"
         trigger:
@@ -6072,7 +6106,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Output_Schema"
+          $ref: "#/components/schemas/DaVinciFlowOutputSchemaResponse"
         publishedVersion:
           title: DaVinci Flow Response Published Version
           type: number
@@ -7051,7 +7085,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema"
+          $ref: "#/components/schemas/DaVinciFlowOutputSchemaResponse"
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         skcomponents:
@@ -7201,7 +7235,7 @@ components:
             $ref: "#/components/schemas/DaVinci_Flow_Input_Schema_Response_Item"
           type: array
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Import_Flow_Response_Output_Schema"
+          $ref: "#/components/schemas/DaVinciImportFlowResponse_outputSchema"
         settings:
           $ref: "#/components/schemas/DaVinciFlowSettingsResponse"
         trigger:
@@ -9033,7 +9067,6 @@ components:
         license:
           $ref: "#/components/schemas/EnvironmentLicense"
         status:
-          $ref: "#/components/schemas/EnvironmentStatusValue"
           $ref: "#/components/schemas/EnvironmentStatusValue"
       required:
       - name
@@ -11053,36 +11086,6 @@ components:
       required:
       - id
       title: DaVinci Export Flow Version Response Connector
-    DaVinci_Export_Flow_Version_Response_Output_Schema_Output_Type:
-      enum:
-      - object
-      minLength: 1
-      title: DaVinci Export Flow Version Response Output Schema Output Type
-      type: string
-    DaVinci_Export_Flow_Version_Response_Output_Schema_Output:
-      properties:
-        properties:
-          additionalProperties: true
-          properties: {}
-          title: DaVinci Export Flow Version Response Output Schema Output
-          type: object
-        type:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema_Output_Type"
-        additionalProperties:
-          title: DaVinci Export Flow Version Response Output Schema Output Additional
-            Properties
-          type: boolean
-      required:
-      - properties
-      - type
-      title: DaVinci Export Flow Version Response Output Schema Output
-    DaVinci_Export_Flow_Version_Response_Output_Schema:
-      properties:
-        output:
-          $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response_Output_Schema_Output"
-      required:
-      - output
-      title: DaVinci Export Flow Version Response Output Schema
     DaVinci_Flow_Collection__embedded:
       example:
         flows:
@@ -11933,14 +11936,6 @@ components:
       - environment
       - self
       title: DaVinci Flow Collection _links
-    DaVinci_Flow_Create_Request_Output_Schema:
-      example:
-        output: "{}"
-      properties:
-        output:
-          title: DaVinci Flow Create Request Output Schema Output
-          type: object
-      title: DaVinci Flow Create Request Output Schema
     DaVinci_Flow_Enabled_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -13757,6 +13752,60 @@ components:
       - preferredDataType
       - propertyName
       title: DaVinci Flow Input Schema Response Item
+    DaVinci_Flow_Output_Schema_Request_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Flow Output Schema Request Output Type
+      type: string
+    DaVinci_Flow_Output_Schema_Request_Output:
+      example:
+        additionalProperties: true
+        type: object
+        properties:
+          key: ""
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Flow Output Schema Request Output
+          type: object
+        type:
+          $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Request_Output_Type"
+        additionalProperties:
+          title: DaVinci Flow Output Schema Request Output Additional Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Flow Output Schema Request Output
+    DaVinci_Flow_Output_Schema_Response_Output_Type:
+      enum:
+      - object
+      minLength: 1
+      title: DaVinci Flow Output Schema Response Output Type
+      type: string
+    DaVinci_Flow_Output_Schema_Response_Output:
+      example:
+        additionalProperties: true
+        type: object
+        properties:
+          key: ""
+      properties:
+        properties:
+          additionalProperties: true
+          properties: {}
+          title: DaVinci Flow Output Schema Response Output
+          type: object
+        type:
+          $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Response_Output_Type"
+        additionalProperties:
+          title: DaVinci Flow Output Schema Response Output Additional Properties
+          type: boolean
+      required:
+      - properties
+      - type
+      title: DaVinci Flow Output Schema Response Output
     DaVinci_Flow_Policy_Collection__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -14539,14 +14588,6 @@ components:
       - AUTHENTICATION
       title: DaVinci Flow Policy Trigger Type
       type: string
-    DaVinci_Flow_Replace_Request_Output_Schema:
-      example:
-        output: "{}"
-      properties:
-        output:
-          title: DaVinci Flow Replace Request Output Schema Output
-          type: object
-      title: DaVinci Flow Replace Request Output Schema
     DaVinci_Flow_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -14634,46 +14675,6 @@ components:
       - self
       - version
       title: DaVinci Flow Response _links
-    DaVinci_Flow_Response_Output_Schema_Output_Type:
-      enum:
-      - object
-      minLength: 1
-      title: DaVinci Flow Response Output Schema Output Type
-      type: string
-    DaVinci_Flow_Response_Output_Schema_Output:
-      example:
-        additionalProperties: true
-        type: object
-        properties:
-          key: ""
-      properties:
-        properties:
-          additionalProperties: true
-          properties: {}
-          title: DaVinci Flow Response Output Schema Output
-          type: object
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Output_Schema_Output_Type"
-        additionalProperties:
-          title: DaVinci Flow Response Output Schema Output Additional Properties
-          type: boolean
-      required:
-      - properties
-      - type
-      title: DaVinci Flow Response Output Schema Output
-    DaVinci_Flow_Response_Output_Schema:
-      example:
-        output:
-          additionalProperties: true
-          type: object
-          properties:
-            key: ""
-      properties:
-        output:
-          $ref: "#/components/schemas/DaVinci_Flow_Response_Output_Schema_Output"
-      required:
-      - output
-      title: DaVinci Flow Response Output Schema
     DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS:
       oneOf:
       - title: DaVinci Flow Settings Request Intermediate Loading Screen CSS Choice
@@ -15169,47 +15170,6 @@ components:
       - id
       - name
       title: DaVinci Flow Version Detail Response Flow
-    DaVinci_Flow_Version_Detail_Response_Output_Schema_Output_Type:
-      enum:
-      - object
-      minLength: 1
-      title: DaVinci Flow Version Detail Response Output Schema Output Type
-      type: string
-    DaVinci_Flow_Version_Detail_Response_Output_Schema_Output:
-      example:
-        additionalProperties: true
-        type: object
-        properties:
-          key: ""
-      properties:
-        properties:
-          additionalProperties: true
-          properties: {}
-          title: DaVinci Flow Version Detail Response Output Schema Output
-          type: object
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema_Output_Type"
-        additionalProperties:
-          title: DaVinci Flow Version Detail Response Output Schema Output Additional
-            Properties
-          type: boolean
-      required:
-      - properties
-      - type
-      title: DaVinci Flow Version Detail Response Output Schema Output
-    DaVinci_Flow_Version_Detail_Response_Output_Schema:
-      example:
-        output:
-          additionalProperties: true
-          type: object
-          properties:
-            key: ""
-      properties:
-        output:
-          $ref: "#/components/schemas/DaVinci_Flow_Version_Detail_Response_Output_Schema_Output"
-      required:
-      - output
-      title: DaVinci Flow Version Detail Response Output Schema
     DaVinci_Flow_Version_Detail_Response_Skcomponent_Options_Button_Image_Placement:
       enum:
       - left
@@ -15633,15 +15593,8 @@ components:
       - id
       - name
       title: DaVinci Import Flow Response Flow
-    DaVinci_Import_Flow_Response_Output_Schema:
-      properties:
-        output:
-          additionalProperties: true
-          title: DaVinci Import Flow Response Output Schema Output
-          type: object
-      required:
-      - output
-      title: DaVinci Import Flow Response Output Schema
+    DaVinciImportFlowResponse_outputSchema:
+      $ref: "#/components/schemas/DaVinciFlowOutputSchemaResponse"
     DaVinci_Variable_Collection_Response__embedded:
       example:
         variables:
