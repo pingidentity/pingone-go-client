@@ -18,14 +18,14 @@ import (
 
 // DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML - struct for DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML
 type DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML struct {
-	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	Object *map[string]interface{}
+	String *string
 }
 
 // map[string]interface{}AsDaVinciFlowSettingsResponseIntermediateLoadingScreenHTML is a convenience function that returns map[string]interface{} wrapped in DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML
-func MapmapOfStringAnyAsDaVinciFlowSettingsResponseIntermediateLoadingScreenHTML(v *map[string]interface{}) DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML {
+func ObjectAsDaVinciFlowSettingsResponseIntermediateLoadingScreenHTML(v *map[string]interface{}) DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML {
 	return DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML{
-		MapmapOfStringAny: v,
+		Object: v,
 	}
 }
 
@@ -40,17 +40,17 @@ func StringAsDaVinciFlowSettingsResponseIntermediateLoadingScreenHTML(v *string)
 func (dst *DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
-	// try to unmarshal data into MapmapOfStringAny
-	err = json.Unmarshal(data, &dst.MapmapOfStringAny)
+	// try to unmarshal data into Object
+	err = json.Unmarshal(data, &dst.Object)
 	if err == nil {
-		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
-		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
-			dst.MapmapOfStringAny = nil
+		jsonObject, _ := json.Marshal(dst.Object)
+		if string(jsonObject) == "{}" { // empty struct
+			dst.Object = nil
 		} else {
 			match++
 		}
 	} else {
-		dst.MapmapOfStringAny = nil
+		dst.Object = nil
 	}
 
 	// try to unmarshal data into String
@@ -68,7 +68,7 @@ func (dst *DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) UnmarshalJS
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.MapmapOfStringAny = nil
+		dst.Object = nil
 		dst.String = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML)")
@@ -81,8 +81,8 @@ func (dst *DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) UnmarshalJS
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) MarshalJSON() ([]byte, error) {
-	if src.MapmapOfStringAny != nil {
-		return json.Marshal(&src.MapmapOfStringAny)
+	if src.Object != nil {
+		return json.Marshal(&src.Object)
 	}
 
 	if src.String != nil {
@@ -97,8 +97,8 @@ func (obj *DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) GetActualIn
 	if obj == nil {
 		return nil
 	}
-	if obj.MapmapOfStringAny != nil {
-		return obj.MapmapOfStringAny
+	if obj.Object != nil {
+		return obj.Object
 	}
 
 	if obj.String != nil {
@@ -111,8 +111,8 @@ func (obj *DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) GetActualIn
 
 // Get the actual instance value
 func (obj DaVinciFlowSettingsResponseIntermediateLoadingScreenHTML) GetActualInstanceValue() interface{} {
-	if obj.MapmapOfStringAny != nil {
-		return *obj.MapmapOfStringAny
+	if obj.Object != nil {
+		return *obj.Object
 	}
 
 	if obj.String != nil {

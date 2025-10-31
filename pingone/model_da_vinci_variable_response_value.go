@@ -18,10 +18,10 @@ import (
 
 // DaVinciVariableResponseValue - struct for DaVinciVariableResponseValue
 type DaVinciVariableResponseValue struct {
-	Bool              *bool
-	Float32           *float32
-	MapmapOfStringAny *map[string]interface{}
-	String            *string
+	Bool    *bool
+	Float32 *float32
+	Object  *map[string]interface{}
+	String  *string
 }
 
 // boolAsDaVinciVariableResponseValue is a convenience function that returns bool wrapped in DaVinciVariableResponseValue
@@ -39,9 +39,9 @@ func Float32AsDaVinciVariableResponseValue(v *float32) DaVinciVariableResponseVa
 }
 
 // map[string]interface{}AsDaVinciVariableResponseValue is a convenience function that returns map[string]interface{} wrapped in DaVinciVariableResponseValue
-func MapmapOfStringAnyAsDaVinciVariableResponseValue(v *map[string]interface{}) DaVinciVariableResponseValue {
+func ObjectAsDaVinciVariableResponseValue(v *map[string]interface{}) DaVinciVariableResponseValue {
 	return DaVinciVariableResponseValue{
-		MapmapOfStringAny: v,
+		Object: v,
 	}
 }
 
@@ -82,17 +82,17 @@ func (dst *DaVinciVariableResponseValue) UnmarshalJSON(data []byte) error {
 		dst.Float32 = nil
 	}
 
-	// try to unmarshal data into MapmapOfStringAny
-	err = json.Unmarshal(data, &dst.MapmapOfStringAny)
+	// try to unmarshal data into Object
+	err = json.Unmarshal(data, &dst.Object)
 	if err == nil {
-		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
-		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
-			dst.MapmapOfStringAny = nil
+		jsonObject, _ := json.Marshal(dst.Object)
+		if string(jsonObject) == "{}" { // empty struct
+			dst.Object = nil
 		} else {
 			match++
 		}
 	} else {
-		dst.MapmapOfStringAny = nil
+		dst.Object = nil
 	}
 
 	// try to unmarshal data into String
@@ -112,7 +112,7 @@ func (dst *DaVinciVariableResponseValue) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.Bool = nil
 		dst.Float32 = nil
-		dst.MapmapOfStringAny = nil
+		dst.Object = nil
 		dst.String = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(DaVinciVariableResponseValue)")
@@ -133,8 +133,8 @@ func (src DaVinciVariableResponseValue) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.Float32)
 	}
 
-	if src.MapmapOfStringAny != nil {
-		return json.Marshal(&src.MapmapOfStringAny)
+	if src.Object != nil {
+		return json.Marshal(&src.Object)
 	}
 
 	if src.String != nil {
@@ -157,8 +157,8 @@ func (obj *DaVinciVariableResponseValue) GetActualInstance() interface{} {
 		return obj.Float32
 	}
 
-	if obj.MapmapOfStringAny != nil {
-		return obj.MapmapOfStringAny
+	if obj.Object != nil {
+		return obj.Object
 	}
 
 	if obj.String != nil {
@@ -179,8 +179,8 @@ func (obj DaVinciVariableResponseValue) GetActualInstanceValue() interface{} {
 		return *obj.Float32
 	}
 
-	if obj.MapmapOfStringAny != nil {
-		return *obj.MapmapOfStringAny
+	if obj.Object != nil {
+		return *obj.Object
 	}
 
 	if obj.String != nil {
