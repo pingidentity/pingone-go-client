@@ -24,20 +24,20 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeDataProperties{}
 
 // DaVinciFlowGraphDataRequestElementsNodeDataProperties struct for DaVinciFlowGraphDataRequestElementsNodeDataProperties
 type DaVinciFlowGraphDataRequestElementsNodeDataProperties struct {
-	BackgroundColor      *DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor    `json:"backgroundColor,omitempty"`
-	Code                 *DaVinciFlowGraphDataRequestElementsNodeDataCode               `json:"code,omitempty"`
-	CustomCSS            *DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS          `json:"customCSS,omitempty"`
-	CustomHTML           *DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML         `json:"customHTML,omitempty"`
-	CustomScript         *DaVinciFlowGraphDataRequestElementsNodeDataCustomScript       `json:"customScript,omitempty"`
-	FormFieldsList       *DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList     `json:"formFieldsList,omitempty"`
-	InputSchema          *DaVinciFlowGraphDataRequestElementsNodeDataInputSchema        `json:"inputSchema,omitempty"`
-	Message              *DaVinciFlowGraphDataRequestElementsNodeDataMessage            `json:"message,omitempty"`
-	NodeTitle            *DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle          `json:"nodeTitle,omitempty"`
-	OutputSchema         *DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema       `json:"outputSchema,omitempty"`
-	SaveVariables        *DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables      `json:"saveVariables,omitempty"`
-	ShowContinueButton   *DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton `json:"showContinueButton,omitempty"`
-	Type                 *DaVinciFlowGraphDataRequestElementsNodeDataType               `json:"type,omitempty"`
-	VariableInputList    *DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList  `json:"variableInputList,omitempty"`
+	BackgroundColor      *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor    `json:"backgroundColor,omitempty"`
+	Code                 *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode               `json:"code,omitempty"`
+	CustomCSS            *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS          `json:"customCSS,omitempty"`
+	CustomHTML           *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML         `json:"customHTML,omitempty"`
+	CustomScript         *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript       `json:"customScript,omitempty"`
+	FormFieldsList       *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList     `json:"formFieldsList,omitempty"`
+	InputSchema          *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema        `json:"inputSchema,omitempty"`
+	Message              *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage            `json:"message,omitempty"`
+	NodeTitle            *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle          `json:"nodeTitle,omitempty"`
+	OutputSchema         *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema       `json:"outputSchema,omitempty"`
+	SaveVariables        *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables      `json:"saveVariables,omitempty"`
+	ShowContinueButton   *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton `json:"showContinueButton,omitempty"`
+	Type                 *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType               `json:"type,omitempty"`
+	VariableInputList    *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList  `json:"variableInputList,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,9 +61,9 @@ func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesWithDefaults() *DaV
 }
 
 // GetBackgroundColor returns the BackgroundColor field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetBackgroundColor() DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetBackgroundColor() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor {
 	if o == nil || IsNil(o.BackgroundColor) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor
 		return ret
 	}
 	return *o.BackgroundColor
@@ -71,7 +71,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetBackgroundCol
 
 // GetBackgroundColorOk returns a tuple with the BackgroundColor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetBackgroundColorOk() (*DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetBackgroundColorOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor, bool) {
 	if o == nil || IsNil(o.BackgroundColor) {
 		return nil, false
 	}
@@ -87,15 +87,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasBackgroundCol
 	return false
 }
 
-// SetBackgroundColor gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor and assigns it to the BackgroundColor field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetBackgroundColor(v DaVinciFlowGraphDataRequestElementsNodeDataBackgroundColor) {
+// SetBackgroundColor gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor and assigns it to the BackgroundColor field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetBackgroundColor(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) {
 	o.BackgroundColor = &v
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCode() DaVinciFlowGraphDataRequestElementsNodeDataCode {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCode() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode {
 	if o == nil || IsNil(o.Code) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataCode
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode
 		return ret
 	}
 	return *o.Code
@@ -103,7 +103,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCode() DaVinc
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCodeOk() (*DaVinciFlowGraphDataRequestElementsNodeDataCode, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCodeOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode, bool) {
 	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
@@ -119,15 +119,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataCode and assigns it to the Code field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCode(v DaVinciFlowGraphDataRequestElementsNodeDataCode) {
+// SetCode gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode and assigns it to the Code field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCode(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCode) {
 	o.Code = &v
 }
 
 // GetCustomCSS returns the CustomCSS field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomCSS() DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomCSS() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS {
 	if o == nil || IsNil(o.CustomCSS) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS
 		return ret
 	}
 	return *o.CustomCSS
@@ -135,7 +135,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomCSS() D
 
 // GetCustomCSSOk returns a tuple with the CustomCSS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomCSSOk() (*DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomCSSOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS, bool) {
 	if o == nil || IsNil(o.CustomCSS) {
 		return nil, false
 	}
@@ -151,15 +151,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasCustomCSS() b
 	return false
 }
 
-// SetCustomCSS gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS and assigns it to the CustomCSS field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomCSS(v DaVinciFlowGraphDataRequestElementsNodeDataCustomCSS) {
+// SetCustomCSS gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS and assigns it to the CustomCSS field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomCSS(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomCSS) {
 	o.CustomCSS = &v
 }
 
 // GetCustomHTML returns the CustomHTML field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomHTML() DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomHTML() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML {
 	if o == nil || IsNil(o.CustomHTML) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML
 		return ret
 	}
 	return *o.CustomHTML
@@ -167,7 +167,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomHTML() 
 
 // GetCustomHTMLOk returns a tuple with the CustomHTML field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomHTMLOk() (*DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomHTMLOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML, bool) {
 	if o == nil || IsNil(o.CustomHTML) {
 		return nil, false
 	}
@@ -183,15 +183,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasCustomHTML() 
 	return false
 }
 
-// SetCustomHTML gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML and assigns it to the CustomHTML field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomHTML(v DaVinciFlowGraphDataRequestElementsNodeDataCustomHTML) {
+// SetCustomHTML gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML and assigns it to the CustomHTML field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomHTML(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomHTML) {
 	o.CustomHTML = &v
 }
 
 // GetCustomScript returns the CustomScript field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomScript() DaVinciFlowGraphDataRequestElementsNodeDataCustomScript {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomScript() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript {
 	if o == nil || IsNil(o.CustomScript) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataCustomScript
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript
 		return ret
 	}
 	return *o.CustomScript
@@ -199,7 +199,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomScript(
 
 // GetCustomScriptOk returns a tuple with the CustomScript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomScriptOk() (*DaVinciFlowGraphDataRequestElementsNodeDataCustomScript, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetCustomScriptOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript, bool) {
 	if o == nil || IsNil(o.CustomScript) {
 		return nil, false
 	}
@@ -215,15 +215,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasCustomScript(
 	return false
 }
 
-// SetCustomScript gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataCustomScript and assigns it to the CustomScript field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomScript(v DaVinciFlowGraphDataRequestElementsNodeDataCustomScript) {
+// SetCustomScript gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript and assigns it to the CustomScript field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetCustomScript(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) {
 	o.CustomScript = &v
 }
 
 // GetFormFieldsList returns the FormFieldsList field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetFormFieldsList() DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetFormFieldsList() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList {
 	if o == nil || IsNil(o.FormFieldsList) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList
 		return ret
 	}
 	return *o.FormFieldsList
@@ -231,7 +231,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetFormFieldsLis
 
 // GetFormFieldsListOk returns a tuple with the FormFieldsList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetFormFieldsListOk() (*DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetFormFieldsListOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList, bool) {
 	if o == nil || IsNil(o.FormFieldsList) {
 		return nil, false
 	}
@@ -247,15 +247,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasFormFieldsLis
 	return false
 }
 
-// SetFormFieldsList gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList and assigns it to the FormFieldsList field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetFormFieldsList(v DaVinciFlowGraphDataRequestElementsNodeDataFormFieldsList) {
+// SetFormFieldsList gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList and assigns it to the FormFieldsList field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetFormFieldsList(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesFormFieldsList) {
 	o.FormFieldsList = &v
 }
 
 // GetInputSchema returns the InputSchema field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetInputSchema() DaVinciFlowGraphDataRequestElementsNodeDataInputSchema {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetInputSchema() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema {
 	if o == nil || IsNil(o.InputSchema) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataInputSchema
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema
 		return ret
 	}
 	return *o.InputSchema
@@ -263,7 +263,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetInputSchema()
 
 // GetInputSchemaOk returns a tuple with the InputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetInputSchemaOk() (*DaVinciFlowGraphDataRequestElementsNodeDataInputSchema, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetInputSchemaOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema, bool) {
 	if o == nil || IsNil(o.InputSchema) {
 		return nil, false
 	}
@@ -279,15 +279,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasInputSchema()
 	return false
 }
 
-// SetInputSchema gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataInputSchema and assigns it to the InputSchema field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetInputSchema(v DaVinciFlowGraphDataRequestElementsNodeDataInputSchema) {
+// SetInputSchema gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema and assigns it to the InputSchema field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetInputSchema(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesInputSchema) {
 	o.InputSchema = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetMessage() DaVinciFlowGraphDataRequestElementsNodeDataMessage {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetMessage() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage {
 	if o == nil || IsNil(o.Message) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataMessage
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage
 		return ret
 	}
 	return *o.Message
@@ -295,7 +295,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetMessage() DaV
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetMessageOk() (*DaVinciFlowGraphDataRequestElementsNodeDataMessage, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetMessageOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage, bool) {
 	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
@@ -311,15 +311,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasMessage() boo
 	return false
 }
 
-// SetMessage gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataMessage and assigns it to the Message field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetMessage(v DaVinciFlowGraphDataRequestElementsNodeDataMessage) {
+// SetMessage gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage and assigns it to the Message field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetMessage(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesMessage) {
 	o.Message = &v
 }
 
 // GetNodeTitle returns the NodeTitle field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetNodeTitle() DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetNodeTitle() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle {
 	if o == nil || IsNil(o.NodeTitle) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle
 		return ret
 	}
 	return *o.NodeTitle
@@ -327,7 +327,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetNodeTitle() D
 
 // GetNodeTitleOk returns a tuple with the NodeTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetNodeTitleOk() (*DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetNodeTitleOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle, bool) {
 	if o == nil || IsNil(o.NodeTitle) {
 		return nil, false
 	}
@@ -343,15 +343,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasNodeTitle() b
 	return false
 }
 
-// SetNodeTitle gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle and assigns it to the NodeTitle field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetNodeTitle(v DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle) {
+// SetNodeTitle gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle and assigns it to the NodeTitle field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetNodeTitle(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesNodeTitle) {
 	o.NodeTitle = &v
 }
 
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetOutputSchema() DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetOutputSchema() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema {
 	if o == nil || IsNil(o.OutputSchema) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema
 		return ret
 	}
 	return *o.OutputSchema
@@ -359,7 +359,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetOutputSchema(
 
 // GetOutputSchemaOk returns a tuple with the OutputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetOutputSchemaOk() (*DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetOutputSchemaOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema, bool) {
 	if o == nil || IsNil(o.OutputSchema) {
 		return nil, false
 	}
@@ -375,15 +375,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasOutputSchema(
 	return false
 }
 
-// SetOutputSchema gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema and assigns it to the OutputSchema field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetOutputSchema(v DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema) {
+// SetOutputSchema gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema and assigns it to the OutputSchema field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetOutputSchema(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesOutputSchema) {
 	o.OutputSchema = &v
 }
 
 // GetSaveVariables returns the SaveVariables field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetSaveVariables() DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetSaveVariables() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables {
 	if o == nil || IsNil(o.SaveVariables) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables
 		return ret
 	}
 	return *o.SaveVariables
@@ -391,7 +391,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetSaveVariables
 
 // GetSaveVariablesOk returns a tuple with the SaveVariables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetSaveVariablesOk() (*DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetSaveVariablesOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables, bool) {
 	if o == nil || IsNil(o.SaveVariables) {
 		return nil, false
 	}
@@ -407,15 +407,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasSaveVariables
 	return false
 }
 
-// SetSaveVariables gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables and assigns it to the SaveVariables field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetSaveVariables(v DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables) {
+// SetSaveVariables gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables and assigns it to the SaveVariables field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetSaveVariables(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesSaveVariables) {
 	o.SaveVariables = &v
 }
 
 // GetShowContinueButton returns the ShowContinueButton field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetShowContinueButton() DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetShowContinueButton() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton {
 	if o == nil || IsNil(o.ShowContinueButton) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton
 		return ret
 	}
 	return *o.ShowContinueButton
@@ -423,7 +423,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetShowContinueB
 
 // GetShowContinueButtonOk returns a tuple with the ShowContinueButton field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetShowContinueButtonOk() (*DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetShowContinueButtonOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton, bool) {
 	if o == nil || IsNil(o.ShowContinueButton) {
 		return nil, false
 	}
@@ -439,15 +439,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasShowContinueB
 	return false
 }
 
-// SetShowContinueButton gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton and assigns it to the ShowContinueButton field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetShowContinueButton(v DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton) {
+// SetShowContinueButton gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton and assigns it to the ShowContinueButton field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetShowContinueButton(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesShowContinueButton) {
 	o.ShowContinueButton = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetType() DaVinciFlowGraphDataRequestElementsNodeDataType {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetType() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType {
 	if o == nil || IsNil(o.Type) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataType
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType
 		return ret
 	}
 	return *o.Type
@@ -455,7 +455,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetType() DaVinc
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetTypeOk() (*DaVinciFlowGraphDataRequestElementsNodeDataType, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetTypeOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -471,15 +471,15 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataType and assigns it to the Type field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetType(v DaVinciFlowGraphDataRequestElementsNodeDataType) {
+// SetType gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType and assigns it to the Type field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetType(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesType) {
 	o.Type = &v
 }
 
 // GetVariableInputList returns the VariableInputList field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetVariableInputList() DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetVariableInputList() DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList {
 	if o == nil || IsNil(o.VariableInputList) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList
 		return ret
 	}
 	return *o.VariableInputList
@@ -487,7 +487,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetVariableInput
 
 // GetVariableInputListOk returns a tuple with the VariableInputList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetVariableInputListOk() (*DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) GetVariableInputListOk() (*DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList, bool) {
 	if o == nil || IsNil(o.VariableInputList) {
 		return nil, false
 	}
@@ -503,8 +503,8 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) HasVariableInput
 	return false
 }
 
-// SetVariableInputList gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList and assigns it to the VariableInputList field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetVariableInputList(v DaVinciFlowGraphDataRequestElementsNodeDataVariableInputList) {
+// SetVariableInputList gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList and assigns it to the VariableInputList field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataProperties) SetVariableInputList(v DaVinciFlowGraphDataRequestElementsNodeDataPropertiesVariableInputList) {
 	o.VariableInputList = &v
 }
 

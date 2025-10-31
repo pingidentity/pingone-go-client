@@ -2943,7 +2943,7 @@ components:
         properties:
           additionalProperties: true
           properties: {}
-          title: DaVinci Connector Details Response
+          title: DaVinci Connector Details Response Properties
           type: object
         sections:
           items:
@@ -3106,7 +3106,7 @@ components:
         connector:
           $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         properties:
-          title: DaVinci Connector Instance Create Request
+          title: DaVinci Connector Instance Create Request Properties
           type: object
       required:
       - connector
@@ -3129,7 +3129,7 @@ components:
         connector:
           $ref: "#/components/schemas/ResourceRelationshipDaVinci"
         properties:
-          title: DaVinci Connector Instance Replace Request
+          title: DaVinci Connector Instance Replace Request Properties
           type: object
       required:
       - connector
@@ -3214,7 +3214,7 @@ components:
         properties:
           additionalProperties: true
           properties: {}
-          title: DaVinci Connector Instance Response
+          title: DaVinci Connector Instance Response Properties
           type: object
         updatedAt:
           format: date-time
@@ -12411,59 +12411,66 @@ components:
       required:
       - data
       title: DaVinci Flow Graph Data Request Elements Edge
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Background_Color:
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Background_Color:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Background Color
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Background
+            Color Value
+      required:
+      - value
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Background
+        Color
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Code:
+      example:
+        value: value
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Code
             Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Background Color
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Code:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Code
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_CSS:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Code Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+            CSS Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Code
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_CSS:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+        CSS
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_HTML:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Custom CSS Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+            HTML Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Custom CSS
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_HTML:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+        HTML
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_Script:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Custom HTML Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+            Script Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Custom HTML
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_Script:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Custom Script
-            Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Custom Script
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Form_Fields_List_Value_Item:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
+        Script
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List_Value_Item:
       example:
         preferredControlType: preferredControlType
         propertyName: propertyName
@@ -12474,24 +12481,24 @@ components:
       properties:
         preferredDataType:
           items: {}
-          title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
-            Value Item Preferred Data Type
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
+            Fields List Value Item Preferred Data Type
         propertyName:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
-            Value Item Property Name
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
+            Fields List Value Item Property Name
         preferredControlType:
-          title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
-            Value Item Preferred Control Type
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
+            Fields List Value Item Preferred Control Type
         value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
-            Value Item Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
+            Fields List Value Item Value
       required:
       - preferredDataType
       - propertyName
-      title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List Value
-        Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Form_Fields_List:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Form Fields
+        List Value Item
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List:
       example:
         value:
         - preferredControlType: preferredControlType
@@ -12509,54 +12516,59 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Form_Fields_List_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List_Value_Item"
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
+            Fields List Value
+      required:
+      - value
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Form Fields
+        List
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Input_Schema:
+      example:
+        value: value
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Input
+            Schema Value
+      required:
+      - value
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Input Schema
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Message:
+      example:
+        value: value
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Message
             Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Form Fields List
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Input_Schema:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Message
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Node_Title:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Input Schema Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Node
+            Title Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Input Schema
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Message:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Node Title
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Output_Schema:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Message Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Output
+            Schema Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Message
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Node_Title:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Node Title Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Node Title
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Output_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Output Schema
-            Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Output Schema
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Save_Variables_Value_Item:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Output
+        Schema
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables_Value_Item:
       additionalProperties: true
       example:
         name: name
@@ -12568,28 +12580,28 @@ components:
       properties:
         name:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Name
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Name
         key:
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Key
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Key
         label:
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Label
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Label
         nameDefault:
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Name Default
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Name Default
         type:
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Type
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Type
         value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value Item Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value Item Value
       required:
       - name
-      title: DaVinci Flow Graph Data Request Elements Node Data Save Variables Value
-        Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Save_Variables:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Save Variables
+        Value Item
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables:
       example:
         value:
         - name: name
@@ -12607,33 +12619,35 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Save_Variables_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-            Value
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables_Value_Item"
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
+            Variables Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Save Variables
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Show_Continue_Button:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Save Variables
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Show_Continue_Button:
       example:
         value: true
       properties:
         value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Show Continue
-            Button Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Show
+            Continue Button Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Show Continue Button
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Type:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Show Continue
+        Button
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Type:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Type Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Type
+            Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Type
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Variable_Input_List_Value_Item:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Type
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List_Value_Item:
       example:
         preferredControlType: preferredControlType
         name: name
@@ -12644,24 +12658,24 @@ components:
       properties:
         name:
           minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Variable Input
-            List Value Item Name
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+            Input List Value Item Name
         preferredDataType:
           items: {}
-          title: DaVinci Flow Graph Data Request Elements Node Data Variable Input
-            List Value Item Preferred Data Type
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+            Input List Value Item Preferred Data Type
         preferredControlType:
-          title: DaVinci Flow Graph Data Request Elements Node Data Variable Input
-            List Value Item Preferred Control Type
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+            Input List Value Item Preferred Control Type
         value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Variable Input
-            List Value Item Value
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+            Input List Value Item Value
       required:
       - name
       - preferredDataType
-      title: DaVinci Flow Graph Data Request Elements Node Data Variable Input List
-        Value Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Variable_Input_List:
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+        Input List Value Item
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List:
       example:
         value:
         - preferredControlType: preferredControlType
@@ -12679,12 +12693,13 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Variable_Input_List_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Variable Input
-            List Value
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List_Value_Item"
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+            Input List Value
       required:
       - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Variable Input List
+      title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
+        Input List
     DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties:
       additionalProperties: true
       example:
@@ -12754,33 +12769,33 @@ components:
           value: value
       properties:
         backgroundColor:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Background_Color"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Background_Color"
         code:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Code"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Code"
         customCSS:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_CSS"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_CSS"
         customHTML:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_HTML"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_HTML"
         customScript:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Custom_Script"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_Script"
         formFieldsList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Form_Fields_List"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List"
         inputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Input_Schema"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Input_Schema"
         message:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Message"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Message"
         nodeTitle:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Node_Title"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Node_Title"
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Output_Schema"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Output_Schema"
         saveVariables:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Save_Variables"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables"
         showContinueButton:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Show_Continue_Button"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Show_Continue_Button"
         type:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Type"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Type"
         variableInputList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Variable_Input_List"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List"
       title: DaVinci Flow Graph Data Request Elements Node Data Properties
     DaVinci_Flow_Graph_Data_Request_Elements_Node_Data:
       additionalProperties: true
@@ -13287,64 +13302,71 @@ components:
       - recommendation
       - type
       title: DaVinci Flow Graph Data Response Elements Node Data Linter Error Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Background_Color:
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Background_Color:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Background Color
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Background
+            Color Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Background
+        Color
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Code:
+      example:
+        value: value
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Code
             Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Background Color
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Code:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Code
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_CSS:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Code Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+            CSS Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Code
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_CSS:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+        CSS
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_HTML:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+            HTML Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom CSS
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_HTML:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+        HTML
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_Script:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+            Script Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom HTML
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_Script:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Custom Script
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item_Preferred_Data_Type:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
+        Script
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item_Preferred_Data_Type:
       anyOf:
       - type: boolean
       - format: int32
@@ -13367,9 +13389,9 @@ components:
       - type: number
       - type: string
       items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-        Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
+        List Value Item Preferred Data Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item:
       example:
         preferredControlType: preferredControlType
         propertyName: propertyName
@@ -13401,27 +13423,27 @@ components:
           - type: number
           - type: string
           items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Preferred Data Type
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
+            Fields List Value Item Preferred Data Type
         propertyName:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Property Name
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
+            Fields List Value Item Property Name
           type: string
         preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Preferred Control Type
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
+            Fields List Value Item Preferred Control Type
           type: string
         value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-            Value Item Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
+            Fields List Value Item Value
           type: string
       required:
       - preferredDataType
       - propertyName
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-        Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
+        List Value Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List:
       example:
         value:
         - preferredControlType: preferredControlType
@@ -13439,58 +13461,63 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List_Value_Item"
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item"
           type: array
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Form Fields List
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Input_Schema:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
+        List
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Input_Schema:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Input
+            Schema Value
+          type: string
+      required:
+      - value
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Input
+        Schema
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Message:
+      example:
+        value: value
+      properties:
+        value:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Message
             Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Input Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Message:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Message
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Node_Title:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Message Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Node
+            Title Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Message
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Node_Title:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Node Title
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Output_Schema:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Node Title Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Output
+            Schema Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Node Title
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Output_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Output Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Output
+        Schema
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables_Value_Item:
       additionalProperties: true
       example:
         name: name
@@ -13502,34 +13529,34 @@ components:
       properties:
         name:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Name
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Name
           type: string
         key:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Key
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Key
           type: number
         label:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Label
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Label
           type: string
         nameDefault:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Name Default
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Name Default
           type: string
         type:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Type
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Type
           type: string
         value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-            Value Item Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
+            Variables Value Item Value
           type: string
       required:
       - name
-      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables Value
-        Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Save Variables
+        Value Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables:
       example:
         value:
         - name: name
@@ -13547,34 +13574,36 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables_Value_Item"
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables_Value_Item"
           type: array
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Save Variables
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Show_Continue_Button:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Save Variables
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Show_Continue_Button:
       example:
         value: true
       properties:
         value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Show Continue
-            Button Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Show
+            Continue Button Value
           type: boolean
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Show Continue Button
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Type:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Show Continue
+        Button
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Type:
       example:
         value: value
       properties:
         value:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Type Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Type
+            Value
           type: string
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item_Preferred_Data_Type:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item_Preferred_Data_Type:
       anyOf:
       - type: boolean
       - format: int32
@@ -13597,9 +13626,9 @@ components:
       - type: number
       - type: string
       items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
-        Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+        Input List Value Item Preferred Data Type
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item:
       example:
         preferredControlType: preferredControlType
         name: name
@@ -13610,8 +13639,8 @@ components:
       properties:
         name:
           minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Name
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+            Input List Value Item Name
           type: string
         preferredDataType:
           anyOf:
@@ -13636,22 +13665,22 @@ components:
           - type: number
           - type: string
           items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Preferred Data Type
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+            Input List Value Item Preferred Data Type
         preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Preferred Control Type
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+            Input List Value Item Preferred Control Type
           type: string
         value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Variable Input
-            List Value Item Value
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+            Input List Value Item Value
           type: string
       required:
       - name
       - preferredDataType
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
-        Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List:
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+        Input List Value Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List:
       example:
         value:
         - preferredControlType: preferredControlType
@@ -13669,11 +13698,12 @@ components:
       properties:
         value:
           items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List_Value_Item"
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item"
           type: array
       required:
       - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Variable Input List
+      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
+        Input List
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties:
       additionalProperties: true
       example:
@@ -13743,33 +13773,33 @@ components:
           value: value
       properties:
         backgroundColor:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Background_Color"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Background_Color"
         code:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Code"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Code"
         customCSS:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_CSS"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_CSS"
         customHTML:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_HTML"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_HTML"
         customScript:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Custom_Script"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_Script"
         formFieldsList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Form_Fields_List"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List"
         inputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Input_Schema"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Input_Schema"
         message:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Message"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Message"
         nodeTitle:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Node_Title"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Node_Title"
         outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Output_Schema"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Output_Schema"
         saveVariables:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Save_Variables"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables"
         showContinueButton:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Show_Continue_Button"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Show_Continue_Button"
         type:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Type"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Type"
         variableInputList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Variable_Input_List"
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List"
       title: DaVinci Flow Graph Data Response Elements Node Data Properties
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data:
       additionalProperties: true
@@ -14590,7 +14620,7 @@ components:
         properties:
           additionalProperties: true
           properties: {}
-          title: DaVinci Flow Output Schema Request Output
+          title: DaVinci Flow Output Schema Request Output Properties
           type: object
         type:
           $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Request_Output_Type"
@@ -14617,7 +14647,7 @@ components:
         properties:
           additionalProperties: true
           properties: {}
-          title: DaVinci Flow Output Schema Response Output
+          title: DaVinci Flow Output Schema Response Output Properties
           type: object
         type:
           $ref: "#/components/schemas/DaVinci_Flow_Output_Schema_Response_Output_Type"
