@@ -4,6 +4,7 @@ import (
 	"context"
 	_ "embed"
 	"fmt"
+	"html/template"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -17,15 +18,21 @@ import (
 	"golang.org/x/oauth2"
 )
 
-//go:embed html/auth_success.html
-var authSuccessHTML string
-
-//go:embed html/auth_failed.html
-var authFailedHTML string
+//go:embed html/auth_result.html
+var authResultHTML string
 
 const (
-	// DefaultAuthCodeRedirectURI is the default redirect URI for authorization code flow
-	DefaultAuthCodeRedirectURI = "http://localhost:8080/callback"
+	// DefaultAuthCodeRedirectURIPort is the default port for the authorization code redirect URI
+	DefaultAuthCodeRedirectURIPort = "8080"
+
+	// DefaultAuthCodeRedirectURIPath is the default path for the authorization code redirect URI
+	DefaultAuthCodeRedirectURIPath = "/callback"
+
+	// DefaultAuthCodeRedirectURIPrefix is the default redirect URI for the authorization code
+	DefaultAuthCodeRedirectURIPrefix = "http://localhost:"
+
+	// DefaultAuthCodeRedirectURI
+	DefaultAuthCodeRedirectURI = DefaultAuthCodeRedirectURIPrefix + DefaultAuthCodeRedirectURIPort + DefaultAuthCodeRedirectURIPath
 )
 
 func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
@@ -37,8 +44,13 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 
 	// Use localhost callback if no redirect URI specified
 	redirectURI := DefaultAuthCodeRedirectURI
-	if a.AuthCodeRedirectURI != nil && *a.AuthCodeRedirectURI != "" {
-		redirectURI = *a.AuthCodeRedirectURI
+
+	if a.AuthCodeRedirectURI.Port != "" && a.AuthCodeRedirectURI.Path != "" {
+		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, a.AuthCodeRedirectURI.Port, a.AuthCodeRedirectURI.Path)
+	} else if a.AuthCodeRedirectURI.Port != "" {
+		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, a.AuthCodeRedirectURI.Port, DefaultAuthCodeRedirectURIPath)
+	} else if a.AuthCodeRedirectURI.Path != "" {
+		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, DefaultAuthCodeRedirectURIPort, a.AuthCodeRedirectURI.Path)
 	}
 
 	var scopes []string
@@ -62,7 +74,7 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	codeChan := make(chan string, 1)
 	errChan := make(chan error, 1)
 
-	server, err := startCallbackServer(ctx, redirectURI, codeChan, errChan)
+	server, err := startCallbackServer(redirectURI, codeChan, errChan)
 	if err != nil {
 		return nil, fmt.Errorf("failed to start callback server: %w", err)
 	}
@@ -97,8 +109,41 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	return oauth2.StaticTokenSource(tok), nil
 }
 
+func returnFailedPage(w http.ResponseWriter) error {
+	failedData := struct {
+		Title string
+		Name  string
+	}{
+		Title: "Authorization Failed",
+		Name:  "Authorization Code OAuth2 Flow Failed",
+	}
+
+	tmpl, err := template.New("failed").Parse(authResultHTML)
+	if err != nil {
+		return fmt.Errorf("error parsing template: %v", err)
+	}
+	return tmpl.Execute(w, failedData)
+}
+
+func returnSuccessPage(w http.ResponseWriter) error {
+	successData := struct {
+		Title string
+		Name  string
+	}{
+		Title: "Authorization Success",
+		Name:  "Authorization Code OAuth2 Flow Success",
+	}
+
+	tmpl, err := template.New("success").Parse(authResultHTML)
+	if err != nil {
+		return fmt.Errorf("error parsing template: %v", err)
+	}
+
+	return tmpl.Execute(w, successData)
+}
+
 // startCallbackServer starts a local HTTP server to handle OAuth2 callbacks
-func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<- string, errChan chan<- error) (*http.Server, error) {
+func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error) (*http.Server, error) {
 	// Parse the redirect URI to get the port
 	parsedURI, err := url.Parse(redirectURI)
 	if err != nil {
@@ -141,8 +186,12 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			html := strings.ReplaceAll(authFailedHTML, "{{ERROR_MESSAGE}}", errDesc)
-			fmt.Fprint(w, html)
+
+			err := returnFailedPage(w)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
+			}
+
 			return
 		}
 
@@ -153,8 +202,10 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			html := strings.ReplaceAll(authFailedHTML, "{{ERROR_MESSAGE}}", "No authorization code received")
-			fmt.Fprint(w, html)
+			err := returnFailedPage(w)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
+			}
 			return
 		}
 
@@ -164,7 +215,11 @@ func startCallbackServer(ctx context.Context, redirectURI string, codeChan chan<
 		// Send success response
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, authSuccessHTML)
+
+		err := returnSuccessPage(w)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
+		}
 	})
 
 	// Start server in background
@@ -186,7 +241,7 @@ func openBrowser(url string) {
 	case "linux":
 		err = exec.Command("xdg-open", url).Start()
 	case "windows":
-		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+		err = exec.Command("cmd", "/c", "start", url).Start()
 	case "darwin":
 		err = exec.Command("open", url).Start()
 	default:

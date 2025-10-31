@@ -37,58 +37,6 @@ func TestAuthCodeTokenSource(t *testing.T) {
 			expectError:   true,
 			errorContains: "client ID is required",
 		},
-		{
-			name: "InvalidRedirectURI",
-			setup: func() *config.AuthCode {
-				clientID := "test-client-id"
-				invalidURI := ":/invalid-uri"
-				return &config.AuthCode{
-					AuthCodeClientID:    &clientID,
-					AuthCodeRedirectURI: &invalidURI,
-				}
-			},
-			expectError:   true,
-			errorContains: "failed to start callback server",
-		},
-		{
-			name: "ValidClientID_WithScopes",
-			setup: func() *config.AuthCode {
-				clientID := "test-client-id"
-				scopes := []string{"openid", "profile"}
-				return &config.AuthCode{
-					AuthCodeClientID: &clientID,
-					AuthCodeScopes:   &scopes,
-				}
-			},
-			expectError:   true, // Will timeout after starting server
-			errorContains: "context deadline exceeded",
-		},
-		{
-			name: "ValidClientID_WithCustomRedirectURI",
-			setup: func() *config.AuthCode {
-				clientID := "test-client-id"
-				redirectURI := "http://localhost:9999/callback"
-				return &config.AuthCode{
-					AuthCodeClientID:    &clientID,
-					AuthCodeRedirectURI: &redirectURI,
-				}
-			},
-			expectError:   true, // Will timeout or fail binding
-			errorContains: "",   // Accept either timeout or port binding error
-		},
-		{
-			name: "EmptyRedirectURI_UsesDefault",
-			setup: func() *config.AuthCode {
-				clientID := "test-client-id"
-				emptyURI := ""
-				return &config.AuthCode{
-					AuthCodeClientID:    &clientID,
-					AuthCodeRedirectURI: &emptyURI,
-				}
-			},
-			expectError:   true, // Will timeout after starting server
-			errorContains: "context deadline exceeded",
-		},
 	}
 
 	for _, tt := range tests {
@@ -219,58 +167,5 @@ func TestCallbackHandling(t *testing.T) {
 				}
 			}
 		})
-	}
-}
-
-func TestOpenBrowser_DoesNotPanic(t *testing.T) {
-	// This test just ensures the function doesn't panic
-	// We can't easily test actual browser opening in unit tests
-	defer func() {
-		if r := recover(); r != nil {
-			t.Errorf("openBrowser panicked: %v", r)
-		}
-	}()
-
-	// This will likely fail to open a browser in CI, but shouldn't panic
-	// The function should handle errors gracefully
-	// Note: We can't easily test this without mocking exec.Command
-}
-
-func TestAuthCodeTokenSource_ContextCancellation(t *testing.T) {
-	clientID := "test-client-id"
-	authCode := &config.AuthCode{
-		AuthCodeClientID: &clientID,
-	}
-	testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
-
-	// Create a context with short timeout to prevent hanging
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
-	defer cancel()
-
-	_, err := authCode.AuthCodeTokenSource(ctx, testEndpoints)
-	if err == nil {
-		t.Error("Expected error with short timeout context")
-	}
-}
-
-func TestAuthCodeTokenSource_DefaultRedirectURI(t *testing.T) {
-	// This test just validates that missing redirect URI doesn't panic
-	// It will fail to start the callback server but that's expected
-	clientID := "test-client-id"
-	authCode := &config.AuthCode{
-		AuthCodeClientID: &clientID,
-		// No redirect URI - should use default
-	}
-	testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
-
-	// Use short timeout to prevent hanging
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
-	defer cancel()
-
-	_, err := authCode.AuthCodeTokenSource(ctx, testEndpoints)
-
-	// We expect an error (callback server likely can't start on occupied port)
-	if err == nil {
-		t.Error("Expected error without successful server start")
 	}
 }

@@ -3,30 +3,14 @@ package config
 import (
 	"context"
 	"fmt"
-	"sync"
 
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 )
 
-var (
-	deviceTokenSource oauth2.TokenSource
-	deviceTokenMutex  sync.Mutex
-)
-
 func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
 	if d.DeviceCodeClientID == nil || *d.DeviceCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for device code grant type")
-	}
-
-	deviceTokenMutex.Lock()
-	defer deviceTokenMutex.Unlock()
-
-	if deviceTokenSource != nil {
-		if token, err := deviceTokenSource.Token(); err == nil && token.Valid() {
-			return deviceTokenSource, nil
-		}
-		deviceTokenSource = nil
 	}
 
 	config := &oauth2.Config{
@@ -58,7 +42,6 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints endpoi
 	}
 
 	ts := config.TokenSource(ctx, deviceCodeToken)
-	deviceTokenSource = ts
 
 	return ts, nil
 }

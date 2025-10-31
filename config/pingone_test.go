@@ -256,14 +256,17 @@ func TestConfigurationAuthMethods(t *testing.T) {
 		{
 			name: "WithAuthCodeRedirectURI",
 			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithAuthCodeRedirectURI("https://example.com/callback")
+				return config.NewConfiguration().WithAuthCodeRedirectURI(config.AuthCodeRedirectURI{
+					Port: "9090",
+					Path: "/callback",
+				})
 			},
 			validate: func(t *testing.T, cfg *config.Configuration) {
-				if cfg.Auth.AuthCode.AuthCodeRedirectURI == nil {
-					t.Fatal("AuthCodeRedirectURI should not be nil")
+				if cfg.Auth.AuthCode.AuthCodeRedirectURI.Port != "9090" {
+					t.Errorf("Expected AuthCodeRedirectURI.Port to be 9090, got %s", cfg.Auth.AuthCode.AuthCodeRedirectURI.Port)
 				}
-				if *cfg.Auth.AuthCode.AuthCodeRedirectURI != "https://example.com/callback" {
-					t.Errorf("Expected AuthCodeRedirectURI to be 'https://example.com/callback', got %q", *cfg.Auth.AuthCode.AuthCodeRedirectURI)
+				if cfg.Auth.AuthCode.AuthCodeRedirectURI.Path != "/callback" {
+					t.Errorf("Expected AuthCodeRedirectURI.Path to be '/callback', got %q", cfg.Auth.AuthCode.AuthCodeRedirectURI.Path)
 				}
 			},
 		},

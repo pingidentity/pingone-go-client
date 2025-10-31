@@ -15,17 +15,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-// ExternalTokenSourceProvider is a function type that can provide an external token source
-type ExternalTokenSourceProvider func(ctx context.Context, config *Configuration) oauth2.TokenSource
-
-// Global variable to hold the external token source provider
-var externalTokenSourceProvider ExternalTokenSourceProvider
-
-// SetExternalTokenSourceProvider allows external packages (like pingcli) to register a token source provider
-func SetExternalTokenSourceProvider(provider ExternalTokenSourceProvider) {
-	externalTokenSourceProvider = provider
-}
-
 func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
 	var environmentID, clientID string
 
@@ -78,11 +67,16 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 	return tokenKey, nil
 }
 
+type AuthCodeRedirectURI struct {
+	Port string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PORT" json:"port,omitempty"`
+	Path string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
+}
+
 type AuthCode struct {
-	AuthCodeClientID      *string   `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
-	AuthCodeEnvironmentID *string   `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
-	AuthCodeRedirectURI   *string   `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"redirectUri,omitempty"`
-	AuthCodeScopes        *[]string `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
+	AuthCodeClientID      *string             `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
+	AuthCodeEnvironmentID *string             `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
+	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"redirectUri,omitempty"`
+	AuthCodeScopes        *[]string           `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
 }
 
 type ClientCredentials struct {
@@ -246,11 +240,14 @@ func (c *Configuration) WithAuthCodeScopes(authCodeScopes []string) *Configurati
 	return c
 }
 
-func (c *Configuration) WithAuthCodeRedirectURI(authCodeRedirectURI string) *Configuration {
+func (c *Configuration) WithAuthCodeRedirectURI(authCodeRedirectURI AuthCodeRedirectURI) *Configuration {
 	if c.Auth.AuthCode == nil {
 		c.Auth.AuthCode = &AuthCode{}
 	}
-	c.Auth.AuthCode.AuthCodeRedirectURI = &authCodeRedirectURI
+	c.Auth.AuthCode.AuthCodeRedirectURI = AuthCodeRedirectURI{
+		Port: authCodeRedirectURI.Port,
+		Path: authCodeRedirectURI.Path,
+	}
 	return c
 }
 
@@ -308,14 +305,6 @@ func (c *Configuration) Client(ctx context.Context, httpClient *http.Client) (*h
 	return client, nil
 }
 
-// getExternalTokenSource checks if there's an external token source provider registered
-func (c *Configuration) getExternalTokenSource(ctx context.Context) oauth2.TokenSource {
-	if externalTokenSourceProvider != nil {
-		return externalTokenSourceProvider(ctx, c)
-	}
-	return nil
-}
-
 func (c *Configuration) GetAccessToken(ctx context.Context) (string, error) {
 	ts, err := c.TokenSource(ctx)
 	if err != nil {
@@ -335,11 +324,6 @@ func (c *Configuration) GetAccessToken(ctx context.Context) (string, error) {
 }
 
 func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, error) {
-	// Check if there's an external token source provider (e.g., from pingcli credential cache)
-	if externalTS := c.getExternalTokenSource(ctx); externalTS != nil {
-		return externalTS, nil
-	}
-
 	// Client credentials flow should always use the OAuth2 token source for automatic refresh
 	if at := c.Auth.AccessToken; at != nil && *at != "" {
 		if c.Auth.GrantType != nil && *c.Auth.GrantType == svcOAuth2.GrantTypeClientCredentials {
