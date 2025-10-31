@@ -20,343 +20,74 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/google/uuid"
 )
 
-// DaVinciFlowsApiService DaVinciFlowsApi service
-type DaVinciFlowsApiService service
+// DaVinciFlowVersionsApiService DaVinciFlowVersionsApi service
+type DaVinciFlowVersionsApiService service
 
-type ApiCreateFlowRequest struct {
+type ApiDeleteVersionByIdUsingFlowIdRequest struct {
 	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
-	environmentID              uuid.UUID
-	daVinciFlowCreateRequest   *DaVinciFlowCreateRequest
-	xPingExternalSessionID     *string
-	xPingExternalTransactionID *string
-}
-
-func (r ApiCreateFlowRequest) DaVinciFlowCreateRequest(daVinciFlowCreateRequest DaVinciFlowCreateRequest) ApiCreateFlowRequest {
-	r.daVinciFlowCreateRequest = &daVinciFlowCreateRequest
-	return r
-}
-
-func (r ApiCreateFlowRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiCreateFlowRequest {
-	r.xPingExternalSessionID = &xPingExternalSessionID
-	return r
-}
-
-func (r ApiCreateFlowRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiCreateFlowRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
-	return r
-}
-
-func (r ApiCreateFlowRequest) Execute() (*DaVinciFlowResponse, *http.Response, error) {
-	return r.ApiService.CreateFlowExecute(r)
-}
-
-/*
-CreateFlow Method for CreateFlow
-
-	@permission davinci:create:dvFlows
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID
-	@return ApiCreateFlowRequest
-*/
-func (a *DaVinciFlowsApiService) CreateFlow(ctx context.Context, environmentID uuid.UUID) ApiCreateFlowRequest {
-	return ApiCreateFlowRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		environmentID: environmentID,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (*DaVinciFlowResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.CreateFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &APIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/environments/{environmentID}/flows"
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.daVinciFlowCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("daVinciFlowCreateRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xPingExternalSessionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
-	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.daVinciFlowCreateRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	var bodyBytes []byte
-	if req.Body != nil {
-		bodyBytes, _ = io.ReadAll(req.Body)
-	}
-
-	var localVarHTTPResponse *http.Response
-	var localVarBody []byte
-
-	for i := range maxRetries {
-		if req.Body != nil {
-			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		}
-
-		if i > 0 {
-			slog.Debug("Retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-		}
-
-		localVarHTTPResponse, err = a.client.callAPI(req)
-		if err != nil || localVarHTTPResponse == nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-
-		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
-
-		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		_ = localVarHTTPResponse.Body.Close()
-		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-		if err != nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-
-		if localVarHTTPResponse.StatusCode >= 300 {
-			newErr := &APIError{
-				body:  localVarBody,
-				error: localVarHTTPResponse.Status,
-			}
-			if localVarHTTPResponse.StatusCode == 400 {
-				var v BadRequestError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 401 {
-				var v UnauthorizedError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 403 {
-				var v ForbiddenError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				// check if environment exists - P14C-63085
-				_, _, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					var notFoundErr NotFoundError
-					if errors.As(err, &notFoundErr) {
-						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
-						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
-					}
-				}
-				// check if environment created recently - DOCS-8830
-				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-						// Retry the request
-						time.Sleep(1 * time.Second)
-						continue
-					}
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 404 {
-				var v NotFoundError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				// check if environment created recently - DOCS-8830
-				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-						// Retry the request
-						time.Sleep(1 * time.Second)
-						continue
-					}
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 415 {
-				var v UnsupportedMediaTypeError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 429 {
-				var v TooManyRequestsError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 500 {
-				var v InternalServerError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 502 {
-				var v GeneralError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 503 {
-				var v GeneralError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-			}
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		break
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &APIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteFlowByIdRequest struct {
-	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
+	ApiService                 *DaVinciFlowVersionsApiService
 	environmentID              uuid.UUID
 	flowID                     string
+	versionID                  string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
 
-func (r ApiDeleteFlowByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiDeleteFlowByIdRequest {
+func (r ApiDeleteVersionByIdUsingFlowIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiDeleteVersionByIdUsingFlowIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiDeleteFlowByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiDeleteFlowByIdRequest {
+func (r ApiDeleteVersionByIdUsingFlowIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiDeleteVersionByIdUsingFlowIdRequest {
 	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
-func (r ApiDeleteFlowByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteFlowByIdExecute(r)
+func (r ApiDeleteVersionByIdUsingFlowIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteVersionByIdUsingFlowIdExecute(r)
 }
 
 /*
-DeleteFlowById Method for DeleteFlowById
+DeleteVersionByIdUsingFlowId Method for DeleteVersionByIdUsingFlowId
 
-	@permission davinci:delete:dvFlows
+	@permission davinci:delete:flowVersions
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param environmentID
 	@param flowID
-	@return ApiDeleteFlowByIdRequest
+	@param versionID
+	@return ApiDeleteVersionByIdUsingFlowIdRequest
 */
-func (a *DaVinciFlowsApiService) DeleteFlowById(ctx context.Context, environmentID uuid.UUID, flowID string) ApiDeleteFlowByIdRequest {
-	return ApiDeleteFlowByIdRequest{
+func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowId(ctx context.Context, environmentID uuid.UUID, flowID string, versionID string) ApiDeleteVersionByIdUsingFlowIdRequest {
+	return ApiDeleteVersionByIdUsingFlowIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		environmentID: environmentID,
 		flowID:        flowID,
+		versionID:     versionID,
 	}
 }
 
 // Execute executes the request
-func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdRequest) (*http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowIdExecute(r ApiDeleteVersionByIdUsingFlowIdRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.DeleteFlowById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.DeleteVersionByIdUsingFlowId")
 	if err != nil {
 		return nil, &APIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}"
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/versions/{versionID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"versionID"+"}", url.PathEscape(parameterValueToString(r.versionID, "versionID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -523,325 +254,83 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 	return localVarHTTPResponse, nil
 }
 
-type ApiDeployFlowByIdAsDeployJsonRequest struct {
+type ApiGetDetailsByFlowIdAndVersionIdRequest struct {
 	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
+	ApiService                 *DaVinciFlowVersionsApiService
 	environmentID              uuid.UUID
 	flowID                     string
-	requestBody                *map[string]interface{}
+	versionID                  string
+	expand                     *string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
 
-func (r ApiDeployFlowByIdAsDeployJsonRequest) RequestBody(requestBody map[string]interface{}) ApiDeployFlowByIdAsDeployJsonRequest {
-	r.requestBody = &requestBody
+func (r ApiGetDetailsByFlowIdAndVersionIdRequest) Expand(expand string) ApiGetDetailsByFlowIdAndVersionIdRequest {
+	r.expand = &expand
 	return r
 }
 
-func (r ApiDeployFlowByIdAsDeployJsonRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiDeployFlowByIdAsDeployJsonRequest {
+func (r ApiGetDetailsByFlowIdAndVersionIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetDetailsByFlowIdAndVersionIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiDeployFlowByIdAsDeployJsonRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiDeployFlowByIdAsDeployJsonRequest {
+func (r ApiGetDetailsByFlowIdAndVersionIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetDetailsByFlowIdAndVersionIdRequest {
 	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
-func (r ApiDeployFlowByIdAsDeployJsonRequest) Execute() (*DaVinciFlowResponse, *http.Response, error) {
-	return r.ApiService.DeployFlowByIdAsDeployJsonExecute(r)
+func (r ApiGetDetailsByFlowIdAndVersionIdRequest) Execute() (*DaVinciFlowVersionDetailResponse, *http.Response, error) {
+	return r.ApiService.GetDetailsByFlowIdAndVersionIdExecute(r)
 }
 
 /*
-DeployFlowByIdAsDeployJson Method for DeployFlowByIdAsDeployJson
+GetDetailsByFlowIdAndVersionId Method for GetDetailsByFlowIdAndVersionId
 
-	@permission davinci:create:dvFlows
+	@permission davinci:read:flowVersions
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param environmentID
 	@param flowID
-	@return ApiDeployFlowByIdAsDeployJsonRequest
+	@param versionID
+	@return ApiGetDetailsByFlowIdAndVersionIdRequest
 */
-func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJson(ctx context.Context, environmentID uuid.UUID, flowID string) ApiDeployFlowByIdAsDeployJsonRequest {
-	return ApiDeployFlowByIdAsDeployJsonRequest{
+func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionId(ctx context.Context, environmentID uuid.UUID, flowID string, versionID string) ApiGetDetailsByFlowIdAndVersionIdRequest {
+	return ApiGetDetailsByFlowIdAndVersionIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		environmentID: environmentID,
 		flowID:        flowID,
+		versionID:     versionID,
 	}
 }
 
 // Execute executes the request
 //
-//	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFlowByIdAsDeployJsonRequest) (*DaVinciFlowResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.DeployFlowByIdAsDeployJson")
-	if err != nil {
-		return localVarReturnValue, nil, &APIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}#deploy+json"
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.requestBody == nil {
-		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/vnd.pingidentity.flow.deploy+json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xPingExternalSessionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
-	}
-	if r.xPingExternalTransactionID != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.requestBody
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	var bodyBytes []byte
-	if req.Body != nil {
-		bodyBytes, _ = io.ReadAll(req.Body)
-	}
-
-	var localVarHTTPResponse *http.Response
-	var localVarBody []byte
-
-	for i := range maxRetries {
-		if req.Body != nil {
-			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		}
-
-		if i > 0 {
-			slog.Debug("Retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-		}
-
-		localVarHTTPResponse, err = a.client.callAPI(req)
-		if err != nil || localVarHTTPResponse == nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-
-		logDeprecationHeaders(localVarHTTPResponse.Header, localVarPath, localVarHTTPMethod)
-
-		localVarBody, err = io.ReadAll(localVarHTTPResponse.Body)
-		_ = localVarHTTPResponse.Body.Close()
-		localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-		if err != nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-
-		if localVarHTTPResponse.StatusCode >= 300 {
-			newErr := &APIError{
-				body:  localVarBody,
-				error: localVarHTTPResponse.Status,
-			}
-			if localVarHTTPResponse.StatusCode == 400 {
-				var v BadRequestError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 401 {
-				var v UnauthorizedError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 403 {
-				var v ForbiddenError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				// check if environment exists - P14C-63085
-				_, _, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					var notFoundErr NotFoundError
-					if errors.As(err, &notFoundErr) {
-						slog.Info("The API's error response is inconsistent with that of the containing environment. The environment has not been found", "API error", v, "parent environment error", notFoundErr)
-						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
-					}
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 404 {
-				var v NotFoundError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 415 {
-				var v UnsupportedMediaTypeError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 429 {
-				var v TooManyRequestsError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 500 {
-				var v InternalServerError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 502 {
-				var v GeneralError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
-			}
-			if localVarHTTPResponse.StatusCode == 503 {
-				var v GeneralError
-				err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-			}
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		break
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &APIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetFlowByIdRequest struct {
-	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
-	environmentID              uuid.UUID
-	flowID                     string
-	attributes                 *string
-	xPingExternalSessionID     *string
-	xPingExternalTransactionID *string
-}
-
-func (r ApiGetFlowByIdRequest) Attributes(attributes string) ApiGetFlowByIdRequest {
-	r.attributes = &attributes
-	return r
-}
-
-func (r ApiGetFlowByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetFlowByIdRequest {
-	r.xPingExternalSessionID = &xPingExternalSessionID
-	return r
-}
-
-func (r ApiGetFlowByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetFlowByIdRequest {
-	r.xPingExternalTransactionID = &xPingExternalTransactionID
-	return r
-}
-
-func (r ApiGetFlowByIdRequest) Execute() (*DaVinciFlowResponse, *http.Response, error) {
-	return r.ApiService.GetFlowByIdExecute(r)
-}
-
-/*
-GetFlowById Method for GetFlowById
-
-	@permission davinci:read:dvFlows
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param environmentID
-	@param flowID
-	@return ApiGetFlowByIdRequest
-*/
-func (a *DaVinciFlowsApiService) GetFlowById(ctx context.Context, environmentID uuid.UUID, flowID string) ApiGetFlowByIdRequest {
-	return ApiGetFlowByIdRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		environmentID: environmentID,
-		flowID:        flowID,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*DaVinciFlowResponse, *http.Response, error) {
+//	@return DaVinciFlowVersionDetailResponse
+func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionIdExecute(r ApiGetDetailsByFlowIdAndVersionIdRequest) (*DaVinciFlowVersionDetailResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowResponse
+		localVarReturnValue *DaVinciFlowVersionDetailResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.GetFlowById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetDetailsByFlowIdAndVersionId")
 	if err != nil {
 		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}"
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/versions/{versionID}/details"
 	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"versionID"+"}", url.PathEscape(parameterValueToString(r.versionID, "versionID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.attributes != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "attributes", r.attributes, "form", "")
+	if r.expand != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 
 	// to determine the Content-Type header
@@ -1014,76 +503,74 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetFlowsRequest struct {
+type ApiGetVersionByIdUsingFlowIdRequest struct {
 	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
+	ApiService                 *DaVinciFlowVersionsApiService
 	environmentID              uuid.UUID
-	attributes                 *string
+	flowID                     string
+	versionID                  string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
 
-func (r ApiGetFlowsRequest) Attributes(attributes string) ApiGetFlowsRequest {
-	r.attributes = &attributes
-	return r
-}
-
-func (r ApiGetFlowsRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetFlowsRequest {
+func (r ApiGetVersionByIdUsingFlowIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetVersionByIdUsingFlowIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiGetFlowsRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetFlowsRequest {
+func (r ApiGetVersionByIdUsingFlowIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetVersionByIdUsingFlowIdRequest {
 	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
-func (r ApiGetFlowsRequest) Execute() (*DaVinciFlowCollection, *http.Response, error) {
-	return r.ApiService.GetFlowsExecute(r)
+func (r ApiGetVersionByIdUsingFlowIdRequest) Execute() (*DaVinciFlowVersionResponse, *http.Response, error) {
+	return r.ApiService.GetVersionByIdUsingFlowIdExecute(r)
 }
 
 /*
-GetFlows Method for GetFlows
+GetVersionByIdUsingFlowId Method for GetVersionByIdUsingFlowId
 
-	@permission davinci:read:dvFlows
+	@permission davinci:read:flowVersions
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param environmentID
-	@return ApiGetFlowsRequest
+	@param flowID
+	@param versionID
+	@return ApiGetVersionByIdUsingFlowIdRequest
 */
-func (a *DaVinciFlowsApiService) GetFlows(ctx context.Context, environmentID uuid.UUID) ApiGetFlowsRequest {
-	return ApiGetFlowsRequest{
+func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowId(ctx context.Context, environmentID uuid.UUID, flowID string, versionID string) ApiGetVersionByIdUsingFlowIdRequest {
+	return ApiGetVersionByIdUsingFlowIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		environmentID: environmentID,
+		flowID:        flowID,
+		versionID:     versionID,
 	}
 }
 
 // Execute executes the request
 //
-//	@return DaVinciFlowCollection
-func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinciFlowCollection, *http.Response, error) {
+//	@return DaVinciFlowVersionResponse
+func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowIdExecute(r ApiGetVersionByIdUsingFlowIdRequest) (*DaVinciFlowVersionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowCollection
+		localVarReturnValue *DaVinciFlowVersionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.GetFlows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetVersionByIdUsingFlowId")
 	if err != nil {
 		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/environments/{environmentID}/flows"
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/versions/{versionID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"versionID"+"}", url.PathEscape(parameterValueToString(r.versionID, "versionID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	if r.attributes != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "attributes", r.attributes, "form", "")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1183,21 +670,6 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
-				// check if environment created recently - DOCS-8830
-				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-						// Retry the request
-						time.Sleep(1 * time.Second)
-						continue
-					}
-				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -1206,21 +678,6 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				// check if environment created recently - DOCS-8830
-				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHTTPResponse, newErr
-				}
-				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
-						// Retry the request
-						time.Sleep(1 * time.Second)
-						continue
-					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -1285,46 +742,40 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiReplaceFlowByIdRequest struct {
+type ApiGetVersionsByFlowIdRequest struct {
 	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
+	ApiService                 *DaVinciFlowVersionsApiService
 	environmentID              uuid.UUID
 	flowID                     string
-	daVinciFlowReplaceRequest  *DaVinciFlowReplaceRequest
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
 
-func (r ApiReplaceFlowByIdRequest) DaVinciFlowReplaceRequest(daVinciFlowReplaceRequest DaVinciFlowReplaceRequest) ApiReplaceFlowByIdRequest {
-	r.daVinciFlowReplaceRequest = &daVinciFlowReplaceRequest
-	return r
-}
-
-func (r ApiReplaceFlowByIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiReplaceFlowByIdRequest {
+func (r ApiGetVersionsByFlowIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiGetVersionsByFlowIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiReplaceFlowByIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceFlowByIdRequest {
+func (r ApiGetVersionsByFlowIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiGetVersionsByFlowIdRequest {
 	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
-func (r ApiReplaceFlowByIdRequest) Execute() (*DaVinciFlowResponse, *http.Response, error) {
-	return r.ApiService.ReplaceFlowByIdExecute(r)
+func (r ApiGetVersionsByFlowIdRequest) Execute() (*DaVinciFlowVersionCollectionResponse, *http.Response, error) {
+	return r.ApiService.GetVersionsByFlowIdExecute(r)
 }
 
 /*
-ReplaceFlowById Method for ReplaceFlowById
+GetVersionsByFlowId Method for GetVersionsByFlowId
 
-	@permission davinci:update:dvFlows
+	@permission davinci:read:flowVersions
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param environmentID
 	@param flowID
-	@return ApiReplaceFlowByIdRequest
+	@return ApiGetVersionsByFlowIdRequest
 */
-func (a *DaVinciFlowsApiService) ReplaceFlowById(ctx context.Context, environmentID uuid.UUID, flowID string) ApiReplaceFlowByIdRequest {
-	return ApiReplaceFlowByIdRequest{
+func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowId(ctx context.Context, environmentID uuid.UUID, flowID string) ApiGetVersionsByFlowIdRequest {
+	return ApiGetVersionsByFlowIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		environmentID: environmentID,
@@ -1334,33 +785,30 @@ func (a *DaVinciFlowsApiService) ReplaceFlowById(ctx context.Context, environmen
 
 // Execute executes the request
 //
-//	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequest) (*DaVinciFlowResponse, *http.Response, error) {
+//	@return DaVinciFlowVersionCollectionResponse
+func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowIdExecute(r ApiGetVersionsByFlowIdRequest) (*DaVinciFlowVersionCollectionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowResponse
+		localVarReturnValue *DaVinciFlowVersionCollectionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.ReplaceFlowById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetVersionsByFlowId")
 	if err != nil {
 		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}"
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/versions"
 	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.daVinciFlowReplaceRequest == nil {
-		return localVarReturnValue, nil, reportError("daVinciFlowReplaceRequest is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1382,8 +830,6 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 	if r.xPingExternalTransactionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
-	// body params
-	localVarPostBody = r.daVinciFlowReplaceRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1531,78 +977,82 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateEnabledByFlowIdRequest struct {
-	ctx                        context.Context
-	ApiService                 *DaVinciFlowsApiService
-	environmentID              uuid.UUID
-	flowID                     string
-	daVinciFlowEnableRequest   *DaVinciFlowEnableRequest
-	xPingExternalSessionID     *string
-	xPingExternalTransactionID *string
+type ApiReplaceAliasByFlowIdAndVersionIdRequest struct {
+	ctx                            context.Context
+	ApiService                     *DaVinciFlowVersionsApiService
+	environmentID                  uuid.UUID
+	flowID                         string
+	versionID                      string
+	daVinciFlowVersionAliasRequest *DaVinciFlowVersionAliasRequest
+	xPingExternalSessionID         *string
+	xPingExternalTransactionID     *string
 }
 
-func (r ApiUpdateEnabledByFlowIdRequest) DaVinciFlowEnableRequest(daVinciFlowEnableRequest DaVinciFlowEnableRequest) ApiUpdateEnabledByFlowIdRequest {
-	r.daVinciFlowEnableRequest = &daVinciFlowEnableRequest
+func (r ApiReplaceAliasByFlowIdAndVersionIdRequest) DaVinciFlowVersionAliasRequest(daVinciFlowVersionAliasRequest DaVinciFlowVersionAliasRequest) ApiReplaceAliasByFlowIdAndVersionIdRequest {
+	r.daVinciFlowVersionAliasRequest = &daVinciFlowVersionAliasRequest
 	return r
 }
 
-func (r ApiUpdateEnabledByFlowIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiUpdateEnabledByFlowIdRequest {
+func (r ApiReplaceAliasByFlowIdAndVersionIdRequest) XPingExternalSessionID(xPingExternalSessionID string) ApiReplaceAliasByFlowIdAndVersionIdRequest {
 	r.xPingExternalSessionID = &xPingExternalSessionID
 	return r
 }
 
-func (r ApiUpdateEnabledByFlowIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiUpdateEnabledByFlowIdRequest {
+func (r ApiReplaceAliasByFlowIdAndVersionIdRequest) XPingExternalTransactionID(xPingExternalTransactionID string) ApiReplaceAliasByFlowIdAndVersionIdRequest {
 	r.xPingExternalTransactionID = &xPingExternalTransactionID
 	return r
 }
 
-func (r ApiUpdateEnabledByFlowIdRequest) Execute() (*DaVinciFlowEnabledResponse, *http.Response, error) {
-	return r.ApiService.UpdateEnabledByFlowIdExecute(r)
+func (r ApiReplaceAliasByFlowIdAndVersionIdRequest) Execute() (*DaVinciFlowVersionAliasResponse, *http.Response, error) {
+	return r.ApiService.ReplaceAliasByFlowIdAndVersionIdExecute(r)
 }
 
 /*
-UpdateEnabledByFlowId Method for UpdateEnabledByFlowId
+ReplaceAliasByFlowIdAndVersionId Method for ReplaceAliasByFlowIdAndVersionId
 
-	@permission davinci:update:dvFlows
+	@permission davinci:update:flowVersions
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param environmentID
 	@param flowID
-	@return ApiUpdateEnabledByFlowIdRequest
+	@param versionID
+	@return ApiReplaceAliasByFlowIdAndVersionIdRequest
 */
-func (a *DaVinciFlowsApiService) UpdateEnabledByFlowId(ctx context.Context, environmentID uuid.UUID, flowID string) ApiUpdateEnabledByFlowIdRequest {
-	return ApiUpdateEnabledByFlowIdRequest{
+func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionId(ctx context.Context, environmentID uuid.UUID, flowID string, versionID string) ApiReplaceAliasByFlowIdAndVersionIdRequest {
+	return ApiReplaceAliasByFlowIdAndVersionIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		environmentID: environmentID,
 		flowID:        flowID,
+		versionID:     versionID,
 	}
 }
 
 // Execute executes the request
 //
-//	@return DaVinciFlowEnabledResponse
-func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabledByFlowIdRequest) (*DaVinciFlowEnabledResponse, *http.Response, error) {
+//	@return DaVinciFlowVersionAliasResponse
+func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionIdExecute(r ApiReplaceAliasByFlowIdAndVersionIdRequest) (*DaVinciFlowVersionAliasResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DaVinciFlowEnabledResponse
+		localVarReturnValue *DaVinciFlowVersionAliasResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.UpdateEnabledByFlowId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.ReplaceAliasByFlowIdAndVersionId")
 	if err != nil {
 		return localVarReturnValue, nil, &APIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/enabled"
+	localVarPath := localBasePath + "/environments/{environmentID}/flows/{flowID}/versions/{versionID}/alias"
 	localVarPath = strings.Replace(localVarPath, "{"+"environmentID"+"}", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"flowID"+"}", url.PathEscape(parameterValueToString(r.flowID, "flowID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"versionID"+"}", url.PathEscape(parameterValueToString(r.versionID, "versionID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.daVinciFlowEnableRequest == nil {
-		return localVarReturnValue, nil, reportError("daVinciFlowEnableRequest is required and must be specified")
+	if r.daVinciFlowVersionAliasRequest == nil {
+		return localVarReturnValue, nil, reportError("daVinciFlowVersionAliasRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1629,7 +1079,7 @@ func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabled
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Transaction-ID", r.xPingExternalTransactionID, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.daVinciFlowEnableRequest
+	localVarPostBody = r.daVinciFlowVersionAliasRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

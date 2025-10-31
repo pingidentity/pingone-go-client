@@ -48,7 +48,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2025.10.29-development
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2025.10.31-development
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -62,6 +62,8 @@ type APIClient struct {
 
 	DaVinciConnectorsApi *DaVinciConnectorsApiService
 
+	DaVinciFlowVersionsApi *DaVinciFlowVersionsApiService
+
 	DaVinciFlowsApi *DaVinciFlowsApiService
 
 	DaVinciVariablesApi *DaVinciVariablesApiService
@@ -69,6 +71,8 @@ type APIClient struct {
 	DirectoryTotalIdentitiesApi *DirectoryTotalIdentitiesApiService
 
 	EnvironmentsApi *EnvironmentsApiService
+
+	FlowPoliciesApi *FlowPoliciesApiService
 
 	// Static APIs
 	// LinkApi *LinkApiService
@@ -137,10 +141,12 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.ConfigurationManagementApi = (*ConfigurationManagementApiService)(&c.common)
 	c.DaVinciApplicationsApi = (*DaVinciApplicationsApiService)(&c.common)
 	c.DaVinciConnectorsApi = (*DaVinciConnectorsApiService)(&c.common)
+	c.DaVinciFlowVersionsApi = (*DaVinciFlowVersionsApiService)(&c.common)
 	c.DaVinciFlowsApi = (*DaVinciFlowsApiService)(&c.common)
 	c.DaVinciVariablesApi = (*DaVinciVariablesApiService)(&c.common)
 	c.DirectoryTotalIdentitiesApi = (*DirectoryTotalIdentitiesApiService)(&c.common)
 	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
+	c.FlowPoliciesApi = (*FlowPoliciesApiService)(&c.common)
 
 	// Static APIs
 	// c.LinkApi = (*LinkApiService)(&c.common)
