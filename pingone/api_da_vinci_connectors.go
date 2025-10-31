@@ -773,7 +773,7 @@ type ApiGetConnectorByIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorsApiService
 	environmentID              uuid.UUID
-	connectorID                uuid.UUID
+	connectorID                string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -801,7 +801,7 @@ GetConnectorById Method for GetConnectorById
 	@param connectorID
 	@return ApiGetConnectorByIdRequest
 */
-func (a *DaVinciConnectorsApiService) GetConnectorById(ctx context.Context, environmentID uuid.UUID, connectorID uuid.UUID) ApiGetConnectorByIdRequest {
+func (a *DaVinciConnectorsApiService) GetConnectorById(ctx context.Context, environmentID uuid.UUID, connectorID string) ApiGetConnectorByIdRequest {
 	return ApiGetConnectorByIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -1765,7 +1765,7 @@ type ApiGetDetailsByConnectorIdRequest struct {
 	ctx                        context.Context
 	ApiService                 *DaVinciConnectorsApiService
 	environmentID              uuid.UUID
-	connectorID                uuid.UUID
+	connectorID                string
 	xPingExternalSessionID     *string
 	xPingExternalTransactionID *string
 }
@@ -1793,7 +1793,7 @@ GetDetailsByConnectorId Method for GetDetailsByConnectorId
 	@param connectorID
 	@return ApiGetDetailsByConnectorIdRequest
 */
-func (a *DaVinciConnectorsApiService) GetDetailsByConnectorId(ctx context.Context, environmentID uuid.UUID, connectorID uuid.UUID) ApiGetDetailsByConnectorIdRequest {
+func (a *DaVinciConnectorsApiService) GetDetailsByConnectorId(ctx context.Context, environmentID uuid.UUID, connectorID string) ApiGetDetailsByConnectorIdRequest {
 	return ApiGetDetailsByConnectorIdRequest{
 		ApiService:    a,
 		ctx:           ctx,

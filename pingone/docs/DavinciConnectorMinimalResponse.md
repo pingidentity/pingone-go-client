@@ -6,19 +6,19 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**DaVinciConnectorMinimalResponseLinks**](DaVinciConnectorMinimalResponseLinks.md) |  | 
 **CreatedAt** | **time.Time** |  | 
-**Description** | **string** |  | 
 **Environment** | [**ResourceRelationshipReadOnly**](ResourceRelationshipReadOnly.md) |  | 
 **Id** | **string** |  | 
 **Metadata** | [**DaVinciConnectorMinimalResponseMetadata**](DaVinciConnectorMinimalResponseMetadata.md) |  | 
 **Name** | **string** |  | 
-**UpdatedAt** | **time.Time** |  | 
 **Version** | **string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciConnectorMinimalResponse
 
-`func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, description string, environment ResourceRelationshipReadOnly, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, updatedAt time.Time, version string, ) *DaVinciConnectorMinimalResponse`
+`func NewDaVinciConnectorMinimalResponse(links DaVinciConnectorMinimalResponseLinks, createdAt time.Time, environment ResourceRelationshipReadOnly, id string, metadata DaVinciConnectorMinimalResponseMetadata, name string, version string, ) *DaVinciConnectorMinimalResponse`
 
 NewDaVinciConnectorMinimalResponse instantiates a new DaVinciConnectorMinimalResponse object
 This constructor will assign default values to properties that have it defined,
@@ -71,26 +71,6 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciConnectorMinimalResponse) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetDescription
-
-`func (o *DaVinciConnectorMinimalResponse) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *DaVinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *DaVinciConnectorMinimalResponse) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
 
 
 ### GetEnvironment
@@ -173,26 +153,6 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
-### GetUpdatedAt
-
-`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *DaVinciConnectorMinimalResponse) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
-
-
 ### GetVersion
 
 `func (o *DaVinciConnectorMinimalResponse) GetVersion() string`
@@ -212,6 +172,56 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+
+### GetDescription
+
+`func (o *DaVinciConnectorMinimalResponse) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *DaVinciConnectorMinimalResponse) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *DaVinciConnectorMinimalResponse) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *DaVinciConnectorMinimalResponse) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetUpdatedAt
+
+`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *DaVinciConnectorMinimalResponse) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *DaVinciConnectorMinimalResponse) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+### HasUpdatedAt
+
+`func (o *DaVinciConnectorMinimalResponse) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
