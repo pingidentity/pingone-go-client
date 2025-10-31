@@ -211,6 +211,7 @@ Class | Method | HTTP request | Description
  - [DaVinciFlowGraphDataRequestElementsNodeDataMessage](docs/DaVinciFlowGraphDataRequestElementsNodeDataMessage.md)
  - [DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle](docs/DaVinciFlowGraphDataRequestElementsNodeDataNodeTitle.md)
  - [DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema](docs/DaVinciFlowGraphDataRequestElementsNodeDataOutputSchema.md)
+ - [DaVinciFlowGraphDataRequestElementsNodeDataProperties](docs/DaVinciFlowGraphDataRequestElementsNodeDataProperties.md)
  - [DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables](docs/DaVinciFlowGraphDataRequestElementsNodeDataSaveVariables.md)
  - [DaVinciFlowGraphDataRequestElementsNodeDataSaveVariablesValueItem](docs/DaVinciFlowGraphDataRequestElementsNodeDataSaveVariablesValueItem.md)
  - [DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton](docs/DaVinciFlowGraphDataRequestElementsNodeDataShowContinueButton.md)

@@ -26,27 +26,27 @@ var _ slog.LogValuer = &DaVinciImportFlowResponse{}
 
 // DaVinciImportFlowResponse struct for DaVinciImportFlowResponse
 type DaVinciImportFlowResponse struct {
-	Links                DaVinciImportFlowResponseLinks         `json:"_links"`
-	Environment          ResourceRelationshipReadOnly           `json:"environment"`
-	Flow                 DaVinciImportFlowResponseFlow          `json:"flow"`
-	PublishedVersion     float32                                `json:"publishedVersion"`
-	Version              float32                                `json:"version"`
-	Alias                *string                                `json:"alias,omitempty"`
-	ClonedFrom           *float32                               `json:"clonedFrom,omitempty"`
-	Color                *string                                `json:"color,omitempty"`
-	Connectors           []ResourceRelationshipDaVinciReadOnly  `json:"connectors,omitempty"`
-	CreatedAt            *time.Time                             `json:"createdAt,omitempty"`
-	DeployedAt           *time.Time                             `json:"deployedAt,omitempty"`
-	Description          *string                                `json:"description,omitempty"`
-	Enabled              *bool                                  `json:"enabled,omitempty"`
-	GraphData            *DaVinciFlowGraphDataResponse          `json:"graphData,omitempty"`
-	InputSchema          []DaVinciFlowInputSchemaResponseItem   `json:"inputSchema,omitempty"`
-	OutputSchema         *DaVinciImportFlowResponseOutputSchema `json:"outputSchema,omitempty"`
-	Settings             *DaVinciFlowSettingsResponse           `json:"settings,omitempty"`
-	Trigger              *DaVinciFlowTriggerResponse            `json:"trigger,omitempty"`
-	UpdatedAt            *time.Time                             `json:"updatedAt,omitempty"`
-	Updates              []string                               `json:"updates,omitempty"`
-	Variables            []map[string]interface{}               `json:"variables,omitempty"`
+	Links                DaVinciImportFlowResponseLinks        `json:"_links"`
+	Environment          ResourceRelationshipReadOnly          `json:"environment"`
+	Flow                 DaVinciImportFlowResponseFlow         `json:"flow"`
+	PublishedVersion     float32                               `json:"publishedVersion"`
+	Version              float32                               `json:"version"`
+	Alias                *string                               `json:"alias,omitempty"`
+	ClonedFrom           *float32                              `json:"clonedFrom,omitempty"`
+	Color                *string                               `json:"color,omitempty"`
+	Connectors           []ResourceRelationshipDaVinciReadOnly `json:"connectors,omitempty"`
+	CreatedAt            *time.Time                            `json:"createdAt,omitempty"`
+	DeployedAt           *time.Time                            `json:"deployedAt,omitempty"`
+	Description          *string                               `json:"description,omitempty"`
+	Enabled              *bool                                 `json:"enabled,omitempty"`
+	GraphData            *DaVinciFlowGraphDataResponse         `json:"graphData,omitempty"`
+	InputSchema          []DaVinciFlowInputSchemaResponseItem  `json:"inputSchema,omitempty"`
+	OutputSchema         *DaVinciFlowOutputSchemaResponse      `json:"outputSchema,omitempty"`
+	Settings             *DaVinciFlowSettingsResponse          `json:"settings,omitempty"`
+	Trigger              *DaVinciFlowTriggerResponse           `json:"trigger,omitempty"`
+	UpdatedAt            *time.Time                            `json:"updatedAt,omitempty"`
+	Updates              []string                              `json:"updates,omitempty"`
+	Variables            []map[string]interface{}              `json:"variables,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -515,9 +515,9 @@ func (o *DaVinciImportFlowResponse) SetInputSchema(v []DaVinciFlowInputSchemaRes
 }
 
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise.
-func (o *DaVinciImportFlowResponse) GetOutputSchema() DaVinciImportFlowResponseOutputSchema {
+func (o *DaVinciImportFlowResponse) GetOutputSchema() DaVinciFlowOutputSchemaResponse {
 	if o == nil || IsNil(o.OutputSchema) {
-		var ret DaVinciImportFlowResponseOutputSchema
+		var ret DaVinciFlowOutputSchemaResponse
 		return ret
 	}
 	return *o.OutputSchema
@@ -525,7 +525,7 @@ func (o *DaVinciImportFlowResponse) GetOutputSchema() DaVinciImportFlowResponseO
 
 // GetOutputSchemaOk returns a tuple with the OutputSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciImportFlowResponse) GetOutputSchemaOk() (*DaVinciImportFlowResponseOutputSchema, bool) {
+func (o *DaVinciImportFlowResponse) GetOutputSchemaOk() (*DaVinciFlowOutputSchemaResponse, bool) {
 	if o == nil || IsNil(o.OutputSchema) {
 		return nil, false
 	}
@@ -541,8 +541,8 @@ func (o *DaVinciImportFlowResponse) HasOutputSchema() bool {
 	return false
 }
 
-// SetOutputSchema gets a reference to the given DaVinciImportFlowResponseOutputSchema and assigns it to the OutputSchema field.
-func (o *DaVinciImportFlowResponse) SetOutputSchema(v DaVinciImportFlowResponseOutputSchema) {
+// SetOutputSchema gets a reference to the given DaVinciFlowOutputSchemaResponse and assigns it to the OutputSchema field.
+func (o *DaVinciImportFlowResponse) SetOutputSchema(v DaVinciFlowOutputSchemaResponse) {
 	o.OutputSchema = &v
 }
 

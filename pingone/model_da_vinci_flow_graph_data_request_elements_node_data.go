@@ -25,16 +25,16 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeData{}
 
 // DaVinciFlowGraphDataRequestElementsNodeData struct for DaVinciFlowGraphDataRequestElementsNodeData
 type DaVinciFlowGraphDataRequestElementsNodeData struct {
-	Id                   string                                       `json:"id"`
-	NodeType             string                                       `json:"nodeType"`
-	CapabilityName       *string                                      `json:"capabilityName,omitempty"`
-	ConnectionId         *string                                      `json:"connectionId,omitempty"`
-	ConnectorId          *string                                      `json:"connectorId,omitempty"`
-	Label                *string                                      `json:"label,omitempty"`
-	Name                 *string                                      `json:"name,omitempty"`
-	Properties           *DaVinciFlowGraphDataRequestElementsNodeData `json:"properties,omitempty"`
-	Status               *string                                      `json:"status,omitempty"`
-	Type                 *string                                      `json:"type,omitempty"`
+	Id                   string                                                 `json:"id"`
+	NodeType             string                                                 `json:"nodeType"`
+	CapabilityName       *string                                                `json:"capabilityName,omitempty"`
+	ConnectionId         *string                                                `json:"connectionId,omitempty"`
+	ConnectorId          *string                                                `json:"connectorId,omitempty"`
+	Label                *string                                                `json:"label,omitempty"`
+	Name                 *string                                                `json:"name,omitempty"`
+	Properties           *DaVinciFlowGraphDataRequestElementsNodeDataProperties `json:"properties,omitempty"`
+	Status               *string                                                `json:"status,omitempty"`
+	Type                 *string                                                `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -268,9 +268,9 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetName(v string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() DaVinciFlowGraphDataRequestElementsNodeData {
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() DaVinciFlowGraphDataRequestElementsNodeDataProperties {
 	if o == nil || IsNil(o.Properties) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeData
+		var ret DaVinciFlowGraphDataRequestElementsNodeDataProperties
 		return ret
 	}
 	return *o.Properties
@@ -278,7 +278,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() DaVinciFlo
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataRequestElementsNodeData, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataRequestElementsNodeDataProperties, bool) {
 	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
@@ -294,8 +294,8 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeData and assigns it to the Properties field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v DaVinciFlowGraphDataRequestElementsNodeData) {
+// SetProperties gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataProperties and assigns it to the Properties field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v DaVinciFlowGraphDataRequestElementsNodeDataProperties) {
 	o.Properties = &v
 }
 
