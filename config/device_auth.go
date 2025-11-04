@@ -16,11 +16,7 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints endpoi
 	config := &oauth2.Config{
 		ClientID: *d.DeviceCodeClientID,
 		Scopes:   *d.DeviceCodeScopes,
-		Endpoint: oauth2.Endpoint{
-			AuthURL:       endpoints.AuthorizationURLPath,
-			DeviceAuthURL: endpoints.DeviceAuthorizationURLPath,
-			TokenURL:      endpoints.TokenURLPath,
-		},
+		Endpoint: endpoints.Endpoint,
 	}
 
 	response, err := config.DeviceAuth(ctx)

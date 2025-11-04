@@ -55,9 +55,6 @@ func (k *KeychainStorage) SaveToken(token *oauth2.Token) error {
 func (k *KeychainStorage) LoadToken() (*oauth2.Token, error) {
 	tokenJSON, err := keyring.Get(k.serviceName, k.username)
 	if err != nil {
-		if errors.Is(err, keyring.ErrNotFound) {
-			return nil, nil // No token found, but not an error
-		}
 		return nil, fmt.Errorf("failed to load token from keychain: %w", err)
 	}
 

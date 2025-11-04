@@ -59,11 +59,8 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	}
 
 	config := &oauth2.Config{
-		ClientID: *a.AuthCodeClientID,
-		Endpoint: oauth2.Endpoint{
-			AuthURL:  endpoints.AuthorizationURLPath,
-			TokenURL: endpoints.TokenURLPath,
-		},
+		ClientID:    *a.AuthCodeClientID,
+		Endpoint:    endpoints.Endpoint,
 		RedirectURL: redirectURI,
 		Scopes:      scopes,
 	}

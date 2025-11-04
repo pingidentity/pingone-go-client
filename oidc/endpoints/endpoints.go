@@ -6,26 +6,34 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/pingidentity/pingone-go-client/oauth2/endpoints"
+	"golang.org/x/oauth2"
 )
 
 const (
 	AuthorizationURLPath       = "/as/authorize"
 	DeviceAuthorizationURLPath = "/as/device_authorization"
+	IntrospectionURLPath       = "/as/introspect"
+	IssuerURLPath              = "/as"
+	JWKSURLPath                = "/as/jwks"
 	OIDCDiscoveryURLPath       = "/as/.well-known/openid-configuration"
+	PARURLPath                 = "/as/par"
 	SignoffURLPath             = "/as/signoff"
+	TokenRevocationURLPath     = "/as/revoke"
 	TokenURLPath               = "/as/token"
 	UserInfoURLPath            = "/as/userinfo"
 )
 
 type OIDCEndpoint struct {
-	endpoints.ExtendedEndpoint
-	AuthorizationURLPath       string
-	DeviceAuthorizationURLPath string
-	OIDCDiscoveryURLPath       string
-	SignoffURLPath             string
-	TokenURLPath               string
-	UserInfoURLPath            string
+	oauth2.Endpoint
+	IntrospectionURL   string
+	IssuerURLPath      string
+	JWKSURL            string
+	PARURL             string
+	TokenRevocationURL string
+	// OIDC-specific fields
+	OIDCDiscoveryURL string
+	SignoffURL       string
+	UserInfoURL      string
 }
 
 // PingOneOIDCEndpoint returns a new OIDCEndpoint object for the given custom domain configured on the PingOne environment.
@@ -37,13 +45,19 @@ func PingOneOIDCEndpoint(host string) OIDCEndpoint {
 		Host:   host,
 	}
 	return OIDCEndpoint{
-		AuthorizationURLPath:       u.JoinPath(AuthorizationURLPath).String(),
-		DeviceAuthorizationURLPath: u.JoinPath(DeviceAuthorizationURLPath).String(),
-		ExtendedEndpoint:           endpoints.PingOneExtendedEndpoint(host),
-		OIDCDiscoveryURLPath:       u.JoinPath(OIDCDiscoveryURLPath).String(),
-		SignoffURLPath:             u.JoinPath(SignoffURLPath).String(),
-		TokenURLPath:               u.JoinPath(TokenURLPath).String(),
-		UserInfoURLPath:            u.JoinPath(UserInfoURLPath).String(),
+		Endpoint: oauth2.Endpoint{
+			AuthURL:       u.JoinPath(AuthorizationURLPath).String(),
+			TokenURL:      u.JoinPath(TokenURLPath).String(),
+			DeviceAuthURL: u.JoinPath(DeviceAuthorizationURLPath).String(),
+		},
+		IntrospectionURL:   u.JoinPath(IntrospectionURLPath).String(),
+		IssuerURLPath:      u.JoinPath(IssuerURLPath).String(),
+		JWKSURL:            u.JoinPath(JWKSURLPath).String(),
+		PARURL:             u.JoinPath(PARURLPath).String(),
+		TokenRevocationURL: u.JoinPath(TokenRevocationURLPath).String(),
+		OIDCDiscoveryURL:   u.JoinPath(OIDCDiscoveryURLPath).String(),
+		SignoffURL:         u.JoinPath(SignoffURLPath).String(),
+		UserInfoURL:        u.JoinPath(UserInfoURLPath).String(),
 	}
 }
 
@@ -65,12 +79,18 @@ func PingOneEnvironmentOIDCEndpoint(rootDomain, environmentID string) OIDCEndpoi
 		panic("endpoints: invalid environment ID")
 	}
 	return OIDCEndpoint{
-		AuthorizationURLPath:       u.JoinPath(AuthorizationURLPath).String(),
-		DeviceAuthorizationURLPath: u.JoinPath(DeviceAuthorizationURLPath).String(),
-		ExtendedEndpoint:           endpoints.PingOneEnvironmentExtendedEndpoint(rootDomain, environmentID),
-		OIDCDiscoveryURLPath:       u.JoinPath(OIDCDiscoveryURLPath).String(),
-		SignoffURLPath:             u.JoinPath(SignoffURLPath).String(),
-		TokenURLPath:               u.JoinPath(TokenURLPath).String(),
-		UserInfoURLPath:            u.JoinPath(UserInfoURLPath).String(),
+		Endpoint: oauth2.Endpoint{
+			AuthURL:       u.JoinPath(AuthorizationURLPath).String(),
+			TokenURL:      u.JoinPath(TokenURLPath).String(),
+			DeviceAuthURL: u.JoinPath(DeviceAuthorizationURLPath).String(),
+		},
+		IntrospectionURL:   u.JoinPath(IntrospectionURLPath).String(),
+		IssuerURLPath:      u.JoinPath(IssuerURLPath).String(),
+		JWKSURL:            u.JoinPath(JWKSURLPath).String(),
+		PARURL:             u.JoinPath(PARURLPath).String(),
+		TokenRevocationURL: u.JoinPath(TokenRevocationURLPath).String(),
+		OIDCDiscoveryURL:   u.JoinPath(OIDCDiscoveryURLPath).String(),
+		SignoffURL:         u.JoinPath(SignoffURLPath).String(),
+		UserInfoURL:        u.JoinPath(UserInfoURLPath).String(),
 	}
 }

@@ -91,6 +91,12 @@ type DeviceCode struct {
 	DeviceCodeEnvironmentID *string   `envconfig:"PINGONE_DEVICE_CODE_ENVIRONMENT_ID" json:"deviceCodeEnvironmentId,omitempty"`
 	DeviceCodeScopes        *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
 }
+
+type Storage struct {
+	Name string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
+	Type StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
+}
+
 type Configuration struct {
 	Auth struct {
 		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
@@ -100,6 +106,7 @@ type Configuration struct {
 		ClientCredentials *ClientCredentials   `envconfig:"PINGONE_CLIENT_CREDENTIALS" json:"clientCredentials,omitempty"`
 		DeviceCode        *DeviceCode          `envconfig:"PINGONE_DEVICE_CODE" json:"deviceCode,omitempty"`
 		GrantType         *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
+		Storage           *Storage             `envconfig:"PINGONE_STORAGE_OPTIONS" json:"storageOptions,omitempty"`
 	} `json:"auth"`
 	Endpoint struct {
 		EnvironmentID  *string                   `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
@@ -275,6 +282,35 @@ func (c *Configuration) WithDeviceCodeScopes(deviceCodeScopes []string) *Configu
 	return c
 }
 
+func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = &Storage{}
+	}
+	// Set the storage type based on useKeychain value
+	if useKeychain {
+		c.Auth.Storage.Type = StorageTypeKeychain
+	} else {
+		c.Auth.Storage.Type = StorageTypeFile
+	}
+	return c
+}
+
+func (c *Configuration) WithStorageType(storageType StorageType) *Configuration {
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = &Storage{}
+	}
+	c.Auth.Storage.Type = storageType
+	return c
+}
+
+func (c *Configuration) WithStorageName(name string) *Configuration {
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = &Storage{}
+	}
+	c.Auth.Storage.Name = name
+	return c
+}
+
 func (c *Configuration) HasBearerToken() bool {
 	return c.Auth.AccessToken != nil && *c.Auth.AccessToken != ""
 }
@@ -340,15 +376,21 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	}
 
 	// Check keychain for existing valid token before performing auth
+	// Only check keychain if storage type is keychain (or not set, for backwards compatibility)
 	if c.Auth.GrantType != nil {
-		tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
-		if err != nil {
-			slog.Debug("Could not generate token key for caching", "error", err)
-		} else {
-			keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
-			if existingToken, err := keychainStorage.LoadToken(); err == nil && existingToken != nil && existingToken.Valid() {
-				slog.Debug("Using cached token from keychain", "tokenKey", tokenKey, "expires", existingToken.Expiry)
-				return oauth2.StaticTokenSource(existingToken), nil
+		// Skip keychain check if storage type is explicitly set to file
+		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+
+		if shouldCheckKeychain {
+			tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
+			if err != nil {
+				slog.Debug("Could not generate token key for caching", "error", err)
+			} else {
+				keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+				if existingToken, err := keychainStorage.LoadToken(); err == nil && existingToken != nil && existingToken.Valid() {
+					slog.Debug("Using cached token from keychain", "tokenKey", tokenKey, "expires", existingToken.Expiry)
+					return oauth2.StaticTokenSource(existingToken), nil
+				}
 			}
 		}
 	}
@@ -408,13 +450,19 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 				return nil, fmt.Errorf("failed to get token: %w", err)
 			}
 
-			// Save token to keychain for future use
-			keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
-			if err := keychainStorage.SaveToken(token); err != nil {
-				slog.Warn("Failed to save token to keychain", "error", err, "tokenKey", tokenKey)
-				// Don't return error here - token is still valid even if caching failed
+			// Save token to keychain for future use - only if storage type is keychain (or not set)
+			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+
+			if shouldSaveToKeychain {
+				keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+				if err := keychainStorage.SaveToken(token); err != nil {
+					slog.Warn("Failed to save token to keychain", "error", err, "tokenKey", tokenKey)
+					// Don't return error here - token is still valid even if caching failed
+				} else {
+					slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
+				}
 			} else {
-				slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
+				slog.Debug("Skipping keychain storage (file storage mode)", "tokenKey", tokenKey)
 			}
 
 			return oauth2.StaticTokenSource(token), nil

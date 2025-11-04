@@ -761,3 +761,102 @@ func TestClient(t *testing.T) {
 		})
 	}
 }
+
+func TestWithStorageType(t *testing.T) {
+	tests := []struct {
+		name        string
+		storageType config.StorageType
+	}{
+		{
+			name:        "StorageTypeKeychain",
+			storageType: config.StorageTypeKeychain,
+		},
+		{
+			name:        "StorageTypeFile",
+			storageType: config.StorageTypeFile,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfg := config.NewConfiguration().WithStorageType(tt.storageType)
+
+			if cfg.Auth.Storage == nil {
+				t.Fatal("Storage should not be nil")
+			}
+
+			if cfg.Auth.Storage.Type != tt.storageType {
+				t.Errorf("Expected StorageType to be %q, got %q", tt.storageType, cfg.Auth.Storage.Type)
+			}
+		})
+	}
+}
+
+func TestWithUseKeychain(t *testing.T) {
+	tests := []struct {
+		name              string
+		useKeychain       bool
+		expectStorageType config.StorageType
+	}{
+		{
+			name:              "UseKeychain true sets StorageTypeKeychain",
+			useKeychain:       true,
+			expectStorageType: config.StorageTypeKeychain,
+		},
+		{
+			name:              "UseKeychain false sets StorageTypeFile",
+			useKeychain:       false,
+			expectStorageType: config.StorageTypeFile,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfg := config.NewConfiguration().WithUseKeychain(tt.useKeychain)
+
+			if cfg.Auth.Storage == nil {
+				t.Fatal("Storage should not be nil")
+			}
+
+			if cfg.Auth.Storage.Type != tt.expectStorageType {
+				t.Errorf("Expected StorageType to be %q, got %q", tt.expectStorageType, cfg.Auth.Storage.Type)
+			}
+		})
+	}
+}
+
+func TestWithStorageName(t *testing.T) {
+	cfg := config.NewConfiguration().WithStorageName("test-storage-name")
+
+	if cfg.Auth.Storage == nil {
+		t.Fatal("Storage should not be nil")
+	}
+
+	if cfg.Auth.Storage.Name != "test-storage-name" {
+		t.Errorf("Expected Storage.Name to be 'test-storage-name', got %q", cfg.Auth.Storage.Name)
+	}
+}
+
+func TestStorageTypeChaining(t *testing.T) {
+	// Test that storage methods can be chained
+	cfg := config.NewConfiguration().
+		WithStorageType(config.StorageTypeFile).
+		WithStorageName("my-app").
+		WithClientID("test-client")
+
+	if cfg.Auth.Storage == nil {
+		t.Fatal("Storage should not be nil")
+	}
+
+	if cfg.Auth.Storage.Type != config.StorageTypeFile {
+		t.Errorf("Expected StorageType to be %q, got %q", config.StorageTypeFile, cfg.Auth.Storage.Type)
+	}
+
+	if cfg.Auth.Storage.Name != "my-app" {
+		t.Errorf("Expected Storage.Name to be 'my-app', got %q", cfg.Auth.Storage.Name)
+	}
+
+	if cfg.Auth.ClientCredentials == nil || cfg.Auth.ClientCredentials.ClientCredentialsClientID == nil {
+		t.Fatal("ClientCredentials.ClientID should be set")
+	}
+}

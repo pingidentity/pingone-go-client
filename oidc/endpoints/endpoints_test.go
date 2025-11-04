@@ -26,9 +26,9 @@ func TestPingOneOIDCEndpoint(t *testing.T) {
 	assert.Equal(t, "https://auth.bxretail.org/as/revoke", endpoint.TokenRevocationURL)
 
 	// OIDC specific endpoints
-	assert.Equal(t, "https://auth.bxretail.org/as/.well-known/openid-configuration", endpoint.OIDCDiscoveryURLPath)
-	assert.Equal(t, "https://auth.bxretail.org/as/signoff", endpoint.SignoffURLPath)
-	assert.Equal(t, "https://auth.bxretail.org/as/userinfo", endpoint.UserInfoURLPath)
+	assert.Equal(t, "https://auth.bxretail.org/as/.well-known/openid-configuration", endpoint.OIDCDiscoveryURL)
+	assert.Equal(t, "https://auth.bxretail.org/as/signoff", endpoint.SignoffURL)
+	assert.Equal(t, "https://auth.bxretail.org/as/userinfo", endpoint.UserInfoURL)
 }
 
 func TestPingOneEnvironmentOIDCEndpoint(t *testing.T) {
@@ -83,9 +83,9 @@ func TestPingOneEnvironmentOIDCEndpoint(t *testing.T) {
 				assert.Equal(t, basePath+"/as/revoke", endpoint.TokenRevocationURL)
 
 				// OIDC specific endpoints
-				assert.Equal(t, basePath+"/as/.well-known/openid-configuration", endpoint.OIDCDiscoveryURLPath)
-				assert.Equal(t, basePath+"/as/signoff", endpoint.SignoffURLPath)
-				assert.Equal(t, basePath+"/as/userinfo", endpoint.UserInfoURLPath)
+				assert.Equal(t, basePath+"/as/.well-known/openid-configuration", endpoint.OIDCDiscoveryURL)
+				assert.Equal(t, basePath+"/as/signoff", endpoint.SignoffURL)
+				assert.Equal(t, basePath+"/as/userinfo", endpoint.UserInfoURL)
 			}
 		})
 	}

@@ -19,20 +19,18 @@ func (c *ClientCredentials) ClientCredentialsTokenSource(ctx context.Context, en
 		return nil, fmt.Errorf("scopes are required for client credentials grant type - user must supply scopes")
 	}
 
-	if c.ClientCredentialsClientSecret != nil && *c.ClientCredentialsClientSecret != "" {
-		config := &clientcredentials.Config{
-			ClientID:     *c.ClientCredentialsClientID,
-			ClientSecret: *c.ClientCredentialsClientSecret,
-			TokenURL:     endpoints.TokenURLPath,
-			Scopes:       *c.ClientCredentialsScopes,
-			AuthStyle:    oauth2.AuthStyleInHeader,
-		}
-
-		ts := config.TokenSource(ctx)
-		return ts, nil
+	if c.ClientCredentialsClientSecret == nil || *c.ClientCredentialsClientSecret == "" {
+		return nil, fmt.Errorf("client secret is required for client credentials grant type")
 	}
 
-	// tmp until private keys are supported
-	return nil, fmt.Errorf("client secret is required for client credentials grant type")
+	config := &clientcredentials.Config{
+		ClientID:     *c.ClientCredentialsClientID,
+		ClientSecret: *c.ClientCredentialsClientSecret,
+		TokenURL:     endpoints.TokenURL,
+		Scopes:       *c.ClientCredentialsScopes,
+		AuthStyle:    oauth2.AuthStyleInHeader,
+	}
 
+	ts := config.TokenSource(ctx)
+	return ts, nil
 }
