@@ -23,6 +23,8 @@ func (s StorageType) IsValid() bool {
 	switch s {
 	case StorageTypeKeychain:
 		return true
+	case StorageTypeNone:
+		return true
 	default:
 		return false
 	}

@@ -93,8 +93,8 @@ type DeviceCode struct {
 }
 
 type Storage struct {
-	Name string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
-	Type StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
+	KeychainName string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
+	Type         StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
 }
 
 type Configuration struct {
@@ -305,7 +305,7 @@ func (c *Configuration) WithStorageName(name string) *Configuration {
 	if c.Auth.Storage == nil {
 		c.Auth.Storage = &Storage{}
 	}
-	c.Auth.Storage.Name = name
+	c.Auth.Storage.KeychainName = name
 	return c
 }
 
@@ -375,12 +375,12 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 
 	// Check keychain for existing valid token before performing auth
 	if c.Auth.GrantType != nil {
-		// Skip keychain check if storage type is not set to keychain
+		// Default to storage type of keychain
 		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
 
 		if shouldCheckKeychain {
 			// Validate storage name is set when using keychain
-			if c.Auth.Storage == nil || c.Auth.Storage.Name == "" {
+			if c.Auth.Storage == nil || c.Auth.Storage.KeychainName == "" {
 				return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
 			}
 
@@ -388,7 +388,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if err != nil {
 				return nil, fmt.Errorf("could not generate token key for caching: %s", err)
 			} else {
-				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.Name, tokenKey)
+				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.KeychainName, tokenKey)
 				if err != nil {
 					return nil, fmt.Errorf("failed to create keychain storage: %w", err)
 				}
@@ -462,11 +462,11 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 
 			if shouldSaveToKeychain {
 				// Validate storage name is set when using keychain
-				if c.Auth.Storage == nil || c.Auth.Storage.Name == "" {
+				if c.Auth.Storage == nil || c.Auth.Storage.KeychainName == "" {
 					return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
 				}
 
-				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.Name, tokenKey)
+				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.KeychainName, tokenKey)
 				if err != nil {
 					return nil, fmt.Errorf("failed to create keychain storage: %w", err)
 				}

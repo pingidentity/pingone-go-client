@@ -47,12 +47,11 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	redirectURIPath := DefaultAuthCodeRedirectURIPath
 	redirectURIPort := DefaultAuthCodeRedirectURIPort
 
-	if a.AuthCodeRedirectURI.Port != "" && a.AuthCodeRedirectURI.Path != "" {
-		redirectURIPath = a.AuthCodeRedirectURI.Path
+	if a.AuthCodeRedirectURI.Port != "" {
 		redirectURIPort = a.AuthCodeRedirectURI.Port
-	} else if a.AuthCodeRedirectURI.Port != "" {
-		redirectURIPort = a.AuthCodeRedirectURI.Port
-	} else if a.AuthCodeRedirectURI.Path != "" {
+	}
+
+	if a.AuthCodeRedirectURI.Path != "" {
 		redirectURIPath = a.AuthCodeRedirectURI.Path
 	}
 

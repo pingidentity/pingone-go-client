@@ -823,7 +823,7 @@ func TestWithStorageName(t *testing.T) {
 		t.Fatal("Storage should not be nil")
 	}
 
-	if cfg.Auth.Storage.Name != "test-storage-name" {
-		t.Errorf("Expected Storage.Name to be 'test-storage-name', got %q", cfg.Auth.Storage.Name)
+	if cfg.Auth.Storage.KeychainName != "test-storage-name" {
+		t.Errorf("Expected Storage.KeychainName to be 'test-storage-name', got %q", cfg.Auth.Storage.KeychainName)
 	}
 }
