@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 package config
 
 import (
@@ -42,16 +43,20 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 
 	slog.Debug("Using authorization code token source with provided client ID", "client ID", *a.AuthCodeClientID)
 
-	// Use localhost callback if no redirect URI specified
 	redirectURI := DefaultAuthCodeRedirectURI
+	redirectURIPath := DefaultAuthCodeRedirectURIPath
+	redirectURIPort := DefaultAuthCodeRedirectURIPort
 
 	if a.AuthCodeRedirectURI.Port != "" && a.AuthCodeRedirectURI.Path != "" {
-		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, a.AuthCodeRedirectURI.Port, a.AuthCodeRedirectURI.Path)
+		redirectURIPath = a.AuthCodeRedirectURI.Path
+		redirectURIPort = a.AuthCodeRedirectURI.Port
 	} else if a.AuthCodeRedirectURI.Port != "" {
-		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, a.AuthCodeRedirectURI.Port, DefaultAuthCodeRedirectURIPath)
+		redirectURIPort = a.AuthCodeRedirectURI.Port
 	} else if a.AuthCodeRedirectURI.Path != "" {
-		redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, DefaultAuthCodeRedirectURIPort, a.AuthCodeRedirectURI.Path)
+		redirectURIPath = a.AuthCodeRedirectURI.Path
 	}
+
+	redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, redirectURIPort, redirectURIPath)
 
 	var scopes []string
 	if a.AuthCodeScopes != nil {

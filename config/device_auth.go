@@ -1,14 +1,14 @@
+// Copyright © 2025 Ping Identity Corporation
 package config
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 )
 
-func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
+func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2.Endpoint) (oauth2.TokenSource, error) {
 	if d.DeviceCodeClientID == nil || *d.DeviceCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for device code grant type")
 	}
@@ -16,7 +16,7 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints endpoi
 	config := &oauth2.Config{
 		ClientID: *d.DeviceCodeClientID,
 		Scopes:   *d.DeviceCodeScopes,
-		Endpoint: endpoints.Endpoint,
+		Endpoint: endpoints,
 	}
 
 	response, err := config.DeviceAuth(ctx)

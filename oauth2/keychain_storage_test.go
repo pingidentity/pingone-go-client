@@ -10,12 +10,20 @@ import (
 )
 
 func TestKeychainStorageDefaults(t *testing.T) {
-	defaultStorage := NewKeychainStorage("", "")
-	if defaultStorage.serviceName != "pingcli" {
-		t.Errorf("Expected serviceName to be 'pingcli', got %q", defaultStorage.serviceName)
+	_, err := NewKeychainStorage("", "")
+	if err == nil {
+		t.Error("Expected error when creating keychain storage with empty strings, got nil")
 	}
-	if defaultStorage.username != "default" {
-		t.Errorf("Expected username to be 'default', got %q", defaultStorage.username)
+
+	storage, err := NewKeychainStorage("pingcli", "test-user")
+	if err != nil {
+		t.Fatalf("Unexpected error creating keychain storage: %v", err)
+	}
+	if storage.serviceName != "pingcli" {
+		t.Errorf("Expected serviceName to be 'pingcli', got %q", storage.serviceName)
+	}
+	if storage.username != "test-user" {
+		t.Errorf("Expected username to be 'test-user', got %q", storage.username)
 	}
 }
 
@@ -124,10 +132,10 @@ func TestKeychainStorageOperations(t *testing.T) {
 					t.Error("Expected HasToken to be false")
 				}
 
-				// Load should return nil
+				// Load should fail since token doesn't exist
 				loadedToken, err := storage.LoadToken()
-				if err != nil {
-					t.Fatalf("Failed to load token: %v", err)
+				if err == nil {
+					t.Error("Expected error when loading non-existent token, got nil")
 				}
 				if loadedToken != nil {
 					t.Error("Expected loaded token to be nil")
@@ -162,7 +170,10 @@ func TestKeychainStorageOperations(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Use a test-specific service name to avoid conflicts
-			storage := NewKeychainStorage("pingcli-test", "test-user-"+tt.name)
+			storage, err := NewKeychainStorage("pingcli-test", "test-user-"+tt.name)
+			if err != nil {
+				t.Fatalf("Failed to create keychain storage: %v", err)
+			}
 
 			// Clean up any existing test data
 			_ = storage.ClearToken()

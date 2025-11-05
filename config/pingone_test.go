@@ -113,10 +113,10 @@ func TestConfigurationDomainMethods(t *testing.T) {
 		{
 			name: "WithTopLevelDomain",
 			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithTopLevelDomain(oauth2.TopLevelDomain("com"))
+				return config.NewConfiguration().WithTopLevelDomain(config.TopLevelDomain("com"))
 			},
 			validate: func(t *testing.T, cfg *config.Configuration) {
-				expected := oauth2.TopLevelDomain("com")
+				expected := config.TopLevelDomain("com")
 				if cfg.Endpoint.TopLevelDomain == nil {
 					t.Fatal("TopLevelDomain should not be nil")
 				}
@@ -771,10 +771,6 @@ func TestWithStorageType(t *testing.T) {
 			name:        "StorageTypeKeychain",
 			storageType: config.StorageTypeKeychain,
 		},
-		{
-			name:        "StorageTypeFile",
-			storageType: config.StorageTypeFile,
-		},
 	}
 
 	for _, tt := range tests {
@@ -803,11 +799,6 @@ func TestWithUseKeychain(t *testing.T) {
 			useKeychain:       true,
 			expectStorageType: config.StorageTypeKeychain,
 		},
-		{
-			name:              "UseKeychain false sets StorageTypeFile",
-			useKeychain:       false,
-			expectStorageType: config.StorageTypeFile,
-		},
 	}
 
 	for _, tt := range tests {
@@ -834,29 +825,5 @@ func TestWithStorageName(t *testing.T) {
 
 	if cfg.Auth.Storage.Name != "test-storage-name" {
 		t.Errorf("Expected Storage.Name to be 'test-storage-name', got %q", cfg.Auth.Storage.Name)
-	}
-}
-
-func TestStorageTypeChaining(t *testing.T) {
-	// Test that storage methods can be chained
-	cfg := config.NewConfiguration().
-		WithStorageType(config.StorageTypeFile).
-		WithStorageName("my-app").
-		WithClientID("test-client")
-
-	if cfg.Auth.Storage == nil {
-		t.Fatal("Storage should not be nil")
-	}
-
-	if cfg.Auth.Storage.Type != config.StorageTypeFile {
-		t.Errorf("Expected StorageType to be %q, got %q", config.StorageTypeFile, cfg.Auth.Storage.Type)
-	}
-
-	if cfg.Auth.Storage.Name != "my-app" {
-		t.Errorf("Expected Storage.Name to be 'my-app', got %q", cfg.Auth.Storage.Name)
-	}
-
-	if cfg.Auth.ClientCredentials == nil || cfg.Auth.ClientCredentials.ClientCredentialsClientID == nil {
-		t.Fatal("ClientCredentials.ClientID should be set")
 	}
 }

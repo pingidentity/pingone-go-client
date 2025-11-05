@@ -1,3 +1,4 @@
+// Copyright © 2025 Ping Identity Corporation
 package config_test
 
 import (

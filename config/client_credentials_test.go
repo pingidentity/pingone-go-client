@@ -1,3 +1,5 @@
+// Copyright © 2025 Ping Identity Corporation
+
 package config_test
 
 import (
@@ -162,7 +164,7 @@ func TestClientCredentialsTokenSource_NilContext(t *testing.T) {
 
 	// This should handle nil context - TokenSource creation should still work
 	ts, err := clientCreds.ClientCredentialsTokenSource(nil, testEndpoints)
-	
+
 	// TokenSource creation should succeed even with nil context
 	// (The actual token fetch would fail, but that's not tested here)
 	if err != nil {

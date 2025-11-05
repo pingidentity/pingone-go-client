@@ -19,11 +19,6 @@ func TestStorageType_String(t *testing.T) {
 			storageType: config.StorageTypeKeychain,
 			expected:    "keychain",
 		},
-		{
-			name:        "StorageTypeFile",
-			storageType: config.StorageTypeFile,
-			expected:    "file",
-		},
 	}
 
 	for _, tt := range tests {
@@ -45,11 +40,6 @@ func TestStorageType_IsValid(t *testing.T) {
 		{
 			name:        "StorageTypeKeychain is valid",
 			storageType: config.StorageTypeKeychain,
-			expected:    true,
-		},
-		{
-			name:        "StorageTypeFile is valid",
-			storageType: config.StorageTypeFile,
 			expected:    true,
 		},
 		{
@@ -83,9 +73,5 @@ func TestStorageTypeConstants(t *testing.T) {
 	// Verify the constant values are as expected
 	if config.StorageTypeKeychain != "keychain" {
 		t.Errorf("Expected StorageTypeKeychain to be 'keychain', got %q", config.StorageTypeKeychain)
-	}
-
-	if config.StorageTypeFile != "file" {
-		t.Errorf("Expected StorageTypeFile to be 'file', got %q", config.StorageTypeFile)
 	}
 }

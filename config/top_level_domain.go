@@ -1,5 +1,5 @@
 // Copyright © 2025 Ping Identity Corporation
-package oauth2
+package config
 
 type TopLevelDomain string
 

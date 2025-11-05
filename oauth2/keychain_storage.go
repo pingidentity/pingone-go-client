@@ -19,17 +19,18 @@ type KeychainStorage struct {
 }
 
 // NewKeychainStorage creates a new KeychainStorage instance
-func NewKeychainStorage(serviceName, username string) *KeychainStorage {
+// Both serviceName and username must be non-empty strings
+func NewKeychainStorage(serviceName, username string) (*KeychainStorage, error) {
 	if serviceName == "" {
-		serviceName = "pingcli"
+		return nil, fmt.Errorf("serviceName cannot be empty")
 	}
 	if username == "" {
-		username = "default"
+		return nil, fmt.Errorf("username cannot be empty")
 	}
 	return &KeychainStorage{
 		serviceName: serviceName,
 		username:    username,
-	}
+	}, nil
 }
 
 // SaveToken stores the OAuth2 token in the system keychain

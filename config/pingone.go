@@ -75,7 +75,7 @@ type AuthCodeRedirectURI struct {
 type AuthCode struct {
 	AuthCodeClientID      *string             `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
 	AuthCodeEnvironmentID *string             `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
-	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"redirectUri,omitempty"`
+	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"authCodeRedirectUri,omitempty"`
 	AuthCodeScopes        *[]string           `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
 }
 
@@ -109,11 +109,11 @@ type Configuration struct {
 		Storage           *Storage             `envconfig:"PINGONE_STORAGE_OPTIONS" json:"storageOptions,omitempty"`
 	} `json:"auth"`
 	Endpoint struct {
-		EnvironmentID  *string                   `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
-		TopLevelDomain *svcOAuth2.TopLevelDomain `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
-		RootDomain     *string                   `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
-		APIDomain      *string                   `envconfig:"PINGONE_API_DOMAIN" json:"apiDomain,omitempty"`
-		CustomDomain   *string                   `envconfig:"PINGONE_CUSTOM_DOMAIN" json:"customDomain,omitempty"`
+		EnvironmentID  *string         `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
+		TopLevelDomain *TopLevelDomain `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
+		RootDomain     *string         `envconfig:"PINGONE_ROOT_DOMAIN" json:"rootDomain,omitempty"`
+		APIDomain      *string         `envconfig:"PINGONE_API_DOMAIN" json:"apiDomain,omitempty"`
+		CustomDomain   *string         `envconfig:"PINGONE_CUSTOM_DOMAIN" json:"customDomain,omitempty"`
 	} `json:"endpoint"`
 }
 
@@ -203,7 +203,7 @@ func (c *Configuration) GetTopLevelDomain() string {
 	return ""
 }
 
-func (c *Configuration) WithTopLevelDomain(tld svcOAuth2.TopLevelDomain) *Configuration {
+func (c *Configuration) WithTopLevelDomain(tld TopLevelDomain) *Configuration {
 	c.Endpoint.TopLevelDomain = &tld
 	return c
 }
@@ -289,8 +289,6 @@ func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
 	// Set the storage type based on useKeychain value
 	if useKeychain {
 		c.Auth.Storage.Type = StorageTypeKeychain
-	} else {
-		c.Auth.Storage.Type = StorageTypeFile
 	}
 	return c
 }
@@ -376,20 +374,29 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	}
 
 	// Check keychain for existing valid token before performing auth
-	// Only check keychain if storage type is keychain (or not set, for backwards compatibility)
 	if c.Auth.GrantType != nil {
-		// Skip keychain check if storage type is explicitly set to file
+		// Skip keychain check if storage type is not set to keychain
 		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
 
 		if shouldCheckKeychain {
+			// Validate storage name is set when using keychain
+			if c.Auth.Storage == nil || c.Auth.Storage.Name == "" {
+				return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
+			}
+
 			tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
 			if err != nil {
-				slog.Debug("Could not generate token key for caching", "error", err)
+				return nil, fmt.Errorf("could not generate token key for caching: %s", err)
 			} else {
-				keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.Name, tokenKey)
+				if err != nil {
+					return nil, fmt.Errorf("failed to create keychain storage: %w", err)
+				}
 				if existingToken, err := keychainStorage.LoadToken(); err == nil && existingToken != nil && existingToken.Valid() {
 					slog.Debug("Using cached token from keychain", "tokenKey", tokenKey, "expires", existingToken.Expiry)
 					return oauth2.StaticTokenSource(existingToken), nil
+				} else if err != nil {
+					slog.Debug("Unable to load cached token from keychain:", "error", err)
 				}
 			}
 		}
@@ -434,7 +441,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if c.Auth.DeviceCode == nil {
 				return nil, fmt.Errorf("device code configuration is required for device code grant type")
 			}
-			ts, err := c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints)
+			ts, err := c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints.Endpoint)
 			if err != nil {
 				return nil, err
 			}
@@ -454,7 +461,15 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
 
 			if shouldSaveToKeychain {
-				keychainStorage := svcOAuth2.NewKeychainStorage("pingcli", tokenKey)
+				// Validate storage name is set when using keychain
+				if c.Auth.Storage == nil || c.Auth.Storage.Name == "" {
+					return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
+				}
+
+				keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.Name, tokenKey)
+				if err != nil {
+					return nil, fmt.Errorf("failed to create keychain storage: %w", err)
+				}
 				if err := keychainStorage.SaveToken(token); err != nil {
 					slog.Warn("Failed to save token to keychain", "error", err, "tokenKey", tokenKey)
 					// Don't return error here - token is still valid even if caching failed
