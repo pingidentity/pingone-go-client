@@ -6,6 +6,8 @@
 - [ ] **This PR contains beta functionality**
 - [ ] **This PR requires introduction of breaking changes**
 - [ ] **No changelog entry is needed**
+- [ ] **This PR contains code from the SDK generator process**
+- [ ] **This PR contains written code**
 
 ## Checklist
 <!-- Please check off completed items. -->
@@ -16,17 +18,14 @@ _If contributing a partial or incomplete change (expecting the development team 
 
 - [ ] **Check to confirm**: I have performed a review of my PR against the [PR checklist](../contributing/pr-checklist.md) and confirm that:
   - Changes have proper test coverage (including regression tests)
-  - Impacted resource, data source and schema descriptions have been reviewed and updated
-  - Impacted resource and data source documentation HCL examples have been reviewed and updated
   - Does not introduce breaking changes (unless required to do so)
   - I am aware that changes to generated code may not be merged
 
 ## Required SDK Upgrades
 <!-- Use this section to describe or list any dependencies, and the required version, that need upgrading in the provider prior to merge. -->
 
-<!--
 N/a
-
+<!--
 - golang.org/x/oauth2 v0.30.0
 -->
 
