@@ -202,6 +202,21 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowB
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -210,6 +225,21 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowB
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -706,6 +736,21 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 						return localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -714,6 +759,21 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarHTTPResponse, getErrorObject(v)
 			}
@@ -943,6 +1003,21 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFl
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -951,6 +1026,21 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFl
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -1188,6 +1278,21 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -1196,6 +1301,21 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -1705,6 +1825,21 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -1713,6 +1848,21 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
@@ -2197,6 +2347,21 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiVali
 						return localVarReturnValue, localVarHTTPResponse, errors.Join(notFoundErr, err)
 					}
 				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
+				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
 			if localVarHTTPResponse.StatusCode == 404 {
@@ -2205,6 +2370,21 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiVali
 				if err != nil {
 					newErr.error = err.Error()
 					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				// check if environment created recently - DOCS-8830
+				retryEnvironmentResponse, retryVarHTTPResponse, err := a.client.EnvironmentsApi.GetEnvironmentById(r.ctx, r.environmentID).Execute()
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHTTPResponse, newErr
+				}
+				if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
+					// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
+					if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
+						slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Retry the request
+						time.Sleep(1 * time.Second)
+						continue
+					}
 				}
 				return localVarReturnValue, localVarHTTPResponse, getErrorObject(v)
 			}
