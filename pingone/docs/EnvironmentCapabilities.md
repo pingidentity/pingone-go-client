@@ -67,9 +67,11 @@ Name | Type | Description | Notes
 **CanUseManualIDStepUpInspection** | Pointer to **bool** |  | [optional] 
 **CanUseManualIdInspection** | Pointer to **bool** |  | [optional] 
 **CanUseMfa** | Pointer to **bool** |  | [optional] 
+**CanUseMfaCiam** | Pointer to **bool** |  | [optional] 
 **CanUseMfaFido2Devices** | Pointer to **bool** |  | [optional] 
 **CanUseMfaPushNotifications** | Pointer to **bool** |  | [optional] 
 **CanUseMfaVoiceOtp** | Pointer to **bool** |  | [optional] 
+**CanUseMfaWf** | Pointer to **bool** |  | [optional] 
 **CanUseMyAccount** | Pointer to **bool** |  | [optional] 
 **CanUseNewAccountFraudDetection** | Pointer to **bool** |  | [optional] 
 **CanUseOATHToken** | Pointer to **bool** |  | [optional] 
@@ -1695,6 +1697,31 @@ SetCanUseMfa sets CanUseMfa field to given value.
 
 HasCanUseMfa returns a boolean if a field has been set.
 
+### GetCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaCiam() bool`
+
+GetCanUseMfaCiam returns the CanUseMfaCiam field if non-nil, zero value otherwise.
+
+### GetCanUseMfaCiamOk
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaCiamOk() (*bool, bool)`
+
+GetCanUseMfaCiamOk returns a tuple with the CanUseMfaCiam field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) SetCanUseMfaCiam(v bool)`
+
+SetCanUseMfaCiam sets CanUseMfaCiam field to given value.
+
+### HasCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) HasCanUseMfaCiam() bool`
+
+HasCanUseMfaCiam returns a boolean if a field has been set.
+
 ### GetCanUseMfaFido2Devices
 
 `func (o *EnvironmentCapabilities) GetCanUseMfaFido2Devices() bool`
@@ -1769,6 +1796,31 @@ SetCanUseMfaVoiceOtp sets CanUseMfaVoiceOtp field to given value.
 `func (o *EnvironmentCapabilities) HasCanUseMfaVoiceOtp() bool`
 
 HasCanUseMfaVoiceOtp returns a boolean if a field has been set.
+
+### GetCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaWf() bool`
+
+GetCanUseMfaWf returns the CanUseMfaWf field if non-nil, zero value otherwise.
+
+### GetCanUseMfaWfOk
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaWfOk() (*bool, bool)`
+
+GetCanUseMfaWfOk returns a tuple with the CanUseMfaWf field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) SetCanUseMfaWf(v bool)`
+
+SetCanUseMfaWf sets CanUseMfaWf field to given value.
+
+### HasCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) HasCanUseMfaWf() bool`
+
+HasCanUseMfaWf returns a boolean if a field has been set.
 
 ### GetCanUseMyAccount
 

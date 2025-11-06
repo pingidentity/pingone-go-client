@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.10.31-development
+  version: 2025.11.05-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -460,9 +460,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -495,9 +495,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -536,9 +536,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -577,9 +577,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -648,9 +648,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -791,9 +791,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -826,9 +826,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -867,9 +867,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1217,9 +1217,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "429":
           $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
@@ -1329,9 +1329,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1371,9 +1371,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1412,9 +1412,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1454,9 +1454,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1497,9 +1497,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1540,9 +1540,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -1871,7 +1871,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "429":
           $ref: "#/components/responses/http.429.TooManyRequests"
         "500":
@@ -2133,9 +2133,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -2168,9 +2168,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -2209,9 +2209,9 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
         "404":
-          $ref: "#/components/responses/http.404.NotFound"
+          $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
           $ref: "#/components/responses/http.415.UnsupportedMediaType"
         "429":
@@ -8519,6 +8519,7 @@ components:
         canUseTotp: true
         canPromoteToProd: true
         canUseWinLogin: true
+        canUseMfaWf: true
         canUseCredentialSharingDetection: true
         canUseFaceMatch: true
         canUseDaVinciAdminPortal: true
@@ -8612,6 +8613,7 @@ components:
         canUseDeviceReputationScoring: true
         canUseAccountTakeoverDetection: true
         canUseIntelligenceReputation: true
+        canUseMfaCiam: true
         canUseProvisioning: true
         canUseManualIdInspection: true
         canUseMfaPushNotifications: true
@@ -8863,6 +8865,9 @@ components:
         canUseMfa:
           title: Environment Capabilities Can Use MFA
           type: boolean
+        canUseMfaCiam:
+          title: Environment Capabilities Can Use MFA Ciam
+          type: boolean
         canUseMfaFido2Devices:
           title: Environment Capabilities Can Use MFA Fido 2 Devices
           type: boolean
@@ -8871,6 +8876,9 @@ components:
           type: boolean
         canUseMfaVoiceOtp:
           title: Environment Capabilities Can Use MFA Voice Otp
+          type: boolean
+        canUseMfaWf:
+          title: Environment Capabilities Can Use MFA Wf
           type: boolean
         canUseMyAccount:
           title: Environment Capabilities Can Use My Account
@@ -9484,6 +9492,7 @@ components:
           canUseTotp: true
           canPromoteToProd: true
           canUseWinLogin: true
+          canUseMfaWf: true
           canUseCredentialSharingDetection: true
           canUseFaceMatch: true
           canUseDaVinciAdminPortal: true
@@ -9577,6 +9586,7 @@ components:
           canUseDeviceReputationScoring: true
           canUseAccountTakeoverDetection: true
           canUseIntelligenceReputation: true
+          canUseMfaCiam: true
           canUseProvisioning: true
           canUseManualIdInspection: true
           canUseMfaPushNotifications: true

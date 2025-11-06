@@ -89,9 +89,11 @@ type EnvironmentCapabilities struct {
 	CanUseManualIDStepUpInspection              *bool                             `json:"canUseManualIDStepUpInspection,omitempty"`
 	CanUseManualIdInspection                    *bool                             `json:"canUseManualIdInspection,omitempty"`
 	CanUseMfa                                   *bool                             `json:"canUseMfa,omitempty"`
+	CanUseMfaCiam                               *bool                             `json:"canUseMfaCiam,omitempty"`
 	CanUseMfaFido2Devices                       *bool                             `json:"canUseMfaFido2Devices,omitempty"`
 	CanUseMfaPushNotifications                  *bool                             `json:"canUseMfaPushNotifications,omitempty"`
 	CanUseMfaVoiceOtp                           *bool                             `json:"canUseMfaVoiceOtp,omitempty"`
+	CanUseMfaWf                                 *bool                             `json:"canUseMfaWf,omitempty"`
 	CanUseMyAccount                             *bool                             `json:"canUseMyAccount,omitempty"`
 	CanUseNewAccountFraudDetection              *bool                             `json:"canUseNewAccountFraudDetection,omitempty"`
 	CanUseOATHToken                             *bool                             `json:"canUseOATHToken,omitempty"`
@@ -2160,6 +2162,38 @@ func (o *EnvironmentCapabilities) SetCanUseMfa(v bool) {
 	o.CanUseMfa = &v
 }
 
+// GetCanUseMfaCiam returns the CanUseMfaCiam field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseMfaCiam() bool {
+	if o == nil || IsNil(o.CanUseMfaCiam) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseMfaCiam
+}
+
+// GetCanUseMfaCiamOk returns a tuple with the CanUseMfaCiam field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseMfaCiamOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseMfaCiam) {
+		return nil, false
+	}
+	return o.CanUseMfaCiam, true
+}
+
+// HasCanUseMfaCiam returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseMfaCiam() bool {
+	if o != nil && !IsNil(o.CanUseMfaCiam) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseMfaCiam gets a reference to the given bool and assigns it to the CanUseMfaCiam field.
+func (o *EnvironmentCapabilities) SetCanUseMfaCiam(v bool) {
+	o.CanUseMfaCiam = &v
+}
+
 // GetCanUseMfaFido2Devices returns the CanUseMfaFido2Devices field value if set, zero value otherwise.
 func (o *EnvironmentCapabilities) GetCanUseMfaFido2Devices() bool {
 	if o == nil || IsNil(o.CanUseMfaFido2Devices) {
@@ -2254,6 +2288,38 @@ func (o *EnvironmentCapabilities) HasCanUseMfaVoiceOtp() bool {
 // SetCanUseMfaVoiceOtp gets a reference to the given bool and assigns it to the CanUseMfaVoiceOtp field.
 func (o *EnvironmentCapabilities) SetCanUseMfaVoiceOtp(v bool) {
 	o.CanUseMfaVoiceOtp = &v
+}
+
+// GetCanUseMfaWf returns the CanUseMfaWf field value if set, zero value otherwise.
+func (o *EnvironmentCapabilities) GetCanUseMfaWf() bool {
+	if o == nil || IsNil(o.CanUseMfaWf) {
+		var ret bool
+		return ret
+	}
+	return *o.CanUseMfaWf
+}
+
+// GetCanUseMfaWfOk returns a tuple with the CanUseMfaWf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCapabilities) GetCanUseMfaWfOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanUseMfaWf) {
+		return nil, false
+	}
+	return o.CanUseMfaWf, true
+}
+
+// HasCanUseMfaWf returns a boolean if a field has been set.
+func (o *EnvironmentCapabilities) HasCanUseMfaWf() bool {
+	if o != nil && !IsNil(o.CanUseMfaWf) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanUseMfaWf gets a reference to the given bool and assigns it to the CanUseMfaWf field.
+func (o *EnvironmentCapabilities) SetCanUseMfaWf(v bool) {
+	o.CanUseMfaWf = &v
 }
 
 // GetCanUseMyAccount returns the CanUseMyAccount field value if set, zero value otherwise.
@@ -3415,6 +3481,9 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CanUseMfa) {
 		toSerialize["canUseMfa"] = o.CanUseMfa
 	}
+	if !IsNil(o.CanUseMfaCiam) {
+		toSerialize["canUseMfaCiam"] = o.CanUseMfaCiam
+	}
 	if !IsNil(o.CanUseMfaFido2Devices) {
 		toSerialize["canUseMfaFido2Devices"] = o.CanUseMfaFido2Devices
 	}
@@ -3423,6 +3492,9 @@ func (o EnvironmentCapabilities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CanUseMfaVoiceOtp) {
 		toSerialize["canUseMfaVoiceOtp"] = o.CanUseMfaVoiceOtp
+	}
+	if !IsNil(o.CanUseMfaWf) {
+		toSerialize["canUseMfaWf"] = o.CanUseMfaWf
 	}
 	if !IsNil(o.CanUseMyAccount) {
 		toSerialize["canUseMyAccount"] = o.CanUseMyAccount
@@ -3599,9 +3671,11 @@ func (o *EnvironmentCapabilities) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "canUseManualIDStepUpInspection")
 		delete(additionalProperties, "canUseManualIdInspection")
 		delete(additionalProperties, "canUseMfa")
+		delete(additionalProperties, "canUseMfaCiam")
 		delete(additionalProperties, "canUseMfaFido2Devices")
 		delete(additionalProperties, "canUseMfaPushNotifications")
 		delete(additionalProperties, "canUseMfaVoiceOtp")
+		delete(additionalProperties, "canUseMfaWf")
 		delete(additionalProperties, "canUseMyAccount")
 		delete(additionalProperties, "canUseNewAccountFraudDetection")
 		delete(additionalProperties, "canUseOATHToken")
@@ -3830,6 +3904,9 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	if !IsNil(o.CanUseMfa) {
 		logAttrs = append(logAttrs, slog.Any("canUseMfa", *o.CanUseMfa))
 	}
+	if !IsNil(o.CanUseMfaCiam) {
+		logAttrs = append(logAttrs, slog.Any("canUseMfaCiam", *o.CanUseMfaCiam))
+	}
 	if !IsNil(o.CanUseMfaFido2Devices) {
 		logAttrs = append(logAttrs, slog.Any("canUseMfaFido2Devices", *o.CanUseMfaFido2Devices))
 	}
@@ -3838,6 +3915,9 @@ func (o EnvironmentCapabilities) LogValue() slog.Value {
 	}
 	if !IsNil(o.CanUseMfaVoiceOtp) {
 		logAttrs = append(logAttrs, slog.Any("canUseMfaVoiceOtp", *o.CanUseMfaVoiceOtp))
+	}
+	if !IsNil(o.CanUseMfaWf) {
+		logAttrs = append(logAttrs, slog.Any("canUseMfaWf", *o.CanUseMfaWf))
 	}
 	if !IsNil(o.CanUseMyAccount) {
 		logAttrs = append(logAttrs, slog.Any("canUseMyAccount", *o.CanUseMyAccount))
