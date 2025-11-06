@@ -15,7 +15,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"math/big"
+
+	"github.com/pingidentity/pingone-go-client/types"
 )
 
 // checks if the DaVinciFlowGraphDataResponse type satisfies the MappedNullable interface at compile time
@@ -28,8 +29,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
-	MaxZoom              big.Float                                    `json:"maxZoom"`
-	MinZoom              big.Float                                    `json:"minZoom"`
+	MaxZoom              types.BigFloat                               `json:"maxZoom"`
+	MinZoom              types.BigFloat                               `json:"minZoom"`
 	Pan                  DaVinciFlowGraphDataResponsePan              `json:"pan"`
 	PanningEnabled       bool                                         `json:"panningEnabled"`
 	Renderer             DaVinciFlowGraphDataResponseRenderer         `json:"renderer"`
@@ -48,7 +49,7 @@ type _DaVinciFlowGraphDataResponse DaVinciFlowGraphDataResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom big.Float, minZoom big.Float, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32) *DaVinciFlowGraphDataResponse {
+func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom types.BigFloat, minZoom types.BigFloat, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32) *DaVinciFlowGraphDataResponse {
 	this := DaVinciFlowGraphDataResponse{}
 	this.BoxSelectionEnabled = boxSelectionEnabled
 	this.Elements = elements
@@ -120,9 +121,9 @@ func (o *DaVinciFlowGraphDataResponse) SetElements(v DaVinciFlowGraphDataRespons
 }
 
 // GetMaxZoom returns the MaxZoom field value
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() big.Float {
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloat {
 	if o == nil {
-		var ret big.Float
+		var ret types.BigFloat
 		return ret
 	}
 
@@ -131,7 +132,7 @@ func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() big.Float {
 
 // GetMaxZoomOk returns a tuple with the MaxZoom field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*big.Float, bool) {
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*types.BigFloat, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,14 +140,14 @@ func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*big.Float, bool) {
 }
 
 // SetMaxZoom sets field value
-func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v big.Float) {
+func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v types.BigFloat) {
 	o.MaxZoom = v
 }
 
 // GetMinZoom returns the MinZoom field value
-func (o *DaVinciFlowGraphDataResponse) GetMinZoom() big.Float {
+func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloat {
 	if o == nil {
-		var ret big.Float
+		var ret types.BigFloat
 		return ret
 	}
 
@@ -155,7 +156,7 @@ func (o *DaVinciFlowGraphDataResponse) GetMinZoom() big.Float {
 
 // GetMinZoomOk returns a tuple with the MinZoom field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*big.Float, bool) {
+func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*types.BigFloat, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -163,7 +164,7 @@ func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*big.Float, bool) {
 }
 
 // SetMinZoom sets field value
-func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v big.Float) {
+func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v types.BigFloat) {
 	o.MinZoom = v
 }
 
