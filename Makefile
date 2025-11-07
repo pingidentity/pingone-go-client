@@ -26,7 +26,7 @@ test-coverage:
 
 # Run linting checks
 lint:
-	golangci-lint run --config=.golangci.yml
+	golangci-lint run
 
 # Run security scan
 security:
