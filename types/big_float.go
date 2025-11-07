@@ -16,7 +16,7 @@ func (b BigFloat) MarshalJSON() ([]byte, error) {
 	if b.Float == nil {
 		return []byte("null"), nil
 	}
-	return []byte(fmt.Sprintf(`%s`, b.Text('e', -1))), nil
+	return fmt.Appendf(nil, `%s`, b.Text('e', -1)), nil
 }
 
 func (b *BigFloat) UnmarshalJSON(p []byte) error {
