@@ -372,7 +372,7 @@ func TestBigFloat_InStruct(t *testing.T) {
 				assert.Nil(t, result.Value.Float)
 			} else {
 				require.NotNil(t, result.Value.Float)
-				assert.Equal(t, tt.expected.Value.Float.Text('e', -1), result.Value.Float.Text('e', -1))
+				assert.Equal(t, tt.expected.Value.Text('e', -1), result.Value.Float.Text('e', -1))
 			}
 
 			// Compare optional Score field
@@ -384,7 +384,7 @@ func TestBigFloat_InStruct(t *testing.T) {
 					assert.Nil(t, result.Score.Float)
 				} else {
 					require.NotNil(t, result.Score.Float)
-					assert.Equal(t, tt.expected.Score.Float.Text('e', -1), result.Score.Float.Text('e', -1))
+					assert.Equal(t, tt.expected.Score.Text('e', -1), result.Score.Float.Text('e', -1))
 				}
 			}
 		})
