@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"html/template"
 	"log/slog"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -166,6 +167,13 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		path = "/" + path
 	}
 
+	// Test if port is available before proceeding
+	listener, err := net.Listen("tcp", ":"+port)
+	if err != nil {
+		return nil, fmt.Errorf("port %s is not available: %w", port, err)
+	}
+	listener.Close()
+
 	// Create HTTP server
 	mux := http.NewServeMux()
 	server := &http.Server{
@@ -224,16 +232,28 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	})
 
 	// Start server in background
+	serverStarted := make(chan error, 1)
 	go func() {
+		// Signal when server starts listening (or fails)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			errChan <- fmt.Errorf("callback server error: %w", err)
+			select {
+			case serverStarted <- err:
+				// Server failed to start
+			default:
+				// Server was already marked as started, so this is a runtime error
+				errChan <- fmt.Errorf("callback server error: %w", err)
+			}
 		}
 	}()
 
-	// Give server time to start
-	time.Sleep(100 * time.Millisecond)
-
-	return server, nil
+	// Wait briefly to see if server starts successfully or fails immediately
+	select {
+	case err := <-serverStarted:
+		return nil, fmt.Errorf("failed to start server: %w", err)
+	case <-time.After(100 * time.Millisecond):
+		// Server started successfully (or at least didn't fail immediately)
+		return server, nil
+	}
 }
 
 func openBrowser(url string) {

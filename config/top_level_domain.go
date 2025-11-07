@@ -11,11 +11,3 @@ const (
 	TopLevelDomainNA   TopLevelDomain = "com"
 	TopLevelDomainSG   TopLevelDomain = "sg"
 )
-
-func IsValidTopLevelDomain(tld string) bool {
-	switch TopLevelDomain(tld) {
-	case TopLevelDomainAPAC, TopLevelDomainAU, TopLevelDomainCA, TopLevelDomainEU, TopLevelDomainNA, TopLevelDomainSG:
-		return true
-	}
-	return false
-}
