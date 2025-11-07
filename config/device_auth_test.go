@@ -111,7 +111,7 @@ func TestDeviceAuthTokenSource_NilContext(t *testing.T) {
 	testEndpoints := endpoints.PingOneEndpoint("auth.pingone.com")
 
 	// This should handle nil context gracefully
-	_, err := deviceCode.DeviceAuthTokenSource(nil, testEndpoints)
+	_, err := deviceCode.DeviceAuthTokenSource(context.TODO(), testEndpoints)
 	if err == nil {
 		t.Error("Expected error with nil context")
 	}

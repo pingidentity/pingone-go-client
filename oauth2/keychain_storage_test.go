@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
 	"golang.org/x/oauth2"
 )
 
@@ -54,9 +55,7 @@ func TestKeychainStorageOperations(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Failed to load token: %v", err)
 				}
-				if loadedToken == nil {
-					t.Fatal("Loaded token should not be nil")
-				}
+				require.NotNil(t, loadedToken, "Loaded token should not be nil")
 
 				// Verify token contents
 				if token.AccessToken != loadedToken.AccessToken {
@@ -177,7 +176,7 @@ func TestKeychainStorageOperations(t *testing.T) {
 
 			// Clean up any existing test data
 			_ = storage.ClearToken()
-			defer storage.ClearToken() // Clean up after test
+			defer func() { _ = storage.ClearToken() }() // Clean up after test
 
 			tt.operation(t, storage)
 		})

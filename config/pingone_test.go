@@ -9,6 +9,7 @@ import (
 
 	"github.com/pingidentity/pingone-go-client/config"
 	"github.com/pingidentity/pingone-go-client/oauth2"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNewConfiguration(t *testing.T) {
@@ -429,9 +430,7 @@ func TestBearerToken(t *testing.T) {
 	cfg := config.NewConfiguration().WithAccessToken(accessToken)
 
 	token := cfg.BearerToken()
-	if token == nil {
-		t.Fatal("Token should not be nil")
-	}
+	require.NotNil(t, token, "Token should not be nil")
 	if token.AccessToken != accessToken {
 		t.Errorf("Expected AccessToken to be %q, got %q", accessToken, token.AccessToken)
 	}

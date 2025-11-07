@@ -110,17 +110,15 @@ func TestCallbackHandling(t *testing.T) {
 					if errCode := query.Get("error"); errCode != "" {
 						errorReceived <- true
 						w.WriteHeader(http.StatusBadRequest)
-						w.Write([]byte("error"))
+						_, _ = w.Write([]byte("error"))
 					} else if query.Get("code") == "" {
 						// Missing code is also an error
 						errorReceived <- true
 						w.WriteHeader(http.StatusBadRequest)
-						w.Write([]byte("missing code"))
+						_, _ = w.Write([]byte("missing code"))
 					}
 				}))
-				defer server.Close()
-
-				// Simulate error callback request
+				defer server.Close() // Simulate error callback request
 				resp, err := http.Get(server.URL + tt.queryParams)
 				if err != nil {
 					t.Fatalf("Failed to make request: %v", err)
@@ -145,12 +143,10 @@ func TestCallbackHandling(t *testing.T) {
 					if code != "" {
 						codeChan <- code
 						w.WriteHeader(http.StatusOK)
-						w.Write([]byte("success"))
+						_, _ = w.Write([]byte("success"))
 					}
 				}))
-				defer server.Close()
-
-				// Simulate callback request
+				defer server.Close() // Simulate callback request
 				resp, err := http.Get(server.URL + tt.queryParams)
 				if err != nil {
 					t.Fatalf("Failed to make request: %v", err)

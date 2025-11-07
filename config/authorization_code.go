@@ -44,7 +44,6 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 
 	slog.Debug("Using authorization code token source with provided client ID", "client ID", *a.AuthCodeClientID)
 
-	redirectURI := DefaultAuthCodeRedirectURI
 	redirectURIPath := DefaultAuthCodeRedirectURIPath
 	redirectURIPort := DefaultAuthCodeRedirectURIPort
 
@@ -56,7 +55,7 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 		redirectURIPath = a.AuthCodeRedirectURI.Path
 	}
 
-	redirectURI = fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, redirectURIPort, redirectURIPath)
+	redirectURI := fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, redirectURIPort, redirectURIPath)
 
 	var scopes []string
 	if a.AuthCodeScopes != nil {

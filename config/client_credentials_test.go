@@ -163,7 +163,7 @@ func TestClientCredentialsTokenSource_NilContext(t *testing.T) {
 	testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
 
 	// This should handle nil context - TokenSource creation should still work
-	ts, err := clientCreds.ClientCredentialsTokenSource(nil, testEndpoints)
+	ts, err := clientCreds.ClientCredentialsTokenSource(context.TODO(), testEndpoints)
 
 	// TokenSource creation should succeed even with nil context
 	// (The actual token fetch would fail, but that's not tested here)
