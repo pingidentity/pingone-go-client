@@ -74,12 +74,17 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 	// Start local HTTP server to capture callback
 	codeChan := make(chan string, 1)
 	errChan := make(chan error, 1)
+	tokenResultChan := make(chan error, 1) // nil for success, error for failure
 
-	server, err := startCallbackServer(redirectURI, codeChan, errChan)
+	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan)
 	if err != nil {
 		return nil, fmt.Errorf("failed to start callback server: %w", err)
 	}
-	defer server.Close()
+	defer func() {
+		if closeErr := server.Close(); closeErr != nil {
+			fmt.Printf("Warning: failed to close server: %v\n", closeErr)
+		}
+	}()
 
 	// Generate authorization URL and open browser
 	authURL := config.AuthCodeURL("state", oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
@@ -100,9 +105,22 @@ func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.
 
 	// Exchange authorization code for token
 	tok, err := config.Exchange(ctx, code, oauth2.VerifierOption(codeVerifier))
+
 	if err != nil {
+		// Signal failure to show error page
+		tokenResultChan <- err
+
+		// Wait a moment for the HTTP response to be sent before returning
+		time.Sleep(500 * time.Millisecond)
+
 		return nil, fmt.Errorf("failed to exchange code for token: %w", err)
 	}
+
+	// Signal success to show success page
+	tokenResultChan <- nil
+
+	// Wait a moment for the HTTP response to be sent before returning
+	time.Sleep(500 * time.Millisecond)
 
 	slog.Debug("Successfully obtained access token via authorization code flow")
 
@@ -144,7 +162,7 @@ func returnSuccessPage(w http.ResponseWriter) error {
 }
 
 // startCallbackServer starts a local HTTP server to handle OAuth2 callbacks
-func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error) (*http.Server, error) {
+func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error) (*http.Server, error) {
 	// Parse the redirect URI to get the port
 	parsedURI, err := url.Parse(redirectURI)
 	if err != nil {
@@ -166,18 +184,18 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		path = "/" + path
 	}
 
-	// Test if port is available before proceeding
+	// Test if port is available and keep the listener
 	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return nil, fmt.Errorf("port %s is not available: %w", port, err)
 	}
-	listener.Close()
 
 	// Create HTTP server
 	mux := http.NewServeMux()
 	server := &http.Server{
-		Addr:    ":" + port,
-		Handler: mux,
+		Addr:              ":" + port,
+		Handler:           mux,
+		ReadHeaderTimeout: 10 * time.Second,
 	}
 
 	// Handle callback endpoint
@@ -220,21 +238,46 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		// Send code to channel
 		codeChan <- code
 
-		// Send success response
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.WriteHeader(http.StatusOK)
+		// Wait for token exchange to complete before showing page
+		select {
+		case tokenErr := <-tokenResultChan:
+			if tokenErr == nil {
+				// Token exchange succeeded
+				w.Header().Set("Content-Type", "text/html; charset=utf-8")
+				w.WriteHeader(http.StatusOK)
 
-		err := returnSuccessPage(w)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
+				err := returnSuccessPage(w)
+				if err != nil {
+					fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
+				}
+			} else {
+				// Token exchange failed
+				w.Header().Set("Content-Type", "text/html; charset=utf-8")
+				w.WriteHeader(http.StatusUnauthorized)
+				err := returnFailedPage(w)
+				if err != nil {
+					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
+				}
+				if flusher, ok := w.(http.Flusher); ok {
+					flusher.Flush()
+				}
+			}
+		case <-time.After(30 * time.Second):
+			// Token exchange timed out
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.WriteHeader(http.StatusInternalServerError)
+			err := returnFailedPage(w)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
+			}
 		}
 	})
 
-	// Start server in background
+	// Start server in background using the existing listener
 	serverStarted := make(chan error, 1)
 	go func() {
-		// Signal when server starts listening (or fails)
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		// Use Serve() with the existing listener instead of ListenAndServe()
+		if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
 			select {
 			case serverStarted <- err:
 				// Server failed to start
@@ -245,14 +288,29 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 	}()
 
-	// Wait briefly to see if server starts successfully or fails immediately
-	select {
-	case err := <-serverStarted:
-		return nil, fmt.Errorf("failed to start server: %w", err)
-	case <-time.After(100 * time.Millisecond):
-		// Server started successfully (or at least didn't fail immediately)
-		return server, nil
+	// Verify server is actually accepting connections before returning
+	maxRetries := 10
+	for i := 0; i < maxRetries; i++ {
+		// Check if server failed
+		select {
+		case err := <-serverStarted:
+			return nil, fmt.Errorf("failed to start server: %w", err)
+		default:
+		}
+
+		// Try to connect
+		conn, err := net.DialTimeout("tcp", ":"+port, 50*time.Millisecond)
+		if err == nil {
+			conn.Close()
+			// Server is accepting connections
+			return server, nil
+		}
+
+		// Wait a bit before retrying
+		time.Sleep(10 * time.Millisecond)
 	}
+
+	return nil, fmt.Errorf("server failed to start accepting connections in time")
 }
 
 func openBrowser(url string) {

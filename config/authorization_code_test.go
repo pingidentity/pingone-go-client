@@ -123,9 +123,11 @@ func TestCallbackHandling(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Failed to make request: %v", err)
 				}
-				defer resp.Body.Close()
-
-				// Check that error was received
+				defer func() {
+					if closeErr := resp.Body.Close(); closeErr != nil {
+						t.Logf("Warning: failed to close response body: %v", closeErr)
+					}
+				}() // Check that error was received
 				select {
 				case <-errorReceived:
 					// Expected error received
@@ -151,9 +153,11 @@ func TestCallbackHandling(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Failed to make request: %v", err)
 				}
-				defer resp.Body.Close()
-
-				// Check that code was received
+				defer func() {
+					if closeErr := resp.Body.Close(); closeErr != nil {
+						t.Logf("Warning: failed to close response body: %v", closeErr)
+					}
+				}() // Check that code was received
 				select {
 				case code := <-codeChan:
 					if code != tt.expectCode {
