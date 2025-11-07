@@ -301,7 +301,9 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		// Try to connect
 		conn, err := net.DialTimeout("tcp", ":"+port, 50*time.Millisecond)
 		if err == nil {
-			conn.Close()
+			if closeErr := conn.Close(); closeErr != nil {
+				slog.Warn("Failed to close connection during server verification", "error", closeErr)
+			}
 			// Server is accepting connections
 			return server, nil
 		}
