@@ -29,6 +29,20 @@ func TestKeychainStorageDefaults(t *testing.T) {
 }
 
 func TestKeychainStorageOperations(t *testing.T) {
+	// Test if keychain is available by attempting to create and use storage
+	testStorage, err := NewKeychainStorage("pingcli-test-availability", "test-check")
+	if err != nil {
+		t.Skipf("Skipping keychain tests: keychain storage not available (%v)", err)
+	}
+
+	// Try a simple operation to verify keychain is actually working
+	testToken := &oauth2.Token{AccessToken: "test"}
+	err = testStorage.SaveToken(testToken)
+	_ = testStorage.ClearToken() // Clean up
+	if err != nil {
+		t.Skipf("Skipping keychain tests: keychain service not available (%v)", err)
+	}
+
 	tests := []struct {
 		name      string
 		operation func(t *testing.T, storage *KeychainStorage)
