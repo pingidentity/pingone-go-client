@@ -15,13 +15,13 @@ import (
 func TestBigFloat_MarshalJSON(t *testing.T) {
 	tests := []struct {
 		name     string
-		input    types.BigFloat
+		input    types.BigFloatUnquoted
 		expected string
 		wantErr  bool
 	}{
 		{
 			name: "positive integer",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(123),
 			},
 			expected: "1.23e+02",
@@ -29,7 +29,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "negative integer",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(-456),
 			},
 			expected: "-4.56e+02",
@@ -37,7 +37,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "positive decimal",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(123.456),
 			},
 			expected: "1.23456e+02",
@@ -45,7 +45,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "negative decimal",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(-789.012),
 			},
 			expected: "-7.89012e+02",
@@ -53,7 +53,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "zero",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(0),
 			},
 			expected: "0e+00",
@@ -61,7 +61,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "very small number",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(0.000001),
 			},
 			expected: "1e-06",
@@ -69,7 +69,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "very large number",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: big.NewFloat(123456789012345),
 			},
 			expected: "1.23456789012345e+14",
@@ -77,7 +77,7 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "nil float",
-			input: types.BigFloat{
+			input: types.BigFloatUnquoted{
 				Float: nil,
 			},
 			expected: "null",
@@ -85,9 +85,9 @@ func TestBigFloat_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "scientific notation input",
-			input: func() types.BigFloat {
+			input: func() types.BigFloatUnquoted {
 				f, _, _ := big.ParseFloat("1.5e10", 10, 53, big.ToNearestEven)
-				return types.BigFloat{Float: f}
+				return types.BigFloatUnquoted{Float: f}
 			}(),
 			expected: "1.5e+10",
 			wantErr:  false,
@@ -214,7 +214,7 @@ func TestBigFloat_UnmarshalJSON(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var result types.BigFloat
+			var result types.BigFloatUnquoted
 			err := result.UnmarshalJSON([]byte(tt.input))
 
 			if tt.wantErr {
@@ -232,7 +232,7 @@ func TestBigFloat_UnmarshalJSON(t *testing.T) {
 				assert.Nil(t, result.Float)
 			} else {
 				require.NotNil(t, result.Float)
-				assert.Equal(t, expected.Text('e', -1), result.Float.Text('e', -1))
+				assert.Equal(t, expected.Text('e', -1), result.Text('e', -1))
 			}
 		})
 	}
@@ -279,14 +279,14 @@ func TestBigFloat_JSONRoundTrip(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			original := types.BigFloat{Float: tt.value}
+			original := types.BigFloatUnquoted{Float: tt.value}
 
 			// Marshal to JSON
 			jsonBytes, err := json.Marshal(original)
 			require.NoError(t, err)
 
 			// Unmarshal from JSON
-			var decoded types.BigFloat
+			var decoded types.BigFloatUnquoted
 			err = json.Unmarshal(jsonBytes, &decoded)
 			require.NoError(t, err)
 
@@ -296,7 +296,7 @@ func TestBigFloat_JSONRoundTrip(t *testing.T) {
 			} else {
 				require.NotNil(t, decoded.Float)
 				// Compare string representations in scientific notation
-				assert.Equal(t, original.Float.Text('e', -1), decoded.Float.Text('e', -1))
+				assert.Equal(t, original.Text('e', -1), decoded.Text('e', -1))
 			}
 		})
 	}
@@ -304,9 +304,9 @@ func TestBigFloat_JSONRoundTrip(t *testing.T) {
 
 func TestBigFloat_InStruct(t *testing.T) {
 	type TestStruct struct {
-		ID    string          `json:"id"`
-		Value types.BigFloat  `json:"value"`
-		Score *types.BigFloat `json:"score,omitempty"`
+		ID    string                  `json:"id"`
+		Value types.BigFloatUnquoted  `json:"value"`
+		Score *types.BigFloatUnquoted `json:"score,omitempty"`
 	}
 
 	tests := []struct {
@@ -320,8 +320,8 @@ func TestBigFloat_InStruct(t *testing.T) {
 			input: `{"id":"test-1","value":1.23e+02,"score":4.56e+01}`,
 			expected: TestStruct{
 				ID:    "test-1",
-				Value: types.BigFloat{Float: big.NewFloat(123)},
-				Score: &types.BigFloat{Float: big.NewFloat(45.6)},
+				Value: types.BigFloatUnquoted{Float: big.NewFloat(123)},
+				Score: &types.BigFloatUnquoted{Float: big.NewFloat(45.6)},
 			},
 			wantErr: false,
 		},
@@ -330,7 +330,7 @@ func TestBigFloat_InStruct(t *testing.T) {
 			input: `{"id":"test-2","value":null}`,
 			expected: TestStruct{
 				ID:    "test-2",
-				Value: types.BigFloat{Float: nil},
+				Value: types.BigFloatUnquoted{Float: nil},
 			},
 			wantErr: false,
 		},
@@ -339,7 +339,7 @@ func TestBigFloat_InStruct(t *testing.T) {
 			input: `{"id":"test-3","value":7.89e+00}`,
 			expected: TestStruct{
 				ID:    "test-3",
-				Value: types.BigFloat{Float: big.NewFloat(7.89)},
+				Value: types.BigFloatUnquoted{Float: big.NewFloat(7.89)},
 			},
 			wantErr: false,
 		},
@@ -348,7 +348,7 @@ func TestBigFloat_InStruct(t *testing.T) {
 			input: `{"id":"test-4","value":0e+00}`,
 			expected: TestStruct{
 				ID:    "test-4",
-				Value: types.BigFloat{Float: big.NewFloat(0)},
+				Value: types.BigFloatUnquoted{Float: big.NewFloat(0)},
 			},
 			wantErr: false,
 		},
@@ -393,13 +393,13 @@ func TestBigFloat_InStruct(t *testing.T) {
 
 func TestBigFloat_StructRoundTrip(t *testing.T) {
 	type TestStruct struct {
-		ID    string         `json:"id"`
-		Value types.BigFloat `json:"value"`
+		ID    string                 `json:"id"`
+		Value types.BigFloatUnquoted `json:"value"`
 	}
 
 	original := TestStruct{
 		ID:    "round-trip-test",
-		Value: types.BigFloat{Float: big.NewFloat(123.456)},
+		Value: types.BigFloatUnquoted{Float: big.NewFloat(123.456)},
 	}
 
 	// Marshal to JSON
@@ -414,5 +414,5 @@ func TestBigFloat_StructRoundTrip(t *testing.T) {
 	// Compare values
 	assert.Equal(t, original.ID, decoded.ID)
 	require.NotNil(t, decoded.Value.Float)
-	assert.Equal(t, original.Value.Float.Text('e', -1), decoded.Value.Float.Text('e', -1))
+	assert.Equal(t, original.Value.Text('e', -1), decoded.Value.Text('e', -1))
 }

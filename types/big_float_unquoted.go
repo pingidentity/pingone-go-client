@@ -7,19 +7,19 @@ import (
 	"math/big"
 )
 
-// BigFloat is a wrapper around big.Float to handle JSON marshalling as a string without quotes, as the P1 API expects.
-type BigFloat struct {
+// BigFloatUnquoted is a wrapper around big.Float to handle JSON marshalling as a string without quotes, as the P1 API expects.
+type BigFloatUnquoted struct {
 	*big.Float
 }
 
-func (b BigFloat) MarshalJSON() ([]byte, error) {
+func (b BigFloatUnquoted) MarshalJSON() ([]byte, error) {
 	if b.Float == nil {
 		return []byte("null"), nil
 	}
 	return fmt.Appendf(nil, `%s`, b.Text('e', -1)), nil
 }
 
-func (b *BigFloat) UnmarshalJSON(p []byte) error {
+func (b *BigFloatUnquoted) UnmarshalJSON(p []byte) error {
 	if string(p) == "null" {
 		b.Float = nil
 		return nil
