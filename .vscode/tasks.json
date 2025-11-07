@@ -1,0 +1,362 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build SDK",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "build"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Unit Tests",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "test"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Integration Tests",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "test-integration"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Tests with Coverage",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "test-coverage"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Format Code",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "fmt"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint Code",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "lint"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$go",
+        {
+          "owner": "golangci-lint",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}"
+          ],
+          "pattern": {
+            "regexp": "^(.+?):(\\d+):(\\d+): (.+) \\((.+)\\)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "message": 4,
+            "code": 5
+          }
+        }
+      ]
+    },
+    {
+      "label": "Security Scan",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "security"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Clean Build Artifacts",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "clean"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Show Makefile Help",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "help"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Tidy Go Modules",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "mod",
+        "tidy"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Config Package Tests",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "./config/..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run OAuth2 Package Tests",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "./oauth2/..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run OIDC Package Tests",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "./oidc/..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Test Framework Tests",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "./testframework/..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run PingOne Package Tests",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "./pingone/..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Run Specific Test",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "test",
+        "-v",
+        "-run=${input:testPattern}",
+        "./..."
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Build with Beta Tags",
+      "type": "shell",
+      "command": "go",
+      "args": [
+        "build",
+        "-tags=beta",
+        "-v",
+        "./..."
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$go"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "testPattern",
+      "description": "Enter test pattern (e.g., TestNewConfiguration)",
+      "default": "Test",
+      "type": "promptString"
+    }
+  ]
+}

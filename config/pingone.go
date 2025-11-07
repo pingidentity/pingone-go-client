@@ -1,10 +1,12 @@
 // Copyright © 2025 Ping Identity Corporation
 
+// Package config provides configuration management for the PingOne Go Client SDK.
+// It handles service configuration, environment variable parsing, OAuth2 credential management,
+// and endpoint configuration for connecting to PingOne services across different regions.
 package config
 
 import (
 	"context"
-	"crypto/sha256"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -15,89 +17,11 @@ import (
 	"golang.org/x/oauth2"
 )
 
-func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
-	var environmentID, clientID string
-
-	switch grantType {
-	case svcOAuth2.GrantTypeDeviceCode:
-		if c.Auth.DeviceCode != nil {
-			if c.Auth.DeviceCode.DeviceCodeEnvironmentID != nil {
-				environmentID = *c.Auth.DeviceCode.DeviceCodeEnvironmentID
-			}
-			if c.Auth.DeviceCode.DeviceCodeClientID != nil {
-				clientID = *c.Auth.DeviceCode.DeviceCodeClientID
-			}
-		}
-	case svcOAuth2.GrantTypeAuthCode:
-		if c.Auth.AuthCode != nil {
-			if c.Auth.AuthCode.AuthCodeEnvironmentID != nil {
-				environmentID = *c.Auth.AuthCode.AuthCodeEnvironmentID
-			}
-			if c.Auth.AuthCode.AuthCodeClientID != nil {
-				clientID = *c.Auth.AuthCode.AuthCodeClientID
-			}
-		}
-	case svcOAuth2.GrantTypeClientCredentials:
-		if c.Auth.ClientCredentials != nil {
-			if c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != nil {
-				environmentID = *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID
-			}
-			if c.Auth.ClientCredentials.ClientCredentialsClientID != nil {
-				clientID = *c.Auth.ClientCredentials.ClientCredentialsClientID
-			}
-		}
-	default:
-		return "", fmt.Errorf("unsupported grant type: %s", grantType)
-	}
-
-	// Fallback to shared environment ID if grant-type-specific one is not available
-	if environmentID == "" && c.Endpoint.EnvironmentID != nil {
-		environmentID = *c.Endpoint.EnvironmentID
-	}
-
-	if environmentID == "" || clientID == "" {
-		return "", fmt.Errorf("environment ID and client ID are required for token key generation")
-	}
-
-	hash := sha256.Sum256([]byte(fmt.Sprintf("%s:%s:%s", environmentID, clientID, grantType)))
-	tokenKey := fmt.Sprintf("token-%x", hash[:8])
-
-	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
-
-	return tokenKey, nil
-}
-
-type AuthCodeRedirectURI struct {
-	Port string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PORT" json:"port,omitempty"`
-	Path string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
-}
-
-type AuthCode struct {
-	AuthCodeClientID      *string             `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
-	AuthCodeEnvironmentID *string             `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
-	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"authCodeRedirectUri,omitempty"`
-	AuthCodeScopes        *[]string           `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
-}
-
-type ClientCredentials struct {
-	ClientCredentialsClientID      *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_ID" json:"clientCredentialsClientId,omitempty"`
-	ClientCredentialsClientSecret  *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET" json:"clientCredentialsClientSecret,omitempty"`
-	ClientCredentialsEnvironmentID *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_ENVIRONMENT_ID" json:"clientCredentialsEnvironmentId,omitempty"`
-	ClientCredentialsScopes        *[]string `envconfig:"PINGONE_CLIENT_CREDENTIALS_SCOPES" json:"clientCredentialsScopes,omitempty"`
-}
-
-type DeviceCode struct {
-	DeviceCodeClientID      *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
-	DeviceCodeEnvironmentID *string   `envconfig:"PINGONE_DEVICE_CODE_ENVIRONMENT_ID" json:"deviceCodeEnvironmentId,omitempty"`
-	DeviceCodeScopes        *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
-}
-
-type Storage struct {
-	KeychainName string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
-	Type         StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
-}
-
+// Configuration represents the complete configuration for the PingOne Go Client SDK.
+// It contains authentication settings and endpoint configuration for connecting to PingOne services.
+// The configuration can be populated from environment variables or set explicitly through the builder methods.
 type Configuration struct {
+	// Auth contains authentication-related configuration including client credentials and grant types.
 	Auth struct {
 		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
 		AccessTokenExpiry *int                 `envconfig:"PINGONE_API_ACCESS_TOKEN_EXPIRY" json:"accessTokenExpiry,omitempty"`
@@ -108,6 +32,7 @@ type Configuration struct {
 		GrantType         *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
 		Storage           *Storage             `envconfig:"PINGONE_STORAGE_OPTIONS" json:"storageOptions,omitempty"`
 	} `json:"auth"`
+	// Endpoint contains endpoint configuration for API and authentication domains.
 	Endpoint struct {
 		EnvironmentID  *string         `envconfig:"PINGONE_ENVIRONMENT_ID" json:"environmentId,omitempty"`
 		TopLevelDomain *TopLevelDomain `envconfig:"PINGONE_TOP_LEVEL_DOMAIN" json:"topLevelDomain,omitempty"`
@@ -118,10 +43,16 @@ type Configuration struct {
 }
 
 const (
-	defaultSLD          = "pingone"
+	// defaultSLD represents the default second-level domain used for PingOne services.
+	defaultSLD = "pingone"
+	// defaultAPISubDomain represents the default subdomain used for PingOne API endpoints.
 	defaultAPISubDomain = "api"
 )
 
+// NewConfiguration creates a new Configuration instance with default values.
+// This configuration must be populated with authentication credentials and endpoint information
+// before it can be used to create API clients. Use the builder methods (With...) to set
+// the required configuration values.
 func NewConfiguration() *Configuration {
 
 	cfg := &Configuration{}
@@ -129,6 +60,9 @@ func NewConfiguration() *Configuration {
 	return cfg
 }
 
+// WithAuthEnvironmentID sets the PingOne environment ID for authentication.
+// The environmentID parameter must be a valid PingOne environment UUID string.
+// This environment ID is used to construct the OAuth2 authentication endpoints.
 func (c *Configuration) GetConfiguration() *Configuration {
 	return c
 }
@@ -161,10 +95,16 @@ func (c *Configuration) WithClientCredentialsClientID(clientID string) *Configur
 	return c
 }
 
+// WithClientID sets the OAuth2 client ID for authentication.
+// The clientID parameter must be a valid client ID from a PingOne application.
+// This is required when using client credentials grant type authentication.
 func (c *Configuration) WithClientID(clientID string) *Configuration {
 	return c.WithClientCredentialsClientID(clientID)
 }
 
+// WithGrantType sets the OAuth2 grant type for authentication.
+// The grantType parameter specifies which OAuth2 flow to use for token acquisition.
+// Currently supported grant types are defined in the oauth2 package.
 func (c *Configuration) WithGrantType(grantType svcOAuth2.GrantType) *Configuration {
 	c.Auth.GrantType = &grantType
 	return c
@@ -179,6 +119,9 @@ func (c *Configuration) WithClientCredentialsClientSecret(clientSecret string) *
 	return c
 }
 
+// WithClientSecret sets the OAuth2 client secret for authentication.
+// The clientSecret parameter must be the secret associated with the configured client ID.
+// This is required when using client credentials grant type with client secret authentication.
 func (c *Configuration) WithClientSecret(clientSecret string) *Configuration {
 	return c.WithClientCredentialsClientSecret(clientSecret)
 }
@@ -191,6 +134,9 @@ func (c *Configuration) WithClientCredentialsScopes(clientCredentialsScopes []st
 	return c
 }
 
+// WithAccessToken sets a static access token for API authentication.
+// The accessToken parameter must be a valid PingOne API access token.
+// When set, this bypasses OAuth2 flows and uses the provided token directly.
 func (c *Configuration) WithAccessToken(accessToken string) *Configuration {
 	c.Auth.AccessToken = &accessToken
 	return c
@@ -203,21 +149,33 @@ func (c *Configuration) GetTopLevelDomain() string {
 	return ""
 }
 
+// WithTopLevelDomain sets the top-level domain for PingOne services.
+// The tld parameter should be a domain suffix like "com", "eu", or "asia".
+// This is used to construct service endpoints for different PingOne regions.
 func (c *Configuration) WithTopLevelDomain(tld TopLevelDomain) *Configuration {
 	c.Endpoint.TopLevelDomain = &tld
 	return c
 }
 
+// WithRootDomain sets the root domain for PingOne services.
+// The rootDomain parameter should be a complete domain like "pingone.com" or "pingone.eu".
+// This takes precedence over top-level domain configuration when constructing endpoints.
 func (c *Configuration) WithRootDomain(rootDomain string) *Configuration {
 	c.Endpoint.RootDomain = &rootDomain
 	return c
 }
 
+// WithAPIDomain sets a custom API domain for PingOne services.
+// The apiDomain parameter should be a complete API domain like "api.pingone.com".
+// When set, this overrides automatic domain construction from other domain settings.
 func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
 	c.Endpoint.APIDomain = &apiDomain
 	return c
 }
 
+// WithCustomDomain sets a custom domain for PingOne authentication services.
+// The customDomain parameter should be a complete custom domain configured in PingOne.
+// When set, this takes precedence over all other domain configuration methods.
 func (c *Configuration) WithCustomDomain(customDomain string) *Configuration {
 	c.Endpoint.CustomDomain = &customDomain
 	return c
@@ -309,10 +267,18 @@ func (c *Configuration) WithStorageName(name string) *Configuration {
 	return c
 }
 
+// HasBearerToken checks if a static access token is configured.
+// It returns true if an access token has been set and is not empty,
+// false otherwise. This is used to determine whether to use static token
+// authentication or OAuth2 flows.
 func (c *Configuration) HasBearerToken() bool {
 	return c.Auth.AccessToken != nil && *c.Auth.AccessToken != ""
 }
 
+// AddBearerTokenToContext adds the configured access token to a context.
+// The parent parameter is the base context to extend, and key is the context key
+// to use for storing the token value. It returns a new context with the token
+// value if a token is configured, or the original context if no token is set.
 func (c *Configuration) AddBearerTokenToContext(parent context.Context, key any) context.Context {
 	if c.HasBearerToken() {
 		return context.WithValue(parent, key, *c.Auth.AccessToken)
@@ -320,6 +286,10 @@ func (c *Configuration) AddBearerTokenToContext(parent context.Context, key any)
 	return parent
 }
 
+// BearerToken creates an OAuth2 token from the configured access token.
+// It returns a pointer to an OAuth2 token with the access token and "Bearer" token type.
+// This method assumes an access token has been configured; call HasBearerToken first
+// to verify a token is available.
 func (c *Configuration) BearerToken() *oauth2.Token {
 	return &oauth2.Token{
 		AccessToken: *c.Auth.AccessToken,
@@ -327,6 +297,11 @@ func (c *Configuration) BearerToken() *oauth2.Token {
 	}
 }
 
+// Client creates an HTTP client configured for PingOne API authentication.
+// The ctx parameter provides the context for the OAuth2 token source operations.
+// The httpClient parameter is the base HTTP client to use for requests; if nil,
+// a default client will be used. It returns an HTTP client that automatically
+// handles authentication token management, or an error if token source creation fails.
 func (c *Configuration) Client(ctx context.Context, httpClient *http.Client) (*http.Client, error) {
 	ts, err := c.TokenSource(ctx)
 	if err != nil {
@@ -357,6 +332,11 @@ func (c *Configuration) GetAccessToken(ctx context.Context) (string, error) {
 	return token.AccessToken, nil
 }
 
+// TokenSource creates an OAuth2 token source based on the configured authentication method.
+// The ctx parameter provides the context for OAuth2 operations. It returns a token source
+// that can be used to obtain access tokens, or an error if the configuration is invalid
+// or incomplete. If a static access token is configured, it returns a static token source.
+// Otherwise, it creates a token source appropriate for the configured grant type.
 func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, error) {
 	// Client credentials flow should always use the OAuth2 token source for automatic refresh
 	if at := c.Auth.AccessToken; at != nil && *at != "" {
@@ -489,6 +469,11 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	return nil, fmt.Errorf("grant type is required")
 }
 
+// AuthEndpoints constructs the OAuth2 and OIDC endpoints for authentication.
+// It returns an OIDCEndpoint struct containing the authorization, token, and userinfo URLs
+// based on the configured domain settings. The method prioritizes custom domain over
+// environment-specific domains. It returns an error if no valid endpoint configuration
+// can be determined from the current settings.
 func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 	// Custom domain takes precedence over environment ID and root domain
 	if customDomain := c.Endpoint.CustomDomain; customDomain != nil && *customDomain != "" {
@@ -534,6 +519,11 @@ func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 	return endpoints.OIDCEndpoint{}, fmt.Errorf("no valid endpoint configuration found. Must provide either a custom domain or root domain/top level domain and auth environment ID")
 }
 
+// APIDomain constructs the API domain for PingOne service calls.
+// It returns a string containing the complete API domain based on the configured
+// domain settings. The method prioritizes explicit API domain configuration over
+// root domain and top-level domain settings. It returns an error if no valid
+// domain configuration can be determined from the current settings.
 func (c *Configuration) APIDomain() (string, error) {
 
 	if apiDomain := c.Endpoint.APIDomain; apiDomain != nil && *apiDomain != "" {

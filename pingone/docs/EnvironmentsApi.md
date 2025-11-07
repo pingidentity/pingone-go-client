@@ -262,7 +262,7 @@ import (
 
 func main() {
 	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
-	expand := "expand_example" // string | 
+	expand := "expand_example" // string |  (optional)
 	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
 	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
 
@@ -343,7 +343,7 @@ import (
 )
 
 func main() {
-	expand := "expand_example" // string | 
+	expand := "expand_example" // string |  (optional)
 	filter := "filter_example" // string |  (optional)
 	order := "order_example" // string |  (optional)
 	limit := int32(56) // int32 |  (optional) (default to 1000)
@@ -384,7 +384,7 @@ import (
 )
 
 func main() {
-	expand := "expand_example" // string | 
+	expand := "expand_example" // string |  (optional)
 	filter := "filter_example" // string |  (optional)
 	order := "order_example" // string |  (optional)
 	limit := int32(56) // int32 |  (optional) (default to 1000)

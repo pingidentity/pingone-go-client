@@ -31,6 +31,12 @@ Name | Type | Description | Notes
 **CanUseDaVinciAdminPortal** | Pointer to **bool** |  | [optional] 
 **CanUseDataAnalyticsSupport** | Pointer to **bool** |  | [optional] 
 **CanUseDataBasedVerifications** | Pointer to **bool** |  | [optional] 
+**CanUseDataVerificationGroup1** | Pointer to **bool** |  | [optional] 
+**CanUseDataVerificationGroup2** | Pointer to **bool** |  | [optional] 
+**CanUseDataVerificationGroup3** | Pointer to **bool** |  | [optional] 
+**CanUseDataVerificationGroup4** | Pointer to **bool** |  | [optional] 
+**CanUseDataVerificationGroup5** | Pointer to **bool** |  | [optional] 
+**CanUseDeviceReputationScoring** | Pointer to **bool** |  | [optional] 
 **CanUseDigitalVerifications** | Pointer to **bool** |  | [optional] 
 **CanUseDocumentMatch** | Pointer to **bool** |  | [optional] 
 **CanUseDynamicAuthorization** | Pointer to **bool** |  | [optional] 
@@ -38,6 +44,7 @@ Name | Type | Description | Notes
 **CanUseEmailOtp** | Pointer to **bool** |  | [optional] 
 **CanUseFaceMatch** | Pointer to **bool** |  | [optional] 
 **CanUseFraudDataEnrichment** | Pointer to **bool** |  | [optional] 
+**CanUseGlobalWatchlist** | Pointer to **bool** |  | [optional] 
 **CanUseIdentities** | Pointer to **bool** |  | [optional] 
 **CanUseIdentityProviders** | Pointer to **bool** |  | [optional] 
 **CanUseInboundProvisioning** | Pointer to **bool** |  | [optional] 
@@ -56,12 +63,15 @@ Name | Type | Description | Notes
 **CanUseIntelligenceTrustDevicePredictor** | Pointer to **bool** |  | [optional] 
 **CanUseKerberosGateway** | Pointer to **bool** |  | [optional] 
 **CanUseLdapGateway** | Pointer to **bool** |  | [optional] 
+**CanUseLiveAgent** | Pointer to **bool** |  | [optional] 
 **CanUseManualIDStepUpInspection** | Pointer to **bool** |  | [optional] 
 **CanUseManualIdInspection** | Pointer to **bool** |  | [optional] 
 **CanUseMfa** | Pointer to **bool** |  | [optional] 
+**CanUseMfaCiam** | Pointer to **bool** |  | [optional] 
 **CanUseMfaFido2Devices** | Pointer to **bool** |  | [optional] 
 **CanUseMfaPushNotifications** | Pointer to **bool** |  | [optional] 
 **CanUseMfaVoiceOtp** | Pointer to **bool** |  | [optional] 
+**CanUseMfaWf** | Pointer to **bool** |  | [optional] 
 **CanUseMyAccount** | Pointer to **bool** |  | [optional] 
 **CanUseNewAccountFraudDetection** | Pointer to **bool** |  | [optional] 
 **CanUseOATHToken** | Pointer to **bool** |  | [optional] 
@@ -70,11 +80,14 @@ Name | Type | Description | Notes
 **CanUsePasswordOnlyAuthentication** | Pointer to **bool** |  | [optional] 
 **CanUsePasswordPolicy** | Pointer to **bool** |  | [optional] 
 **CanUsePingIDApp** | Pointer to **bool** |  | [optional] 
+**CanUsePingIdDesktop** | Pointer to **bool** |  | [optional] 
+**CanUsePingIdDesktopGen2** | Pointer to **bool** |  | [optional] 
 **CanUsePingSmsAccount** | Pointer to **bool** |  | [optional] 
 **CanUsePlatform** | Pointer to **bool** |  | [optional] 
 **CanUseProtectTransactions** | Pointer to **bool** |  | [optional] 
 **CanUseProvisioning** | Pointer to **bool** |  | [optional] 
 **CanUseRadiusGateway** | Pointer to **bool** |  | [optional] 
+**CanUseScheduledFlows** | Pointer to **bool** |  | [optional] 
 **CanUseSmsOtp** | Pointer to **bool** |  | [optional] 
 **CanUseTotp** | Pointer to **bool** |  | [optional] 
 **CanUseUniversalDeviceId** | Pointer to **bool** |  | [optional] 
@@ -784,6 +797,156 @@ SetCanUseDataBasedVerifications sets CanUseDataBasedVerifications field to given
 
 HasCanUseDataBasedVerifications returns a boolean if a field has been set.
 
+### GetCanUseDataVerificationGroup1
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup1() bool`
+
+GetCanUseDataVerificationGroup1 returns the CanUseDataVerificationGroup1 field if non-nil, zero value otherwise.
+
+### GetCanUseDataVerificationGroup1Ok
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup1Ok() (*bool, bool)`
+
+GetCanUseDataVerificationGroup1Ok returns a tuple with the CanUseDataVerificationGroup1 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDataVerificationGroup1
+
+`func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup1(v bool)`
+
+SetCanUseDataVerificationGroup1 sets CanUseDataVerificationGroup1 field to given value.
+
+### HasCanUseDataVerificationGroup1
+
+`func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup1() bool`
+
+HasCanUseDataVerificationGroup1 returns a boolean if a field has been set.
+
+### GetCanUseDataVerificationGroup2
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup2() bool`
+
+GetCanUseDataVerificationGroup2 returns the CanUseDataVerificationGroup2 field if non-nil, zero value otherwise.
+
+### GetCanUseDataVerificationGroup2Ok
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup2Ok() (*bool, bool)`
+
+GetCanUseDataVerificationGroup2Ok returns a tuple with the CanUseDataVerificationGroup2 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDataVerificationGroup2
+
+`func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup2(v bool)`
+
+SetCanUseDataVerificationGroup2 sets CanUseDataVerificationGroup2 field to given value.
+
+### HasCanUseDataVerificationGroup2
+
+`func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup2() bool`
+
+HasCanUseDataVerificationGroup2 returns a boolean if a field has been set.
+
+### GetCanUseDataVerificationGroup3
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup3() bool`
+
+GetCanUseDataVerificationGroup3 returns the CanUseDataVerificationGroup3 field if non-nil, zero value otherwise.
+
+### GetCanUseDataVerificationGroup3Ok
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup3Ok() (*bool, bool)`
+
+GetCanUseDataVerificationGroup3Ok returns a tuple with the CanUseDataVerificationGroup3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDataVerificationGroup3
+
+`func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup3(v bool)`
+
+SetCanUseDataVerificationGroup3 sets CanUseDataVerificationGroup3 field to given value.
+
+### HasCanUseDataVerificationGroup3
+
+`func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup3() bool`
+
+HasCanUseDataVerificationGroup3 returns a boolean if a field has been set.
+
+### GetCanUseDataVerificationGroup4
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup4() bool`
+
+GetCanUseDataVerificationGroup4 returns the CanUseDataVerificationGroup4 field if non-nil, zero value otherwise.
+
+### GetCanUseDataVerificationGroup4Ok
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup4Ok() (*bool, bool)`
+
+GetCanUseDataVerificationGroup4Ok returns a tuple with the CanUseDataVerificationGroup4 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDataVerificationGroup4
+
+`func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup4(v bool)`
+
+SetCanUseDataVerificationGroup4 sets CanUseDataVerificationGroup4 field to given value.
+
+### HasCanUseDataVerificationGroup4
+
+`func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup4() bool`
+
+HasCanUseDataVerificationGroup4 returns a boolean if a field has been set.
+
+### GetCanUseDataVerificationGroup5
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup5() bool`
+
+GetCanUseDataVerificationGroup5 returns the CanUseDataVerificationGroup5 field if non-nil, zero value otherwise.
+
+### GetCanUseDataVerificationGroup5Ok
+
+`func (o *EnvironmentCapabilities) GetCanUseDataVerificationGroup5Ok() (*bool, bool)`
+
+GetCanUseDataVerificationGroup5Ok returns a tuple with the CanUseDataVerificationGroup5 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDataVerificationGroup5
+
+`func (o *EnvironmentCapabilities) SetCanUseDataVerificationGroup5(v bool)`
+
+SetCanUseDataVerificationGroup5 sets CanUseDataVerificationGroup5 field to given value.
+
+### HasCanUseDataVerificationGroup5
+
+`func (o *EnvironmentCapabilities) HasCanUseDataVerificationGroup5() bool`
+
+HasCanUseDataVerificationGroup5 returns a boolean if a field has been set.
+
+### GetCanUseDeviceReputationScoring
+
+`func (o *EnvironmentCapabilities) GetCanUseDeviceReputationScoring() bool`
+
+GetCanUseDeviceReputationScoring returns the CanUseDeviceReputationScoring field if non-nil, zero value otherwise.
+
+### GetCanUseDeviceReputationScoringOk
+
+`func (o *EnvironmentCapabilities) GetCanUseDeviceReputationScoringOk() (*bool, bool)`
+
+GetCanUseDeviceReputationScoringOk returns a tuple with the CanUseDeviceReputationScoring field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseDeviceReputationScoring
+
+`func (o *EnvironmentCapabilities) SetCanUseDeviceReputationScoring(v bool)`
+
+SetCanUseDeviceReputationScoring sets CanUseDeviceReputationScoring field to given value.
+
+### HasCanUseDeviceReputationScoring
+
+`func (o *EnvironmentCapabilities) HasCanUseDeviceReputationScoring() bool`
+
+HasCanUseDeviceReputationScoring returns a boolean if a field has been set.
+
 ### GetCanUseDigitalVerifications
 
 `func (o *EnvironmentCapabilities) GetCanUseDigitalVerifications() bool`
@@ -958,6 +1121,31 @@ SetCanUseFraudDataEnrichment sets CanUseFraudDataEnrichment field to given value
 `func (o *EnvironmentCapabilities) HasCanUseFraudDataEnrichment() bool`
 
 HasCanUseFraudDataEnrichment returns a boolean if a field has been set.
+
+### GetCanUseGlobalWatchlist
+
+`func (o *EnvironmentCapabilities) GetCanUseGlobalWatchlist() bool`
+
+GetCanUseGlobalWatchlist returns the CanUseGlobalWatchlist field if non-nil, zero value otherwise.
+
+### GetCanUseGlobalWatchlistOk
+
+`func (o *EnvironmentCapabilities) GetCanUseGlobalWatchlistOk() (*bool, bool)`
+
+GetCanUseGlobalWatchlistOk returns a tuple with the CanUseGlobalWatchlist field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseGlobalWatchlist
+
+`func (o *EnvironmentCapabilities) SetCanUseGlobalWatchlist(v bool)`
+
+SetCanUseGlobalWatchlist sets CanUseGlobalWatchlist field to given value.
+
+### HasCanUseGlobalWatchlist
+
+`func (o *EnvironmentCapabilities) HasCanUseGlobalWatchlist() bool`
+
+HasCanUseGlobalWatchlist returns a boolean if a field has been set.
 
 ### GetCanUseIdentities
 
@@ -1409,6 +1597,31 @@ SetCanUseLdapGateway sets CanUseLdapGateway field to given value.
 
 HasCanUseLdapGateway returns a boolean if a field has been set.
 
+### GetCanUseLiveAgent
+
+`func (o *EnvironmentCapabilities) GetCanUseLiveAgent() bool`
+
+GetCanUseLiveAgent returns the CanUseLiveAgent field if non-nil, zero value otherwise.
+
+### GetCanUseLiveAgentOk
+
+`func (o *EnvironmentCapabilities) GetCanUseLiveAgentOk() (*bool, bool)`
+
+GetCanUseLiveAgentOk returns a tuple with the CanUseLiveAgent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseLiveAgent
+
+`func (o *EnvironmentCapabilities) SetCanUseLiveAgent(v bool)`
+
+SetCanUseLiveAgent sets CanUseLiveAgent field to given value.
+
+### HasCanUseLiveAgent
+
+`func (o *EnvironmentCapabilities) HasCanUseLiveAgent() bool`
+
+HasCanUseLiveAgent returns a boolean if a field has been set.
+
 ### GetCanUseManualIDStepUpInspection
 
 `func (o *EnvironmentCapabilities) GetCanUseManualIDStepUpInspection() bool`
@@ -1484,6 +1697,31 @@ SetCanUseMfa sets CanUseMfa field to given value.
 
 HasCanUseMfa returns a boolean if a field has been set.
 
+### GetCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaCiam() bool`
+
+GetCanUseMfaCiam returns the CanUseMfaCiam field if non-nil, zero value otherwise.
+
+### GetCanUseMfaCiamOk
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaCiamOk() (*bool, bool)`
+
+GetCanUseMfaCiamOk returns a tuple with the CanUseMfaCiam field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) SetCanUseMfaCiam(v bool)`
+
+SetCanUseMfaCiam sets CanUseMfaCiam field to given value.
+
+### HasCanUseMfaCiam
+
+`func (o *EnvironmentCapabilities) HasCanUseMfaCiam() bool`
+
+HasCanUseMfaCiam returns a boolean if a field has been set.
+
 ### GetCanUseMfaFido2Devices
 
 `func (o *EnvironmentCapabilities) GetCanUseMfaFido2Devices() bool`
@@ -1558,6 +1796,31 @@ SetCanUseMfaVoiceOtp sets CanUseMfaVoiceOtp field to given value.
 `func (o *EnvironmentCapabilities) HasCanUseMfaVoiceOtp() bool`
 
 HasCanUseMfaVoiceOtp returns a boolean if a field has been set.
+
+### GetCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaWf() bool`
+
+GetCanUseMfaWf returns the CanUseMfaWf field if non-nil, zero value otherwise.
+
+### GetCanUseMfaWfOk
+
+`func (o *EnvironmentCapabilities) GetCanUseMfaWfOk() (*bool, bool)`
+
+GetCanUseMfaWfOk returns a tuple with the CanUseMfaWf field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) SetCanUseMfaWf(v bool)`
+
+SetCanUseMfaWf sets CanUseMfaWf field to given value.
+
+### HasCanUseMfaWf
+
+`func (o *EnvironmentCapabilities) HasCanUseMfaWf() bool`
+
+HasCanUseMfaWf returns a boolean if a field has been set.
 
 ### GetCanUseMyAccount
 
@@ -1759,6 +2022,56 @@ SetCanUsePingIDApp sets CanUsePingIDApp field to given value.
 
 HasCanUsePingIDApp returns a boolean if a field has been set.
 
+### GetCanUsePingIdDesktop
+
+`func (o *EnvironmentCapabilities) GetCanUsePingIdDesktop() bool`
+
+GetCanUsePingIdDesktop returns the CanUsePingIdDesktop field if non-nil, zero value otherwise.
+
+### GetCanUsePingIdDesktopOk
+
+`func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopOk() (*bool, bool)`
+
+GetCanUsePingIdDesktopOk returns a tuple with the CanUsePingIdDesktop field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUsePingIdDesktop
+
+`func (o *EnvironmentCapabilities) SetCanUsePingIdDesktop(v bool)`
+
+SetCanUsePingIdDesktop sets CanUsePingIdDesktop field to given value.
+
+### HasCanUsePingIdDesktop
+
+`func (o *EnvironmentCapabilities) HasCanUsePingIdDesktop() bool`
+
+HasCanUsePingIdDesktop returns a boolean if a field has been set.
+
+### GetCanUsePingIdDesktopGen2
+
+`func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopGen2() bool`
+
+GetCanUsePingIdDesktopGen2 returns the CanUsePingIdDesktopGen2 field if non-nil, zero value otherwise.
+
+### GetCanUsePingIdDesktopGen2Ok
+
+`func (o *EnvironmentCapabilities) GetCanUsePingIdDesktopGen2Ok() (*bool, bool)`
+
+GetCanUsePingIdDesktopGen2Ok returns a tuple with the CanUsePingIdDesktopGen2 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUsePingIdDesktopGen2
+
+`func (o *EnvironmentCapabilities) SetCanUsePingIdDesktopGen2(v bool)`
+
+SetCanUsePingIdDesktopGen2 sets CanUsePingIdDesktopGen2 field to given value.
+
+### HasCanUsePingIdDesktopGen2
+
+`func (o *EnvironmentCapabilities) HasCanUsePingIdDesktopGen2() bool`
+
+HasCanUsePingIdDesktopGen2 returns a boolean if a field has been set.
+
 ### GetCanUsePingSmsAccount
 
 `func (o *EnvironmentCapabilities) GetCanUsePingSmsAccount() bool`
@@ -1883,6 +2196,31 @@ SetCanUseRadiusGateway sets CanUseRadiusGateway field to given value.
 `func (o *EnvironmentCapabilities) HasCanUseRadiusGateway() bool`
 
 HasCanUseRadiusGateway returns a boolean if a field has been set.
+
+### GetCanUseScheduledFlows
+
+`func (o *EnvironmentCapabilities) GetCanUseScheduledFlows() bool`
+
+GetCanUseScheduledFlows returns the CanUseScheduledFlows field if non-nil, zero value otherwise.
+
+### GetCanUseScheduledFlowsOk
+
+`func (o *EnvironmentCapabilities) GetCanUseScheduledFlowsOk() (*bool, bool)`
+
+GetCanUseScheduledFlowsOk returns a tuple with the CanUseScheduledFlows field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanUseScheduledFlows
+
+`func (o *EnvironmentCapabilities) SetCanUseScheduledFlows(v bool)`
+
+SetCanUseScheduledFlows sets CanUseScheduledFlows field to given value.
+
+### HasCanUseScheduledFlows
+
+`func (o *EnvironmentCapabilities) HasCanUseScheduledFlows() bool`
+
+HasCanUseScheduledFlows returns a boolean if a field has been set.
 
 ### GetCanUseSmsOtp
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Name** | **string** |  | 
 **Status** | [**DaVinciFlowPolicyResponseStatus**](DaVinciFlowPolicyResponseStatus.md) |  | 
+**Application** | Pointer to [**ResourceRelationshipDaVinciReadOnly**](ResourceRelationshipDaVinciReadOnly.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **Trigger** | Pointer to [**DaVinciFlowPolicyResponseTrigger**](DaVinciFlowPolicyResponseTrigger.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -152,6 +153,31 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
+
+### GetApplication
+
+`func (o *DaVinciFlowPolicyResponse) GetApplication() ResourceRelationshipDaVinciReadOnly`
+
+GetApplication returns the Application field if non-nil, zero value otherwise.
+
+### GetApplicationOk
+
+`func (o *DaVinciFlowPolicyResponse) GetApplicationOk() (*ResourceRelationshipDaVinciReadOnly, bool)`
+
+GetApplicationOk returns a tuple with the Application field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApplication
+
+`func (o *DaVinciFlowPolicyResponse) SetApplication(v ResourceRelationshipDaVinciReadOnly)`
+
+SetApplication sets Application field to given value.
+
+### HasApplication
+
+`func (o *DaVinciFlowPolicyResponse) HasApplication() bool`
+
+HasApplication returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

@@ -48,3 +48,6 @@ bin
 
 env*.sh
 .env
+
+# VSCode files
+.vscode/
