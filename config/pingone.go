@@ -7,6 +7,7 @@ package config
 
 import (
 	"context"
+	"crypto/sha256"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -16,6 +17,88 @@ import (
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 )
+
+func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
+	var environmentID, clientID string
+
+	switch grantType {
+	case svcOAuth2.GrantTypeDeviceCode:
+		if c.Auth.DeviceCode != nil {
+			if c.Auth.DeviceCode.DeviceCodeEnvironmentID != nil {
+				environmentID = *c.Auth.DeviceCode.DeviceCodeEnvironmentID
+			}
+			if c.Auth.DeviceCode.DeviceCodeClientID != nil {
+				clientID = *c.Auth.DeviceCode.DeviceCodeClientID
+			}
+		}
+	case svcOAuth2.GrantTypeAuthCode:
+		if c.Auth.AuthCode != nil {
+			if c.Auth.AuthCode.AuthCodeEnvironmentID != nil {
+				environmentID = *c.Auth.AuthCode.AuthCodeEnvironmentID
+			}
+			if c.Auth.AuthCode.AuthCodeClientID != nil {
+				clientID = *c.Auth.AuthCode.AuthCodeClientID
+			}
+		}
+	case svcOAuth2.GrantTypeClientCredentials:
+		if c.Auth.ClientCredentials != nil {
+			if c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != nil {
+				environmentID = *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID
+			}
+			if c.Auth.ClientCredentials.ClientCredentialsClientID != nil {
+				clientID = *c.Auth.ClientCredentials.ClientCredentialsClientID
+			}
+		}
+	default:
+		return "", fmt.Errorf("unsupported grant type: %s", grantType)
+	}
+
+	// Fallback to shared environment ID if grant-type-specific one is not available
+	if environmentID == "" && c.Endpoint.EnvironmentID != nil {
+		environmentID = *c.Endpoint.EnvironmentID
+	}
+
+	if environmentID == "" || clientID == "" {
+		return "", fmt.Errorf("environment ID and client ID are required for token key generation")
+	}
+
+	hash := sha256.Sum256([]byte(fmt.Sprintf("%s:%s:%s", environmentID, clientID, grantType)))
+	tokenKey := fmt.Sprintf("token-%x", hash[:8])
+
+	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
+
+	return tokenKey, nil
+}
+
+type AuthCodeRedirectURI struct {
+	Port string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PORT" json:"port,omitempty"`
+	Path string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
+}
+
+type AuthCode struct {
+	AuthCodeClientID      *string             `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
+	AuthCodeEnvironmentID *string             `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
+	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"authCodeRedirectUri,omitempty"`
+	AuthCodeScopes        *[]string           `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
+}
+
+type ClientCredentials struct {
+	ClientCredentialsClientID      *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_ID" json:"clientCredentialsClientId,omitempty"`
+	ClientCredentialsClientSecret  *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET" json:"clientCredentialsClientSecret,omitempty"`
+	ClientCredentialsEnvironmentID *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_ENVIRONMENT_ID" json:"clientCredentialsEnvironmentId,omitempty"`
+	ClientCredentialsScopes        *[]string `envconfig:"PINGONE_CLIENT_CREDENTIALS_SCOPES" json:"clientCredentialsScopes,omitempty"`
+}
+
+type DeviceCode struct {
+	DeviceCodeClientID      *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
+	DeviceCodeEnvironmentID *string   `envconfig:"PINGONE_DEVICE_CODE_ENVIRONMENT_ID" json:"deviceCodeEnvironmentId,omitempty"`
+	DeviceCodeScopes        *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
+}
+
+type Storage struct {
+	KeychainName string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
+	Type         StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
+}
 
 // Configuration represents the complete configuration for the PingOne Go Client SDK.
 // It contains authentication settings and endpoint configuration for connecting to PingOne services.
