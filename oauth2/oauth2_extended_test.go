@@ -21,7 +21,7 @@ func TestIsValidGrantType(t *testing.T) {
 		},
 		{
 			name:      "ValidAuthorizationCode",
-			grantType: string(oauth2.GrantTypeAuthCode),
+			grantType: string(oauth2.GrantTypeAuthorizationCode),
 			expected:  true,
 		},
 		{

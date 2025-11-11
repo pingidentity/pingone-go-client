@@ -24,46 +24,61 @@ import (
 var authResultHTML string
 
 const (
-	// DefaultAuthCodeRedirectURIPort is the default port for the authorization code redirect URI
-	DefaultAuthCodeRedirectURIPort = "8080"
+	// defaultAuthorizationCodeRedirectURIPort is the default port for the authorization code redirect URI
+	defaultAuthorizationCodeRedirectURIPort = "8080"
 
-	// DefaultAuthCodeRedirectURIPath is the default path for the authorization code redirect URI
-	DefaultAuthCodeRedirectURIPath = "/callback"
+	// defaultAuthorizationCodeRedirectURIPath is the default path for the authorization code redirect URI
+	defaultAuthorizationCodeRedirectURIPath = "/callback"
 
-	// DefaultAuthCodeRedirectURIPrefix is the default redirect URI for the authorization code
-	DefaultAuthCodeRedirectURIPrefix = "http://localhost:"
+	// defaultAuthorizationCodeRedirectURIPrefix is the default redirect URI for the authorization code
+	defaultAuthorizationCodeRedirectURIPrefix = "http://localhost:"
 
-	// DefaultAuthCodeRedirectURI
-	DefaultAuthCodeRedirectURI = DefaultAuthCodeRedirectURIPrefix + DefaultAuthCodeRedirectURIPort + DefaultAuthCodeRedirectURIPath
+	// defaultAuthorizationCodeRedirectURI is the default redirect URI for the authorization code
+	defaultAuthorizationCodeRedirectURI = defaultAuthorizationCodeRedirectURIPrefix + defaultAuthorizationCodeRedirectURIPort + defaultAuthorizationCodeRedirectURIPath
 )
 
-func (a *AuthCode) AuthCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
-	if a.AuthCodeClientID == nil || *a.AuthCodeClientID == "" {
+// Get default authorization code redirect URI port
+func GetDefaultAuthorizationCodeRedirectURIPort() string {
+	return defaultAuthorizationCodeRedirectURIPort
+}
+
+// Get default authorization code redirect URI path
+func GetDefaultAuthorizationCodeRedirectURIPath() string {
+	return defaultAuthorizationCodeRedirectURIPath
+}
+
+// Get default authorization code redirect URI
+func GetDefaultAuthorizationCodeRedirectURI() string {
+	return defaultAuthorizationCodeRedirectURI
+}
+
+// AuthorizationCodeTokenSource returns an oauth2.TokenSource using the authorization code grant type
+func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, endpoints endpoints.OIDCEndpoint) (oauth2.TokenSource, error) {
+	if a.AuthorizationCodeClientID == nil || *a.AuthorizationCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for authorization code grant type")
 	}
 
-	slog.Debug("Using authorization code token source with provided client ID", "client ID", *a.AuthCodeClientID)
+	slog.Debug("Using authorization code token source with provided client ID", "client ID", *a.AuthorizationCodeClientID)
+	redirectURIPath := GetDefaultAuthorizationCodeRedirectURIPath()
+	redirectURIPort := GetDefaultAuthorizationCodeRedirectURIPort()
 
-	redirectURIPath := DefaultAuthCodeRedirectURIPath
-	redirectURIPort := DefaultAuthCodeRedirectURIPort
-
-	if a.AuthCodeRedirectURI.Port != "" {
-		redirectURIPort = a.AuthCodeRedirectURI.Port
+	if a.AuthorizationCodeRedirectURI.Port != "" {
+		redirectURIPort = a.AuthorizationCodeRedirectURI.Port
 	}
 
-	if a.AuthCodeRedirectURI.Path != "" {
-		redirectURIPath = a.AuthCodeRedirectURI.Path
+	if a.AuthorizationCodeRedirectURI.Path != "" {
+		redirectURIPath = a.AuthorizationCodeRedirectURI.Path
 	}
 
-	redirectURI := fmt.Sprintf("%s%s%s", DefaultAuthCodeRedirectURIPrefix, redirectURIPort, redirectURIPath)
+	redirectURI := fmt.Sprintf("%s%s%s", defaultAuthorizationCodeRedirectURIPrefix, redirectURIPort, redirectURIPath)
 
 	var scopes []string
-	if a.AuthCodeScopes != nil {
-		scopes = *a.AuthCodeScopes
+	if a.AuthorizationCodeScopes != nil {
+		scopes = *a.AuthorizationCodeScopes
 	}
 
 	config := &oauth2.Config{
-		ClientID:    *a.AuthCodeClientID,
+		ClientID:    *a.AuthorizationCodeClientID,
 		Endpoint:    endpoints.Endpoint,
 		RedirectURL: redirectURI,
 		Scopes:      scopes,

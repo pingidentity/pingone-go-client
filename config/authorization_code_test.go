@@ -12,27 +12,27 @@ import (
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 )
 
-func TestAuthCodeTokenSource(t *testing.T) {
+func TestAuthorizationCodeTokenSource(t *testing.T) {
 	tests := []struct {
 		name          string
-		setup         func() *config.AuthCode
+		setup         func() *config.AuthorizationCode
 		expectError   bool
 		errorContains string
 	}{
 		{
 			name: "MissingClientID",
-			setup: func() *config.AuthCode {
-				return &config.AuthCode{}
+			setup: func() *config.AuthorizationCode {
+				return &config.AuthorizationCode{}
 			},
 			expectError:   true,
 			errorContains: "client ID is required",
 		},
 		{
 			name: "EmptyClientID",
-			setup: func() *config.AuthCode {
+			setup: func() *config.AuthorizationCode {
 				clientID := ""
-				return &config.AuthCode{
-					AuthCodeClientID: &clientID,
+				return &config.AuthorizationCode{
+					AuthorizationCodeClientID: &clientID,
 				}
 			},
 			expectError:   true,
@@ -42,14 +42,14 @@ func TestAuthCodeTokenSource(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			authCode := tt.setup()
+			authorizationCode := tt.setup()
 			testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
 
 			// Use a short timeout to prevent tests from hanging
 			ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 			defer cancel()
 
-			_, err := authCode.AuthCodeTokenSource(ctx, testEndpoints)
+			_, err := authorizationCode.AuthorizationCodeTokenSource(ctx, testEndpoints)
 
 			if tt.expectError {
 				if err == nil {

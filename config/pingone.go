@@ -21,40 +21,26 @@ import (
 func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
 	var environmentID, clientID string
 
+	// Get client ID based on grant type
 	switch grantType {
-	case svcOAuth2.GrantTypeDeviceCode:
-		if c.Auth.DeviceCode != nil {
-			if c.Auth.DeviceCode.DeviceCodeEnvironmentID != nil {
-				environmentID = *c.Auth.DeviceCode.DeviceCodeEnvironmentID
-			}
-			if c.Auth.DeviceCode.DeviceCodeClientID != nil {
-				clientID = *c.Auth.DeviceCode.DeviceCodeClientID
-			}
-		}
-	case svcOAuth2.GrantTypeAuthCode:
-		if c.Auth.AuthCode != nil {
-			if c.Auth.AuthCode.AuthCodeEnvironmentID != nil {
-				environmentID = *c.Auth.AuthCode.AuthCodeEnvironmentID
-			}
-			if c.Auth.AuthCode.AuthCodeClientID != nil {
-				clientID = *c.Auth.AuthCode.AuthCodeClientID
-			}
+	case svcOAuth2.GrantTypeAuthorizationCode:
+		if c.Auth.AuthorizationCode != nil && c.Auth.AuthorizationCode.AuthorizationCodeClientID != nil {
+			clientID = *c.Auth.AuthorizationCode.AuthorizationCodeClientID
 		}
 	case svcOAuth2.GrantTypeClientCredentials:
-		if c.Auth.ClientCredentials != nil {
-			if c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != nil {
-				environmentID = *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID
-			}
-			if c.Auth.ClientCredentials.ClientCredentialsClientID != nil {
-				clientID = *c.Auth.ClientCredentials.ClientCredentialsClientID
-			}
+		if c.Auth.ClientCredentials != nil && c.Auth.ClientCredentials.ClientCredentialsClientID != nil {
+			clientID = *c.Auth.ClientCredentials.ClientCredentialsClientID
+		}
+	case svcOAuth2.GrantTypeDeviceCode:
+		if c.Auth.DeviceCode != nil && c.Auth.DeviceCode.DeviceCodeClientID != nil {
+			clientID = *c.Auth.DeviceCode.DeviceCodeClientID
 		}
 	default:
 		return "", fmt.Errorf("unsupported grant type: %s", grantType)
 	}
 
-	// Fallback to shared environment ID if grant-type-specific one is not available
-	if environmentID == "" && c.Endpoint.EnvironmentID != nil {
+	// Use Endpoint.EnvironmentID for token key generation
+	if c.Endpoint.EnvironmentID != nil {
 		environmentID = *c.Endpoint.EnvironmentID
 	}
 
@@ -70,29 +56,26 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 	return tokenKey, nil
 }
 
-type AuthCodeRedirectURI struct {
-	Port string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PORT" json:"port,omitempty"`
-	Path string `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
+type AuthorizationCodeRedirectURI struct {
+	Port string `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI_PORT" json:"port,omitempty"`
+	Path string `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
 }
 
-type AuthCode struct {
-	AuthCodeClientID      *string             `envconfig:"PINGONE_AUTH_CODE_CLIENT_ID" json:"authCodeClientId,omitempty"`
-	AuthCodeEnvironmentID *string             `envconfig:"PINGONE_AUTH_CODE_ENVIRONMENT_ID" json:"authCodeEnvironmentId,omitempty"`
-	AuthCodeRedirectURI   AuthCodeRedirectURI `envconfig:"PINGONE_AUTH_CODE_REDIRECT_URI" json:"authCodeRedirectUri,omitempty"`
-	AuthCodeScopes        *[]string           `envconfig:"PINGONE_AUTH_CODE_SCOPES" json:"authCodeScopes,omitempty"`
+type AuthorizationCode struct {
+	AuthorizationCodeClientID    *string                      `envconfig:"PINGONE_AUTHORIZATION_CODE_CLIENT_ID" json:"authorizationCodeClientId,omitempty"`
+	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI" json:"authorizationCodeRedirectUri,omitempty"`
+	AuthorizationCodeScopes      *[]string                    `envconfig:"PINGONE_AUTHORIZATION_CODE_SCOPES" json:"authorizationCodeScopes,omitempty"`
 }
 
 type ClientCredentials struct {
-	ClientCredentialsClientID      *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_ID" json:"clientCredentialsClientId,omitempty"`
-	ClientCredentialsClientSecret  *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET" json:"clientCredentialsClientSecret,omitempty"`
-	ClientCredentialsEnvironmentID *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_ENVIRONMENT_ID" json:"clientCredentialsEnvironmentId,omitempty"`
-	ClientCredentialsScopes        *[]string `envconfig:"PINGONE_CLIENT_CREDENTIALS_SCOPES" json:"clientCredentialsScopes,omitempty"`
+	ClientCredentialsClientID     *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_ID" json:"clientCredentialsClientId,omitempty"`
+	ClientCredentialsClientSecret *string   `envconfig:"PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET" json:"clientCredentialsClientSecret,omitempty"`
+	ClientCredentialsScopes       *[]string `envconfig:"PINGONE_CLIENT_CREDENTIALS_SCOPES" json:"clientCredentialsScopes,omitempty"`
 }
 
 type DeviceCode struct {
-	DeviceCodeClientID      *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
-	DeviceCodeEnvironmentID *string   `envconfig:"PINGONE_DEVICE_CODE_ENVIRONMENT_ID" json:"deviceCodeEnvironmentId,omitempty"`
-	DeviceCodeScopes        *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
+	DeviceCodeClientID *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
+	DeviceCodeScopes   *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
 }
 
 type Storage struct {
@@ -108,8 +91,7 @@ type Configuration struct {
 	Auth struct {
 		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
 		AccessTokenExpiry *int                 `envconfig:"PINGONE_API_ACCESS_TOKEN_EXPIRY" json:"accessTokenExpiry,omitempty"`
-		AuthEnvironmentID *string              `envconfig:"PINGONE_AUTH_ENVIRONMENT_ID" json:"authEnvironmentId,omitempty"`
-		AuthCode          *AuthCode            `envconfig:"PINGONE_AUTH_CODE" json:"authCode,omitempty"`
+		AuthorizationCode *AuthorizationCode   `envconfig:"PINGONE_AUTHORIZATION_CODE" json:"authorizationCode,omitempty"`
 		ClientCredentials *ClientCredentials   `envconfig:"PINGONE_CLIENT_CREDENTIALS" json:"clientCredentials,omitempty"`
 		DeviceCode        *DeviceCode          `envconfig:"PINGONE_DEVICE_CODE" json:"deviceCode,omitempty"`
 		GrantType         *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
@@ -155,14 +137,6 @@ func (c *Configuration) GetAccessTokenExpiry() int {
 		return *c.Auth.AccessTokenExpiry
 	}
 	return 0
-}
-
-func (c *Configuration) WithClientCredentialsEnvironmentID(environmentID string) *Configuration {
-	if c.Auth.ClientCredentials == nil {
-		c.Auth.ClientCredentials = &ClientCredentials{}
-	}
-	c.Auth.ClientCredentials.ClientCredentialsEnvironmentID = &environmentID
-	return c
 }
 
 func (c *Configuration) WithEnvironmentID(environmentID string) *Configuration {
@@ -218,7 +192,7 @@ func (c *Configuration) WithClientCredentialsScopes(clientCredentialsScopes []st
 }
 
 // WithAccessToken sets a static access token for API authentication.
-// The accessToken parameter must be a valid PingOne API access token.
+// The accessToken parameter must be valid PingOne API access token.
 // When set, this bypasses OAuth2 flows and uses the provided token directly.
 func (c *Configuration) WithAccessToken(accessToken string) *Configuration {
 	c.Auth.AccessToken = &accessToken
@@ -256,6 +230,24 @@ func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
 	return c
 }
 
+func (c *Configuration) WithRegion(region string) *Configuration {
+	// A simple mapping from region name to TLD.
+	// This could be expanded or made more robust.
+	var tld TopLevelDomain
+	switch region {
+	case "NA":
+		tld = "com"
+	case "EU":
+		tld = "eu"
+	case "AP":
+		tld = "asia"
+	default:
+		tld = "com" // Default to NA
+	}
+	c.Endpoint.TopLevelDomain = &tld
+	return c
+}
+
 // WithCustomDomain sets a custom domain for PingOne authentication services.
 // The customDomain parameter should be a complete custom domain configured in PingOne.
 // When set, this takes precedence over all other domain configuration methods.
@@ -264,37 +256,29 @@ func (c *Configuration) WithCustomDomain(customDomain string) *Configuration {
 	return c
 }
 
-func (c *Configuration) WithAuthCodeClientID(authCodeClientID string) *Configuration {
-	if c.Auth.AuthCode == nil {
-		c.Auth.AuthCode = &AuthCode{}
+func (c *Configuration) WithAuthorizationCodeClientID(authorizationCodeClientID string) *Configuration {
+	if c.Auth.AuthorizationCode == nil {
+		c.Auth.AuthorizationCode = &AuthorizationCode{}
 	}
-	c.Auth.AuthCode.AuthCodeClientID = &authCodeClientID
+	c.Auth.AuthorizationCode.AuthorizationCodeClientID = &authorizationCodeClientID
 	return c
 }
 
-func (c *Configuration) WithAuthCodeEnvironmentID(authCodeEnvironmentID string) *Configuration {
-	if c.Auth.AuthCode == nil {
-		c.Auth.AuthCode = &AuthCode{}
+func (c *Configuration) WithAuthorizationCodeScopes(authorizationCodeScopes []string) *Configuration {
+	if c.Auth.AuthorizationCode == nil {
+		c.Auth.AuthorizationCode = &AuthorizationCode{}
 	}
-	c.Auth.AuthCode.AuthCodeEnvironmentID = &authCodeEnvironmentID
+	c.Auth.AuthorizationCode.AuthorizationCodeScopes = &authorizationCodeScopes
 	return c
 }
 
-func (c *Configuration) WithAuthCodeScopes(authCodeScopes []string) *Configuration {
-	if c.Auth.AuthCode == nil {
-		c.Auth.AuthCode = &AuthCode{}
+func (c *Configuration) WithAuthorizationCodeRedirectURI(authorizationCodeRedirectURI AuthorizationCodeRedirectURI) *Configuration {
+	if c.Auth.AuthorizationCode == nil {
+		c.Auth.AuthorizationCode = &AuthorizationCode{}
 	}
-	c.Auth.AuthCode.AuthCodeScopes = &authCodeScopes
-	return c
-}
-
-func (c *Configuration) WithAuthCodeRedirectURI(authCodeRedirectURI AuthCodeRedirectURI) *Configuration {
-	if c.Auth.AuthCode == nil {
-		c.Auth.AuthCode = &AuthCode{}
-	}
-	c.Auth.AuthCode.AuthCodeRedirectURI = AuthCodeRedirectURI{
-		Port: authCodeRedirectURI.Port,
-		Path: authCodeRedirectURI.Path,
+	c.Auth.AuthorizationCode.AuthorizationCodeRedirectURI = AuthorizationCodeRedirectURI{
+		Port: authorizationCodeRedirectURI.Port,
+		Path: authorizationCodeRedirectURI.Path,
 	}
 	return c
 }
@@ -304,14 +288,6 @@ func (c *Configuration) WithDeviceCodeClientID(deviceCodeClientID string) *Confi
 		c.Auth.DeviceCode = &DeviceCode{}
 	}
 	c.Auth.DeviceCode.DeviceCodeClientID = &deviceCodeClientID
-	return c
-}
-
-func (c *Configuration) WithDeviceCodeEnvironmentID(deviceCodeEnvironmentID string) *Configuration {
-	if c.Auth.DeviceCode == nil {
-		c.Auth.DeviceCode = &DeviceCode{}
-	}
-	c.Auth.DeviceCode.DeviceCodeEnvironmentID = &deviceCodeEnvironmentID
 	return c
 }
 
@@ -482,11 +458,11 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 
 		// Get the appropriate token source
 		switch *c.Auth.GrantType {
-		case svcOAuth2.GrantTypeAuthCode:
-			if c.Auth.AuthCode == nil {
-				return nil, fmt.Errorf("auth code configuration is required for auth code grant type")
+		case svcOAuth2.GrantTypeAuthorizationCode:
+			if c.Auth.AuthorizationCode == nil {
+				return nil, fmt.Errorf("authorization code configuration is required for auth code grant type")
 			}
-			ts, err := c.Auth.AuthCode.AuthCodeTokenSource(ctx, endpoints)
+			ts, err := c.Auth.AuthorizationCode.AuthorizationCodeTokenSource(ctx, endpoints)
 			if err != nil {
 				return nil, err
 			}
@@ -563,30 +539,10 @@ func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 		return endpoints.PingOneOIDCEndpoint(*customDomain), nil
 	}
 
-	// Use the appropriate environment ID based on the grant type
+	// Use Endpoint.EnvironmentID for constructing auth endpoints
 	var environmentID string
-	if c.Auth.GrantType != nil {
-		switch *c.Auth.GrantType {
-		case svcOAuth2.GrantTypeAuthCode:
-			if c.Auth.AuthCode != nil && c.Auth.AuthCode.AuthCodeEnvironmentID != nil && *c.Auth.AuthCode.AuthCodeEnvironmentID != "" {
-				environmentID = *c.Auth.AuthCode.AuthCodeEnvironmentID
-			}
-		case svcOAuth2.GrantTypeClientCredentials:
-			if c.Auth.ClientCredentials != nil && c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != nil && *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID != "" {
-				environmentID = *c.Auth.ClientCredentials.ClientCredentialsEnvironmentID
-			}
-		case svcOAuth2.GrantTypeDeviceCode:
-			if c.Auth.DeviceCode != nil && c.Auth.DeviceCode.DeviceCodeEnvironmentID != nil && *c.Auth.DeviceCode.DeviceCodeEnvironmentID != "" {
-				environmentID = *c.Auth.DeviceCode.DeviceCodeEnvironmentID
-			}
-		}
-	}
-
-	// Fallback to the shared environment ID if grant-type-specific one is not available
-	if environmentID == "" {
-		if c.Endpoint.EnvironmentID != nil && *c.Endpoint.EnvironmentID != "" {
-			environmentID = *c.Endpoint.EnvironmentID
-		}
+	if c.Endpoint.EnvironmentID != nil && *c.Endpoint.EnvironmentID != "" {
+		environmentID = *c.Endpoint.EnvironmentID
 	}
 
 	if environmentID != "" {
@@ -599,7 +555,7 @@ func (c *Configuration) AuthEndpoints() (endpoints.OIDCEndpoint, error) {
 		}
 	}
 
-	return endpoints.OIDCEndpoint{}, fmt.Errorf("no valid endpoint configuration found. Must provide either a custom domain or root domain/top level domain and auth environment ID")
+	return endpoints.OIDCEndpoint{}, fmt.Errorf("no valid endpoint configuration found. Must provide either a custom domain or root domain/top level domain and environment ID")
 }
 
 // APIDomain constructs the API domain for PingOne service calls.

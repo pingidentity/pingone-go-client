@@ -11,7 +11,7 @@ type GrantType string
 
 const (
 	// GrantTypeAuthorizationCode represents the authorization code grant type (commented out - not yet implemented)
-	GrantTypeAuthCode GrantType = "authorization_code"
+	GrantTypeAuthorizationCode GrantType = "authorization_code"
 
 	// GrantTypeClientCredentials represents the client credentials grant type.
 	// This grant type is used for server-to-server authentication where the client
@@ -27,7 +27,7 @@ const (
 // This mapping ensures that only compatible authentication methods are used with each grant type.
 // The map helps validate authentication configurations and provides available options for each flow.
 var AllowedTokenAuthMethods = map[GrantType][]TokenAuthType{
-	GrantTypeAuthCode: {
+	GrantTypeAuthorizationCode: {
 		TokenAuthTypeNone,
 	},
 	GrantTypeClientCredentials: {
@@ -48,7 +48,7 @@ var AllowedTokenAuthMethods = map[GrantType][]TokenAuthType{
 
 func IsValidGrantType(gt string) bool {
 	switch GrantType(gt) {
-	case GrantTypeAuthCode, GrantTypeClientCredentials, GrantTypeDeviceCode:
+	case GrantTypeAuthorizationCode, GrantTypeClientCredentials, GrantTypeDeviceCode:
 		return true
 	}
 	return false

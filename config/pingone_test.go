@@ -206,44 +206,30 @@ func TestConfigurationAuthMethods(t *testing.T) {
 			},
 		},
 		{
-			name: "WithAuthCodeClientID",
+			name: "WithAuthorizationCodeClientID",
 			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithAuthCodeClientID("auth-code-client-id")
+				return config.NewConfiguration().WithAuthorizationCodeClientID("auth-code-client-id")
 			},
 			validate: func(t *testing.T, cfg *config.Configuration) {
-				if cfg.Auth.AuthCode.AuthCodeClientID == nil {
-					t.Fatal("AuthCodeClientID should not be nil")
+				if cfg.Auth.AuthorizationCode.AuthorizationCodeClientID == nil {
+					t.Fatal("AuthorizationCodeClientID should not be nil")
 				}
-				if *cfg.Auth.AuthCode.AuthCodeClientID != "auth-code-client-id" {
-					t.Errorf("Expected AuthCodeClientID to be 'auth-code-client-id', got %q", *cfg.Auth.AuthCode.AuthCodeClientID)
+				if *cfg.Auth.AuthorizationCode.AuthorizationCodeClientID != "auth-code-client-id" {
+					t.Errorf("Expected AuthorizationCodeClientID to be 'auth-code-client-id', got %q", *cfg.Auth.AuthorizationCode.AuthorizationCodeClientID)
 				}
 			},
 		},
 		{
-			name: "WithAuthCodeEnvironmentID",
+			name: "WithAuthorizationCodeScopes",
 			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithAuthCodeEnvironmentID("auth-code-env-id")
-			},
-			validate: func(t *testing.T, cfg *config.Configuration) {
-				if cfg.Auth.AuthCode.AuthCodeEnvironmentID == nil {
-					t.Fatal("AuthCodeEnvironmentID should not be nil")
-				}
-				if *cfg.Auth.AuthCode.AuthCodeEnvironmentID != "auth-code-env-id" {
-					t.Errorf("Expected AuthCodeEnvironmentID to be 'auth-code-env-id', got %q", *cfg.Auth.AuthCode.AuthCodeEnvironmentID)
-				}
-			},
-		},
-		{
-			name: "WithAuthCodeScopes",
-			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithAuthCodeScopes([]string{"openid", "profile"})
+				return config.NewConfiguration().WithAuthorizationCodeScopes([]string{"openid", "profile"})
 			},
 			validate: func(t *testing.T, cfg *config.Configuration) {
 				expected := []string{"openid", "profile"}
-				if cfg.Auth.AuthCode.AuthCodeScopes == nil {
-					t.Fatal("AuthCodeScopes should not be nil")
+				if cfg.Auth.AuthorizationCode.AuthorizationCodeScopes == nil {
+					t.Fatal("AuthorizationCodeScopes should not be nil")
 				}
-				actual := *cfg.Auth.AuthCode.AuthCodeScopes
+				actual := *cfg.Auth.AuthorizationCode.AuthorizationCodeScopes
 				if len(actual) != len(expected) {
 					t.Errorf("Expected scopes length %d, got %d", len(expected), len(actual))
 				}
@@ -255,19 +241,19 @@ func TestConfigurationAuthMethods(t *testing.T) {
 			},
 		},
 		{
-			name: "WithAuthCodeRedirectURI",
+			name: "WithAuthorizationCodeRedirectURI",
 			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithAuthCodeRedirectURI(config.AuthCodeRedirectURI{
+				return config.NewConfiguration().WithAuthorizationCodeRedirectURI(config.AuthorizationCodeRedirectURI{
 					Port: "9090",
 					Path: "/callback",
 				})
 			},
 			validate: func(t *testing.T, cfg *config.Configuration) {
-				if cfg.Auth.AuthCode.AuthCodeRedirectURI.Port != "9090" {
-					t.Errorf("Expected AuthCodeRedirectURI.Port to be 9090, got %s", cfg.Auth.AuthCode.AuthCodeRedirectURI.Port)
+				if cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port != "9090" {
+					t.Errorf("Expected AuthorizationCodeRedirectURI.Port to be 9090, got %s", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port)
 				}
-				if cfg.Auth.AuthCode.AuthCodeRedirectURI.Path != "/callback" {
-					t.Errorf("Expected AuthCodeRedirectURI.Path to be '/callback', got %q", cfg.Auth.AuthCode.AuthCodeRedirectURI.Path)
+				if cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path != "/callback" {
+					t.Errorf("Expected AuthorizationCodeRedirectURI.Path to be '/callback', got %q", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path)
 				}
 			},
 		},
@@ -282,20 +268,6 @@ func TestConfigurationAuthMethods(t *testing.T) {
 				}
 				if *cfg.Auth.DeviceCode.DeviceCodeClientID != "device-code-client-id" {
 					t.Errorf("Expected DeviceCodeClientID to be 'device-code-client-id', got %q", *cfg.Auth.DeviceCode.DeviceCodeClientID)
-				}
-			},
-		},
-		{
-			name: "WithDeviceCodeEnvironmentID",
-			setup: func() *config.Configuration {
-				return config.NewConfiguration().WithDeviceCodeEnvironmentID("device-code-env-id")
-			},
-			validate: func(t *testing.T, cfg *config.Configuration) {
-				if cfg.Auth.DeviceCode.DeviceCodeEnvironmentID == nil {
-					t.Fatal("DeviceCodeEnvironmentID should not be nil")
-				}
-				if *cfg.Auth.DeviceCode.DeviceCodeEnvironmentID != "device-code-env-id" {
-					t.Errorf("Expected DeviceCodeEnvironmentID to be 'device-code-env-id', got %q", *cfg.Auth.DeviceCode.DeviceCodeEnvironmentID)
 				}
 			},
 		},
@@ -525,34 +497,34 @@ func TestAuthEndpointsGrantTypeSpecific(t *testing.T) {
 		setup func() *config.Configuration
 	}{
 		{
-			name: "ClientCredentialsWithSpecificEnvironmentID",
+			name: "WithEnvironmentID",
 			setup: func() *config.Configuration {
 				return config.NewConfiguration().
 					WithGrantType(oauth2.GrantTypeClientCredentials).
-					WithClientCredentialsEnvironmentID("cc-env-id").
+					WithEnvironmentID("test-env-id").
 					WithTopLevelDomain("com")
 			},
 		},
 		{
-			name: "AuthCodeWithSpecificEnvironmentID",
+			name: "AuthorizationCodeWithEnvironmentID",
 			setup: func() *config.Configuration {
 				return config.NewConfiguration().
-					WithGrantType(oauth2.GrantTypeAuthCode).
-					WithAuthCodeEnvironmentID("ac-env-id").
+					WithGrantType(oauth2.GrantTypeAuthorizationCode).
+					WithEnvironmentID("test-env-id").
 					WithTopLevelDomain("com")
 			},
 		},
 		{
-			name: "DeviceCodeWithSpecificEnvironmentID",
+			name: "DeviceCodeWithEnvironmentID",
 			setup: func() *config.Configuration {
 				return config.NewConfiguration().
 					WithGrantType(oauth2.GrantTypeDeviceCode).
-					WithDeviceCodeEnvironmentID("dc-env-id").
+					WithEnvironmentID("test-env-id").
 					WithTopLevelDomain("com")
 			},
 		},
 		{
-			name: "FallbackToSharedEnvironmentID",
+			name: "SharedEnvironmentID",
 			setup: func() *config.Configuration {
 				return config.NewConfiguration().
 					WithGrantType(oauth2.GrantTypeClientCredentials).
