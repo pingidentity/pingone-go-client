@@ -241,6 +241,8 @@ func (c *Configuration) WithRegion(region string) *Configuration {
 		tld = "eu"
 	case "AP":
 		tld = "asia"
+	case "SG":
+		tld = "sg"
 	default:
 		tld = "com" // Default to NA
 	}
