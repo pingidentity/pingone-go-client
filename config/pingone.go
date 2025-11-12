@@ -230,9 +230,7 @@ func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
 	return c
 }
 
-func (c *Configuration) WithRegion(region string) *Configuration {
-	// A simple mapping from region name to TLD.
-	// This could be expanded or made more robust.
+func (c *Configuration) WithRegion(region TopLevelDomain) *Configuration {
 	var tld TopLevelDomain
 	switch region {
 	case "NA":
