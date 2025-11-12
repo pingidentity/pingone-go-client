@@ -230,19 +230,24 @@ func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
 	return c
 }
 
-func (c *Configuration) WithRegion(region TopLevelDomain) *Configuration {
+// WithRegion sets the PingOne region using a region code.
+func (c *Configuration) WithRegion(region RegionCode) *Configuration {
 	var tld TopLevelDomain
 	switch region {
-	case "NA":
-		tld = "com"
-	case "EU":
-		tld = "eu"
-	case "AP":
-		tld = "asia"
-	case "SG":
-		tld = "sg"
+	case RegionCodeNA:
+		tld = TopLevelDomainNA
+	case RegionCodeEU:
+		tld = TopLevelDomainEU
+	case RegionCodeAP, RegionCodeAPAC:
+		tld = TopLevelDomainAPAC
+	case RegionCodeCA:
+		tld = TopLevelDomainCA
+	case RegionCodeAU:
+		tld = TopLevelDomainAU
+	case RegionCodeSG:
+		tld = TopLevelDomainSG
 	default:
-		tld = "com" // Default to NA
+		tld = TopLevelDomainNA // Default to NA
 	}
 	c.Endpoint.TopLevelDomain = &tld
 	return c
