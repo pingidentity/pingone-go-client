@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 
-// Package main demonstrates basic usage of the PingOne Go Client SDK.
-// This example shows how to configure authentication, create an API client,
-// and make a simple API call to retrieve environment information from PingOne.
+// Package main demonstrates device code flow authentication using the PingOne Go Client SDK.
+// This example shows how to configure device code authentication for CLI tools and
+// devices with limited input capabilities.
 package main
 
 import (
@@ -16,52 +16,52 @@ import (
 	"github.com/pingidentity/pingone-go-client/pingone"
 )
 
-// main demonstrates a basic PingOne API integration using the Go Client SDK.
+// main demonstrates device code flow authentication for CLI applications.
 // This example requires the following environment variables to be set:
-// - PINGONE_CLIENT_ID: OAuth2 client ID from your PingOne application
-// - PINGONE_CLIENT_SECRET: OAuth2 client secret from your PingOne application
-// - PINGONE_ENVIRONMENT_ID: Environment ID for authentication
-// - PINGONE_MY_USER_ENVIRONMENT_ID: Environment ID to query (can be the same as auth environment)
+// - PINGONE_CLIENT_ID: OAuth2 client ID from your PingOne Native application
+// - PINGONE_ENVIRONMENT_ID: Environment ID for authentication and API calls
+// - PINGONE_ROOT_DOMAIN: (optional) PingOne domain, defaults to "pingone.com"
 func main() {
 	// Configure logging
 	opts := &slog.HandlerOptions{
-		Level:     slog.LevelDebug,
+		Level:     slog.LevelInfo,
 		AddSource: true,
 	}
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
 	slog.SetDefault(logger)
 
-	// Initialize service configuration
+	// Initialize service configuration for device code flow
 	serviceCfg := config.NewConfiguration()
-	serviceCfg.WithGrantType(oauth2.GrantTypeClientCredentials)
+	serviceCfg.WithGrantType(oauth2.GrantTypeDeviceCode)
 
-	// These values should be set in environment variables or passed directly
-	// PINGONE_CLIENT_ID=your-client-id
-	// PINGONE_CLIENT_SECRET=your-client-secret
-	// PINGONE_ENVIRONMENT_ID=your-environment-id
+	// Get configuration from environment variables
 	clientID := os.Getenv("PINGONE_CLIENT_ID")
-	clientSecret := os.Getenv("PINGONE_CLIENT_SECRET")
 	authEnvironmentID := os.Getenv("PINGONE_ENVIRONMENT_ID")
+	rootDomain := os.Getenv("PINGONE_ROOT_DOMAIN")
+	if rootDomain == "" {
+		rootDomain = "pingone.com"
+	}
 
-	if clientID == "" || clientSecret == "" || authEnvironmentID == "" {
+	if clientID == "" || authEnvironmentID == "" {
 		slog.Error("Missing required environment variables",
 			"PINGONE_CLIENT_ID", clientID != "",
-			"PINGONE_CLIENT_SECRET", clientSecret != "",
 			"PINGONE_ENVIRONMENT_ID", authEnvironmentID != "")
 		os.Exit(1)
 	}
 
-	serviceCfg.WithClientID(clientID)
-	serviceCfg.WithClientSecret(clientSecret)
+	serviceCfg.WithDeviceCodeClientID(clientID)
 	serviceCfg.WithEnvironmentID(authEnvironmentID)
-	serviceCfg.WithRootDomain("pingone.com")
+	serviceCfg.WithRootDomain(rootDomain)
+
+	// Configure device code scopes
+	serviceCfg.WithDeviceCodeScopes([]string{"openid", "profile"})
 
 	// Create client configuration
 	configuration := pingone.NewConfiguration(serviceCfg)
 
 	// Add a custom user agent suffix (optional)
-	configuration.AppendUserAgent("example-application")
+	configuration.AppendUserAgent("device-code-example")
 
 	// Create the API client
 	client, err := pingone.NewAPIClient(configuration)
@@ -70,13 +70,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	slog.Info("PingOne API Client initialized successfully with device code flow")
+	slog.Info("Note: The SDK will display the device code and verification URL for user authentication")
+
 	// Use the client to access PingOne APIs
 	// For example, to get environment details:
-	environmentID, err := uuid.Parse(os.Getenv("PINGONE_MY_USER_ENVIRONMENT_ID"))
+	environmentID, err := uuid.Parse(authEnvironmentID)
 	if err != nil {
 		slog.Error("Invalid environment ID format", "error", err)
 		os.Exit(1)
 	}
+
 	environment, httpResp, err := client.EnvironmentsApi.GetEnvironmentById(
 		context.Background(),
 		environmentID,
