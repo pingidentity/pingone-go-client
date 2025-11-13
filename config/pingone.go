@@ -230,29 +230,6 @@ func (c *Configuration) WithAPIDomain(apiDomain string) *Configuration {
 	return c
 }
 
-// WithRegion sets the PingOne region using a region code.
-func (c *Configuration) WithRegion(region RegionCode) *Configuration {
-	var tld TopLevelDomain
-	switch region {
-	case RegionCodeNA:
-		tld = TopLevelDomainNA
-	case RegionCodeEU:
-		tld = TopLevelDomainEU
-	case RegionCodeAP, RegionCodeAPAC:
-		tld = TopLevelDomainAPAC
-	case RegionCodeCA:
-		tld = TopLevelDomainCA
-	case RegionCodeAU:
-		tld = TopLevelDomainAU
-	case RegionCodeSG:
-		tld = TopLevelDomainSG
-	default:
-		tld = TopLevelDomainNA // Default to NA
-	}
-	c.Endpoint.TopLevelDomain = &tld
-	return c
-}
-
 // WithCustomDomain sets a custom domain for PingOne authentication services.
 // The customDomain parameter should be a complete custom domain configured in PingOne.
 // When set, this takes precedence over all other domain configuration methods.
