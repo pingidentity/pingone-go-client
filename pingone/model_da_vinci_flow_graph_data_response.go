@@ -28,8 +28,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
-	MaxZoom              big.Float                                    `json:"maxZoom"`
-	MinZoom              big.Float                                    `json:"minZoom"`
+	MaxZoom              *big.Float                                   `json:"maxZoom,omitempty"`
+	MinZoom              *big.Float                                   `json:"minZoom,omitempty"`
 	Pan                  DaVinciFlowGraphDataResponsePan              `json:"pan"`
 	PanningEnabled       bool                                         `json:"panningEnabled"`
 	Renderer             DaVinciFlowGraphDataResponseRenderer         `json:"renderer"`
@@ -48,12 +48,10 @@ type _DaVinciFlowGraphDataResponse DaVinciFlowGraphDataResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom big.Float, minZoom big.Float, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32) *DaVinciFlowGraphDataResponse {
+func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32) *DaVinciFlowGraphDataResponse {
 	this := DaVinciFlowGraphDataResponse{}
 	this.BoxSelectionEnabled = boxSelectionEnabled
 	this.Elements = elements
-	this.MaxZoom = maxZoom
-	this.MinZoom = minZoom
 	this.Pan = pan
 	this.PanningEnabled = panningEnabled
 	this.Renderer = renderer
@@ -119,52 +117,68 @@ func (o *DaVinciFlowGraphDataResponse) SetElements(v DaVinciFlowGraphDataRespons
 	o.Elements = v
 }
 
-// GetMaxZoom returns the MaxZoom field value
+// GetMaxZoom returns the MaxZoom field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() big.Float {
-	if o == nil {
+	if o == nil || IsNil(o.MaxZoom) {
 		var ret big.Float
 		return ret
 	}
-
-	return o.MaxZoom
+	return *o.MaxZoom
 }
 
-// GetMaxZoomOk returns a tuple with the MaxZoom field value
+// GetMaxZoomOk returns a tuple with the MaxZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*big.Float, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxZoom) {
 		return nil, false
 	}
-	return &o.MaxZoom, true
+	return o.MaxZoom, true
 }
 
-// SetMaxZoom sets field value
+// HasMaxZoom returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponse) HasMaxZoom() bool {
+	if o != nil && !IsNil(o.MaxZoom) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxZoom gets a reference to the given big.Float and assigns it to the MaxZoom field.
 func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v big.Float) {
-	o.MaxZoom = v
+	o.MaxZoom = &v
 }
 
-// GetMinZoom returns the MinZoom field value
+// GetMinZoom returns the MinZoom field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponse) GetMinZoom() big.Float {
-	if o == nil {
+	if o == nil || IsNil(o.MinZoom) {
 		var ret big.Float
 		return ret
 	}
-
-	return o.MinZoom
+	return *o.MinZoom
 }
 
-// GetMinZoomOk returns a tuple with the MinZoom field value
+// GetMinZoomOk returns a tuple with the MinZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*big.Float, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MinZoom) {
 		return nil, false
 	}
-	return &o.MinZoom, true
+	return o.MinZoom, true
 }
 
-// SetMinZoom sets field value
+// HasMinZoom returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool {
+	if o != nil && !IsNil(o.MinZoom) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinZoom gets a reference to the given big.Float and assigns it to the MinZoom field.
 func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v big.Float) {
-	o.MinZoom = v
+	o.MinZoom = &v
 }
 
 // GetPan returns the Pan field value
@@ -419,8 +433,12 @@ func (o DaVinciFlowGraphDataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["boxSelectionEnabled"] = o.BoxSelectionEnabled
 	toSerialize["elements"] = o.Elements
-	toSerialize["maxZoom"] = o.MaxZoom
-	toSerialize["minZoom"] = o.MinZoom
+	if !IsNil(o.MaxZoom) {
+		toSerialize["maxZoom"] = o.MaxZoom
+	}
+	if !IsNil(o.MinZoom) {
+		toSerialize["minZoom"] = o.MinZoom
+	}
 	toSerialize["pan"] = o.Pan
 	toSerialize["panningEnabled"] = o.PanningEnabled
 	toSerialize["renderer"] = o.Renderer
@@ -451,8 +469,6 @@ func (o *DaVinciFlowGraphDataResponse) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"boxSelectionEnabled",
 		"elements",
-		"maxZoom",
-		"minZoom",
 		"pan",
 		"panningEnabled",
 		"renderer",
@@ -512,8 +528,12 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("boxSelectionEnabled", o.BoxSelectionEnabled))
 	logAttrs = append(logAttrs, slog.Any("elements", o.Elements))
-	logAttrs = append(logAttrs, slog.Any("maxZoom", o.MaxZoom))
-	logAttrs = append(logAttrs, slog.Any("minZoom", o.MinZoom))
+	if !IsNil(o.MaxZoom) {
+		logAttrs = append(logAttrs, slog.Any("maxZoom", *o.MaxZoom))
+	}
+	if !IsNil(o.MinZoom) {
+		logAttrs = append(logAttrs, slog.Any("minZoom", *o.MinZoom))
+	}
 	logAttrs = append(logAttrs, slog.Any("pan", o.Pan))
 	logAttrs = append(logAttrs, slog.Any("panningEnabled", o.PanningEnabled))
 	logAttrs = append(logAttrs, slog.Any("renderer", o.Renderer))
