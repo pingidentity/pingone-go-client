@@ -18,6 +18,32 @@ import (
 	"golang.org/x/oauth2"
 )
 
+// keychainTokenSource wraps an oauth2.TokenSource and saves tokens to keychain after refresh
+type keychainTokenSource struct {
+	base            oauth2.TokenSource
+	keychainStorage *svcOAuth2.KeychainStorage
+	tokenKey        string
+}
+
+// Token implements oauth2.TokenSource interface
+// It gets a token from the base source and saves it to keychain
+func (k *keychainTokenSource) Token() (*oauth2.Token, error) {
+	token, err := k.base.Token()
+	if err != nil {
+		return nil, err
+	}
+
+	// Save the token to keychain for future use
+	if saveErr := k.keychainStorage.SaveToken(token); saveErr != nil {
+		slog.Warn("Failed to save refreshed token to keychain", "error", saveErr, "tokenKey", k.tokenKey)
+		// Don't return error - token is still valid even if caching failed
+	} else {
+		slog.Debug("Refreshed token saved to keychain", "tokenKey", k.tokenKey, "expires", token.Expiry)
+	}
+
+	return token, nil
+}
+
 func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string, error) {
 	var environmentID, clientID string
 
@@ -54,6 +80,42 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
 
 	return tokenKey, nil
+}
+
+// createOAuth2ConfigForRefresh creates a minimal OAuth2 config for token refresh
+func (c *Configuration) createOAuth2ConfigForRefresh(endpoints endpoints.OIDCEndpoint) (*oauth2.Config, error) {
+	if c.Auth.GrantType == nil {
+		return nil, fmt.Errorf("grant type is required")
+	}
+
+	switch *c.Auth.GrantType {
+	case svcOAuth2.GrantTypeDeviceCode:
+		if c.Auth.DeviceCode != nil && c.Auth.DeviceCode.DeviceCodeClientID != nil {
+			var scopes []string
+			if c.Auth.DeviceCode.DeviceCodeScopes != nil {
+				scopes = *c.Auth.DeviceCode.DeviceCodeScopes
+			}
+			return &oauth2.Config{
+				ClientID: *c.Auth.DeviceCode.DeviceCodeClientID,
+				Endpoint: endpoints.Endpoint,
+				Scopes:   scopes,
+			}, nil
+		}
+	case svcOAuth2.GrantTypeAuthorizationCode:
+		if c.Auth.AuthorizationCode != nil && c.Auth.AuthorizationCode.AuthorizationCodeClientID != nil {
+			var scopes []string
+			if c.Auth.AuthorizationCode.AuthorizationCodeScopes != nil {
+				scopes = *c.Auth.AuthorizationCode.AuthorizationCodeScopes
+			}
+			return &oauth2.Config{
+				ClientID: *c.Auth.AuthorizationCode.AuthorizationCodeClientID,
+				Endpoint: endpoints.Endpoint,
+				Scopes:   scopes,
+			}, nil
+		}
+	}
+
+	return nil, fmt.Errorf("no valid configuration found for grant type: %s", *c.Auth.GrantType)
 }
 
 type AuthorizationCodeRedirectURI struct {
@@ -413,9 +475,35 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 				if err != nil {
 					return nil, fmt.Errorf("failed to create keychain storage: %w", err)
 				}
-				if existingToken, err := keychainStorage.LoadToken(); err == nil && existingToken != nil && existingToken.Valid() {
-					slog.Debug("Using cached token from keychain", "tokenKey", tokenKey, "expires", existingToken.Expiry)
-					return oauth2.StaticTokenSource(existingToken), nil
+				existingToken, err := keychainStorage.LoadToken()
+				if err == nil && existingToken != nil && existingToken.RefreshToken != "" {
+					// Token has refresh token - set up automatic refresh
+					slog.Debug("Found cached token with refresh capability", "tokenKey", tokenKey, "expires", existingToken.Expiry, "valid", existingToken.Valid())
+
+					endpoints, err := c.AuthEndpoints()
+					if err != nil {
+						slog.Warn("Failed to get endpoints for token refresh", "error", err)
+					} else {
+						oauthConfig, err := c.createOAuth2ConfigForRefresh(endpoints)
+						if err != nil {
+							slog.Warn("Failed to create OAuth2 config for refresh", "error", err)
+						} else {
+							// oauth2.Config.TokenSource automatically handles refresh when needed
+							baseTS := oauthConfig.TokenSource(ctx, existingToken)
+							ts := oauth2.ReuseTokenSource(nil, &keychainTokenSource{
+								base:            baseTS,
+								keychainStorage: keychainStorage,
+								tokenKey:        tokenKey,
+							})
+
+							// Verify token source works (will use cached token if valid, or refresh if expired)
+							if _, err := ts.Token(); err == nil {
+								slog.Debug("Token source ready", "tokenKey", tokenKey)
+								return ts, nil
+							}
+							slog.Debug("Token source failed, will re-authenticate", "error", err)
+						}
+					}
 				} else if err != nil {
 					slog.Debug("Unable to load cached token from keychain:", "error", err)
 				}
@@ -496,6 +584,27 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 					// Don't return error here - token is still valid even if caching failed
 				} else {
 					slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
+				}
+
+				// If token has refresh capability, wrap with automatic refresh support
+				if token.RefreshToken != "" {
+					endpoints, err := c.AuthEndpoints()
+					if err != nil {
+						slog.Warn("Failed to get endpoints for token refresh", "error", err)
+					} else {
+						oauthConfig, err := c.createOAuth2ConfigForRefresh(endpoints)
+						if err != nil {
+							slog.Warn("Failed to create OAuth2 config for refresh", "error", err)
+						} else {
+							// Use ReuseTokenSource with keychainTokenSource wrapper for automatic refresh
+							baseTS := oauthConfig.TokenSource(ctx, token)
+							return oauth2.ReuseTokenSource(nil, &keychainTokenSource{
+								base:            baseTS,
+								keychainStorage: keychainStorage,
+								tokenKey:        tokenKey,
+							}), nil
+						}
+					}
 				}
 			} else {
 				slog.Debug("Skipping keychain storage (file storage mode)", "tokenKey", tokenKey)
