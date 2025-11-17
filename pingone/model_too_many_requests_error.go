@@ -28,7 +28,7 @@ var _ slog.LogValuer = &TooManyRequestsError{}
 
 // TooManyRequestsError struct for TooManyRequestsError
 type TooManyRequestsError struct {
-	Id                   uuid.UUID                    `json:"id"`
+	Id                   *uuid.UUID                   `json:"id,omitempty"`
 	Code                 TooManyRequestsErrorCode     `json:"code"`
 	Message              string                       `json:"message"`
 	Details              []TooManyRequestsErrorDetail `json:"details,omitempty"`
@@ -41,9 +41,8 @@ type _TooManyRequestsError TooManyRequestsError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTooManyRequestsError(id uuid.UUID, code TooManyRequestsErrorCode, message string) *TooManyRequestsError {
+func NewTooManyRequestsError(code TooManyRequestsErrorCode, message string) *TooManyRequestsError {
 	this := TooManyRequestsError{}
-	this.Id = id
 	this.Code = code
 	this.Message = message
 	return &this
@@ -57,28 +56,36 @@ func NewTooManyRequestsErrorWithDefaults() *TooManyRequestsError {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *TooManyRequestsError) GetId() uuid.UUID {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret uuid.UUID
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TooManyRequestsError) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *TooManyRequestsError) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given uuid.UUID and assigns it to the Id field.
 func (o *TooManyRequestsError) SetId(v uuid.UUID) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetCode returns the Code field value
@@ -171,7 +178,9 @@ func (o TooManyRequestsError) MarshalJSON() ([]byte, error) {
 
 func (o TooManyRequestsError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["code"] = o.Code
 	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
@@ -190,7 +199,6 @@ func (o *TooManyRequestsError) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"code",
 		"message",
 	}
@@ -235,7 +243,9 @@ func (o *TooManyRequestsError) UnmarshalJSON(data []byte) (err error) {
 func (o TooManyRequestsError) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("id", o.Id))
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
+	}
 	logAttrs = append(logAttrs, slog.Any("code", o.Code))
 	logAttrs = append(logAttrs, slog.Any("message", o.Message))
 	if !IsNil(o.Details) {
