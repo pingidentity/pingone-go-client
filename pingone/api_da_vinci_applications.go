@@ -2861,9 +2861,6 @@ func (a *DaVinciApplicationsApiService) RotateKeyByDavinciApplicationIdExecute(r
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.requestBody == nil {
-		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.pingidentity.davinciApplication.rotateKey+json"}
@@ -3107,9 +3104,6 @@ func (a *DaVinciApplicationsApiService) RotateSecretByDavinciApplicationIdExecut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.requestBody == nil {
-		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.pingidentity.davinciApplication.rotateSecret+json"}

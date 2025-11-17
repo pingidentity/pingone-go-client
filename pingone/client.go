@@ -372,7 +372,7 @@ func (c *APIClient) prepareRequest(
 	var body *bytes.Buffer
 
 	// Detect postBody type and post.
-	if postBody != nil {
+	if postBody != nil && !reflect.ValueOf(postBody).IsNil() {
 		contentType := headerParams["Content-Type"]
 		if contentType == "" {
 			contentType = detectContentType(postBody)
