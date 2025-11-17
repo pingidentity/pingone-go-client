@@ -166,7 +166,7 @@ func (o *DaVinciFlowVersionAliasResponseLinks) UnmarshalJSON(data []byte) (err e
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_version_alias_response__links.go", requiredProperty)
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
 	}
 

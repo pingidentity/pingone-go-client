@@ -110,7 +110,7 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesFormFieldsList) U
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_graph_data_response_elements_node_data_properties_form_fields_list.go", requiredProperty)
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
 	}
 

@@ -110,7 +110,7 @@ func (o *ResourceRelationshipDaVinciReadOnly) UnmarshalJSON(data []byte) (err er
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v in model_resource_relationship_da_vinci_read_only.go", requiredProperty)
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
 	}
 

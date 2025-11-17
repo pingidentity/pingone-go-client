@@ -138,7 +138,7 @@ func (o *DaVinciFlowPolicyResponseTriggerConfiguration) UnmarshalJSON(data []byt
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_policy_response_trigger_configuration.go", requiredProperty)
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
 	}
 

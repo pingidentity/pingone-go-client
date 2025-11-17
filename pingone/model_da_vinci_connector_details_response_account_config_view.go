@@ -146,7 +146,7 @@ func (o *DaVinciConnectorDetailsResponseAccountConfigView) UnmarshalJSON(data []
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v in model_da_vinci_connector_details_response_account_config_view.go", requiredProperty)
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
 	}
 
