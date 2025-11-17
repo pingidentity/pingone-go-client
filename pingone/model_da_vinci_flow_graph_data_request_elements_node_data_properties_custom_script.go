@@ -13,7 +13,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -25,7 +24,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCus
 
 // DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript struct for DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript
 type DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript struct {
-	Value                string `json:"value"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,9 +34,8 @@ type _DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript DaVinciF
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript(value string) *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript {
+func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript() *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript {
 	this := DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript{}
-	this.Value = value
 	return &this
 }
 
@@ -49,28 +47,36 @@ func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScriptWithDef
 	return &this
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) GetValue() string {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) SetValue(v string) {
-	o.Value = v
+	o.Value = &v
 }
 
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) MarshalJSON() ([]byte, error) {
@@ -83,7 +89,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) Marsh
 
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["value"] = o.Value
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -93,27 +101,6 @@ func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) ToMap
 }
 
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"value",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varDaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript := _DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript{}
 
 	err = json.Unmarshal(data, &varDaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript)
@@ -137,7 +124,9 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) Unma
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesCustomScript) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("value", o.Value))
+	if !IsNil(o.Value) {
+		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
