@@ -13,6 +13,7 @@ package pingone
 
 import (
 	"encoding/json"
+	"fmt"
 	"log/slog"
 )
 
@@ -24,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBac
 
 // DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor struct for DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor
 type DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor struct {
-	Value                *string `json:"value,omitempty"`
+	Value                string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +35,9 @@ type _DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor DaVin
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor() *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor {
+func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor(value string) *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor {
 	this := DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor{}
+	this.Value = value
 	return &this
 }
 
@@ -47,36 +49,28 @@ func NewDaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColorWith
 	return &this
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) GetValue() string {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Value
+
+	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) GetValueOk() (*string, bool) {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
+// SetValue sets field value
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) SetValue(v string) {
-	o.Value = &v
+	o.Value = v
 }
 
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) MarshalJSON() ([]byte, error) {
@@ -89,9 +83,7 @@ func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) Ma
 
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["value"] = o.Value
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -101,6 +93,27 @@ func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) To
 }
 
 func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor := _DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor{}
 
 	err = json.Unmarshal(data, &varDaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor)
@@ -124,9 +137,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) U
 func (o DaVinciFlowGraphDataRequestElementsNodeDataPropertiesBackgroundColor) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	if !IsNil(o.Value) {
-		logAttrs = append(logAttrs, slog.Any("value", *o.Value))
-	}
+	logAttrs = append(logAttrs, slog.Any("value", o.Value))
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
