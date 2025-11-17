@@ -290,7 +290,7 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesSaveVariablesValu
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_graph_data_response_elements_node_data_properties_save_variables_value_item.go", requiredProperty)
 		}
 	}
 

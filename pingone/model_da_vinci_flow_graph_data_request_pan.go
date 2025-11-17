@@ -138,7 +138,7 @@ func (o *DaVinciFlowGraphDataRequestPan) UnmarshalJSON(data []byte) (err error) 
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_graph_data_request_pan.go", requiredProperty)
 		}
 	}
 

@@ -110,7 +110,7 @@ func (o *EnvironmentBillOfMaterialsProductConsole) UnmarshalJSON(data []byte) (e
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_environment_bill_of_materials_product_console.go", requiredProperty)
 		}
 	}
 

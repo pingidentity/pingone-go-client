@@ -302,7 +302,7 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_environment_create_request.go", requiredProperty)
 		}
 	}
 

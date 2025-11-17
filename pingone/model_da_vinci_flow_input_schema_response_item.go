@@ -274,7 +274,7 @@ func (o *DaVinciFlowInputSchemaResponseItem) UnmarshalJSON(data []byte) (err err
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_da_vinci_flow_input_schema_response_item.go", requiredProperty)
 		}
 	}
 

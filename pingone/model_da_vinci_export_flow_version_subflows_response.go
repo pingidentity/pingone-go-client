@@ -835,7 +835,7 @@ func (o *DaVinciExportFlowVersionSubflowsResponse) UnmarshalJSON(data []byte) (e
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v in model_da_vinci_export_flow_version_subflows_response.go", requiredProperty)
 		}
 	}
 
