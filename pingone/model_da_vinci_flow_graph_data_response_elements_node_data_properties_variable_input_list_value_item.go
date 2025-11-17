@@ -25,10 +25,10 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVa
 
 // DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem struct for DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem
 type DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem struct {
-	Name                 string                                             `json:"name"`
-	PreferredDataType    DaVinciFlowInputSchemaRequestItemPreferredDataType `json:"preferredDataType"`
-	PreferredControlType *string                                            `json:"preferredControlType,omitempty"`
-	Value                *string                                            `json:"value,omitempty"`
+	Name                 string        `json:"name"`
+	PreferredDataType    []interface{} `json:"preferredDataType"`
+	PreferredControlType *string       `json:"preferredControlType,omitempty"`
+	Value                *string       `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +38,7 @@ type _DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListVal
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem(name string, preferredDataType DaVinciFlowInputSchemaRequestItemPreferredDataType) *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem {
+func NewDaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem(name string, preferredDataType []interface{}) *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem {
 	this := DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem{}
 	this.Name = name
 	this.PreferredDataType = preferredDataType
@@ -78,9 +78,9 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputList
 }
 
 // GetPreferredDataType returns the PreferredDataType field value
-func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) GetPreferredDataType() DaVinciFlowInputSchemaRequestItemPreferredDataType {
+func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) GetPreferredDataType() []interface{} {
 	if o == nil {
-		var ret DaVinciFlowInputSchemaRequestItemPreferredDataType
+		var ret []interface{}
 		return ret
 	}
 
@@ -89,15 +89,15 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputList
 
 // GetPreferredDataTypeOk returns a tuple with the PreferredDataType field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) GetPreferredDataTypeOk() (*DaVinciFlowInputSchemaRequestItemPreferredDataType, bool) {
+func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) GetPreferredDataTypeOk() ([]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PreferredDataType, true
+	return o.PreferredDataType, true
 }
 
 // SetPreferredDataType sets field value
-func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) SetPreferredDataType(v DaVinciFlowInputSchemaRequestItemPreferredDataType) {
+func (o *DaVinciFlowGraphDataResponseElementsNodeDataPropertiesVariableInputListValueItem) SetPreferredDataType(v []interface{}) {
 	o.PreferredDataType = v
 }
 
