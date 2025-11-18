@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoxSelectionEnabled** | **bool** |  | 
 **Elements** | [**DaVinciFlowGraphDataResponseElements**](DaVinciFlowGraphDataResponseElements.md) |  | 
-**MaxZoom** | [**big.Float**](big.Float.md) |  | 
-**MinZoom** | [**big.Float**](big.Float.md) |  | 
 **Pan** | [**DaVinciFlowGraphDataResponsePan**](DaVinciFlowGraphDataResponsePan.md) |  | 
 **PanningEnabled** | **bool** |  | 
 **Renderer** | [**DaVinciFlowGraphDataResponseRenderer**](DaVinciFlowGraphDataResponseRenderer.md) |  | 
@@ -16,13 +14,15 @@ Name | Type | Description | Notes
 **Zoom** | **float32** |  | 
 **AllLinterErrors** | Pointer to [**[]DaVinciFlowGraphDataResponseAllLinterError**](DaVinciFlowGraphDataResponseAllLinterError.md) |  | [optional] 
 **Data** | Pointer to **map[string]interface{}** |  | [optional] 
+**MaxZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
+**MinZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
 **ZoomingEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowGraphDataResponse
 
-`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, maxZoom big.Float, minZoom big.Float, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, ) *DaVinciFlowGraphDataResponse`
+`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, ) *DaVinciFlowGraphDataResponse`
 
 NewDaVinciFlowGraphDataResponse instantiates a new DaVinciFlowGraphDataResponse object
 This constructor will assign default values to properties that have it defined,
@@ -75,46 +75,6 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowGraphDataResponse) SetElements(v DaVinciFlowGraphDataResponseElements)`
 
 SetElements sets Elements field to given value.
-
-
-### GetMaxZoom
-
-`func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() big.Float`
-
-GetMaxZoom returns the MaxZoom field if non-nil, zero value otherwise.
-
-### GetMaxZoomOk
-
-`func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*big.Float, bool)`
-
-GetMaxZoomOk returns a tuple with the MaxZoom field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxZoom
-
-`func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v big.Float)`
-
-SetMaxZoom sets MaxZoom field to given value.
-
-
-### GetMinZoom
-
-`func (o *DaVinciFlowGraphDataResponse) GetMinZoom() big.Float`
-
-GetMinZoom returns the MinZoom field if non-nil, zero value otherwise.
-
-### GetMinZoomOk
-
-`func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*big.Float, bool)`
-
-GetMinZoomOk returns a tuple with the MinZoom field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMinZoom
-
-`func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v big.Float)`
-
-SetMinZoom sets MinZoom field to given value.
 
 
 ### GetPan
@@ -286,6 +246,56 @@ SetData sets Data field to given value.
 `func (o *DaVinciFlowGraphDataResponse) HasData() bool`
 
 HasData returns a boolean if a field has been set.
+
+### GetMaxZoom
+
+`func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloatUnquoted`
+
+GetMaxZoom returns the MaxZoom field if non-nil, zero value otherwise.
+
+### GetMaxZoomOk
+
+`func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*types.BigFloatUnquoted, bool)`
+
+GetMaxZoomOk returns a tuple with the MaxZoom field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxZoom
+
+`func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v types.BigFloatUnquoted)`
+
+SetMaxZoom sets MaxZoom field to given value.
+
+### HasMaxZoom
+
+`func (o *DaVinciFlowGraphDataResponse) HasMaxZoom() bool`
+
+HasMaxZoom returns a boolean if a field has been set.
+
+### GetMinZoom
+
+`func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloatUnquoted`
+
+GetMinZoom returns the MinZoom field if non-nil, zero value otherwise.
+
+### GetMinZoomOk
+
+`func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*types.BigFloatUnquoted, bool)`
+
+GetMinZoomOk returns a tuple with the MinZoom field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMinZoom
+
+`func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v types.BigFloatUnquoted)`
+
+SetMinZoom sets MinZoom field to given value.
+
+### HasMinZoom
+
+`func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool`
+
+HasMinZoom returns a boolean if a field has been set.
 
 ### GetZoomingEnabled
 

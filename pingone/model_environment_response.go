@@ -46,6 +46,7 @@ type EnvironmentResponse struct {
 	PingoneAccountId        *string                           `json:"pingoneAccountId,omitempty"`
 	SoftDeletedAt           *time.Time                        `json:"softDeletedAt,omitempty"`
 	Status                  *EnvironmentStatusValue           `json:"status,omitempty"`
+	Subtype                 *EnvironmentResponseSubtype       `json:"subtype,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
 
@@ -595,6 +596,38 @@ func (o *EnvironmentResponse) SetStatus(v EnvironmentStatusValue) {
 	o.Status = &v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *EnvironmentResponse) GetSubtype() EnvironmentResponseSubtype {
+	if o == nil || IsNil(o.Subtype) {
+		var ret EnvironmentResponseSubtype
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentResponse) GetSubtypeOk() (*EnvironmentResponseSubtype, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *EnvironmentResponse) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given EnvironmentResponseSubtype and assigns it to the Subtype field.
+func (o *EnvironmentResponse) SetSubtype(v EnvironmentResponseSubtype) {
+	o.Subtype = &v
+}
+
 func (o EnvironmentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -644,6 +677,9 @@ func (o EnvironmentResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -712,6 +748,7 @@ func (o *EnvironmentResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "pingoneAccountId")
 		delete(additionalProperties, "softDeletedAt")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -760,6 +797,9 @@ func (o EnvironmentResponse) LogValue() slog.Value {
 	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	}
+	if !IsNil(o.Subtype) {
+		logAttrs = append(logAttrs, slog.Any("subtype", *o.Subtype))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

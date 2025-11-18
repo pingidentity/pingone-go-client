@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.11.05-beta
+  version: 2025.11.18-development
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -3545,11 +3545,11 @@ components:
                 name: name
               zoomingEnabled: true
               data: "{}"
-              maxZoom: 3.616076749251911
+              maxZoom: 7.386281948385884
               userPanningEnabled: true
-              minZoom: 2.027123023002322
               userZoomingEnabled: true
-              zoom: 1.2315135367772556
+              minZoom: 1.2315135367772556
+              zoom: 4.145608029883936
               allLinterErrors:
               - code: code
                 recommendation: recommendation
@@ -3797,8 +3797,8 @@ components:
                   selected: true
                   group: group
               pan:
-                x: 4.145608029883936
-                "y": 7.386281948385884
+                x: 3.616076749251911
+                "y": 2.027123023002322
               panningEnabled: true
             dvlinterErrorCount: 6.027456183070403
             updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -3952,11 +3952,11 @@ components:
                 name: name
               zoomingEnabled: true
               data: "{}"
-              maxZoom: 3.616076749251911
+              maxZoom: 7.386281948385884
               userPanningEnabled: true
-              minZoom: 2.027123023002322
               userZoomingEnabled: true
-              zoom: 1.2315135367772556
+              minZoom: 1.2315135367772556
+              zoom: 4.145608029883936
               allLinterErrors:
               - code: code
                 recommendation: recommendation
@@ -4204,8 +4204,8 @@ components:
                   selected: true
                   group: group
               pan:
-                x: 4.145608029883936
-                "y": 7.386281948385884
+                x: 3.616076749251911
+                "y": 2.027123023002322
               panningEnabled: true
             dvlinterErrorCount: 6.027456183070403
             updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -4831,10 +4831,10 @@ components:
         elements:
           $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements"
         maxZoom:
-          format: bigFloat
+          format: bigFloatUnquoted
           title: DaVinci Flow Graph Data Request Max Zoom
         minZoom:
-          format: bigFloat
+          format: bigFloatUnquoted
           title: DaVinci Flow Graph Data Request Min Zoom
         pan:
           $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Pan"
@@ -4858,11 +4858,11 @@ components:
           name: name
         zoomingEnabled: true
         data: "{}"
-        maxZoom: 3.616076749251911
+        maxZoom: 7.386281948385884
         userPanningEnabled: true
-        minZoom: 2.027123023002322
         userZoomingEnabled: true
-        zoom: 1.2315135367772556
+        minZoom: 1.2315135367772556
+        zoom: 4.145608029883936
         allLinterErrors:
         - code: code
           recommendation: recommendation
@@ -5110,8 +5110,8 @@ components:
             selected: true
             group: group
         pan:
-          x: 4.145608029883936
-          "y": 7.386281948385884
+          x: 3.616076749251911
+          "y": 2.027123023002322
         panningEnabled: true
       properties:
         boxSelectionEnabled:
@@ -5119,14 +5119,6 @@ components:
           type: boolean
         elements:
           $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements"
-        maxZoom:
-          format: bigFloat
-          title: DaVinci Flow Graph Data Response Max Zoom
-          type: number
-        minZoom:
-          format: bigFloat
-          title: DaVinci Flow Graph Data Response Min Zoom
-          type: number
         pan:
           $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Pan"
         panningEnabled:
@@ -5150,14 +5142,20 @@ components:
         data:
           title: DaVinci Flow Graph Data Response Data
           type: object
+        maxZoom:
+          format: bigFloatUnquoted
+          title: DaVinci Flow Graph Data Response Max Zoom
+          type: number
+        minZoom:
+          format: bigFloatUnquoted
+          title: DaVinci Flow Graph Data Response Min Zoom
+          type: number
         zoomingEnabled:
           title: DaVinci Flow Graph Data Response Zooming Enabled
           type: boolean
       required:
       - boxSelectionEnabled
       - elements
-      - maxZoom
-      - minZoom
       - pan
       - panningEnabled
       - renderer
@@ -6183,11 +6181,11 @@ components:
             name: name
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 3.616076749251911
+          maxZoom: 7.386281948385884
           userPanningEnabled: true
-          minZoom: 2.027123023002322
           userZoomingEnabled: true
-          zoom: 1.2315135367772556
+          minZoom: 1.2315135367772556
+          zoom: 4.145608029883936
           allLinterErrors:
           - code: code
             recommendation: recommendation
@@ -6435,8 +6433,8 @@ components:
               selected: true
               group: group
           pan:
-            x: 4.145608029883936
-            "y": 7.386281948385884
+            x: 3.616076749251911
+            "y": 2.027123023002322
           panningEnabled: true
         dvlinterErrorCount: 6.027456183070403
         updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -7174,11 +7172,11 @@ components:
             name: name
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 3.616076749251911
+          maxZoom: 7.386281948385884
           userPanningEnabled: true
-          minZoom: 2.027123023002322
           userZoomingEnabled: true
-          zoom: 1.2315135367772556
+          minZoom: 1.2315135367772556
+          zoom: 4.145608029883936
           allLinterErrors:
           - code: code
             recommendation: recommendation
@@ -7426,8 +7424,8 @@ components:
               selected: true
               group: group
           pan:
-            x: 4.145608029883936
-            "y": 7.386281948385884
+            x: 3.616076749251911
+            "y": 2.027123023002322
           panningEnabled: true
         flow:
           name: name
@@ -8976,6 +8974,7 @@ components:
         license:
           package: package
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        subtype: DEV
         name: name
         icon: icon
         description: description
@@ -9118,6 +9117,8 @@ components:
         icon:
           title: Environment Create Request Icon
           type: string
+        subtype:
+          $ref: "#/components/schemas/Environment_Create_Request_Subtype"
       required:
       - license
       - name
@@ -9316,6 +9317,7 @@ components:
         license:
           package: package
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        subtype: DEV
         name: name
         icon: icon
         description: description
@@ -9460,6 +9462,8 @@ components:
           $ref: "#/components/schemas/EnvironmentLicense"
         status:
           $ref: "#/components/schemas/EnvironmentStatusValue"
+        subtype:
+          $ref: "#/components/schemas/Environment_Replace_Request_Subtype"
       required:
       - name
       - region
@@ -9652,6 +9656,7 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         _embedded:
           key: "{}"
+        subtype: DEV
         organization:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         name: name
@@ -9840,6 +9845,8 @@ components:
           type: string
         status:
           $ref: "#/components/schemas/EnvironmentStatusValue"
+        subtype:
+          $ref: "#/components/schemas/Environment_Response_Subtype"
       required:
       - createdAt
       - id
@@ -10389,11 +10396,6 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         message: message
       properties:
-        id:
-          format: uuid
-          minLength: 1
-          title: Too Many Requests Error Id
-          type: string
         code:
           $ref: "#/components/schemas/Too_Many_Requests_Error_Code"
         message:
@@ -10404,9 +10406,12 @@ components:
           items:
             $ref: "#/components/schemas/Too_Many_Requests_Error_Detail"
           type: array
+        id:
+          format: uuid
+          title: Too Many Requests Error Id
+          type: string
       required:
       - code
-      - id
       - message
       title: Too Many Requests Error
       x-go-generate-error: true
@@ -11633,11 +11638,11 @@ components:
               name: name
             zoomingEnabled: true
             data: "{}"
-            maxZoom: 3.616076749251911
+            maxZoom: 7.386281948385884
             userPanningEnabled: true
-            minZoom: 2.027123023002322
             userZoomingEnabled: true
-            zoom: 1.2315135367772556
+            minZoom: 1.2315135367772556
+            zoom: 4.145608029883936
             allLinterErrors:
             - code: code
               recommendation: recommendation
@@ -11885,8 +11890,8 @@ components:
                 selected: true
                 group: group
             pan:
-              x: 4.145608029883936
-              "y": 7.386281948385884
+              x: 3.616076749251911
+              "y": 2.027123023002322
             panningEnabled: true
           dvlinterErrorCount: 6.027456183070403
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -12040,11 +12045,11 @@ components:
               name: name
             zoomingEnabled: true
             data: "{}"
-            maxZoom: 3.616076749251911
+            maxZoom: 7.386281948385884
             userPanningEnabled: true
-            minZoom: 2.027123023002322
             userZoomingEnabled: true
-            zoom: 1.2315135367772556
+            minZoom: 1.2315135367772556
+            zoom: 4.145608029883936
             allLinterErrors:
             - code: code
               recommendation: recommendation
@@ -12292,8 +12297,8 @@ components:
                 selected: true
                 group: group
             pan:
-              x: 4.145608029883936
-              "y": 7.386281948385884
+              x: 3.616076749251911
+              "y": 2.027123023002322
             panningEnabled: true
           dvlinterErrorCount: 6.027456183070403
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -14448,8 +14453,8 @@ components:
       title: DaVinci Flow Graph Data Response Elements
     DaVinci_Flow_Graph_Data_Response_Pan:
       example:
-        x: 4.145608029883936
-        "y": 7.386281948385884
+        x: 3.616076749251911
+        "y": 2.027123023002322
       properties:
         x:
           title: DaVinci Flow Graph Data Response Pan X
@@ -16754,6 +16759,24 @@ components:
           $ref: "#/components/schemas/JSONHALLink"
       readOnly: true
       title: Environment Capabilities _links
+    Environment_Create_Request_Subtype:
+      enum:
+      - DEV
+      - QA
+      - STAGING
+      - TESTING
+      - UAT
+      title: Environment Create Request Subtype
+      type: string
+    Environment_Replace_Request_Subtype:
+      enum:
+      - DEV
+      - QA
+      - STAGING
+      - TESTING
+      - UAT
+      title: Environment Replace Request Subtype
+      type: string
     Environment_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
@@ -16769,6 +16792,15 @@ components:
           $ref: "#/components/schemas/JSONHALLink"
       readOnly: true
       title: Environment Response _links
+    Environment_Response_Subtype:
+      enum:
+      - DEV
+      - QA
+      - STAGING
+      - TESTING
+      - UAT
+      title: Environment Response Subtype
+      type: string
     Environments_Collection_Response__embedded:
       example:
         environments:
