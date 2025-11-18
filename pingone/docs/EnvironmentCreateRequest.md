@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **BillOfMaterials** | Pointer to [**EnvironmentBillOfMaterials**](EnvironmentBillOfMaterials.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** |  | [optional] 
+**Subtype** | Pointer to [**EnvironmentCreateRequestSubtype**](EnvironmentCreateRequestSubtype.md) |  | [optional] 
 
 ## Methods
 
@@ -185,6 +186,31 @@ SetIcon sets Icon field to given value.
 `func (o *EnvironmentCreateRequest) HasIcon() bool`
 
 HasIcon returns a boolean if a field has been set.
+
+### GetSubtype
+
+`func (o *EnvironmentCreateRequest) GetSubtype() EnvironmentCreateRequestSubtype`
+
+GetSubtype returns the Subtype field if non-nil, zero value otherwise.
+
+### GetSubtypeOk
+
+`func (o *EnvironmentCreateRequest) GetSubtypeOk() (*EnvironmentCreateRequestSubtype, bool)`
+
+GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubtype
+
+`func (o *EnvironmentCreateRequest) SetSubtype(v EnvironmentCreateRequestSubtype)`
+
+SetSubtype sets Subtype field to given value.
+
+### HasSubtype
+
+`func (o *EnvironmentCreateRequest) HasSubtype() bool`
+
+HasSubtype returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

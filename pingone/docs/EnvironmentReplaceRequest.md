@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Icon** | Pointer to **string** |  | [optional] 
 **License** | Pointer to [**EnvironmentLicense**](EnvironmentLicense.md) |  | [optional] 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
+**Subtype** | Pointer to [**EnvironmentReplaceRequestSubtype**](EnvironmentReplaceRequestSubtype.md) |  | [optional] 
 
 ## Methods
 
@@ -216,6 +217,31 @@ SetStatus sets Status field to given value.
 `func (o *EnvironmentReplaceRequest) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetSubtype
+
+`func (o *EnvironmentReplaceRequest) GetSubtype() EnvironmentReplaceRequestSubtype`
+
+GetSubtype returns the Subtype field if non-nil, zero value otherwise.
+
+### GetSubtypeOk
+
+`func (o *EnvironmentReplaceRequest) GetSubtypeOk() (*EnvironmentReplaceRequestSubtype, bool)`
+
+GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubtype
+
+`func (o *EnvironmentReplaceRequest) SetSubtype(v EnvironmentReplaceRequestSubtype)`
+
+SetSubtype sets Subtype field to given value.
+
+### HasSubtype
+
+`func (o *EnvironmentReplaceRequest) HasSubtype() bool`
+
+HasSubtype returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
