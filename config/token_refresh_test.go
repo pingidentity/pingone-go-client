@@ -11,6 +11,20 @@ import (
 )
 
 func TestKeychainTokenSource_SavesRefreshedToken(t *testing.T) {
+	// Test if keychain is available by attempting to create and use storage
+	testStorage, err := svcOAuth2.NewKeychainStorage("pingcli-test-availability", "test-check")
+	if err != nil {
+		t.Skipf("Skipping keychain tests: keychain storage not available (%v)", err)
+	}
+
+	// Try a simple operation to verify keychain is actually working
+	testToken := &oauth2.Token{AccessToken: "test"}
+	err = testStorage.SaveToken(testToken)
+	_ = testStorage.ClearToken() // Clean up
+	if err != nil {
+		t.Skipf("Skipping keychain tests: keychain service not available (%v)", err)
+	}
+
 	// Create a mock token source that returns a new token
 	baseTokenSource := oauth2.StaticTokenSource(&oauth2.Token{
 		AccessToken:  "refreshed-access-token",
