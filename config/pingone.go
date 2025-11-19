@@ -586,7 +586,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 					slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
 				}
 
-				// If token has refresh capability, wrap with automatic refresh support
+				// Set up automatic refresh with keychain persistence if token has refresh capability
 				if token.RefreshToken != "" {
 					endpoints, err := c.AuthEndpoints()
 					if err != nil {
@@ -608,6 +608,21 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 				}
 			} else {
 				slog.Debug("Skipping keychain storage (file storage mode)", "tokenKey", tokenKey)
+			}
+
+			// Set up automatic refresh without keychain persistence if token has refresh capability
+			endpoints, err := c.AuthEndpoints()
+			if err != nil {
+				slog.Warn("Failed to get endpoints for token refresh", "error", err)
+			} else {
+				oauthConfig, err := c.createOAuth2ConfigForRefresh(endpoints)
+				if err != nil {
+					slog.Warn("Failed to create OAuth2 config for refresh", "error", err)
+				} else {
+					// Use ReuseTokenSource for automatic refresh without keychain persistence
+					baseTS := oauthConfig.TokenSource(ctx, token)
+					return oauth2.ReuseTokenSource(nil, baseTS), nil
+				}
 			}
 
 			return oauth2.StaticTokenSource(token), nil
