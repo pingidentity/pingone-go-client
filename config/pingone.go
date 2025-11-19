@@ -519,11 +519,16 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	// Perform authentication and cache the result
 	if c.Auth.GrantType != nil {
 		var tokenSource oauth2.TokenSource
+		var tokenKey string
 
-		// Generate unique token key for caching
-		tokenKey, err := c.generateTokenKey(*c.Auth.GrantType)
-		if err != nil {
-			return nil, fmt.Errorf("failed to generate token key: %w", err)
+		// Only generate token key if storage is enabled
+		shouldUseStorage := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+		if shouldUseStorage {
+			var err error
+			tokenKey, err = c.generateTokenKey(*c.Auth.GrantType)
+			if err != nil {
+				return nil, fmt.Errorf("failed to generate token key: %w", err)
+			}
 		}
 
 		// Get the appropriate token source
