@@ -62,7 +62,7 @@ Before using the SDK, you need to configure an application in your PingOne envir
 ### Authorization Code (Interactive Authentication)
 
 1. In PingOne Admin Console, navigate to **Applications**
-2. Click **+ Add Application** and select **OIDC Web App** or **Native App**
+2. Click **+ Add Application** and select **Worker App**
 3. Configure the application:
    - Note the **Client ID**
    - Under **Configuration**, add the redirect URI: `http://localhost:8080/callback`
@@ -76,7 +76,7 @@ Before using the SDK, you need to configure an application in your PingOne envir
 ### Device Code (CLI/Device Authentication)
 
 1. In PingOne Admin Console, navigate to **Applications**
-2. Click **+ Add Application** and select **Native App**
+2. Click **+ Add Application** and select **Worker App**
 3. Configure the application:
    - Note the **Client ID**
    - Under **Configuration**, enable the **Device Authorization** grant type
