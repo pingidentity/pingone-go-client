@@ -80,7 +80,7 @@ type Configuration struct {
 	ProxyURL           *string           `json:"proxyURL,omitempty"`
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
-	HTTPClient         *http.Client
+	HTTPClient         *http.Client           `ignored:"true"` // Do not attempt to load from env vars
 	Service            *pingone.Configuration `json:"service,omitempty"`
 }
 

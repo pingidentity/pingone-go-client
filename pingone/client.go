@@ -93,22 +93,15 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 				return nil, err
 			}
 
-			// Create a new Transport object with the proxy settings
-			transport := &retryableTransport{
-				transport: &http.Transport{
+			// Create a new HTTP client using the custom Transport proxy settings
+			cfg.HTTPClient = &http.Client{
+				Transport: &http.Transport{
 					Proxy: http.ProxyURL(proxyURLParsed),
 				},
 			}
-
-			// Create a new HTTP client using the custom Transport
-			cfg.HTTPClient = &http.Client{
-				Transport: transport,
-			}
 		} else {
 			cfg.HTTPClient = &http.Client{
-				Transport: &retryableTransport{
-					transport: &http.Transport{},
-				},
+				Transport: &http.Transport{},
 			}
 		}
 	}
@@ -333,18 +326,45 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	}
 	slog.Debug("HTTP Request", slog.String("request", string(dump)))
 
-	resp, err := c.cfg.HTTPClient.Do(request)
-	if err != nil {
-		return resp, err
+	var bodyBytes []byte
+	if request.Body != nil {
+		bodyBytes, _ = io.ReadAll(request.Body)
 	}
 
-	dump, err = httputil.DumpResponse(resp, true)
-	if err != nil {
-		return resp, err
-	}
-	slog.Debug("HTTP Response", slog.String("response", string(dump)))
+	var resp *http.Response
+	for i := range maxRetries {
+		if request.Body != nil {
+			request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		}
 
-	return resp, err
+		resp, err = c.cfg.HTTPClient.Do(request)
+		if err != nil {
+			return resp, err
+		}
+
+		dump, err = httputil.DumpResponse(resp, true)
+		if err != nil {
+			return resp, err
+		}
+		slog.Debug("HTTP Response", slog.String("response", string(dump)))
+
+		retryAttempt := i + 1
+		backOffTime, isRetryable := testForRetryable(resp, err, retryAttempt)
+
+		if !isRetryable {
+			break
+		}
+
+		if resp.Body != nil {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+		}
+
+		slog.Info("API call failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
+		time.Sleep(backOffTime)
+	}
+
+	return resp, nil
 }
 
 // Allow modification of underlying config for alternate implementations and testing
@@ -904,48 +924,6 @@ func parsePagination[T MappedNullable](response T) (*JSONHALLink, error) {
 	}
 
 	return nil, fmt.Errorf("links object not found in response, but expected for pagination")
-}
-
-// Retrying requests
-type retryableTransport struct {
-	transport http.RoundTripper
-}
-
-func (t *retryableTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-
-	var bodyBytes []byte
-	var isRetryable bool
-	backOffTime := time.Second
-	var resp *http.Response
-	var err error
-
-	if req.Body != nil {
-		bodyBytes, _ = io.ReadAll(req.Body)
-	}
-
-	for i := range maxRetries {
-		if req.Body != nil {
-			req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		}
-		resp, err := t.transport.RoundTrip(req)
-		retryAttempt := i + 1
-
-		backOffTime, isRetryable = testForRetryable(resp, err, retryAttempt)
-
-		if !isRetryable {
-			break
-		}
-
-		if resp.Body != nil {
-			_, _ = io.Copy(io.Discard, resp.Body)
-			_ = resp.Body.Close()
-		}
-
-		slog.Info("Attempt failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
-		time.Sleep(backOffTime)
-	}
-
-	return resp, err
 }
 
 var (
