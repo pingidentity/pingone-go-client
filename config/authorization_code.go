@@ -149,7 +149,7 @@ func returnFailedPage(w http.ResponseWriter) error {
 		Name  string
 	}{
 		Title: "Authorization Failed",
-		Name:  "Authorization Code OAuth2 Flow Failed",
+		Name:  "An error has occurred and authorization was not successful.",
 	}
 
 	tmpl, err := template.New("failed").Parse(authResultHTML)
@@ -165,7 +165,7 @@ func returnSuccessPage(w http.ResponseWriter) error {
 		Name  string
 	}{
 		Title: "Authorization Success",
-		Name:  "Authorization Code OAuth2 Flow Success",
+		Name:  "You have successfully authenticated to your PingOne environment and have authorized API access.",
 	}
 
 	tmpl, err := template.New("success").Parse(authResultHTML)
