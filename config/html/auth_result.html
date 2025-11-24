@@ -98,6 +98,11 @@
   </footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Auto-close window after 3 seconds
+    setTimeout(function() {
+      window.close();
+    }, 3000);
   </script>
 </body>
 
