@@ -143,13 +143,15 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	return oauth2.StaticTokenSource(tok), nil
 }
 
-func returnFailedPage(w http.ResponseWriter) error {
+func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
 	failedData := struct {
-		Title string
-		Name  string
+		Title        string
+		Name         string
+		ErrorDetails string
 	}{
-		Title: "Authorization Failed",
-		Name:  "Authorization Code OAuth2 Flow Failed",
+		Title:        "Authorization Failed",
+		Name:         "Authorization Code OAuth2 Flow Failed",
+		ErrorDetails: errorDetails,
 	}
 
 	tmpl, err := template.New("failed").Parse(authResultHTML)
@@ -228,7 +230,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
 
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, errDesc)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -243,7 +245,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, "No authorization code received")
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -269,7 +271,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				// Token exchange failed
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusUnauthorized)
-				err := returnFailedPage(w)
+				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr))
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
 				}
@@ -281,7 +283,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			// Token exchange timed out
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusInternalServerError)
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, "Token exchange timed out")
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
 			}

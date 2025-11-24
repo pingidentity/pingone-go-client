@@ -73,6 +73,18 @@
       color: var(--secondary-font-color);
     }
 
+    .error-details {
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #991b1b;
+      font-size: 14px;
+      max-width: 600px;
+      word-wrap: break-word;
+    }
+
     footer {
       margin-top: auto;
       padding: 24px;
@@ -90,6 +102,11 @@
         alt="Ping Identity logo" />
       <h1>{{.Title}}</h1>
       <p class="subtitle">{{.Name}}</p>
+      {{if .ErrorDetails}}
+      <div class="error-details">
+        <strong>Error:</strong> {{.ErrorDetails}}
+      </div>
+      {{end}}
       <p class="subtitle" id="closeMessage">You can close this window.</p>
     </div>
   </div>
