@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ping {{.Title}}</title>
+  <title>Ping Identity Developer Tools - {{.Title}}</title>
   <link rel="favicon" href="https://assets.pingone.com/ux/ui-library/5.0.2/images/logo-pingidentity.png" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -73,6 +73,22 @@
       color: var(--secondary-font-color);
     }
 
+    .error-details {
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #991b1b;
+      font-size: 14px;
+      max-width: 600px;
+      word-wrap: break-word;
+    }
+
+    #closeMessage {
+      margin-top: 24px;
+    }
+
     footer {
       margin-top: auto;
       padding: 24px;
@@ -90,7 +106,12 @@
         alt="Ping Identity logo" />
       <h1>{{.Title}}</h1>
       <p class="subtitle">{{.Name}}</p>
-      <p class="subtitle">You can close this window.</p>
+      {{if .ErrorDetails}}
+      <div class="error-details">
+        <strong>Error:</strong> {{.ErrorDetails}}
+      </div>
+      {{end}}
+      <p class="subtitle" id="closeMessage">You can close this window.</p>
     </div>
   </div>
   <footer>
@@ -98,6 +119,30 @@
   </footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Only auto-close on success
+    var title = '{{.Title}}';
+    if (title === 'Authorization Success') {
+      var countdown = 3;
+      var closeMessage = document.getElementById('closeMessage');
+      
+      // Update message immediately
+      closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+      
+      // Start countdown
+      var countdownInterval = setInterval(function() {
+        countdown--;
+        if (countdown > 0) {
+          closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+        } else {
+          closeMessage.textContent = 'Closing now...';
+          clearInterval(countdownInterval);
+          setTimeout(function() {
+            window.close();
+          }, 500); // Small delay after showing "Closing now..."
+        }
+      }, 1000);
+    }
   </script>
 </body>
 
