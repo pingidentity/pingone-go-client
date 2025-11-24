@@ -11,11 +11,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/exec"
-	"runtime"
 	"strings"
 	"time"
 
+	"github.com/pingidentity/pingone-go-client/internal/browser"
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 )
@@ -104,7 +103,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	// Generate authorization URL and open browser
 	authURL := config.AuthCodeURL("state", oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
 	fmt.Printf("Opening browser for authorization: %s\n", authURL)
-	openBrowser(authURL)
+	browser.Open(authURL)
 	fmt.Println("Waiting for authorization callback...")
 
 	// Wait for authorization code or error
@@ -328,21 +327,4 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	}
 
 	return nil, fmt.Errorf("server failed to start accepting connections in time")
-}
-
-func openBrowser(url string) {
-	var err error
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", url).Start()
-	case "windows":
-		err = exec.Command("explorer", url).Start()
-	case "darwin":
-		err = exec.Command("open", url).Start()
-	default:
-		err = fmt.Errorf("unsupported platform")
-	}
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error opening browser: %v\nPlease go to the URL manually: %s\n", err, url)
-	}
 }
