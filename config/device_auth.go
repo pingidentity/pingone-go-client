@@ -25,10 +25,14 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 	}
 
 	fmt.Printf("\nDevice Authorization Required:\n")
-	fmt.Printf("1. Open this URL in your browser: %s\n", response.VerificationURI)
-	fmt.Printf("2. Enter this code: %s\n", response.UserCode)
 	if response.VerificationURIComplete != "" {
-		fmt.Printf("   (Or visit this complete URL: %s)\n", response.VerificationURIComplete)
+		fmt.Printf("Open this URL in your browser to complete login: %s\n", response.VerificationURIComplete)
+		fmt.Printf("\n   Alternatively, you can:\n")
+		fmt.Printf("   - Visit: %s\n", response.VerificationURI)
+		fmt.Printf("   - Enter code: %s\n", response.UserCode)
+	} else {
+		fmt.Printf("1. Open this URL in your browser: %s\n", response.VerificationURI)
+		fmt.Printf("2. Enter this code: %s\n", response.UserCode)
 	}
 	fmt.Printf("\nWaiting for authorization...\n")
 
