@@ -163,11 +163,13 @@ func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
 
 func returnSuccessPage(w http.ResponseWriter) error {
 	successData := struct {
-		Title string
-		Name  string
+		Title        string
+		Name         string
+		ErrorDetails string
 	}{
-		Title: "Authorization Success",
-		Name:  "Authorization Code OAuth2 Flow Success",
+		Title:        "Authorization Success",
+		Name:         "Authorization Code OAuth2 Flow Success",
+		ErrorDetails: "", // Empty for success
 	}
 
 	tmpl, err := template.New("success").Parse(authResultHTML)
