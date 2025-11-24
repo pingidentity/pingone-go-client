@@ -1,0 +1,102 @@
+# golangci-lint configuration file
+# This ensures consistent linting behavior locally and in CI/CD
+
+# Defines the configuration version. The only possible value is "2".
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+  # Include test files in linting
+  build-tags:
+    - integration
+
+linters:
+  enable:
+    # Enabled by default
+    - errcheck      # Check for unchecked errors
+    - govet         # Reports suspicious constructs
+    - ineffassign   # Detect ineffectual assignments
+    - staticcheck   # Advanced Go linter
+    - unused        # Check for unused code
+    
+    # Additional recommended linters for SDK quality
+    - misspell      # Find commonly misspelled words
+    - revive        # Fast, configurable linter
+    - unconvert     # Remove unnecessary type conversions
+    
+  disable:
+    # Disabled to avoid noise - can be enabled selectively later
+    - exhaustruct   # Too strict for test structs
+    - funlen        # Function length checks can be too strict
+    - nlreturn      # Newline return can be stylistic
+    - paralleltest  # Not all tests need to be parallel
+    - wsl           # Whitespace linter can be too opinionated
+    - testifylint   # Can be overly strict about testify usage
+
+  # v2 schema exclusions are defined here, not under 'issues'
+  exclusions:
+    # Replaces 'issues.exclude-dirs' and 'issues.exclude-files'
+    paths:
+      - vendor/ # Exclude the vendor directory
+      - "pingone/.*\\.go$"  # Exclude generated code in pingone directory
+    
+    # Replaces 'issues.exclude-rules'
+    rules:
+      # Exclude some linters from running on tests files
+      - path: _test\.go
+        linters:
+          - gocyclo
+          - dupl
+          - gosec
+          - goconst
+
+  settings:
+    errcheck:
+      check-type-assertions: true
+      check-blank: false
+      
+    govet:
+      enable-all: true
+      disable:
+        - shadow        # Can be overly strict
+        - fieldalignment # Optimization suggestion, not a bug
+        
+    staticcheck:
+      checks: ["all"]
+    
+    misspell:
+      locale: US
+      
+    revive:
+      confidence: 0.8
+      rules:
+        - name: blank-imports
+        - name: context-as-argument
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+        - name: exported
+        - name: if-return
+        - name: increment-decrement
+        - name: var-naming
+        - name: package-comments
+        - name: range
+        - name: receiver-naming
+        - name: indent-error-flow
+        - name: superfluous-else
+        - name: unreachable-code
+        - name: unused-parameter
+
+issues:
+  # Exclude keys moved to 'linters.exclusions'
+  
+  # Maximum issues count per one linter
+  max-issues-per-linter: 0
+  
+  # Maximum count of issues with the same text
+  max-same-issues: 0
+  
+  # 'exclude-use-default: false' is not present in the v2 schema documentation
+  # and has been removed. The new default behavior does not use presets.

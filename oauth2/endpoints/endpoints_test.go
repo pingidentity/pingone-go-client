@@ -5,8 +5,9 @@ package endpoints_test
 import (
 	"testing"
 
-	"github.com/pingidentity/pingone-go-client/oauth2/endpoints"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/pingidentity/pingone-go-client/oauth2/endpoints"
 )
 
 func TestPingOneEndpoint(t *testing.T) {

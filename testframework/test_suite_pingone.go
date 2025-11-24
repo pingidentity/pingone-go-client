@@ -3,8 +3,9 @@
 package testframework
 
 import (
-	"github.com/pingidentity/pingone-go-client/pingone"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/pingidentity/pingone-go-client/pingone"
 )
 
 // PingOneTestSuite provides a base test suite for PingOne API integration tests.
@@ -12,18 +13,18 @@ import (
 // automatically set up before tests run and cleaned up afterward.
 type PingOneTestSuite struct {
 	suite.Suite
-	// ApiClient is the configured PingOne API client for test operations.
-	ApiClient *pingone.APIClient
+	// APIClient is the configured PingOne API client for test operations.
+	APIClient *pingone.APIClient
 }
 
 // SetupSuite initializes the test suite by creating a configured API client.
-// This method is called once before all tests in the suite run. If the ApiClient
+// This method is called once before all tests in the suite run. If the APIClient
 // is not already set, it creates a new test client using the default configuration.
 // The test suite will fail if client creation fails.
 func (s *PingOneTestSuite) SetupSuite() {
-	if s.ApiClient == nil {
+	if s.APIClient == nil {
 		var err error
-		s.ApiClient, err = TestClient(nil)
+		s.APIClient, err = TestClient(nil)
 		if err != nil {
 			s.T().Fatalf("Failed to create API client: %v", err)
 		}
@@ -43,5 +44,5 @@ func (s *PingOneTestSuite) TearDownTest() {}
 // TearDownSuite cleans up the test suite by clearing the API client.
 // This method is called once after all tests in the suite have completed.
 func (s *PingOneTestSuite) TearDownSuite() {
-	s.ApiClient = nil
+	s.APIClient = nil
 }

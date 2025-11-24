@@ -74,7 +74,9 @@ func checkAPIFailure(t *testing.T, responseDataObj any, httpResponse *http.Respo
 	assert.Equal(t, expectedStatusCode, httpResponse.StatusCode)
 }
 
-func CheckPingOneAPIErrorResponse(t *testing.T, httpError error, expectedErrorType any, expectedErrorMessageRegex *regexp.Regexp) {
+// CheckPingOneAPIErrorResponse verifies that the error is of the expected type.
+// The expectedErrorMessageRegex parameter is currently unused but reserved for future validation.
+func CheckPingOneAPIErrorResponse(t *testing.T, httpError error, expectedErrorType any, _ *regexp.Regexp) {
 	require.IsType(t, expectedErrorType, httpError)
 
 	// assert.NotEmpty(t, errorModel.Id)

@@ -5,8 +5,9 @@ package oauth2_test
 import (
 	"testing"
 
-	"github.com/pingidentity/pingone-go-client/oauth2"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/pingidentity/pingone-go-client/oauth2"
 )
 
 func TestGrantTypeConstants(t *testing.T) {

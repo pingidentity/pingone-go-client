@@ -98,7 +98,7 @@ func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TestDaVinciVariableNeverF
 
 	davinciVariableID := uuid.New()
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
+	resp, httpRes, err := s.APIClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), davinciVariableID).Execute()
 	testframework.CheckNotFound(s.T(), resp, httpRes, err)
 	testframework.CheckPingOneAPIErrorResponse(s.T(), err, pingone.NotFoundError{}, regexp.MustCompile("The requested resource was not found"))
 }
@@ -123,7 +123,7 @@ func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) TestDaVinciVariableFullLi
 }
 
 func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Create(t *testing.T, payload pingone.DaVinciVariableCreateRequest) (variableID uuid.UUID) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.CreateVariable(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
+	resp, httpRes, err := s.APIClient.DaVinciVariablesApi.CreateVariable(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId()).DaVinciVariableCreateRequest(payload).Execute()
 	testframework.CheckCreated(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -138,7 +138,7 @@ func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVaria
 }
 
 func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Get(t *testing.T, variableID uuid.UUID, payload any) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+	resp, httpRes, err := s.APIClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	testframework.CheckFound(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -160,7 +160,7 @@ func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVaria
 }
 
 func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Replace(t *testing.T, variableID uuid.UUID, payload pingone.DaVinciVariableReplaceRequest) {
-	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.ReplaceVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
+	resp, httpRes, err := s.APIClient.DaVinciVariablesApi.ReplaceVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).DaVinciVariableReplaceRequest(payload).Execute()
 	testframework.CheckReplaced(t, resp, &pingone.DaVinciVariableResponse{}, httpRes, err)
 
 	require.NotNil(t, resp.Id)
@@ -174,10 +174,10 @@ func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVaria
 }
 
 func (s *DaVinciVariablesApiServiceSharedEnvTestSuite) test_pingone_DaVinciVariablesApiService_Delete(t *testing.T, variableID uuid.UUID) {
-	httpRes, err := s.ApiClient.DaVinciVariablesApi.DeleteVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+	httpRes, err := s.APIClient.DaVinciVariablesApi.DeleteVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	testframework.CheckDeleted(t, httpRes, err)
 
-	resp, httpRes, err := s.ApiClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
+	resp, httpRes, err := s.APIClient.DaVinciVariablesApi.GetVariableById(s.T().Context(), s.SharedEnvironmentTestSuite.TestEnvironment.Environment.GetId(), variableID).Execute()
 	testframework.CheckNotFound(t, resp, httpRes, err)
 }
 

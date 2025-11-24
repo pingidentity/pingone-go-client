@@ -7,9 +7,11 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
 	"github.com/pingidentity/pingone-go-client/config"
 	"github.com/pingidentity/pingone-go-client/oauth2"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNewConfiguration(t *testing.T) {
@@ -201,7 +203,8 @@ func TestAuthEndpoints(t *testing.T) {
 			},
 			expectError: false,
 			validateURLs: func(t *testing.T, endpoints interface{}) {
-				e := endpoints.(struct{ TokenURL string })
+				e, ok := endpoints.(struct{ TokenURL string })
+				require.True(t, ok, "endpoints should be of expected type")
 				assert.Contains(t, e.TokenURL, "https://custom.pingone.com")
 			},
 		},
@@ -212,7 +215,8 @@ func TestAuthEndpoints(t *testing.T) {
 			},
 			expectError: false,
 			validateURLs: func(t *testing.T, endpoints interface{}) {
-				e := endpoints.(struct{ TokenURL string })
+				e, ok := endpoints.(struct{ TokenURL string })
+				require.True(t, ok, "endpoints should be of expected type")
 				assert.Contains(t, e.TokenURL, "https://auth.pingone.com/env-id")
 			},
 		},
@@ -223,7 +227,8 @@ func TestAuthEndpoints(t *testing.T) {
 			},
 			expectError: false,
 			validateURLs: func(t *testing.T, endpoints interface{}) {
-				e := endpoints.(struct{ TokenURL string })
+				e, ok := endpoints.(struct{ TokenURL string })
+				require.True(t, ok, "endpoints should be of expected type")
 				assert.Contains(t, e.TokenURL, "https://auth.pingone.com/env-id")
 			},
 		},

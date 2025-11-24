@@ -12,10 +12,11 @@ import (
 	"net/http"
 	"strings"
 
-	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
-	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
+
+	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
+	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 )
 
 // Configuration represents the complete configuration for the PingOne Go Client SDK.
