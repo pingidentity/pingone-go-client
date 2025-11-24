@@ -113,6 +113,8 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	case code = <-codeChan:
 		fmt.Println("Authorization code received")
 	case err := <-errChan:
+		// Wait a moment for the HTTP response to be sent before returning
+		time.Sleep(1 * time.Second)
 		return nil, fmt.Errorf("authorization failed: %w", err)
 	case <-ctx.Done():
 		return nil, fmt.Errorf("authorization cancelled: %w", ctx.Err())
@@ -126,7 +128,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		tokenResultChan <- err
 
 		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(1 * time.Second)
 
 		return nil, fmt.Errorf("failed to exchange code for token: %w", err)
 	}
@@ -135,7 +137,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	tokenResultChan <- nil
 
 	// Wait a moment for the HTTP response to be sent before returning
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(1 * time.Second)
 
 	slog.Debug("Successfully obtained access token via authorization code flow")
 
