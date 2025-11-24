@@ -90,7 +90,7 @@
         alt="Ping Identity logo" />
       <h1>{{.Title}}</h1>
       <p class="subtitle">{{.Name}}</p>
-      <p class="subtitle">You can close this window.</p>
+      <p class="subtitle" id="closeMessage">You can close this window.</p>
     </div>
   </div>
   <footer>
@@ -99,10 +99,29 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     
-    // Auto-close window after 3 seconds
-    setTimeout(function() {
-      window.close();
-    }, 3000);
+    // Only auto-close on success
+    var title = '{{.Title}}';
+    if (title === 'Authorization Success') {
+      var countdown = 3;
+      var closeMessage = document.getElementById('closeMessage');
+      
+      // Update message immediately
+      closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+      
+      // Start countdown
+      var countdownInterval = setInterval(function() {
+        countdown--;
+        if (countdown > 0) {
+          closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+        } else {
+          closeMessage.textContent = 'Closing now...';
+          clearInterval(countdownInterval);
+          setTimeout(function() {
+            window.close();
+          }, 500); // Small delay after showing "Closing now..."
+        }
+      }, 1000);
+    }
   </script>
 </body>
 
