@@ -33,7 +33,7 @@ Best for: Web applications, interactive user authentication
 
 **PingOne Setup:**
 1. Create a Native or Web application in your PingOne environment
-2. Configure the **Redirect URI** to: `http://localhost:8080/callback`
+2. Configure the **Redirect URI** to: `http://127.0.0.1:7464/callback`
    - Navigate to: Applications > [Your App] > Configuration
    - Add the redirect URI exactly as shown above (this is the SDK default)
 3. Enable the authorization code grant type
@@ -45,12 +45,12 @@ export PINGONE_CLIENT_ID=your-client-id
 export PINGONE_ENVIRONMENT_ID=your-environment-id
 export PINGONE_ROOT_DOMAIN=pingone.com  # or pingone.eu, pingone.asia
 # Optional: Customize redirect URI
-export PINGONE_REDIRECT_URI_PORT=8080  # Default is 8080
+export PINGONE_REDIRECT_URI_PORT=7464  # Default is 7464
 export PINGONE_REDIRECT_URI_PATH=/callback  # Default is /callback
 ```
 
 **What to Expect:**
-- The SDK will start a local web server on port 8080
+- The SDK will start a local web server on port 7464
 - Your browser will open to the PingOne login page
 - After authentication, you'll be redirected back to the local server
 - The SDK captures the authorization code and exchanges it for tokens

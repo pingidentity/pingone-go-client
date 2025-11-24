@@ -29,10 +29,10 @@ Authorization Code flow is ideal for:
 
 1. In your application's **Configuration** tab
 2. Under **Redirect URIs**, click **+ Add**
-3. Enter: `http://localhost:8080/callback`
+3. Enter: `http://127.0.0.1:7464/callback`
 4. Click **Save**
 
-**Note**: This is the SDK's default. The SDK starts a local web server on port 8080 to handle the callback.
+**Note**: This is the SDK's default. The SDK starts a local web server on port 7464 to handle the callback.
 
 ### 3. Note Your Client ID
 
@@ -52,7 +52,7 @@ export PINGONE_ROOT_DOMAIN="pingone.com"  # or pingone.eu, pingone.asia
 
 Optional (to customize redirect URI):
 ```shell
-export PINGONE_REDIRECT_URI_PORT="8080"  # Defaults to 8080
+export PINGONE_REDIRECT_URI_PORT="7464"  # Defaults to 7464
 export PINGONE_REDIRECT_URI_PATH="/callback"  # Defaults to /callback
 ```
 
@@ -65,11 +65,11 @@ go run main.go
 
 ## What to Expect
 
-1. **Local Server Starts**: The SDK starts a web server on `http://localhost:8080` (or your configured port)
+1. **Local Server Starts**: The SDK starts a web server on `http://127.0.0.1:7464` (or your configured port)
 2. **Browser Opens**: Your default browser opens to the PingOne login page
 3. **User Authentication**: Enter your PingOne credentials
 4. **Consent** (if required): Approve the requested permissions
-5. **Redirect**: You're redirected back to `http://localhost:8080/callback`
+5. **Redirect**: You're redirected back to `http://127.0.0.1:7464/callback`
 6. **Token Exchange**: The SDK captures the authorization code and exchanges it for tokens
 7. **API Calls**: The example makes API calls using the authenticated session
 8. **Output**: Environment information is displayed in the console
@@ -81,12 +81,12 @@ go run main.go
 - Manually copy and paste the URL into your browser
 
 **"Redirect URI mismatch" error:**
-- Ensure `http://localhost:8080/callback` is configured in your PingOne application
+- Ensure `http://127.0.0.1:7464/callback` is configured in your PingOne application
 - The URI must match exactly (including the port)
 - If you customized the port/path, ensure it matches your PingOne configuration
 
-**Port 8080 already in use:**
-- Stop any other services running on port 8080
+**Port 7464 already in use:**
+- Stop any other services running on port 7464
 - Or set `PINGONE_REDIRECT_URI_PORT` to a different port and update PingOne configuration
 
 **"Client not found" error:**
@@ -102,7 +102,7 @@ go run main.go
 └──────┬──────┘            └──────┬──────┘            └──────┬───────┘
        │                          │                          │
        │  1. Start local server   │                          │
-       │     on port 8080         │                          │
+       │     on port 7464        │                          │
        │                          │                          │
        │  2. Open browser to      │                          │
        │     authorization URL    │                          │
@@ -139,7 +139,7 @@ go run main.go
 
 ## Security Notes
 
-- This example uses `http://localhost` which is acceptable for local development
+- This example uses `http://127.0.0.1` which is acceptable for local development
 - For production applications, always use `https://` redirect URIs
 - Never commit credentials or client IDs to version control
 - Consider using `.env` files or secret management systems

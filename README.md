@@ -65,13 +65,13 @@ Before using the SDK, you need to configure an application in your PingOne envir
 2. Click **+ Add Application** and select **Worker App**
 3. Configure the application:
    - Note the **Client ID**
-   - Under **Configuration**, add the redirect URI: `http://localhost:8080/callback`
+   - Under **Configuration**, add the redirect URI: `http://127.0.0.1:7464/callback`
      - This is the SDK's default redirect URI for local authentication
-     - The SDK starts a temporary web server on port 8080 to capture the callback
+     - The SDK starts a temporary web server on port 7464 to capture the callback
    - Enable the **Authorization Code** grant type
 4. Use this configuration with `oauth2.GrantTypeAuthorizationCode`
 
-**Important**: The redirect URI `http://localhost:8080/callback` is the default for local development. Ensure this URI is configured in your PingOne application, or customize it using the `AuthorizationCodeRedirectURI` configuration (port and path).
+**Important**: The redirect URI `http://127.0.0.1:7464/callback` is the default for local development. Ensure this URI is configured in your PingOne application, or customize it using the `AuthorizationCodeRedirectURI` configuration (port and path).
 
 ### Device Code (CLI/Device Authentication)
 
@@ -155,7 +155,7 @@ You can initialize the API client in a few ways:
         // Configure authorization code settings
         serviceCfg.Auth.AuthorizationCode = &config.AuthorizationCodeConfiguration{
             AuthorizationCodeClientID: ptrString("YOUR_CLIENT_ID"),
-            RedirectURI:               ptrString("http://localhost:8080/callback"), // Must match PingOne config
+            RedirectURI:               ptrString("http://127.0.0.1:7464/callback"), // Must match PingOne config
             Scopes:                    ptrStringSlice([]string{"openid", "profile"}),
         }
 
@@ -374,7 +374,7 @@ The SDK can be configured using the following environment variables:
 For **Authorization Code** flow:
 ```shell
 export PINGONE_AUTH_GRANT_TYPE=AUTHORIZATION_CODE
-export PINGONE_REDIRECT_URI=http://localhost:8080/callback  # Optional, defaults to this value
+export PINGONE_REDIRECT_URI=http://127.0.0.1:7464/callback  # Optional, defaults to this value
 ```
 
 For **Client Credentials** flow:

@@ -25,13 +25,13 @@ var authResultHTML string
 
 const (
 	// defaultAuthorizationCodeRedirectURIPort is the default port for the authorization code redirect URI
-	defaultAuthorizationCodeRedirectURIPort = "8080"
+	defaultAuthorizationCodeRedirectURIPort = "7464"
 
 	// defaultAuthorizationCodeRedirectURIPath is the default path for the authorization code redirect URI
 	defaultAuthorizationCodeRedirectURIPath = "/callback"
 
 	// defaultAuthorizationCodeRedirectURIPrefix is the default redirect URI for the authorization code
-	defaultAuthorizationCodeRedirectURIPrefix = "http://localhost:"
+	defaultAuthorizationCodeRedirectURIPrefix = "http://127.0.0.1:"
 
 	// defaultAuthorizationCodeRedirectURI is the default redirect URI for the authorization code
 	defaultAuthorizationCodeRedirectURI = defaultAuthorizationCodeRedirectURIPrefix + defaultAuthorizationCodeRedirectURIPort + defaultAuthorizationCodeRedirectURIPath
@@ -187,7 +187,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Extract port from URI or use default
 	port := parsedURI.Port()
 	if port == "" {
-		port = "8080"
+		port = "7464"
 	}
 
 	// Extract path and ensure it's valid for HTTP mux
