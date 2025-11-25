@@ -24,13 +24,13 @@ var authResultHTML string
 
 const (
 	// defaultAuthorizationCodeRedirectURIPort is the default port for the authorization code redirect URI
-	defaultAuthorizationCodeRedirectURIPort = "8080"
+	defaultAuthorizationCodeRedirectURIPort = "7464"
 
 	// defaultAuthorizationCodeRedirectURIPath is the default path for the authorization code redirect URI
 	defaultAuthorizationCodeRedirectURIPath = "/callback"
 
 	// defaultAuthorizationCodeRedirectURIPrefix is the default redirect URI for the authorization code
-	defaultAuthorizationCodeRedirectURIPrefix = "http://localhost:"
+	defaultAuthorizationCodeRedirectURIPrefix = "http://127.0.0.1:"
 
 	// defaultAuthorizationCodeRedirectURI is the default redirect URI for the authorization code
 	defaultAuthorizationCodeRedirectURI = defaultAuthorizationCodeRedirectURIPrefix + defaultAuthorizationCodeRedirectURIPort + defaultAuthorizationCodeRedirectURIPath
@@ -115,6 +115,8 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	case code = <-codeChan:
 		fmt.Println("Authorization code received")
 	case err := <-errChan:
+		// Wait a moment for the HTTP response to be sent before returning
+		time.Sleep(1 * time.Second)
 		return nil, fmt.Errorf("authorization failed: %w", err)
 	case <-ctx.Done():
 		return nil, fmt.Errorf("authorization cancelled: %w", ctx.Err())
@@ -128,7 +130,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		tokenResultChan <- err
 
 		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(1 * time.Second)
 
 		return nil, fmt.Errorf("failed to exchange code for token: %w", err)
 	}
@@ -137,7 +139,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	tokenResultChan <- nil
 
 	// Wait a moment for the HTTP response to be sent before returning
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(1 * time.Second)
 
 	slog.Debug("Successfully obtained access token via authorization code flow")
 
@@ -145,13 +147,15 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	return oauth2.StaticTokenSource(tok), nil
 }
 
-func returnFailedPage(w http.ResponseWriter) error {
+func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
 	failedData := struct {
-		Title string
-		Name  string
+		Title        string
+		Name         string
+		ErrorDetails string
 	}{
-		Title: "Authorization Failed",
-		Name:  "Authorization Code OAuth2 Flow Failed",
+		Title:        "Authorization Failed",
+		Name:         "An error has occurred and authorization was not successful.",
+		ErrorDetails: errorDetails,
 	}
 
 	tmpl, err := template.New("failed").Parse(authResultHTML)
@@ -163,11 +167,13 @@ func returnFailedPage(w http.ResponseWriter) error {
 
 func returnSuccessPage(w http.ResponseWriter) error {
 	successData := struct {
-		Title string
-		Name  string
+		Title        string
+		Name         string
+		ErrorDetails string
 	}{
-		Title: "Authorization Success",
-		Name:  "Authorization Code OAuth2 Flow Success",
+		Title:        "Authorization Success",
+		Name:         "You have successfully authenticated to your PingOne environment and have authorized API access.",
+		ErrorDetails: "", // Empty for success
 	}
 
 	tmpl, err := template.New("success").Parse(authResultHTML)
@@ -189,7 +195,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Extract port from URI or use default
 	port := parsedURI.Port()
 	if port == "" {
-		port = "8080"
+		port = "7464"
 	}
 
 	// Extract path and ensure it's valid for HTTP mux
@@ -230,7 +236,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
 
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, errDesc)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -245,7 +251,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, "No authorization code received")
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -271,7 +277,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				// Token exchange failed
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusUnauthorized)
-				err := returnFailedPage(w)
+				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr))
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
 				}
@@ -283,7 +289,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			// Token exchange timed out
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusInternalServerError)
-			err := returnFailedPage(w)
+			err := returnFailedPage(w, "Token exchange timed out")
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
 			}

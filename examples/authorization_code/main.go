@@ -21,10 +21,10 @@ import (
 // - PINGONE_CLIENT_ID: OAuth2 client ID from your PingOne Web/Native application
 // - PINGONE_ENVIRONMENT_ID: Environment ID for authentication and API calls
 // - PINGONE_ROOT_DOMAIN: (optional) PingOne domain, defaults to "pingone.com"
-// - PINGONE_REDIRECT_URI_PORT: (optional) Redirect URI port, defaults to "8080"
+// - PINGONE_REDIRECT_URI_PORT: (optional) Redirect URI port, defaults to "7464"
 // - PINGONE_REDIRECT_URI_PATH: (optional) Redirect URI path, defaults to "/callback"
 //
-// IMPORTANT: The redirect URI (http://localhost:PORT/PATH) must be configured in your PingOne application settings.
+// IMPORTANT: The redirect URI (http://127.0.0.1:PORT/PATH) must be configured in your PingOne application settings.
 func main() {
 	// Configure logging
 	opts := &slog.HandlerOptions{
@@ -50,7 +50,7 @@ func main() {
 		rootDomain = "pingone.com"
 	}
 	if redirectURIPort == "" {
-		redirectURIPort = config.GetDefaultAuthorizationCodeRedirectURIPort() // "8080"
+		redirectURIPort = config.GetDefaultAuthorizationCodeRedirectURIPort() // "7464"
 	}
 	if redirectURIPath == "" {
 		redirectURIPath = config.GetDefaultAuthorizationCodeRedirectURIPath() // "/callback"
