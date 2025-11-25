@@ -6,21 +6,17 @@
 package browser
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net/url"
 	"os/exec"
 	"runtime"
 	"strings"
-	"time"
 )
 
 const (
 	// maxURLLength defines the maximum allowed URL length to prevent DoS
 	maxURLLength = 2048
-	// commandTimeout defines the maximum time to wait for the browser command
-	commandTimeout = 10 * time.Second
 )
 
 // CanOpen checks if we can open a browser in the current environment.
@@ -78,21 +74,17 @@ func Open(urlStr string) error {
 		return err
 	}
 
-	// Create context with timeout for command execution
-	ctx, cancel := context.WithTimeout(context.Background(), commandTimeout)
-	defer cancel()
-
 	// Execute platform-specific browser command with proper argument separation
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "linux", "freebsd", "openbsd", "netbsd":
-		cmd = exec.CommandContext(ctx, "xdg-open", sanitizedURL)
+		cmd = exec.Command("xdg-open", sanitizedURL)
 	case "darwin":
-		cmd = exec.CommandContext(ctx, "open", sanitizedURL)
+		cmd = exec.Command("open", sanitizedURL)
 	case "windows":
 		// Use rundll32 to open URLs safely on Windows
 		// Arguments are passed separately to prevent injection
-		cmd = exec.CommandContext(ctx, "rundll32", "url.dll,FileProtocolHandler", sanitizedURL)
+		cmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", sanitizedURL)
 	default:
 		return errors.New("unsupported platform")
 	}
@@ -105,7 +97,7 @@ func Open(urlStr string) error {
 
 	// Launch a goroutine to clean up the process without blocking
 	go func() {
-		// Wait for the process to complete or timeout
+		// Wait for the process to complete
 		// Ignore error - browser process runs independently and we cannot
 		// meaningfully handle errors after the main function returns
 		_ = cmd.Wait()

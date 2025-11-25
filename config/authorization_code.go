@@ -103,7 +103,10 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	// Generate authorization URL and open browser
 	authURL := config.AuthCodeURL("state", oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
 	fmt.Printf("Opening browser for authorization: %s\n", authURL)
-	browser.Open(authURL)
+	if err := browser.Open(authURL); err != nil {
+		fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
+		fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
+	}
 	fmt.Println("Waiting for authorization callback...")
 
 	// Wait for authorization code or error

@@ -36,7 +36,9 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		if hasCompleteURL {
 			fmt.Printf("Opening browser to complete authorization...\n")
 			fmt.Printf("URL: %s\n", response.VerificationURIComplete)
-			browser.Open(response.VerificationURIComplete)
+			if err := browser.Open(response.VerificationURIComplete); err != nil {
+				fmt.Printf("Warning: Failed to open browser: %v\n", err)
+			}
 			fmt.Printf("\nIf the browser didn't open automatically:\n")
 			fmt.Printf("   - Visit: %s\n", response.VerificationURI)
 			fmt.Printf("   - Enter code: %s\n", response.UserCode)
@@ -44,7 +46,9 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 			fmt.Printf("Opening browser for authorization...\n")
 			fmt.Printf("URL: %s\n", response.VerificationURI)
 			fmt.Printf("Enter this code when prompted: %s\n", response.UserCode)
-			browser.Open(response.VerificationURI)
+			if err := browser.Open(response.VerificationURI); err != nil {
+				fmt.Printf("Warning: Failed to open browser: %v\n", err)
+			}
 		}
 	} else {
 		// No browser available - show manual instructions
