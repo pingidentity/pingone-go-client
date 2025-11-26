@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pingidentity/pingone-go-client/internal/browser"
+	"github.com/pingidentity/pingone-go-client/utils/browser"
 	"golang.org/x/oauth2"
 )
 

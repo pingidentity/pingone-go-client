@@ -1,8 +1,8 @@
 // Copyright © 2025 Ping Identity Corporation
 
-// Package browser provides internal utilities for opening URLs in the system's default browser.
-// This package is not part of the public SDK API and should only be used internally by the
-// authentication flow implementations.
+// Package browser provides utilities for opening URLs in the system's default browser.
+// This package can be used by applications that need to detect browser availability
+// or open URLs as part of authentication flows or other user interactions.
 package browser
 
 import (
@@ -21,6 +21,8 @@ const (
 
 // CanOpen checks if we can open a browser in the current environment.
 // Returns true if the required browser command exists for the current operating system.
+// This is useful for determining whether to attempt automatic browser opening or
+// to fall back to displaying instructions to the user.
 func CanOpen() bool {
 	// Check for the appropriate browser command for each platform
 	switch runtime.GOOS {
@@ -52,11 +54,14 @@ func CanOpen() bool {
 // Returns an error if the URL is invalid, the platform is unsupported,
 // or the browser command fails to execute.
 //
+// The URL is validated before opening to ensure it uses http or https scheme
+// and does not contain embedded credentials or control characters.
+//
 // Security considerations:
 //   - Only http and https URL schemes are allowed
 //   - URLs are validated and sanitized before execution
 //   - Commands are executed with proper argument separation to prevent injection
-//   - Command execution has a timeout to prevent hanging processes
+//   - The browser process runs independently and does not block the caller
 func Open(urlStr string) error {
 	// Validate input is not empty
 	if urlStr == "" {
