@@ -9,6 +9,50 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const (
+	// deviceAuthPromptHeader is the header displayed for device authorization prompt
+	deviceAuthPromptHeader = "\nDevice Authorization Required:\n"
+
+	// deviceAuthBrowserOpeningMessage is the message shown when opening browser with complete URL
+	deviceAuthBrowserOpeningMessage = "Opening browser to complete authorization...\n"
+
+	// deviceAuthBrowserOpeningMessageBasic is the message shown when opening browser with basic URL
+	deviceAuthBrowserOpeningMessageBasic = "Opening browser for authorization...\n"
+
+	// deviceAuthURLLabel is the label for displaying the URL
+	deviceAuthURLLabel = "URL: %s\n"
+
+	// deviceAuthCodePrompt is the prompt for entering the user code
+	deviceAuthCodePrompt = "Enter this code when prompted: %s\n"
+
+	// deviceAuthBrowserFailWarning is the warning when browser fails to open
+	deviceAuthBrowserFailWarning = "Warning: Failed to open browser: %v\n"
+
+	// deviceAuthManualInstructionsHeader is the header for manual browser instructions
+	deviceAuthManualInstructionsHeader = "\nIf the browser didn't open automatically:\n"
+
+	// deviceAuthManualVisitPrompt is the prompt to visit the URL manually
+	deviceAuthManualVisitPrompt = "   - Visit: %s\n"
+
+	// deviceAuthManualCodePrompt is the prompt to enter the code manually
+	deviceAuthManualCodePrompt = "   - Enter code: %s\n"
+
+	// deviceAuthCompleteURLPrompt is the prompt when complete URL is available without browser
+	deviceAuthCompleteURLPrompt = "Open this URL in your browser to complete login: %s\n"
+
+	// deviceAuthAlternativeInstructionsHeader is the header for alternative instructions
+	deviceAuthAlternativeInstructionsHeader = "\n   Alternatively, you can:\n"
+
+	// deviceAuthManualStep1 is the first step for manual authentication
+	deviceAuthManualStep1 = "1. Open this URL in your browser: %s\n"
+
+	// deviceAuthManualStep2 is the second step for manual authentication
+	deviceAuthManualStep2 = "2. Enter this code: %s\n"
+
+	// deviceAuthWaitingMessage is the message shown while waiting for authorization
+	deviceAuthWaitingMessage = "\nWaiting for authorization...\n"
+)
+
 func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2.Endpoint) (oauth2.TokenSource, error) {
 	if d.DeviceCodeClientID == nil || *d.DeviceCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for device code grant type")
@@ -33,7 +77,7 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		}
 	} else {
 		// Fall back to default console output behavior
-		fmt.Printf("\nDevice Authorization Required:\n")
+		fmt.Print(deviceAuthPromptHeader)
 
 		// Determine which URL to use and whether to auto-open browser
 		browserAvailable := browser.CanOpen()
@@ -42,36 +86,36 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		// Auto-open browser if available
 		if browserAvailable {
 			if hasCompleteURL {
-				fmt.Printf("Opening browser to complete authorization...\n")
-				fmt.Printf("URL: %s\n", response.VerificationURIComplete)
+				fmt.Print(deviceAuthBrowserOpeningMessage)
+				fmt.Printf(deviceAuthURLLabel, response.VerificationURIComplete)
 				if err := browser.Open(response.VerificationURIComplete); err != nil {
-					fmt.Printf("Warning: Failed to open browser: %v\n", err)
+					fmt.Printf(deviceAuthBrowserFailWarning, err)
 				}
-				fmt.Printf("\nIf the browser didn't open automatically:\n")
-				fmt.Printf("   - Visit: %s\n", response.VerificationURI)
-				fmt.Printf("   - Enter code: %s\n", response.UserCode)
+				fmt.Print(deviceAuthManualInstructionsHeader)
+				fmt.Printf(deviceAuthManualVisitPrompt, response.VerificationURI)
+				fmt.Printf(deviceAuthManualCodePrompt, response.UserCode)
 			} else {
-				fmt.Printf("Opening browser for authorization...\n")
-				fmt.Printf("URL: %s\n", response.VerificationURI)
-				fmt.Printf("Enter this code when prompted: %s\n", response.UserCode)
+				fmt.Print(deviceAuthBrowserOpeningMessageBasic)
+				fmt.Printf(deviceAuthURLLabel, response.VerificationURI)
+				fmt.Printf(deviceAuthCodePrompt, response.UserCode)
 				if err := browser.Open(response.VerificationURI); err != nil {
-					fmt.Printf("Warning: Failed to open browser: %v\n", err)
+					fmt.Printf(deviceAuthBrowserFailWarning, err)
 				}
 			}
 		} else {
 			// No browser available - show manual instructions
 			if hasCompleteURL {
-				fmt.Printf("Open this URL in your browser to complete login: %s\n", response.VerificationURIComplete)
-				fmt.Printf("\n   Alternatively, you can:\n")
-				fmt.Printf("   - Visit: %s\n", response.VerificationURI)
-				fmt.Printf("   - Enter code: %s\n", response.UserCode)
+				fmt.Printf(deviceAuthCompleteURLPrompt, response.VerificationURIComplete)
+				fmt.Print(deviceAuthAlternativeInstructionsHeader)
+				fmt.Printf(deviceAuthManualVisitPrompt, response.VerificationURI)
+				fmt.Printf(deviceAuthManualCodePrompt, response.UserCode)
 			} else {
-				fmt.Printf("1. Open this URL in your browser: %s\n", response.VerificationURI)
-				fmt.Printf("2. Enter this code: %s\n", response.UserCode)
+				fmt.Printf(deviceAuthManualStep1, response.VerificationURI)
+				fmt.Printf(deviceAuthManualStep2, response.UserCode)
 			}
 		}
 
-		fmt.Printf("\nWaiting for authorization...\n")
+		fmt.Print(deviceAuthWaitingMessage)
 	}
 
 	deviceCodeToken, err := config.DeviceAccessToken(ctx, response)

@@ -34,6 +34,72 @@ const (
 
 	// defaultAuthorizationCodeRedirectURI is the default redirect URI for the authorization code
 	defaultAuthorizationCodeRedirectURI = defaultAuthorizationCodeRedirectURIPrefix + defaultAuthorizationCodeRedirectURIPort + defaultAuthorizationCodeRedirectURIPath
+
+	// defaultProjectName is the default project name displayed on auth result pages
+	defaultProjectName = "Ping Identity Developer Tools"
+
+	// defaultAuthFailedHeading is the default heading displayed on the authentication failure page
+	defaultAuthFailedHeading = "Authorization Failed"
+
+	// defaultAuthFailedMessage is the default message displayed on the authentication failure page
+	defaultAuthFailedMessage = "An error has occurred and authorization was not successful."
+
+	// defaultAuthSuccessHeading is the default heading displayed on the authentication success page
+	defaultAuthSuccessHeading = "Authorization Success"
+
+	// defaultAuthSuccessMessage is the default message displayed on the authentication success page
+	defaultAuthSuccessMessage = "You have successfully authenticated to your PingOne environment and have authorized API access."
+
+	// templateNameFailed is the template name for failed authentication page
+	templateNameFailed = "failed"
+
+	// templateNameSuccess is the template name for successful authentication page
+	templateNameSuccess = "success"
+
+	// contentTypeHTML is the content type for HTML responses
+	contentTypeHTML = "text/html; charset=utf-8"
+
+	// callbackServerReadHeaderTimeout is the timeout for reading HTTP headers on the callback server
+	callbackServerReadHeaderTimeout = 10 * time.Second
+
+	// tokenExchangeTimeout is the timeout for waiting for token exchange to complete
+	tokenExchangeTimeout = 30 * time.Second
+
+	// authSuccessWaitTime is the time to wait after successful auth before returning (allows HTTP response to be sent)
+	authSuccessWaitTime = 1 * time.Second
+
+	// serverVerificationRetryDelay is the delay between retries when verifying server startup
+	serverVerificationRetryDelay = 10 * time.Millisecond
+
+	// serverVerificationMaxRetries is the maximum number of retries when verifying server startup
+	serverVerificationMaxRetries = 10
+
+	// serverVerificationDialTimeout is the timeout for dial attempts when verifying server startup
+	serverVerificationDialTimeout = 50 * time.Millisecond
+
+	// httpChannelBufferSize is the buffer size for HTTP callback channels
+	httpChannelBufferSize = 1
+
+	// httpStatusUnauthorized is the HTTP status code for unauthorized requests
+	httpStatusUnauthorized = http.StatusUnauthorized
+
+	// urlQueryParamError is the URL query parameter name for error code
+	urlQueryParamError = "error"
+
+	// urlQueryParamErrorDescription is the URL query parameter name for error description
+	urlQueryParamErrorDescription = "error_description"
+
+	// urlQueryParamCode is the URL query parameter name for authorization code
+	urlQueryParamCode = "code"
+
+	// urlPathPrefix is the prefix character for URL paths
+	urlPathPrefix = "/"
+
+	// networkProtocolTCP is the network protocol for TCP connections
+	networkProtocolTCP = "tcp"
+
+	// networkPortPrefix is the prefix character for port numbers
+	networkPortPrefix = ":"
 )
 
 // Get default authorization code redirect URI port
@@ -86,9 +152,9 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	codeVerifier := oauth2.GenerateVerifier()
 
 	// Start local HTTP server to capture callback
-	codeChan := make(chan string, 1)
-	errChan := make(chan error, 1)
-	tokenResultChan := make(chan error, 1) // nil for success, error for failure
+	codeChan := make(chan string, httpChannelBufferSize)
+	errChan := make(chan error, httpChannelBufferSize)
+	tokenResultChan := make(chan error, httpChannelBufferSize) // nil for success, error for failure
 
 	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan, a.CustomPageDataSuccess, a.CustomPageDataError)
 	if err != nil {
@@ -126,7 +192,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		fmt.Println("Authorization code received")
 	case err := <-errChan:
 		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(1 * time.Second)
+		time.Sleep(authSuccessWaitTime)
 		return nil, fmt.Errorf("authorization failed: %w", err)
 	case <-ctx.Done():
 		return nil, fmt.Errorf("authorization cancelled: %w", ctx.Err())
@@ -140,7 +206,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		tokenResultChan <- err
 
 		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(1 * time.Second)
+		time.Sleep(authSuccessWaitTime)
 
 		return nil, fmt.Errorf("failed to exchange code for token: %w", err)
 	}
@@ -149,7 +215,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	tokenResultChan <- nil
 
 	// Wait a moment for the HTTP response to be sent before returning
-	time.Sleep(1 * time.Second)
+	time.Sleep(authSuccessWaitTime)
 
 	slog.Debug("Successfully obtained access token via authorization code flow")
 
@@ -166,9 +232,9 @@ func returnFailedPage(w http.ResponseWriter, errorDetails string, customPageData
 		ErrorDetails string
 		IsSuccess    bool
 	}{
-		ProjectName:  "Ping Identity Developer Tools",
-		Heading:      "Authorization Failed",
-		Message:      "An error has occurred and authorization was not successful.",
+		ProjectName:  defaultProjectName,
+		Heading:      defaultAuthFailedHeading,
+		Message:      defaultAuthFailedMessage,
 		ErrorDetails: errorDetails,
 		IsSuccess:    false,
 	}
@@ -186,7 +252,7 @@ func returnFailedPage(w http.ResponseWriter, errorDetails string, customPageData
 		}
 	}
 
-	tmpl, err := template.New("failed").Parse(authResultHTML)
+	tmpl, err := template.New(templateNameFailed).Parse(authResultHTML)
 	if err != nil {
 		return fmt.Errorf("error parsing template: %v", err)
 	}
@@ -202,9 +268,9 @@ func returnSuccessPage(w http.ResponseWriter, customPageData *AuthResultPageData
 		ErrorDetails string
 		IsSuccess    bool
 	}{
-		ProjectName:  "Ping Identity Developer Tools",
-		Heading:      "Authorization Success",
-		Message:      "You have successfully authenticated to your PingOne environment and have authorized API access.",
+		ProjectName:  defaultProjectName,
+		Heading:      defaultAuthSuccessHeading,
+		Message:      defaultAuthSuccessMessage,
 		ErrorDetails: "", // Empty for success
 		IsSuccess:    true,
 	}
@@ -222,7 +288,7 @@ func returnSuccessPage(w http.ResponseWriter, customPageData *AuthResultPageData
 		}
 	}
 
-	tmpl, err := template.New("success").Parse(authResultHTML)
+	tmpl, err := template.New(templateNameSuccess).Parse(authResultHTML)
 	if err != nil {
 		return fmt.Errorf("error parsing template: %v", err)
 	}
@@ -241,20 +307,20 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Extract port from URI or use default
 	port := parsedURI.Port()
 	if port == "" {
-		port = "7464"
+		port = defaultAuthorizationCodeRedirectURIPort
 	}
 
 	// Extract path and ensure it's valid for HTTP mux
 	path := parsedURI.Path
 	if path == "" {
-		path = "/callback"
+		path = defaultAuthorizationCodeRedirectURIPath
 	}
-	if !strings.HasPrefix(path, "/") {
-		path = "/" + path
+	if !strings.HasPrefix(path, urlPathPrefix) {
+		path = urlPathPrefix + path
 	}
 
 	// Test if port is available and keep the listener
-	listener, err := net.Listen("tcp", ":"+port)
+	listener, err := net.Listen(networkProtocolTCP, networkPortPrefix+port)
 	if err != nil {
 		return nil, fmt.Errorf("port %s is not available: %w", port, err)
 	}
@@ -262,9 +328,9 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Create HTTP server
 	mux := http.NewServeMux()
 	server := &http.Server{
-		Addr:              ":" + port,
+		Addr:              networkPortPrefix + port,
 		Handler:           mux,
-		ReadHeaderTimeout: 10 * time.Second,
+		ReadHeaderTimeout: callbackServerReadHeaderTimeout,
 	}
 
 	// Handle callback endpoint
@@ -272,14 +338,14 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		query := r.URL.Query()
 
 		// Check for error in callback
-		if errCode := query.Get("error"); errCode != "" {
-			errDesc := query.Get("error_description")
+		if errCode := query.Get(urlQueryParamError); errCode != "" {
+			errDesc := query.Get(urlQueryParamErrorDescription)
 			if errDesc == "" {
 				errDesc = errCode
 			}
 			errChan <- fmt.Errorf("authorization error: %s", errDesc)
 
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusBadRequest)
 
 			err := returnFailedPage(w, errDesc, customPageDataError)
@@ -291,11 +357,11 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 
 		// Get authorization code
-		code := query.Get("code")
+		code := query.Get(urlQueryParamCode)
 		if code == "" {
 			errChan <- fmt.Errorf("no authorization code received")
 
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusBadRequest)
 			err := returnFailedPage(w, "No authorization code received", customPageDataError)
 			if err != nil {
@@ -312,7 +378,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		case tokenErr := <-tokenResultChan:
 			if tokenErr == nil {
 				// Token exchange succeeded
-				w.Header().Set("Content-Type", "text/html; charset=utf-8")
+				w.Header().Set("Content-Type", contentTypeHTML)
 				w.WriteHeader(http.StatusOK)
 
 				err := returnSuccessPage(w, customPageDataSuccess)
@@ -321,8 +387,8 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				}
 			} else {
 				// Token exchange failed
-				w.Header().Set("Content-Type", "text/html; charset=utf-8")
-				w.WriteHeader(http.StatusUnauthorized)
+				w.Header().Set("Content-Type", contentTypeHTML)
+				w.WriteHeader(httpStatusUnauthorized)
 				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr), customPageDataError)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
@@ -331,9 +397,9 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 					flusher.Flush()
 				}
 			}
-		case <-time.After(30 * time.Second):
+		case <-time.After(tokenExchangeTimeout):
 			// Token exchange timed out
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusInternalServerError)
 			err := returnFailedPage(w, "Token exchange timed out", customPageDataError)
 			if err != nil {
@@ -343,7 +409,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	})
 
 	// Start server in background using the existing listener
-	serverStarted := make(chan error, 1)
+	serverStarted := make(chan error, httpChannelBufferSize)
 	go func() {
 		// Use Serve() with the existing listener instead of ListenAndServe()
 		if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
@@ -358,7 +424,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	}()
 
 	// Verify server is actually accepting connections before returning
-	maxRetries := 10
+	maxRetries := serverVerificationMaxRetries
 	for i := 0; i < maxRetries; i++ {
 		// Check if server failed
 		select {
@@ -368,7 +434,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 
 		// Try to connect
-		conn, err := net.DialTimeout("tcp", ":"+port, 50*time.Millisecond)
+		conn, err := net.DialTimeout(networkProtocolTCP, networkPortPrefix+port, serverVerificationDialTimeout)
 		if err == nil {
 			if closeErr := conn.Close(); closeErr != nil {
 				slog.Warn("Failed to close connection during server verification", "error", closeErr)
@@ -378,7 +444,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 
 		// Wait a bit before retrying
-		time.Sleep(10 * time.Millisecond)
+		time.Sleep(serverVerificationRetryDelay)
 	}
 
 	return nil, fmt.Errorf("server failed to start accepting connections in time")
