@@ -123,10 +123,25 @@ type AuthorizationCodeRedirectURI struct {
 	Path string `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI_PATH" json:"path,omitempty"`
 }
 
+// AuthURLHandler is a function type that handles opening authorization URLs.
+// It receives the authorization URL that the user must visit.
+// Return an error if the URL cannot be handled.
+type AuthURLHandler func(url string) error
+
 type AuthorizationCode struct {
 	AuthorizationCodeClientID    *string                      `envconfig:"PINGONE_AUTHORIZATION_CODE_CLIENT_ID" json:"authorizationCodeClientId,omitempty"`
 	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI" json:"authorizationCodeRedirectUri,omitempty"`
 	AuthorizationCodeScopes      *[]string                    `envconfig:"PINGONE_AUTHORIZATION_CODE_SCOPES" json:"authorizationCodeScopes,omitempty"`
+	// OnOpenBrowser is an optional handler for custom browser opening logic.
+	// If set, this handler will be called instead of automatically opening the system browser.
+	// This allows consumers to implement custom flows such as headless operation or alternative UX.
+	OnOpenBrowser AuthURLHandler `json:"-"`
+	// CustomHTMLSuccess is optional custom HTML to display on successful authentication.
+	// If empty, the default PingOne success page will be shown.
+	CustomHTMLSuccess string `json:"-"`
+	// CustomHTMLError is optional custom HTML to display on authentication failure.
+	// If empty, the default PingOne error page will be shown.
+	CustomHTMLError string `json:"-"`
 }
 
 type ClientCredentials struct {
@@ -135,9 +150,18 @@ type ClientCredentials struct {
 	ClientCredentialsScopes       *[]string `envconfig:"PINGONE_CLIENT_CREDENTIALS_SCOPES" json:"clientCredentialsScopes,omitempty"`
 }
 
+// DeviceCodePromptHandler is a function type that handles displaying device code prompts to users.
+// It receives the verification URI and user code that must be displayed to the user.
+// Return an error if the prompt cannot be displayed.
+type DeviceCodePromptHandler func(verificationURI, userCode string) error
+
 type DeviceCode struct {
 	DeviceCodeClientID *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
 	DeviceCodeScopes   *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
+	// OnDisplayPrompt is an optional handler for custom device code prompt display.
+	// If set, this handler will be called instead of the default console output.
+	// This allows consumers to implement custom UX such as QR codes, notifications, or headless flows.
+	OnDisplayPrompt DeviceCodePromptHandler `json:"-"`
 }
 
 type Storage struct {

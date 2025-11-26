@@ -90,7 +90,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	errChan := make(chan error, 1)
 	tokenResultChan := make(chan error, 1) // nil for success, error for failure
 
-	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan)
+	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan, a.CustomHTMLSuccess, a.CustomHTMLError)
 	if err != nil {
 		return nil, fmt.Errorf("failed to start callback server: %w", err)
 	}
@@ -100,14 +100,24 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		}
 	}()
 
-	// Generate authorization URL and open browser
+	// Generate authorization URL and handle browser opening
 	authURL := config.AuthCodeURL("state", oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
-	fmt.Printf("Opening browser for authorization: %s\n", authURL)
-	if err := browser.Open(authURL); err != nil {
-		fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
-		fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
+
+	// Check if custom browser handler is provided
+	if a.OnOpenBrowser != nil {
+		// Use custom handler - delegate UX to consumer
+		if err := a.OnOpenBrowser(authURL); err != nil {
+			return nil, fmt.Errorf("custom browser handler failed: %w", err)
+		}
+	} else {
+		// Fall back to default browser opening behavior
+		fmt.Printf("Opening browser for authorization: %s\n", authURL)
+		if err := browser.Open(authURL); err != nil {
+			fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
+			fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
+		}
+		fmt.Println("Waiting for authorization callback...")
 	}
-	fmt.Println("Waiting for authorization callback...")
 
 	// Wait for authorization code or error
 	var code string
@@ -147,7 +157,14 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	return oauth2.StaticTokenSource(tok), nil
 }
 
-func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
+func returnFailedPage(w http.ResponseWriter, errorDetails string, customHTML string) error {
+	// Use custom HTML if provided
+	if customHTML != "" {
+		_, err := w.Write([]byte(customHTML))
+		return err
+	}
+
+	// Fall back to default template
 	failedData := struct {
 		Title        string
 		Name         string
@@ -165,7 +182,14 @@ func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
 	return tmpl.Execute(w, failedData)
 }
 
-func returnSuccessPage(w http.ResponseWriter) error {
+func returnSuccessPage(w http.ResponseWriter, customHTML string) error {
+	// Use custom HTML if provided
+	if customHTML != "" {
+		_, err := w.Write([]byte(customHTML))
+		return err
+	}
+
+	// Fall back to default template
 	successData := struct {
 		Title        string
 		Name         string
@@ -185,7 +209,7 @@ func returnSuccessPage(w http.ResponseWriter) error {
 }
 
 // startCallbackServer starts a local HTTP server to handle OAuth2 callbacks
-func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error) (*http.Server, error) {
+func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error, customHTMLSuccess string, customHTMLError string) (*http.Server, error) {
 	// Parse the redirect URI to get the port
 	parsedURI, err := url.Parse(redirectURI)
 	if err != nil {
@@ -236,7 +260,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
 
-			err := returnFailedPage(w, errDesc)
+			err := returnFailedPage(w, errDesc, customHTMLError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -251,7 +275,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			err := returnFailedPage(w, "No authorization code received")
+			err := returnFailedPage(w, "No authorization code received", customHTMLError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -269,7 +293,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusOK)
 
-				err := returnSuccessPage(w)
+				err := returnSuccessPage(w, customHTMLSuccess)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
 				}
@@ -277,7 +301,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				// Token exchange failed
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusUnauthorized)
-				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr))
+				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr), customHTMLError)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
 				}
@@ -289,7 +313,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			// Token exchange timed out
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusInternalServerError)
-			err := returnFailedPage(w, "Token exchange timed out")
+			err := returnFailedPage(w, "Token exchange timed out", customHTMLError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
 			}
