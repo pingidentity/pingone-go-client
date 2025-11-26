@@ -16,14 +16,8 @@ const (
 	// deviceAuthBrowserOpeningMessage is the message shown when opening browser with complete URL
 	deviceAuthBrowserOpeningMessage = "Opening browser to complete authorization...\n"
 
-	// deviceAuthBrowserOpeningMessageBasic is the message shown when opening browser with basic URL
-	deviceAuthBrowserOpeningMessageBasic = "Opening browser for authorization...\n"
-
 	// deviceAuthURLLabel is the label for displaying the URL
 	deviceAuthURLLabel = "URL: %s\n"
-
-	// deviceAuthCodePrompt is the prompt for entering the user code
-	deviceAuthCodePrompt = "Enter this code when prompted: %s\n"
 
 	// deviceAuthBrowserFailWarning is the warning when browser fails to open
 	deviceAuthBrowserFailWarning = "Warning: Failed to open browser: %v\n"
@@ -42,12 +36,6 @@ const (
 
 	// deviceAuthAlternativeInstructionsHeader is the header for alternative instructions
 	deviceAuthAlternativeInstructionsHeader = "\n   Alternatively, you can:\n"
-
-	// deviceAuthManualStep1 is the first step for manual authentication
-	deviceAuthManualStep1 = "1. Open this URL in your browser: %s\n"
-
-	// deviceAuthManualStep2 is the second step for manual authentication
-	deviceAuthManualStep2 = "2. Enter this code: %s\n"
 
 	// deviceAuthWaitingMessage is the message shown while waiting for authorization
 	deviceAuthWaitingMessage = "\nWaiting for authorization...\n"
