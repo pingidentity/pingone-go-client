@@ -3,7 +3,9 @@ package config
 
 import (
 	"context"
+	"crypto/rand"
 	_ "embed"
+	"encoding/base64"
 	"fmt"
 	"html/template"
 	"log/slog"
@@ -11,17 +13,30 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/exec"
-	"runtime"
 	"strings"
 	"time"
 
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
+	"github.com/pingidentity/pingone-go-client/utils/browser"
 	"golang.org/x/oauth2"
 )
 
 //go:embed html/auth_result.html
 var authResultHTML string
+
+var (
+	// authResultTemplate is the pre-parsed HTML template for auth result pages
+	authResultTemplate *template.Template
+)
+
+func init() {
+	// Parse template once at package initialization
+	var err error
+	authResultTemplate, err = template.New("authResult").Parse(authResultHTML)
+	if err != nil {
+		panic(fmt.Sprintf("failed to parse auth result template: %v", err))
+	}
+}
 
 const (
 	// defaultAuthorizationCodeRedirectURIPort is the default port for the authorization code redirect URI
@@ -35,6 +50,69 @@ const (
 
 	// defaultAuthorizationCodeRedirectURI is the default redirect URI for the authorization code
 	defaultAuthorizationCodeRedirectURI = defaultAuthorizationCodeRedirectURIPrefix + defaultAuthorizationCodeRedirectURIPort + defaultAuthorizationCodeRedirectURIPath
+
+	// defaultProjectName is the default project name displayed on auth result pages
+	defaultProjectName = "Ping Identity Developer Tools"
+
+	// defaultAuthFailedHeading is the default heading displayed on the authentication failure page
+	defaultAuthFailedHeading = "Authorization Failed"
+
+	// defaultAuthFailedMessage is the default message displayed on the authentication failure page
+	defaultAuthFailedMessage = "An error has occurred and authorization was not successful."
+
+	// defaultAuthSuccessHeading is the default heading displayed on the authentication success page
+	defaultAuthSuccessHeading = "Authorization Success"
+
+	// defaultAuthSuccessMessage is the default message displayed on the authentication success page
+	defaultAuthSuccessMessage = "You have successfully authenticated to your PingOne environment and have authorized API access."
+
+	// contentTypeHTML is the content type for HTML responses
+	contentTypeHTML = "text/html; charset=utf-8"
+
+	// callbackServerReadHeaderTimeout is the timeout for reading HTTP headers on the callback server
+	callbackServerReadHeaderTimeout = 10 * time.Second
+
+	// tokenExchangeTimeout is the timeout for waiting for token exchange to complete
+	tokenExchangeTimeout = 30 * time.Second
+
+	// authSuccessWaitTime is the time to wait after successful auth before returning (allows HTTP response to be sent)
+	authSuccessWaitTime = 1 * time.Second
+
+	// serverVerificationRetryDelay is the delay between retries when verifying server startup
+	serverVerificationRetryDelay = 10 * time.Millisecond
+
+	// serverVerificationMaxRetries is the maximum number of retries when verifying server startup
+	serverVerificationMaxRetries = 10
+
+	// serverVerificationDialTimeout is the timeout for dial attempts when verifying server startup
+	serverVerificationDialTimeout = 50 * time.Millisecond
+
+	// httpChannelBufferSize is the buffer size for HTTP callback channels
+	httpChannelBufferSize = 1
+
+	// doneChannelBufferSize is the buffer size for done notification channels
+	doneChannelBufferSize = 1
+
+	// httpStatusUnauthorized is the HTTP status code for unauthorized requests
+	httpStatusUnauthorized = http.StatusUnauthorized
+
+	// urlQueryParamError is the URL query parameter name for error code
+	urlQueryParamError = "error"
+
+	// urlQueryParamErrorDescription is the URL query parameter name for error description
+	urlQueryParamErrorDescription = "error_description"
+
+	// urlQueryParamCode is the URL query parameter name for authorization code
+	urlQueryParamCode = "code"
+
+	// urlPathPrefix is the prefix character for URL paths
+	urlPathPrefix = "/"
+
+	// networkProtocolTCP is the network protocol for TCP connections
+	networkProtocolTCP = "tcp"
+
+	// networkPortPrefix is the prefix character for port numbers
+	networkPortPrefix = ":"
 )
 
 // Get default authorization code redirect URI port
@@ -50,6 +128,16 @@ func GetDefaultAuthorizationCodeRedirectURIPath() string {
 // Get default authorization code redirect URI
 func GetDefaultAuthorizationCodeRedirectURI() string {
 	return defaultAuthorizationCodeRedirectURI
+}
+
+// generateState creates a cryptographically secure random state parameter for OAuth2 CSRF protection.
+// It returns a base64-encoded random string of 32 bytes, or an error if random generation fails.
+func generateState() (string, error) {
+	b := make([]byte, 32)
+	if _, err := rand.Read(b); err != nil {
+		return "", fmt.Errorf("failed to generate state parameter: %w", err)
+	}
+	return base64.URLEncoding.EncodeToString(b), nil
 }
 
 // AuthorizationCodeTokenSource returns an oauth2.TokenSource using the authorization code grant type
@@ -86,12 +174,19 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 
 	codeVerifier := oauth2.GenerateVerifier()
 
-	// Start local HTTP server to capture callback
-	codeChan := make(chan string, 1)
-	errChan := make(chan error, 1)
-	tokenResultChan := make(chan error, 1) // nil for success, error for failure
+	// Generate cryptographically secure state parameter for CSRF protection
+	state, err := generateState()
+	if err != nil {
+		return nil, fmt.Errorf("failed to generate state parameter: %w", err)
+	}
 
-	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan)
+	// Start local HTTP server to capture callback
+	codeChan := make(chan string, httpChannelBufferSize)
+	errChan := make(chan error, httpChannelBufferSize)
+	tokenResultChan := make(chan error, httpChannelBufferSize) // nil for success, error for failure
+	doneChan := make(chan struct{}, doneChannelBufferSize)     // signals HTTP response has been sent
+
+	server, err := startCallbackServer(redirectURI, state, codeChan, errChan, tokenResultChan, doneChan, a.CustomPageDataSuccess, a.CustomPageDataError)
 	if err != nil {
 		return nil, fmt.Errorf("failed to start callback server: %w", err)
 	}
@@ -101,11 +196,18 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		}
 	}()
 
-	// Generate authorization URL and open browser
-	authURL := config.AuthCodeURL("state", oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
-	fmt.Printf("Opening browser for authorization: %s\n", authURL)
-	openBrowser(authURL)
-	fmt.Println("Waiting for authorization callback...")
+	// Generate authorization URL with secure state parameter and handle browser opening
+	authURL := config.AuthCodeURL(state, oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
+
+	// Use custom handler if provided, otherwise use default
+	handler := a.OnOpenBrowser
+	if handler == nil {
+		handler = DefaultAuthorizationCodeBrowserHandler
+	}
+
+	if err := handler(authURL); err != nil {
+		return nil, fmt.Errorf("prompt handler failed: %w", err)
+	}
 
 	// Wait for authorization code or error
 	var code string
@@ -113,8 +215,14 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	case code = <-codeChan:
 		fmt.Println("Authorization code received")
 	case err := <-errChan:
-		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(1 * time.Second)
+		// Wait for the HTTP response to be sent before returning
+		select {
+		case <-doneChan:
+			// Response sent successfully
+		case <-time.After(authSuccessWaitTime):
+			// Timeout waiting for response to be sent
+			slog.Warn("Timeout waiting for error page to be sent")
+		}
 		return nil, fmt.Errorf("authorization failed: %w", err)
 	case <-ctx.Done():
 		return nil, fmt.Errorf("authorization cancelled: %w", ctx.Err())
@@ -127,8 +235,14 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 		// Signal failure to show error page
 		tokenResultChan <- err
 
-		// Wait a moment for the HTTP response to be sent before returning
-		time.Sleep(1 * time.Second)
+		// Wait for the HTTP response to be sent before returning
+		select {
+		case <-doneChan:
+			// Response sent successfully
+		case <-time.After(authSuccessWaitTime):
+			// Timeout waiting for response to be sent
+			slog.Warn("Timeout waiting for error page to be sent")
+		}
 
 		return nil, fmt.Errorf("failed to exchange code for token: %w", err)
 	}
@@ -136,8 +250,14 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	// Signal success to show success page
 	tokenResultChan <- nil
 
-	// Wait a moment for the HTTP response to be sent before returning
-	time.Sleep(1 * time.Second)
+	// Wait for the HTTP response to be sent before returning
+	select {
+	case <-doneChan:
+		// Response sent successfully
+	case <-time.After(authSuccessWaitTime):
+		// Timeout waiting for success page to be sent
+		slog.Warn("Timeout waiting for success page to be sent")
+	}
 
 	slog.Debug("Successfully obtained access token via authorization code flow")
 
@@ -145,45 +265,73 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	return oauth2.StaticTokenSource(tok), nil
 }
 
-func returnFailedPage(w http.ResponseWriter, errorDetails string) error {
-	failedData := struct {
-		Title        string
-		Name         string
+func returnFailedPage(w http.ResponseWriter, errorDetails string, customPageData *AuthResultPageData) error {
+	// Create template data
+	templateData := struct {
+		ProjectName  string
+		Heading      string
+		Message      string
 		ErrorDetails string
+		IsSuccess    bool
 	}{
-		Title:        "Authorization Failed",
-		Name:         "An error has occurred and authorization was not successful.",
+		ProjectName:  defaultProjectName,
+		Heading:      defaultAuthFailedHeading,
+		Message:      defaultAuthFailedMessage,
 		ErrorDetails: errorDetails,
+		IsSuccess:    false,
 	}
 
-	tmpl, err := template.New("failed").Parse(authResultHTML)
-	if err != nil {
-		return fmt.Errorf("error parsing template: %v", err)
+	// Override with custom data if provided
+	if customPageData != nil {
+		if customPageData.ProjectName != "" {
+			templateData.ProjectName = customPageData.ProjectName
+		}
+		if customPageData.Heading != "" {
+			templateData.Heading = customPageData.Heading
+		}
+		if customPageData.Message != "" {
+			templateData.Message = customPageData.Message
+		}
 	}
-	return tmpl.Execute(w, failedData)
+
+	return authResultTemplate.Execute(w, templateData)
 }
 
-func returnSuccessPage(w http.ResponseWriter) error {
-	successData := struct {
-		Title        string
-		Name         string
+func returnSuccessPage(w http.ResponseWriter, customPageData *AuthResultPageData) error {
+	// Create template data
+	templateData := struct {
+		ProjectName  string
+		Heading      string
+		Message      string
 		ErrorDetails string
+		IsSuccess    bool
 	}{
-		Title:        "Authorization Success",
-		Name:         "You have successfully authenticated to your PingOne environment and have authorized API access.",
+		ProjectName:  defaultProjectName,
+		Heading:      defaultAuthSuccessHeading,
+		Message:      defaultAuthSuccessMessage,
 		ErrorDetails: "", // Empty for success
+		IsSuccess:    true,
 	}
 
-	tmpl, err := template.New("success").Parse(authResultHTML)
-	if err != nil {
-		return fmt.Errorf("error parsing template: %v", err)
+	// Override with custom data if provided
+	if customPageData != nil {
+		if customPageData.ProjectName != "" {
+			templateData.ProjectName = customPageData.ProjectName
+		}
+		if customPageData.Heading != "" {
+			templateData.Heading = customPageData.Heading
+		}
+		if customPageData.Message != "" {
+			templateData.Message = customPageData.Message
+		}
 	}
 
-	return tmpl.Execute(w, successData)
+	return authResultTemplate.Execute(w, templateData)
 }
 
-// startCallbackServer starts a local HTTP server to handle OAuth2 callbacks
-func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error) (*http.Server, error) {
+// startCallbackServer starts a local HTTP server to handle OAuth2 callbacks.
+// It validates the state parameter for CSRF protection and signals completion via doneChan.
+func startCallbackServer(redirectURI string, expectedState string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error, doneChan chan<- struct{}, customPageDataSuccess *AuthResultPageData, customPageDataError *AuthResultPageData) (*http.Server, error) {
 	// Parse the redirect URI to get the port
 	parsedURI, err := url.Parse(redirectURI)
 	if err != nil {
@@ -193,20 +341,20 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Extract port from URI or use default
 	port := parsedURI.Port()
 	if port == "" {
-		port = "7464"
+		port = defaultAuthorizationCodeRedirectURIPort
 	}
 
 	// Extract path and ensure it's valid for HTTP mux
 	path := parsedURI.Path
 	if path == "" {
-		path = "/callback"
+		path = defaultAuthorizationCodeRedirectURIPath
 	}
-	if !strings.HasPrefix(path, "/") {
-		path = "/" + path
+	if !strings.HasPrefix(path, urlPathPrefix) {
+		path = urlPathPrefix + path
 	}
 
 	// Test if port is available and keep the listener
-	listener, err := net.Listen("tcp", ":"+port)
+	listener, err := net.Listen(networkProtocolTCP, networkPortPrefix+port)
 	if err != nil {
 		return nil, fmt.Errorf("port %s is not available: %w", port, err)
 	}
@@ -214,45 +362,70 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	// Create HTTP server
 	mux := http.NewServeMux()
 	server := &http.Server{
-		Addr:              ":" + port,
+		Addr:              networkPortPrefix + port,
 		Handler:           mux,
-		ReadHeaderTimeout: 10 * time.Second,
+		ReadHeaderTimeout: callbackServerReadHeaderTimeout,
 	}
 
 	// Handle callback endpoint
 	mux.HandleFunc(path, func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query()
 
+		// Validate state parameter for CSRF protection
+		receivedState := query.Get("state")
+		if receivedState != expectedState {
+			errChan <- fmt.Errorf("invalid state parameter - possible CSRF attack")
+
+			w.Header().Set("Content-Type", contentTypeHTML)
+			w.WriteHeader(http.StatusBadRequest)
+			err := returnFailedPage(w, "Invalid state parameter", customPageDataError)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
+			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+			close(doneChan)
+			return
+		}
+
 		// Check for error in callback
-		if errCode := query.Get("error"); errCode != "" {
-			errDesc := query.Get("error_description")
+		if errCode := query.Get(urlQueryParamError); errCode != "" {
+			errDesc := query.Get(urlQueryParamErrorDescription)
 			if errDesc == "" {
 				errDesc = errCode
 			}
 			errChan <- fmt.Errorf("authorization error: %s", errDesc)
 
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusBadRequest)
 
-			err := returnFailedPage(w, errDesc)
+			err := returnFailedPage(w, errDesc, customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
-
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+			close(doneChan)
 			return
 		}
 
 		// Get authorization code
-		code := query.Get("code")
+		code := query.Get(urlQueryParamCode)
 		if code == "" {
 			errChan <- fmt.Errorf("no authorization code received")
 
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusBadRequest)
-			err := returnFailedPage(w, "No authorization code received")
+			err := returnFailedPage(w, "No authorization code received", customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+			close(doneChan)
 			return
 		}
 
@@ -264,38 +437,47 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		case tokenErr := <-tokenResultChan:
 			if tokenErr == nil {
 				// Token exchange succeeded
-				w.Header().Set("Content-Type", "text/html; charset=utf-8")
+				w.Header().Set("Content-Type", contentTypeHTML)
 				w.WriteHeader(http.StatusOK)
 
-				err := returnSuccessPage(w)
+				err := returnSuccessPage(w, customPageDataSuccess)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
 				}
+				if flusher, ok := w.(http.Flusher); ok {
+					flusher.Flush()
+				}
+				close(doneChan)
 			} else {
 				// Token exchange failed
-				w.Header().Set("Content-Type", "text/html; charset=utf-8")
-				w.WriteHeader(http.StatusUnauthorized)
-				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr))
+				w.Header().Set("Content-Type", contentTypeHTML)
+				w.WriteHeader(httpStatusUnauthorized)
+				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr), customPageDataError)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
 				}
 				if flusher, ok := w.(http.Flusher); ok {
 					flusher.Flush()
 				}
+				close(doneChan)
 			}
-		case <-time.After(30 * time.Second):
+		case <-time.After(tokenExchangeTimeout):
 			// Token exchange timed out
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.Header().Set("Content-Type", contentTypeHTML)
 			w.WriteHeader(http.StatusInternalServerError)
-			err := returnFailedPage(w, "Token exchange timed out")
+			err := returnFailedPage(w, "Token exchange timed out", customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
 			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+			close(doneChan)
 		}
 	})
 
 	// Start server in background using the existing listener
-	serverStarted := make(chan error, 1)
+	serverStarted := make(chan error, httpChannelBufferSize)
 	go func() {
 		// Use Serve() with the existing listener instead of ListenAndServe()
 		if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
@@ -310,7 +492,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 	}()
 
 	// Verify server is actually accepting connections before returning
-	maxRetries := 10
+	maxRetries := serverVerificationMaxRetries
 	for i := 0; i < maxRetries; i++ {
 		// Check if server failed
 		select {
@@ -320,7 +502,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 
 		// Try to connect
-		conn, err := net.DialTimeout("tcp", ":"+port, 50*time.Millisecond)
+		conn, err := net.DialTimeout(networkProtocolTCP, networkPortPrefix+port, serverVerificationDialTimeout)
 		if err == nil {
 			if closeErr := conn.Close(); closeErr != nil {
 				slog.Warn("Failed to close connection during server verification", "error", closeErr)
@@ -330,25 +512,22 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 		}
 
 		// Wait a bit before retrying
-		time.Sleep(10 * time.Millisecond)
+		time.Sleep(serverVerificationRetryDelay)
 	}
 
 	return nil, fmt.Errorf("server failed to start accepting connections in time")
 }
 
-func openBrowser(url string) {
-	var err error
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", url).Start()
-	case "windows":
-		err = exec.Command("explorer", url).Start()
-	case "darwin":
-		err = exec.Command("open", url).Start()
-	default:
-		err = fmt.Errorf("unsupported platform")
+// DefaultAuthorizationCodeBrowserHandler is the default handler for opening the authorization URL.
+// It attempts to open the system browser automatically and provides fallback instructions if that fails.
+// This function implements the AuthURLHandler interface and provides a consistent UX pattern.
+// Consumer projects can use this handler as a reference or directly in their own implementations.
+func DefaultAuthorizationCodeBrowserHandler(authURL string) error {
+	fmt.Printf("Opening browser for authorization: %s\n", authURL)
+	if err := browser.Open(authURL); err != nil {
+		fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
+		fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
 	}
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error opening browser: %v\nPlease go to the URL manually: %s\n", err, url)
-	}
+	fmt.Println("Waiting for authorization callback...")
+	return nil
 }
