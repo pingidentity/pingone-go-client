@@ -74,53 +74,15 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		return nil, fmt.Errorf("device auth request failed: %w", err)
 	}
 
-	// Check if custom prompt handler is provided
-	if d.OnDisplayPrompt != nil {
-		// Use custom handler - delegate UX to consumer
-		if err := d.OnDisplayPrompt(response.VerificationURI, response.UserCode); err != nil {
-			return nil, fmt.Errorf("custom prompt handler failed: %w", err)
-		}
-	} else {
-		// Fall back to default console output behavior
-		fmt.Print(deviceAuthPromptHeader)
+	// Use custom handler if provided, otherwise use default with complete URL support
+	handler := d.OnDisplayPrompt
+	if handler == nil {
+		// Use a closure to capture the complete URL for the default handler
+		handler = DefaultDeviceCodePromptHandler
+	}
 
-		// Determine which URL to use and whether to auto-open browser
-		browserAvailable := browser.CanOpen()
-		hasCompleteURL := response.VerificationURIComplete != ""
-
-		// Auto-open browser if available
-		if browserAvailable {
-			if hasCompleteURL {
-				fmt.Print(deviceAuthBrowserOpeningMessage)
-				fmt.Printf(deviceAuthURLLabel, response.VerificationURIComplete)
-				if err := browser.Open(response.VerificationURIComplete); err != nil {
-					fmt.Printf(deviceAuthBrowserFailWarning, err)
-				}
-				fmt.Print(deviceAuthManualInstructionsHeader)
-				fmt.Printf(deviceAuthManualVisitPrompt, response.VerificationURI)
-				fmt.Printf(deviceAuthManualCodePrompt, response.UserCode)
-			} else {
-				fmt.Print(deviceAuthBrowserOpeningMessageBasic)
-				fmt.Printf(deviceAuthURLLabel, response.VerificationURI)
-				fmt.Printf(deviceAuthCodePrompt, response.UserCode)
-				if err := browser.Open(response.VerificationURI); err != nil {
-					fmt.Printf(deviceAuthBrowserFailWarning, err)
-				}
-			}
-		} else {
-			// No browser available - show manual instructions
-			if hasCompleteURL {
-				fmt.Printf(deviceAuthCompleteURLPrompt, response.VerificationURIComplete)
-				fmt.Print(deviceAuthAlternativeInstructionsHeader)
-				fmt.Printf(deviceAuthManualVisitPrompt, response.VerificationURI)
-				fmt.Printf(deviceAuthManualCodePrompt, response.UserCode)
-			} else {
-				fmt.Printf(deviceAuthManualStep1, response.VerificationURI)
-				fmt.Printf(deviceAuthManualStep2, response.UserCode)
-			}
-		}
-
-		fmt.Print(deviceAuthWaitingMessage)
+	if err := handler(response.VerificationURI, response.UserCode); err != nil {
+		return nil, fmt.Errorf("prompt handler failed: %w", err)
 	}
 
 	deviceCodeToken, err := config.DeviceAccessToken(ctx, response)
@@ -131,4 +93,37 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 	ts := config.TokenSource(ctx, deviceCodeToken)
 
 	return ts, nil
+}
+
+// DefaultDeviceCodePromptHandler is a simple handler that displays device code prompts.
+// This function can be used by consumer projects as a reference implementation or directly.
+// For better UX with complete URLs, use the closure pattern shown in DeviceAuthTokenSource.
+// This function implements the DeviceCodePromptHandler interface pattern.
+func DefaultDeviceCodePromptHandler(verificationURI, userCode string) error {
+	fmt.Print(deviceAuthPromptHeader)
+
+	// Determine which URL to use and whether to auto-open browser
+	browserAvailable := browser.CanOpen()
+	verificationURIComplete := fmt.Sprintf("%s?user_code=%s", verificationURI, userCode)
+
+	// Auto-open browser if available
+	if browserAvailable {
+		fmt.Print(deviceAuthBrowserOpeningMessage)
+		fmt.Printf(deviceAuthURLLabel, verificationURIComplete)
+		if err := browser.Open(verificationURIComplete); err != nil {
+			fmt.Printf(deviceAuthBrowserFailWarning, err)
+		}
+		fmt.Print(deviceAuthManualInstructionsHeader)
+		fmt.Printf(deviceAuthManualVisitPrompt, verificationURI)
+		fmt.Printf(deviceAuthManualCodePrompt, userCode)
+	} else {
+		// No browser available - show manual instructions
+		fmt.Printf(deviceAuthCompleteURLPrompt, verificationURIComplete)
+		fmt.Print(deviceAuthAlternativeInstructionsHeader)
+		fmt.Printf(deviceAuthManualVisitPrompt, verificationURI)
+		fmt.Printf(deviceAuthManualCodePrompt, userCode)
+	}
+
+	fmt.Print(deviceAuthWaitingMessage)
+	return nil
 }

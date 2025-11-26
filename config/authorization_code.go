@@ -199,20 +199,14 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	// Generate authorization URL with secure state parameter and handle browser opening
 	authURL := config.AuthCodeURL(state, oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
 
-	// Check if custom browser handler is provided
-	if a.OnOpenBrowser != nil {
-		// Use custom handler - delegate UX to consumer
-		if err := a.OnOpenBrowser(authURL); err != nil {
-			return nil, fmt.Errorf("custom browser handler failed: %w", err)
-		}
-	} else {
-		// Fall back to default browser opening behavior
-		fmt.Printf("Opening browser for authorization: %s\n", authURL)
-		if err := browser.Open(authURL); err != nil {
-			fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
-			fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
-		}
-		fmt.Println("Waiting for authorization callback...")
+	// Use custom handler if provided, otherwise use default
+	handler := a.OnOpenBrowser
+	if handler == nil {
+		handler = DefaultAuthorizationCodeBrowserHandler
+	}
+
+	if err := handler(authURL); err != nil {
+		return nil, fmt.Errorf("prompt handler failed: %w", err)
 	}
 
 	// Wait for authorization code or error
@@ -522,4 +516,18 @@ func startCallbackServer(redirectURI string, expectedState string, codeChan chan
 	}
 
 	return nil, fmt.Errorf("server failed to start accepting connections in time")
+}
+
+// DefaultAuthorizationCodeBrowserHandler is the default handler for opening the authorization URL.
+// It attempts to open the system browser automatically and provides fallback instructions if that fails.
+// This function implements the AuthURLHandler interface and provides a consistent UX pattern.
+// Consumer projects can use this handler as a reference or directly in their own implementations.
+func DefaultAuthorizationCodeBrowserHandler(authURL string) error {
+	fmt.Printf("Opening browser for authorization: %s\n", authURL)
+	if err := browser.Open(authURL); err != nil {
+		fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
+		fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
+	}
+	fmt.Println("Waiting for authorization callback...")
+	return nil
 }

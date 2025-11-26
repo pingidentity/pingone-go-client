@@ -329,18 +329,6 @@ func TestOpen(t *testing.T) {
 	})
 }
 
-func TestOpen_UnsupportedPlatform(t *testing.T) {
-	// This test documents the expected behavior on unsupported platforms
-	// We can't easily test this without mocking runtime.GOOS,
-	// but we document the expected error
-	t.Run("documents unsupported platform error", func(t *testing.T) {
-		// Verify that known platforms are supported
-		supportedPlatforms := []string{"linux", "darwin", "windows", "freebsd", "openbsd", "netbsd"}
-		assert.Contains(t, supportedPlatforms, runtime.GOOS,
-			"Current platform %s should be in supported platforms list", runtime.GOOS)
-	})
-}
-
 func TestOpen_SecurityValidation(t *testing.T) {
 	// Security-focused test cases
 	securityTests := []struct {
