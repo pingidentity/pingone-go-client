@@ -58,9 +58,14 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		return nil, fmt.Errorf("client ID is required for device code grant type")
 	}
 
+	var scopes []string
+	if d.DeviceCodeScopes != nil {
+		scopes = *d.DeviceCodeScopes
+	}
+
 	config := &oauth2.Config{
 		ClientID: *d.DeviceCodeClientID,
-		Scopes:   *d.DeviceCodeScopes,
+		Scopes:   scopes,
 		Endpoint: endpoints,
 	}
 
