@@ -128,6 +128,17 @@ type AuthorizationCodeRedirectURI struct {
 // Return an error if the URL cannot be handled.
 type AuthURLHandler func(url string) error
 
+// AuthResultPageData contains the data used to render the authorization result page.
+// SDK clients can provide custom values to personalize the page while using the default template.
+type AuthResultPageData struct {
+	// ProjectName is displayed as the HTML page title (e.g., "PingOne MCP Server")
+	ProjectName string
+	// Heading is the main heading displayed on the page (e.g., "Authorization Success")
+	Heading string
+	// Message is the descriptive text displayed below the title
+	Message string
+}
+
 type AuthorizationCode struct {
 	AuthorizationCodeClientID    *string                      `envconfig:"PINGONE_AUTHORIZATION_CODE_CLIENT_ID" json:"authorizationCodeClientId,omitempty"`
 	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI" json:"authorizationCodeRedirectUri,omitempty"`
@@ -136,12 +147,12 @@ type AuthorizationCode struct {
 	// If set, this handler will be called instead of automatically opening the system browser.
 	// This allows consumers to implement custom flows such as headless operation or alternative UX.
 	OnOpenBrowser AuthURLHandler `json:"-"`
-	// CustomHTMLSuccess is optional custom HTML to display on successful authentication.
-	// If empty, the default PingOne success page will be shown.
-	CustomHTMLSuccess string `json:"-"`
-	// CustomHTMLError is optional custom HTML to display on authentication failure.
-	// If empty, the default PingOne error page will be shown.
-	CustomHTMLError string `json:"-"`
+	// CustomPageDataSuccess contains the data to display on successful authentication.
+	// If nil, default values will be used. The SDK template will be rendered with these values.
+	CustomPageDataSuccess *AuthResultPageData `json:"-"`
+	// CustomPageDataError contains the data to display on authentication failure.
+	// If nil, default values will be used. The SDK template will be rendered with these values.
+	CustomPageDataError *AuthResultPageData `json:"-"`
 }
 
 type ClientCredentials struct {

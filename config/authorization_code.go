@@ -90,7 +90,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	errChan := make(chan error, 1)
 	tokenResultChan := make(chan error, 1) // nil for success, error for failure
 
-	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan, a.CustomHTMLSuccess, a.CustomHTMLError)
+	server, err := startCallbackServer(redirectURI, codeChan, errChan, tokenResultChan, a.CustomPageDataSuccess, a.CustomPageDataError)
 	if err != nil {
 		return nil, fmt.Errorf("failed to start callback server: %w", err)
 	}
@@ -157,47 +157,65 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	return oauth2.StaticTokenSource(tok), nil
 }
 
-func returnFailedPage(w http.ResponseWriter, errorDetails string, customHTML string) error {
-	// Use custom HTML if provided
-	if customHTML != "" {
-		_, err := w.Write([]byte(customHTML))
-		return err
-	}
-
-	// Fall back to default template
-	failedData := struct {
-		Title        string
-		Name         string
+func returnFailedPage(w http.ResponseWriter, errorDetails string, customPageData *AuthResultPageData) error {
+	// Create template data
+	templateData := struct {
+		ProjectName  string
+		Heading      string
+		Message      string
 		ErrorDetails string
 	}{
-		Title:        "Authorization Failed",
-		Name:         "An error has occurred and authorization was not successful.",
+		ProjectName:  "Ping Identity Developer Tools",
+		Heading:      "Authorization Failed",
+		Message:      "An error has occurred and authorization was not successful.",
 		ErrorDetails: errorDetails,
+	}
+
+	// Override with custom data if provided
+	if customPageData != nil {
+		if customPageData.ProjectName != "" {
+			templateData.ProjectName = customPageData.ProjectName
+		}
+		if customPageData.Heading != "" {
+			templateData.Heading = customPageData.Heading
+		}
+		if customPageData.Message != "" {
+			templateData.Message = customPageData.Message
+		}
 	}
 
 	tmpl, err := template.New("failed").Parse(authResultHTML)
 	if err != nil {
 		return fmt.Errorf("error parsing template: %v", err)
 	}
-	return tmpl.Execute(w, failedData)
+	return tmpl.Execute(w, templateData)
 }
 
-func returnSuccessPage(w http.ResponseWriter, customHTML string) error {
-	// Use custom HTML if provided
-	if customHTML != "" {
-		_, err := w.Write([]byte(customHTML))
-		return err
-	}
-
-	// Fall back to default template
-	successData := struct {
-		Title        string
-		Name         string
+func returnSuccessPage(w http.ResponseWriter, customPageData *AuthResultPageData) error {
+	// Create template data
+	templateData := struct {
+		ProjectName  string
+		Heading      string
+		Message      string
 		ErrorDetails string
 	}{
-		Title:        "Authorization Success",
-		Name:         "You have successfully authenticated to your PingOne environment and have authorized API access.",
+		ProjectName:  "Ping Identity Developer Tools",
+		Heading:      "Authorization Success",
+		Message:      "You have successfully authenticated to your PingOne environment and have authorized API access.",
 		ErrorDetails: "", // Empty for success
+	}
+
+	// Override with custom data if provided
+	if customPageData != nil {
+		if customPageData.ProjectName != "" {
+			templateData.ProjectName = customPageData.ProjectName
+		}
+		if customPageData.Heading != "" {
+			templateData.Heading = customPageData.Heading
+		}
+		if customPageData.Message != "" {
+			templateData.Message = customPageData.Message
+		}
 	}
 
 	tmpl, err := template.New("success").Parse(authResultHTML)
@@ -205,11 +223,11 @@ func returnSuccessPage(w http.ResponseWriter, customHTML string) error {
 		return fmt.Errorf("error parsing template: %v", err)
 	}
 
-	return tmpl.Execute(w, successData)
+	return tmpl.Execute(w, templateData)
 }
 
 // startCallbackServer starts a local HTTP server to handle OAuth2 callbacks
-func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error, customHTMLSuccess string, customHTMLError string) (*http.Server, error) {
+func startCallbackServer(redirectURI string, codeChan chan<- string, errChan chan<- error, tokenResultChan <-chan error, customPageDataSuccess *AuthResultPageData, customPageDataError *AuthResultPageData) (*http.Server, error) {
 	// Parse the redirect URI to get the port
 	parsedURI, err := url.Parse(redirectURI)
 	if err != nil {
@@ -260,7 +278,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
 
-			err := returnFailedPage(w, errDesc, customHTMLError)
+			err := returnFailedPage(w, errDesc, customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -275,7 +293,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusBadRequest)
-			err := returnFailedPage(w, "No authorization code received", customHTMLError)
+			err := returnFailedPage(w, "No authorization code received", customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Authentication failed.")
 			}
@@ -293,7 +311,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusOK)
 
-				err := returnSuccessPage(w, customHTMLSuccess)
+				err := returnSuccessPage(w, customPageDataSuccess)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading success page. Authentication was successful.\n%s", err)
 				}
@@ -301,7 +319,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 				// Token exchange failed
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
 				w.WriteHeader(http.StatusUnauthorized)
-				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr), customHTMLError)
+				err := returnFailedPage(w, fmt.Sprintf("Token exchange failed: %v", tokenErr), customPageDataError)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange failed: %v", tokenErr)
 				}
@@ -313,7 +331,7 @@ func startCallbackServer(redirectURI string, codeChan chan<- string, errChan cha
 			// Token exchange timed out
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
 			w.WriteHeader(http.StatusInternalServerError)
-			err := returnFailedPage(w, "Token exchange timed out", customHTMLError)
+			err := returnFailedPage(w, "Token exchange timed out", customPageDataError)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error loading failed page. Token exchange timed out.")
 			}
