@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **BoxSelectionEnabled** | Pointer to **bool** |  | [optional] 
 **Data** | Pointer to **map[string]interface{}** |  | [optional] 
 **Elements** | Pointer to [**DaVinciFlowGraphDataRequestElements**](DaVinciFlowGraphDataRequestElements.md) |  | [optional] 
-**MaxZoom** | Pointer to [**big.Float**](big.Float.md) |  | [optional] 
-**MinZoom** | Pointer to [**big.Float**](big.Float.md) |  | [optional] 
+**MaxZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
+**MinZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
 **Pan** | Pointer to [**DaVinciFlowGraphDataRequestPan**](DaVinciFlowGraphDataRequestPan.md) |  | [optional] 
 **PanningEnabled** | Pointer to **bool** |  | [optional] 
 **Renderer** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -113,20 +113,20 @@ HasElements returns a boolean if a field has been set.
 
 ### GetMaxZoom
 
-`func (o *DaVinciFlowGraphDataRequest) GetMaxZoom() big.Float`
+`func (o *DaVinciFlowGraphDataRequest) GetMaxZoom() types.BigFloatUnquoted`
 
 GetMaxZoom returns the MaxZoom field if non-nil, zero value otherwise.
 
 ### GetMaxZoomOk
 
-`func (o *DaVinciFlowGraphDataRequest) GetMaxZoomOk() (*big.Float, bool)`
+`func (o *DaVinciFlowGraphDataRequest) GetMaxZoomOk() (*types.BigFloatUnquoted, bool)`
 
 GetMaxZoomOk returns a tuple with the MaxZoom field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxZoom
 
-`func (o *DaVinciFlowGraphDataRequest) SetMaxZoom(v big.Float)`
+`func (o *DaVinciFlowGraphDataRequest) SetMaxZoom(v types.BigFloatUnquoted)`
 
 SetMaxZoom sets MaxZoom field to given value.
 
@@ -138,20 +138,20 @@ HasMaxZoom returns a boolean if a field has been set.
 
 ### GetMinZoom
 
-`func (o *DaVinciFlowGraphDataRequest) GetMinZoom() big.Float`
+`func (o *DaVinciFlowGraphDataRequest) GetMinZoom() types.BigFloatUnquoted`
 
 GetMinZoom returns the MinZoom field if non-nil, zero value otherwise.
 
 ### GetMinZoomOk
 
-`func (o *DaVinciFlowGraphDataRequest) GetMinZoomOk() (*big.Float, bool)`
+`func (o *DaVinciFlowGraphDataRequest) GetMinZoomOk() (*types.BigFloatUnquoted, bool)`
 
 GetMinZoomOk returns a tuple with the MinZoom field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinZoom
 
-`func (o *DaVinciFlowGraphDataRequest) SetMinZoom(v big.Float)`
+`func (o *DaVinciFlowGraphDataRequest) SetMinZoom(v types.BigFloatUnquoted)`
 
 SetMinZoom sets MinZoom field to given value.
 

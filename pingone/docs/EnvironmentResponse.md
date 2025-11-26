@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **PingoneAccountId** | Pointer to **string** |  | [optional] 
 **SoftDeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Status** | Pointer to [**EnvironmentStatusValue**](EnvironmentStatusValue.md) |  | [optional] 
+**Subtype** | Pointer to [**EnvironmentResponseSubtype**](EnvironmentResponseSubtype.md) |  | [optional] 
 
 ## Methods
 
@@ -456,6 +457,31 @@ SetStatus sets Status field to given value.
 `func (o *EnvironmentResponse) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetSubtype
+
+`func (o *EnvironmentResponse) GetSubtype() EnvironmentResponseSubtype`
+
+GetSubtype returns the Subtype field if non-nil, zero value otherwise.
+
+### GetSubtypeOk
+
+`func (o *EnvironmentResponse) GetSubtypeOk() (*EnvironmentResponseSubtype, bool)`
+
+GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubtype
+
+`func (o *EnvironmentResponse) SetSubtype(v EnvironmentResponseSubtype)`
+
+SetSubtype sets Subtype field to given value.
+
+### HasSubtype
+
+`func (o *EnvironmentResponse) HasSubtype() bool`
+
+HasSubtype returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
