@@ -164,11 +164,13 @@ func returnFailedPage(w http.ResponseWriter, errorDetails string, customPageData
 		Heading      string
 		Message      string
 		ErrorDetails string
+		IsSuccess    bool
 	}{
 		ProjectName:  "Ping Identity Developer Tools",
 		Heading:      "Authorization Failed",
 		Message:      "An error has occurred and authorization was not successful.",
 		ErrorDetails: errorDetails,
+		IsSuccess:    false,
 	}
 
 	// Override with custom data if provided
@@ -198,11 +200,13 @@ func returnSuccessPage(w http.ResponseWriter, customPageData *AuthResultPageData
 		Heading      string
 		Message      string
 		ErrorDetails string
+		IsSuccess    bool
 	}{
 		ProjectName:  "Ping Identity Developer Tools",
 		Heading:      "Authorization Success",
 		Message:      "You have successfully authenticated to your PingOne environment and have authorized API access.",
 		ErrorDetails: "", // Empty for success
+		IsSuccess:    true,
 	}
 
 	// Override with custom data if provided

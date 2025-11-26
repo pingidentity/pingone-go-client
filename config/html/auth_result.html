@@ -121,8 +121,8 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     
     // Only auto-close on success
-    var heading = '{{.Heading}}';
-    if (heading === 'Authorization Successful') {
+    var isSuccess = {{.IsSuccess}};
+    if (isSuccess) {
       var countdown = 3;
       var closeMessage = document.getElementById('closeMessage');
       
