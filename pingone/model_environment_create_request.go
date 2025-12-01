@@ -25,13 +25,14 @@ var _ slog.LogValuer = &EnvironmentCreateRequest{}
 
 // EnvironmentCreateRequest struct for EnvironmentCreateRequest
 type EnvironmentCreateRequest struct {
-	Name                 string                      `json:"name"`
-	Region               EnvironmentRegionCode       `json:"region"`
-	Type                 EnvironmentTypeValue        `json:"type"`
-	License              EnvironmentLicense          `json:"license"`
-	BillOfMaterials      *EnvironmentBillOfMaterials `json:"billOfMaterials,omitempty"`
-	Description          *string                     `json:"description,omitempty"`
-	Icon                 *string                     `json:"icon,omitempty"`
+	Name                 string                           `json:"name"`
+	Region               EnvironmentRegionCode            `json:"region"`
+	Type                 EnvironmentTypeValue             `json:"type"`
+	License              EnvironmentLicense               `json:"license"`
+	BillOfMaterials      *EnvironmentBillOfMaterials      `json:"billOfMaterials,omitempty"`
+	Description          *string                          `json:"description,omitempty"`
+	Icon                 *string                          `json:"icon,omitempty"`
+	Subtype              *EnvironmentCreateRequestSubtype `json:"subtype,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -250,6 +251,38 @@ func (o *EnvironmentCreateRequest) SetIcon(v string) {
 	o.Icon = &v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *EnvironmentCreateRequest) GetSubtype() EnvironmentCreateRequestSubtype {
+	if o == nil || IsNil(o.Subtype) {
+		var ret EnvironmentCreateRequestSubtype
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentCreateRequest) GetSubtypeOk() (*EnvironmentCreateRequestSubtype, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *EnvironmentCreateRequest) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given EnvironmentCreateRequestSubtype and assigns it to the Subtype field.
+func (o *EnvironmentCreateRequest) SetSubtype(v EnvironmentCreateRequestSubtype) {
+	o.Subtype = &v
+}
+
 func (o EnvironmentCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -272,6 +305,9 @@ func (o EnvironmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
+	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -326,6 +362,7 @@ func (o *EnvironmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "billOfMaterials")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "icon")
+		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -347,6 +384,9 @@ func (o EnvironmentCreateRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.Icon) {
 		logAttrs = append(logAttrs, slog.Any("icon", *o.Icon))
+	}
+	if !IsNil(o.Subtype) {
+		logAttrs = append(logAttrs, slog.Any("subtype", *o.Subtype))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

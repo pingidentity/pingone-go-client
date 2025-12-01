@@ -29,8 +29,11 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
+<<<<<<< HEAD
 	MaxZoom              *types.BigFloatUnquoted                      `json:"maxZoom,omitempty"`
 	MinZoom              *types.BigFloatUnquoted                      `json:"minZoom,omitempty"`
+=======
+>>>>>>> main
 	Pan                  DaVinciFlowGraphDataResponsePan              `json:"pan"`
 	PanningEnabled       bool                                         `json:"panningEnabled"`
 	Renderer             DaVinciFlowGraphDataResponseRenderer         `json:"renderer"`
@@ -39,6 +42,8 @@ type DaVinciFlowGraphDataResponse struct {
 	Zoom                 float32                                      `json:"zoom"`
 	AllLinterErrors      []DaVinciFlowGraphDataResponseAllLinterError `json:"allLinterErrors,omitempty"`
 	Data                 map[string]interface{}                       `json:"data,omitempty"`
+	MaxZoom              *types.BigFloatUnquoted                      `json:"maxZoom,omitempty"`
+	MinZoom              *types.BigFloatUnquoted                      `json:"minZoom,omitempty"`
 	ZoomingEnabled       *bool                                        `json:"zoomingEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -116,70 +121,6 @@ func (o *DaVinciFlowGraphDataResponse) GetElementsOk() (*DaVinciFlowGraphDataRes
 // SetElements sets field value
 func (o *DaVinciFlowGraphDataResponse) SetElements(v DaVinciFlowGraphDataResponseElements) {
 	o.Elements = v
-}
-
-// GetMaxZoom returns the MaxZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloatUnquoted {
-	if o == nil || IsNil(o.MaxZoom) {
-		var ret types.BigFloatUnquoted
-		return ret
-	}
-	return *o.MaxZoom
-}
-
-// GetMaxZoomOk returns a tuple with the MaxZoom field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*types.BigFloatUnquoted, bool) {
-	if o == nil || IsNil(o.MaxZoom) {
-		return nil, false
-	}
-	return o.MaxZoom, true
-}
-
-// HasMaxZoom returns a boolean if a field has been set.
-func (o *DaVinciFlowGraphDataResponse) HasMaxZoom() bool {
-	if o != nil && !IsNil(o.MaxZoom) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MaxZoom field.
-func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v types.BigFloatUnquoted) {
-	o.MaxZoom = &v
-}
-
-// GetMinZoom returns the MinZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloatUnquoted {
-	if o == nil || IsNil(o.MinZoom) {
-		var ret types.BigFloatUnquoted
-		return ret
-	}
-	return *o.MinZoom
-}
-
-// GetMinZoomOk returns a tuple with the MinZoom field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*types.BigFloatUnquoted, bool) {
-	if o == nil || IsNil(o.MinZoom) {
-		return nil, false
-	}
-	return o.MinZoom, true
-}
-
-// HasMinZoom returns a boolean if a field has been set.
-func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool {
-	if o != nil && !IsNil(o.MinZoom) {
-		return true
-	}
-
-	return false
-}
-
-// SetMinZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MinZoom field.
-func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v types.BigFloatUnquoted) {
-	o.MinZoom = &v
 }
 
 // GetPan returns the Pan field value
@@ -390,6 +331,70 @@ func (o *DaVinciFlowGraphDataResponse) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
+// GetMaxZoom returns the MaxZoom field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloatUnquoted {
+	if o == nil || IsNil(o.MaxZoom) {
+		var ret types.BigFloatUnquoted
+		return ret
+	}
+	return *o.MaxZoom
+}
+
+// GetMaxZoomOk returns a tuple with the MaxZoom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*types.BigFloatUnquoted, bool) {
+	if o == nil || IsNil(o.MaxZoom) {
+		return nil, false
+	}
+	return o.MaxZoom, true
+}
+
+// HasMaxZoom returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponse) HasMaxZoom() bool {
+	if o != nil && !IsNil(o.MaxZoom) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MaxZoom field.
+func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v types.BigFloatUnquoted) {
+	o.MaxZoom = &v
+}
+
+// GetMinZoom returns the MinZoom field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloatUnquoted {
+	if o == nil || IsNil(o.MinZoom) {
+		var ret types.BigFloatUnquoted
+		return ret
+	}
+	return *o.MinZoom
+}
+
+// GetMinZoomOk returns a tuple with the MinZoom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*types.BigFloatUnquoted, bool) {
+	if o == nil || IsNil(o.MinZoom) {
+		return nil, false
+	}
+	return o.MinZoom, true
+}
+
+// HasMinZoom returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool {
+	if o != nil && !IsNil(o.MinZoom) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MinZoom field.
+func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v types.BigFloatUnquoted) {
+	o.MinZoom = &v
+}
+
 // GetZoomingEnabled returns the ZoomingEnabled field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponse) GetZoomingEnabled() bool {
 	if o == nil || IsNil(o.ZoomingEnabled) {
@@ -434,12 +439,6 @@ func (o DaVinciFlowGraphDataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["boxSelectionEnabled"] = o.BoxSelectionEnabled
 	toSerialize["elements"] = o.Elements
-	if !IsNil(o.MaxZoom) {
-		toSerialize["maxZoom"] = o.MaxZoom
-	}
-	if !IsNil(o.MinZoom) {
-		toSerialize["minZoom"] = o.MinZoom
-	}
 	toSerialize["pan"] = o.Pan
 	toSerialize["panningEnabled"] = o.PanningEnabled
 	toSerialize["renderer"] = o.Renderer
@@ -451,6 +450,12 @@ func (o DaVinciFlowGraphDataResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
+	}
+	if !IsNil(o.MaxZoom) {
+		toSerialize["maxZoom"] = o.MaxZoom
+	}
+	if !IsNil(o.MinZoom) {
+		toSerialize["minZoom"] = o.MinZoom
 	}
 	if !IsNil(o.ZoomingEnabled) {
 		toSerialize["zoomingEnabled"] = o.ZoomingEnabled
@@ -507,8 +512,6 @@ func (o *DaVinciFlowGraphDataResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "boxSelectionEnabled")
 		delete(additionalProperties, "elements")
-		delete(additionalProperties, "maxZoom")
-		delete(additionalProperties, "minZoom")
 		delete(additionalProperties, "pan")
 		delete(additionalProperties, "panningEnabled")
 		delete(additionalProperties, "renderer")
@@ -517,6 +520,8 @@ func (o *DaVinciFlowGraphDataResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "zoom")
 		delete(additionalProperties, "allLinterErrors")
 		delete(additionalProperties, "data")
+		delete(additionalProperties, "maxZoom")
+		delete(additionalProperties, "minZoom")
 		delete(additionalProperties, "zoomingEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -529,12 +534,15 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("boxSelectionEnabled", o.BoxSelectionEnabled))
 	logAttrs = append(logAttrs, slog.Any("elements", o.Elements))
+<<<<<<< HEAD
 	if !IsNil(o.MaxZoom) {
 		logAttrs = append(logAttrs, slog.Any("maxZoom", *o.MaxZoom))
 	}
 	if !IsNil(o.MinZoom) {
 		logAttrs = append(logAttrs, slog.Any("minZoom", *o.MinZoom))
 	}
+=======
+>>>>>>> main
 	logAttrs = append(logAttrs, slog.Any("pan", o.Pan))
 	logAttrs = append(logAttrs, slog.Any("panningEnabled", o.PanningEnabled))
 	logAttrs = append(logAttrs, slog.Any("renderer", o.Renderer))
@@ -546,6 +554,12 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 	}
 	if !IsNil(o.Data) {
 		logAttrs = append(logAttrs, slog.Any("data", o.Data))
+	}
+	if !IsNil(o.MaxZoom) {
+		logAttrs = append(logAttrs, slog.Any("maxZoom", *o.MaxZoom))
+	}
+	if !IsNil(o.MinZoom) {
+		logAttrs = append(logAttrs, slog.Any("minZoom", *o.MinZoom))
 	}
 	if !IsNil(o.ZoomingEnabled) {
 		logAttrs = append(logAttrs, slog.Any("zoomingEnabled", *o.ZoomingEnabled))

@@ -80,7 +80,7 @@ type Configuration struct {
 	ProxyURL           *string           `json:"proxyURL,omitempty"`
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
-	HTTPClient         *http.Client
+	HTTPClient         *http.Client           `ignored:"true"` // Do not attempt to load from env vars
 	Service            *pingone.Configuration `json:"service,omitempty"`
 }
 
@@ -92,7 +92,7 @@ func NewServiceConfiguration() *pingone.Configuration {
 func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
-		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.3.0 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
+		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.3.1 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		DefaultServerIndex: 0,
 		Servers: ServerConfigurations{
 			{

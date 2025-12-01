@@ -33,6 +33,7 @@ type EnvironmentReplaceRequest struct {
 	Icon                 *string                                   `json:"icon,omitempty"`
 	License              *EnvironmentLicense                       `json:"license,omitempty"`
 	Status               *EnvironmentStatusValue                   `json:"status,omitempty"`
+	Subtype              *EnvironmentReplaceRequestSubtype         `json:"subtype,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -290,6 +291,38 @@ func (o *EnvironmentReplaceRequest) SetStatus(v EnvironmentStatusValue) {
 	o.Status = &v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *EnvironmentReplaceRequest) GetSubtype() EnvironmentReplaceRequestSubtype {
+	if o == nil || IsNil(o.Subtype) {
+		var ret EnvironmentReplaceRequestSubtype
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReplaceRequest) GetSubtypeOk() (*EnvironmentReplaceRequestSubtype, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *EnvironmentReplaceRequest) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given EnvironmentReplaceRequestSubtype and assigns it to the Subtype field.
+func (o *EnvironmentReplaceRequest) SetSubtype(v EnvironmentReplaceRequestSubtype) {
+	o.Subtype = &v
+}
+
 func (o EnvironmentReplaceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -317,6 +350,9 @@ func (o EnvironmentReplaceRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -371,6 +407,7 @@ func (o *EnvironmentReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "icon")
 		delete(additionalProperties, "license")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -397,6 +434,9 @@ func (o EnvironmentReplaceRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
+	}
+	if !IsNil(o.Subtype) {
+		logAttrs = append(logAttrs, slog.Any("subtype", *o.Subtype))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

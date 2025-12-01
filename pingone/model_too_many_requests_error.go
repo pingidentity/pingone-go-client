@@ -28,10 +28,14 @@ var _ slog.LogValuer = &TooManyRequestsError{}
 
 // TooManyRequestsError struct for TooManyRequestsError
 type TooManyRequestsError struct {
+<<<<<<< HEAD
 	Id                   *uuid.UUID                   `json:"id,omitempty"`
+=======
+>>>>>>> main
 	Code                 TooManyRequestsErrorCode     `json:"code"`
 	Message              string                       `json:"message"`
 	Details              []TooManyRequestsErrorDetail `json:"details,omitempty"`
+	Id                   *uuid.UUID                   `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,38 +58,6 @@ func NewTooManyRequestsError(code TooManyRequestsErrorCode, message string) *Too
 func NewTooManyRequestsErrorWithDefaults() *TooManyRequestsError {
 	this := TooManyRequestsError{}
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *TooManyRequestsError) GetId() uuid.UUID {
-	if o == nil || IsNil(o.Id) {
-		var ret uuid.UUID
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TooManyRequestsError) GetIdOk() (*uuid.UUID, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *TooManyRequestsError) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given uuid.UUID and assigns it to the Id field.
-func (o *TooManyRequestsError) SetId(v uuid.UUID) {
-	o.Id = &v
 }
 
 // GetCode returns the Code field value
@@ -168,6 +140,38 @@ func (o *TooManyRequestsError) SetDetails(v []TooManyRequestsErrorDetail) {
 	o.Details = v
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TooManyRequestsError) GetId() uuid.UUID {
+	if o == nil || IsNil(o.Id) {
+		var ret uuid.UUID
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TooManyRequestsError) GetIdOk() (*uuid.UUID, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *TooManyRequestsError) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given uuid.UUID and assigns it to the Id field.
+func (o *TooManyRequestsError) SetId(v uuid.UUID) {
+	o.Id = &v
+}
+
 func (o TooManyRequestsError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -178,13 +182,13 @@ func (o TooManyRequestsError) MarshalJSON() ([]byte, error) {
 
 func (o TooManyRequestsError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
 	toSerialize["code"] = o.Code
 	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -230,10 +234,10 @@ func (o *TooManyRequestsError) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "id")
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "details")
+		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -243,13 +247,13 @@ func (o *TooManyRequestsError) UnmarshalJSON(data []byte) (err error) {
 func (o TooManyRequestsError) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	if !IsNil(o.Id) {
-		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
-	}
 	logAttrs = append(logAttrs, slog.Any("code", o.Code))
 	logAttrs = append(logAttrs, slog.Any("message", o.Message))
 	if !IsNil(o.Details) {
 		logAttrs = append(logAttrs, slog.Any("details", o.Details))
+	}
+	if !IsNil(o.Id) {
+		logAttrs = append(logAttrs, slog.Any("id", *o.Id))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
