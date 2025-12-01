@@ -13,7 +13,7 @@ help:
 
 # Run tests
 test:
-	go test ./config/... ./oauth2/... ./oidc/... -v
+	go test ./config/... ./oauth2/... ./oidc/... ./types/... -v
 
 # Run integration tests (requires credentials)
 test-integration:
@@ -21,7 +21,7 @@ test-integration:
 
 # Run all tests with coverage
 test-coverage:
-	go test -coverprofile=coverage.out ./config/... ./oauth2/... ./oidc/...
+	go test -coverprofile=coverage.out ./config/... ./oauth2/... ./oidc/... ./types/...
 	go tool cover -html=coverage.out -o coverage.html
 
 # Run linting checks
