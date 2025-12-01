@@ -83,12 +83,15 @@ func Open(urlStr string) error {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "linux", "freebsd", "openbsd", "netbsd":
+		// #nosec G204 -- Command and arguments are fixed; URL is strictly validated and sanitized
 		cmd = exec.Command("xdg-open", sanitizedURL)
 	case "darwin":
+		// #nosec G204 -- Command and arguments are fixed; URL is strictly validated and sanitized
 		cmd = exec.Command("open", sanitizedURL)
 	case "windows":
 		// Use rundll32 to open URLs safely on Windows
 		// Arguments are passed separately to prevent injection
+		// #nosec G204 -- Command and arguments are fixed; URL is strictly validated and sanitized
 		cmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", sanitizedURL)
 	default:
 		return errors.New("unsupported platform")
@@ -117,6 +120,16 @@ func validateAndSanitizeURL(urlStr string) (string, error) {
 	// Trim whitespace
 	urlStr = strings.TrimSpace(urlStr)
 
+	// Reject obvious shell metacharacters that are not valid in URLs
+	// even though we don't invoke a shell, this adds defense-in-depth
+	// against malformed inputs being passed to system handlers.
+	forbiddenChars := []string{"|", ";", "`", "\n", "\r"}
+	for _, ch := range forbiddenChars {
+		if strings.Contains(urlStr, ch) {
+			return "", errors.New("URL contains invalid characters")
+		}
+	}
+
 	// Parse URL to validate structure
 	parsedURL, err := url.Parse(urlStr)
 	if err != nil {
@@ -129,7 +142,7 @@ func validateAndSanitizeURL(urlStr string) (string, error) {
 	}
 
 	// Validate that host is present and non-empty
-	if parsedURL.Host == "" {
+	if parsedURL.Host == "" || parsedURL.Hostname() == "" {
 		return "", errors.New("URL must have a valid host")
 	}
 
@@ -140,6 +153,12 @@ func validateAndSanitizeURL(urlStr string) (string, error) {
 
 	// Reconstruct the URL from parsed components to ensure proper encoding
 	// This prevents injection via malformed URLs
+	// Ensure URL is absolute and well-formed
+	if !parsedURL.IsAbs() {
+		return "", errors.New("URL must be absolute")
+	}
+
+	// Re-build the URL string to ensure consistent encoding
 	sanitizedURL := parsedURL.String()
 
 	// Additional validation: check for suspicious patterns
