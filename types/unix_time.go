@@ -75,7 +75,7 @@ func (u *UnixTime) UnmarshalJSON(b []byte) error {
 // Zero times are marshaled as null.
 func (u UnixTime) MarshalJSON() ([]byte, error) {
 	// Marshal zero times as null for consistency
-	if u.Time.IsZero() {
+	if u.IsZero() {
 		return []byte("null"), nil
 	}
 
@@ -85,8 +85,8 @@ func (u UnixTime) MarshalJSON() ([]byte, error) {
 // String returns the time formatted in RFC3339 format with UTC timezone.
 // This provides a human-readable representation for logging and debugging.
 func (u UnixTime) String() string {
-	if u.Time.IsZero() {
+	if u.IsZero() {
 		return "<zero>"
 	}
-	return u.Time.UTC().Format(time.RFC3339)
+	return u.UTC().Format(time.RFC3339)
 }

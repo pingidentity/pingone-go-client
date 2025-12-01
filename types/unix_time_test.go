@@ -62,7 +62,7 @@ func TestUnixTime_UnmarshalJSON(t *testing.T) {
 
 			require.NoError(t, err)
 			assert.Equal(t, tt.expected, ut.Time)
-			assert.Equal(t, time.UTC, ut.Time.Location())
+			assert.Equal(t, time.UTC, ut.Location())
 		})
 	}
 }
@@ -152,6 +152,6 @@ func TestUnixTime_TimezoneBehavior(t *testing.T) {
 	err = json.Unmarshal(jsonData, &unmarshaled)
 	require.NoError(t, err)
 
-	assert.Equal(t, time.UTC, unmarshaled.Time.Location())
+	assert.Equal(t, time.UTC, unmarshaled.Location())
 	assert.Equal(t, localTime.Unix(), unmarshaled.Unix())
 }
