@@ -29,11 +29,6 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponse{}
 type DaVinciFlowGraphDataResponse struct {
 	BoxSelectionEnabled  bool                                         `json:"boxSelectionEnabled"`
 	Elements             DaVinciFlowGraphDataResponseElements         `json:"elements"`
-<<<<<<< HEAD
-	MaxZoom              *types.BigFloatUnquoted                      `json:"maxZoom,omitempty"`
-	MinZoom              *types.BigFloatUnquoted                      `json:"minZoom,omitempty"`
-=======
->>>>>>> main
 	Pan                  DaVinciFlowGraphDataResponsePan              `json:"pan"`
 	PanningEnabled       bool                                         `json:"panningEnabled"`
 	Renderer             DaVinciFlowGraphDataResponseRenderer         `json:"renderer"`
@@ -534,15 +529,6 @@ func (o DaVinciFlowGraphDataResponse) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("boxSelectionEnabled", o.BoxSelectionEnabled))
 	logAttrs = append(logAttrs, slog.Any("elements", o.Elements))
-<<<<<<< HEAD
-	if !IsNil(o.MaxZoom) {
-		logAttrs = append(logAttrs, slog.Any("maxZoom", *o.MaxZoom))
-	}
-	if !IsNil(o.MinZoom) {
-		logAttrs = append(logAttrs, slog.Any("minZoom", *o.MinZoom))
-	}
-=======
->>>>>>> main
 	logAttrs = append(logAttrs, slog.Any("pan", o.Pan))
 	logAttrs = append(logAttrs, slog.Any("panningEnabled", o.PanningEnabled))
 	logAttrs = append(logAttrs, slog.Any("renderer", o.Renderer))

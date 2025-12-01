@@ -28,10 +28,6 @@ var _ slog.LogValuer = &TooManyRequestsError{}
 
 // TooManyRequestsError struct for TooManyRequestsError
 type TooManyRequestsError struct {
-<<<<<<< HEAD
-	Id                   *uuid.UUID                   `json:"id,omitempty"`
-=======
->>>>>>> main
 	Code                 TooManyRequestsErrorCode     `json:"code"`
 	Message              string                       `json:"message"`
 	Details              []TooManyRequestsErrorDetail `json:"details,omitempty"`
