@@ -25,13 +25,13 @@ var _ slog.LogValuer = &DaVinciFlowSettingsRequestJsLink{}
 
 // DaVinciFlowSettingsRequestJsLink struct for DaVinciFlowSettingsRequestJsLink
 type DaVinciFlowSettingsRequestJsLink struct {
-	Label                string `json:"label"`
-	Value                string `json:"value"`
-	Defer                bool   `json:"defer"`
-	Crossorigin          string `json:"crossorigin"`
-	Integrity            string `json:"integrity"`
-	Referrerpolicy       string `json:"referrerpolicy"`
-	Type                 string `json:"type"`
+	Label                string                                `json:"label"`
+	Value                string                                `json:"value"`
+	Defer                DaVinciFlowSettingsRequestJsLinkDefer `json:"defer"`
+	Crossorigin          string                                `json:"crossorigin"`
+	Integrity            string                                `json:"integrity"`
+	Referrerpolicy       string                                `json:"referrerpolicy"`
+	Type                 string                                `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,7 +41,7 @@ type _DaVinciFlowSettingsRequestJsLink DaVinciFlowSettingsRequestJsLink
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowSettingsRequestJsLink(label string, value string, defer_ bool, crossorigin string, integrity string, referrerpolicy string, type_ string) *DaVinciFlowSettingsRequestJsLink {
+func NewDaVinciFlowSettingsRequestJsLink(label string, value string, defer_ DaVinciFlowSettingsRequestJsLinkDefer, crossorigin string, integrity string, referrerpolicy string, type_ string) *DaVinciFlowSettingsRequestJsLink {
 	this := DaVinciFlowSettingsRequestJsLink{}
 	this.Label = label
 	this.Value = value
@@ -110,9 +110,9 @@ func (o *DaVinciFlowSettingsRequestJsLink) SetValue(v string) {
 }
 
 // GetDefer returns the Defer field value
-func (o *DaVinciFlowSettingsRequestJsLink) GetDefer() bool {
+func (o *DaVinciFlowSettingsRequestJsLink) GetDefer() DaVinciFlowSettingsRequestJsLinkDefer {
 	if o == nil {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestJsLinkDefer
 		return ret
 	}
 
@@ -121,7 +121,7 @@ func (o *DaVinciFlowSettingsRequestJsLink) GetDefer() bool {
 
 // GetDeferOk returns a tuple with the Defer field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequestJsLink) GetDeferOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequestJsLink) GetDeferOk() (*DaVinciFlowSettingsRequestJsLinkDefer, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,7 +129,7 @@ func (o *DaVinciFlowSettingsRequestJsLink) GetDeferOk() (*bool, bool) {
 }
 
 // SetDefer sets field value
-func (o *DaVinciFlowSettingsRequestJsLink) SetDefer(v bool) {
+func (o *DaVinciFlowSettingsRequestJsLink) SetDefer(v DaVinciFlowSettingsRequestJsLinkDefer) {
 	o.Defer = v
 }
 
