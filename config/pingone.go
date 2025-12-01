@@ -585,7 +585,8 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if err != nil {
 				return nil, err
 			}
-			tokenSource = ts
+			// For client credentials, skip all refresh logic and config
+			return ts, nil
 		case svcOAuth2.GrantTypeDeviceCode:
 			if c.Auth.DeviceCode == nil {
 				return nil, fmt.Errorf("device code configuration is required for device code grant type")
