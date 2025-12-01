@@ -585,7 +585,29 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if err != nil {
 				return nil, err
 			}
-			// For client credentials, skip all refresh logic and config
+			// Save token to keychain if enabled, but do not apply refresh logic
+			if tokenKey != "" {
+				token, err := ts.Token()
+				if err != nil {
+					return nil, fmt.Errorf("failed to get token: %w", err)
+				}
+				shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+				if shouldSaveToKeychain {
+					if c.Auth.Storage == nil || c.Auth.Storage.KeychainName == "" {
+						return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
+					}
+					keychainStorage, err := svcOAuth2.NewKeychainStorage(c.Auth.Storage.KeychainName, tokenKey)
+					if err != nil {
+						return nil, fmt.Errorf("failed to create keychain storage: %w", err)
+					}
+					if err := keychainStorage.SaveToken(token); err != nil {
+						slog.Warn("Failed to save token to keychain", "error", err, "tokenKey", tokenKey)
+					} else {
+						slog.Debug("Token saved to keychain", "tokenKey", tokenKey, "expires", token.Expiry)
+					}
+				}
+				return oauth2.StaticTokenSource(token), nil
+			}
 			return ts, nil
 		case svcOAuth2.GrantTypeDeviceCode:
 			if c.Auth.DeviceCode == nil {
