@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **QuotaResetTime** | Pointer to **time.Time** |  | [optional] 
 **RangeMaximumValue** | Pointer to **float32** |  | [optional] 
 **RangeMinimumValue** | Pointer to **float32** |  | [optional] 
+**SupportedAttributes** | Pointer to **[]string** |  | [optional] 
+**SupportedOperators** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -257,6 +259,56 @@ SetRangeMinimumValue sets RangeMinimumValue field to given value.
 `func (o *BadRequestErrorDetailInnerError) HasRangeMinimumValue() bool`
 
 HasRangeMinimumValue returns a boolean if a field has been set.
+
+### GetSupportedAttributes
+
+`func (o *BadRequestErrorDetailInnerError) GetSupportedAttributes() []string`
+
+GetSupportedAttributes returns the SupportedAttributes field if non-nil, zero value otherwise.
+
+### GetSupportedAttributesOk
+
+`func (o *BadRequestErrorDetailInnerError) GetSupportedAttributesOk() (*[]string, bool)`
+
+GetSupportedAttributesOk returns a tuple with the SupportedAttributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportedAttributes
+
+`func (o *BadRequestErrorDetailInnerError) SetSupportedAttributes(v []string)`
+
+SetSupportedAttributes sets SupportedAttributes field to given value.
+
+### HasSupportedAttributes
+
+`func (o *BadRequestErrorDetailInnerError) HasSupportedAttributes() bool`
+
+HasSupportedAttributes returns a boolean if a field has been set.
+
+### GetSupportedOperators
+
+`func (o *BadRequestErrorDetailInnerError) GetSupportedOperators() []string`
+
+GetSupportedOperators returns the SupportedOperators field if non-nil, zero value otherwise.
+
+### GetSupportedOperatorsOk
+
+`func (o *BadRequestErrorDetailInnerError) GetSupportedOperatorsOk() (*[]string, bool)`
+
+GetSupportedOperatorsOk returns a tuple with the SupportedOperators field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportedOperators
+
+`func (o *BadRequestErrorDetailInnerError) SetSupportedOperators(v []string)`
+
+SetSupportedOperators sets SupportedOperators field to given value.
+
+### HasSupportedOperators
+
+`func (o *BadRequestErrorDetailInnerError) HasSupportedOperators() bool`
+
+HasSupportedOperators returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

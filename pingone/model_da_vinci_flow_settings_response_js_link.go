@@ -25,13 +25,13 @@ var _ slog.LogValuer = &DaVinciFlowSettingsResponseJsLink{}
 
 // DaVinciFlowSettingsResponseJsLink struct for DaVinciFlowSettingsResponseJsLink
 type DaVinciFlowSettingsResponseJsLink struct {
-	Crossorigin          string `json:"crossorigin"`
-	Defer                bool   `json:"defer"`
-	Integrity            string `json:"integrity"`
-	Label                string `json:"label"`
-	Referrerpolicy       string `json:"referrerpolicy"`
-	Type                 string `json:"type"`
-	Value                string `json:"value"`
+	Crossorigin          string                                 `json:"crossorigin"`
+	Defer                DaVinciFlowSettingsResponseJsLinkDefer `json:"defer"`
+	Integrity            string                                 `json:"integrity"`
+	Label                string                                 `json:"label"`
+	Referrerpolicy       string                                 `json:"referrerpolicy"`
+	Type                 string                                 `json:"type"`
+	Value                string                                 `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,7 +41,7 @@ type _DaVinciFlowSettingsResponseJsLink DaVinciFlowSettingsResponseJsLink
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowSettingsResponseJsLink(crossorigin string, defer_ bool, integrity string, label string, referrerpolicy string, type_ string, value string) *DaVinciFlowSettingsResponseJsLink {
+func NewDaVinciFlowSettingsResponseJsLink(crossorigin string, defer_ DaVinciFlowSettingsResponseJsLinkDefer, integrity string, label string, referrerpolicy string, type_ string, value string) *DaVinciFlowSettingsResponseJsLink {
 	this := DaVinciFlowSettingsResponseJsLink{}
 	this.Crossorigin = crossorigin
 	this.Defer = defer_
@@ -86,9 +86,9 @@ func (o *DaVinciFlowSettingsResponseJsLink) SetCrossorigin(v string) {
 }
 
 // GetDefer returns the Defer field value
-func (o *DaVinciFlowSettingsResponseJsLink) GetDefer() bool {
+func (o *DaVinciFlowSettingsResponseJsLink) GetDefer() DaVinciFlowSettingsResponseJsLinkDefer {
 	if o == nil {
-		var ret bool
+		var ret DaVinciFlowSettingsResponseJsLinkDefer
 		return ret
 	}
 
@@ -97,7 +97,7 @@ func (o *DaVinciFlowSettingsResponseJsLink) GetDefer() bool {
 
 // GetDeferOk returns a tuple with the Defer field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsResponseJsLink) GetDeferOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsResponseJsLink) GetDeferOk() (*DaVinciFlowSettingsResponseJsLinkDefer, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *DaVinciFlowSettingsResponseJsLink) GetDeferOk() (*bool, bool) {
 }
 
 // SetDefer sets field value
-func (o *DaVinciFlowSettingsResponseJsLink) SetDefer(v bool) {
+func (o *DaVinciFlowSettingsResponseJsLink) SetDefer(v DaVinciFlowSettingsResponseJsLinkDefer) {
 	o.Defer = v
 }
 

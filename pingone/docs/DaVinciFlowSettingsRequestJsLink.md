@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Label** | **string** |  | 
 **Value** | **string** |  | 
-**Defer** | **bool** |  | 
+**Defer** | [**DaVinciFlowSettingsRequestJsLinkDefer**](DaVinciFlowSettingsRequestJsLinkDefer.md) |  | 
 **Crossorigin** | **string** |  | 
 **Integrity** | **string** |  | 
 **Referrerpolicy** | **string** |  | 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewDaVinciFlowSettingsRequestJsLink
 
-`func NewDaVinciFlowSettingsRequestJsLink(label string, value string, defer_ bool, crossorigin string, integrity string, referrerpolicy string, type_ string, ) *DaVinciFlowSettingsRequestJsLink`
+`func NewDaVinciFlowSettingsRequestJsLink(label string, value string, defer_ DaVinciFlowSettingsRequestJsLinkDefer, crossorigin string, integrity string, referrerpolicy string, type_ string, ) *DaVinciFlowSettingsRequestJsLink`
 
 NewDaVinciFlowSettingsRequestJsLink instantiates a new DaVinciFlowSettingsRequestJsLink object
 This constructor will assign default values to properties that have it defined,
@@ -73,20 +73,20 @@ SetValue sets Value field to given value.
 
 ### GetDefer
 
-`func (o *DaVinciFlowSettingsRequestJsLink) GetDefer() bool`
+`func (o *DaVinciFlowSettingsRequestJsLink) GetDefer() DaVinciFlowSettingsRequestJsLinkDefer`
 
 GetDefer returns the Defer field if non-nil, zero value otherwise.
 
 ### GetDeferOk
 
-`func (o *DaVinciFlowSettingsRequestJsLink) GetDeferOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsRequestJsLink) GetDeferOk() (*DaVinciFlowSettingsRequestJsLinkDefer, bool)`
 
 GetDeferOk returns a tuple with the Defer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefer
 
-`func (o *DaVinciFlowSettingsRequestJsLink) SetDefer(v bool)`
+`func (o *DaVinciFlowSettingsRequestJsLink) SetDefer(v DaVinciFlowSettingsRequestJsLinkDefer)`
 
 SetDefer sets Defer field to given value.
 

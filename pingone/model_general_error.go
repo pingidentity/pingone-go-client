@@ -259,6 +259,9 @@ func (o GeneralError) Error() string {
 	if !IsNil(o.Code) {
 		message = append(message, string(*o.Code))
 	}
+	if !IsNil(o.Message) {
+		message = append(message, string(*o.Message))
+	}
 
 	return strings.Join(message, ": ")
 }

@@ -14,7 +14,8 @@ package pingone
 import (
 	"encoding/json"
 	"log/slog"
-	"time"
+
+	"github.com/pingidentity/pingone-go-client/types"
 )
 
 // checks if the DirectoryTotalIdentitiesCountResponse type satisfies the MappedNullable interface at compile time
@@ -25,8 +26,8 @@ var _ slog.LogValuer = &DirectoryTotalIdentitiesCountResponse{}
 
 // DirectoryTotalIdentitiesCountResponse struct for DirectoryTotalIdentitiesCountResponse
 type DirectoryTotalIdentitiesCountResponse struct {
-	Date                 *time.Time `json:"date,omitempty"`
-	TotalIdentities      *int32     `json:"totalIdentities,omitempty"`
+	Date                 *types.UnixTime `json:"date,omitempty"`
+	TotalIdentities      *int32          `json:"totalIdentities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,9 +51,9 @@ func NewDirectoryTotalIdentitiesCountResponseWithDefaults() *DirectoryTotalIdent
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
-func (o *DirectoryTotalIdentitiesCountResponse) GetDate() time.Time {
+func (o *DirectoryTotalIdentitiesCountResponse) GetDate() types.UnixTime {
 	if o == nil || IsNil(o.Date) {
-		var ret time.Time
+		var ret types.UnixTime
 		return ret
 	}
 	return *o.Date
@@ -60,7 +61,7 @@ func (o *DirectoryTotalIdentitiesCountResponse) GetDate() time.Time {
 
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DirectoryTotalIdentitiesCountResponse) GetDateOk() (*time.Time, bool) {
+func (o *DirectoryTotalIdentitiesCountResponse) GetDateOk() (*types.UnixTime, bool) {
 	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
@@ -76,8 +77,8 @@ func (o *DirectoryTotalIdentitiesCountResponse) HasDate() bool {
 	return false
 }
 
-// SetDate gets a reference to the given time.Time and assigns it to the Date field.
-func (o *DirectoryTotalIdentitiesCountResponse) SetDate(v time.Time) {
+// SetDate gets a reference to the given types.UnixTime and assigns it to the Date field.
+func (o *DirectoryTotalIdentitiesCountResponse) SetDate(v types.UnixTime) {
 	o.Date = &v
 }
 

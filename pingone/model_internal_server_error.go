@@ -250,6 +250,7 @@ func (o InternalServerError) Error() string {
 
 	message := []string{}
 	message = append(message, string(o.Code))
+	message = append(message, string(o.Message))
 
 	return strings.Join(message, ": ")
 }
