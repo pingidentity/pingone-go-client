@@ -41,7 +41,7 @@ func (s *SharedEnvironmentTestSuite) SetupSuite() {
 
 	regionCode := os.Getenv("PINGONE_ENVIRONMENT_REGION")
 
-	licenseId, err := uuid.Parse(os.Getenv("PINGONE_LICENSE_ID"))
+	licenseID, err := uuid.Parse(os.Getenv("PINGONE_LICENSE_ID"))
 	if err != nil {
 		s.FailNow("Failed to parse license ID as a valid UUID (PingOne resource ID)", err)
 	}
@@ -50,14 +50,14 @@ func (s *SharedEnvironmentTestSuite) SetupSuite() {
 		DefaultEnvironmentDefinition(
 			fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, randomString(10), s.EnvironmentNameSuffix),
 			regionCode,
-			licenseId,
+			licenseID,
 			s.WithBootstrap,
 		),
 	)
 	err = testEnvironment.Create(
 		*CreateEnvironment(
 			s.T().Context(),
-			s.ApiClient,
+			s.APIClient,
 		).IfNotExists())
 	if err != nil {
 		s.FailNow("Failed to create test environment", err)
@@ -66,26 +66,28 @@ func (s *SharedEnvironmentTestSuite) SetupSuite() {
 	s.TestEnvironment = testEnvironment
 }
 
-// Set up the test with a new environment
+// SetupTest prepares the test with the shared environment.
 func (s *SharedEnvironmentTestSuite) SetupTest() {
 	s.PingOneTestSuite.SetupTest()
 
 	// TODO: Check environment is still present
 }
 
+// TearDownTest is called after each test to verify the shared environment.
 func (s *SharedEnvironmentTestSuite) TearDownTest() {
 	s.PingOneTestSuite.TearDownTest()
 
 	// TODO: Check environment is still present (does the test force removal of the environment by mistake?)
 }
 
+// TearDownSuite cleans up the shared environment after all tests have completed.
 func (s *SharedEnvironmentTestSuite) TearDownSuite() {
 
 	if s.TestEnvironment != nil {
 		err := s.TestEnvironment.Delete(
 			*DeleteEnvironment(
 				s.T().Context(),
-				s.ApiClient,
+				s.APIClient,
 			).IfExists())
 		if err != nil {
 			s.FailNow("Failed to delete test environment", err)

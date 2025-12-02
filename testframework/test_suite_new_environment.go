@@ -44,7 +44,7 @@ func (s *NewEnvironmentTestSuite) SetupTest() {
 
 	regionCode := os.Getenv("PINGONE_ENVIRONMENT_REGION")
 
-	licenseId, err := uuid.Parse(os.Getenv("PINGONE_LICENSE_ID"))
+	licenseID, err := uuid.Parse(os.Getenv("PINGONE_LICENSE_ID"))
 	if err != nil {
 		s.FailNow("Failed to parse license ID as a valid UUID (PingOne resource ID)", err)
 	}
@@ -53,14 +53,14 @@ func (s *NewEnvironmentTestSuite) SetupTest() {
 		DefaultEnvironmentDefinition(
 			fmt.Sprintf("%s%s%s", s.EnvironmentNamePrefix, randomString(10), s.EnvironmentNameSuffix),
 			regionCode,
-			licenseId,
+			licenseID,
 			s.WithBootstrap,
 		),
 	)
 	err = testEnvironment.Create(
 		*CreateEnvironment(
 			s.T().Context(),
-			s.ApiClient,
+			s.APIClient,
 		))
 	if err != nil {
 		s.FailNow("Failed to create test environment", err)
@@ -69,6 +69,7 @@ func (s *NewEnvironmentTestSuite) SetupTest() {
 	s.TestEnvironment = testEnvironment
 }
 
+// TearDownTest is called after each test and cleans up the environment created for that test.
 func (s *NewEnvironmentTestSuite) TearDownTest() {
 	s.PingOneTestSuite.TearDownTest()
 
@@ -76,7 +77,7 @@ func (s *NewEnvironmentTestSuite) TearDownTest() {
 		err := s.TestEnvironment.Delete(
 			*DeleteEnvironment(
 				s.T().Context(),
-				s.ApiClient,
+				s.APIClient,
 			).IfExists())
 		if err != nil {
 			s.FailNow("Failed to delete test environment", err)
@@ -84,6 +85,7 @@ func (s *NewEnvironmentTestSuite) TearDownTest() {
 	}
 }
 
+// TearDownSuite is called after all tests in the suite have completed.
 func (s *NewEnvironmentTestSuite) TearDownSuite() {
 	s.PingOneTestSuite.TearDownSuite()
 }

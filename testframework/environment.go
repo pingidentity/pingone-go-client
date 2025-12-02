@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
+
 	"github.com/pingidentity/pingone-go-client/pingone"
 )
 
