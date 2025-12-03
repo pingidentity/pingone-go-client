@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Date** | Pointer to **time.Time** |  | [optional] 
+**Date** | Pointer to [**types.UnixTime**](types.UnixTime.md) |  | [optional] 
 **TotalIdentities** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDate
 
-`func (o *DirectoryTotalIdentitiesCountResponse) GetDate() time.Time`
+`func (o *DirectoryTotalIdentitiesCountResponse) GetDate() types.UnixTime`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *DirectoryTotalIdentitiesCountResponse) GetDateOk() (*time.Time, bool)`
+`func (o *DirectoryTotalIdentitiesCountResponse) GetDateOk() (*types.UnixTime, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *DirectoryTotalIdentitiesCountResponse) SetDate(v time.Time)`
+`func (o *DirectoryTotalIdentitiesCountResponse) SetDate(v types.UnixTime)`
 
 SetDate sets Date field to given value.
 

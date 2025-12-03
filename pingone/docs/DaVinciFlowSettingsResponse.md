@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **Css** | Pointer to **string** |  | [optional] 
 **CssLinks** | Pointer to **[]string** |  | [optional] 
 **CustomErrorScreenBrandLogoUrl** | Pointer to **string** |  | [optional] 
-**CustomErrorShowFooter** | Pointer to **bool** |  | [optional] 
+**CustomErrorShowFooter** | Pointer to [**DaVinciFlowSettingsResponseCustomErrorShowFooter**](DaVinciFlowSettingsResponseCustomErrorShowFooter.md) |  | [optional] 
 **CustomFaviconLink** | Pointer to **string** |  | [optional] 
 **CustomLogoURLSelection** | Pointer to **int32** |  | [optional] 
 **CustomTitle** | Pointer to **string** |  | [optional] 
-**DefaultErrorScreenBrandLogo** | Pointer to **bool** |  | [optional] 
+**DefaultErrorScreenBrandLogo** | Pointer to [**DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo**](DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo.md) |  | [optional] 
 **FlowHttpTimeoutInSeconds** | Pointer to **int32** |  | [optional] 
 **FlowTimeoutInSeconds** | Pointer to **float32** |  | [optional] 
 **IntermediateLoadingScreenCSS** | Pointer to [**DaVinciFlowSettingsResponseIntermediateLoadingScreenCSS**](DaVinciFlowSettingsResponseIntermediateLoadingScreenCSS.md) |  | [optional] 
@@ -20,15 +20,15 @@ Name | Type | Description | Notes
 **JsCustomFlowPlayer** | Pointer to **string** |  | [optional] 
 **JsLinks** | Pointer to [**[]DaVinciFlowSettingsResponseJsLink**](DaVinciFlowSettingsResponseJsLink.md) |  | [optional] 
 **LogLevel** | Pointer to **int32** |  | [optional] 
-**RequireAuthenticationToInitiate** | Pointer to **bool** |  | [optional] 
-**ScrubSensitiveInfo** | Pointer to **bool** |  | [optional] 
+**RequireAuthenticationToInitiate** | Pointer to [**DaVinciFlowSettingsResponseRequireAuthenticationToInitiate**](DaVinciFlowSettingsResponseRequireAuthenticationToInitiate.md) |  | [optional] 
+**ScrubSensitiveInfo** | Pointer to [**DaVinciFlowSettingsResponseScrubSensitiveInfo**](DaVinciFlowSettingsResponseScrubSensitiveInfo.md) |  | [optional] 
 **SensitiveInfoFields** | Pointer to **[]string** |  | [optional] 
-**UseCSP** | Pointer to **bool** |  | [optional] 
-**UseCustomCSS** | Pointer to **bool** |  | [optional] 
-**UseCustomFlowPlayer** | Pointer to **bool** |  | [optional] 
-**UseCustomScript** | Pointer to **bool** |  | [optional] 
-**UseIntermediateLoadingScreen** | Pointer to **bool** |  | [optional] 
-**ValidateOnSave** | Pointer to **bool** |  | [optional] 
+**UseCSP** | Pointer to [**DaVinciFlowSettingsResponseUseCSP**](DaVinciFlowSettingsResponseUseCSP.md) |  | [optional] 
+**UseCustomCSS** | Pointer to [**DaVinciFlowSettingsResponseUseCustomCSS**](DaVinciFlowSettingsResponseUseCustomCSS.md) |  | [optional] 
+**UseCustomFlowPlayer** | Pointer to [**DaVinciFlowSettingsResponseUseCustomFlowPlayer**](DaVinciFlowSettingsResponseUseCustomFlowPlayer.md) |  | [optional] 
+**UseCustomScript** | Pointer to [**DaVinciFlowSettingsResponseUseCustomScript**](DaVinciFlowSettingsResponseUseCustomScript.md) |  | [optional] 
+**UseIntermediateLoadingScreen** | Pointer to [**DaVinciFlowSettingsResponseUseIntermediateLoadingScreen**](DaVinciFlowSettingsResponseUseIntermediateLoadingScreen.md) |  | [optional] 
+**ValidateOnSave** | Pointer to [**DaVinciFlowSettingsResponseValidateOnSave**](DaVinciFlowSettingsResponseValidateOnSave.md) |  | [optional] 
 
 ## Methods
 
@@ -151,20 +151,20 @@ HasCustomErrorScreenBrandLogoUrl returns a boolean if a field has been set.
 
 ### GetCustomErrorShowFooter
 
-`func (o *DaVinciFlowSettingsResponse) GetCustomErrorShowFooter() bool`
+`func (o *DaVinciFlowSettingsResponse) GetCustomErrorShowFooter() DaVinciFlowSettingsResponseCustomErrorShowFooter`
 
 GetCustomErrorShowFooter returns the CustomErrorShowFooter field if non-nil, zero value otherwise.
 
 ### GetCustomErrorShowFooterOk
 
-`func (o *DaVinciFlowSettingsResponse) GetCustomErrorShowFooterOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetCustomErrorShowFooterOk() (*DaVinciFlowSettingsResponseCustomErrorShowFooter, bool)`
 
 GetCustomErrorShowFooterOk returns a tuple with the CustomErrorShowFooter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomErrorShowFooter
 
-`func (o *DaVinciFlowSettingsResponse) SetCustomErrorShowFooter(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetCustomErrorShowFooter(v DaVinciFlowSettingsResponseCustomErrorShowFooter)`
 
 SetCustomErrorShowFooter sets CustomErrorShowFooter field to given value.
 
@@ -251,20 +251,20 @@ HasCustomTitle returns a boolean if a field has been set.
 
 ### GetDefaultErrorScreenBrandLogo
 
-`func (o *DaVinciFlowSettingsResponse) GetDefaultErrorScreenBrandLogo() bool`
+`func (o *DaVinciFlowSettingsResponse) GetDefaultErrorScreenBrandLogo() DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo`
 
 GetDefaultErrorScreenBrandLogo returns the DefaultErrorScreenBrandLogo field if non-nil, zero value otherwise.
 
 ### GetDefaultErrorScreenBrandLogoOk
 
-`func (o *DaVinciFlowSettingsResponse) GetDefaultErrorScreenBrandLogoOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetDefaultErrorScreenBrandLogoOk() (*DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo, bool)`
 
 GetDefaultErrorScreenBrandLogoOk returns a tuple with the DefaultErrorScreenBrandLogo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultErrorScreenBrandLogo
 
-`func (o *DaVinciFlowSettingsResponse) SetDefaultErrorScreenBrandLogo(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetDefaultErrorScreenBrandLogo(v DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo)`
 
 SetDefaultErrorScreenBrandLogo sets DefaultErrorScreenBrandLogo field to given value.
 
@@ -451,20 +451,20 @@ HasLogLevel returns a boolean if a field has been set.
 
 ### GetRequireAuthenticationToInitiate
 
-`func (o *DaVinciFlowSettingsResponse) GetRequireAuthenticationToInitiate() bool`
+`func (o *DaVinciFlowSettingsResponse) GetRequireAuthenticationToInitiate() DaVinciFlowSettingsResponseRequireAuthenticationToInitiate`
 
 GetRequireAuthenticationToInitiate returns the RequireAuthenticationToInitiate field if non-nil, zero value otherwise.
 
 ### GetRequireAuthenticationToInitiateOk
 
-`func (o *DaVinciFlowSettingsResponse) GetRequireAuthenticationToInitiateOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetRequireAuthenticationToInitiateOk() (*DaVinciFlowSettingsResponseRequireAuthenticationToInitiate, bool)`
 
 GetRequireAuthenticationToInitiateOk returns a tuple with the RequireAuthenticationToInitiate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequireAuthenticationToInitiate
 
-`func (o *DaVinciFlowSettingsResponse) SetRequireAuthenticationToInitiate(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetRequireAuthenticationToInitiate(v DaVinciFlowSettingsResponseRequireAuthenticationToInitiate)`
 
 SetRequireAuthenticationToInitiate sets RequireAuthenticationToInitiate field to given value.
 
@@ -476,20 +476,20 @@ HasRequireAuthenticationToInitiate returns a boolean if a field has been set.
 
 ### GetScrubSensitiveInfo
 
-`func (o *DaVinciFlowSettingsResponse) GetScrubSensitiveInfo() bool`
+`func (o *DaVinciFlowSettingsResponse) GetScrubSensitiveInfo() DaVinciFlowSettingsResponseScrubSensitiveInfo`
 
 GetScrubSensitiveInfo returns the ScrubSensitiveInfo field if non-nil, zero value otherwise.
 
 ### GetScrubSensitiveInfoOk
 
-`func (o *DaVinciFlowSettingsResponse) GetScrubSensitiveInfoOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetScrubSensitiveInfoOk() (*DaVinciFlowSettingsResponseScrubSensitiveInfo, bool)`
 
 GetScrubSensitiveInfoOk returns a tuple with the ScrubSensitiveInfo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScrubSensitiveInfo
 
-`func (o *DaVinciFlowSettingsResponse) SetScrubSensitiveInfo(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetScrubSensitiveInfo(v DaVinciFlowSettingsResponseScrubSensitiveInfo)`
 
 SetScrubSensitiveInfo sets ScrubSensitiveInfo field to given value.
 
@@ -526,20 +526,20 @@ HasSensitiveInfoFields returns a boolean if a field has been set.
 
 ### GetUseCSP
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCSP() bool`
+`func (o *DaVinciFlowSettingsResponse) GetUseCSP() DaVinciFlowSettingsResponseUseCSP`
 
 GetUseCSP returns the UseCSP field if non-nil, zero value otherwise.
 
 ### GetUseCSPOk
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCSPOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetUseCSPOk() (*DaVinciFlowSettingsResponseUseCSP, bool)`
 
 GetUseCSPOk returns a tuple with the UseCSP field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUseCSP
 
-`func (o *DaVinciFlowSettingsResponse) SetUseCSP(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetUseCSP(v DaVinciFlowSettingsResponseUseCSP)`
 
 SetUseCSP sets UseCSP field to given value.
 
@@ -551,20 +551,20 @@ HasUseCSP returns a boolean if a field has been set.
 
 ### GetUseCustomCSS
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomCSS() bool`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomCSS() DaVinciFlowSettingsResponseUseCustomCSS`
 
 GetUseCustomCSS returns the UseCustomCSS field if non-nil, zero value otherwise.
 
 ### GetUseCustomCSSOk
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomCSSOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomCSSOk() (*DaVinciFlowSettingsResponseUseCustomCSS, bool)`
 
 GetUseCustomCSSOk returns a tuple with the UseCustomCSS field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUseCustomCSS
 
-`func (o *DaVinciFlowSettingsResponse) SetUseCustomCSS(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetUseCustomCSS(v DaVinciFlowSettingsResponseUseCustomCSS)`
 
 SetUseCustomCSS sets UseCustomCSS field to given value.
 
@@ -576,20 +576,20 @@ HasUseCustomCSS returns a boolean if a field has been set.
 
 ### GetUseCustomFlowPlayer
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomFlowPlayer() bool`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomFlowPlayer() DaVinciFlowSettingsResponseUseCustomFlowPlayer`
 
 GetUseCustomFlowPlayer returns the UseCustomFlowPlayer field if non-nil, zero value otherwise.
 
 ### GetUseCustomFlowPlayerOk
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomFlowPlayerOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomFlowPlayerOk() (*DaVinciFlowSettingsResponseUseCustomFlowPlayer, bool)`
 
 GetUseCustomFlowPlayerOk returns a tuple with the UseCustomFlowPlayer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUseCustomFlowPlayer
 
-`func (o *DaVinciFlowSettingsResponse) SetUseCustomFlowPlayer(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetUseCustomFlowPlayer(v DaVinciFlowSettingsResponseUseCustomFlowPlayer)`
 
 SetUseCustomFlowPlayer sets UseCustomFlowPlayer field to given value.
 
@@ -601,20 +601,20 @@ HasUseCustomFlowPlayer returns a boolean if a field has been set.
 
 ### GetUseCustomScript
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomScript() bool`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomScript() DaVinciFlowSettingsResponseUseCustomScript`
 
 GetUseCustomScript returns the UseCustomScript field if non-nil, zero value otherwise.
 
 ### GetUseCustomScriptOk
 
-`func (o *DaVinciFlowSettingsResponse) GetUseCustomScriptOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomScriptOk() (*DaVinciFlowSettingsResponseUseCustomScript, bool)`
 
 GetUseCustomScriptOk returns a tuple with the UseCustomScript field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUseCustomScript
 
-`func (o *DaVinciFlowSettingsResponse) SetUseCustomScript(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetUseCustomScript(v DaVinciFlowSettingsResponseUseCustomScript)`
 
 SetUseCustomScript sets UseCustomScript field to given value.
 
@@ -626,20 +626,20 @@ HasUseCustomScript returns a boolean if a field has been set.
 
 ### GetUseIntermediateLoadingScreen
 
-`func (o *DaVinciFlowSettingsResponse) GetUseIntermediateLoadingScreen() bool`
+`func (o *DaVinciFlowSettingsResponse) GetUseIntermediateLoadingScreen() DaVinciFlowSettingsResponseUseIntermediateLoadingScreen`
 
 GetUseIntermediateLoadingScreen returns the UseIntermediateLoadingScreen field if non-nil, zero value otherwise.
 
 ### GetUseIntermediateLoadingScreenOk
 
-`func (o *DaVinciFlowSettingsResponse) GetUseIntermediateLoadingScreenOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetUseIntermediateLoadingScreenOk() (*DaVinciFlowSettingsResponseUseIntermediateLoadingScreen, bool)`
 
 GetUseIntermediateLoadingScreenOk returns a tuple with the UseIntermediateLoadingScreen field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUseIntermediateLoadingScreen
 
-`func (o *DaVinciFlowSettingsResponse) SetUseIntermediateLoadingScreen(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetUseIntermediateLoadingScreen(v DaVinciFlowSettingsResponseUseIntermediateLoadingScreen)`
 
 SetUseIntermediateLoadingScreen sets UseIntermediateLoadingScreen field to given value.
 
@@ -651,20 +651,20 @@ HasUseIntermediateLoadingScreen returns a boolean if a field has been set.
 
 ### GetValidateOnSave
 
-`func (o *DaVinciFlowSettingsResponse) GetValidateOnSave() bool`
+`func (o *DaVinciFlowSettingsResponse) GetValidateOnSave() DaVinciFlowSettingsResponseValidateOnSave`
 
 GetValidateOnSave returns the ValidateOnSave field if non-nil, zero value otherwise.
 
 ### GetValidateOnSaveOk
 
-`func (o *DaVinciFlowSettingsResponse) GetValidateOnSaveOk() (*bool, bool)`
+`func (o *DaVinciFlowSettingsResponse) GetValidateOnSaveOk() (*DaVinciFlowSettingsResponseValidateOnSave, bool)`
 
 GetValidateOnSaveOk returns a tuple with the ValidateOnSave field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValidateOnSave
 
-`func (o *DaVinciFlowSettingsResponse) SetValidateOnSave(v bool)`
+`func (o *DaVinciFlowSettingsResponse) SetValidateOnSave(v DaVinciFlowSettingsResponseValidateOnSave)`
 
 SetValidateOnSave sets ValidateOnSave field to given value.
 

@@ -36,6 +36,8 @@ type BadRequestErrorDetailInnerError struct {
 	QuotaResetTime       *time.Time `json:"quotaResetTime,omitempty"`
 	RangeMaximumValue    *float32   `json:"rangeMaximumValue,omitempty"`
 	RangeMinimumValue    *float32   `json:"rangeMinimumValue,omitempty"`
+	SupportedAttributes  []string   `json:"supportedAttributes,omitempty"`
+	SupportedOperators   []string   `json:"supportedOperators,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -346,6 +348,70 @@ func (o *BadRequestErrorDetailInnerError) SetRangeMinimumValue(v float32) {
 	o.RangeMinimumValue = &v
 }
 
+// GetSupportedAttributes returns the SupportedAttributes field value if set, zero value otherwise.
+func (o *BadRequestErrorDetailInnerError) GetSupportedAttributes() []string {
+	if o == nil || IsNil(o.SupportedAttributes) {
+		var ret []string
+		return ret
+	}
+	return o.SupportedAttributes
+}
+
+// GetSupportedAttributesOk returns a tuple with the SupportedAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BadRequestErrorDetailInnerError) GetSupportedAttributesOk() ([]string, bool) {
+	if o == nil || IsNil(o.SupportedAttributes) {
+		return nil, false
+	}
+	return o.SupportedAttributes, true
+}
+
+// HasSupportedAttributes returns a boolean if a field has been set.
+func (o *BadRequestErrorDetailInnerError) HasSupportedAttributes() bool {
+	if o != nil && !IsNil(o.SupportedAttributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedAttributes gets a reference to the given []string and assigns it to the SupportedAttributes field.
+func (o *BadRequestErrorDetailInnerError) SetSupportedAttributes(v []string) {
+	o.SupportedAttributes = v
+}
+
+// GetSupportedOperators returns the SupportedOperators field value if set, zero value otherwise.
+func (o *BadRequestErrorDetailInnerError) GetSupportedOperators() []string {
+	if o == nil || IsNil(o.SupportedOperators) {
+		var ret []string
+		return ret
+	}
+	return o.SupportedOperators
+}
+
+// GetSupportedOperatorsOk returns a tuple with the SupportedOperators field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BadRequestErrorDetailInnerError) GetSupportedOperatorsOk() ([]string, bool) {
+	if o == nil || IsNil(o.SupportedOperators) {
+		return nil, false
+	}
+	return o.SupportedOperators, true
+}
+
+// HasSupportedOperators returns a boolean if a field has been set.
+func (o *BadRequestErrorDetailInnerError) HasSupportedOperators() bool {
+	if o != nil && !IsNil(o.SupportedOperators) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedOperators gets a reference to the given []string and assigns it to the SupportedOperators field.
+func (o *BadRequestErrorDetailInnerError) SetSupportedOperators(v []string) {
+	o.SupportedOperators = v
+}
+
 func (o BadRequestErrorDetailInnerError) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -383,6 +449,12 @@ func (o BadRequestErrorDetailInnerError) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.RangeMinimumValue) {
 		toSerialize["rangeMinimumValue"] = o.RangeMinimumValue
 	}
+	if !IsNil(o.SupportedAttributes) {
+		toSerialize["supportedAttributes"] = o.SupportedAttributes
+	}
+	if !IsNil(o.SupportedOperators) {
+		toSerialize["supportedOperators"] = o.SupportedOperators
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -414,6 +486,8 @@ func (o *BadRequestErrorDetailInnerError) UnmarshalJSON(data []byte) (err error)
 		delete(additionalProperties, "quotaResetTime")
 		delete(additionalProperties, "rangeMaximumValue")
 		delete(additionalProperties, "rangeMinimumValue")
+		delete(additionalProperties, "supportedAttributes")
+		delete(additionalProperties, "supportedOperators")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -449,6 +523,12 @@ func (o BadRequestErrorDetailInnerError) LogValue() slog.Value {
 	}
 	if !IsNil(o.RangeMinimumValue) {
 		logAttrs = append(logAttrs, slog.Any("rangeMinimumValue", *o.RangeMinimumValue))
+	}
+	if !IsNil(o.SupportedAttributes) {
+		logAttrs = append(logAttrs, slog.Any("supportedAttributes", o.SupportedAttributes))
+	}
+	if !IsNil(o.SupportedOperators) {
+		logAttrs = append(logAttrs, slog.Any("supportedOperators", o.SupportedOperators))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

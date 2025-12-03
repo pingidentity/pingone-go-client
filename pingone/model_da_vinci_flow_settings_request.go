@@ -24,31 +24,31 @@ var _ slog.LogValuer = &DaVinciFlowSettingsRequest{}
 
 // DaVinciFlowSettingsRequest struct for DaVinciFlowSettingsRequest
 type DaVinciFlowSettingsRequest struct {
-	Csp                             *string                                                  `json:"csp,omitempty"`
-	Css                             *string                                                  `json:"css,omitempty"`
-	CssLinks                        []string                                                 `json:"cssLinks,omitempty"`
-	CustomErrorScreenBrandLogoUrl   *string                                                  `json:"customErrorScreenBrandLogoUrl,omitempty"`
-	CustomErrorShowFooter           *bool                                                    `json:"customErrorShowFooter,omitempty"`
-	CustomFaviconLink               *string                                                  `json:"customFaviconLink,omitempty"`
-	CustomLogoURLSelection          *int32                                                   `json:"customLogoURLSelection,omitempty"`
-	CustomTitle                     *string                                                  `json:"customTitle,omitempty"`
-	DefaultErrorScreenBrandLogo     *bool                                                    `json:"defaultErrorScreenBrandLogo,omitempty"`
-	FlowHttpTimeoutInSeconds        *int32                                                   `json:"flowHttpTimeoutInSeconds,omitempty"`
-	FlowTimeoutInSeconds            *int32                                                   `json:"flowTimeoutInSeconds,omitempty"`
-	IntermediateLoadingScreenCSS    *DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS  `json:"intermediateLoadingScreenCSS,omitempty"`
-	IntermediateLoadingScreenHTML   *DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML `json:"intermediateLoadingScreenHTML,omitempty"`
-	JsCustomFlowPlayer              *string                                                  `json:"jsCustomFlowPlayer,omitempty"`
-	JsLinks                         []DaVinciFlowSettingsRequestJsLink                       `json:"jsLinks,omitempty"`
-	LogLevel                        *int32                                                   `json:"logLevel,omitempty"`
-	RequireAuthenticationToInitiate *bool                                                    `json:"requireAuthenticationToInitiate,omitempty"`
-	ScrubSensitiveInfo              *bool                                                    `json:"scrubSensitiveInfo,omitempty"`
-	SensitiveInfoFields             []string                                                 `json:"sensitiveInfoFields,omitempty"`
-	UseCSP                          *bool                                                    `json:"useCSP,omitempty"`
-	UseCustomCSS                    *bool                                                    `json:"useCustomCSS,omitempty"`
-	UseCustomFlowPlayer             *bool                                                    `json:"useCustomFlowPlayer,omitempty"`
-	UseCustomScript                 *bool                                                    `json:"useCustomScript,omitempty"`
-	UseIntermediateLoadingScreen    *bool                                                    `json:"useIntermediateLoadingScreen,omitempty"`
-	ValidateOnSave                  *bool                                                    `json:"validateOnSave,omitempty"`
+	Csp                             *string                                                    `json:"csp,omitempty"`
+	Css                             *string                                                    `json:"css,omitempty"`
+	CssLinks                        []string                                                   `json:"cssLinks,omitempty"`
+	CustomErrorScreenBrandLogoUrl   *string                                                    `json:"customErrorScreenBrandLogoUrl,omitempty"`
+	CustomErrorShowFooter           *DaVinciFlowSettingsRequestCustomErrorShowFooter           `json:"customErrorShowFooter,omitempty"`
+	CustomFaviconLink               *string                                                    `json:"customFaviconLink,omitempty"`
+	CustomLogoURLSelection          *int32                                                     `json:"customLogoURLSelection,omitempty"`
+	CustomTitle                     *string                                                    `json:"customTitle,omitempty"`
+	DefaultErrorScreenBrandLogo     *DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo     `json:"defaultErrorScreenBrandLogo,omitempty"`
+	FlowHttpTimeoutInSeconds        *int32                                                     `json:"flowHttpTimeoutInSeconds,omitempty"`
+	FlowTimeoutInSeconds            *int32                                                     `json:"flowTimeoutInSeconds,omitempty"`
+	IntermediateLoadingScreenCSS    *DaVinciFlowSettingsRequestIntermediateLoadingScreenCSS    `json:"intermediateLoadingScreenCSS,omitempty"`
+	IntermediateLoadingScreenHTML   *DaVinciFlowSettingsRequestIntermediateLoadingScreenHTML   `json:"intermediateLoadingScreenHTML,omitempty"`
+	JsCustomFlowPlayer              *string                                                    `json:"jsCustomFlowPlayer,omitempty"`
+	JsLinks                         []DaVinciFlowSettingsRequestJsLink                         `json:"jsLinks,omitempty"`
+	LogLevel                        *int32                                                     `json:"logLevel,omitempty"`
+	RequireAuthenticationToInitiate *DaVinciFlowSettingsRequestRequireAuthenticationToInitiate `json:"requireAuthenticationToInitiate,omitempty"`
+	ScrubSensitiveInfo              *DaVinciFlowSettingsRequestScrubSensitiveInfo              `json:"scrubSensitiveInfo,omitempty"`
+	SensitiveInfoFields             []string                                                   `json:"sensitiveInfoFields,omitempty"`
+	UseCSP                          *DaVinciFlowSettingsRequestUseCSP                          `json:"useCSP,omitempty"`
+	UseCustomCSS                    *DaVinciFlowSettingsRequestUseCustomCSS                    `json:"useCustomCSS,omitempty"`
+	UseCustomFlowPlayer             *DaVinciFlowSettingsRequestUseCustomFlowPlayer             `json:"useCustomFlowPlayer,omitempty"`
+	UseCustomScript                 *DaVinciFlowSettingsRequestUseCustomScript                 `json:"useCustomScript,omitempty"`
+	UseIntermediateLoadingScreen    *DaVinciFlowSettingsRequestUseIntermediateLoadingScreen    `json:"useIntermediateLoadingScreen,omitempty"`
+	ValidateOnSave                  *DaVinciFlowSettingsRequestValidateOnSave                  `json:"validateOnSave,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -200,9 +200,9 @@ func (o *DaVinciFlowSettingsRequest) SetCustomErrorScreenBrandLogoUrl(v string) 
 }
 
 // GetCustomErrorShowFooter returns the CustomErrorShowFooter field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetCustomErrorShowFooter() bool {
+func (o *DaVinciFlowSettingsRequest) GetCustomErrorShowFooter() DaVinciFlowSettingsRequestCustomErrorShowFooter {
 	if o == nil || IsNil(o.CustomErrorShowFooter) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestCustomErrorShowFooter
 		return ret
 	}
 	return *o.CustomErrorShowFooter
@@ -210,7 +210,7 @@ func (o *DaVinciFlowSettingsRequest) GetCustomErrorShowFooter() bool {
 
 // GetCustomErrorShowFooterOk returns a tuple with the CustomErrorShowFooter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetCustomErrorShowFooterOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetCustomErrorShowFooterOk() (*DaVinciFlowSettingsRequestCustomErrorShowFooter, bool) {
 	if o == nil || IsNil(o.CustomErrorShowFooter) {
 		return nil, false
 	}
@@ -226,8 +226,8 @@ func (o *DaVinciFlowSettingsRequest) HasCustomErrorShowFooter() bool {
 	return false
 }
 
-// SetCustomErrorShowFooter gets a reference to the given bool and assigns it to the CustomErrorShowFooter field.
-func (o *DaVinciFlowSettingsRequest) SetCustomErrorShowFooter(v bool) {
+// SetCustomErrorShowFooter gets a reference to the given DaVinciFlowSettingsRequestCustomErrorShowFooter and assigns it to the CustomErrorShowFooter field.
+func (o *DaVinciFlowSettingsRequest) SetCustomErrorShowFooter(v DaVinciFlowSettingsRequestCustomErrorShowFooter) {
 	o.CustomErrorShowFooter = &v
 }
 
@@ -328,9 +328,9 @@ func (o *DaVinciFlowSettingsRequest) SetCustomTitle(v string) {
 }
 
 // GetDefaultErrorScreenBrandLogo returns the DefaultErrorScreenBrandLogo field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetDefaultErrorScreenBrandLogo() bool {
+func (o *DaVinciFlowSettingsRequest) GetDefaultErrorScreenBrandLogo() DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo {
 	if o == nil || IsNil(o.DefaultErrorScreenBrandLogo) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo
 		return ret
 	}
 	return *o.DefaultErrorScreenBrandLogo
@@ -338,7 +338,7 @@ func (o *DaVinciFlowSettingsRequest) GetDefaultErrorScreenBrandLogo() bool {
 
 // GetDefaultErrorScreenBrandLogoOk returns a tuple with the DefaultErrorScreenBrandLogo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetDefaultErrorScreenBrandLogoOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetDefaultErrorScreenBrandLogoOk() (*DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo, bool) {
 	if o == nil || IsNil(o.DefaultErrorScreenBrandLogo) {
 		return nil, false
 	}
@@ -354,8 +354,8 @@ func (o *DaVinciFlowSettingsRequest) HasDefaultErrorScreenBrandLogo() bool {
 	return false
 }
 
-// SetDefaultErrorScreenBrandLogo gets a reference to the given bool and assigns it to the DefaultErrorScreenBrandLogo field.
-func (o *DaVinciFlowSettingsRequest) SetDefaultErrorScreenBrandLogo(v bool) {
+// SetDefaultErrorScreenBrandLogo gets a reference to the given DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo and assigns it to the DefaultErrorScreenBrandLogo field.
+func (o *DaVinciFlowSettingsRequest) SetDefaultErrorScreenBrandLogo(v DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo) {
 	o.DefaultErrorScreenBrandLogo = &v
 }
 
@@ -584,9 +584,9 @@ func (o *DaVinciFlowSettingsRequest) SetLogLevel(v int32) {
 }
 
 // GetRequireAuthenticationToInitiate returns the RequireAuthenticationToInitiate field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiate() bool {
+func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiate() DaVinciFlowSettingsRequestRequireAuthenticationToInitiate {
 	if o == nil || IsNil(o.RequireAuthenticationToInitiate) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestRequireAuthenticationToInitiate
 		return ret
 	}
 	return *o.RequireAuthenticationToInitiate
@@ -594,7 +594,7 @@ func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiate() bool {
 
 // GetRequireAuthenticationToInitiateOk returns a tuple with the RequireAuthenticationToInitiate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiateOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiateOk() (*DaVinciFlowSettingsRequestRequireAuthenticationToInitiate, bool) {
 	if o == nil || IsNil(o.RequireAuthenticationToInitiate) {
 		return nil, false
 	}
@@ -610,15 +610,15 @@ func (o *DaVinciFlowSettingsRequest) HasRequireAuthenticationToInitiate() bool {
 	return false
 }
 
-// SetRequireAuthenticationToInitiate gets a reference to the given bool and assigns it to the RequireAuthenticationToInitiate field.
-func (o *DaVinciFlowSettingsRequest) SetRequireAuthenticationToInitiate(v bool) {
+// SetRequireAuthenticationToInitiate gets a reference to the given DaVinciFlowSettingsRequestRequireAuthenticationToInitiate and assigns it to the RequireAuthenticationToInitiate field.
+func (o *DaVinciFlowSettingsRequest) SetRequireAuthenticationToInitiate(v DaVinciFlowSettingsRequestRequireAuthenticationToInitiate) {
 	o.RequireAuthenticationToInitiate = &v
 }
 
 // GetScrubSensitiveInfo returns the ScrubSensitiveInfo field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetScrubSensitiveInfo() bool {
+func (o *DaVinciFlowSettingsRequest) GetScrubSensitiveInfo() DaVinciFlowSettingsRequestScrubSensitiveInfo {
 	if o == nil || IsNil(o.ScrubSensitiveInfo) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestScrubSensitiveInfo
 		return ret
 	}
 	return *o.ScrubSensitiveInfo
@@ -626,7 +626,7 @@ func (o *DaVinciFlowSettingsRequest) GetScrubSensitiveInfo() bool {
 
 // GetScrubSensitiveInfoOk returns a tuple with the ScrubSensitiveInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetScrubSensitiveInfoOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetScrubSensitiveInfoOk() (*DaVinciFlowSettingsRequestScrubSensitiveInfo, bool) {
 	if o == nil || IsNil(o.ScrubSensitiveInfo) {
 		return nil, false
 	}
@@ -642,8 +642,8 @@ func (o *DaVinciFlowSettingsRequest) HasScrubSensitiveInfo() bool {
 	return false
 }
 
-// SetScrubSensitiveInfo gets a reference to the given bool and assigns it to the ScrubSensitiveInfo field.
-func (o *DaVinciFlowSettingsRequest) SetScrubSensitiveInfo(v bool) {
+// SetScrubSensitiveInfo gets a reference to the given DaVinciFlowSettingsRequestScrubSensitiveInfo and assigns it to the ScrubSensitiveInfo field.
+func (o *DaVinciFlowSettingsRequest) SetScrubSensitiveInfo(v DaVinciFlowSettingsRequestScrubSensitiveInfo) {
 	o.ScrubSensitiveInfo = &v
 }
 
@@ -680,9 +680,9 @@ func (o *DaVinciFlowSettingsRequest) SetSensitiveInfoFields(v []string) {
 }
 
 // GetUseCSP returns the UseCSP field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetUseCSP() bool {
+func (o *DaVinciFlowSettingsRequest) GetUseCSP() DaVinciFlowSettingsRequestUseCSP {
 	if o == nil || IsNil(o.UseCSP) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestUseCSP
 		return ret
 	}
 	return *o.UseCSP
@@ -690,7 +690,7 @@ func (o *DaVinciFlowSettingsRequest) GetUseCSP() bool {
 
 // GetUseCSPOk returns a tuple with the UseCSP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetUseCSPOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetUseCSPOk() (*DaVinciFlowSettingsRequestUseCSP, bool) {
 	if o == nil || IsNil(o.UseCSP) {
 		return nil, false
 	}
@@ -706,15 +706,15 @@ func (o *DaVinciFlowSettingsRequest) HasUseCSP() bool {
 	return false
 }
 
-// SetUseCSP gets a reference to the given bool and assigns it to the UseCSP field.
-func (o *DaVinciFlowSettingsRequest) SetUseCSP(v bool) {
+// SetUseCSP gets a reference to the given DaVinciFlowSettingsRequestUseCSP and assigns it to the UseCSP field.
+func (o *DaVinciFlowSettingsRequest) SetUseCSP(v DaVinciFlowSettingsRequestUseCSP) {
 	o.UseCSP = &v
 }
 
 // GetUseCustomCSS returns the UseCustomCSS field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomCSS() bool {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomCSS() DaVinciFlowSettingsRequestUseCustomCSS {
 	if o == nil || IsNil(o.UseCustomCSS) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestUseCustomCSS
 		return ret
 	}
 	return *o.UseCustomCSS
@@ -722,7 +722,7 @@ func (o *DaVinciFlowSettingsRequest) GetUseCustomCSS() bool {
 
 // GetUseCustomCSSOk returns a tuple with the UseCustomCSS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomCSSOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomCSSOk() (*DaVinciFlowSettingsRequestUseCustomCSS, bool) {
 	if o == nil || IsNil(o.UseCustomCSS) {
 		return nil, false
 	}
@@ -738,15 +738,15 @@ func (o *DaVinciFlowSettingsRequest) HasUseCustomCSS() bool {
 	return false
 }
 
-// SetUseCustomCSS gets a reference to the given bool and assigns it to the UseCustomCSS field.
-func (o *DaVinciFlowSettingsRequest) SetUseCustomCSS(v bool) {
+// SetUseCustomCSS gets a reference to the given DaVinciFlowSettingsRequestUseCustomCSS and assigns it to the UseCustomCSS field.
+func (o *DaVinciFlowSettingsRequest) SetUseCustomCSS(v DaVinciFlowSettingsRequestUseCustomCSS) {
 	o.UseCustomCSS = &v
 }
 
 // GetUseCustomFlowPlayer returns the UseCustomFlowPlayer field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomFlowPlayer() bool {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomFlowPlayer() DaVinciFlowSettingsRequestUseCustomFlowPlayer {
 	if o == nil || IsNil(o.UseCustomFlowPlayer) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestUseCustomFlowPlayer
 		return ret
 	}
 	return *o.UseCustomFlowPlayer
@@ -754,7 +754,7 @@ func (o *DaVinciFlowSettingsRequest) GetUseCustomFlowPlayer() bool {
 
 // GetUseCustomFlowPlayerOk returns a tuple with the UseCustomFlowPlayer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomFlowPlayerOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomFlowPlayerOk() (*DaVinciFlowSettingsRequestUseCustomFlowPlayer, bool) {
 	if o == nil || IsNil(o.UseCustomFlowPlayer) {
 		return nil, false
 	}
@@ -770,15 +770,15 @@ func (o *DaVinciFlowSettingsRequest) HasUseCustomFlowPlayer() bool {
 	return false
 }
 
-// SetUseCustomFlowPlayer gets a reference to the given bool and assigns it to the UseCustomFlowPlayer field.
-func (o *DaVinciFlowSettingsRequest) SetUseCustomFlowPlayer(v bool) {
+// SetUseCustomFlowPlayer gets a reference to the given DaVinciFlowSettingsRequestUseCustomFlowPlayer and assigns it to the UseCustomFlowPlayer field.
+func (o *DaVinciFlowSettingsRequest) SetUseCustomFlowPlayer(v DaVinciFlowSettingsRequestUseCustomFlowPlayer) {
 	o.UseCustomFlowPlayer = &v
 }
 
 // GetUseCustomScript returns the UseCustomScript field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomScript() bool {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomScript() DaVinciFlowSettingsRequestUseCustomScript {
 	if o == nil || IsNil(o.UseCustomScript) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestUseCustomScript
 		return ret
 	}
 	return *o.UseCustomScript
@@ -786,7 +786,7 @@ func (o *DaVinciFlowSettingsRequest) GetUseCustomScript() bool {
 
 // GetUseCustomScriptOk returns a tuple with the UseCustomScript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetUseCustomScriptOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetUseCustomScriptOk() (*DaVinciFlowSettingsRequestUseCustomScript, bool) {
 	if o == nil || IsNil(o.UseCustomScript) {
 		return nil, false
 	}
@@ -802,15 +802,15 @@ func (o *DaVinciFlowSettingsRequest) HasUseCustomScript() bool {
 	return false
 }
 
-// SetUseCustomScript gets a reference to the given bool and assigns it to the UseCustomScript field.
-func (o *DaVinciFlowSettingsRequest) SetUseCustomScript(v bool) {
+// SetUseCustomScript gets a reference to the given DaVinciFlowSettingsRequestUseCustomScript and assigns it to the UseCustomScript field.
+func (o *DaVinciFlowSettingsRequest) SetUseCustomScript(v DaVinciFlowSettingsRequestUseCustomScript) {
 	o.UseCustomScript = &v
 }
 
 // GetUseIntermediateLoadingScreen returns the UseIntermediateLoadingScreen field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreen() bool {
+func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreen() DaVinciFlowSettingsRequestUseIntermediateLoadingScreen {
 	if o == nil || IsNil(o.UseIntermediateLoadingScreen) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestUseIntermediateLoadingScreen
 		return ret
 	}
 	return *o.UseIntermediateLoadingScreen
@@ -818,7 +818,7 @@ func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreen() bool {
 
 // GetUseIntermediateLoadingScreenOk returns a tuple with the UseIntermediateLoadingScreen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreenOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreenOk() (*DaVinciFlowSettingsRequestUseIntermediateLoadingScreen, bool) {
 	if o == nil || IsNil(o.UseIntermediateLoadingScreen) {
 		return nil, false
 	}
@@ -834,15 +834,15 @@ func (o *DaVinciFlowSettingsRequest) HasUseIntermediateLoadingScreen() bool {
 	return false
 }
 
-// SetUseIntermediateLoadingScreen gets a reference to the given bool and assigns it to the UseIntermediateLoadingScreen field.
-func (o *DaVinciFlowSettingsRequest) SetUseIntermediateLoadingScreen(v bool) {
+// SetUseIntermediateLoadingScreen gets a reference to the given DaVinciFlowSettingsRequestUseIntermediateLoadingScreen and assigns it to the UseIntermediateLoadingScreen field.
+func (o *DaVinciFlowSettingsRequest) SetUseIntermediateLoadingScreen(v DaVinciFlowSettingsRequestUseIntermediateLoadingScreen) {
 	o.UseIntermediateLoadingScreen = &v
 }
 
 // GetValidateOnSave returns the ValidateOnSave field value if set, zero value otherwise.
-func (o *DaVinciFlowSettingsRequest) GetValidateOnSave() bool {
+func (o *DaVinciFlowSettingsRequest) GetValidateOnSave() DaVinciFlowSettingsRequestValidateOnSave {
 	if o == nil || IsNil(o.ValidateOnSave) {
-		var ret bool
+		var ret DaVinciFlowSettingsRequestValidateOnSave
 		return ret
 	}
 	return *o.ValidateOnSave
@@ -850,7 +850,7 @@ func (o *DaVinciFlowSettingsRequest) GetValidateOnSave() bool {
 
 // GetValidateOnSaveOk returns a tuple with the ValidateOnSave field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowSettingsRequest) GetValidateOnSaveOk() (*bool, bool) {
+func (o *DaVinciFlowSettingsRequest) GetValidateOnSaveOk() (*DaVinciFlowSettingsRequestValidateOnSave, bool) {
 	if o == nil || IsNil(o.ValidateOnSave) {
 		return nil, false
 	}
@@ -866,8 +866,8 @@ func (o *DaVinciFlowSettingsRequest) HasValidateOnSave() bool {
 	return false
 }
 
-// SetValidateOnSave gets a reference to the given bool and assigns it to the ValidateOnSave field.
-func (o *DaVinciFlowSettingsRequest) SetValidateOnSave(v bool) {
+// SetValidateOnSave gets a reference to the given DaVinciFlowSettingsRequestValidateOnSave and assigns it to the ValidateOnSave field.
+func (o *DaVinciFlowSettingsRequest) SetValidateOnSave(v DaVinciFlowSettingsRequestValidateOnSave) {
 	o.ValidateOnSave = &v
 }
 

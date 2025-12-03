@@ -13,7 +13,6 @@ package pingone
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 )
 
@@ -25,7 +24,7 @@ var _ slog.LogValuer = &EnvironmentBillOfMaterialsProductConsole{}
 
 // EnvironmentBillOfMaterialsProductConsole struct for EnvironmentBillOfMaterialsProductConsole
 type EnvironmentBillOfMaterialsProductConsole struct {
-	Href                 string `json:"href"`
+	Href                 *string `json:"href,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,9 +34,8 @@ type _EnvironmentBillOfMaterialsProductConsole EnvironmentBillOfMaterialsProduct
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentBillOfMaterialsProductConsole(href string) *EnvironmentBillOfMaterialsProductConsole {
+func NewEnvironmentBillOfMaterialsProductConsole() *EnvironmentBillOfMaterialsProductConsole {
 	this := EnvironmentBillOfMaterialsProductConsole{}
-	this.Href = href
 	return &this
 }
 
@@ -49,28 +47,36 @@ func NewEnvironmentBillOfMaterialsProductConsoleWithDefaults() *EnvironmentBillO
 	return &this
 }
 
-// GetHref returns the Href field value
+// GetHref returns the Href field value if set, zero value otherwise.
 func (o *EnvironmentBillOfMaterialsProductConsole) GetHref() string {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
-
-	return o.Href
+	return *o.Href
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnvironmentBillOfMaterialsProductConsole) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-	return &o.Href, true
+	return o.Href, true
 }
 
-// SetHref sets field value
+// HasHref returns a boolean if a field has been set.
+func (o *EnvironmentBillOfMaterialsProductConsole) HasHref() bool {
+	if o != nil && !IsNil(o.Href) {
+		return true
+	}
+
+	return false
+}
+
+// SetHref gets a reference to the given string and assigns it to the Href field.
 func (o *EnvironmentBillOfMaterialsProductConsole) SetHref(v string) {
-	o.Href = v
+	o.Href = &v
 }
 
 func (o EnvironmentBillOfMaterialsProductConsole) MarshalJSON() ([]byte, error) {
@@ -83,7 +89,9 @@ func (o EnvironmentBillOfMaterialsProductConsole) MarshalJSON() ([]byte, error) 
 
 func (o EnvironmentBillOfMaterialsProductConsole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["href"] = o.Href
+	if !IsNil(o.Href) {
+		toSerialize["href"] = o.Href
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -93,27 +101,6 @@ func (o EnvironmentBillOfMaterialsProductConsole) ToMap() (map[string]interface{
 }
 
 func (o *EnvironmentBillOfMaterialsProductConsole) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"href",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varEnvironmentBillOfMaterialsProductConsole := _EnvironmentBillOfMaterialsProductConsole{}
 
 	err = json.Unmarshal(data, &varEnvironmentBillOfMaterialsProductConsole)
@@ -137,7 +124,9 @@ func (o *EnvironmentBillOfMaterialsProductConsole) UnmarshalJSON(data []byte) (e
 func (o EnvironmentBillOfMaterialsProductConsole) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
-	logAttrs = append(logAttrs, slog.Any("href", o.Href))
+	if !IsNil(o.Href) {
+		logAttrs = append(logAttrs, slog.Any("href", *o.Href))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)

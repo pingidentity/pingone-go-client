@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2025.11.18-development
+  version: 2025.12.01-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -2453,8 +2453,14 @@ components:
             - allowedValues
             quotaResetTime: 2000-01-23T04:56:07.000+00:00
             existingId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            supportedOperators:
+            - supportedOperators
+            - supportedOperators
             claim: claim
             rangeMaximumValue: 5.637376656633329
+            supportedAttributes:
+            - supportedAttributes
+            - supportedAttributes
             allowedPattern: allowedPattern
             maximumValue: 1.4658129805029452
             quotaLimit: 5.962133916683182
@@ -2468,8 +2474,14 @@ components:
             - allowedValues
             quotaResetTime: 2000-01-23T04:56:07.000+00:00
             existingId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            supportedOperators:
+            - supportedOperators
+            - supportedOperators
             claim: claim
             rangeMaximumValue: 5.637376656633329
+            supportedAttributes:
+            - supportedAttributes
+            - supportedAttributes
             allowedPattern: allowedPattern
             maximumValue: 1.4658129805029452
             quotaLimit: 5.962133916683182
@@ -2490,6 +2502,7 @@ components:
           minLength: 1
           title: Bad Request Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Bad_Request_Error_Detail"
@@ -4539,7 +4552,8 @@ components:
         name:
           maxLength: 256
           minLength: 1
-          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_-]).?(?!.*((<)|(\\$\\{)))"
+          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_\\-\\[\\]]).?(?!.*((<)|(\\\
+            $\\{)))"
           title: DaVinci Flow Create Request Name
           type: string
         color:
@@ -6003,7 +6017,8 @@ components:
         name:
           maxLength: 256
           minLength: 1
-          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_-]).?(?!.*((<)|(\\$\\{)))"
+          pattern: "^\\s*([\\p{L}\\p{M}\\p{N}\\p{So}/.'_\\-\\[\\]]).?(?!.*((<)|(\\\
+            $\\{)))"
           title: DaVinci Flow Replace Request Name
           type: string
         color:
@@ -6568,8 +6583,7 @@ components:
           title: DaVinci Flow Settings Request Custom Error Screen Brand Logo Url
           type: string
         customErrorShowFooter:
-          title: DaVinci Flow Settings Request Custom Error Show Footer
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Custom_Error_Show_Footer"
         customFaviconLink:
           title: DaVinci Flow Settings Request Custom Favicon Link
           type: string
@@ -6580,8 +6594,7 @@ components:
           title: DaVinci Flow Settings Request Custom Title
           type: string
         defaultErrorScreenBrandLogo:
-          title: DaVinci Flow Settings Request Default Error Screen Brand Logo
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Default_Error_Screen_Brand_Logo"
         flowHttpTimeoutInSeconds:
           title: DaVinci Flow Settings Request Flow Http Timeout In Seconds
           type: integer
@@ -6605,34 +6618,26 @@ components:
           title: DaVinci Flow Settings Request Log Level
           type: integer
         requireAuthenticationToInitiate:
-          title: DaVinci Flow Settings Request Require Authentication To Initiate
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Require_Authentication_To_Initiate"
         scrubSensitiveInfo:
-          title: DaVinci Flow Settings Request Scrub Sensitive Info
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Scrub_Sensitive_Info"
         sensitiveInfoFields:
           items:
             title: DaVinci Flow Settings Request Sensitive Info Field
             type: string
           type: array
         useCSP:
-          title: DaVinci Flow Settings Request Use CSP
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_CSP"
         useCustomCSS:
-          title: DaVinci Flow Settings Request Use Custom CSS
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_CSS"
         useCustomFlowPlayer:
-          title: DaVinci Flow Settings Request Use Custom Flow Player
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_Flow_Player"
         useCustomScript:
-          title: DaVinci Flow Settings Request Use Custom Script
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_Script"
         useIntermediateLoadingScreen:
-          title: DaVinci Flow Settings Request Use Intermediate Loading Screen
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Intermediate_Loading_Screen"
         validateOnSave:
-          title: DaVinci Flow Settings Request Validate On Save
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Validate_On_Save"
       title: DaVinci Flow Settings Request
     DaVinciFlowSettingsResponse:
       additionalProperties: {}
@@ -6692,7 +6697,7 @@ components:
         customErrorScreenBrandLogoUrl:
           title: DaVinci Flow Settings Response Custom Error Screen Brand Logo Url
         customErrorShowFooter:
-          title: DaVinci Flow Settings Response Custom Error Show Footer
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Custom_Error_Show_Footer"
         customFaviconLink:
           title: DaVinci Flow Settings Response Custom Favicon Link
         customLogoURLSelection:
@@ -6700,7 +6705,7 @@ components:
         customTitle:
           title: DaVinci Flow Settings Response Custom Title
         defaultErrorScreenBrandLogo:
-          title: DaVinci Flow Settings Response Default Error Screen Brand Logo
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Default_Error_Screen_Brand_Logo"
         flowHttpTimeoutInSeconds:
           title: DaVinci Flow Settings Response Flow Http Timeout In Seconds
         flowTimeoutInSeconds:
@@ -6720,25 +6725,25 @@ components:
           minimum: 1
           title: DaVinci Flow Settings Response Log Level
         requireAuthenticationToInitiate:
-          title: DaVinci Flow Settings Response Require Authentication To Initiate
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Require_Authentication_To_Initiate"
         scrubSensitiveInfo:
-          title: DaVinci Flow Settings Response Scrub Sensitive Info
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Scrub_Sensitive_Info"
         sensitiveInfoFields:
           items:
             title: DaVinci Flow Settings Response Sensitive Info Field
           title: DaVinci Flow Settings Response Sensitive Info Fields
         useCSP:
-          title: DaVinci Flow Settings Response Use CSP
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_CSP"
         useCustomCSS:
-          title: DaVinci Flow Settings Response Use Custom CSS
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_CSS"
         useCustomFlowPlayer:
-          title: DaVinci Flow Settings Response Use Custom Flow Player
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_Flow_Player"
         useCustomScript:
-          title: DaVinci Flow Settings Response Use Custom Script
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_Script"
         useIntermediateLoadingScreen:
-          title: DaVinci Flow Settings Response Use Intermediate Loading Screen
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Intermediate_Loading_Screen"
         validateOnSave:
-          title: DaVinci Flow Settings Response Validate On Save
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Validate_On_Save"
       title: DaVinci Flow Settings Response
     DaVinciFlowTriggerRequest:
       example:
@@ -7974,9 +7979,9 @@ components:
     DirectoryTotalIdentitiesCountResponse:
       properties:
         date:
-          format: date-time
+          format: unix-date-time
           title: Directory Total Identities Count Response Date
-          type: string
+          type: integer
         totalIdentities:
           format: int32
           title: Directory Total Identities Count Response Total Identities
@@ -8208,8 +8213,6 @@ components:
           minLength: 1
           title: Environment Bill of Materials Product Console Href
           type: string
-      required:
-      - href
       title: Environment Bill of Materials Product Console
     EnvironmentBillOfMaterialsReplaceRequest:
       example:
@@ -9934,6 +9937,7 @@ components:
           minLength: 1
           title: Forbidden Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Forbidden_Error_Detail"
@@ -9978,6 +9982,7 @@ components:
         message:
           title: General Error Message
           type: string
+          x-go-generate-error-message: true
       title: General Error
       x-go-generate-error: true
     GeneralErrorDetail:
@@ -10031,6 +10036,7 @@ components:
           minLength: 1
           title: Internal Server Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Internal_Server_Error_Detail"
@@ -10100,6 +10106,7 @@ components:
           minLength: 1
           title: Not Found Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Not_Found_Error_Detail"
@@ -10402,6 +10409,7 @@ components:
           minLength: 1
           title: Too Many Requests Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Too_Many_Requests_Error_Detail"
@@ -10443,6 +10451,7 @@ components:
           minLength: 1
           title: Unauthorized Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Unauthorized_Error_Detail"
@@ -10481,6 +10490,7 @@ components:
           minLength: 1
           title: Unsupported Media Type Error Message
           type: string
+          x-go-generate-error-message: true
         details:
           items:
             $ref: "#/components/schemas/Unsupported_Media_Type_Error_Detail"
@@ -10526,8 +10536,14 @@ components:
         - allowedValues
         quotaResetTime: 2000-01-23T04:56:07.000+00:00
         existingId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        supportedOperators:
+        - supportedOperators
+        - supportedOperators
         claim: claim
         rangeMaximumValue: 5.637376656633329
+        supportedAttributes:
+        - supportedAttributes
+        - supportedAttributes
         allowedPattern: allowedPattern
         maximumValue: 1.4658129805029452
         quotaLimit: 5.962133916683182
@@ -10564,6 +10580,16 @@ components:
         rangeMinimumValue:
           title: Bad Request Error Detail Inner Error Range Minimum Value
           type: number
+        supportedAttributes:
+          items:
+            title: Bad Request Error Detail Inner Error Supported Attribute
+            type: string
+          type: array
+        supportedOperators:
+          items:
+            title: Bad Request Error Detail Inner Error Supported Operator
+            type: string
+          type: array
       title: Bad Request Error Detail Inner Error
     Bad_Request_Error_Detail:
       example:
@@ -10574,8 +10600,14 @@ components:
           - allowedValues
           quotaResetTime: 2000-01-23T04:56:07.000+00:00
           existingId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          supportedOperators:
+          - supportedOperators
+          - supportedOperators
           claim: claim
           rangeMaximumValue: 5.637376656633329
+          supportedAttributes:
+          - supportedAttributes
+          - supportedAttributes
           allowedPattern: allowedPattern
           maximumValue: 1.4658129805029452
           quotaLimit: 5.962133916683182
@@ -15542,6 +15574,32 @@ components:
       - self
       - version
       title: DaVinci Flow Response _links
+    DaVinci_Flow_Settings_Request_Custom_Error_Show_Footer_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Custom Error Show Footer Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Custom_Error_Show_Footer:
+      oneOf:
+      - title: DaVinci Flow Settings Request Custom Error Show Footer Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Custom_Error_Show_Footer_Choice_2"
+      title: DaVinci Flow Settings Request Custom Error Show Footer
+    DaVinci_Flow_Settings_Request_Default_Error_Screen_Brand_Logo_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Default Error Screen Brand Logo Choice
+        2
+      type: string
+    DaVinci_Flow_Settings_Request_Default_Error_Screen_Brand_Logo:
+      oneOf:
+      - title: DaVinci Flow Settings Request Default Error Screen Brand Logo Choice
+          1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Default_Error_Screen_Brand_Logo_Choice_2"
+      title: DaVinci Flow Settings Request Default Error Screen Brand Logo
     DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS:
       oneOf:
       - title: DaVinci Flow Settings Request Intermediate Loading Screen CSS Choice
@@ -15560,6 +15618,18 @@ components:
           2
         type: object
       title: DaVinci Flow Settings Request Intermediate Loading Screen HTML
+    DaVinci_Flow_Settings_Request_Js_Link_Defer_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Js Link Defer Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Js_Link_Defer:
+      oneOf:
+      - title: DaVinci Flow Settings Request Js Link Defer Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Js_Link_Defer_Choice_2"
+      title: DaVinci Flow Settings Request Js Link Defer
     DaVinci_Flow_Settings_Request_Js_Link:
       example:
         crossorigin: crossorigin
@@ -15579,8 +15649,7 @@ components:
           title: DaVinci Flow Settings Request Js Link Value
           type: string
         defer:
-          title: DaVinci Flow Settings Request Js Link Defer
-          type: boolean
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Js_Link_Defer"
         crossorigin:
           minLength: 1
           title: DaVinci Flow Settings Request Js Link Crossorigin
@@ -15606,6 +15675,128 @@ components:
       - type
       - value
       title: DaVinci Flow Settings Request Js Link
+    DaVinci_Flow_Settings_Request_Require_Authentication_To_Initiate_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Require Authentication To Initiate Choice
+        2
+      type: string
+    DaVinci_Flow_Settings_Request_Require_Authentication_To_Initiate:
+      oneOf:
+      - title: DaVinci Flow Settings Request Require Authentication To Initiate Choice
+          1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Require_Authentication_To_Initiate_Choice_2"
+      title: DaVinci Flow Settings Request Require Authentication To Initiate
+    DaVinci_Flow_Settings_Request_Scrub_Sensitive_Info_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Scrub Sensitive Info Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Scrub_Sensitive_Info:
+      oneOf:
+      - title: DaVinci Flow Settings Request Scrub Sensitive Info Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Scrub_Sensitive_Info_Choice_2"
+      title: DaVinci Flow Settings Request Scrub Sensitive Info
+    DaVinci_Flow_Settings_Request_Use_CSP_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Use CSP Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Use_CSP:
+      oneOf:
+      - title: DaVinci Flow Settings Request Use CSP Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_CSP_Choice_2"
+      title: DaVinci Flow Settings Request Use CSP
+    DaVinci_Flow_Settings_Request_Use_Custom_CSS_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Use Custom CSS Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Use_Custom_CSS:
+      oneOf:
+      - title: DaVinci Flow Settings Request Use Custom CSS Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_CSS_Choice_2"
+      title: DaVinci Flow Settings Request Use Custom CSS
+    DaVinci_Flow_Settings_Request_Use_Custom_Flow_Player_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Use Custom Flow Player Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Use_Custom_Flow_Player:
+      oneOf:
+      - title: DaVinci Flow Settings Request Use Custom Flow Player Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_Flow_Player_Choice_2"
+      title: DaVinci Flow Settings Request Use Custom Flow Player
+    DaVinci_Flow_Settings_Request_Use_Custom_Script_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Use Custom Script Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Use_Custom_Script:
+      oneOf:
+      - title: DaVinci Flow Settings Request Use Custom Script Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Custom_Script_Choice_2"
+      title: DaVinci Flow Settings Request Use Custom Script
+    DaVinci_Flow_Settings_Request_Use_Intermediate_Loading_Screen_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Use Intermediate Loading Screen Choice
+        2
+      type: string
+    DaVinci_Flow_Settings_Request_Use_Intermediate_Loading_Screen:
+      oneOf:
+      - title: DaVinci Flow Settings Request Use Intermediate Loading Screen Choice
+          1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Use_Intermediate_Loading_Screen_Choice_2"
+      title: DaVinci Flow Settings Request Use Intermediate Loading Screen
+    DaVinci_Flow_Settings_Request_Validate_On_Save_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Request Validate On Save Choice 2
+      type: string
+    DaVinci_Flow_Settings_Request_Validate_On_Save:
+      oneOf:
+      - title: DaVinci Flow Settings Request Validate On Save Choice 1
+        type: boolean
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Request_Validate_On_Save_Choice_2"
+      title: DaVinci Flow Settings Request Validate On Save
+    DaVinci_Flow_Settings_Response_Custom_Error_Show_Footer_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Custom Error Show Footer Choice 2
+    DaVinci_Flow_Settings_Response_Custom_Error_Show_Footer:
+      oneOf:
+      - title: DaVinci Flow Settings Response Custom Error Show Footer Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Custom_Error_Show_Footer_Choice_2"
+      title: DaVinci Flow Settings Response Custom Error Show Footer
+    DaVinci_Flow_Settings_Response_Default_Error_Screen_Brand_Logo_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Default Error Screen Brand Logo Choice
+        2
+    DaVinci_Flow_Settings_Response_Default_Error_Screen_Brand_Logo:
+      oneOf:
+      - title: DaVinci Flow Settings Response Default Error Screen Brand Logo Choice
+          1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Default_Error_Screen_Brand_Logo_Choice_2"
+      title: DaVinci Flow Settings Response Default Error Screen Brand Logo
     DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS:
       oneOf:
       - title: DaVinci Flow Settings Response Intermediate Loading Screen CSS Choice
@@ -15620,6 +15811,16 @@ components:
       - title: DaVinci Flow Settings Response Intermediate Loading Screen HTML Choice
           2
       title: DaVinci Flow Settings Response Intermediate Loading Screen HTML
+    DaVinci_Flow_Settings_Response_Js_Link_Defer_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Js Link Defer Choice 2
+    DaVinci_Flow_Settings_Response_Js_Link_Defer:
+      oneOf:
+      - title: DaVinci Flow Settings Response Js Link Defer Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Js_Link_Defer_Choice_2"
+      title: DaVinci Flow Settings Response Js Link Defer
     DaVinci_Flow_Settings_Response_Js_Link:
       additionalProperties: true
       example:
@@ -15635,7 +15836,7 @@ components:
           minLength: 1
           title: DaVinci Flow Settings Response Js Link Crossorigin
         defer:
-          title: DaVinci Flow Settings Response Js Link Defer
+          $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Js_Link_Defer"
         integrity:
           minLength: 1
           title: DaVinci Flow Settings Response Js Link Integrity
@@ -15660,6 +15861,90 @@ components:
       - type
       - value
       title: DaVinci Flow Settings Response Js Link
+    DaVinci_Flow_Settings_Response_Require_Authentication_To_Initiate_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Require Authentication To Initiate Choice
+        2
+    DaVinci_Flow_Settings_Response_Require_Authentication_To_Initiate:
+      oneOf:
+      - title: DaVinci Flow Settings Response Require Authentication To Initiate Choice
+          1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Require_Authentication_To_Initiate_Choice_2"
+      title: DaVinci Flow Settings Response Require Authentication To Initiate
+    DaVinci_Flow_Settings_Response_Scrub_Sensitive_Info_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Scrub Sensitive Info Choice 2
+    DaVinci_Flow_Settings_Response_Scrub_Sensitive_Info:
+      oneOf:
+      - title: DaVinci Flow Settings Response Scrub Sensitive Info Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Scrub_Sensitive_Info_Choice_2"
+      title: DaVinci Flow Settings Response Scrub Sensitive Info
+    DaVinci_Flow_Settings_Response_Use_CSP_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Use CSP Choice 2
+    DaVinci_Flow_Settings_Response_Use_CSP:
+      oneOf:
+      - title: DaVinci Flow Settings Response Use CSP Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_CSP_Choice_2"
+      title: DaVinci Flow Settings Response Use CSP
+    DaVinci_Flow_Settings_Response_Use_Custom_CSS_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Use Custom CSS Choice 2
+    DaVinci_Flow_Settings_Response_Use_Custom_CSS:
+      oneOf:
+      - title: DaVinci Flow Settings Response Use Custom CSS Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_CSS_Choice_2"
+      title: DaVinci Flow Settings Response Use Custom CSS
+    DaVinci_Flow_Settings_Response_Use_Custom_Flow_Player_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Use Custom Flow Player Choice 2
+    DaVinci_Flow_Settings_Response_Use_Custom_Flow_Player:
+      oneOf:
+      - title: DaVinci Flow Settings Response Use Custom Flow Player Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_Flow_Player_Choice_2"
+      title: DaVinci Flow Settings Response Use Custom Flow Player
+    DaVinci_Flow_Settings_Response_Use_Custom_Script_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Use Custom Script Choice 2
+    DaVinci_Flow_Settings_Response_Use_Custom_Script:
+      oneOf:
+      - title: DaVinci Flow Settings Response Use Custom Script Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Custom_Script_Choice_2"
+      title: DaVinci Flow Settings Response Use Custom Script
+    DaVinci_Flow_Settings_Response_Use_Intermediate_Loading_Screen_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Use Intermediate Loading Screen Choice
+        2
+    DaVinci_Flow_Settings_Response_Use_Intermediate_Loading_Screen:
+      oneOf:
+      - title: DaVinci Flow Settings Response Use Intermediate Loading Screen Choice
+          1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Use_Intermediate_Loading_Screen_Choice_2"
+      title: DaVinci Flow Settings Response Use Intermediate Loading Screen
+    DaVinci_Flow_Settings_Response_Validate_On_Save_Choice_2:
+      enum:
+      - "false"
+      - "true"
+      title: DaVinci Flow Settings Response Validate On Save Choice 2
+    DaVinci_Flow_Settings_Response_Validate_On_Save:
+      oneOf:
+      - title: DaVinci Flow Settings Response Validate On Save Choice 1
+      - $ref: "#/components/schemas/DaVinci_Flow_Settings_Response_Validate_On_Save_Choice_2"
+      title: DaVinci Flow Settings Response Validate On Save
     DaVinci_Flow_Trigger_Request_Type:
       enum:
       - AUTHENTICATION

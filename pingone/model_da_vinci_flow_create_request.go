@@ -25,7 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowCreateRequest{}
 
 // DaVinciFlowCreateRequest struct for DaVinciFlowCreateRequest
 type DaVinciFlowCreateRequest struct {
-	Name                 string                              `json:"name" validate:"regexp=^\\\\s*([\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_-]).?(?!.*((<)|(\\\\$\\\\{)))"`
+	Name                 string                              `json:"name" validate:"regexp=^\\\\s*([\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_\\\\-\\\\[\\\\]]).?(?!.*((<)|(\\\\$\\\\{)))"`
 	Color                *string                             `json:"color,omitempty"`
 	Description          *string                             `json:"description,omitempty" validate:"regexp=^\\\\s*[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]?(?!.*((<)|(\\\\$\\\\{)))"`
 	GraphData            *DaVinciFlowGraphDataRequest        `json:"graphData,omitempty"`
