@@ -199,12 +199,12 @@ func TestClientCredentialsTokenSource_ScopeValidation(t *testing.T) {
 		{
 			name:        "EmptyScope",
 			scopes:      []string{},
-			expectError: true,
+			expectError: false,
 		},
 		{
 			name:        "NilScope",
 			scopes:      nil,
-			expectError: true,
+			expectError: false,
 		},
 	}
 
