@@ -89,15 +89,26 @@ func (k *KeychainStorage) HasToken() (bool, error) {
 	return true, nil
 }
 
-// GenerateKeychainAccountName creates a unique account name based on environment ID, client ID, and grant type
-func GenerateKeychainAccountName(environmentID, clientID, grantType string) string {
+// GenerateKeychainAccountName creates a unique account name based on environment ID, client ID, and grant type.
+// Optionally, a suffix can be provided to append to the generated token key for disambiguation across contexts
+// (e.g., "_pingone_device_code_default"). Existing callers remain compatible.
+func GenerateKeychainAccountName(environmentID, clientID, grantType string, optionalSuffix ...string) string {
 	if environmentID == "" && clientID == "" && grantType == "" {
-		return "default-token"
+		// When no inputs are provided, return a stable default (with optional suffix if specified)
+		base := "default-token"
+		if len(optionalSuffix) > 0 && optionalSuffix[0] != "" {
+			return base + optionalSuffix[0]
+		}
+		return base
 	}
 
 	// Create a hash of environment ID + client ID + grant type for uniqueness
 	var b []byte
 	b = fmt.Appendf(b, "%s:%s:%s", environmentID, clientID, grantType)
 	hash := sha256.Sum256(b)
-	return fmt.Sprintf("token-%x", hash[:8]) // Use first 8 bytes of hash for shorter key
+	base := fmt.Sprintf("token-%x", hash[:8]) // Use first 8 bytes of hash for shorter key
+	if len(optionalSuffix) > 0 && optionalSuffix[0] != "" {
+		return base + optionalSuffix[0]
+	}
+	return base
 }

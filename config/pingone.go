@@ -7,7 +7,6 @@ package config
 
 import (
 	"context"
-	"crypto/sha256"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -74,8 +73,20 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 		return "", fmt.Errorf("environment ID and client ID are required for token key generation")
 	}
 
-	hash := sha256.Sum256([]byte(fmt.Sprintf("%s:%s:%s", environmentID, clientID, grantType)))
-	tokenKey := fmt.Sprintf("token-%x", hash[:8])
+	// Optional suffix provided by consumer via Storage.OptionalSuffix.
+	// When empty, no suffix is appended.
+	var suffix string
+	if c.Auth.Storage != nil && strings.TrimSpace(c.Auth.Storage.OptionalSuffix) != "" {
+		suffix = c.Auth.Storage.OptionalSuffix
+	}
+
+	// Use SDK oauth2 helper to generate token key, with optional suffix when provided
+	var tokenKey string
+	if suffix != "" {
+		tokenKey = svcOAuth2.GenerateKeychainAccountName(environmentID, clientID, string(grantType), suffix)
+	} else {
+		tokenKey = svcOAuth2.GenerateKeychainAccountName(environmentID, clientID, string(grantType))
+	}
 
 	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
 
@@ -178,6 +189,10 @@ type DeviceCode struct {
 type Storage struct {
 	KeychainName string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
 	Type         StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
+	// OptionalSuffix allows SDK consumers to append a suffix to the generated
+	// token key for disambiguation across contexts (e.g., provider/grant/profile).
+	// If empty, no suffix is appended and the base token key is used.
+	OptionalSuffix string `envconfig:"PINGONE_STORAGE_OPTIONAL_SUFFIX" json:"optionalSuffix,omitempty"`
 }
 
 // Configuration represents the complete configuration for the PingOne Go Client SDK.
@@ -402,6 +417,17 @@ func (c *Configuration) WithStorageName(name string) *Configuration {
 		c.Auth.Storage = &Storage{}
 	}
 	c.Auth.Storage.KeychainName = name
+	return c
+}
+
+// WithStorageOptionalSuffix sets an optional suffix for the token key.
+// This allows SDK consumers to unify key names across keychain and file storage
+// without changing default SDK behavior for other clients.
+func (c *Configuration) WithStorageOptionalSuffix(suffix string) *Configuration {
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = &Storage{}
+	}
+	c.Auth.Storage.OptionalSuffix = suffix
 	return c
 }
 
