@@ -43,6 +43,46 @@ Have you built an interesting project you'd like to share with the community? **
   * Go 1.24 or later (current go.mod specifies 1.24.1)
   * Go 1.21+ required for `log/slog` functionality
   * Go 1.23+ required for `iter` package features used in pagination examples
+  * A PingOne environment with an application configured for your chosen grant type
+
+
+## 🔐 PingOne Configuration
+
+Before using the SDK, you need to configure an application in your PingOne environment. The configuration depends on your authentication method:
+
+### Client Credentials (Server-to-Server)
+
+1. In PingOne Admin Console, navigate to **Applications**
+2. Click **+ Add Application** and select **Worker App**
+3. Configure the application:
+   - Note the **Client ID** and **Client Secret**
+   - Assign necessary roles under the **Roles** tab
+4. Use these credentials with `oauth2.GrantTypeClientCredentials`
+
+### Authorization Code (Interactive Authentication)
+
+1. In PingOne Admin Console, navigate to **Applications**
+2. Click **+ Add Application** and select **Worker App**
+3. Configure the application:
+   - Note the **Client ID**
+   - Under **Configuration**, add the redirect URI: `http://127.0.0.1:7464/callback`
+     - This is the SDK's default redirect URI for local authentication
+     - The SDK starts a temporary web server on port 7464 to capture the callback
+   - Enable the **Authorization Code** grant type
+4. Use this configuration with `oauth2.GrantTypeAuthorizationCode`
+
+**Important**: The redirect URI `http://127.0.0.1:7464/callback` is the default for local development. Ensure this URI is configured in your PingOne application, or customize it using the `AuthorizationCodeRedirectURI` configuration (port and path).
+
+### Device Code (CLI/Device Authentication)
+
+1. In PingOne Admin Console, navigate to **Applications**
+2. Click **+ Add Application** and select **Worker App**
+3. Configure the application:
+   - Note the **Client ID**
+   - Under **Configuration**, enable the **Device Authorization** grant type
+4. Use this configuration with `oauth2.GrantTypeDeviceCode`
+
+**How it works**: The SDK displays a user code and verification URL. Users visit the URL on any device, enter the code, and authenticate. The SDK polls for completion.
 
 
 ## 🚀 Getting Started
@@ -58,12 +98,17 @@ go get github.com/pingidentity/pingone-go-client
 
 ### Client Initialization
 
+The SDK supports multiple OAuth2 grant types for different authentication scenarios:
+- **Authorization Code**: Interactive user authentication via browser (Web/Native applications)
+- **Client Credentials**: Server-to-server authentication (Worker applications)
+- **Device Code**: Authentication for CLI tools and limited-input devices (Native applications)
+
 You can initialize the API client in a few ways:
 
 1.  **Explicit Configuration:**
     Provide service configuration details directly in your code.
 
-    *Example (Worker App without Custom Domain):*
+    *Example (Client Credentials - Server-to-Server):*
 
     ```go
     package main
@@ -97,6 +142,51 @@ You can initialize the API client in a few ways:
     }
     ```
 
+    *Example (Authorization Code - Interactive User Authentication):*
+
+    ```go
+    func main() {
+        serviceCfg := config.NewConfiguration()
+        serviceCfg.WithGrantType(oauth2.GrantTypeAuthorizationCode)
+        serviceCfg.WithClientID("YOUR_CLIENT_ID")
+        serviceCfg.WithAuthEnvironmentID("YOUR_ENVIRONMENT_ID")
+        serviceCfg.WithRootDomain("pingone.com")
+
+        // Configure authorization code settings
+        serviceCfg.Auth.AuthorizationCode = &config.AuthorizationCodeConfiguration{
+            AuthorizationCodeClientID: ptrString("YOUR_CLIENT_ID"),
+            RedirectURI:               ptrString("http://127.0.0.1:7464/callback"), // Must match PingOne config
+            Scopes:                    ptrStringSlice([]string{"openid", "profile"}),
+        }
+
+        configuration := pingone.NewConfiguration(serviceCfg)
+        client, err := pingone.NewAPIClient(configuration)
+        // The SDK will open a browser for user authentication
+    }
+    ```
+
+    *Example (Device Code - CLI/Device Authentication):*
+
+    ```go
+    func main() {
+        serviceCfg := config.NewConfiguration()
+        serviceCfg.WithGrantType(oauth2.GrantTypeDeviceCode)
+        serviceCfg.WithClientID("YOUR_CLIENT_ID")
+        serviceCfg.WithAuthEnvironmentID("YOUR_ENVIRONMENT_ID")
+        serviceCfg.WithRootDomain("pingone.com")
+
+        // Configure device code settings
+        serviceCfg.Auth.DeviceCode = &config.DeviceCodeConfiguration{
+            DeviceCodeClientID: ptrString("YOUR_CLIENT_ID"),
+            Scopes:             ptrStringSlice([]string{"openid", "profile"}),
+        }
+
+        configuration := pingone.NewConfiguration(serviceCfg)
+        client, err := pingone.NewAPIClient(configuration)
+        // The SDK will display a code for the user to enter at a verification URL
+    }
+    ```
+
     *Example (With Custom Domain):*
     If you have a custom domain configured in your PingOne environment:
 
@@ -118,6 +208,24 @@ You can initialize the API client in a few ways:
         slog.Info("PingOne API Client with custom domain initialized successfully!")
     }
     ```
+
+
+## 📚 Examples
+
+Complete working examples for each authentication flow are available in the [`examples/`](examples/) directory:
+
+- **[authorization_code](examples/authorization_code/)**: Interactive user authentication via browser
+- **[client_credentials](examples/clent_credentials/)**: Client Credentials (server-to-server) authentication
+- **[device_code](examples/device_code/)**: Device authentication for CLI tools
+
+Each example includes:
+- Full working code
+- Required PingOne configuration steps
+- Environment variable setup
+- Expected behavior documentation
+
+See the [examples README](examples/README.md) for detailed setup instructions and PingOne configuration requirements.
+
 
 2.  **Configuration via Environment Variables:**
     Initialize the client without explicit parameters. The SDK will look for configuration values in environment variables (see [Service Configuration](#-pingone-service-configuration) for details).
@@ -250,16 +358,36 @@ The SDK can be configured using the following environment variables:
 | Environment Variable        | Description                                  | Required                                     |
 | :-------------------------- | :------------------------------------------- | :------------------------------------------- |
 | `PINGONE_CLIENT_ID`         | OAuth 2.0 Client ID for authentication       | **Yes** |
-| `PINGONE_CLIENT_SECRET`     | OAuth 2.0 Client Secret for authentication   | **Yes** |
+| `PINGONE_CLIENT_SECRET`     | OAuth 2.0 Client Secret for authentication   | **Yes** (Client Credentials only) |
 | `PINGONE_ENVIRONMENT_ID`    | PingOne Environment ID                       | **Yes\*** (or `PINGONE_CUSTOM_DOMAIN`)       |
 | `PINGONE_ROOT_DOMAIN`       | PingOne root domain (e.g., `pingone.com`, `pingone.eu`, `pingone.asia`) | No (defaults to `pingone.com`) |
 | `PINGONE_TOP_LEVEL_DOMAIN`  | PingOne top-level domain                     | No |
 | `PINGONE_CUSTOM_DOMAIN`     | Your configured custom domain (e.g., `auth.example.com`) | **Yes\*** (or `PINGONE_ENVIRONMENT_ID`) |
-| `PINGONE_AUTH_GRANT_TYPE`   | OAuth 2.0 Grant Type (e.g. `CLIENT_CREDENTIALS`) | No (defaults to `CLIENT_CREDENTIALS`)        |
+| `PINGONE_AUTH_GRANT_TYPE`   | OAuth 2.0 Grant Type: `CLIENT_CREDENTIALS`, `AUTHORIZATION_CODE`, or `DEVICE_CODE` | No (defaults to `CLIENT_CREDENTIALS`) |
 | `PINGONE_API_ACCESS_TOKEN`  | A pre-existing Access Token to use for authentication. The SDK will not perform auth if this is set. | No                                           |
 | `PINGONE_API_DOMAIN`        | Overrides the API service domain.            | No                                           |
 
 **\*Note:** You must provide either `PINGONE_ENVIRONMENT_ID` (along with `PINGONE_ROOT_DOMAIN` if not using the default domain) or `PINGONE_CUSTOM_DOMAIN`.
+
+**Grant Type Specific Variables:**
+
+For **Authorization Code** flow:
+```shell
+export PINGONE_AUTH_GRANT_TYPE=AUTHORIZATION_CODE
+export PINGONE_REDIRECT_URI=http://127.0.0.1:7464/callback  # Optional, defaults to this value
+```
+
+For **Client Credentials** flow:
+```shell
+export PINGONE_AUTH_GRANT_TYPE=CLIENT_CREDENTIALS
+export PINGONE_CLIENT_SECRET=your-client-secret  # Required for this flow
+```
+
+For **Device Code** flow:
+```shell
+export PINGONE_AUTH_GRANT_TYPE=DEVICE_CODE
+```
+
 
 
 ## 📝 Logging
