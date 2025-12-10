@@ -127,19 +127,19 @@
       var closeMessage = document.getElementById('closeMessage');
       
       // Update message immediately
-      closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+      closeMessage.innerHTML = 'You may close this window to continue.<br><i>Attempting to close automatically in ' + countdown + ' seconds...</i>';
       
       // Start countdown
       var countdownInterval = setInterval(function() {
         countdown--;
         if (countdown > 0) {
-          closeMessage.textContent = 'This window will close in ' + countdown + ' seconds...';
+          closeMessage.innerHTML = 'You may close this window to continue.<br><i>Attempting to close automatically in ' + countdown + ' seconds...</i>';
         } else {
-          closeMessage.textContent = 'Closing now...';
+          closeMessage.innerHTML = 'You may close this window to continue.';
           clearInterval(countdownInterval);
           setTimeout(function() {
             window.close();
-          }, 500); // Small delay after showing "Closing now..."
+          }, 500); // Small delay after showing "final message"
         }
       }, 1000);
     }
