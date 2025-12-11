@@ -351,7 +351,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		retryAttempt := i + 1
 		backOffTime, isRetryable := testForRetryable(resp, err, retryAttempt)
 
-		if !isRetryable {
+		if !isRetryable || retryAttempt >= maxRetries {
 			break
 		}
 
