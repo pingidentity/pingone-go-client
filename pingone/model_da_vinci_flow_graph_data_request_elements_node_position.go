@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodePosition{}
 
 // DaVinciFlowGraphDataRequestElementsNodePosition struct for DaVinciFlowGraphDataRequestElementsNodePosition
 type DaVinciFlowGraphDataRequestElementsNodePosition struct {
-	X                    float32 `json:"x"`
-	Y                    float32 `json:"y"`
+	X                    float64 `json:"x"`
+	Y                    float64 `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,7 +36,7 @@ type _DaVinciFlowGraphDataRequestElementsNodePosition DaVinciFlowGraphDataReques
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataRequestElementsNodePosition(x float32, y float32) *DaVinciFlowGraphDataRequestElementsNodePosition {
+func NewDaVinciFlowGraphDataRequestElementsNodePosition(x float64, y float64) *DaVinciFlowGraphDataRequestElementsNodePosition {
 	this := DaVinciFlowGraphDataRequestElementsNodePosition{}
 	this.X = x
 	this.Y = y
@@ -52,9 +52,9 @@ func NewDaVinciFlowGraphDataRequestElementsNodePositionWithDefaults() *DaVinciFl
 }
 
 // GetX returns the X field value
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetX() float32 {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetX() float64 {
 	if o == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 
@@ -63,7 +63,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetX() float32 {
 
 // GetXOk returns a tuple with the X field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetXOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetXOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,14 +71,14 @@ func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetXOk() (*float32, bo
 }
 
 // SetX sets field value
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetX(v float32) {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetX(v float64) {
 	o.X = v
 }
 
 // GetY returns the Y field value
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetY() float32 {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetY() float64 {
 	if o == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 
@@ -87,7 +87,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetY() float32 {
 
 // GetYOk returns a tuple with the Y field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetYOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetYOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetYOk() (*float32, bo
 }
 
 // SetY sets field value
-func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetY(v float32) {
+func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetY(v float64) {
 	o.Y = v
 }
 

@@ -25,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestPan{}
 
 // DaVinciFlowGraphDataRequestPan struct for DaVinciFlowGraphDataRequestPan
 type DaVinciFlowGraphDataRequestPan struct {
-	X                    float32 `json:"x"`
-	Y                    float32 `json:"y"`
+	X                    float64 `json:"x"`
+	Y                    float64 `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,7 +36,7 @@ type _DaVinciFlowGraphDataRequestPan DaVinciFlowGraphDataRequestPan
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataRequestPan(x float32, y float32) *DaVinciFlowGraphDataRequestPan {
+func NewDaVinciFlowGraphDataRequestPan(x float64, y float64) *DaVinciFlowGraphDataRequestPan {
 	this := DaVinciFlowGraphDataRequestPan{}
 	this.X = x
 	this.Y = y
@@ -52,9 +52,9 @@ func NewDaVinciFlowGraphDataRequestPanWithDefaults() *DaVinciFlowGraphDataReques
 }
 
 // GetX returns the X field value
-func (o *DaVinciFlowGraphDataRequestPan) GetX() float32 {
+func (o *DaVinciFlowGraphDataRequestPan) GetX() float64 {
 	if o == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 
@@ -63,7 +63,7 @@ func (o *DaVinciFlowGraphDataRequestPan) GetX() float32 {
 
 // GetXOk returns a tuple with the X field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestPan) GetXOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequestPan) GetXOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,14 +71,14 @@ func (o *DaVinciFlowGraphDataRequestPan) GetXOk() (*float32, bool) {
 }
 
 // SetX sets field value
-func (o *DaVinciFlowGraphDataRequestPan) SetX(v float32) {
+func (o *DaVinciFlowGraphDataRequestPan) SetX(v float64) {
 	o.X = v
 }
 
 // GetY returns the Y field value
-func (o *DaVinciFlowGraphDataRequestPan) GetY() float32 {
+func (o *DaVinciFlowGraphDataRequestPan) GetY() float64 {
 	if o == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 
@@ -87,7 +87,7 @@ func (o *DaVinciFlowGraphDataRequestPan) GetY() float32 {
 
 // GetYOk returns a tuple with the Y field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestPan) GetYOk() (*float32, bool) {
+func (o *DaVinciFlowGraphDataRequestPan) GetYOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *DaVinciFlowGraphDataRequestPan) GetYOk() (*float32, bool) {
 }
 
 // SetY sets field value
-func (o *DaVinciFlowGraphDataRequestPan) SetY(v float32) {
+func (o *DaVinciFlowGraphDataRequestPan) SetY(v float64) {
 	o.Y = v
 }
 
