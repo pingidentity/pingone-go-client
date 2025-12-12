@@ -192,7 +192,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	}
 	defer func() {
 		if closeErr := server.Close(); closeErr != nil {
-			fmt.Printf("Warning: failed to close server: %v\n", closeErr)
+			slog.Warn("Warning: failed to close server", "error", closeErr)
 		}
 	}()
 
@@ -213,7 +213,7 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	var code string
 	select {
 	case code = <-codeChan:
-		fmt.Println("Authorization code received")
+		slog.Info("Authorization code received")
 	case err := <-errChan:
 		// Wait for the HTTP response to be sent before returning
 		select {
