@@ -30,6 +30,7 @@ type DaVinciFlowGraphDataRequestElementsNodeData struct {
 	CapabilityName       *string                `json:"capabilityName,omitempty"`
 	ConnectionId         *string                `json:"connectionId,omitempty"`
 	ConnectorId          *string                `json:"connectorId,omitempty"`
+	IdUnique             *string                `json:"idUnique,omitempty"`
 	Label                *string                `json:"label,omitempty"`
 	Name                 *string                `json:"name,omitempty"`
 	Properties           map[string]interface{} `json:"properties,omitempty"`
@@ -201,6 +202,38 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasConnectorId() bool {
 // SetConnectorId gets a reference to the given string and assigns it to the ConnectorId field.
 func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetConnectorId(v string) {
 	o.ConnectorId = &v
+}
+
+// GetIdUnique returns the IdUnique field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetIdUnique() string {
+	if o == nil || IsNil(o.IdUnique) {
+		var ret string
+		return ret
+	}
+	return *o.IdUnique
+}
+
+// GetIdUniqueOk returns a tuple with the IdUnique field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetIdUniqueOk() (*string, bool) {
+	if o == nil || IsNil(o.IdUnique) {
+		return nil, false
+	}
+	return o.IdUnique, true
+}
+
+// HasIdUnique returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasIdUnique() bool {
+	if o != nil && !IsNil(o.IdUnique) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdUnique gets a reference to the given string and assigns it to the IdUnique field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetIdUnique(v string) {
+	o.IdUnique = &v
 }
 
 // GetLabel returns the Label field value if set, zero value otherwise.
@@ -384,6 +417,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) ToMap() (map[string]interfa
 	if !IsNil(o.ConnectorId) {
 		toSerialize["connectorId"] = o.ConnectorId
 	}
+	if !IsNil(o.IdUnique) {
+		toSerialize["idUnique"] = o.IdUnique
+	}
 	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
@@ -448,6 +484,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) UnmarshalJSON(data []byte)
 		delete(additionalProperties, "capabilityName")
 		delete(additionalProperties, "connectionId")
 		delete(additionalProperties, "connectorId")
+		delete(additionalProperties, "idUnique")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "properties")
@@ -472,6 +509,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) LogValue() slog.Value {
 	}
 	if !IsNil(o.ConnectorId) {
 		logAttrs = append(logAttrs, slog.Any("connectorId", *o.ConnectorId))
+	}
+	if !IsNil(o.IdUnique) {
+		logAttrs = append(logAttrs, slog.Any("idUnique", *o.IdUnique))
 	}
 	if !IsNil(o.Label) {
 		logAttrs = append(logAttrs, slog.Any("label", *o.Label))
