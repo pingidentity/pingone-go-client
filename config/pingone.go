@@ -399,7 +399,7 @@ func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
 	}
 	// Set the storage type based on useKeychain value
 	if useKeychain {
-		c.Auth.Storage.Type = StorageTypeKeychain
+		c.Auth.Storage.Type = StorageTypeSecureLocal
 	}
 	return c
 }
@@ -520,7 +520,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	// Check keychain for existing valid token before performing auth
 	if c.Auth.GrantType != nil {
 		// Default to storage type of keychain
-		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 
 		if shouldCheckKeychain {
 			// Validate storage name is set when using keychain
@@ -583,7 +583,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 		var tokenKey string
 
 		// Only generate token key if storage is enabled
-		shouldUseStorage := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+		shouldUseStorage := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 		if shouldUseStorage {
 			var err error
 			tokenKey, err = c.generateTokenKey(*c.Auth.GrantType)
@@ -617,7 +617,8 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 				if err != nil {
 					return nil, fmt.Errorf("failed to get token: %w", err)
 				}
-				shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+				shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
+				// Save only when using SECURE_LOCAL storage; skip for NONE/FILE_SYSTEM
 				if shouldSaveToKeychain {
 					if c.Auth.Storage == nil || c.Auth.Storage.KeychainName == "" {
 						return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
@@ -656,7 +657,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			}
 
 			// Save token to keychain for future use - only if storage type is keychain (or not set)
-			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 
 			if shouldSaveToKeychain {
 				// Validate storage name is set when using keychain
@@ -696,7 +697,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 					}
 				}
 			} else {
-				slog.Debug("Skipping keychain storage (file storage mode)", "tokenKey", tokenKey)
+				slog.Debug("Skipping keychain storage (non-secure-local storage)", "tokenKey", tokenKey)
 			}
 
 			// Set up automatic refresh without keychain persistence if token has refresh capability

@@ -739,8 +739,20 @@ func TestWithStorageType(t *testing.T) {
 		storageType config.StorageType
 	}{
 		{
-			name:        "StorageTypeKeychain",
-			storageType: config.StorageTypeKeychain,
+			name:        "StorageTypeSecureLocal",
+			storageType: config.StorageTypeSecureLocal,
+		},
+		{
+			name:        "StorageTypeFileSystem",
+			storageType: config.StorageTypeFileSystem,
+		},
+		{
+			name:        "StorageTypeSecureRemote",
+			storageType: config.StorageTypeSecureRemote,
+		},
+		{
+			name:        "StorageTypeNone",
+			storageType: config.StorageTypeNone,
 		},
 	}
 
@@ -766,9 +778,9 @@ func TestWithUseKeychain(t *testing.T) {
 		expectStorageType config.StorageType
 	}{
 		{
-			name:              "UseKeychain true sets StorageTypeKeychain",
+			name:              "UseKeychain true sets StorageTypeSecureLocal",
 			useKeychain:       true,
-			expectStorageType: config.StorageTypeKeychain,
+			expectStorageType: config.StorageTypeSecureLocal,
 		},
 	}
 
