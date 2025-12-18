@@ -41,6 +41,28 @@ const (
 	deviceAuthWaitingMessage = "\nWaiting for authorization...\n"
 )
 
+// DeviceAuthTokenSource returns an oauth2.TokenSource using the device code grant type.
+// This function implements the OAuth2 Device Authorization Grant (RFC 8628) with PKCE (RFC 7636)
+// for enhanced security.
+//
+// The device code flow is designed for devices with limited input capabilities (e.g., smart TVs,
+// CLI tools, IoT devices). The user completes authentication on a separate device with better
+// input/display capabilities.
+//
+// PKCE (Proof Key for Code Exchange) is automatically enabled for this flow to prevent
+// authorization code interception attacks, following OAuth2 security best practices.
+//
+// The function requires a valid client ID to be configured. The device code flow does not
+// require a client secret, making it suitable for public clients.
+//
+// Security features:
+//   - PKCE with S256 challenge method (SHA256 hashing)
+//   - Device code is single-use and time-limited
+//   - User must authenticate on a trusted device
+//   - Automatic polling with server-controlled intervals
+//
+// Returns an oauth2.TokenSource that can be used for authenticated API calls, or an error
+// if the device authorization fails.
 func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2.Endpoint) (oauth2.TokenSource, error) {
 	if d.DeviceCodeClientID == nil || *d.DeviceCodeClientID == "" {
 		return nil, fmt.Errorf("client ID is required for device code grant type")
@@ -57,7 +79,12 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		Endpoint: endpoints,
 	}
 
-	response, err := config.DeviceAuth(ctx)
+	// Generate PKCE verifier for enhanced security
+	// PKCE prevents authorization code interception attacks and is recommended for all OAuth2 flows
+	codeVerifier := oauth2.GenerateVerifier()
+
+	// Request device authorization with PKCE challenge
+	response, err := config.DeviceAuth(ctx, oauth2.S256ChallengeOption(codeVerifier), oauth2.AccessTypeOffline)
 	if err != nil {
 		return nil, fmt.Errorf("device auth request failed: %w", err)
 	}
@@ -73,7 +100,9 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		return nil, fmt.Errorf("prompt handler failed: %w", err)
 	}
 
-	deviceCodeToken, err := config.DeviceAccessToken(ctx, response)
+	// Exchange device code for access token with PKCE verifier
+	// The verifier proves that this client is the same one that initiated the device authorization
+	deviceCodeToken, err := config.DeviceAccessToken(ctx, response, oauth2.VerifierOption(codeVerifier))
 	if err != nil {
 		return nil, fmt.Errorf("device access token request failed: %w", err)
 	}
