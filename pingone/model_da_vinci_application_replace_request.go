@@ -25,9 +25,9 @@ var _ slog.LogValuer = &DaVinciApplicationReplaceRequest{}
 
 // DaVinciApplicationReplaceRequest struct for DaVinciApplicationReplaceRequest
 type DaVinciApplicationReplaceRequest struct {
-	Name                 string                                 `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
-	ApiKeyEnabled        *bool                                  `json:"apiKeyEnabled,omitempty"`
-	Oauth                *DaVinciApplicationReplaceRequestOAuth `json:"oauth,omitempty"`
+	Name                 string                                  `json:"name" validate:"regexp=^(?=\\\\S)[\\\\p{L}\\\\p{M}\\\\p{N}\\\\p{So}\\/.'_ -]*(?!.*((<)|(\\\\$\\\\{)))"`
+	ApiKey               *DaVinciApplicationReplaceRequestApiKey `json:"apiKey,omitempty"`
+	Oauth                *DaVinciApplicationReplaceRequestOAuth  `json:"oauth,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,36 +75,36 @@ func (o *DaVinciApplicationReplaceRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetApiKeyEnabled returns the ApiKeyEnabled field value if set, zero value otherwise.
-func (o *DaVinciApplicationReplaceRequest) GetApiKeyEnabled() bool {
-	if o == nil || IsNil(o.ApiKeyEnabled) {
-		var ret bool
+// GetApiKey returns the ApiKey field value if set, zero value otherwise.
+func (o *DaVinciApplicationReplaceRequest) GetApiKey() DaVinciApplicationReplaceRequestApiKey {
+	if o == nil || IsNil(o.ApiKey) {
+		var ret DaVinciApplicationReplaceRequestApiKey
 		return ret
 	}
-	return *o.ApiKeyEnabled
+	return *o.ApiKey
 }
 
-// GetApiKeyEnabledOk returns a tuple with the ApiKeyEnabled field value if set, nil otherwise
+// GetApiKeyOk returns a tuple with the ApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciApplicationReplaceRequest) GetApiKeyEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.ApiKeyEnabled) {
+func (o *DaVinciApplicationReplaceRequest) GetApiKeyOk() (*DaVinciApplicationReplaceRequestApiKey, bool) {
+	if o == nil || IsNil(o.ApiKey) {
 		return nil, false
 	}
-	return o.ApiKeyEnabled, true
+	return o.ApiKey, true
 }
 
-// HasApiKeyEnabled returns a boolean if a field has been set.
-func (o *DaVinciApplicationReplaceRequest) HasApiKeyEnabled() bool {
-	if o != nil && !IsNil(o.ApiKeyEnabled) {
+// HasApiKey returns a boolean if a field has been set.
+func (o *DaVinciApplicationReplaceRequest) HasApiKey() bool {
+	if o != nil && !IsNil(o.ApiKey) {
 		return true
 	}
 
 	return false
 }
 
-// SetApiKeyEnabled gets a reference to the given bool and assigns it to the ApiKeyEnabled field.
-func (o *DaVinciApplicationReplaceRequest) SetApiKeyEnabled(v bool) {
-	o.ApiKeyEnabled = &v
+// SetApiKey gets a reference to the given DaVinciApplicationReplaceRequestApiKey and assigns it to the ApiKey field.
+func (o *DaVinciApplicationReplaceRequest) SetApiKey(v DaVinciApplicationReplaceRequestApiKey) {
+	o.ApiKey = &v
 }
 
 // GetOauth returns the Oauth field value if set, zero value otherwise.
@@ -150,8 +150,8 @@ func (o DaVinciApplicationReplaceRequest) MarshalJSON() ([]byte, error) {
 func (o DaVinciApplicationReplaceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.ApiKeyEnabled) {
-		toSerialize["apiKeyEnabled"] = o.ApiKeyEnabled
+	if !IsNil(o.ApiKey) {
+		toSerialize["apiKey"] = o.ApiKey
 	}
 	if !IsNil(o.Oauth) {
 		toSerialize["oauth"] = o.Oauth
@@ -200,7 +200,7 @@ func (o *DaVinciApplicationReplaceRequest) UnmarshalJSON(data []byte) (err error
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "apiKeyEnabled")
+		delete(additionalProperties, "apiKey")
 		delete(additionalProperties, "oauth")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -212,8 +212,8 @@ func (o DaVinciApplicationReplaceRequest) LogValue() slog.Value {
 	logAttrs := make([]slog.Attr, 0)
 
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
-	if !IsNil(o.ApiKeyEnabled) {
-		logAttrs = append(logAttrs, slog.Any("apiKeyEnabled", *o.ApiKeyEnabled))
+	if !IsNil(o.ApiKey) {
+		logAttrs = append(logAttrs, slog.Any("apiKey", *o.ApiKey))
 	}
 	if !IsNil(o.Oauth) {
 		logAttrs = append(logAttrs, slog.Any("oauth", *o.Oauth))

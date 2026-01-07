@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **CapabilityName** | Pointer to **string** |  | [optional] 
 **ConnectionId** | Pointer to **string** |  | [optional] 
 **ConnectorId** | Pointer to **string** |  | [optional] 
+**IdUnique** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Properties** | Pointer to [**DaVinciFlowGraphDataRequestElementsNodeDataProperties**](DaVinciFlowGraphDataRequestElementsNodeDataProperties.md) |  | [optional] 
@@ -148,6 +149,31 @@ SetConnectorId sets ConnectorId field to given value.
 `func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasConnectorId() bool`
 
 HasConnectorId returns a boolean if a field has been set.
+
+### GetIdUnique
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetIdUnique() string`
+
+GetIdUnique returns the IdUnique field if non-nil, zero value otherwise.
+
+### GetIdUniqueOk
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetIdUniqueOk() (*string, bool)`
+
+GetIdUniqueOk returns a tuple with the IdUnique field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdUnique
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetIdUnique(v string)`
+
+SetIdUnique sets IdUnique field to given value.
+
+### HasIdUnique
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasIdUnique() bool`
+
+HasIdUnique returns a boolean if a field has been set.
 
 ### GetLabel
 
