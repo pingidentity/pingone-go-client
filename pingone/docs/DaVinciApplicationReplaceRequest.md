@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**ApiKeyEnabled** | Pointer to **bool** |  | [optional] 
+**ApiKey** | Pointer to [**DaVinciApplicationReplaceRequestApiKey**](DaVinciApplicationReplaceRequestApiKey.md) |  | [optional] 
 **Oauth** | Pointer to [**DaVinciApplicationReplaceRequestOAuth**](DaVinciApplicationReplaceRequestOAuth.md) |  | [optional] 
 
 ## Methods
@@ -47,30 +47,30 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
-### GetApiKeyEnabled
+### GetApiKey
 
-`func (o *DaVinciApplicationReplaceRequest) GetApiKeyEnabled() bool`
+`func (o *DaVinciApplicationReplaceRequest) GetApiKey() DaVinciApplicationReplaceRequestApiKey`
 
-GetApiKeyEnabled returns the ApiKeyEnabled field if non-nil, zero value otherwise.
+GetApiKey returns the ApiKey field if non-nil, zero value otherwise.
 
-### GetApiKeyEnabledOk
+### GetApiKeyOk
 
-`func (o *DaVinciApplicationReplaceRequest) GetApiKeyEnabledOk() (*bool, bool)`
+`func (o *DaVinciApplicationReplaceRequest) GetApiKeyOk() (*DaVinciApplicationReplaceRequestApiKey, bool)`
 
-GetApiKeyEnabledOk returns a tuple with the ApiKeyEnabled field if it's non-nil, zero value otherwise
+GetApiKeyOk returns a tuple with the ApiKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetApiKeyEnabled
+### SetApiKey
 
-`func (o *DaVinciApplicationReplaceRequest) SetApiKeyEnabled(v bool)`
+`func (o *DaVinciApplicationReplaceRequest) SetApiKey(v DaVinciApplicationReplaceRequestApiKey)`
 
-SetApiKeyEnabled sets ApiKeyEnabled field to given value.
+SetApiKey sets ApiKey field to given value.
 
-### HasApiKeyEnabled
+### HasApiKey
 
-`func (o *DaVinciApplicationReplaceRequest) HasApiKeyEnabled() bool`
+`func (o *DaVinciApplicationReplaceRequest) HasApiKey() bool`
 
-HasApiKeyEnabled returns a boolean if a field has been set.
+HasApiKey returns a boolean if a field has been set.
 
 ### GetOauth
 

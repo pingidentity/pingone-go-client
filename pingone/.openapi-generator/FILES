@@ -22,6 +22,7 @@ docs/DaVinciApplicationCollectionResponseEmbedded.md
 docs/DaVinciApplicationCollectionResponseLinks.md
 docs/DaVinciApplicationCreateRequest.md
 docs/DaVinciApplicationReplaceRequest.md
+docs/DaVinciApplicationReplaceRequestApiKey.md
 docs/DaVinciApplicationReplaceRequestOAuth.md
 docs/DaVinciApplicationReplaceRequestOAuthGrantType.md
 docs/DaVinciApplicationReplaceRequestOAuthScope.md
@@ -369,6 +370,7 @@ model_da_vinci_application_collection_response__embedded.go
 model_da_vinci_application_collection_response__links.go
 model_da_vinci_application_create_request.go
 model_da_vinci_application_replace_request.go
+model_da_vinci_application_replace_request_api_key.go
 model_da_vinci_application_replace_request_o_auth.go
 model_da_vinci_application_replace_request_o_auth_grant_type.go
 model_da_vinci_application_replace_request_o_auth_scope.go
@@ -700,8 +702,12 @@ model_unsupported_media_type_error_code.go
 model_unsupported_media_type_error_detail.go
 response.go
 test/api_configuration_management_test.go
+test/api_da_vinci_applications_test.go
+test/api_da_vinci_connectors_test.go
 test/api_da_vinci_flow_versions_test.go
 test/api_da_vinci_flows_test.go
+test/api_da_vinci_variables_test.go
 test/api_directory_total_identities_test.go
+test/api_environments_test.go
 test/api_flow_policies_test.go
 utils.go
