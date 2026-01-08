@@ -83,7 +83,7 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 	// Use SDK oauth2 helper to generate token key, with optional suffix when provided
 	var tokenKey string
 	if suffix != "" {
-		tokenKey = svcOAuth2.GenerateKeychainAccountName(environmentID, clientID, string(grantType), suffix)
+		tokenKey = svcOAuth2.GenerateKeychainAccountNameWithSuffix(environmentID, clientID, string(grantType), suffix)
 	} else {
 		tokenKey = svcOAuth2.GenerateKeychainAccountName(environmentID, clientID, string(grantType))
 	}
@@ -397,7 +397,8 @@ func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
 	if c.Auth.Storage == nil {
 		c.Auth.Storage = &Storage{}
 	}
-	// Set the storage type based on useKeychain value
+	// Set the storage type
+	c.Auth.Storage.Type = StorageTypeNone
 	if useKeychain {
 		c.Auth.Storage.Type = StorageTypeSecureLocal
 	}
