@@ -25,17 +25,17 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeData{}
 
 // DaVinciFlowGraphDataRequestElementsNodeData struct for DaVinciFlowGraphDataRequestElementsNodeData
 type DaVinciFlowGraphDataRequestElementsNodeData struct {
-	Id                   string                                                 `json:"id"`
-	NodeType             string                                                 `json:"nodeType"`
-	CapabilityName       *string                                                `json:"capabilityName,omitempty"`
-	ConnectionId         *string                                                `json:"connectionId,omitempty"`
-	ConnectorId          *string                                                `json:"connectorId,omitempty"`
-	IdUnique             *string                                                `json:"idUnique,omitempty"`
-	Label                *string                                                `json:"label,omitempty"`
-	Name                 *string                                                `json:"name,omitempty"`
-	Properties           *DaVinciFlowGraphDataRequestElementsNodeDataProperties `json:"properties,omitempty"`
-	Status               *string                                                `json:"status,omitempty"`
-	Type                 *string                                                `json:"type,omitempty"`
+	Id                   string                 `json:"id"`
+	NodeType             string                 `json:"nodeType"`
+	CapabilityName       *string                `json:"capabilityName,omitempty"`
+	ConnectionId         *string                `json:"connectionId,omitempty"`
+	ConnectorId          *string                `json:"connectorId,omitempty"`
+	IdUnique             *string                `json:"idUnique,omitempty"`
+	Label                *string                `json:"label,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -301,17 +301,17 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetName(v string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() DaVinciFlowGraphDataRequestElementsNodeDataProperties {
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
-		var ret DaVinciFlowGraphDataRequestElementsNodeDataProperties
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Properties
+	return o.Properties
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataRequestElementsNodeDataProperties, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
@@ -327,9 +327,9 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given DaVinciFlowGraphDataRequestElementsNodeDataProperties and assigns it to the Properties field.
-func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v DaVinciFlowGraphDataRequestElementsNodeDataProperties) {
-	o.Properties = &v
+// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v map[string]interface{}) {
+	o.Properties = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -520,7 +520,7 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) LogValue() slog.Value {
 		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
 	}
 	if !IsNil(o.Properties) {
-		logAttrs = append(logAttrs, slog.Any("properties", *o.Properties))
+		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
 	}
 	if !IsNil(o.Status) {
 		logAttrs = append(logAttrs, slog.Any("status", *o.Status))
