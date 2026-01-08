@@ -771,34 +771,6 @@ func TestWithStorageType(t *testing.T) {
 	}
 }
 
-func TestWithUseKeychain(t *testing.T) {
-	tests := []struct {
-		name              string
-		useKeychain       bool
-		expectStorageType config.StorageType
-	}{
-		{
-			name:              "UseKeychain true sets StorageTypeSecureLocal",
-			useKeychain:       true,
-			expectStorageType: config.StorageTypeSecureLocal,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			cfg := config.NewConfiguration().WithUseKeychain(tt.useKeychain)
-
-			if cfg.Auth.Storage == nil {
-				t.Fatal("Storage should not be nil")
-			}
-
-			if cfg.Auth.Storage.Type != tt.expectStorageType {
-				t.Errorf("Expected StorageType to be %q, got %q", tt.expectStorageType, cfg.Auth.Storage.Type)
-			}
-		})
-	}
-}
-
 func TestWithStorageName(t *testing.T) {
 	cfg := config.NewConfiguration().WithStorageName("test-storage-name")
 

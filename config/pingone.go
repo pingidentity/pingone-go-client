@@ -393,18 +393,6 @@ func (c *Configuration) WithDeviceCodeScopes(deviceCodeScopes []string) *Configu
 	return c
 }
 
-func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
-	if c.Auth.Storage == nil {
-		c.Auth.Storage = &Storage{}
-	}
-	// Set the storage type
-	c.Auth.Storage.Type = StorageTypeNone
-	if useKeychain {
-		c.Auth.Storage.Type = StorageTypeSecureLocal
-	}
-	return c
-}
-
 func (c *Configuration) WithStorageType(storageType StorageType) *Configuration {
 	if c.Auth.Storage == nil {
 		c.Auth.Storage = &Storage{}
