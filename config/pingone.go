@@ -393,6 +393,14 @@ func (c *Configuration) WithDeviceCodeScopes(deviceCodeScopes []string) *Configu
 	return c
 }
 
+// Deprecated: Use WithStorageType instead.
+func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
+	if useKeychain {
+		return c.WithStorageType(StorageTypeSecureLocal)
+	}
+	return c.WithStorageType(StorageTypeNone)
+}
+
 func (c *Configuration) WithStorageType(storageType StorageType) *Configuration {
 	if c.Auth.Storage == nil {
 		c.Auth.Storage = &Storage{}
