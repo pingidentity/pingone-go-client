@@ -210,3 +210,94 @@ func stringContains(s, substr string) bool {
 	}
 	return false
 }
+
+func TestGenerateKeychainAccountNameWithSuffix(t *testing.T) {
+	tests := []struct {
+		name          string
+		environmentID string
+		clientID      string
+		grantType     string
+		suffix        string
+		expected      string // We can't predict hash, but we can check format
+}{
+{
+name:          "Basic usage",
+environmentID: "env1",
+clientID:      "client1",
+grantType:     "client_credentials",
+suffix:        "suffix1",
+},
+{
+name:          "Empty suffix",
+environmentID: "env1",
+clientID:      "client1",
+grantType:     "client_credentials",
+suffix:        "",
+},
+{
+name:          "All empty",
+environmentID: "",
+clientID:      "",
+grantType:     "",
+suffix:        "",
+},
+{
+name:          "Empty base, with suffix",
+environmentID: "",
+clientID:      "",
+grantType:     "",
+suffix:        "suffix2",
+},
+}
+
+for _, tt := range tests {
+t.Run(tt.name, func(t *testing.T) {
+result := GenerateKeychainAccountNameWithSuffix(tt.environmentID, tt.clientID, tt.grantType, tt.suffix)
+
+// Basic format checks
+if tt.environmentID == "" && tt.clientID == "" && tt.grantType == "" {
+// Should use default base
+if tt.suffix == "" {
+if result != "default-token" {
+t.Errorf("Expected 'default-token', got %q", result)
+}
+} else {
+expected := "default-token_" + tt.suffix
+if result != expected {
+t.Errorf("Expected %q, got %q", expected, result)
+}
+}
+} else {
+// Should be hashed
+if tt.suffix == "" {
+// Format: token-<hash>
+if len(result) < 14 { // token- + 8 chars
+t.Errorf("Result too short: %q", result)
+}
+} else {
+// Format: token-<hash>_<suffix>
+if len(result) < 14+1+len(tt.suffix) {
+t.Errorf("Result too short: %q", result)
+}
+}
+}
+
+if tt.suffix != "" {
+// Verify suffix is present at end
+expectedSuffix := "_" + tt.suffix
+if len(result) < len(expectedSuffix) || result[len(result)-len(expectedSuffix):] != expectedSuffix {
+t.Errorf("Result %q does not end with suffix %q", result, expectedSuffix)
+}
+}
+})
+}
+
+// Consistency check
+t.Run("Consistency", func(t *testing.T) {
+r1 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
+r2 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
+if r1 != r2 {
+t.Error("Function should be deterministic")
+}
+})
+}

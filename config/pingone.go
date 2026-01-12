@@ -7,7 +7,6 @@ package config
 
 import (
 	"context"
-	"crypto/sha256"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -74,8 +73,20 @@ func (c *Configuration) generateTokenKey(grantType svcOAuth2.GrantType) (string,
 		return "", fmt.Errorf("environment ID and client ID are required for token key generation")
 	}
 
-	hash := sha256.Sum256([]byte(fmt.Sprintf("%s:%s:%s", environmentID, clientID, grantType)))
-	tokenKey := fmt.Sprintf("token-%x", hash[:8])
+	// Optional suffix provided by consumer via Storage.OptionalSuffix.
+	// When empty, no suffix is appended.
+	var suffix string
+	if c.Auth.Storage != nil && strings.TrimSpace(c.Auth.Storage.OptionalSuffix) != "" {
+		suffix = c.Auth.Storage.OptionalSuffix
+	}
+
+	// Use SDK oauth2 helper to generate token key, with optional suffix when provided
+	var tokenKey string
+	if suffix != "" {
+		tokenKey = svcOAuth2.GenerateKeychainAccountNameWithSuffix(environmentID, clientID, string(grantType), suffix)
+	} else {
+		tokenKey = svcOAuth2.GenerateKeychainAccountName(environmentID, clientID, string(grantType))
+	}
 
 	slog.Debug("Generated token key", "environmentID", environmentID, "clientID", clientID, "grantType", grantType, "tokenKey", tokenKey)
 
@@ -178,6 +189,10 @@ type DeviceCode struct {
 type Storage struct {
 	KeychainName string      `envconfig:"PINGONE_STORAGE_NAME" json:"name,omitempty"`
 	Type         StorageType `envconfig:"PINGONE_STORAGE_TYPE" json:"type,omitempty"`
+	// OptionalSuffix allows SDK consumers to append a suffix to the generated
+	// token key for disambiguation across contexts (e.g., provider/grant/profile).
+	// If empty, no suffix is appended and the base token key is used.
+	OptionalSuffix string `envconfig:"PINGONE_STORAGE_OPTIONAL_SUFFIX" json:"optionalSuffix,omitempty"`
 }
 
 // Configuration represents the complete configuration for the PingOne Go Client SDK.
@@ -378,15 +393,12 @@ func (c *Configuration) WithDeviceCodeScopes(deviceCodeScopes []string) *Configu
 	return c
 }
 
+// Deprecated: Use WithStorageType instead.
 func (c *Configuration) WithUseKeychain(useKeychain bool) *Configuration {
-	if c.Auth.Storage == nil {
-		c.Auth.Storage = &Storage{}
-	}
-	// Set the storage type based on useKeychain value
 	if useKeychain {
-		c.Auth.Storage.Type = StorageTypeKeychain
+		return c.WithStorageType(StorageTypeSecureLocal)
 	}
-	return c
+	return c.WithStorageType(StorageTypeNone)
 }
 
 func (c *Configuration) WithStorageType(storageType StorageType) *Configuration {
@@ -402,6 +414,17 @@ func (c *Configuration) WithStorageName(name string) *Configuration {
 		c.Auth.Storage = &Storage{}
 	}
 	c.Auth.Storage.KeychainName = name
+	return c
+}
+
+// WithStorageOptionalSuffix sets an optional suffix for the token key.
+// This allows SDK consumers to unify key names across keychain and file storage
+// without changing default SDK behavior for other clients.
+func (c *Configuration) WithStorageOptionalSuffix(suffix string) *Configuration {
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = &Storage{}
+	}
+	c.Auth.Storage.OptionalSuffix = suffix
 	return c
 }
 
@@ -494,7 +517,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 	// Check keychain for existing valid token before performing auth
 	if c.Auth.GrantType != nil {
 		// Default to storage type of keychain
-		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+		shouldCheckKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 
 		if shouldCheckKeychain {
 			// Validate storage name is set when using keychain
@@ -557,7 +580,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 		var tokenKey string
 
 		// Only generate token key if storage is enabled
-		shouldUseStorage := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+		shouldUseStorage := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 		if shouldUseStorage {
 			var err error
 			tokenKey, err = c.generateTokenKey(*c.Auth.GrantType)
@@ -591,7 +614,8 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 				if err != nil {
 					return nil, fmt.Errorf("failed to get token: %w", err)
 				}
-				shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+				shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
+				// Save only when using SECURE_LOCAL storage; skip for NONE/FILE_SYSTEM
 				if shouldSaveToKeychain {
 					if c.Auth.Storage == nil || c.Auth.Storage.KeychainName == "" {
 						return nil, fmt.Errorf("storage name is required when using keychain storage. Use WithStorageName() to set it")
@@ -630,7 +654,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			}
 
 			// Save token to keychain for future use - only if storage type is keychain (or not set)
-			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeKeychain
+			shouldSaveToKeychain := c.Auth.Storage == nil || c.Auth.Storage.Type == "" || c.Auth.Storage.Type == StorageTypeSecureLocal
 
 			if shouldSaveToKeychain {
 				// Validate storage name is set when using keychain
@@ -670,7 +694,7 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 					}
 				}
 			} else {
-				slog.Debug("Skipping keychain storage (file storage mode)", "tokenKey", tokenKey)
+				slog.Debug("Skipping keychain storage (non-secure-local storage)", "tokenKey", tokenKey)
 			}
 
 			// Set up automatic refresh without keychain persistence if token has refresh capability

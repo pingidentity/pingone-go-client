@@ -15,9 +15,24 @@ func TestStorageType_String(t *testing.T) {
 		expected    string
 	}{
 		{
-			name:        "StorageTypeKeychain",
-			storageType: config.StorageTypeKeychain,
-			expected:    "keychain",
+			name:        "StorageTypeSecureLocal",
+			storageType: config.StorageTypeSecureLocal,
+			expected:    "secure_local",
+		},
+		{
+			name:        "StorageTypeFileSystem",
+			storageType: config.StorageTypeFileSystem,
+			expected:    "file_system",
+		},
+		{
+			name:        "StorageTypeSecureRemote",
+			storageType: config.StorageTypeSecureRemote,
+			expected:    "secure_remote",
+		},
+		{
+			name:        "StorageTypeNone",
+			storageType: config.StorageTypeNone,
+			expected:    "none",
 		},
 	}
 
@@ -38,8 +53,23 @@ func TestStorageType_IsValid(t *testing.T) {
 		expected    bool
 	}{
 		{
-			name:        "StorageTypeKeychain is valid",
-			storageType: config.StorageTypeKeychain,
+			name:        "StorageTypeSecureLocal is valid",
+			storageType: config.StorageTypeSecureLocal,
+			expected:    true,
+		},
+		{
+			name:        "StorageTypeFileSystem is valid",
+			storageType: config.StorageTypeFileSystem,
+			expected:    true,
+		},
+		{
+			name:        "StorageTypeSecureRemote is valid",
+			storageType: config.StorageTypeSecureRemote,
+			expected:    true,
+		},
+		{
+			name:        "StorageTypeNone is valid",
+			storageType: config.StorageTypeNone,
 			expected:    true,
 		},
 		{
@@ -71,7 +101,16 @@ func TestStorageType_IsValid(t *testing.T) {
 
 func TestStorageTypeConstants(t *testing.T) {
 	// Verify the constant values are as expected
-	if config.StorageTypeKeychain != "keychain" {
-		t.Errorf("Expected StorageTypeKeychain to be 'keychain', got %q", config.StorageTypeKeychain)
+	if config.StorageTypeSecureLocal != "secure_local" {
+		t.Errorf("Expected StorageTypeSecureLocal to be 'secure_local', got %q", config.StorageTypeSecureLocal)
+	}
+	if config.StorageTypeFileSystem != "file_system" {
+		t.Errorf("Expected StorageTypeFileSystem to be 'file_system', got %q", config.StorageTypeFileSystem)
+	}
+	if config.StorageTypeSecureRemote != "secure_remote" {
+		t.Errorf("Expected StorageTypeSecureRemote to be 'secure_remote', got %q", config.StorageTypeSecureRemote)
+	}
+	if config.StorageTypeNone != "none" {
+		t.Errorf("Expected StorageTypeNone to be 'none', got %q", config.StorageTypeNone)
 	}
 }

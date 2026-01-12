@@ -89,9 +89,10 @@ func (k *KeychainStorage) HasToken() (bool, error) {
 	return true, nil
 }
 
-// GenerateKeychainAccountName creates a unique account name based on environment ID, client ID, and grant type
+// GenerateKeychainAccountName creates a unique account name based on environment ID, client ID, and grant type.
 func GenerateKeychainAccountName(environmentID, clientID, grantType string) string {
 	if environmentID == "" && clientID == "" && grantType == "" {
+		// When no inputs are provided, return a stable default
 		return "default-token"
 	}
 
@@ -99,5 +100,16 @@ func GenerateKeychainAccountName(environmentID, clientID, grantType string) stri
 	var b []byte
 	b = fmt.Appendf(b, "%s:%s:%s", environmentID, clientID, grantType)
 	hash := sha256.Sum256(b)
-	return fmt.Sprintf("token-%x", hash[:8]) // Use first 8 bytes of hash for shorter key
+	base := fmt.Sprintf("token-%x", hash[:8]) // Use first 8 bytes of hash for shorter key
+
+	return base
+}
+
+// GenerateKeychainAccountNameWithSuffix creates a unique account name based on environment ID, client ID, grant type, suffix.
+func GenerateKeychainAccountNameWithSuffix(environmentID, clientID, grantType, suffix string) string {
+	base := GenerateKeychainAccountName(environmentID, clientID, grantType)
+	if suffix != "" {
+		return fmt.Sprintf("%s_%s", base, suffix)
+	}
+	return base
 }
