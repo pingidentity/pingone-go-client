@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **IdUnique** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Properties** | Pointer to [**DaVinciFlowGraphDataRequestElementsNodeDataProperties**](DaVinciFlowGraphDataRequestElementsNodeDataProperties.md) |  | [optional] 
+**Properties** | Pointer to **map[string]interface{}** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
@@ -227,20 +227,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() DaVinciFlowGraphDataRequestElementsNodeDataProperties`
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() map[string]interface{}`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (*DaVinciFlowGraphDataRequestElementsNodeDataProperties, bool)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetPropertiesOk() (*map[string]interface{}, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v DaVinciFlowGraphDataRequestElementsNodeDataProperties)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetProperties(v map[string]interface{})`
 
 SetProperties sets Properties field to given value.
 
