@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.01.07-beta
+  version: 2026.01.14-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -3429,12 +3429,12 @@ components:
                 value: value
               customErrorShowFooter: true
               customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-              flowTimeoutInSeconds: 7.457744773683766
+              flowTimeoutInSeconds: 6.84685269835264
               customTitle: customTitle
               intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
               useCustomScript: true
               useCSP: true
-              logLevel: 1
+              logLevel: 3
               requireAuthenticationToInitiate: true
               useCustomFlowPlayer: true
               cssLinks:
@@ -3444,7 +3444,7 @@ components:
               intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
               useCustomCSS: true
               validateOnSave: true
-              flowHttpTimeoutInSeconds: 6
+              flowHttpTimeoutInSeconds: 1
               scrubSensitiveInfo: true
               useIntermediateLoadingScreen: true
               customLogoURLSelection: 1
@@ -3537,11 +3537,11 @@ components:
               configuration:
                 mfa:
                   timeFormat: timeFormat
-                  time: 4.965218492984954
+                  time: 1.1730742509559433
                   enabled: true
                 pwd:
                   timeFormat: timeFormat
-                  time: 5.025004791520295
+                  time: 4.965218492984954
                   enabled: true
               type: AUTHENTICATION
             currentVersion: 0.8008281904610115
@@ -3550,7 +3550,7 @@ components:
             createdAt: 2000-01-23T04:56:07.000+00:00
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publishedVersion: 1.0246457001441578
+            publishedVersion: 1.2315135367772556
             name: name
             id: id
             graphData:
@@ -3559,11 +3559,11 @@ components:
                 name: name
               zoomingEnabled: true
               data: "{}"
-              maxZoom: 7.386281948385884
+              maxZoom: 4.145608029883936
               userPanningEnabled: true
               userZoomingEnabled: true
-              minZoom: 1.2315135367772556
-              zoom: 4.145608029883936
+              minZoom: 7.386281948385884
+              zoom: 2.027123023002322
               allLinterErrors:
               - code: code
                 recommendation: recommendation
@@ -3603,70 +3603,7 @@ components:
                     nodeType: nodeType
                     type: type
                     properties:
-                      backgroundColor:
-                        value: value
-                      code:
-                        value: value
-                      outputSchema:
-                        value: value
-                      inputSchema:
-                        value: value
-                      variableInputList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      message:
-                        value: value
-                      type:
-                        value: value
-                      saveVariables:
-                        value:
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                      customHTML:
-                        value: value
-                      customScript:
-                        value: value
-                      showContinueButton:
-                        value: true
-                      nodeTitle:
-                        value: value
-                      formFieldsList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      customCSS:
-                        value: value
+                      key: ""
                     status: status
                   removed: true
                   selectable: true
@@ -3674,8 +3611,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.637376656633329
-                    "y": 2.3021358869347655
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3703,70 +3640,7 @@ components:
                     nodeType: nodeType
                     type: type
                     properties:
-                      backgroundColor:
-                        value: value
-                      code:
-                        value: value
-                      outputSchema:
-                        value: value
-                      inputSchema:
-                        value: value
-                      variableInputList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      message:
-                        value: value
-                      type:
-                        value: value
-                      saveVariables:
-                        value:
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                      customHTML:
-                        value: value
-                      customScript:
-                        value: value
-                      showContinueButton:
-                        value: true
-                      nodeTitle:
-                        value: value
-                      formFieldsList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      customCSS:
-                        value: value
+                      key: ""
                     status: status
                   removed: true
                   selectable: true
@@ -3774,8 +3648,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.637376656633329
-                    "y": 2.3021358869347655
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -3790,8 +3664,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 7.061401241503109
-                    "y": 9.301444243932576
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -3805,14 +3679,14 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 7.061401241503109
-                    "y": 9.301444243932576
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
               pan:
-                x: 3.616076749251911
-                "y": 2.027123023002322
+                x: 9.301444243932576
+                "y": 3.616076749251911
               panningEnabled: true
             dvlinterErrorCount: 6.027456183070403
             updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -3836,12 +3710,12 @@ components:
                 value: value
               customErrorShowFooter: true
               customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-              flowTimeoutInSeconds: 7.457744773683766
+              flowTimeoutInSeconds: 6.84685269835264
               customTitle: customTitle
               intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
               useCustomScript: true
               useCSP: true
-              logLevel: 1
+              logLevel: 3
               requireAuthenticationToInitiate: true
               useCustomFlowPlayer: true
               cssLinks:
@@ -3851,7 +3725,7 @@ components:
               intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
               useCustomCSS: true
               validateOnSave: true
-              flowHttpTimeoutInSeconds: 6
+              flowHttpTimeoutInSeconds: 1
               scrubSensitiveInfo: true
               useIntermediateLoadingScreen: true
               customLogoURLSelection: 1
@@ -3944,11 +3818,11 @@ components:
               configuration:
                 mfa:
                   timeFormat: timeFormat
-                  time: 4.965218492984954
+                  time: 1.1730742509559433
                   enabled: true
                 pwd:
                   timeFormat: timeFormat
-                  time: 5.025004791520295
+                  time: 4.965218492984954
                   enabled: true
               type: AUTHENTICATION
             currentVersion: 0.8008281904610115
@@ -3957,7 +3831,7 @@ components:
             createdAt: 2000-01-23T04:56:07.000+00:00
             environment:
               id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publishedVersion: 1.0246457001441578
+            publishedVersion: 1.2315135367772556
             name: name
             id: id
             graphData:
@@ -3966,11 +3840,11 @@ components:
                 name: name
               zoomingEnabled: true
               data: "{}"
-              maxZoom: 7.386281948385884
+              maxZoom: 4.145608029883936
               userPanningEnabled: true
               userZoomingEnabled: true
-              minZoom: 1.2315135367772556
-              zoom: 4.145608029883936
+              minZoom: 7.386281948385884
+              zoom: 2.027123023002322
               allLinterErrors:
               - code: code
                 recommendation: recommendation
@@ -4010,70 +3884,7 @@ components:
                     nodeType: nodeType
                     type: type
                     properties:
-                      backgroundColor:
-                        value: value
-                      code:
-                        value: value
-                      outputSchema:
-                        value: value
-                      inputSchema:
-                        value: value
-                      variableInputList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      message:
-                        value: value
-                      type:
-                        value: value
-                      saveVariables:
-                        value:
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                      customHTML:
-                        value: value
-                      customScript:
-                        value: value
-                      showContinueButton:
-                        value: true
-                      nodeTitle:
-                        value: value
-                      formFieldsList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      customCSS:
-                        value: value
+                      key: ""
                     status: status
                   removed: true
                   selectable: true
@@ -4081,8 +3892,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.637376656633329
-                    "y": 2.3021358869347655
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -4110,70 +3921,7 @@ components:
                     nodeType: nodeType
                     type: type
                     properties:
-                      backgroundColor:
-                        value: value
-                      code:
-                        value: value
-                      outputSchema:
-                        value: value
-                      inputSchema:
-                        value: value
-                      variableInputList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          name: name
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      message:
-                        value: value
-                      type:
-                        value: value
-                      saveVariables:
-                        value:
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                        - name: name
-                          nameDefault: nameDefault
-                          label: label
-                          type: type
-                          value: value
-                          key: 5.962133916683182
-                      customHTML:
-                        value: value
-                      customScript:
-                        value: value
-                      showContinueButton:
-                        value: true
-                      nodeTitle:
-                        value: value
-                      formFieldsList:
-                        value:
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                        - preferredControlType: preferredControlType
-                          propertyName: propertyName
-                          preferredDataType:
-                          - ""
-                          - ""
-                          value: value
-                      customCSS:
-                        value: value
+                      key: ""
                     status: status
                   removed: true
                   selectable: true
@@ -4181,8 +3929,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 5.637376656633329
-                    "y": 2.3021358869347655
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                   locked: true
                   selected: true
                   group: group
@@ -4197,8 +3945,8 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 7.061401241503109
-                    "y": 9.301444243932576
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
@@ -4212,14 +3960,14 @@ components:
                   grabbable: true
                   pannable: true
                   position:
-                    x: 7.061401241503109
-                    "y": 9.301444243932576
+                    x: 2.3021358869347655
+                    "y": 7.061401241503109
                   locked: true
                   selected: true
                   group: group
               pan:
-                x: 3.616076749251911
-                "y": 2.027123023002322
+                x: 9.301444243932576
+                "y": 3.616076749251911
               panningEnabled: true
             dvlinterErrorCount: 6.027456183070403
             updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -4236,7 +3984,7 @@ components:
             href: https://openapi-generator.tech
             title: https://openapi-generator.tech
             type: type
-        count: 9.965781217890562
+        count: 5.025004791520295
       properties:
         _embedded:
           $ref: "#/components/schemas/DaVinci_Flow_Collection__embedded"
@@ -4273,7 +4021,7 @@ components:
             value: value
           customErrorShowFooter: true
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-          flowTimeoutInSeconds: 1
+          flowTimeoutInSeconds: 7
           customTitle: customTitle
           intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
           useCustomScript: true
@@ -4288,10 +4036,10 @@ components:
           intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
-          flowHttpTimeoutInSeconds: 7
+          flowHttpTimeoutInSeconds: 4
           scrubSensitiveInfo: true
           useIntermediateLoadingScreen: true
-          customLogoURLSelection: 4
+          customLogoURLSelection: 2
           jsCustomFlowPlayer: jsCustomFlowPlayer
           customFaviconLink: customFaviconLink
           sensitiveInfoFields:
@@ -4324,7 +4072,7 @@ components:
           renderer: "{}"
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 2.3021358869347655
+          maxZoom: 5.637376656633329
           elements:
             nodes:
             - data:
@@ -4338,70 +4086,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               classes: classes
@@ -4409,8 +4094,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 1.4658129805029452
+                "y": 5.962133916683182
               locked: true
               selected: true
               group: group
@@ -4425,70 +4110,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               classes: classes
@@ -4496,8 +4118,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 1.4658129805029452
+                "y": 5.962133916683182
               locked: true
               selected: true
               group: group
@@ -4533,22 +4155,22 @@ components:
               selected: true
               group: group
           userPanningEnabled: true
-          minZoom: 7.061401241503109
+          minZoom: 2.3021358869347655
           userZoomingEnabled: true
-          zoom: 2
+          zoom: 3
           pan:
-            x: 9.301444243932576
-            "y": 3.616076749251911
+            x: 7.061401241503109
+            "y": 9.301444243932576
           panningEnabled: true
         trigger:
           configuration:
             mfa:
               timeFormat: timeFormat
-              time: 1.4894159098541704
+              time: 1.0246457001441578
               enabled: true
             pwd:
               timeFormat: timeFormat
-              time: 6.84685269835264
+              time: 1.4894159098541704
               enabled: true
           type: AUTHENTICATION
       properties:
@@ -4626,7 +4248,7 @@ components:
         renderer: "{}"
         zoomingEnabled: true
         data: "{}"
-        maxZoom: 2.3021358869347655
+        maxZoom: 5.637376656633329
         elements:
           nodes:
           - data:
@@ -4640,70 +4262,7 @@ components:
               nodeType: nodeType
               type: type
               properties:
-                backgroundColor:
-                  value: value
-                code:
-                  value: value
-                outputSchema:
-                  value: value
-                inputSchema:
-                  value: value
-                variableInputList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                message:
-                  value: value
-                type:
-                  value: value
-                saveVariables:
-                  value:
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 1.4658129805029452
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 1.4658129805029452
-                customHTML:
-                  value: value
-                customScript:
-                  value: value
-                showContinueButton:
-                  value: true
-                nodeTitle:
-                  value: value
-                formFieldsList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                customCSS:
-                  value: value
+                key: ""
               status: status
             removed: true
             classes: classes
@@ -4711,8 +4270,8 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 5.962133916683182
-              "y": 5.637376656633329
+              x: 1.4658129805029452
+              "y": 5.962133916683182
             locked: true
             selected: true
             group: group
@@ -4727,70 +4286,7 @@ components:
               nodeType: nodeType
               type: type
               properties:
-                backgroundColor:
-                  value: value
-                code:
-                  value: value
-                outputSchema:
-                  value: value
-                inputSchema:
-                  value: value
-                variableInputList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                message:
-                  value: value
-                type:
-                  value: value
-                saveVariables:
-                  value:
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 1.4658129805029452
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 1.4658129805029452
-                customHTML:
-                  value: value
-                customScript:
-                  value: value
-                showContinueButton:
-                  value: true
-                nodeTitle:
-                  value: value
-                formFieldsList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                customCSS:
-                  value: value
+                key: ""
               status: status
             removed: true
             classes: classes
@@ -4798,8 +4294,8 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 5.962133916683182
-              "y": 5.637376656633329
+              x: 1.4658129805029452
+              "y": 5.962133916683182
             locked: true
             selected: true
             group: group
@@ -4835,12 +4331,12 @@ components:
             selected: true
             group: group
         userPanningEnabled: true
-        minZoom: 7.061401241503109
+        minZoom: 2.3021358869347655
         userZoomingEnabled: true
-        zoom: 2
+        zoom: 3
         pan:
-          x: 9.301444243932576
-          "y": 3.616076749251911
+          x: 7.061401241503109
+          "y": 9.301444243932576
         panningEnabled: true
       properties:
         boxSelectionEnabled:
@@ -4877,11 +4373,11 @@ components:
           name: name
         zoomingEnabled: true
         data: "{}"
-        maxZoom: 7.386281948385884
+        maxZoom: 4.145608029883936
         userPanningEnabled: true
         userZoomingEnabled: true
-        minZoom: 1.2315135367772556
-        zoom: 4.145608029883936
+        minZoom: 7.386281948385884
+        zoom: 2.027123023002322
         allLinterErrors:
         - code: code
           recommendation: recommendation
@@ -4921,70 +4417,7 @@ components:
               nodeType: nodeType
               type: type
               properties:
-                backgroundColor:
-                  value: value
-                code:
-                  value: value
-                outputSchema:
-                  value: value
-                inputSchema:
-                  value: value
-                variableInputList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                message:
-                  value: value
-                type:
-                  value: value
-                saveVariables:
-                  value:
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 5.962133916683182
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 5.962133916683182
-                customHTML:
-                  value: value
-                customScript:
-                  value: value
-                showContinueButton:
-                  value: true
-                nodeTitle:
-                  value: value
-                formFieldsList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                customCSS:
-                  value: value
+                key: ""
               status: status
             removed: true
             selectable: true
@@ -4992,8 +4425,8 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
+              x: 5.962133916683182
+              "y": 5.637376656633329
             locked: true
             selected: true
             group: group
@@ -5021,70 +4454,7 @@ components:
               nodeType: nodeType
               type: type
               properties:
-                backgroundColor:
-                  value: value
-                code:
-                  value: value
-                outputSchema:
-                  value: value
-                inputSchema:
-                  value: value
-                variableInputList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    name: name
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                message:
-                  value: value
-                type:
-                  value: value
-                saveVariables:
-                  value:
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 5.962133916683182
-                  - name: name
-                    nameDefault: nameDefault
-                    label: label
-                    type: type
-                    value: value
-                    key: 5.962133916683182
-                customHTML:
-                  value: value
-                customScript:
-                  value: value
-                showContinueButton:
-                  value: true
-                nodeTitle:
-                  value: value
-                formFieldsList:
-                  value:
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                  - preferredControlType: preferredControlType
-                    propertyName: propertyName
-                    preferredDataType:
-                    - ""
-                    - ""
-                    value: value
-                customCSS:
-                  value: value
+                key: ""
               status: status
             removed: true
             selectable: true
@@ -5092,8 +4462,8 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
+              x: 5.962133916683182
+              "y": 5.637376656633329
             locked: true
             selected: true
             group: group
@@ -5108,8 +4478,8 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 7.061401241503109
-              "y": 9.301444243932576
+              x: 2.3021358869347655
+              "y": 7.061401241503109
             locked: true
             selected: true
             group: group
@@ -5123,14 +4493,14 @@ components:
             grabbable: true
             pannable: true
             position:
-              x: 7.061401241503109
-              "y": 9.301444243932576
+              x: 2.3021358869347655
+              "y": 7.061401241503109
             locked: true
             selected: true
             group: group
         pan:
-          x: 3.616076749251911
-          "y": 2.027123023002322
+          x: 9.301444243932576
+          "y": 3.616076749251911
         panningEnabled: true
       properties:
         boxSelectionEnabled:
@@ -5742,7 +5112,7 @@ components:
             value: value
           customErrorShowFooter: true
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-          flowTimeoutInSeconds: 1
+          flowTimeoutInSeconds: 7
           customTitle: customTitle
           intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
           useCustomScript: true
@@ -5757,10 +5127,10 @@ components:
           intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
-          flowHttpTimeoutInSeconds: 7
+          flowHttpTimeoutInSeconds: 4
           scrubSensitiveInfo: true
           useIntermediateLoadingScreen: true
-          customLogoURLSelection: 4
+          customLogoURLSelection: 2
           jsCustomFlowPlayer: jsCustomFlowPlayer
           customFaviconLink: customFaviconLink
           sensitiveInfoFields:
@@ -5793,7 +5163,7 @@ components:
           renderer: "{}"
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 2.3021358869347655
+          maxZoom: 5.637376656633329
           elements:
             nodes:
             - data:
@@ -5807,70 +5177,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               classes: classes
@@ -5878,8 +5185,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 1.4658129805029452
+                "y": 5.962133916683182
               locked: true
               selected: true
               group: group
@@ -5894,70 +5201,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 1.4658129805029452
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               classes: classes
@@ -5965,8 +5209,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.962133916683182
-                "y": 5.637376656633329
+                x: 1.4658129805029452
+                "y": 5.962133916683182
               locked: true
               selected: true
               group: group
@@ -6002,22 +5246,22 @@ components:
               selected: true
               group: group
           userPanningEnabled: true
-          minZoom: 7.061401241503109
+          minZoom: 2.3021358869347655
           userZoomingEnabled: true
-          zoom: 2
+          zoom: 3
           pan:
-            x: 9.301444243932576
-            "y": 3.616076749251911
+            x: 7.061401241503109
+            "y": 9.301444243932576
           panningEnabled: true
         trigger:
           configuration:
             mfa:
               timeFormat: timeFormat
-              time: 1.4894159098541704
+              time: 1.0246457001441578
               enabled: true
             pwd:
               timeFormat: timeFormat
-              time: 6.84685269835264
+              time: 1.4894159098541704
               enabled: true
           type: AUTHENTICATION
       properties:
@@ -6073,12 +5317,12 @@ components:
             value: value
           customErrorShowFooter: true
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-          flowTimeoutInSeconds: 7.457744773683766
+          flowTimeoutInSeconds: 6.84685269835264
           customTitle: customTitle
           intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
           useCustomScript: true
           useCSP: true
-          logLevel: 1
+          logLevel: 3
           requireAuthenticationToInitiate: true
           useCustomFlowPlayer: true
           cssLinks:
@@ -6088,7 +5332,7 @@ components:
           intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
-          flowHttpTimeoutInSeconds: 6
+          flowHttpTimeoutInSeconds: 1
           scrubSensitiveInfo: true
           useIntermediateLoadingScreen: true
           customLogoURLSelection: 1
@@ -6181,11 +5425,11 @@ components:
           configuration:
             mfa:
               timeFormat: timeFormat
-              time: 4.965218492984954
+              time: 1.1730742509559433
               enabled: true
             pwd:
               timeFormat: timeFormat
-              time: 5.025004791520295
+              time: 4.965218492984954
               enabled: true
           type: AUTHENTICATION
         currentVersion: 0.8008281904610115
@@ -6194,7 +5438,7 @@ components:
         createdAt: 2000-01-23T04:56:07.000+00:00
         environment:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        publishedVersion: 1.0246457001441578
+        publishedVersion: 1.2315135367772556
         name: name
         id: id
         graphData:
@@ -6203,11 +5447,11 @@ components:
             name: name
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 7.386281948385884
+          maxZoom: 4.145608029883936
           userPanningEnabled: true
           userZoomingEnabled: true
-          minZoom: 1.2315135367772556
-          zoom: 4.145608029883936
+          minZoom: 7.386281948385884
+          zoom: 2.027123023002322
           allLinterErrors:
           - code: code
             recommendation: recommendation
@@ -6247,70 +5491,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               selectable: true
@@ -6318,8 +5499,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.637376656633329
-                "y": 2.3021358869347655
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -6347,70 +5528,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               selectable: true
@@ -6418,8 +5536,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.637376656633329
-                "y": 2.3021358869347655
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -6434,8 +5552,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 7.061401241503109
-                "y": 9.301444243932576
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -6449,14 +5567,14 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 7.061401241503109
-                "y": 9.301444243932576
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
           pan:
-            x: 3.616076749251911
-            "y": 2.027123023002322
+            x: 9.301444243932576
+            "y": 3.616076749251911
           panningEnabled: true
         dvlinterErrorCount: 6.027456183070403
         updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -6550,7 +5668,7 @@ components:
           value: value
         customErrorShowFooter: true
         customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-        flowTimeoutInSeconds: 1
+        flowTimeoutInSeconds: 7
         customTitle: customTitle
         intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_CSS
         useCustomScript: true
@@ -6565,10 +5683,10 @@ components:
         intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Request_Intermediate_Loading_Screen_HTML
         useCustomCSS: true
         validateOnSave: true
-        flowHttpTimeoutInSeconds: 7
+        flowHttpTimeoutInSeconds: 4
         scrubSensitiveInfo: true
         useIntermediateLoadingScreen: true
-        customLogoURLSelection: 4
+        customLogoURLSelection: 2
         jsCustomFlowPlayer: jsCustomFlowPlayer
         customFaviconLink: customFaviconLink
         sensitiveInfoFields:
@@ -6668,12 +5786,12 @@ components:
           value: value
         customErrorShowFooter: true
         customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-        flowTimeoutInSeconds: 7.457744773683766
+        flowTimeoutInSeconds: 6.84685269835264
         customTitle: customTitle
         intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
         useCustomScript: true
         useCSP: true
-        logLevel: 1
+        logLevel: 3
         requireAuthenticationToInitiate: true
         useCustomFlowPlayer: true
         cssLinks:
@@ -6683,7 +5801,7 @@ components:
         intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
         useCustomCSS: true
         validateOnSave: true
-        flowHttpTimeoutInSeconds: 6
+        flowHttpTimeoutInSeconds: 1
         scrubSensitiveInfo: true
         useIntermediateLoadingScreen: true
         customLogoURLSelection: 1
@@ -6757,11 +5875,11 @@ components:
         configuration:
           mfa:
             timeFormat: timeFormat
-            time: 1.4894159098541704
+            time: 1.0246457001441578
             enabled: true
           pwd:
             timeFormat: timeFormat
-            time: 6.84685269835264
+            time: 1.4894159098541704
             enabled: true
         type: AUTHENTICATION
       properties:
@@ -6777,11 +5895,11 @@ components:
         configuration:
           mfa:
             timeFormat: timeFormat
-            time: 4.965218492984954
+            time: 1.1730742509559433
             enabled: true
           pwd:
             timeFormat: timeFormat
-            time: 5.025004791520295
+            time: 4.965218492984954
             enabled: true
         type: AUTHENTICATION
       properties:
@@ -6977,12 +6095,12 @@ components:
             value: value
           customErrorShowFooter: true
           customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-          flowTimeoutInSeconds: 7.457744773683766
+          flowTimeoutInSeconds: 6.84685269835264
           customTitle: customTitle
           intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
           useCustomScript: true
           useCSP: true
-          logLevel: 1
+          logLevel: 3
           requireAuthenticationToInitiate: true
           useCustomFlowPlayer: true
           cssLinks:
@@ -6992,7 +6110,7 @@ components:
           intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
           useCustomCSS: true
           validateOnSave: true
-          flowHttpTimeoutInSeconds: 6
+          flowHttpTimeoutInSeconds: 1
           scrubSensitiveInfo: true
           useIntermediateLoadingScreen: true
           customLogoURLSelection: 1
@@ -7066,11 +6184,11 @@ components:
           configuration:
             mfa:
               timeFormat: timeFormat
-              time: 4.965218492984954
+              time: 1.1730742509559433
               enabled: true
             pwd:
               timeFormat: timeFormat
-              time: 5.025004791520295
+              time: 4.965218492984954
               enabled: true
           type: AUTHENTICATION
         updates:
@@ -7184,11 +6302,11 @@ components:
             name: name
           zoomingEnabled: true
           data: "{}"
-          maxZoom: 7.386281948385884
+          maxZoom: 4.145608029883936
           userPanningEnabled: true
           userZoomingEnabled: true
-          minZoom: 1.2315135367772556
-          zoom: 4.145608029883936
+          minZoom: 7.386281948385884
+          zoom: 2.027123023002322
           allLinterErrors:
           - code: code
             recommendation: recommendation
@@ -7228,70 +6346,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               selectable: true
@@ -7299,8 +6354,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.637376656633329
-                "y": 2.3021358869347655
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -7328,70 +6383,7 @@ components:
                 nodeType: nodeType
                 type: type
                 properties:
-                  backgroundColor:
-                    value: value
-                  code:
-                    value: value
-                  outputSchema:
-                    value: value
-                  inputSchema:
-                    value: value
-                  variableInputList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      name: name
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  message:
-                    value: value
-                  type:
-                    value: value
-                  saveVariables:
-                    value:
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                    - name: name
-                      nameDefault: nameDefault
-                      label: label
-                      type: type
-                      value: value
-                      key: 5.962133916683182
-                  customHTML:
-                    value: value
-                  customScript:
-                    value: value
-                  showContinueButton:
-                    value: true
-                  nodeTitle:
-                    value: value
-                  formFieldsList:
-                    value:
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                    - preferredControlType: preferredControlType
-                      propertyName: propertyName
-                      preferredDataType:
-                      - ""
-                      - ""
-                      value: value
-                  customCSS:
-                    value: value
+                  key: ""
                 status: status
               removed: true
               selectable: true
@@ -7399,8 +6391,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 5.637376656633329
-                "y": 2.3021358869347655
+                x: 5.962133916683182
+                "y": 5.637376656633329
               locked: true
               selected: true
               group: group
@@ -7415,8 +6407,8 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 7.061401241503109
-                "y": 9.301444243932576
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
@@ -7430,14 +6422,14 @@ components:
               grabbable: true
               pannable: true
               position:
-                x: 7.061401241503109
-                "y": 9.301444243932576
+                x: 2.3021358869347655
+                "y": 7.061401241503109
               locked: true
               selected: true
               group: group
           pan:
-            x: 3.616076749251911
-            "y": 2.027123023002322
+            x: 9.301444243932576
+            "y": 3.616076749251911
           panningEnabled: true
         flow:
           name: name
@@ -11555,12 +10547,12 @@ components:
               value: value
             customErrorShowFooter: true
             customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-            flowTimeoutInSeconds: 7.457744773683766
+            flowTimeoutInSeconds: 6.84685269835264
             customTitle: customTitle
             intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
             useCustomScript: true
             useCSP: true
-            logLevel: 1
+            logLevel: 3
             requireAuthenticationToInitiate: true
             useCustomFlowPlayer: true
             cssLinks:
@@ -11570,7 +10562,7 @@ components:
             intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
             useCustomCSS: true
             validateOnSave: true
-            flowHttpTimeoutInSeconds: 6
+            flowHttpTimeoutInSeconds: 1
             scrubSensitiveInfo: true
             useIntermediateLoadingScreen: true
             customLogoURLSelection: 1
@@ -11663,11 +10655,11 @@ components:
             configuration:
               mfa:
                 timeFormat: timeFormat
-                time: 4.965218492984954
+                time: 1.1730742509559433
                 enabled: true
               pwd:
                 timeFormat: timeFormat
-                time: 5.025004791520295
+                time: 4.965218492984954
                 enabled: true
             type: AUTHENTICATION
           currentVersion: 0.8008281904610115
@@ -11676,7 +10668,7 @@ components:
           createdAt: 2000-01-23T04:56:07.000+00:00
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          publishedVersion: 1.0246457001441578
+          publishedVersion: 1.2315135367772556
           name: name
           id: id
           graphData:
@@ -11685,11 +10677,11 @@ components:
               name: name
             zoomingEnabled: true
             data: "{}"
-            maxZoom: 7.386281948385884
+            maxZoom: 4.145608029883936
             userPanningEnabled: true
             userZoomingEnabled: true
-            minZoom: 1.2315135367772556
-            zoom: 4.145608029883936
+            minZoom: 7.386281948385884
+            zoom: 2.027123023002322
             allLinterErrors:
             - code: code
               recommendation: recommendation
@@ -11729,70 +10721,7 @@ components:
                   nodeType: nodeType
                   type: type
                   properties:
-                    backgroundColor:
-                      value: value
-                    code:
-                      value: value
-                    outputSchema:
-                      value: value
-                    inputSchema:
-                      value: value
-                    variableInputList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    message:
-                      value: value
-                    type:
-                      value: value
-                    saveVariables:
-                      value:
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                    customHTML:
-                      value: value
-                    customScript:
-                      value: value
-                    showContinueButton:
-                      value: true
-                    nodeTitle:
-                      value: value
-                    formFieldsList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    customCSS:
-                      value: value
+                    key: ""
                   status: status
                 removed: true
                 selectable: true
@@ -11800,8 +10729,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.637376656633329
-                  "y": 2.3021358869347655
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -11829,70 +10758,7 @@ components:
                   nodeType: nodeType
                   type: type
                   properties:
-                    backgroundColor:
-                      value: value
-                    code:
-                      value: value
-                    outputSchema:
-                      value: value
-                    inputSchema:
-                      value: value
-                    variableInputList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    message:
-                      value: value
-                    type:
-                      value: value
-                    saveVariables:
-                      value:
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                    customHTML:
-                      value: value
-                    customScript:
-                      value: value
-                    showContinueButton:
-                      value: true
-                    nodeTitle:
-                      value: value
-                    formFieldsList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    customCSS:
-                      value: value
+                    key: ""
                   status: status
                 removed: true
                 selectable: true
@@ -11900,8 +10766,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.637376656633329
-                  "y": 2.3021358869347655
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -11916,8 +10782,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 7.061401241503109
-                  "y": 9.301444243932576
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -11931,14 +10797,14 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 7.061401241503109
-                  "y": 9.301444243932576
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
             pan:
-              x: 3.616076749251911
-              "y": 2.027123023002322
+              x: 9.301444243932576
+              "y": 3.616076749251911
             panningEnabled: true
           dvlinterErrorCount: 6.027456183070403
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -11962,12 +10828,12 @@ components:
               value: value
             customErrorShowFooter: true
             customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
-            flowTimeoutInSeconds: 7.457744773683766
+            flowTimeoutInSeconds: 6.84685269835264
             customTitle: customTitle
             intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
             useCustomScript: true
             useCSP: true
-            logLevel: 1
+            logLevel: 3
             requireAuthenticationToInitiate: true
             useCustomFlowPlayer: true
             cssLinks:
@@ -11977,7 +10843,7 @@ components:
             intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
             useCustomCSS: true
             validateOnSave: true
-            flowHttpTimeoutInSeconds: 6
+            flowHttpTimeoutInSeconds: 1
             scrubSensitiveInfo: true
             useIntermediateLoadingScreen: true
             customLogoURLSelection: 1
@@ -12070,11 +10936,11 @@ components:
             configuration:
               mfa:
                 timeFormat: timeFormat
-                time: 4.965218492984954
+                time: 1.1730742509559433
                 enabled: true
               pwd:
                 timeFormat: timeFormat
-                time: 5.025004791520295
+                time: 4.965218492984954
                 enabled: true
             type: AUTHENTICATION
           currentVersion: 0.8008281904610115
@@ -12083,7 +10949,7 @@ components:
           createdAt: 2000-01-23T04:56:07.000+00:00
           environment:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          publishedVersion: 1.0246457001441578
+          publishedVersion: 1.2315135367772556
           name: name
           id: id
           graphData:
@@ -12092,11 +10958,11 @@ components:
               name: name
             zoomingEnabled: true
             data: "{}"
-            maxZoom: 7.386281948385884
+            maxZoom: 4.145608029883936
             userPanningEnabled: true
             userZoomingEnabled: true
-            minZoom: 1.2315135367772556
-            zoom: 4.145608029883936
+            minZoom: 7.386281948385884
+            zoom: 2.027123023002322
             allLinterErrors:
             - code: code
               recommendation: recommendation
@@ -12136,70 +11002,7 @@ components:
                   nodeType: nodeType
                   type: type
                   properties:
-                    backgroundColor:
-                      value: value
-                    code:
-                      value: value
-                    outputSchema:
-                      value: value
-                    inputSchema:
-                      value: value
-                    variableInputList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    message:
-                      value: value
-                    type:
-                      value: value
-                    saveVariables:
-                      value:
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                    customHTML:
-                      value: value
-                    customScript:
-                      value: value
-                    showContinueButton:
-                      value: true
-                    nodeTitle:
-                      value: value
-                    formFieldsList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    customCSS:
-                      value: value
+                    key: ""
                   status: status
                 removed: true
                 selectable: true
@@ -12207,8 +11010,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.637376656633329
-                  "y": 2.3021358869347655
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -12236,70 +11039,7 @@ components:
                   nodeType: nodeType
                   type: type
                   properties:
-                    backgroundColor:
-                      value: value
-                    code:
-                      value: value
-                    outputSchema:
-                      value: value
-                    inputSchema:
-                      value: value
-                    variableInputList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        name: name
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    message:
-                      value: value
-                    type:
-                      value: value
-                    saveVariables:
-                      value:
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                      - name: name
-                        nameDefault: nameDefault
-                        label: label
-                        type: type
-                        value: value
-                        key: 5.962133916683182
-                    customHTML:
-                      value: value
-                    customScript:
-                      value: value
-                    showContinueButton:
-                      value: true
-                    nodeTitle:
-                      value: value
-                    formFieldsList:
-                      value:
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                      - preferredControlType: preferredControlType
-                        propertyName: propertyName
-                        preferredDataType:
-                        - ""
-                        - ""
-                        value: value
-                    customCSS:
-                      value: value
+                    key: ""
                   status: status
                 removed: true
                 selectable: true
@@ -12307,8 +11047,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 5.637376656633329
-                  "y": 2.3021358869347655
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 locked: true
                 selected: true
                 group: group
@@ -12323,8 +11063,8 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 7.061401241503109
-                  "y": 9.301444243932576
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
@@ -12338,14 +11078,14 @@ components:
                 grabbable: true
                 pannable: true
                 position:
-                  x: 7.061401241503109
-                  "y": 9.301444243932576
+                  x: 2.3021358869347655
+                  "y": 7.061401241503109
                 locked: true
                 selected: true
                 group: group
             pan:
-              x: 3.616076749251911
-              "y": 2.027123023002322
+              x: 9.301444243932576
+              "y": 3.616076749251911
             panningEnabled: true
           dvlinterErrorCount: 6.027456183070403
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -12475,392 +11215,6 @@ components:
       required:
       - data
       title: DaVinci Flow Graph Data Request Elements Edge
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Background_Color:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Background
-            Color Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Background
-        Color
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Code:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Code
-            Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Code
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_CSS:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-            CSS Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-        CSS
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_HTML:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-            HTML Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-        HTML
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_Script:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-            Script Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Custom
-        Script
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List_Value_Item:
-      example:
-        preferredControlType: preferredControlType
-        propertyName: propertyName
-        preferredDataType:
-        - ""
-        - ""
-        value: value
-      properties:
-        preferredDataType:
-          items: {}
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
-            Fields List Value Item Preferred Data Type
-        propertyName:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
-            Fields List Value Item Property Name
-        preferredControlType:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
-            Fields List Value Item Preferred Control Type
-        value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
-            Fields List Value Item Value
-      required:
-      - preferredDataType
-      - propertyName
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Form Fields
-        List Value Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List:
-      example:
-        value:
-        - preferredControlType: preferredControlType
-          propertyName: propertyName
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-        - preferredControlType: preferredControlType
-          propertyName: propertyName
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Form
-            Fields List Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Form Fields
-        List
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Input_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Input
-            Schema Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Input Schema
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Message:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Message
-            Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Message
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Node_Title:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Node
-            Title Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Node Title
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Output_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Output
-            Schema Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Output
-        Schema
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables_Value_Item:
-      additionalProperties: true
-      example:
-        name: name
-        nameDefault: nameDefault
-        label: label
-        type: type
-        value: value
-        key: 1.4658129805029452
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Name
-        key:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Key
-        label:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Label
-        nameDefault:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Name Default
-        type:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Type
-        value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value Item Value
-      required:
-      - name
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Save Variables
-        Value Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables:
-      example:
-        value:
-        - name: name
-          nameDefault: nameDefault
-          label: label
-          type: type
-          value: value
-          key: 1.4658129805029452
-        - name: name
-          nameDefault: nameDefault
-          label: label
-          type: type
-          value: value
-          key: 1.4658129805029452
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Save
-            Variables Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Save Variables
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Show_Continue_Button:
-      example:
-        value: true
-      properties:
-        value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Show
-            Continue Button Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Show Continue
-        Button
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Type:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Type
-            Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Type
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List_Value_Item:
-      example:
-        preferredControlType: preferredControlType
-        name: name
-        preferredDataType:
-        - ""
-        - ""
-        value: value
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-            Input List Value Item Name
-        preferredDataType:
-          items: {}
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-            Input List Value Item Preferred Data Type
-        preferredControlType:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-            Input List Value Item Preferred Control Type
-        value:
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-            Input List Value Item Value
-      required:
-      - name
-      - preferredDataType
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-        Input List Value Item
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List:
-      example:
-        value:
-        - preferredControlType: preferredControlType
-          name: name
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-        - preferredControlType: preferredControlType
-          name: name
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List_Value_Item"
-          title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-            Input List Value
-      required:
-      - value
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties Variable
-        Input List
-    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties:
-      additionalProperties: true
-      example:
-        backgroundColor:
-          value: value
-        code:
-          value: value
-        outputSchema:
-          value: value
-        inputSchema:
-          value: value
-        variableInputList:
-          value:
-          - preferredControlType: preferredControlType
-            name: name
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-          - preferredControlType: preferredControlType
-            name: name
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-        message:
-          value: value
-        type:
-          value: value
-        saveVariables:
-          value:
-          - name: name
-            nameDefault: nameDefault
-            label: label
-            type: type
-            value: value
-            key: 1.4658129805029452
-          - name: name
-            nameDefault: nameDefault
-            label: label
-            type: type
-            value: value
-            key: 1.4658129805029452
-        customHTML:
-          value: value
-        customScript:
-          value: value
-        showContinueButton:
-          value: true
-        nodeTitle:
-          value: value
-        formFieldsList:
-          value:
-          - preferredControlType: preferredControlType
-            propertyName: propertyName
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-          - preferredControlType: preferredControlType
-            propertyName: propertyName
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-        customCSS:
-          value: value
-      properties:
-        backgroundColor:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Background_Color"
-        code:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Code"
-        customCSS:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_CSS"
-        customHTML:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_HTML"
-        customScript:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Custom_Script"
-        formFieldsList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Form_Fields_List"
-        inputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Input_Schema"
-        message:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Message"
-        nodeTitle:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Node_Title"
-        outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Output_Schema"
-        saveVariables:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Save_Variables"
-        showContinueButton:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Show_Continue_Button"
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Type"
-        variableInputList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties_Variable_Input_List"
-      title: DaVinci Flow Graph Data Request Elements Node Data Properties
     DaVinci_Flow_Graph_Data_Request_Elements_Node_Data:
       additionalProperties: true
       example:
@@ -12874,70 +11228,7 @@ components:
         nodeType: nodeType
         type: type
         properties:
-          backgroundColor:
-            value: value
-          code:
-            value: value
-          outputSchema:
-            value: value
-          inputSchema:
-            value: value
-          variableInputList:
-            value:
-            - preferredControlType: preferredControlType
-              name: name
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-            - preferredControlType: preferredControlType
-              name: name
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-          message:
-            value: value
-          type:
-            value: value
-          saveVariables:
-            value:
-            - name: name
-              nameDefault: nameDefault
-              label: label
-              type: type
-              value: value
-              key: 1.4658129805029452
-            - name: name
-              nameDefault: nameDefault
-              label: label
-              type: type
-              value: value
-              key: 1.4658129805029452
-          customHTML:
-            value: value
-          customScript:
-            value: value
-          showContinueButton:
-            value: true
-          nodeTitle:
-            value: value
-          formFieldsList:
-            value:
-            - preferredControlType: preferredControlType
-              propertyName: propertyName
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-            - preferredControlType: preferredControlType
-              propertyName: propertyName
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-          customCSS:
-            value: value
+          key: ""
         status: status
       properties:
         id:
@@ -12959,7 +11250,8 @@ components:
         name:
           title: DaVinci Flow Graph Data Request Elements Node Data Name
         properties:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Properties"
+          additionalProperties: true
+          title: DaVinci Flow Graph Data Request Elements Node Data Properties
         status:
           title: DaVinci Flow Graph Data Request Elements Node Data Status
         type:
@@ -12970,8 +11262,8 @@ components:
       title: DaVinci Flow Graph Data Request Elements Node Data
     DaVinci_Flow_Graph_Data_Request_Elements_Node_Position:
       example:
-        x: 5.962133916683182
-        "y": 5.637376656633329
+        x: 1.4658129805029452
+        "y": 5.962133916683182
       properties:
         x:
           format: bigFloatUnquoted
@@ -12997,70 +11289,7 @@ components:
           nodeType: nodeType
           type: type
           properties:
-            backgroundColor:
-              value: value
-            code:
-              value: value
-            outputSchema:
-              value: value
-            inputSchema:
-              value: value
-            variableInputList:
-              value:
-              - preferredControlType: preferredControlType
-                name: name
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-              - preferredControlType: preferredControlType
-                name: name
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-            message:
-              value: value
-            type:
-              value: value
-            saveVariables:
-              value:
-              - name: name
-                nameDefault: nameDefault
-                label: label
-                type: type
-                value: value
-                key: 1.4658129805029452
-              - name: name
-                nameDefault: nameDefault
-                label: label
-                type: type
-                value: value
-                key: 1.4658129805029452
-            customHTML:
-              value: value
-            customScript:
-              value: value
-            showContinueButton:
-              value: true
-            nodeTitle:
-              value: value
-            formFieldsList:
-              value:
-              - preferredControlType: preferredControlType
-                propertyName: propertyName
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-              - preferredControlType: preferredControlType
-                propertyName: propertyName
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-            customCSS:
-              value: value
+            key: ""
           status: status
         removed: true
         classes: classes
@@ -13068,8 +11297,8 @@ components:
         grabbable: true
         pannable: true
         position:
-          x: 5.962133916683182
-          "y": 5.637376656633329
+          x: 1.4658129805029452
+          "y": 5.962133916683182
         locked: true
         selected: true
         group: group
@@ -13112,70 +11341,7 @@ components:
             nodeType: nodeType
             type: type
             properties:
-              backgroundColor:
-                value: value
-              code:
-                value: value
-              outputSchema:
-                value: value
-              inputSchema:
-                value: value
-              variableInputList:
-                value:
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              message:
-                value: value
-              type:
-                value: value
-              saveVariables:
-                value:
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 1.4658129805029452
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 1.4658129805029452
-              customHTML:
-                value: value
-              customScript:
-                value: value
-              showContinueButton:
-                value: true
-              nodeTitle:
-                value: value
-              formFieldsList:
-                value:
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              customCSS:
-                value: value
+              key: ""
             status: status
           removed: true
           classes: classes
@@ -13183,8 +11349,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 5.962133916683182
-            "y": 5.637376656633329
+            x: 1.4658129805029452
+            "y": 5.962133916683182
           locked: true
           selected: true
           group: group
@@ -13199,70 +11365,7 @@ components:
             nodeType: nodeType
             type: type
             properties:
-              backgroundColor:
-                value: value
-              code:
-                value: value
-              outputSchema:
-                value: value
-              inputSchema:
-                value: value
-              variableInputList:
-                value:
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              message:
-                value: value
-              type:
-                value: value
-              saveVariables:
-                value:
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 1.4658129805029452
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 1.4658129805029452
-              customHTML:
-                value: value
-              customScript:
-                value: value
-              showContinueButton:
-                value: true
-              nodeTitle:
-                value: value
-              formFieldsList:
-                value:
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              customCSS:
-                value: value
+              key: ""
             status: status
           removed: true
           classes: classes
@@ -13270,8 +11373,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 5.962133916683182
-            "y": 5.637376656633329
+            x: 1.4658129805029452
+            "y": 5.962133916683182
           locked: true
           selected: true
           group: group
@@ -13318,8 +11421,8 @@ components:
       title: DaVinci Flow Graph Data Request Elements
     DaVinci_Flow_Graph_Data_Request_Pan:
       example:
-        x: 9.301444243932576
-        "y": 3.616076749251911
+        x: 7.061401241503109
+        "y": 9.301444243932576
       properties:
         x:
           format: bigFloatUnquoted
@@ -13376,505 +11479,6 @@ components:
       - recommendation
       - type
       title: DaVinci Flow Graph Data Response Elements Node Data Linter Error Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Background_Color:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Background
-            Color Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Background
-        Color
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Code:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Code
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Code
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_CSS:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-            CSS Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-        CSS
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_HTML:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-            HTML Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-        HTML
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_Script:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-            Script Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Custom
-        Script
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item_Preferred_Data_Type:
-      anyOf:
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
-        List Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item:
-      example:
-        preferredControlType: preferredControlType
-        propertyName: propertyName
-        preferredDataType:
-        - ""
-        - ""
-        value: value
-      properties:
-        preferredDataType:
-          anyOf:
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
-            Fields List Value Item Preferred Data Type
-        propertyName:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
-            Fields List Value Item Property Name
-          type: string
-        preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
-            Fields List Value Item Preferred Control Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Form
-            Fields List Value Item Value
-          type: string
-      required:
-      - preferredDataType
-      - propertyName
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
-        List Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List:
-      example:
-        value:
-        - preferredControlType: preferredControlType
-          propertyName: propertyName
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-        - preferredControlType: preferredControlType
-          propertyName: propertyName
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List_Value_Item"
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Form Fields
-        List
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Input_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Input
-            Schema Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Input
-        Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Message:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Message
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Message
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Node_Title:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Node
-            Title Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Node Title
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Output_Schema:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Output
-            Schema Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Output
-        Schema
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables_Value_Item:
-      additionalProperties: true
-      example:
-        name: name
-        nameDefault: nameDefault
-        label: label
-        type: type
-        value: value
-        key: 5.962133916683182
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Name
-          type: string
-        key:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Key
-          type: number
-        label:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Label
-          type: string
-        nameDefault:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Name Default
-          type: string
-        type:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Save
-            Variables Value Item Value
-          type: string
-      required:
-      - name
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Save Variables
-        Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables:
-      example:
-        value:
-        - name: name
-          nameDefault: nameDefault
-          label: label
-          type: type
-          value: value
-          key: 5.962133916683182
-        - name: name
-          nameDefault: nameDefault
-          label: label
-          type: type
-          value: value
-          key: 5.962133916683182
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables_Value_Item"
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Save Variables
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Show_Continue_Button:
-      example:
-        value: true
-      properties:
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Show
-            Continue Button Value
-          type: boolean
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Show Continue
-        Button
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Type:
-      example:
-        value: value
-      properties:
-        value:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Type
-            Value
-          type: string
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item_Preferred_Data_Type:
-      anyOf:
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - format: int32
-        type: integer
-      - type: number
-      - type: string
-      items: {}
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-        Input List Value Item Preferred Data Type
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item:
-      example:
-        preferredControlType: preferredControlType
-        name: name
-        preferredDataType:
-        - ""
-        - ""
-        value: value
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-            Input List Value Item Name
-          type: string
-        preferredDataType:
-          anyOf:
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          - type: boolean
-          - format: int32
-            type: integer
-          - type: number
-          - type: string
-          items: {}
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-            Input List Value Item Preferred Data Type
-        preferredControlType:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-            Input List Value Item Preferred Control Type
-          type: string
-        value:
-          title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-            Input List Value Item Value
-          type: string
-      required:
-      - name
-      - preferredDataType
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-        Input List Value Item
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List:
-      example:
-        value:
-        - preferredControlType: preferredControlType
-          name: name
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-        - preferredControlType: preferredControlType
-          name: name
-          preferredDataType:
-          - ""
-          - ""
-          value: value
-      properties:
-        value:
-          items:
-            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List_Value_Item"
-          type: array
-      required:
-      - value
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties Variable
-        Input List
-    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties:
-      additionalProperties: true
-      example:
-        backgroundColor:
-          value: value
-        code:
-          value: value
-        outputSchema:
-          value: value
-        inputSchema:
-          value: value
-        variableInputList:
-          value:
-          - preferredControlType: preferredControlType
-            name: name
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-          - preferredControlType: preferredControlType
-            name: name
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-        message:
-          value: value
-        type:
-          value: value
-        saveVariables:
-          value:
-          - name: name
-            nameDefault: nameDefault
-            label: label
-            type: type
-            value: value
-            key: 5.962133916683182
-          - name: name
-            nameDefault: nameDefault
-            label: label
-            type: type
-            value: value
-            key: 5.962133916683182
-        customHTML:
-          value: value
-        customScript:
-          value: value
-        showContinueButton:
-          value: true
-        nodeTitle:
-          value: value
-        formFieldsList:
-          value:
-          - preferredControlType: preferredControlType
-            propertyName: propertyName
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-          - preferredControlType: preferredControlType
-            propertyName: propertyName
-            preferredDataType:
-            - ""
-            - ""
-            value: value
-        customCSS:
-          value: value
-      properties:
-        backgroundColor:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Background_Color"
-        code:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Code"
-        customCSS:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_CSS"
-        customHTML:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_HTML"
-        customScript:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Custom_Script"
-        formFieldsList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Form_Fields_List"
-        inputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Input_Schema"
-        message:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Message"
-        nodeTitle:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Node_Title"
-        outputSchema:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Output_Schema"
-        saveVariables:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Save_Variables"
-        showContinueButton:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Show_Continue_Button"
-        type:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Type"
-        variableInputList:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties_Variable_Input_List"
-      title: DaVinci Flow Graph Data Response Elements Node Data Properties
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data:
       additionalProperties: true
       example:
@@ -13901,70 +11505,7 @@ components:
         nodeType: nodeType
         type: type
         properties:
-          backgroundColor:
-            value: value
-          code:
-            value: value
-          outputSchema:
-            value: value
-          inputSchema:
-            value: value
-          variableInputList:
-            value:
-            - preferredControlType: preferredControlType
-              name: name
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-            - preferredControlType: preferredControlType
-              name: name
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-          message:
-            value: value
-          type:
-            value: value
-          saveVariables:
-            value:
-            - name: name
-              nameDefault: nameDefault
-              label: label
-              type: type
-              value: value
-              key: 5.962133916683182
-            - name: name
-              nameDefault: nameDefault
-              label: label
-              type: type
-              value: value
-              key: 5.962133916683182
-          customHTML:
-            value: value
-          customScript:
-            value: value
-          showContinueButton:
-            value: true
-          nodeTitle:
-            value: value
-          formFieldsList:
-            value:
-            - preferredControlType: preferredControlType
-              propertyName: propertyName
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-            - preferredControlType: preferredControlType
-              propertyName: propertyName
-              preferredDataType:
-              - ""
-              - ""
-              value: value
-          customCSS:
-            value: value
+          key: ""
         status: status
       properties:
         id:
@@ -13998,7 +11539,9 @@ components:
           title: DaVinci Flow Graph Data Response Elements Node Data Name
           type: string
         properties:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Properties"
+          additionalProperties: true
+          title: DaVinci Flow Graph Data Response Elements Node Data Properties
+          type: object
         status:
           title: DaVinci Flow Graph Data Response Elements Node Data Status
           type: string
@@ -14012,8 +11555,8 @@ components:
       title: DaVinci Flow Graph Data Response Elements Node Data
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Position:
       example:
-        x: 5.637376656633329
-        "y": 2.3021358869347655
+        x: 5.962133916683182
+        "y": 5.637376656633329
       properties:
         x:
           format: bigFloatUnquoted
@@ -14053,70 +11596,7 @@ components:
           nodeType: nodeType
           type: type
           properties:
-            backgroundColor:
-              value: value
-            code:
-              value: value
-            outputSchema:
-              value: value
-            inputSchema:
-              value: value
-            variableInputList:
-              value:
-              - preferredControlType: preferredControlType
-                name: name
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-              - preferredControlType: preferredControlType
-                name: name
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-            message:
-              value: value
-            type:
-              value: value
-            saveVariables:
-              value:
-              - name: name
-                nameDefault: nameDefault
-                label: label
-                type: type
-                value: value
-                key: 5.962133916683182
-              - name: name
-                nameDefault: nameDefault
-                label: label
-                type: type
-                value: value
-                key: 5.962133916683182
-            customHTML:
-              value: value
-            customScript:
-              value: value
-            showContinueButton:
-              value: true
-            nodeTitle:
-              value: value
-            formFieldsList:
-              value:
-              - preferredControlType: preferredControlType
-                propertyName: propertyName
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-              - preferredControlType: preferredControlType
-                propertyName: propertyName
-                preferredDataType:
-                - ""
-                - ""
-                value: value
-            customCSS:
-              value: value
+            key: ""
           status: status
         removed: true
         selectable: true
@@ -14124,8 +11604,8 @@ components:
         grabbable: true
         pannable: true
         position:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
+          x: 5.962133916683182
+          "y": 5.637376656633329
         locked: true
         selected: true
         group: group
@@ -14195,8 +11675,8 @@ components:
       title: DaVinci Flow Graph Data Response Elements Edge Data
     DaVinci_Flow_Graph_Data_Response_Elements_Edge_Position:
       example:
-        x: 7.061401241503109
-        "y": 9.301444243932576
+        x: 2.3021358869347655
+        "y": 7.061401241503109
       properties:
         x:
           format: bigFloatUnquoted
@@ -14222,8 +11702,8 @@ components:
         grabbable: true
         pannable: true
         position:
-          x: 7.061401241503109
-          "y": 9.301444243932576
+          x: 2.3021358869347655
+          "y": 7.061401241503109
         locked: true
         selected: true
         group: group
@@ -14295,70 +11775,7 @@ components:
             nodeType: nodeType
             type: type
             properties:
-              backgroundColor:
-                value: value
-              code:
-                value: value
-              outputSchema:
-                value: value
-              inputSchema:
-                value: value
-              variableInputList:
-                value:
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              message:
-                value: value
-              type:
-                value: value
-              saveVariables:
-                value:
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 5.962133916683182
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 5.962133916683182
-              customHTML:
-                value: value
-              customScript:
-                value: value
-              showContinueButton:
-                value: true
-              nodeTitle:
-                value: value
-              formFieldsList:
-                value:
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              customCSS:
-                value: value
+              key: ""
             status: status
           removed: true
           selectable: true
@@ -14366,8 +11783,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
+            x: 5.962133916683182
+            "y": 5.637376656633329
           locked: true
           selected: true
           group: group
@@ -14395,70 +11812,7 @@ components:
             nodeType: nodeType
             type: type
             properties:
-              backgroundColor:
-                value: value
-              code:
-                value: value
-              outputSchema:
-                value: value
-              inputSchema:
-                value: value
-              variableInputList:
-                value:
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  name: name
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              message:
-                value: value
-              type:
-                value: value
-              saveVariables:
-                value:
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 5.962133916683182
-                - name: name
-                  nameDefault: nameDefault
-                  label: label
-                  type: type
-                  value: value
-                  key: 5.962133916683182
-              customHTML:
-                value: value
-              customScript:
-                value: value
-              showContinueButton:
-                value: true
-              nodeTitle:
-                value: value
-              formFieldsList:
-                value:
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-                - preferredControlType: preferredControlType
-                  propertyName: propertyName
-                  preferredDataType:
-                  - ""
-                  - ""
-                  value: value
-              customCSS:
-                value: value
+              key: ""
             status: status
           removed: true
           selectable: true
@@ -14466,8 +11820,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
+            x: 5.962133916683182
+            "y": 5.637376656633329
           locked: true
           selected: true
           group: group
@@ -14482,8 +11836,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 7.061401241503109
-            "y": 9.301444243932576
+            x: 2.3021358869347655
+            "y": 7.061401241503109
           locked: true
           selected: true
           group: group
@@ -14497,8 +11851,8 @@ components:
           grabbable: true
           pannable: true
           position:
-            x: 7.061401241503109
-            "y": 9.301444243932576
+            x: 2.3021358869347655
+            "y": 7.061401241503109
           locked: true
           selected: true
           group: group
@@ -14516,8 +11870,8 @@ components:
       title: DaVinci Flow Graph Data Response Elements
     DaVinci_Flow_Graph_Data_Response_Pan:
       example:
-        x: 3.616076749251911
-        "y": 2.027123023002322
+        x: 9.301444243932576
+        "y": 3.616076749251911
       properties:
         x:
           format: bigFloatUnquoted
@@ -15988,7 +13342,7 @@ components:
     DaVinci_Flow_Trigger_Request_Configuration_MFA:
       example:
         timeFormat: timeFormat
-        time: 1.4894159098541704
+        time: 1.0246457001441578
         enabled: true
       properties:
         enabled:
@@ -16009,7 +13363,7 @@ components:
     DaVinci_Flow_Trigger_Request_Configuration_Password:
       example:
         timeFormat: timeFormat
-        time: 6.84685269835264
+        time: 1.4894159098541704
         enabled: true
       properties:
         enabled:
@@ -16031,11 +13385,11 @@ components:
       example:
         mfa:
           timeFormat: timeFormat
-          time: 1.4894159098541704
+          time: 1.0246457001441578
           enabled: true
         pwd:
           timeFormat: timeFormat
-          time: 6.84685269835264
+          time: 1.4894159098541704
           enabled: true
       properties:
         mfa:
@@ -16056,7 +13410,7 @@ components:
     DaVinci_Flow_Trigger_Response_Configuration_MFA:
       example:
         timeFormat: timeFormat
-        time: 4.965218492984954
+        time: 1.1730742509559433
         enabled: true
       properties:
         enabled:
@@ -16077,7 +13431,7 @@ components:
     DaVinci_Flow_Trigger_Response_Configuration_Password:
       example:
         timeFormat: timeFormat
-        time: 5.025004791520295
+        time: 4.965218492984954
         enabled: true
       properties:
         enabled:
@@ -16099,11 +13453,11 @@ components:
       example:
         mfa:
           timeFormat: timeFormat
-          time: 4.965218492984954
+          time: 1.1730742509559433
           enabled: true
         pwd:
           timeFormat: timeFormat
-          time: 5.025004791520295
+          time: 4.965218492984954
           enabled: true
       properties:
         mfa:
