@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Elements** | [**DaVinciFlowGraphDataResponseElements**](DaVinciFlowGraphDataResponseElements.md) |  | 
 **Pan** | [**DaVinciFlowGraphDataResponsePan**](DaVinciFlowGraphDataResponsePan.md) |  | 
 **PanningEnabled** | **bool** |  | 
-**Renderer** | [**DaVinciFlowGraphDataResponseRenderer**](DaVinciFlowGraphDataResponseRenderer.md) |  | 
 **UserPanningEnabled** | **bool** |  | 
 **UserZoomingEnabled** | **bool** |  | 
 **Zoom** | **float32** |  | 
@@ -16,13 +15,14 @@ Name | Type | Description | Notes
 **Data** | Pointer to **map[string]interface{}** |  | [optional] 
 **MaxZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
 **MinZoom** | Pointer to [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | [optional] 
+**Renderer** | Pointer to [**DaVinciFlowGraphDataResponseRenderer**](DaVinciFlowGraphDataResponseRenderer.md) |  | [optional] 
 **ZoomingEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowGraphDataResponse
 
-`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, renderer DaVinciFlowGraphDataResponseRenderer, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, ) *DaVinciFlowGraphDataResponse`
+`func NewDaVinciFlowGraphDataResponse(boxSelectionEnabled bool, elements DaVinciFlowGraphDataResponseElements, pan DaVinciFlowGraphDataResponsePan, panningEnabled bool, userPanningEnabled bool, userZoomingEnabled bool, zoom float32, ) *DaVinciFlowGraphDataResponse`
 
 NewDaVinciFlowGraphDataResponse instantiates a new DaVinciFlowGraphDataResponse object
 This constructor will assign default values to properties that have it defined,
@@ -115,26 +115,6 @@ and a boolean to check if the value has been set.
 `func (o *DaVinciFlowGraphDataResponse) SetPanningEnabled(v bool)`
 
 SetPanningEnabled sets PanningEnabled field to given value.
-
-
-### GetRenderer
-
-`func (o *DaVinciFlowGraphDataResponse) GetRenderer() DaVinciFlowGraphDataResponseRenderer`
-
-GetRenderer returns the Renderer field if non-nil, zero value otherwise.
-
-### GetRendererOk
-
-`func (o *DaVinciFlowGraphDataResponse) GetRendererOk() (*DaVinciFlowGraphDataResponseRenderer, bool)`
-
-GetRendererOk returns a tuple with the Renderer field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRenderer
-
-`func (o *DaVinciFlowGraphDataResponse) SetRenderer(v DaVinciFlowGraphDataResponseRenderer)`
-
-SetRenderer sets Renderer field to given value.
 
 
 ### GetUserPanningEnabled
@@ -296,6 +276,31 @@ SetMinZoom sets MinZoom field to given value.
 `func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool`
 
 HasMinZoom returns a boolean if a field has been set.
+
+### GetRenderer
+
+`func (o *DaVinciFlowGraphDataResponse) GetRenderer() DaVinciFlowGraphDataResponseRenderer`
+
+GetRenderer returns the Renderer field if non-nil, zero value otherwise.
+
+### GetRendererOk
+
+`func (o *DaVinciFlowGraphDataResponse) GetRendererOk() (*DaVinciFlowGraphDataResponseRenderer, bool)`
+
+GetRendererOk returns a tuple with the Renderer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRenderer
+
+`func (o *DaVinciFlowGraphDataResponse) SetRenderer(v DaVinciFlowGraphDataResponseRenderer)`
+
+SetRenderer sets Renderer field to given value.
+
+### HasRenderer
+
+`func (o *DaVinciFlowGraphDataResponse) HasRenderer() bool`
+
+HasRenderer returns a boolean if a field has been set.
 
 ### GetZoomingEnabled
 
