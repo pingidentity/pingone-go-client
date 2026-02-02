@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.01.14-beta
+  version: 2026.01.29-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -4513,8 +4513,6 @@ components:
         panningEnabled:
           title: DaVinci Flow Graph Data Response Panning Enabled
           type: boolean
-        renderer:
-          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Renderer"
         userPanningEnabled:
           title: DaVinci Flow Graph Data Response User Panning Enabled
           type: boolean
@@ -4539,6 +4537,8 @@ components:
           format: bigFloatUnquoted
           title: DaVinci Flow Graph Data Response Min Zoom
           type: number
+        renderer:
+          $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Renderer"
         zoomingEnabled:
           title: DaVinci Flow Graph Data Response Zooming Enabled
           type: boolean
@@ -4547,7 +4547,6 @@ components:
       - elements
       - pan
       - panningEnabled
-      - renderer
       - userPanningEnabled
       - userZoomingEnabled
       - zoom
@@ -11885,17 +11884,6 @@ components:
       - x
       - "y"
       title: DaVinci Flow Graph Data Response Pan
-    DaVinci_Flow_Graph_Data_Response_Renderer:
-      example:
-        name: name
-      properties:
-        name:
-          minLength: 1
-          title: DaVinci Flow Graph Data Response Renderer Name
-          type: string
-      required:
-      - name
-      title: DaVinci Flow Graph Data Response Renderer
     DaVinci_Flow_Graph_Data_Response_All_Linter_Error:
       example:
         code: code
@@ -11935,6 +11923,14 @@ components:
       - recommendation
       - type
       title: DaVinci Flow Graph Data Response All Linter Error
+    DaVinci_Flow_Graph_Data_Response_Renderer:
+      example:
+        name: name
+      properties:
+        name:
+          title: DaVinci Flow Graph Data Response Renderer Name
+          type: string
+      title: DaVinci Flow Graph Data Response Renderer
     DaVinci_Flow_Input_Schema_Request_Item_Preferred_Data_Type:
       enum:
       - array
