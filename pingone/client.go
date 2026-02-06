@@ -48,7 +48,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.01.29-beta
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.02.04-beta
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

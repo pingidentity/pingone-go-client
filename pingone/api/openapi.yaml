@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.01.29-beta
+  version: 2026.02.04-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
