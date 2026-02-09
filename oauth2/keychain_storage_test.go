@@ -178,6 +178,42 @@ func TestKeychainStorageOperations(t *testing.T) {
 				}
 			},
 		},
+		{
+			name: "ClearAllTokens",
+			operation: func(t *testing.T, storage *KeychainStorage) {
+				// Save token for current user
+				token1 := &oauth2.Token{AccessToken: "token1", TokenType: "Bearer", Expiry: time.Now().Add(time.Hour)}
+				if err := storage.SaveToken(token1); err != nil {
+					t.Fatalf("Failed to save token 1: %v", err)
+				}
+
+				// Create a second user for the same service
+				storage2, err := NewKeychainStorage(storage.serviceName, storage.username+"-second")
+				if err != nil {
+					t.Fatalf("Failed to create second storage: %v", err)
+				}
+				// Clean up this extra user specifically if test fails
+				defer func() { _ = storage2.ClearToken() }()
+
+				token2 := &oauth2.Token{AccessToken: "token2", TokenType: "Bearer", Expiry: time.Now().Add(time.Hour)}
+				if err := storage2.SaveToken(token2); err != nil {
+					t.Fatalf("Failed to save token 2: %v", err)
+				}
+
+				// Clear all tokens
+				if err := storage.ClearAllTokens(); err != nil {
+					t.Fatalf("ClearAllTokens failed: %v", err)
+				}
+
+				// Verify both are gone
+				if has, _ := storage.HasToken(); has {
+					t.Error("Token 1 should have been cleared")
+				}
+				if has, _ := storage2.HasToken(); has {
+					t.Error("Token 2 should have been cleared")
+				}
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -219,85 +255,85 @@ func TestGenerateKeychainAccountNameWithSuffix(t *testing.T) {
 		grantType     string
 		suffix        string
 		expected      string // We can't predict hash, but we can check format
-}{
-{
-name:          "Basic usage",
-environmentID: "env1",
-clientID:      "client1",
-grantType:     "client_credentials",
-suffix:        "suffix1",
-},
-{
-name:          "Empty suffix",
-environmentID: "env1",
-clientID:      "client1",
-grantType:     "client_credentials",
-suffix:        "",
-},
-{
-name:          "All empty",
-environmentID: "",
-clientID:      "",
-grantType:     "",
-suffix:        "",
-},
-{
-name:          "Empty base, with suffix",
-environmentID: "",
-clientID:      "",
-grantType:     "",
-suffix:        "suffix2",
-},
-}
+	}{
+		{
+			name:          "Basic usage",
+			environmentID: "env1",
+			clientID:      "client1",
+			grantType:     "client_credentials",
+			suffix:        "suffix1",
+		},
+		{
+			name:          "Empty suffix",
+			environmentID: "env1",
+			clientID:      "client1",
+			grantType:     "client_credentials",
+			suffix:        "",
+		},
+		{
+			name:          "All empty",
+			environmentID: "",
+			clientID:      "",
+			grantType:     "",
+			suffix:        "",
+		},
+		{
+			name:          "Empty base, with suffix",
+			environmentID: "",
+			clientID:      "",
+			grantType:     "",
+			suffix:        "suffix2",
+		},
+	}
 
-for _, tt := range tests {
-t.Run(tt.name, func(t *testing.T) {
-result := GenerateKeychainAccountNameWithSuffix(tt.environmentID, tt.clientID, tt.grantType, tt.suffix)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := GenerateKeychainAccountNameWithSuffix(tt.environmentID, tt.clientID, tt.grantType, tt.suffix)
 
-// Basic format checks
-if tt.environmentID == "" && tt.clientID == "" && tt.grantType == "" {
-// Should use default base
-if tt.suffix == "" {
-if result != "default-token" {
-t.Errorf("Expected 'default-token', got %q", result)
-}
-} else {
-expected := "default-token_" + tt.suffix
-if result != expected {
-t.Errorf("Expected %q, got %q", expected, result)
-}
-}
-} else {
-// Should be hashed
-if tt.suffix == "" {
-// Format: token-<hash>
-if len(result) < 14 { // token- + 8 chars
-t.Errorf("Result too short: %q", result)
-}
-} else {
-// Format: token-<hash>_<suffix>
-if len(result) < 14+1+len(tt.suffix) {
-t.Errorf("Result too short: %q", result)
-}
-}
-}
+			// Basic format checks
+			if tt.environmentID == "" && tt.clientID == "" && tt.grantType == "" {
+				// Should use default base
+				if tt.suffix == "" {
+					if result != "default-token" {
+						t.Errorf("Expected 'default-token', got %q", result)
+					}
+				} else {
+					expected := "default-token_" + tt.suffix
+					if result != expected {
+						t.Errorf("Expected %q, got %q", expected, result)
+					}
+				}
+			} else {
+				// Should be hashed
+				if tt.suffix == "" {
+					// Format: token-<hash>
+					if len(result) < 14 { // token- + 8 chars
+						t.Errorf("Result too short: %q", result)
+					}
+				} else {
+					// Format: token-<hash>_<suffix>
+					if len(result) < 14+1+len(tt.suffix) {
+						t.Errorf("Result too short: %q", result)
+					}
+				}
+			}
 
-if tt.suffix != "" {
-// Verify suffix is present at end
-expectedSuffix := "_" + tt.suffix
-if len(result) < len(expectedSuffix) || result[len(result)-len(expectedSuffix):] != expectedSuffix {
-t.Errorf("Result %q does not end with suffix %q", result, expectedSuffix)
-}
-}
-})
-}
+			if tt.suffix != "" {
+				// Verify suffix is present at end
+				expectedSuffix := "_" + tt.suffix
+				if len(result) < len(expectedSuffix) || result[len(result)-len(expectedSuffix):] != expectedSuffix {
+					t.Errorf("Result %q does not end with suffix %q", result, expectedSuffix)
+				}
+			}
+		})
+	}
 
-// Consistency check
-t.Run("Consistency", func(t *testing.T) {
-r1 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
-r2 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
-if r1 != r2 {
-t.Error("Function should be deterministic")
-}
-})
+	// Consistency check
+	t.Run("Consistency", func(t *testing.T) {
+		r1 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
+		r2 := GenerateKeychainAccountNameWithSuffix("env", "client", "grant", "suf")
+		if r1 != r2 {
+			t.Error("Function should be deterministic")
+		}
+	})
 }

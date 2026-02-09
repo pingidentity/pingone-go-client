@@ -77,6 +77,15 @@ func (k *KeychainStorage) ClearToken() error {
 	return nil
 }
 
+// ClearAllTokens removes all tokens for the service from the system keychain
+func (k *KeychainStorage) ClearAllTokens() error {
+	err := keyring.DeleteAll(k.serviceName)
+	if err != nil && !errors.Is(err, keyring.ErrNotFound) {
+		return fmt.Errorf("failed to clear all tokens from keychain: %w", err)
+	}
+	return nil
+}
+
 // HasToken checks if a token exists in the system keychain
 func (k *KeychainStorage) HasToken() (bool, error) {
 	_, err := keyring.Get(k.serviceName, k.username)
