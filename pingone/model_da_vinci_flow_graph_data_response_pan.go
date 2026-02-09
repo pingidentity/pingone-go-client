@@ -15,8 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-
-	"github.com/pingidentity/pingone-go-client/types"
 )
 
 // checks if the DaVinciFlowGraphDataResponsePan type satisfies the MappedNullable interface at compile time
@@ -27,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponsePan{}
 
 // DaVinciFlowGraphDataResponsePan struct for DaVinciFlowGraphDataResponsePan
 type DaVinciFlowGraphDataResponsePan struct {
-	X                    types.BigFloatUnquoted `json:"x"`
-	Y                    types.BigFloatUnquoted `json:"y"`
+	X                    float64                `json:"x"`
+	Y                    float64                `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +36,7 @@ type _DaVinciFlowGraphDataResponsePan DaVinciFlowGraphDataResponsePan
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataResponsePan(x types.BigFloatUnquoted, y types.BigFloatUnquoted) *DaVinciFlowGraphDataResponsePan {
+func NewDaVinciFlowGraphDataResponsePan(x float64, y float64) *DaVinciFlowGraphDataResponsePan {
 	this := DaVinciFlowGraphDataResponsePan{}
 	this.X = x
 	this.Y = y
@@ -54,9 +52,9 @@ func NewDaVinciFlowGraphDataResponsePanWithDefaults() *DaVinciFlowGraphDataRespo
 }
 
 // GetX returns the X field value
-func (o *DaVinciFlowGraphDataResponsePan) GetX() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataResponsePan) GetX() float64 {
 	if o == nil {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 
@@ -65,7 +63,7 @@ func (o *DaVinciFlowGraphDataResponsePan) GetX() types.BigFloatUnquoted {
 
 // GetXOk returns a tuple with the X field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponsePan) GetXOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataResponsePan) GetXOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,14 +71,14 @@ func (o *DaVinciFlowGraphDataResponsePan) GetXOk() (*types.BigFloatUnquoted, boo
 }
 
 // SetX sets field value
-func (o *DaVinciFlowGraphDataResponsePan) SetX(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataResponsePan) SetX(v float64) {
 	o.X = v
 }
 
 // GetY returns the Y field value
-func (o *DaVinciFlowGraphDataResponsePan) GetY() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataResponsePan) GetY() float64 {
 	if o == nil {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 
@@ -89,7 +87,7 @@ func (o *DaVinciFlowGraphDataResponsePan) GetY() types.BigFloatUnquoted {
 
 // GetYOk returns a tuple with the Y field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponsePan) GetYOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataResponsePan) GetYOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,7 +95,7 @@ func (o *DaVinciFlowGraphDataResponsePan) GetYOk() (*types.BigFloatUnquoted, boo
 }
 
 // SetY sets field value
-func (o *DaVinciFlowGraphDataResponsePan) SetY(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataResponsePan) SetY(v float64) {
 	o.Y = v
 }
 

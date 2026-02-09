@@ -15,8 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-
-	"github.com/pingidentity/pingone-go-client/types"
 )
 
 // checks if the DaVinciFlowGraphDataRequestElementsEdgePosition type satisfies the MappedNullable interface at compile time
@@ -27,8 +25,8 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsEdgePosition{}
 
 // DaVinciFlowGraphDataRequestElementsEdgePosition struct for DaVinciFlowGraphDataRequestElementsEdgePosition
 type DaVinciFlowGraphDataRequestElementsEdgePosition struct {
-	X                    types.BigFloatUnquoted `json:"x"`
-	Y                    types.BigFloatUnquoted `json:"y"`
+	X                    float64                `json:"x"`
+	Y                    float64                `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +36,7 @@ type _DaVinciFlowGraphDataRequestElementsEdgePosition DaVinciFlowGraphDataReques
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowGraphDataRequestElementsEdgePosition(x types.BigFloatUnquoted, y types.BigFloatUnquoted) *DaVinciFlowGraphDataRequestElementsEdgePosition {
+func NewDaVinciFlowGraphDataRequestElementsEdgePosition(x float64, y float64) *DaVinciFlowGraphDataRequestElementsEdgePosition {
 	this := DaVinciFlowGraphDataRequestElementsEdgePosition{}
 	this.X = x
 	this.Y = y
@@ -54,9 +52,9 @@ func NewDaVinciFlowGraphDataRequestElementsEdgePositionWithDefaults() *DaVinciFl
 }
 
 // GetX returns the X field value
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetX() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetX() float64 {
 	if o == nil {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 
@@ -65,7 +63,7 @@ func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetX() types.BigFloatU
 
 // GetXOk returns a tuple with the X field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetXOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetXOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,14 +71,14 @@ func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetXOk() (*types.BigFl
 }
 
 // SetX sets field value
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) SetX(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) SetX(v float64) {
 	o.X = v
 }
 
 // GetY returns the Y field value
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetY() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetY() float64 {
 	if o == nil {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 
@@ -89,7 +87,7 @@ func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetY() types.BigFloatU
 
 // GetYOk returns a tuple with the Y field value
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetYOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetYOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,7 +95,7 @@ func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) GetYOk() (*types.BigFl
 }
 
 // SetY sets field value
-func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) SetY(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataRequestElementsEdgePosition) SetY(v float64) {
 	o.Y = v
 }
 

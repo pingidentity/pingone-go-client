@@ -15,8 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-
-	"github.com/pingidentity/pingone-go-client/types"
 )
 
 // checks if the DaVinciFlowGraphDataResponse type satisfies the MappedNullable interface at compile time
@@ -36,8 +34,8 @@ type DaVinciFlowGraphDataResponse struct {
 	Zoom                 float32                                      `json:"zoom"`
 	AllLinterErrors      []DaVinciFlowGraphDataResponseAllLinterError `json:"allLinterErrors,omitempty"`
 	Data                 map[string]interface{}                       `json:"data,omitempty"`
-	MaxZoom              *types.BigFloatUnquoted                      `json:"maxZoom,omitempty"`
-	MinZoom              *types.BigFloatUnquoted                      `json:"minZoom,omitempty"`
+	MaxZoom              *float64                                     `json:"maxZoom,omitempty"`
+	MinZoom              *float64                                     `json:"minZoom,omitempty"`
 	Renderer             *DaVinciFlowGraphDataResponseRenderer        `json:"renderer,omitempty"`
 	ZoomingEnabled       *bool                                        `json:"zoomingEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -302,9 +300,9 @@ func (o *DaVinciFlowGraphDataResponse) SetData(v map[string]interface{}) {
 }
 
 // GetMaxZoom returns the MaxZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() float64 {
 	if o == nil || IsNil(o.MaxZoom) {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 	return *o.MaxZoom
@@ -312,7 +310,7 @@ func (o *DaVinciFlowGraphDataResponse) GetMaxZoom() types.BigFloatUnquoted {
 
 // GetMaxZoomOk returns a tuple with the MaxZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataResponse) GetMaxZoomOk() (*float64, bool) {
 	if o == nil || IsNil(o.MaxZoom) {
 		return nil, false
 	}
@@ -329,14 +327,14 @@ func (o *DaVinciFlowGraphDataResponse) HasMaxZoom() bool {
 }
 
 // SetMaxZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MaxZoom field.
-func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataResponse) SetMaxZoom(v float64) {
 	o.MaxZoom = &v
 }
 
 // GetMinZoom returns the MinZoom field value if set, zero value otherwise.
-func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloatUnquoted {
+func (o *DaVinciFlowGraphDataResponse) GetMinZoom() float64 {
 	if o == nil || IsNil(o.MinZoom) {
-		var ret types.BigFloatUnquoted
+		var ret float64
 		return ret
 	}
 	return *o.MinZoom
@@ -344,7 +342,7 @@ func (o *DaVinciFlowGraphDataResponse) GetMinZoom() types.BigFloatUnquoted {
 
 // GetMinZoomOk returns a tuple with the MinZoom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*types.BigFloatUnquoted, bool) {
+func (o *DaVinciFlowGraphDataResponse) GetMinZoomOk() (*float64, bool) {
 	if o == nil || IsNil(o.MinZoom) {
 		return nil, false
 	}
@@ -361,7 +359,7 @@ func (o *DaVinciFlowGraphDataResponse) HasMinZoom() bool {
 }
 
 // SetMinZoom gets a reference to the given types.BigFloatUnquoted and assigns it to the MinZoom field.
-func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v types.BigFloatUnquoted) {
+func (o *DaVinciFlowGraphDataResponse) SetMinZoom(v float64) {
 	o.MinZoom = &v
 }
 
