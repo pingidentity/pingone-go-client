@@ -629,4 +629,9 @@ model_unsupported_media_type_error.go
 model_unsupported_media_type_error_code.go
 model_unsupported_media_type_error_detail.go
 response.go
+test/api_configuration_management_test.go
+test/api_da_vinci_flow_versions_test.go
+test/api_da_vinci_flows_test.go
+test/api_directory_total_identities_test.go
+test/api_flow_policies_test.go
 utils.go

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**X** | [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | 
-**Y** | [**types.BigFloatUnquoted**](types.BigFloatUnquoted.md) |  | 
+**X** | **float64** |  | 
+**Y** | **float64** |  | 
 
 ## Methods
 
 ### NewDaVinciFlowGraphDataRequestElementsNodePosition
 
-`func NewDaVinciFlowGraphDataRequestElementsNodePosition(x types.BigFloatUnquoted, y types.BigFloatUnquoted, ) *DaVinciFlowGraphDataRequestElementsNodePosition`
+`func NewDaVinciFlowGraphDataRequestElementsNodePosition(x float64, y float64, ) *DaVinciFlowGraphDataRequestElementsNodePosition`
 
 NewDaVinciFlowGraphDataRequestElementsNodePosition instantiates a new DaVinciFlowGraphDataRequestElementsNodePosition object
 This constructor will assign default values to properties that have it defined,
@@ -28,40 +28,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetX
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetX() types.BigFloatUnquoted`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetX() float64`
 
 GetX returns the X field if non-nil, zero value otherwise.
 
 ### GetXOk
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetXOk() (*types.BigFloatUnquoted, bool)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetXOk() (*float64, bool)`
 
 GetXOk returns a tuple with the X field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetX
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetX(v types.BigFloatUnquoted)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetX(v float64)`
 
 SetX sets X field to given value.
 
 
 ### GetY
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetY() types.BigFloatUnquoted`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetY() float64`
 
 GetY returns the Y field if non-nil, zero value otherwise.
 
 ### GetYOk
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetYOk() (*types.BigFloatUnquoted, bool)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) GetYOk() (*float64, bool)`
 
 GetYOk returns a tuple with the Y field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetY
 
-`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetY(v types.BigFloatUnquoted)`
+`func (o *DaVinciFlowGraphDataRequestElementsNodePosition) SetY(v float64)`
 
 SetY sets Y field to given value.
 

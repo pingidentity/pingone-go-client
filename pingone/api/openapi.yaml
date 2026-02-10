@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.02.04-beta
+  version: 2026.02.09-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -11163,10 +11163,10 @@ components:
         "y": 6.027456183070403
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Elements Edge Position X
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Elements Edge Position Y
       required:
       - x
@@ -11265,10 +11265,10 @@ components:
         "y": 5.962133916683182
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Elements Node Position X
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Elements Node Position Y
       required:
       - x
@@ -11424,10 +11424,10 @@ components:
         "y": 9.301444243932576
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Pan X
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Request Pan Y
       required:
       - x
@@ -11558,11 +11558,11 @@ components:
         "y": 5.637376656633329
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Elements Node Position X
           type: number
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Elements Node Position Y
           type: number
       required:
@@ -11678,11 +11678,11 @@ components:
         "y": 7.061401241503109
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Elements Edge Position X
           type: number
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Elements Edge Position Y
           type: number
       required:
@@ -11873,11 +11873,11 @@ components:
         "y": 3.616076749251911
       properties:
         x:
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Pan X
           type: number
         "y":
-          format: bigFloatUnquoted
+          format: float64
           title: DaVinci Flow Graph Data Response Pan Y
           type: number
       required:
