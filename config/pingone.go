@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/kelseyhightower/envconfig"
 	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
 	"golang.org/x/oauth2"
@@ -235,6 +236,55 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{}
 
 	return cfg
+}
+
+func (c *Configuration) MergeConfigFromEnv() {
+	envConfig := NewConfiguration()
+
+	// Get default values from env fields
+	if err := envconfig.Process("", envConfig); err != nil {
+		slog.Error("Failed to process environment variables", "error", err)
+	}
+
+	// Keep existing values for Auth fields
+	if c.Auth.AccessToken == nil {
+		c.Auth.AccessToken = envConfig.Auth.AccessToken
+	}
+	if c.Auth.AccessTokenExpiry == nil {
+		c.Auth.AccessTokenExpiry = envConfig.Auth.AccessTokenExpiry
+	}
+	if c.Auth.AuthorizationCode == nil {
+		c.Auth.AuthorizationCode = envConfig.Auth.AuthorizationCode
+	}
+	if c.Auth.ClientCredentials == nil {
+		c.Auth.ClientCredentials = envConfig.Auth.ClientCredentials
+	}
+	if c.Auth.DeviceCode == nil {
+		c.Auth.DeviceCode = envConfig.Auth.DeviceCode
+	}
+	if c.Auth.GrantType == nil {
+		c.Auth.GrantType = envConfig.Auth.GrantType
+	}
+	if c.Auth.Storage == nil {
+		c.Auth.Storage = envConfig.Auth.Storage
+	}
+
+	// Keep existing values for Endpoint fields
+	if c.Endpoint.EnvironmentID == nil {
+		c.Endpoint.EnvironmentID = envConfig.Endpoint.EnvironmentID
+	}
+	if c.Endpoint.TopLevelDomain == nil {
+		c.Endpoint.TopLevelDomain = envConfig.Endpoint.TopLevelDomain
+	}
+	if c.Endpoint.RootDomain == nil {
+		c.Endpoint.RootDomain = envConfig.Endpoint.RootDomain
+	}
+	if c.Endpoint.APIDomain == nil {
+		c.Endpoint.APIDomain = envConfig.Endpoint.APIDomain
+	}
+	if c.Endpoint.CustomDomain == nil {
+		c.Endpoint.CustomDomain = envConfig.Endpoint.CustomDomain
+	}
 }
 
 // WithAuthEnvironmentID sets the PingOne environment ID for authentication.

@@ -14,12 +14,10 @@ package pingone
 import (
 	"context"
 	"fmt"
-	"log/slog"
 	"net/http"
 	"runtime"
 	"strings"
 
-	"github.com/kelseyhightower/envconfig"
 	pingone "github.com/pingidentity/pingone-go-client/config"
 )
 
@@ -90,6 +88,9 @@ func NewServiceConfiguration() *pingone.Configuration {
 
 // NewConfiguration returns a new Configuration object with builder pattern as param
 func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
+	// Load any empty config values from environment
+	serviceCfg.MergeConfigFromEnv()
+
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
 		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.8.0 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
@@ -120,11 +121,6 @@ func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 		},
 		OperationServers: map[string]ServerConfigurations{},
 		Service:          serviceCfg,
-	}
-
-	// Load environment variables
-	if err := envconfig.Process("", cfg); err != nil {
-		slog.Error("Failed to process environment variables", "error", err)
 	}
 
 	return cfg
