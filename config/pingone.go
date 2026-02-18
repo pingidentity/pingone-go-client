@@ -153,7 +153,7 @@ type AuthResultPageData struct {
 
 type AuthorizationCode struct {
 	AuthorizationCodeClientID    *string                      `envconfig:"PINGONE_AUTHORIZATION_CODE_CLIENT_ID" json:"authorizationCodeClientId,omitempty"`
-	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI" json:"authorizationCodeRedirectUri,omitempty"`
+	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `json:"authorizationCodeRedirectUri,omitempty"`
 	AuthorizationCodeScopes      *[]string                    `envconfig:"PINGONE_AUTHORIZATION_CODE_SCOPES" json:"authorizationCodeScopes,omitempty"`
 	// OnOpenBrowser is an optional handler for custom browser opening logic.
 	// If set, this handler will be called instead of automatically opening the system browser.
@@ -204,9 +204,9 @@ type Configuration struct {
 	Auth struct {
 		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
 		AccessTokenExpiry *int                 `envconfig:"PINGONE_API_ACCESS_TOKEN_EXPIRY" json:"accessTokenExpiry,omitempty"`
-		AuthorizationCode *AuthorizationCode   `envconfig:"PINGONE_AUTHORIZATION_CODE" json:"authorizationCode,omitempty"`
-		ClientCredentials *ClientCredentials   `envconfig:"PINGONE_CLIENT_CREDENTIALS" json:"clientCredentials,omitempty"`
-		DeviceCode        *DeviceCode          `envconfig:"PINGONE_DEVICE_CODE" json:"deviceCode,omitempty"`
+		AuthorizationCode *AuthorizationCode   `json:"authorizationCode,omitempty"`
+		ClientCredentials *ClientCredentials   `json:"clientCredentials,omitempty"`
+		DeviceCode        *DeviceCode          `json:"deviceCode,omitempty"`
 		GrantType         *svcOAuth2.GrantType `envconfig:"PINGONE_AUTH_GRANT_TYPE" json:"grantType,omitempty"`
 		Storage           *Storage             `envconfig:"PINGONE_STORAGE_OPTIONS" json:"storageOptions,omitempty"`
 	} `json:"auth"`
@@ -238,6 +238,8 @@ func NewConfiguration() *Configuration {
 	return cfg
 }
 
+// MergeConfigFromEnv merges environment variable configuration into the existing configuration,
+// only overwriting fields that are not already set.
 func (c *Configuration) MergeConfigFromEnv() {
 	envConfig := NewConfiguration()
 
@@ -253,20 +255,76 @@ func (c *Configuration) MergeConfigFromEnv() {
 	if c.Auth.AccessTokenExpiry == nil {
 		c.Auth.AccessTokenExpiry = envConfig.Auth.AccessTokenExpiry
 	}
-	if c.Auth.AuthorizationCode == nil {
-		c.Auth.AuthorizationCode = envConfig.Auth.AuthorizationCode
-	}
-	if c.Auth.ClientCredentials == nil {
-		c.Auth.ClientCredentials = envConfig.Auth.ClientCredentials
-	}
-	if c.Auth.DeviceCode == nil {
-		c.Auth.DeviceCode = envConfig.Auth.DeviceCode
-	}
 	if c.Auth.GrantType == nil {
 		c.Auth.GrantType = envConfig.Auth.GrantType
 	}
-	if c.Auth.Storage == nil {
-		c.Auth.Storage = envConfig.Auth.Storage
+
+	// Merge AuthorizationCode nested fields
+	if envConfig.Auth.AuthorizationCode != nil {
+		if c.Auth.AuthorizationCode == nil {
+			c.Auth.AuthorizationCode = envConfig.Auth.AuthorizationCode
+		} else {
+			if c.Auth.AuthorizationCode.AuthorizationCodeClientID == nil {
+				c.Auth.AuthorizationCode.AuthorizationCodeClientID = envConfig.Auth.AuthorizationCode.AuthorizationCodeClientID
+			}
+			if c.Auth.AuthorizationCode.AuthorizationCodeScopes == nil {
+				c.Auth.AuthorizationCode.AuthorizationCodeScopes = envConfig.Auth.AuthorizationCode.AuthorizationCodeScopes
+			}
+			if c.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port == "" {
+				c.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port = envConfig.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port
+			}
+			if c.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path == "" {
+				c.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path = envConfig.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path
+			}
+		}
+	}
+
+	// Merge ClientCredentials nested fields
+	if envConfig.Auth.ClientCredentials != nil {
+		if c.Auth.ClientCredentials == nil {
+			c.Auth.ClientCredentials = envConfig.Auth.ClientCredentials
+		} else {
+			if c.Auth.ClientCredentials.ClientCredentialsClientID == nil {
+				c.Auth.ClientCredentials.ClientCredentialsClientID = envConfig.Auth.ClientCredentials.ClientCredentialsClientID
+			}
+			if c.Auth.ClientCredentials.ClientCredentialsClientSecret == nil {
+				c.Auth.ClientCredentials.ClientCredentialsClientSecret = envConfig.Auth.ClientCredentials.ClientCredentialsClientSecret
+			}
+			if c.Auth.ClientCredentials.ClientCredentialsScopes == nil {
+				c.Auth.ClientCredentials.ClientCredentialsScopes = envConfig.Auth.ClientCredentials.ClientCredentialsScopes
+			}
+		}
+	}
+
+	// Merge DeviceCode nested fields
+	if envConfig.Auth.DeviceCode != nil {
+		if c.Auth.DeviceCode == nil {
+			c.Auth.DeviceCode = envConfig.Auth.DeviceCode
+		} else {
+			if c.Auth.DeviceCode.DeviceCodeClientID == nil {
+				c.Auth.DeviceCode.DeviceCodeClientID = envConfig.Auth.DeviceCode.DeviceCodeClientID
+			}
+			if c.Auth.DeviceCode.DeviceCodeScopes == nil {
+				c.Auth.DeviceCode.DeviceCodeScopes = envConfig.Auth.DeviceCode.DeviceCodeScopes
+			}
+		}
+	}
+
+	// Merge Storage nested fields
+	if envConfig.Auth.Storage != nil {
+		if c.Auth.Storage == nil {
+			c.Auth.Storage = envConfig.Auth.Storage
+		} else {
+			if c.Auth.Storage.KeychainName == "" {
+				c.Auth.Storage.KeychainName = envConfig.Auth.Storage.KeychainName
+			}
+			if c.Auth.Storage.Type == "" {
+				c.Auth.Storage.Type = envConfig.Auth.Storage.Type
+			}
+			if c.Auth.Storage.OptionalSuffix == "" {
+				c.Auth.Storage.OptionalSuffix = envConfig.Auth.Storage.OptionalSuffix
+			}
+		}
 	}
 
 	// Keep existing values for Endpoint fields
