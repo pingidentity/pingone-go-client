@@ -782,3 +782,161 @@ func TestWithStorageName(t *testing.T) {
 		t.Errorf("Expected Storage.KeychainName to be 'test-storage-name', got %q", cfg.Auth.Storage.KeychainName)
 	}
 }
+
+func TestMergeConfigFromEnv(t *testing.T) {
+	// Set up environment variables
+	t.Setenv("PINGONE_ENVIRONMENT_ID", "env-from-env-var")
+	t.Setenv("PINGONE_TOP_LEVEL_DOMAIN", "eu")
+	t.Setenv("PINGONE_ROOT_DOMAIN", "pingone.eu")
+	t.Setenv("PINGONE_API_DOMAIN", "api.pingone.eu")
+	t.Setenv("PINGONE_CUSTOM_DOMAIN", "custom.example.com")
+	t.Setenv("PINGONE_API_ACCESS_TOKEN", "token-from-env-var")
+	t.Setenv("PINGONE_API_ACCESS_TOKEN_EXPIRY", "3600")
+	t.Setenv("PINGONE_AUTH_GRANT_TYPE", "client_credentials")
+	t.Setenv("PINGONE_CLIENT_CREDENTIALS_CLIENT_ID", "client-id-from-env-var")
+	t.Setenv("PINGONE_CLIENT_CREDENTIALS_CLIENT_SECRET", "client-secret-from-env-var")
+	t.Setenv("PINGONE_CLIENT_CREDENTIALS_SCOPES", "scope1,scope2")
+	t.Setenv("PINGONE_AUTHORIZATION_CODE_CLIENT_ID", "authcode-client-id-from-env-var")
+	t.Setenv("PINGONE_AUTHORIZATION_CODE_SCOPES", "openid,profile")
+	t.Setenv("PINGONE_AUTHORIZATION_CODE_REDIRECT_URI_PORT", "8080")
+	t.Setenv("PINGONE_AUTHORIZATION_CODE_REDIRECT_URI_PATH", "/callback")
+	t.Setenv("PINGONE_DEVICE_CODE_CLIENT_ID", "device-code-client-id-from-env-var")
+	t.Setenv("PINGONE_DEVICE_CODE_SCOPES", "device1,device2")
+	t.Setenv("PINGONE_STORAGE_NAME", "keychain-from-env-var")
+	t.Setenv("PINGONE_STORAGE_TYPE", "secure_local")
+	t.Setenv("PINGONE_STORAGE_OPTIONAL_SUFFIX", "suffix-from-env-var")
+
+	t.Run("Manual values take precedence over environment", func(t *testing.T) {
+		cfg := config.NewConfiguration().
+			WithEnvironmentID("manually-set-env-id").
+			WithClientID("manually-set-client-id").
+			WithTopLevelDomain(config.TopLevelDomain("com")).
+			WithAuthorizationCodeClientID("manually-set-authcode-client-id").
+			WithDeviceCodeClientID("manually-set-device-client-id").
+			WithStorageName("manually-set-keychain")
+
+		cfg.MergeConfigFromEnv()
+
+		// Verify manually set values are preserved
+		require.NotNil(t, cfg.Endpoint.EnvironmentID, "EnvironmentID should not be nil")
+		require.Equal(t, "manually-set-env-id", *cfg.Endpoint.EnvironmentID, "Manually set EnvironmentID should be preserved")
+
+		require.NotNil(t, cfg.Endpoint.TopLevelDomain, "TopLevelDomain should not be nil")
+		require.Equal(t, config.TopLevelDomain("com"), *cfg.Endpoint.TopLevelDomain, "Manually set TopLevelDomain should be preserved")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials, "ClientCredentials should not be nil")
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsClientID, "ClientCredentialsClientID should not be nil")
+		require.Equal(t, "manually-set-client-id", *cfg.Auth.ClientCredentials.ClientCredentialsClientID, "Manually set ClientID should be preserved")
+
+		require.NotNil(t, cfg.Auth.AuthorizationCode, "AuthorizationCode should not be nil")
+		require.NotNil(t, cfg.Auth.AuthorizationCode.AuthorizationCodeClientID, "AuthorizationCodeClientID should not be nil")
+		require.Equal(t, "manually-set-authcode-client-id", *cfg.Auth.AuthorizationCode.AuthorizationCodeClientID, "Manually set AuthorizationCode ClientID should be preserved")
+
+		require.NotNil(t, cfg.Auth.DeviceCode, "DeviceCode should not be nil")
+		require.NotNil(t, cfg.Auth.DeviceCode.DeviceCodeClientID, "DeviceCodeClientID should not be nil")
+		require.Equal(t, "manually-set-device-client-id", *cfg.Auth.DeviceCode.DeviceCodeClientID, "Manually set DeviceCode ClientID should be preserved")
+
+		require.NotNil(t, cfg.Auth.Storage, "Storage should not be nil")
+		require.Equal(t, "manually-set-keychain", cfg.Auth.Storage.KeychainName, "Manually set KeychainName should be preserved")
+
+		// Verify that unset values are filled from environment
+		require.NotNil(t, cfg.Endpoint.RootDomain, "RootDomain should be filled from environment")
+		require.Equal(t, "pingone.eu", *cfg.Endpoint.RootDomain, "RootDomain should be filled from environment")
+
+		require.NotNil(t, cfg.Endpoint.APIDomain, "APIDomain should be filled from environment")
+		require.Equal(t, "api.pingone.eu", *cfg.Endpoint.APIDomain, "APIDomain should be filled from environment")
+
+		require.NotNil(t, cfg.Endpoint.CustomDomain, "CustomDomain should be filled from environment")
+		require.Equal(t, "custom.example.com", *cfg.Endpoint.CustomDomain, "CustomDomain should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.AccessToken, "AccessToken should be filled from environment")
+		require.Equal(t, "token-from-env-var", *cfg.Auth.AccessToken, "AccessToken should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.AccessTokenExpiry, "AccessTokenExpiry should be filled from environment")
+		require.Equal(t, 3600, *cfg.Auth.AccessTokenExpiry, "AccessTokenExpiry should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.GrantType, "GrantType should be filled from environment")
+		require.Equal(t, oauth2.GrantTypeClientCredentials, *cfg.Auth.GrantType, "GrantType should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsClientSecret, "ClientSecret should be filled from environment")
+		require.Equal(t, "client-secret-from-env-var", *cfg.Auth.ClientCredentials.ClientCredentialsClientSecret, "ClientSecret should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsScopes, "ClientCredentials Scopes should be filled from environment")
+		require.Equal(t, []string{"scope1", "scope2"}, *cfg.Auth.ClientCredentials.ClientCredentialsScopes, "ClientCredentials Scopes should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.AuthorizationCode.AuthorizationCodeScopes, "AuthorizationCode Scopes should be filled from environment")
+		require.Equal(t, []string{"openid", "profile"}, *cfg.Auth.AuthorizationCode.AuthorizationCodeScopes, "AuthorizationCode Scopes should be filled from environment")
+
+		require.Equal(t, "8080", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port, "AuthorizationCode RedirectURI Port should be filled from environment")
+		require.Equal(t, "/callback", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path, "AuthorizationCode RedirectURI Path should be filled from environment")
+
+		require.NotNil(t, cfg.Auth.DeviceCode.DeviceCodeScopes, "DeviceCode Scopes should be filled from environment")
+		require.Equal(t, []string{"device1", "device2"}, *cfg.Auth.DeviceCode.DeviceCodeScopes, "DeviceCode Scopes should be filled from environment")
+
+		require.Equal(t, config.StorageTypeSecureLocal, cfg.Auth.Storage.Type, "Storage Type should be filled from environment")
+		require.Equal(t, "suffix-from-env-var", cfg.Auth.Storage.OptionalSuffix, "Storage OptionalSuffix should be filled from environment")
+	})
+
+	t.Run("Environment fills all empty values", func(t *testing.T) {
+		cfg := config.NewConfiguration()
+
+		cfg.MergeConfigFromEnv()
+
+		// Verify all values are filled from environment
+		require.NotNil(t, cfg.Endpoint.EnvironmentID, "EnvironmentID should be filled from environment")
+		require.Equal(t, "env-from-env-var", *cfg.Endpoint.EnvironmentID, "EnvironmentID from environment")
+
+		require.NotNil(t, cfg.Endpoint.TopLevelDomain, "TopLevelDomain should be filled from environment")
+		require.Equal(t, config.TopLevelDomain("eu"), *cfg.Endpoint.TopLevelDomain, "TopLevelDomain from environment")
+
+		require.NotNil(t, cfg.Endpoint.RootDomain, "RootDomain should be filled from environment")
+		require.Equal(t, "pingone.eu", *cfg.Endpoint.RootDomain, "RootDomain from environment")
+
+		require.NotNil(t, cfg.Endpoint.APIDomain, "APIDomain should be filled from environment")
+		require.Equal(t, "api.pingone.eu", *cfg.Endpoint.APIDomain, "APIDomain from environment")
+
+		require.NotNil(t, cfg.Endpoint.CustomDomain, "CustomDomain should be filled from environment")
+		require.Equal(t, "custom.example.com", *cfg.Endpoint.CustomDomain, "CustomDomain from environment")
+
+		require.NotNil(t, cfg.Auth.AccessToken, "AccessToken should be filled from environment")
+		require.Equal(t, "token-from-env-var", *cfg.Auth.AccessToken, "AccessToken from environment")
+
+		require.NotNil(t, cfg.Auth.AccessTokenExpiry, "AccessTokenExpiry should be filled from environment")
+		require.Equal(t, 3600, *cfg.Auth.AccessTokenExpiry, "AccessTokenExpiry from environment")
+
+		require.NotNil(t, cfg.Auth.GrantType, "GrantType should be filled from environment")
+		require.Equal(t, oauth2.GrantTypeClientCredentials, *cfg.Auth.GrantType, "GrantType from environment")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials, "ClientCredentials should be filled from environment")
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsClientID, "ClientCredentials ClientID should be filled from environment")
+		require.Equal(t, "client-id-from-env-var", *cfg.Auth.ClientCredentials.ClientCredentialsClientID, "ClientCredentials ClientID from environment")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsClientSecret, "ClientCredentials ClientSecret should be filled from environment")
+		require.Equal(t, "client-secret-from-env-var", *cfg.Auth.ClientCredentials.ClientCredentialsClientSecret, "ClientCredentials ClientSecret from environment")
+
+		require.NotNil(t, cfg.Auth.ClientCredentials.ClientCredentialsScopes, "ClientCredentials Scopes should be filled from environment")
+		require.Equal(t, []string{"scope1", "scope2"}, *cfg.Auth.ClientCredentials.ClientCredentialsScopes, "ClientCredentials Scopes from environment")
+
+		require.NotNil(t, cfg.Auth.AuthorizationCode, "AuthorizationCode should be filled from environment")
+		require.NotNil(t, cfg.Auth.AuthorizationCode.AuthorizationCodeClientID, "AuthorizationCode ClientID should be filled from environment")
+		require.Equal(t, "authcode-client-id-from-env-var", *cfg.Auth.AuthorizationCode.AuthorizationCodeClientID, "AuthorizationCode ClientID from environment")
+
+		require.NotNil(t, cfg.Auth.AuthorizationCode.AuthorizationCodeScopes, "AuthorizationCode Scopes should be filled from environment")
+		require.Equal(t, []string{"openid", "profile"}, *cfg.Auth.AuthorizationCode.AuthorizationCodeScopes, "AuthorizationCode Scopes from environment")
+
+		require.Equal(t, "8080", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Port, "AuthorizationCode RedirectURI Port from environment")
+		require.Equal(t, "/callback", cfg.Auth.AuthorizationCode.AuthorizationCodeRedirectURI.Path, "AuthorizationCode RedirectURI Path from environment")
+
+		require.NotNil(t, cfg.Auth.DeviceCode, "DeviceCode should be filled from environment")
+		require.NotNil(t, cfg.Auth.DeviceCode.DeviceCodeClientID, "DeviceCode ClientID should be filled from environment")
+		require.Equal(t, "device-code-client-id-from-env-var", *cfg.Auth.DeviceCode.DeviceCodeClientID, "DeviceCode ClientID from environment")
+
+		require.NotNil(t, cfg.Auth.DeviceCode.DeviceCodeScopes, "DeviceCode Scopes should be filled from environment")
+		require.Equal(t, []string{"device1", "device2"}, *cfg.Auth.DeviceCode.DeviceCodeScopes, "DeviceCode Scopes from environment")
+
+		require.NotNil(t, cfg.Auth.Storage, "Storage should be filled from environment")
+		require.Equal(t, "keychain-from-env-var", cfg.Auth.Storage.KeychainName, "Storage KeychainName from environment")
+		require.Equal(t, config.StorageTypeSecureLocal, cfg.Auth.Storage.Type, "Storage Type from environment")
+		require.Equal(t, "suffix-from-env-var", cfg.Auth.Storage.OptionalSuffix, "Storage OptionalSuffix from environment")
+	})
+}
