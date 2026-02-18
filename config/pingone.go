@@ -249,13 +249,13 @@ func (c *Configuration) MergeConfigFromEnv() {
 	}
 
 	// Keep existing values for Auth fields
-	if c.Auth.AccessToken == nil {
+	if c.Auth.AccessToken == nil || *c.Auth.AccessToken == "" {
 		c.Auth.AccessToken = envConfig.Auth.AccessToken
 	}
 	if c.Auth.AccessTokenExpiry == nil {
 		c.Auth.AccessTokenExpiry = envConfig.Auth.AccessTokenExpiry
 	}
-	if c.Auth.GrantType == nil {
+	if c.Auth.GrantType == nil || *c.Auth.GrantType == "" {
 		c.Auth.GrantType = envConfig.Auth.GrantType
 	}
 
@@ -264,7 +264,7 @@ func (c *Configuration) MergeConfigFromEnv() {
 		if c.Auth.AuthorizationCode == nil {
 			c.Auth.AuthorizationCode = envConfig.Auth.AuthorizationCode
 		} else {
-			if c.Auth.AuthorizationCode.AuthorizationCodeClientID == nil {
+			if c.Auth.AuthorizationCode.AuthorizationCodeClientID == nil || *c.Auth.AuthorizationCode.AuthorizationCodeClientID == "" {
 				c.Auth.AuthorizationCode.AuthorizationCodeClientID = envConfig.Auth.AuthorizationCode.AuthorizationCodeClientID
 			}
 			if c.Auth.AuthorizationCode.AuthorizationCodeScopes == nil {
@@ -284,10 +284,10 @@ func (c *Configuration) MergeConfigFromEnv() {
 		if c.Auth.ClientCredentials == nil {
 			c.Auth.ClientCredentials = envConfig.Auth.ClientCredentials
 		} else {
-			if c.Auth.ClientCredentials.ClientCredentialsClientID == nil {
+			if c.Auth.ClientCredentials.ClientCredentialsClientID == nil || *c.Auth.ClientCredentials.ClientCredentialsClientID == "" {
 				c.Auth.ClientCredentials.ClientCredentialsClientID = envConfig.Auth.ClientCredentials.ClientCredentialsClientID
 			}
-			if c.Auth.ClientCredentials.ClientCredentialsClientSecret == nil {
+			if c.Auth.ClientCredentials.ClientCredentialsClientSecret == nil || *c.Auth.ClientCredentials.ClientCredentialsClientSecret == "" {
 				c.Auth.ClientCredentials.ClientCredentialsClientSecret = envConfig.Auth.ClientCredentials.ClientCredentialsClientSecret
 			}
 			if c.Auth.ClientCredentials.ClientCredentialsScopes == nil {
@@ -301,7 +301,7 @@ func (c *Configuration) MergeConfigFromEnv() {
 		if c.Auth.DeviceCode == nil {
 			c.Auth.DeviceCode = envConfig.Auth.DeviceCode
 		} else {
-			if c.Auth.DeviceCode.DeviceCodeClientID == nil {
+			if c.Auth.DeviceCode.DeviceCodeClientID == nil || *c.Auth.DeviceCode.DeviceCodeClientID == "" {
 				c.Auth.DeviceCode.DeviceCodeClientID = envConfig.Auth.DeviceCode.DeviceCodeClientID
 			}
 			if c.Auth.DeviceCode.DeviceCodeScopes == nil {
@@ -328,19 +328,19 @@ func (c *Configuration) MergeConfigFromEnv() {
 	}
 
 	// Keep existing values for Endpoint fields
-	if c.Endpoint.EnvironmentID == nil {
+	if c.Endpoint.EnvironmentID == nil || *c.Endpoint.EnvironmentID == "" {
 		c.Endpoint.EnvironmentID = envConfig.Endpoint.EnvironmentID
 	}
-	if c.Endpoint.TopLevelDomain == nil {
+	if c.Endpoint.TopLevelDomain == nil || *c.Endpoint.TopLevelDomain == "" {
 		c.Endpoint.TopLevelDomain = envConfig.Endpoint.TopLevelDomain
 	}
-	if c.Endpoint.RootDomain == nil {
+	if c.Endpoint.RootDomain == nil || *c.Endpoint.RootDomain == "" {
 		c.Endpoint.RootDomain = envConfig.Endpoint.RootDomain
 	}
-	if c.Endpoint.APIDomain == nil {
+	if c.Endpoint.APIDomain == nil || *c.Endpoint.APIDomain == "" {
 		c.Endpoint.APIDomain = envConfig.Endpoint.APIDomain
 	}
-	if c.Endpoint.CustomDomain == nil {
+	if c.Endpoint.CustomDomain == nil || *c.Endpoint.CustomDomain == "" {
 		c.Endpoint.CustomDomain = envConfig.Endpoint.CustomDomain
 	}
 }
