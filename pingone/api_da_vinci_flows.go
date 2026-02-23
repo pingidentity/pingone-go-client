@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // DaVinciFlowsApiService DaVinciFlowsApi service
@@ -78,13 +80,26 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJson(ctx context.Context, e
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowByIdAsCloneJsonRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowByIdAsCloneJsonRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.CloneFlowByIdAsCloneJson",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.CloneFlowByIdAsCloneJson")
 	if err != nil {
@@ -119,6 +134,20 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -213,6 +242,12 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowB
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -239,6 +274,12 @@ func (a *DaVinciFlowsApiService) CloneFlowByIdAsCloneJsonExecute(r ApiCloneFlowB
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -355,13 +396,25 @@ func (a *DaVinciFlowsApiService) CreateFlow(ctx context.Context, environmentID u
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.CreateFlow",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.CreateFlow")
 	if err != nil {
@@ -395,6 +448,20 @@ func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (*DaV
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -489,6 +556,12 @@ func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (*DaV
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -515,6 +588,12 @@ func (a *DaVinciFlowsApiService) CreateFlowExecute(r ApiCreateFlowRequest) (*DaV
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -626,12 +705,25 @@ func (a *DaVinciFlowsApiService) DeleteFlowById(ctx context.Context, environment
 }
 
 // Execute executes the request
-func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdRequest) (*http.Response, error) {
+func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.DeleteFlowById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.DeleteFlowById")
 	if err != nil {
@@ -663,6 +755,20 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -755,6 +861,12 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -781,6 +893,12 @@ func (a *DaVinciFlowsApiService) DeleteFlowByIdExecute(r ApiDeleteFlowByIdReques
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -891,13 +1009,26 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJson(ctx context.Context,
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFlowByIdAsDeployJsonRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFlowByIdAsDeployJsonRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.DeployFlowByIdAsDeployJson",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.DeployFlowByIdAsDeployJson")
 	if err != nil {
@@ -932,6 +1063,20 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1026,6 +1171,12 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFl
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1052,6 +1203,12 @@ func (a *DaVinciFlowsApiService) DeployFlowByIdAsDeployJsonExecute(r ApiDeployFl
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1171,13 +1328,26 @@ func (a *DaVinciFlowsApiService) GetFlowById(ctx context.Context, environmentID 
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.GetFlowById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.GetFlowById")
 	if err != nil {
@@ -1213,6 +1383,20 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1305,6 +1489,12 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1331,6 +1521,12 @@ func (a *DaVinciFlowsApiService) GetFlowByIdExecute(r ApiGetFlowByIdRequest) (*D
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1447,13 +1643,25 @@ func (a *DaVinciFlowsApiService) GetFlows(ctx context.Context, environmentID uui
 // Execute executes the request
 //
 //	@return DaVinciFlowCollection
-func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinciFlowCollection, *http.Response, error) {
+func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (_ *DaVinciFlowCollection, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowCollection
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.GetFlows",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.GetFlows")
 	if err != nil {
@@ -1488,6 +1696,20 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1580,6 +1802,12 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1606,6 +1834,12 @@ func (a *DaVinciFlowsApiService) GetFlowsExecute(r ApiGetFlowsRequest) (*DaVinci
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1725,13 +1959,26 @@ func (a *DaVinciFlowsApiService) ReplaceFlowById(ctx context.Context, environmen
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.ReplaceFlowById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.ReplaceFlowById")
 	if err != nil {
@@ -1766,6 +2013,20 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1860,6 +2121,12 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1886,6 +2153,12 @@ func (a *DaVinciFlowsApiService) ReplaceFlowByIdExecute(r ApiReplaceFlowByIdRequ
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2005,13 +2278,26 @@ func (a *DaVinciFlowsApiService) UpdateEnabledByFlowId(ctx context.Context, envi
 // Execute executes the request
 //
 //	@return DaVinciFlowEnabledResponse
-func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabledByFlowIdRequest) (*DaVinciFlowEnabledResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabledByFlowIdRequest) (_ *DaVinciFlowEnabledResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowEnabledResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.UpdateEnabledByFlowId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.UpdateEnabledByFlowId")
 	if err != nil {
@@ -2046,6 +2332,20 @@ func (a *DaVinciFlowsApiService) UpdateEnabledByFlowIdExecute(r ApiUpdateEnabled
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2251,13 +2551,26 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJson(ctx context.Cont
 // Execute executes the request
 //
 //	@return DaVinciFlowResponse
-func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiValidateFlowByIdAsValidateJsonRequest) (*DaVinciFlowResponse, *http.Response, error) {
+func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiValidateFlowByIdAsValidateJsonRequest) (_ *DaVinciFlowResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowsApi.ValidateFlowByIdAsValidateJson",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowsApiService.ValidateFlowByIdAsValidateJson")
 	if err != nil {
@@ -2292,6 +2605,20 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiVali
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2386,6 +2713,12 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiVali
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2412,6 +2745,12 @@ func (a *DaVinciFlowsApiService) ValidateFlowByIdAsValidateJsonExecute(r ApiVali
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue

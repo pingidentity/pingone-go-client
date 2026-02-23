@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // DaVinciVariablesApiService DaVinciVariablesApi service
@@ -75,13 +77,25 @@ func (a *DaVinciVariablesApiService) CreateVariable(ctx context.Context, environ
 // Execute executes the request
 //
 //	@return DaVinciVariableResponse
-func (a *DaVinciVariablesApiService) CreateVariableExecute(r ApiCreateVariableRequest) (*DaVinciVariableResponse, *http.Response, error) {
+func (a *DaVinciVariablesApiService) CreateVariableExecute(r ApiCreateVariableRequest) (_ *DaVinciVariableResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciVariableResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciVariablesApi.CreateVariable",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariablesApiService.CreateVariable")
 	if err != nil {
@@ -115,6 +129,20 @@ func (a *DaVinciVariablesApiService) CreateVariableExecute(r ApiCreateVariableRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -209,6 +237,12 @@ func (a *DaVinciVariablesApiService) CreateVariableExecute(r ApiCreateVariableRe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -235,6 +269,12 @@ func (a *DaVinciVariablesApiService) CreateVariableExecute(r ApiCreateVariableRe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -346,12 +386,25 @@ func (a *DaVinciVariablesApiService) DeleteVariableById(ctx context.Context, env
 }
 
 // Execute executes the request
-func (a *DaVinciVariablesApiService) DeleteVariableByIdExecute(r ApiDeleteVariableByIdRequest) (*http.Response, error) {
+func (a *DaVinciVariablesApiService) DeleteVariableByIdExecute(r ApiDeleteVariableByIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciVariablesApi.DeleteVariableById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.variableID", url.PathEscape(parameterValueToString(r.variableID, "variableID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariablesApiService.DeleteVariableById")
 	if err != nil {
@@ -383,6 +436,20 @@ func (a *DaVinciVariablesApiService) DeleteVariableByIdExecute(r ApiDeleteVariab
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -475,6 +542,12 @@ func (a *DaVinciVariablesApiService) DeleteVariableByIdExecute(r ApiDeleteVariab
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -501,6 +574,12 @@ func (a *DaVinciVariablesApiService) DeleteVariableByIdExecute(r ApiDeleteVariab
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -605,13 +684,26 @@ func (a *DaVinciVariablesApiService) GetVariableById(ctx context.Context, enviro
 // Execute executes the request
 //
 //	@return DaVinciVariableResponse
-func (a *DaVinciVariablesApiService) GetVariableByIdExecute(r ApiGetVariableByIdRequest) (*DaVinciVariableResponse, *http.Response, error) {
+func (a *DaVinciVariablesApiService) GetVariableByIdExecute(r ApiGetVariableByIdRequest) (_ *DaVinciVariableResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciVariableResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciVariablesApi.GetVariableById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.variableID", url.PathEscape(parameterValueToString(r.variableID, "variableID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariablesApiService.GetVariableById")
 	if err != nil {
@@ -643,6 +735,20 @@ func (a *DaVinciVariablesApiService) GetVariableByIdExecute(r ApiGetVariableById
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -735,6 +841,12 @@ func (a *DaVinciVariablesApiService) GetVariableByIdExecute(r ApiGetVariableById
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -761,6 +873,12 @@ func (a *DaVinciVariablesApiService) GetVariableByIdExecute(r ApiGetVariableById
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -904,13 +1022,25 @@ func (a *DaVinciVariablesApiService) GetVariablesExecute(r ApiGetVariablesReques
 // Execute executes the request (returning the initial page of the paged response only)
 //
 //	@return DaVinciVariableCollectionResponse
-func (a *DaVinciVariablesApiService) GetVariablesExecutePage(r ApiGetVariablesRequest, link *JSONHALLink) (*DaVinciVariableCollectionResponse, *http.Response, error) {
+func (a *DaVinciVariablesApiService) GetVariablesExecutePage(r ApiGetVariablesRequest, link *JSONHALLink) (_ *DaVinciVariableCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciVariableCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciVariablesApi.GetVariables",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	var linkUrl *url.URL
 	if link != nil {
@@ -968,6 +1098,20 @@ func (a *DaVinciVariablesApiService) GetVariablesExecutePage(r ApiGetVariablesRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1065,6 +1209,12 @@ func (a *DaVinciVariablesApiService) GetVariablesExecutePage(r ApiGetVariablesRe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1091,6 +1241,12 @@ func (a *DaVinciVariablesApiService) GetVariablesExecutePage(r ApiGetVariablesRe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1210,13 +1366,26 @@ func (a *DaVinciVariablesApiService) ReplaceVariableById(ctx context.Context, en
 // Execute executes the request
 //
 //	@return DaVinciVariableResponse
-func (a *DaVinciVariablesApiService) ReplaceVariableByIdExecute(r ApiReplaceVariableByIdRequest) (*DaVinciVariableResponse, *http.Response, error) {
+func (a *DaVinciVariablesApiService) ReplaceVariableByIdExecute(r ApiReplaceVariableByIdRequest) (_ *DaVinciVariableResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciVariableResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciVariablesApi.ReplaceVariableById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.variableID", url.PathEscape(parameterValueToString(r.variableID, "variableID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciVariablesApiService.ReplaceVariableById")
 	if err != nil {
@@ -1251,6 +1420,20 @@ func (a *DaVinciVariablesApiService) ReplaceVariableByIdExecute(r ApiReplaceVari
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1345,6 +1528,12 @@ func (a *DaVinciVariablesApiService) ReplaceVariableByIdExecute(r ApiReplaceVari
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1371,6 +1560,12 @@ func (a *DaVinciVariablesApiService) ReplaceVariableByIdExecute(r ApiReplaceVari
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue

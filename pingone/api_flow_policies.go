@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // FlowPoliciesApiService FlowPoliciesApi service
@@ -72,13 +74,26 @@ func (a *FlowPoliciesApiService) GetFlowPolicyById(ctx context.Context, environm
 // Execute executes the request
 //
 //	@return PingOneApplicationDaVinciFlowPolicy
-func (a *FlowPoliciesApiService) GetFlowPolicyByIdExecute(r ApiGetFlowPolicyByIdRequest) (*PingOneApplicationDaVinciFlowPolicy, *http.Response, error) {
+func (a *FlowPoliciesApiService) GetFlowPolicyByIdExecute(r ApiGetFlowPolicyByIdRequest) (_ *PingOneApplicationDaVinciFlowPolicy, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *PingOneApplicationDaVinciFlowPolicy
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.FlowPoliciesApi.GetFlowPolicyById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowPolicyID", url.PathEscape(parameterValueToString(r.flowPolicyID, "flowPolicyID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowPoliciesApiService.GetFlowPolicyById")
 	if err != nil {
@@ -110,6 +125,20 @@ func (a *FlowPoliciesApiService) GetFlowPolicyByIdExecute(r ApiGetFlowPolicyById
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -202,6 +231,12 @@ func (a *FlowPoliciesApiService) GetFlowPolicyByIdExecute(r ApiGetFlowPolicyById
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -228,6 +263,12 @@ func (a *FlowPoliciesApiService) GetFlowPolicyByIdExecute(r ApiGetFlowPolicyById
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
