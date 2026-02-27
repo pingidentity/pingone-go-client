@@ -38,6 +38,11 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
+	"go.opentelemetry.io/otel/trace/noop"
 	"golang.org/x/oauth2"
 )
 
@@ -48,11 +53,27 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.02.09-beta
+// tracerName is the OpenTelemetry instrumentation scope name used when creating spans
+// in the pingone package. It follows the convention of using the Go module path.
+const tracerName = "github.com/pingidentity/pingone-go-client"
+
+// noopSpan is a reusable no-op span returned by startSpan when no TracerProvider has
+// been configured. Calling End, SetStatus, RecordError, or AddEvent on this span is
+// always safe and has zero overhead.
+var noopSpan trace.Span = noop.Span{}
+
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.01.07-beta
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	// tracer is non-nil only when a TracerProvider has been supplied via config.WithTracerProvider.
+	// All Execute methods call startSpan which is a no-op when tracer is nil.
+	tracer trace.Tracer
+	// sessionID is the optional session identifier sourced from config.WithSessionID.
+	// When non-nil it is forwarded automatically as the X-Ping-External-Session-ID header
+	// on every API request unless the caller overrides it per-request.
+	sessionID *string
 
 	// API Services
 
@@ -84,7 +105,9 @@ type service struct {
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) (*APIClient, error) {
+// The ctx parameter is used during client initialization, particularly for token acquisition
+// spans so that they appear as children of the caller's trace rather than starting a new root trace.
+func NewAPIClient(ctx context.Context, cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
 		if v := cfg.ProxyURL; v != nil && *v != "" {
 			// Parse the proxy URL
@@ -114,8 +137,26 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 
 		cfg.Host = apiDomain
 
+		// Wrap the HTTP transport with the OpenTelemetry instrumented transport so that
+		// every outbound HTTP call produces a child span carrying W3C trace-context headers.
+		// This must happen before oauth2.NewClient wraps the transport so that the tracing
+		// layer sits below the OAuth2 token-injection layer:
+		//   oauth2.Transport → otelhttp.Transport → http.Transport
+		if tp := s.TracerProvider; tp != nil {
+			baseTransport := cfg.HTTPClient.Transport
+			if baseTransport == nil {
+				baseTransport = http.DefaultTransport
+			}
+			cfg.HTTPClient.Transport = otelhttp.NewTransport(
+				baseTransport,
+				otelhttp.WithTracerProvider(tp),
+				otelhttp.WithSpanNameFormatter(func(_ string, r *http.Request) string {
+					return r.Method + " " + r.URL.Path
+				}),
+			)
+		}
+
 		// Set the token client
-		ctx := context.Background()
 		httpClient, err := s.Client(ctx, cfg.HTTPClient)
 		if err != nil {
 			return nil, err
@@ -129,6 +170,14 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
+
+	// Initialise distributed tracing when a TracerProvider has been supplied.
+	if s := cfg.Service; s != nil {
+		if tp := s.TracerProvider; tp != nil {
+			c.tracer = tp.Tracer(tracerName)
+		}
+		c.sessionID = s.SessionID
+	}
 
 	// API Services
 	c.ConfigurationManagementApi = (*ConfigurationManagementApiService)(&c.common)
@@ -358,6 +407,19 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		if resp.Body != nil {
 			_, _ = io.Copy(io.Discard, resp.Body)
 			_ = resp.Body.Close()
+		}
+
+		// Record the HTTP-level retry as an event on the active span (if any).
+		// This annotates the parent operation span with retry activity without
+		// adding separate child spans, keeping the trace hierarchy clean.
+		if span := trace.SpanFromContext(request.Context()); span.IsRecording() {
+			span.AddEvent("http.retry",
+				trace.WithAttributes(
+					attribute.Int("retry.attempt", retryAttempt),
+					attribute.Int("http.response.status_code", resp.StatusCode),
+					attribute.String("retry.backoff_duration", backOffTime.String()),
+				),
+			)
 		}
 
 		slog.Info("API call failed, backing off by calculated duration.", "retry attempt", retryAttempt, "error", err, "backoff duration", backOffTime.String())
@@ -593,6 +655,36 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return nil
 	}
 	return errors.New("undefined response type")
+}
+
+// startSpan starts a new tracing span for the given API operation. The ctx parameter
+// provides the parent context and any active parent span. The operationName parameter
+// should be in the form "<package>.<Service>.<OperationName>" (for example,
+// "pingone.Environments.GetEnvironmentById"). Additional span start options such as
+// SpanKind or initial attributes may be supplied via opts.
+//
+// If no TracerProvider was supplied at client initialisation (i.e. the tracer field is
+// nil), this function returns the original context together with a no-op span so that
+// all call-sites require no nil-checks and incur no tracing overhead.
+//
+// When tracing is enabled the returned context carries the new span as the active span,
+// which is automatically propagated to child HTTP requests through the instrumented
+// transport added by NewAPIClient.
+func (c *APIClient) startSpan(ctx context.Context, operationName string, opts ...trace.SpanStartOption) (context.Context, trace.Span) {
+	if c.tracer == nil {
+		return ctx, noopSpan
+	}
+	return c.tracer.Start(ctx, operationName, opts...)
+}
+
+// recordSpanError records err on span as both a status and an event when err is
+// non-nil. It is a no-op when err is nil. Call this before returning an error from
+// an instrumented Execute method.
+func recordSpanError(span trace.Span, err error) {
+	if err != nil {
+		span.SetStatus(codes.Error, err.Error())
+		span.RecordError(err)
+	}
 }
 
 // Add a file to the multipart request

@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // DaVinciConnectorsApiService DaVinciConnectorsApi service
@@ -75,13 +77,25 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstance(ctx context.Contex
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceResponse
-func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreateConnectorInstanceRequest) (*DaVinciConnectorInstanceResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreateConnectorInstanceRequest) (_ *DaVinciConnectorInstanceResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.CreateConnectorInstance",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.CreateConnectorInstance")
 	if err != nil {
@@ -115,6 +129,20 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -209,6 +237,12 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreate
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -235,6 +269,12 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreate
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -354,13 +394,26 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceById(ctx context.Co
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceResponse
-func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCreateConnectorInstanceByIdRequest) (*DaVinciConnectorInstanceResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCreateConnectorInstanceByIdRequest) (_ *DaVinciConnectorInstanceResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.CreateConnectorInstanceById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorInstanceID", url.PathEscape(parameterValueToString(r.connectorInstanceID, "connectorInstanceID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.CreateConnectorInstanceById")
 	if err != nil {
@@ -395,6 +448,20 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -489,6 +556,12 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCr
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -515,6 +588,12 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCr
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -626,12 +705,25 @@ func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceById(ctx context.Co
 }
 
 // Execute executes the request
-func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDeleteConnectorInstanceByIdRequest) (*http.Response, error) {
+func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDeleteConnectorInstanceByIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.DeleteConnectorInstanceById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorInstanceID", url.PathEscape(parameterValueToString(r.connectorInstanceID, "connectorInstanceID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.DeleteConnectorInstanceById")
 	if err != nil {
@@ -663,6 +755,20 @@ func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -755,6 +861,12 @@ func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -781,6 +893,12 @@ func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -885,13 +1003,26 @@ func (a *DaVinciConnectorsApiService) GetConnectorById(ctx context.Context, envi
 // Execute executes the request
 //
 //	@return DaVinciConnectorMinimalResponse
-func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorByIdRequest) (*DaVinciConnectorMinimalResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorByIdRequest) (_ *DaVinciConnectorMinimalResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorMinimalResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.GetConnectorById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorID", url.PathEscape(parameterValueToString(r.connectorID, "connectorID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.GetConnectorById")
 	if err != nil {
@@ -923,6 +1054,20 @@ func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1015,6 +1160,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorB
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1041,6 +1192,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorB
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1154,13 +1311,26 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstanceById(ctx context.Conte
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceResponse
-func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetConnectorInstanceByIdRequest) (*DaVinciConnectorInstanceResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetConnectorInstanceByIdRequest) (_ *DaVinciConnectorInstanceResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.GetConnectorInstanceById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorInstanceID", url.PathEscape(parameterValueToString(r.connectorInstanceID, "connectorInstanceID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.GetConnectorInstanceById")
 	if err != nil {
@@ -1192,6 +1362,20 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetCo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1284,6 +1468,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetCo
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1310,6 +1500,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetCo
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1420,13 +1616,25 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstances(ctx context.Context,
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceCollectionResponse
-func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) (*DaVinciConnectorInstanceCollectionResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConnectorInstancesRequest) (_ *DaVinciConnectorInstanceCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.GetConnectorInstances",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.GetConnectorInstances")
 	if err != nil {
@@ -1457,6 +1665,20 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConne
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1549,6 +1771,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConne
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1575,6 +1803,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConne
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1685,13 +1919,25 @@ func (a *DaVinciConnectorsApiService) GetConnectors(ctx context.Context, environ
 // Execute executes the request
 //
 //	@return DaVinciConnectorCollectionMinimalResponse
-func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) (*DaVinciConnectorCollectionMinimalResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsRequest) (_ *DaVinciConnectorCollectionMinimalResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorCollectionMinimalResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.GetConnectors",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.GetConnectors")
 	if err != nil {
@@ -1722,6 +1968,20 @@ func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1814,6 +2074,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsReq
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1840,6 +2106,12 @@ func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsReq
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1953,13 +2225,26 @@ func (a *DaVinciConnectorsApiService) GetDetailsByConnectorId(ctx context.Contex
 // Execute executes the request
 //
 //	@return DaVinciConnectorDetailsResponse
-func (a *DaVinciConnectorsApiService) GetDetailsByConnectorIdExecute(r ApiGetDetailsByConnectorIdRequest) (*DaVinciConnectorDetailsResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) GetDetailsByConnectorIdExecute(r ApiGetDetailsByConnectorIdRequest) (_ *DaVinciConnectorDetailsResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorDetailsResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.GetDetailsByConnectorId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorID", url.PathEscape(parameterValueToString(r.connectorID, "connectorID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.GetDetailsByConnectorId")
 	if err != nil {
@@ -1991,6 +2276,20 @@ func (a *DaVinciConnectorsApiService) GetDetailsByConnectorIdExecute(r ApiGetDet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2194,13 +2493,26 @@ func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceById(ctx context.C
 // Execute executes the request
 //
 //	@return DaVinciConnectorInstanceResponse
-func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiReplaceConnectorInstanceByIdRequest) (*DaVinciConnectorInstanceResponse, *http.Response, error) {
+func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiReplaceConnectorInstanceByIdRequest) (_ *DaVinciConnectorInstanceResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciConnectorInstanceResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciConnectorsApi.ReplaceConnectorInstanceById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.connectorInstanceID", url.PathEscape(parameterValueToString(r.connectorInstanceID, "connectorInstanceID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciConnectorsApiService.ReplaceConnectorInstanceById")
 	if err != nil {
@@ -2235,6 +2547,20 @@ func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2329,6 +2655,12 @@ func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiR
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2355,6 +2687,12 @@ func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiR
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue

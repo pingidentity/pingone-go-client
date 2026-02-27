@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // EnvironmentsApiService EnvironmentsApi service
@@ -72,13 +74,24 @@ func (a *EnvironmentsApiService) CreateEnvironment(ctx context.Context) ApiCreat
 // Execute executes the request
 //
 //	@return EnvironmentResponse
-func (a *EnvironmentsApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentRequest) (*EnvironmentResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) CreateEnvironmentExecute(r ApiCreateEnvironmentRequest) (_ *EnvironmentResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.CreateEnvironment",
+		trace.WithSpanKind(trace.SpanKindClient),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.CreateEnvironment")
 	if err != nil {
@@ -111,6 +124,20 @@ func (a *EnvironmentsApiService) CreateEnvironmentExecute(r ApiCreateEnvironment
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -287,12 +314,24 @@ func (a *EnvironmentsApiService) DeleteEnvironmentById(ctx context.Context, envi
 }
 
 // Execute executes the request
-func (a *EnvironmentsApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironmentByIdRequest) (*http.Response, error) {
+func (a *EnvironmentsApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnvironmentByIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.DeleteEnvironmentById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.DeleteEnvironmentById")
 	if err != nil {
@@ -323,6 +362,20 @@ func (a *EnvironmentsApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnviron
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -424,6 +477,12 @@ func (a *EnvironmentsApiService) DeleteEnvironmentByIdExecute(r ApiDeleteEnviron
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -516,13 +575,25 @@ func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentId(ctx context.C
 // Execute executes the request
 //
 //	@return EnvironmentBillOfMaterialsResponse
-func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiGetBillOfMaterialsByEnvironmentIdRequest) (_ *EnvironmentBillOfMaterialsResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentBillOfMaterialsResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.GetBillOfMaterialsByEnvironmentId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.GetBillOfMaterialsByEnvironmentId")
 	if err != nil {
@@ -553,6 +624,20 @@ func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -645,6 +730,12 @@ func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiG
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -671,6 +762,12 @@ func (a *EnvironmentsApiService) GetBillOfMaterialsByEnvironmentIdExecute(r ApiG
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -778,13 +875,25 @@ func (a *EnvironmentsApiService) GetEnvironmentById(ctx context.Context, environ
 // Execute executes the request
 //
 //	@return EnvironmentResponse
-func (a *EnvironmentsApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByIdRequest) (*EnvironmentResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentByIdRequest) (_ *EnvironmentResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.GetEnvironmentById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.GetEnvironmentById")
 	if err != nil {
@@ -819,6 +928,20 @@ func (a *EnvironmentsApiService) GetEnvironmentByIdExecute(r ApiGetEnvironmentBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1037,13 +1160,24 @@ func (a *EnvironmentsApiService) GetEnvironmentsExecute(r ApiGetEnvironmentsRequ
 // Execute executes the request (returning the initial page of the paged response only)
 //
 //	@return EnvironmentsCollectionResponse
-func (a *EnvironmentsApiService) GetEnvironmentsExecutePage(r ApiGetEnvironmentsRequest, link *JSONHALLink) (*EnvironmentsCollectionResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) GetEnvironmentsExecutePage(r ApiGetEnvironmentsRequest, link *JSONHALLink) (_ *EnvironmentsCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentsCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.GetEnvironments",
+		trace.WithSpanKind(trace.SpanKindClient),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	var linkUrl *url.URL
 	if link != nil {
@@ -1106,6 +1240,20 @@ func (a *EnvironmentsApiService) GetEnvironmentsExecutePage(r ApiGetEnvironments
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1293,13 +1441,25 @@ func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentId(ctx conte
 // Execute executes the request
 //
 //	@return EnvironmentBillOfMaterialsResponse
-func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (*EnvironmentBillOfMaterialsResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r ApiReplaceBillOfMaterialsByEnvironmentIdRequest) (_ *EnvironmentBillOfMaterialsResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentBillOfMaterialsResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.ReplaceBillOfMaterialsByEnvironmentId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ReplaceBillOfMaterialsByEnvironmentId")
 	if err != nil {
@@ -1333,6 +1493,20 @@ func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1427,6 +1601,12 @@ func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r 
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1453,6 +1633,12 @@ func (a *EnvironmentsApiService) ReplaceBillOfMaterialsByEnvironmentIdExecute(r 
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1560,13 +1746,25 @@ func (a *EnvironmentsApiService) ReplaceEnvironmentById(ctx context.Context, env
 // Execute executes the request
 //
 //	@return EnvironmentResponse
-func (a *EnvironmentsApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnvironmentByIdRequest) (*EnvironmentResponse, *http.Response, error) {
+func (a *EnvironmentsApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnvironmentByIdRequest) (_ *EnvironmentResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EnvironmentResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.EnvironmentsApi.ReplaceEnvironmentById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ReplaceEnvironmentById")
 	if err != nil {
@@ -1600,6 +1798,20 @@ func (a *EnvironmentsApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnvir
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1703,6 +1915,12 @@ func (a *EnvironmentsApiService) ReplaceEnvironmentByIdExecute(r ApiReplaceEnvir
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
