@@ -1,13 +1,13 @@
 module github.com/pingidentity/pingone-go-client
 
-go 1.24.1
+go 1.25.0
 
 require (
 	github.com/google/uuid v1.6.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.11.1
 	github.com/zalando/go-keyring v0.2.6
-	golang.org/x/oauth2 v0.33.0
+	golang.org/x/oauth2 v0.36.0
 )
 
 require (
