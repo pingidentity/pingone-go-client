@@ -35,6 +35,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
@@ -48,7 +49,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.02.09-beta
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.03.30-beta
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -80,6 +81,9 @@ type APIClient struct {
 
 type service struct {
 	client *APIClient
+	// Used to synchronize mutating requests across the given API service.
+	// Only used by API services that are marked with a spec extension `x-pingidentity-synchronized-CDI-873: true`
+	modificationMutex sync.Mutex
 }
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.

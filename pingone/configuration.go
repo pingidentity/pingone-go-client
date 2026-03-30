@@ -92,7 +92,7 @@ func NewServiceConfiguration() *pingone.Configuration {
 func NewConfiguration(serviceCfg *pingone.Configuration) *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
-		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.8.0 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
+		UserAgent:          fmt.Sprintf("pingtools pingone-go-client/v0.9.0 (Go/%s; %s/%s)", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		DefaultServerIndex: 0,
 		Servers: ServerConfigurations{
 			{

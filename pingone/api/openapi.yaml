@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.02.09-beta
+  version: 2026.03.30-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -388,7 +388,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -428,7 +428,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -460,7 +460,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -495,7 +495,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -536,7 +536,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -577,7 +577,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -612,7 +612,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -648,7 +648,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -719,7 +719,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -759,7 +759,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -791,7 +791,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -826,7 +826,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -867,7 +867,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -960,6 +960,7 @@ paths:
       tags:
       - DaVinci Applications
       x-permission: davinci:create:flowPolicies
+      x-pingidentity-synchronized-CDI-873: true
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID}:
     delete:
       operationId: deleteFlowPolicyByIdUsingDavinciApplicationId
@@ -993,6 +994,7 @@ paths:
       tags:
       - DaVinci Applications
       x-permission: davinci:delete:flowPolicies
+      x-pingidentity-synchronized-CDI-873: true
     get:
       operationId: getFlowPolicyByIdUsingDavinciApplicationId
       parameters:
@@ -1071,6 +1073,7 @@ paths:
       tags:
       - DaVinci Applications
       x-permission: davinci:update:flowPolicies
+      x-pingidentity-synchronized-CDI-873: true
   /environments/{environmentID}/davinciApplications/{davinciApplicationID}/flowPolicies/{flowPolicyID}/events:
     get:
       operationId: getEventsByDavinciApplicationIdAndFlowPolicyId
@@ -1257,7 +1260,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1297,7 +1300,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1329,7 +1332,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1371,7 +1374,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1412,7 +1415,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1454,7 +1457,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1497,7 +1500,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -1540,7 +1543,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2060,7 +2063,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2101,7 +2104,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2133,7 +2136,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2168,7 +2171,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2209,7 +2212,7 @@ paths:
         "401":
           $ref: "#/components/responses/http.401.Unauthorized"
         "403":
-          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830"
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI"
         "404":
           $ref: "#/components/responses/http.404.NotFound.DOCS8830"
         "415":
@@ -2391,6 +2394,18 @@ components:
         \ created. Try again after a short delay."
       x-pingone-p14c-63085: true
       x-pingone-docs-8830: true
+    http.403.Forbidden.P14C63085.DOCS8830.DOCS8830-DAVINCI:
+      content:
+        '*/*':
+          schema:
+            $ref: "#/components/schemas/ForbiddenError"
+      description: "Forbidden - Note: This may occur if the environment doesn't exist.\
+        \ Check for environment existence with GET /environments/{environmentID} first.\
+        \ - Note: This may be due to eventual consistency if the environment was recently\
+        \ created. Try again after a short delay."
+      x-pingone-p14c-63085: true
+      x-pingone-docs-8830:
+        retrySeconds: 60
     http.404.NotFound:
       content:
         '*/*':
