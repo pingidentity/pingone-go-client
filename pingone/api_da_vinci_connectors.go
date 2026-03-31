@@ -206,9 +206,9 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceExecute(r ApiCreate
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -486,9 +486,9 @@ func (a *DaVinciConnectorsApiService) CreateConnectorInstanceByIdExecute(r ApiCr
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -752,9 +752,9 @@ func (a *DaVinciConnectorsApiService) DeleteConnectorInstanceByIdExecute(r ApiDe
 						return localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1012,9 +1012,9 @@ func (a *DaVinciConnectorsApiService) GetConnectorByIdExecute(r ApiGetConnectorB
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1281,9 +1281,9 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstanceByIdExecute(r ApiGetCo
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1546,9 +1546,9 @@ func (a *DaVinciConnectorsApiService) GetConnectorInstancesExecute(r ApiGetConne
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1811,9 +1811,9 @@ func (a *DaVinciConnectorsApiService) GetConnectorsExecute(r ApiGetConnectorsReq
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2326,9 +2326,9 @@ func (a *DaVinciConnectorsApiService) ReplaceConnectorInstanceByIdExecute(r ApiR
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue

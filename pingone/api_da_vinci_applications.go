@@ -206,9 +206,9 @@ func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCre
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -407,6 +407,8 @@ func (a *DaVinciApplicationsApiService) CreateFlowPolicyByDavinciApplicationIdEx
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
+	a.modificationMutex.Lock()
+	defer a.modificationMutex.Unlock()
 
 	var bodyBytes []byte
 	if req.Body != nil {
@@ -718,9 +720,9 @@ func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r Ap
 						return localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -900,6 +902,8 @@ func (a *DaVinciApplicationsApiService) DeleteFlowPolicyByIdUsingDavinciApplicat
 	if err != nil {
 		return nil, err
 	}
+	a.modificationMutex.Lock()
+	defer a.modificationMutex.Unlock()
 
 	var bodyBytes []byte
 	if req.Body != nil {
@@ -1205,9 +1209,9 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGe
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1470,9 +1474,9 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDa
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2463,9 +2467,9 @@ func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r A
 						return localVarReturnValue, localVarHTTPResponse, newErr
 					}
 					if retryVarHTTPResponse.StatusCode == 200 && retryEnvironmentResponse != nil {
-						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
-						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
-							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
+						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
+							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2668,6 +2672,8 @@ func (a *DaVinciApplicationsApiService) ReplaceFlowPolicyByIdUsingDavinciApplica
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
+	a.modificationMutex.Lock()
+	defer a.modificationMutex.Unlock()
 
 	var bodyBytes []byte
 	if req.Body != nil {
