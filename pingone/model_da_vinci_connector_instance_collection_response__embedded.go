@@ -110,7 +110,7 @@ func (o *DaVinciConnectorInstanceCollectionResponseEmbedded) UnmarshalJSON(data 
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v when unmarshaling DaVinciConnectorInstanceCollectionResponseEmbedded", requiredProperty)
 		}
 	}
 
