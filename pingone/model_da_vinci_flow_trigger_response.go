@@ -27,6 +27,7 @@ var _ slog.LogValuer = &DaVinciFlowTriggerResponse{}
 type DaVinciFlowTriggerResponse struct {
 	Type                 DaVinciFlowTriggerResponseType           `json:"type"`
 	Configuration        *DaVinciFlowTriggerResponseConfiguration `json:"configuration,omitempty"`
+	Subtype              *string                                  `json:"subtype,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -106,6 +107,38 @@ func (o *DaVinciFlowTriggerResponse) SetConfiguration(v DaVinciFlowTriggerRespon
 	o.Configuration = &v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *DaVinciFlowTriggerResponse) GetSubtype() string {
+	if o == nil || IsNil(o.Subtype) {
+		var ret string
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowTriggerResponse) GetSubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *DaVinciFlowTriggerResponse) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given string and assigns it to the Subtype field.
+func (o *DaVinciFlowTriggerResponse) SetSubtype(v string) {
+	o.Subtype = &v
+}
+
 func (o DaVinciFlowTriggerResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -119,6 +152,9 @@ func (o DaVinciFlowTriggerResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
+	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -165,6 +201,7 @@ func (o *DaVinciFlowTriggerResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "subtype")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -177,6 +214,9 @@ func (o DaVinciFlowTriggerResponse) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("type", o.Type))
 	if !IsNil(o.Configuration) {
 		logAttrs = append(logAttrs, slog.Any("configuration", *o.Configuration))
+	}
+	if !IsNil(o.Subtype) {
+		logAttrs = append(logAttrs, slog.Any("subtype", *o.Subtype))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 

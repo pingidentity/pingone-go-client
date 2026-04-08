@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Configuration** | Pointer to [**DaVinciFlowPolicyReplaceRequestTriggerConfiguration**](DaVinciFlowPolicyReplaceRequestTriggerConfiguration.md) |  | [optional] 
+**Subtype** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to [**DaVinciFlowPolicyReplaceRequestTriggerType**](DaVinciFlowPolicyReplaceRequestTriggerType.md) |  | [optional] [default to DAVINCIFLOWPOLICYREPLACEREQUESTTRIGGERTYPE_AUTHENTICATION]
 
 ## Methods
@@ -50,6 +51,31 @@ SetConfiguration sets Configuration field to given value.
 `func (o *DaVinciFlowPolicyReplaceRequestTrigger) HasConfiguration() bool`
 
 HasConfiguration returns a boolean if a field has been set.
+
+### GetSubtype
+
+`func (o *DaVinciFlowPolicyReplaceRequestTrigger) GetSubtype() string`
+
+GetSubtype returns the Subtype field if non-nil, zero value otherwise.
+
+### GetSubtypeOk
+
+`func (o *DaVinciFlowPolicyReplaceRequestTrigger) GetSubtypeOk() (*string, bool)`
+
+GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubtype
+
+`func (o *DaVinciFlowPolicyReplaceRequestTrigger) SetSubtype(v string)`
+
+SetSubtype sets Subtype field to given value.
+
+### HasSubtype
+
+`func (o *DaVinciFlowPolicyReplaceRequestTrigger) HasSubtype() bool`
+
+HasSubtype returns a boolean if a field has been set.
 
 ### GetType
 

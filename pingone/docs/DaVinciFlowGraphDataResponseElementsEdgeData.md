@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Source** | **string** |  | 
 **Target** | **string** |  | 
+**MultiValueSourceId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetTarget sets Target field to given value.
 
+
+### GetMultiValueSourceId
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdgeData) GetMultiValueSourceId() string`
+
+GetMultiValueSourceId returns the MultiValueSourceId field if non-nil, zero value otherwise.
+
+### GetMultiValueSourceIdOk
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdgeData) GetMultiValueSourceIdOk() (*string, bool)`
+
+GetMultiValueSourceIdOk returns a tuple with the MultiValueSourceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMultiValueSourceId
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdgeData) SetMultiValueSourceId(v string)`
+
+SetMultiValueSourceId sets MultiValueSourceId field to given value.
+
+### HasMultiValueSourceId
+
+`func (o *DaVinciFlowGraphDataResponseElementsEdgeData) HasMultiValueSourceId() bool`
+
+HasMultiValueSourceId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

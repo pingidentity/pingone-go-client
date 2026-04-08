@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Configuration** | Pointer to [**DaVinciFlowPolicyResponseTriggerConfiguration**](DaVinciFlowPolicyResponseTriggerConfiguration.md) |  | [optional] 
+**Subtype** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetConfiguration sets Configuration field to given value.
 `func (o *DaVinciFlowPolicyResponseTrigger) HasConfiguration() bool`
 
 HasConfiguration returns a boolean if a field has been set.
+
+### GetSubtype
+
+`func (o *DaVinciFlowPolicyResponseTrigger) GetSubtype() string`
+
+GetSubtype returns the Subtype field if non-nil, zero value otherwise.
+
+### GetSubtypeOk
+
+`func (o *DaVinciFlowPolicyResponseTrigger) GetSubtypeOk() (*string, bool)`
+
+GetSubtypeOk returns a tuple with the Subtype field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubtype
+
+`func (o *DaVinciFlowPolicyResponseTrigger) SetSubtype(v string)`
+
+SetSubtype sets Subtype field to given value.
+
+### HasSubtype
+
+`func (o *DaVinciFlowPolicyResponseTrigger) HasSubtype() bool`
+
+HasSubtype returns a boolean if a field has been set.
 
 ### GetType
 

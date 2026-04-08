@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **JsCustomFlowPlayer** | Pointer to **string** |  | [optional] 
 **JsLinks** | Pointer to [**[]DaVinciFlowSettingsResponseJsLink**](DaVinciFlowSettingsResponseJsLink.md) |  | [optional] 
 **LogLevel** | Pointer to **int32** |  | [optional] 
+**PreviewFormRenderingUpdates** | Pointer to [**DaVinciFlowSettingsResponsePreviewFormRenderingUpdates**](DaVinciFlowSettingsResponsePreviewFormRenderingUpdates.md) |  | [optional] 
 **RequireAuthenticationToInitiate** | Pointer to [**DaVinciFlowSettingsResponseRequireAuthenticationToInitiate**](DaVinciFlowSettingsResponseRequireAuthenticationToInitiate.md) |  | [optional] 
 **ScrubSensitiveInfo** | Pointer to [**DaVinciFlowSettingsResponseScrubSensitiveInfo**](DaVinciFlowSettingsResponseScrubSensitiveInfo.md) |  | [optional] 
 **SensitiveInfoFields** | Pointer to **[]string** |  | [optional] 
@@ -448,6 +449,31 @@ SetLogLevel sets LogLevel field to given value.
 `func (o *DaVinciFlowSettingsResponse) HasLogLevel() bool`
 
 HasLogLevel returns a boolean if a field has been set.
+
+### GetPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsResponse) GetPreviewFormRenderingUpdates() DaVinciFlowSettingsResponsePreviewFormRenderingUpdates`
+
+GetPreviewFormRenderingUpdates returns the PreviewFormRenderingUpdates field if non-nil, zero value otherwise.
+
+### GetPreviewFormRenderingUpdatesOk
+
+`func (o *DaVinciFlowSettingsResponse) GetPreviewFormRenderingUpdatesOk() (*DaVinciFlowSettingsResponsePreviewFormRenderingUpdates, bool)`
+
+GetPreviewFormRenderingUpdatesOk returns a tuple with the PreviewFormRenderingUpdates field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsResponse) SetPreviewFormRenderingUpdates(v DaVinciFlowSettingsResponsePreviewFormRenderingUpdates)`
+
+SetPreviewFormRenderingUpdates sets PreviewFormRenderingUpdates field to given value.
+
+### HasPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsResponse) HasPreviewFormRenderingUpdates() bool`
+
+HasPreviewFormRenderingUpdates returns a boolean if a field has been set.
 
 ### GetRequireAuthenticationToInitiate
 

@@ -25,6 +25,7 @@ var _ slog.LogValuer = &DaVinciFlowPolicyReplaceRequestTrigger{}
 // DaVinciFlowPolicyReplaceRequestTrigger struct for DaVinciFlowPolicyReplaceRequestTrigger
 type DaVinciFlowPolicyReplaceRequestTrigger struct {
 	Configuration        *DaVinciFlowPolicyReplaceRequestTriggerConfiguration `json:"configuration,omitempty"`
+	Subtype              *string                                              `json:"subtype,omitempty"`
 	Type                 *DaVinciFlowPolicyReplaceRequestTriggerType          `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -84,6 +85,38 @@ func (o *DaVinciFlowPolicyReplaceRequestTrigger) SetConfiguration(v DaVinciFlowP
 	o.Configuration = &v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *DaVinciFlowPolicyReplaceRequestTrigger) GetSubtype() string {
+	if o == nil || IsNil(o.Subtype) {
+		var ret string
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowPolicyReplaceRequestTrigger) GetSubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *DaVinciFlowPolicyReplaceRequestTrigger) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given string and assigns it to the Subtype field.
+func (o *DaVinciFlowPolicyReplaceRequestTrigger) SetSubtype(v string) {
+	o.Subtype = &v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *DaVinciFlowPolicyReplaceRequestTrigger) GetType() DaVinciFlowPolicyReplaceRequestTriggerType {
 	if o == nil || IsNil(o.Type) {
@@ -129,6 +162,9 @@ func (o DaVinciFlowPolicyReplaceRequestTrigger) ToMap() (map[string]interface{},
 	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
 	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
@@ -155,6 +191,7 @@ func (o *DaVinciFlowPolicyReplaceRequestTrigger) UnmarshalJSON(data []byte) (err
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "subtype")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
@@ -167,6 +204,9 @@ func (o DaVinciFlowPolicyReplaceRequestTrigger) LogValue() slog.Value {
 
 	if !IsNil(o.Configuration) {
 		logAttrs = append(logAttrs, slog.Any("configuration", *o.Configuration))
+	}
+	if !IsNil(o.Subtype) {
+		logAttrs = append(logAttrs, slog.Any("subtype", *o.Subtype))
 	}
 	if !IsNil(o.Type) {
 		logAttrs = append(logAttrs, slog.Any("type", *o.Type))

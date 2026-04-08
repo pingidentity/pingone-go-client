@@ -27,6 +27,7 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeData{}
 type DaVinciFlowGraphDataRequestElementsNodeData struct {
 	Id                   string                 `json:"id"`
 	NodeType             string                 `json:"nodeType"`
+	CapabilityClass      *string                `json:"capabilityClass,omitempty"`
 	CapabilityName       *string                `json:"capabilityName,omitempty"`
 	ConnectionId         *string                `json:"connectionId,omitempty"`
 	ConnectorId          *string                `json:"connectorId,omitempty"`
@@ -106,6 +107,38 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetNodeTypeOk() (*string, 
 // SetNodeType sets field value
 func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetNodeType(v string) {
 	o.NodeType = v
+}
+
+// GetCapabilityClass returns the CapabilityClass field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetCapabilityClass() string {
+	if o == nil || IsNil(o.CapabilityClass) {
+		var ret string
+		return ret
+	}
+	return *o.CapabilityClass
+}
+
+// GetCapabilityClassOk returns a tuple with the CapabilityClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetCapabilityClassOk() (*string, bool) {
+	if o == nil || IsNil(o.CapabilityClass) {
+		return nil, false
+	}
+	return o.CapabilityClass, true
+}
+
+// HasCapabilityClass returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasCapabilityClass() bool {
+	if o != nil && !IsNil(o.CapabilityClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapabilityClass gets a reference to the given string and assigns it to the CapabilityClass field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetCapabilityClass(v string) {
+	o.CapabilityClass = &v
 }
 
 // GetCapabilityName returns the CapabilityName field value if set, zero value otherwise.
@@ -408,6 +441,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) ToMap() (map[string]interfa
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["nodeType"] = o.NodeType
+	if !IsNil(o.CapabilityClass) {
+		toSerialize["capabilityClass"] = o.CapabilityClass
+	}
 	if !IsNil(o.CapabilityName) {
 		toSerialize["capabilityName"] = o.CapabilityName
 	}
@@ -481,6 +517,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) UnmarshalJSON(data []byte)
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "nodeType")
+		delete(additionalProperties, "capabilityClass")
 		delete(additionalProperties, "capabilityName")
 		delete(additionalProperties, "connectionId")
 		delete(additionalProperties, "connectorId")
@@ -501,6 +538,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) LogValue() slog.Value {
 
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("nodeType", o.NodeType))
+	if !IsNil(o.CapabilityClass) {
+		logAttrs = append(logAttrs, slog.Any("capabilityClass", *o.CapabilityClass))
+	}
 	if !IsNil(o.CapabilityName) {
 		logAttrs = append(logAttrs, slog.Any("capabilityName", *o.CapabilityName))
 	}

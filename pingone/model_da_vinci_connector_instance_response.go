@@ -26,14 +26,15 @@ var _ slog.LogValuer = &DaVinciConnectorInstanceResponse{}
 
 // DaVinciConnectorInstanceResponse struct for DaVinciConnectorInstanceResponse
 type DaVinciConnectorInstanceResponse struct {
-	Links                DaVinciConnectorInstanceResponseLinks `json:"_links"`
-	Connector            ResourceRelationshipDaVinciReadOnly   `json:"connector"`
-	Environment          ResourceRelationshipReadOnly          `json:"environment"`
-	Id                   string                                `json:"id"`
-	Name                 string                                `json:"name"`
-	CreatedAt            *time.Time                            `json:"createdAt,omitempty"`
-	Properties           map[string]interface{}                `json:"properties,omitempty"`
-	UpdatedAt            *time.Time                            `json:"updatedAt,omitempty"`
+	Links                DaVinciConnectorInstanceResponseLinks     `json:"_links"`
+	Connector            ResourceRelationshipDaVinciReadOnly       `json:"connector"`
+	Environment          ResourceRelationshipReadOnly              `json:"environment"`
+	Id                   string                                    `json:"id"`
+	Name                 string                                    `json:"name"`
+	CreatedAt            *time.Time                                `json:"createdAt,omitempty"`
+	Metadata             *DaVinciConnectorInstanceResponseMetadata `json:"metadata,omitempty"`
+	Properties           map[string]interface{}                    `json:"properties,omitempty"`
+	UpdatedAt            *time.Time                                `json:"updatedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -213,6 +214,38 @@ func (o *DaVinciConnectorInstanceResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *DaVinciConnectorInstanceResponse) GetMetadata() DaVinciConnectorInstanceResponseMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret DaVinciConnectorInstanceResponseMetadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciConnectorInstanceResponse) GetMetadataOk() (*DaVinciConnectorInstanceResponseMetadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *DaVinciConnectorInstanceResponse) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given DaVinciConnectorInstanceResponseMetadata and assigns it to the Metadata field.
+func (o *DaVinciConnectorInstanceResponse) SetMetadata(v DaVinciConnectorInstanceResponseMetadata) {
+	o.Metadata = &v
+}
+
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *DaVinciConnectorInstanceResponse) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
@@ -295,6 +328,9 @@ func (o DaVinciConnectorInstanceResponse) ToMap() (map[string]interface{}, error
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
@@ -354,6 +390,7 @@ func (o *DaVinciConnectorInstanceResponse) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
@@ -372,6 +409,9 @@ func (o DaVinciConnectorInstanceResponse) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("name", o.Name))
 	if !IsNil(o.CreatedAt) {
 		logAttrs = append(logAttrs, slog.Any("createdAt", *o.CreatedAt))
+	}
+	if !IsNil(o.Metadata) {
+		logAttrs = append(logAttrs, slog.Any("metadata", *o.Metadata))
 	}
 	if !IsNil(o.Properties) {
 		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))

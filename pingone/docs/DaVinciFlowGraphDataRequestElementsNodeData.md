@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **NodeType** | **string** |  | 
+**CapabilityClass** | Pointer to **string** |  | [optional] 
 **CapabilityName** | Pointer to **string** |  | [optional] 
 **ConnectionId** | Pointer to **string** |  | [optional] 
 **ConnectorId** | Pointer to **string** |  | [optional] 
@@ -74,6 +75,31 @@ and a boolean to check if the value has been set.
 
 SetNodeType sets NodeType field to given value.
 
+
+### GetCapabilityClass
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetCapabilityClass() string`
+
+GetCapabilityClass returns the CapabilityClass field if non-nil, zero value otherwise.
+
+### GetCapabilityClassOk
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetCapabilityClassOk() (*string, bool)`
+
+GetCapabilityClassOk returns a tuple with the CapabilityClass field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCapabilityClass
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetCapabilityClass(v string)`
+
+SetCapabilityClass sets CapabilityClass field to given value.
+
+### HasCapabilityClass
+
+`func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasCapabilityClass() bool`
+
+HasCapabilityClass returns a boolean if a field has been set.
 
 ### GetCapabilityName
 

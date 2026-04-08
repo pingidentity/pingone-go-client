@@ -40,6 +40,7 @@ type DaVinciFlowSettingsRequest struct {
 	JsCustomFlowPlayer              *string                                                    `json:"jsCustomFlowPlayer,omitempty"`
 	JsLinks                         []DaVinciFlowSettingsRequestJsLink                         `json:"jsLinks,omitempty"`
 	LogLevel                        *int32                                                     `json:"logLevel,omitempty"`
+	PreviewFormRenderingUpdates     *DaVinciFlowSettingsRequestPreviewFormRenderingUpdates     `json:"previewFormRenderingUpdates,omitempty"`
 	RequireAuthenticationToInitiate *DaVinciFlowSettingsRequestRequireAuthenticationToInitiate `json:"requireAuthenticationToInitiate,omitempty"`
 	ScrubSensitiveInfo              *DaVinciFlowSettingsRequestScrubSensitiveInfo              `json:"scrubSensitiveInfo,omitempty"`
 	SensitiveInfoFields             []string                                                   `json:"sensitiveInfoFields,omitempty"`
@@ -583,6 +584,38 @@ func (o *DaVinciFlowSettingsRequest) SetLogLevel(v int32) {
 	o.LogLevel = &v
 }
 
+// GetPreviewFormRenderingUpdates returns the PreviewFormRenderingUpdates field value if set, zero value otherwise.
+func (o *DaVinciFlowSettingsRequest) GetPreviewFormRenderingUpdates() DaVinciFlowSettingsRequestPreviewFormRenderingUpdates {
+	if o == nil || IsNil(o.PreviewFormRenderingUpdates) {
+		var ret DaVinciFlowSettingsRequestPreviewFormRenderingUpdates
+		return ret
+	}
+	return *o.PreviewFormRenderingUpdates
+}
+
+// GetPreviewFormRenderingUpdatesOk returns a tuple with the PreviewFormRenderingUpdates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowSettingsRequest) GetPreviewFormRenderingUpdatesOk() (*DaVinciFlowSettingsRequestPreviewFormRenderingUpdates, bool) {
+	if o == nil || IsNil(o.PreviewFormRenderingUpdates) {
+		return nil, false
+	}
+	return o.PreviewFormRenderingUpdates, true
+}
+
+// HasPreviewFormRenderingUpdates returns a boolean if a field has been set.
+func (o *DaVinciFlowSettingsRequest) HasPreviewFormRenderingUpdates() bool {
+	if o != nil && !IsNil(o.PreviewFormRenderingUpdates) {
+		return true
+	}
+
+	return false
+}
+
+// SetPreviewFormRenderingUpdates gets a reference to the given DaVinciFlowSettingsRequestPreviewFormRenderingUpdates and assigns it to the PreviewFormRenderingUpdates field.
+func (o *DaVinciFlowSettingsRequest) SetPreviewFormRenderingUpdates(v DaVinciFlowSettingsRequestPreviewFormRenderingUpdates) {
+	o.PreviewFormRenderingUpdates = &v
+}
+
 // GetRequireAuthenticationToInitiate returns the RequireAuthenticationToInitiate field value if set, zero value otherwise.
 func (o *DaVinciFlowSettingsRequest) GetRequireAuthenticationToInitiate() DaVinciFlowSettingsRequestRequireAuthenticationToInitiate {
 	if o == nil || IsNil(o.RequireAuthenticationToInitiate) {
@@ -929,6 +962,9 @@ func (o DaVinciFlowSettingsRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LogLevel) {
 		toSerialize["logLevel"] = o.LogLevel
 	}
+	if !IsNil(o.PreviewFormRenderingUpdates) {
+		toSerialize["previewFormRenderingUpdates"] = o.PreviewFormRenderingUpdates
+	}
 	if !IsNil(o.RequireAuthenticationToInitiate) {
 		toSerialize["requireAuthenticationToInitiate"] = o.RequireAuthenticationToInitiate
 	}
@@ -994,6 +1030,7 @@ func (o *DaVinciFlowSettingsRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "jsCustomFlowPlayer")
 		delete(additionalProperties, "jsLinks")
 		delete(additionalProperties, "logLevel")
+		delete(additionalProperties, "previewFormRenderingUpdates")
 		delete(additionalProperties, "requireAuthenticationToInitiate")
 		delete(additionalProperties, "scrubSensitiveInfo")
 		delete(additionalProperties, "sensitiveInfoFields")
@@ -1059,6 +1096,9 @@ func (o DaVinciFlowSettingsRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.LogLevel) {
 		logAttrs = append(logAttrs, slog.Any("logLevel", *o.LogLevel))
+	}
+	if !IsNil(o.PreviewFormRenderingUpdates) {
+		logAttrs = append(logAttrs, slog.Any("previewFormRenderingUpdates", *o.PreviewFormRenderingUpdates))
 	}
 	if !IsNil(o.RequireAuthenticationToInitiate) {
 		logAttrs = append(logAttrs, slog.Any("requireAuthenticationToInitiate", *o.RequireAuthenticationToInitiate))

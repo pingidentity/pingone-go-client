@@ -25,9 +25,10 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataResponseElementsEdgeData{}
 
 // DaVinciFlowGraphDataResponseElementsEdgeData struct for DaVinciFlowGraphDataResponseElementsEdgeData
 type DaVinciFlowGraphDataResponseElementsEdgeData struct {
-	Id                   string `json:"id"`
-	Source               string `json:"source"`
-	Target               string `json:"target"`
+	Id                   string  `json:"id"`
+	Source               string  `json:"source"`
+	Target               string  `json:"target"`
+	MultiValueSourceId   *string `json:"multiValueSourceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -125,6 +126,38 @@ func (o *DaVinciFlowGraphDataResponseElementsEdgeData) SetTarget(v string) {
 	o.Target = v
 }
 
+// GetMultiValueSourceId returns the MultiValueSourceId field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponseElementsEdgeData) GetMultiValueSourceId() string {
+	if o == nil || IsNil(o.MultiValueSourceId) {
+		var ret string
+		return ret
+	}
+	return *o.MultiValueSourceId
+}
+
+// GetMultiValueSourceIdOk returns a tuple with the MultiValueSourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponseElementsEdgeData) GetMultiValueSourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.MultiValueSourceId) {
+		return nil, false
+	}
+	return o.MultiValueSourceId, true
+}
+
+// HasMultiValueSourceId returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElementsEdgeData) HasMultiValueSourceId() bool {
+	if o != nil && !IsNil(o.MultiValueSourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetMultiValueSourceId gets a reference to the given string and assigns it to the MultiValueSourceId field.
+func (o *DaVinciFlowGraphDataResponseElementsEdgeData) SetMultiValueSourceId(v string) {
+	o.MultiValueSourceId = &v
+}
+
 func (o DaVinciFlowGraphDataResponseElementsEdgeData) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -138,6 +171,9 @@ func (o DaVinciFlowGraphDataResponseElementsEdgeData) ToMap() (map[string]interf
 	toSerialize["id"] = o.Id
 	toSerialize["source"] = o.Source
 	toSerialize["target"] = o.Target
+	if !IsNil(o.MultiValueSourceId) {
+		toSerialize["multiValueSourceId"] = o.MultiValueSourceId
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -186,6 +222,7 @@ func (o *DaVinciFlowGraphDataResponseElementsEdgeData) UnmarshalJSON(data []byte
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "target")
+		delete(additionalProperties, "multiValueSourceId")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -198,6 +235,9 @@ func (o DaVinciFlowGraphDataResponseElementsEdgeData) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("id", o.Id))
 	logAttrs = append(logAttrs, slog.Any("source", o.Source))
 	logAttrs = append(logAttrs, slog.Any("target", o.Target))
+	if !IsNil(o.MultiValueSourceId) {
+		logAttrs = append(logAttrs, slog.Any("multiValueSourceId", *o.MultiValueSourceId))
+	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
 	return slog.GroupValue(logAttrs...)
