@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **JsCustomFlowPlayer** | Pointer to **string** |  | [optional] 
 **JsLinks** | Pointer to [**[]DaVinciFlowSettingsRequestJsLink**](DaVinciFlowSettingsRequestJsLink.md) |  | [optional] 
 **LogLevel** | Pointer to **int32** |  | [optional] 
+**PreviewFormRenderingUpdates** | Pointer to [**DaVinciFlowSettingsRequestPreviewFormRenderingUpdates**](DaVinciFlowSettingsRequestPreviewFormRenderingUpdates.md) |  | [optional] 
 **RequireAuthenticationToInitiate** | Pointer to [**DaVinciFlowSettingsRequestRequireAuthenticationToInitiate**](DaVinciFlowSettingsRequestRequireAuthenticationToInitiate.md) |  | [optional] 
 **ScrubSensitiveInfo** | Pointer to [**DaVinciFlowSettingsRequestScrubSensitiveInfo**](DaVinciFlowSettingsRequestScrubSensitiveInfo.md) |  | [optional] 
 **SensitiveInfoFields** | Pointer to **[]string** |  | [optional] 
@@ -448,6 +449,31 @@ SetLogLevel sets LogLevel field to given value.
 `func (o *DaVinciFlowSettingsRequest) HasLogLevel() bool`
 
 HasLogLevel returns a boolean if a field has been set.
+
+### GetPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsRequest) GetPreviewFormRenderingUpdates() DaVinciFlowSettingsRequestPreviewFormRenderingUpdates`
+
+GetPreviewFormRenderingUpdates returns the PreviewFormRenderingUpdates field if non-nil, zero value otherwise.
+
+### GetPreviewFormRenderingUpdatesOk
+
+`func (o *DaVinciFlowSettingsRequest) GetPreviewFormRenderingUpdatesOk() (*DaVinciFlowSettingsRequestPreviewFormRenderingUpdates, bool)`
+
+GetPreviewFormRenderingUpdatesOk returns a tuple with the PreviewFormRenderingUpdates field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsRequest) SetPreviewFormRenderingUpdates(v DaVinciFlowSettingsRequestPreviewFormRenderingUpdates)`
+
+SetPreviewFormRenderingUpdates sets PreviewFormRenderingUpdates field to given value.
+
+### HasPreviewFormRenderingUpdates
+
+`func (o *DaVinciFlowSettingsRequest) HasPreviewFormRenderingUpdates() bool`
+
+HasPreviewFormRenderingUpdates returns a boolean if a field has been set.
 
 ### GetRequireAuthenticationToInitiate
 

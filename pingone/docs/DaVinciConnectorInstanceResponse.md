@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Name** | **string** |  | 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**Metadata** | Pointer to [**DaVinciConnectorInstanceResponseMetadata**](DaVinciConnectorInstanceResponseMetadata.md) |  | [optional] 
 **Properties** | Pointer to **map[string]interface{}** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
@@ -156,6 +157,31 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *DaVinciConnectorInstanceResponse) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetMetadata
+
+`func (o *DaVinciConnectorInstanceResponse) GetMetadata() DaVinciConnectorInstanceResponseMetadata`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *DaVinciConnectorInstanceResponse) GetMetadataOk() (*DaVinciConnectorInstanceResponseMetadata, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *DaVinciConnectorInstanceResponse) SetMetadata(v DaVinciConnectorInstanceResponseMetadata)`
+
+SetMetadata sets Metadata field to given value.
+
+### HasMetadata
+
+`func (o *DaVinciConnectorInstanceResponse) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 ### GetProperties
 
