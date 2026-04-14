@@ -382,7 +382,7 @@ func (o *DaVinciVariableReplaceRequest) UnmarshalJSON(data []byte) (err error) {
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v when unmarshaling DaVinciVariableReplaceRequest", requiredProperty)
 		}
 	}
 

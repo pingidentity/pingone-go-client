@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsRequestPreviewFormRenderingUpdates) UnmarshalJSON(
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2)
-		if string(jsonDaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2, jsonDaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2) {
 			dst.DaVinciFlowSettingsRequestPreviewFormRenderingUpdatesChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsRequestPreviewFormRenderingUpdates) UnmarshalJSON(
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

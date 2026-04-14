@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsRequestRequireAuthenticationToInitiate) UnmarshalJ
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2)
-		if string(jsonDaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2, jsonDaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2) {
 			dst.DaVinciFlowSettingsRequestRequireAuthenticationToInitiateChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsRequestRequireAuthenticationToInitiate) UnmarshalJ
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

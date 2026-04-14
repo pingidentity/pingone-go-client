@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsRequestUseCustomFlowPlayer) UnmarshalJSON(data []b
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2)
-		if string(jsonDaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2, jsonDaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2) {
 			dst.DaVinciFlowSettingsRequestUseCustomFlowPlayerChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsRequestUseCustomFlowPlayer) UnmarshalJSON(data []b
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

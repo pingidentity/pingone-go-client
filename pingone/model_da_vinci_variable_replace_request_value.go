@@ -60,7 +60,7 @@ func (dst *DaVinciVariableReplaceRequestValue) UnmarshalJSON(data []byte) error 
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++
@@ -73,7 +73,7 @@ func (dst *DaVinciVariableReplaceRequestValue) UnmarshalJSON(data []byte) error 
 	err = json.Unmarshal(data, &dst.Float32)
 	if err == nil {
 		jsonFloat32, _ := json.Marshal(dst.Float32)
-		if string(jsonFloat32) == "{}" { // empty struct
+		if isEmptyStruct(dst.Float32, jsonFloat32) {
 			dst.Float32 = nil
 		} else {
 			match++
@@ -86,7 +86,7 @@ func (dst *DaVinciVariableReplaceRequestValue) UnmarshalJSON(data []byte) error 
 	err = json.Unmarshal(data, &dst.Object)
 	if err == nil {
 		jsonObject, _ := json.Marshal(dst.Object)
-		if string(jsonObject) == "{}" { // empty struct
+		if isEmptyStruct(dst.Object, jsonObject) {
 			dst.Object = nil
 		} else {
 			match++
@@ -99,7 +99,7 @@ func (dst *DaVinciVariableReplaceRequestValue) UnmarshalJSON(data []byte) error 
 	err = json.Unmarshal(data, &dst.String)
 	if err == nil {
 		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
+		if isEmptyStruct(dst.String, jsonString) {
 			dst.String = nil
 		} else {
 			match++

@@ -345,6 +345,33 @@ func IsNil(i interface{}) bool {
 	return false
 }
 
+// isEmptyStruct returns true when marshaled JSON is an empty object
+// for a struct-like candidate that should be treated as "no match" in oneOf/anyOf.
+// Empty maps are considered valid object values and therefore are not treated as no-match.
+func isEmptyStruct(candidate interface{}, marshaled []byte) bool {
+	if string(marshaled) != "{}" {
+		return false
+	}
+
+	v := reflect.ValueOf(candidate)
+	for v.IsValid() && (v.Kind() == reflect.Ptr || v.Kind() == reflect.Interface) {
+		if v.IsNil() {
+			return false
+		}
+		v = v.Elem()
+	}
+
+	if !v.IsValid() {
+		return false
+	}
+
+	if v.Kind() == reflect.Map {
+		return false
+	}
+
+	return true
+}
+
 type MappedNullable interface {
 	ToMap() (map[string]interface{}, error)
 }
