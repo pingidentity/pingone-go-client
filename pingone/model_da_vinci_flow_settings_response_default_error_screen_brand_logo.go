@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo) UnmarshalJSON
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2)
-		if string(jsonDaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2, jsonDaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2) {
 			dst.DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogoChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo) UnmarshalJSON
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

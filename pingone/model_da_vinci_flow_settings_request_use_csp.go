@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsRequestUseCSP) UnmarshalJSON(data []byte) error {
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsRequestUseCSPChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsRequestUseCSPChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsRequestUseCSPChoice2)
-		if string(jsonDaVinciFlowSettingsRequestUseCSPChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsRequestUseCSPChoice2, jsonDaVinciFlowSettingsRequestUseCSPChoice2) {
 			dst.DaVinciFlowSettingsRequestUseCSPChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsRequestUseCSP) UnmarshalJSON(data []byte) error {
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

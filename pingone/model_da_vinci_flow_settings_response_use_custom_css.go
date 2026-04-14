@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsResponseUseCustomCSS) UnmarshalJSON(data []byte) e
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsResponseUseCustomCSSChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsResponseUseCustomCSSChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsResponseUseCustomCSSChoice2)
-		if string(jsonDaVinciFlowSettingsResponseUseCustomCSSChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsResponseUseCustomCSSChoice2, jsonDaVinciFlowSettingsResponseUseCustomCSSChoice2) {
 			dst.DaVinciFlowSettingsResponseUseCustomCSSChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsResponseUseCustomCSS) UnmarshalJSON(data []byte) e
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

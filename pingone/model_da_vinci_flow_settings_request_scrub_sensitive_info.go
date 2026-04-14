@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsRequestScrubSensitiveInfo) UnmarshalJSON(data []by
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsRequestScrubSensitiveInfoChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsRequestScrubSensitiveInfoChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsRequestScrubSensitiveInfoChoice2)
-		if string(jsonDaVinciFlowSettingsRequestScrubSensitiveInfoChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsRequestScrubSensitiveInfoChoice2, jsonDaVinciFlowSettingsRequestScrubSensitiveInfoChoice2) {
 			dst.DaVinciFlowSettingsRequestScrubSensitiveInfoChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsRequestScrubSensitiveInfo) UnmarshalJSON(data []by
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

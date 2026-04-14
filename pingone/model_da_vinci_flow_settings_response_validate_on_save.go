@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsResponseValidateOnSave) UnmarshalJSON(data []byte)
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsResponseValidateOnSaveChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsResponseValidateOnSaveChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsResponseValidateOnSaveChoice2)
-		if string(jsonDaVinciFlowSettingsResponseValidateOnSaveChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsResponseValidateOnSaveChoice2, jsonDaVinciFlowSettingsResponseValidateOnSaveChoice2) {
 			dst.DaVinciFlowSettingsResponseValidateOnSaveChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsResponseValidateOnSave) UnmarshalJSON(data []byte)
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

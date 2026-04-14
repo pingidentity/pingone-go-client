@@ -44,7 +44,7 @@ func (dst *DaVinciFlowSettingsResponseJsLinkDefer) UnmarshalJSON(data []byte) er
 	err = json.Unmarshal(data, &dst.DaVinciFlowSettingsResponseJsLinkDeferChoice2)
 	if err == nil {
 		jsonDaVinciFlowSettingsResponseJsLinkDeferChoice2, _ := json.Marshal(dst.DaVinciFlowSettingsResponseJsLinkDeferChoice2)
-		if string(jsonDaVinciFlowSettingsResponseJsLinkDeferChoice2) == "{}" { // empty struct
+		if isEmptyStruct(dst.DaVinciFlowSettingsResponseJsLinkDeferChoice2, jsonDaVinciFlowSettingsResponseJsLinkDeferChoice2) {
 			dst.DaVinciFlowSettingsResponseJsLinkDeferChoice2 = nil
 		} else {
 			match++
@@ -57,7 +57,7 @@ func (dst *DaVinciFlowSettingsResponseJsLinkDefer) UnmarshalJSON(data []byte) er
 	err = json.Unmarshal(data, &dst.Bool)
 	if err == nil {
 		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
+		if isEmptyStruct(dst.Bool, jsonBool) {
 			dst.Bool = nil
 		} else {
 			match++

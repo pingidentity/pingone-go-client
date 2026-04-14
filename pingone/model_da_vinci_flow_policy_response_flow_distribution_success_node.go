@@ -110,7 +110,7 @@ func (o *DaVinciFlowPolicyResponseFlowDistributionSuccessNode) UnmarshalJSON(dat
 
 	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+			return fmt.Errorf("no value given for required property %v when unmarshaling DaVinciFlowPolicyResponseFlowDistributionSuccessNode", requiredProperty)
 		}
 	}
 
