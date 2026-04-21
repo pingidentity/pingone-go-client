@@ -5,6 +5,7 @@ All URIs are relative to *https://api.pingone.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteVersionByIdUsingFlowId**](DaVinciFlowVersionsApi.md#DeleteVersionByIdUsingFlowId) | **Delete** /environments/{environmentID}/flows/{flowID}/versions/{versionID} | 
+[**ExportVersionByIdUsingFlowIdAsExportJson**](DaVinciFlowVersionsApi.md#ExportVersionByIdUsingFlowIdAsExportJson) | **Post** /environments/{environmentID}/flows/{flowID}/versions/{versionID}#export+json | 
 [**GetDetailsByFlowIdAndVersionId**](DaVinciFlowVersionsApi.md#GetDetailsByFlowIdAndVersionId) | **Get** /environments/{environmentID}/flows/{flowID}/versions/{versionID}/details | 
 [**GetVersionByIdUsingFlowId**](DaVinciFlowVersionsApi.md#GetVersionByIdUsingFlowId) | **Get** /environments/{environmentID}/flows/{flowID}/versions/{versionID} | 
 [**GetVersionsByFlowId**](DaVinciFlowVersionsApi.md#GetVersionsByFlowId) | **Get** /environments/{environmentID}/flows/{flowID}/versions | 
@@ -88,6 +89,92 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportVersionByIdUsingFlowIdAsExportJson
+
+> DaVinciFlowVersionExportOrSubflowsResponse ExportVersionByIdUsingFlowIdAsExportJson(ctx, environmentID, flowID, versionID).DaVinciExportFlowVersionRequest(daVinciExportFlowVersionRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pingidentity/pingone-go-client/pingone"
+)
+
+func main() {
+	environmentID := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // uuid.UUID | 
+	flowID := "flowID_example" // string | 
+	versionID := "versionID_example" // string | 
+	daVinciExportFlowVersionRequest := *openapiclient.NewDaVinciExportFlowVersionRequest() // DaVinciExportFlowVersionRequest | 
+	xPingExternalSessionID := "xPingExternalSessionID_example" // string |  (optional)
+	xPingExternalTransactionID := "xPingExternalTransactionID_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DaVinciFlowVersionsApi.ExportVersionByIdUsingFlowIdAsExportJson(context.Background(), environmentID, flowID, versionID).DaVinciExportFlowVersionRequest(daVinciExportFlowVersionRequest).XPingExternalSessionID(xPingExternalSessionID).XPingExternalTransactionID(xPingExternalTransactionID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DaVinciFlowVersionsApi.ExportVersionByIdUsingFlowIdAsExportJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportVersionByIdUsingFlowIdAsExportJson`: DaVinciFlowVersionExportOrSubflowsResponse
+	fmt.Fprintf(os.Stdout, "Response from `DaVinciFlowVersionsApi.ExportVersionByIdUsingFlowIdAsExportJson`: %v\n", resp)
+}
+```
+
+### Required Permission(s)
+
+The following admin role permissions are required to call this endpoint:
+
+- `davinci:export:flowVersions`
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environmentID** | **uuid.UUID** |  | 
+**flowID** | **string** |  | 
+**versionID** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportVersionByIdUsingFlowIdAsExportJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **daVinciExportFlowVersionRequest** | [**DaVinciExportFlowVersionRequest**](DaVinciExportFlowVersionRequest.md) |  | 
+ **xPingExternalSessionID** | **string** |  | 
+ **xPingExternalTransactionID** | **string** |  | 
+
+### Return type
+
+[**DaVinciFlowVersionExportOrSubflowsResponse**](DaVinciFlowVersionExportOrSubflowsResponse.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/vnd.pingidentity.flowversion.export+json
+- **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

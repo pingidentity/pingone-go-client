@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.04.14-beta
+  version: 2026.04.21-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -2465,6 +2465,56 @@ paths:
         \ inspecting or auditing a particular version of a flow and requires the davinci:read:flowVersions\
         \ permission. If the specified IDs do not exist, the function returns a 404\
         \ error."
+  /environments/{environmentID}/flows/{flowID}/versions/{versionID}#export+json:
+    post:
+      operationId: exportVersionByIdUsingFlowIdAsExportJson
+      parameters:
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.environmentID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.flowID"
+      - $ref: "#/components/parameters/com.pingidentity.path.environments.flows.versions.versionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalSessionID"
+      - $ref: "#/components/parameters/com.pingidentity.header.ExternalTransactionID"
+      requestBody:
+        content:
+          application/vnd.pingidentity.flowversion.export+json:
+            schema:
+              $ref: "#/components/schemas/DaVinciExportFlowVersionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowVersionExportOrSubflowsResponse"
+          description: Successful Operation.
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaVinciFlowVersionResponse"
+          description: Successfully created the resource.
+        "400":
+          $ref: "#/components/responses/http.400.BadRequest"
+        "401":
+          $ref: "#/components/responses/http.401.Unauthorized"
+        "403":
+          $ref: "#/components/responses/http.403.Forbidden.P14C63085"
+        "404":
+          $ref: "#/components/responses/http.404.NotFound"
+        "415":
+          $ref: "#/components/responses/http.415.UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/http.429.TooManyRequests"
+        "500":
+          $ref: "#/components/responses/http.500.InternalServerError"
+        "502":
+          $ref: "#/components/responses/http.502.BadGateway"
+        "503":
+          $ref: "#/components/responses/http.503.ServiceUnavailable"
+      tags:
+      - DaVinci Flow Versions
+      x-permission: davinci:export:flowVersions
+      x-pingidentity-operation-action: export
   /environments/{environmentID}/flows/{flowID}/versions/{versionID}/alias:
     put:
       operationId: replaceAliasByFlowIdAndVersionId
@@ -4563,7 +4613,273 @@ components:
         a DaVinci connector.
       x-description-go-sdk: DaVinciConnectorResponse represents a minimal response
         body schema for a DaVinci connector.
+    DaVinciExportFlowVersionRequest:
+      additionalProperties: true
+      properties:
+        includeForms:
+          title: DaVinci Export Flow Version Request Include Forms
+          type: boolean
+        includeSubFlows:
+          title: DaVinci Export Flow Version Request Include Sub Flows
+          type: boolean
+        includeVariableValues:
+          title: DaVinci Export Flow Version Request Include Variable Values
+          type: boolean
+      title: DaVinci Export Flow Version Request
     DaVinciExportFlowVersionResponse:
+      example:
+        clonedFrom: 1.4658129805029452
+        settings:
+          csp: csp
+          css: css
+          jsLinks:
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          - crossorigin: crossorigin
+            referrerpolicy: referrerpolicy
+            defer: true
+            integrity: integrity
+            label: label
+            type: type
+            value: value
+          customErrorShowFooter: true
+          customErrorScreenBrandLogoUrl: customErrorScreenBrandLogoUrl
+          flowTimeoutInSeconds: 6.84685269835264
+          customTitle: customTitle
+          intermediateLoadingScreenCSS: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_CSS
+          useCustomScript: true
+          useCSP: true
+          logLevel: 3
+          requireAuthenticationToInitiate: true
+          previewFormRenderingUpdates: true
+          useCustomFlowPlayer: true
+          cssLinks:
+          - cssLinks
+          - cssLinks
+          defaultErrorScreenBrandLogo: true
+          intermediateLoadingScreenHTML: DaVinci_Flow_Settings_Response_Intermediate_Loading_Screen_HTML
+          useCustomCSS: true
+          validateOnSave: true
+          flowHttpTimeoutInSeconds: 1
+          scrubSensitiveInfo: true
+          useIntermediateLoadingScreen: true
+          customLogoURLSelection: 1
+          jsCustomFlowPlayer: jsCustomFlowPlayer
+          customFaviconLink: customFaviconLink
+          sensitiveInfoFields:
+          - sensitiveInfoFields
+          - sensitiveInfoFields
+        connectors:
+        - id: id
+        - id: id
+        variables:
+        - key: ""
+        - key: ""
+        color: color
+        outputSchema:
+          output:
+            additionalProperties: true
+            type: object
+            properties:
+              key: ""
+        _links:
+          environment:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+          self:
+            profile: https://openapi-generator.tech
+            name: name
+            href: https://openapi-generator.tech
+            title: https://openapi-generator.tech
+            type: type
+        inputSchema:
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        - isExpanded: true
+          preferredControlType: preferredControlType
+          propertyName: propertyName
+          preferredDataType: array
+          description: description
+          required: true
+        description: description
+        trigger:
+          configuration:
+            mfa:
+              timeFormat: timeFormat
+              time: 1.1730742509559433
+              enabled: true
+            pwd:
+              timeFormat: timeFormat
+              time: 4.965218492984954
+              enabled: true
+          subtype: subtype
+          type: AUTHENTICATION
+        updates:
+        - updates
+        - updates
+        version: 6.027456183070403
+        deployedAt: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        environment:
+          id: id
+        publishedVersion: 0.8008281904610115
+        alias: alias
+        graphData:
+          boxSelectionEnabled: true
+          renderer:
+            name: name
+          zoomingEnabled: true
+          data: "{}"
+          maxZoom: 4.145608029883936
+          userPanningEnabled: true
+          userZoomingEnabled: true
+          minZoom: 7.386281948385884
+          zoom: 2.027123023002322
+          allLinterErrors:
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          - code: code
+            recommendation: recommendation
+            message: message
+            type: type
+            flowId: flowId
+            nodeId: nodeId
+          elements:
+            nodes:
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                capabilityClass: capabilityClass
+                properties:
+                  key: ""
+                status: status
+              removed: true
+              selectable: true
+              classes: classes
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+            - data:
+                capabilityName: capabilityName
+                connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                linterError:
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                - code: code
+                  recommendation: recommendation
+                  message: message
+                  type: type
+                  flowId: flowId
+                  nodeId: nodeId
+                name: name
+                connectionId: connectionId
+                idUnique: idUnique
+                id: id
+                capabilityClass: capabilityClass
+                properties:
+                  key: ""
+                status: status
+              removed: true
+              selectable: true
+              classes: classes
+              grabbable: true
+              pannable: true
+              position:
+                x: 5.962133916683182
+                "y": 5.637376656633329
+              locked: true
+              selected: true
+              group: group
+            edges:
+            - data:
+                multiValueSourceId: multiValueSourceId
+                id: id
+                source: source
+                target: target
+              removed: true
+              selectable: true
+              classes: classes
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+            - data:
+                multiValueSourceId: multiValueSourceId
+                id: id
+                source: source
+                target: target
+              removed: true
+              selectable: true
+              classes: classes
+              grabbable: true
+              pannable: true
+              position:
+                x: 2.3021358869347655
+                "y": 7.061401241503109
+              locked: true
+              selected: true
+              group: group
+          pan:
+            x: 9.301444243932576
+            "y": 3.616076749251911
+          panningEnabled: true
+        flow:
+          name: name
+          id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         _links:
           $ref: "#/components/schemas/DaVinci_Export_Flow_Version_Response__links"
@@ -8561,6 +8877,11 @@ components:
         retrieving a DaVinci flow version detail.
       x-description-go-sdk: Represents the response body schema for a DaVinci flow
         version detail.
+    DaVinciFlowVersionExportOrSubflowsResponse:
+      oneOf:
+      - $ref: "#/components/schemas/DaVinciExportFlowVersionResponse"
+      - $ref: "#/components/schemas/DaVinciExportFlowVersionSubflowsResponse"
+      title: DaVinci Flow Version Export or Subflows Response
     DaVinciFlowVersionResponse:
       example:
         clonedFrom: 6.027456183070403
@@ -13456,6 +13777,19 @@ components:
     DaVinci_Export_Flow_Version_Response__links:
       additionalProperties:
         $ref: "#/components/schemas/JSONHALLink"
+      example:
+        environment:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
+        self:
+          profile: https://openapi-generator.tech
+          name: name
+          href: https://openapi-generator.tech
+          title: https://openapi-generator.tech
+          type: type
       properties:
         environment:
           $ref: "#/components/schemas/JSONHALLink"
@@ -13466,6 +13800,8 @@ components:
       - self
       title: DaVinci Export Flow Version Response _links
     DaVinci_Export_Flow_Version_Response_Environment:
+      example:
+        id: id
       properties:
         id:
           minLength: 1
@@ -13483,6 +13819,9 @@ components:
         \ to as the environment ID."
       x-description-go-sdk: Represents the environment ID.
     DaVinci_Export_Flow_Version_Response_Flow:
+      example:
+        name: name
+        id: id
       properties:
         id:
           minLength: 1
@@ -13508,6 +13847,8 @@ components:
         to this version.
       x-description-go-sdk: Details of the flow associated with this version.
     DaVinci_Export_Flow_Version_Response_Connector:
+      example:
+        id: id
       properties:
         id:
           minLength: 1
@@ -19515,6 +19856,7 @@ x-permissions:
 - name: davinci:delete:dvFlows
 - name: davinci:delete:flowPolicies
 - name: davinci:delete:flowVersions
+- name: davinci:export:flowVersions
 - name: davinci:read:applications
 - name: davinci:read:connections
 - name: davinci:read:connectors
