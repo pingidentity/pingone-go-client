@@ -55,7 +55,7 @@ var (
 
 // tracerName is the OpenTelemetry instrumentation scope name used when creating spans
 // in the pingone package. It follows the convention of using the Go module path.
-const tracerName = "github.com/pingidentity/pingone-go-client"
+const tracerName = "github.com/pingidentity/pingone-go-client/pingone"
 
 // noopSpan is a reusable no-op span returned by startSpan when no TracerProvider has
 // been configured. Calling End, SetStatus, RecordError, or AddEvent on this span is

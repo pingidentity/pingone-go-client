@@ -12,7 +12,7 @@ import (
 
 // tracerInstrumentationScope is the OpenTelemetry instrumentation scope name used when
 // creating spans in the config package. It follows the convention of using the module path.
-const tracerInstrumentationScope = "github.com/pingidentity/pingone-go-client"
+const tracerInstrumentationScope = "github.com/pingidentity/pingone-go-client/config"
 
 // noopConfigSpan is a reusable no-op span returned by startConfigSpan when no
 // TracerProvider has been configured. Calling End, SetStatus, RecordError, or AddEvent

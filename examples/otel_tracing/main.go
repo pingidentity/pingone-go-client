@@ -96,7 +96,7 @@ func main() {
 	// Spans are automatically created for:
 	//   - Token acquisition  (pingone.config.AcquireTokenSource)
 	//   - OAuth2 grant flows (pingone.config.OAuth2.ClientCredentials, etc.)
-	//   - API operations     (pingone.Environments.GetEnvironmentById, etc.)
+	//   - API operations     (pingone.EnvironmentsApi.GetEnvironmentById, etc.)
 	//   - HTTP requests      (METHOD /path via otelhttp transport)
 	serviceCfg.WithTracerProvider(tp)
 
@@ -112,19 +112,12 @@ func main() {
 	ctx, rootSpan := tracer.Start(ctx, "example.run")
 	defer rootSpan.End()
 
-	httpClient, err := serviceCfg.Client(ctx, nil)
-	if err != nil {
-		slog.Error("Failed to create HTTP client", "error", err)
-		os.Exit(1)
-	}
-
 	configuration := pingone.NewConfiguration(serviceCfg)
 	apiClient, err := pingone.NewAPIClient(ctx, configuration)
 	if err != nil {
 		slog.Error("Failed to create API client", "error", err)
 		os.Exit(1)
 	}
-	apiClient.GetConfig().HTTPClient = httpClient
 
 	// ── Make an API call ──────────────────────────────────────────────────────
 	environmentID, err := uuid.Parse(authEnvironmentID)
@@ -134,13 +127,17 @@ func main() {
 	}
 
 	// The SDK will:
-	//  1. Start a "pingone.Environments.GetEnvironmentById" child span.
+	//  1. Start a "pingone.EnvironmentsApi.GetEnvironmentById" child span.
 	//  2. Automatically populate X-Ping-External-Transaction-ID with the trace ID.
 	//  3. Automatically populate X-Ping-External-Session-ID with "example-session-001".
 	//  4. Create a child HTTP span via otelhttp for the outbound request.
 	env, httpResp, err := apiClient.EnvironmentsApi.GetEnvironmentById(ctx, environmentID).Execute()
 	if err != nil {
-		slog.Error("API call failed", "error", err, "status", httpResp.Status)
+		status := "no response"
+		if httpResp != nil {
+			status = httpResp.Status
+		}
+		slog.Error("API call failed", "error", err, "status", status)
 		os.Exit(1)
 	}
 
