@@ -1,10 +1,10 @@
 // Copyright © 2025 Ping Identity Corporation
 
 // Package main demonstrates how to configure OpenTelemetry distributed tracing
-// with the PingOne Go Client SDK. It shows how to inject a TracerProvider and
-// a session ID so that every outbound API call is automatically traced and
-// correlated with the X-Ping-External-Transaction-ID and
-// X-Ping-External-Session-ID headers.
+// with the PingOne Go Client SDK. It shows how to register a TracerProvider as
+// the OTel global and set a session ID so that every outbound API call is
+// automatically traced and correlated with the X-Ping-External-Transaction-ID
+// and X-Ping-External-Session-ID headers.
 //
 // This example exports spans to stdout so you can see the raw trace data
 // without requiring a running collector. Swap the exporter for an OTLP
@@ -67,8 +67,8 @@ func main() {
 		}
 	}()
 
-	// Optionally register as the global provider so any library that uses
-	// otel.GetTracerProvider() picks it up automatically.
+	// Register as the global OTel provider. The SDK uses otel.GetTracerProvider()
+	// internally, so this is the only wiring needed to enable tracing.
 	otel.SetTracerProvider(tp)
 
 	// ── Environment variables ─────────────────────────────────────────────────
@@ -92,13 +92,12 @@ func main() {
 	serviceCfg.WithEnvironmentID(authEnvironmentID)
 	serviceCfg.WithRootDomain("pingone.com")
 
-	// Inject the TracerProvider so every API call and token acquisition is traced.
-	// Spans are automatically created for:
+	// The global TracerProvider set above is picked up automatically by the SDK.
+	// Spans are created for:
 	//   - Token acquisition  (pingone.config.AcquireTokenSource)
 	//   - OAuth2 grant flows (pingone.config.OAuth2.ClientCredentials, etc.)
 	//   - API operations     (pingone.EnvironmentsApi.GetEnvironmentById, etc.)
 	//   - HTTP requests      (METHOD /path via otelhttp transport)
-	serviceCfg.WithTracerProvider(tp)
 
 	// Provide a session ID that will be sent as X-Ping-External-Session-ID on
 	// every API request.  Use a value meaningful to your application, such as
