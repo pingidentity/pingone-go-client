@@ -9,6 +9,7 @@ Testing EnvironmentsApiService
 package pingone_test
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"regexp"
@@ -33,7 +34,7 @@ func (s *EnvironmentsApiServiceNoAuthzTestSuite) SetupSuite() {
 	configuration.AppendUserAgent("testing")
 
 	var err error
-	s.BadApiClient, err = pingone.NewAPIClient(configuration)
+	s.BadApiClient, err = pingone.NewAPIClient(context.Background(), configuration)
 	if err != nil {
 		s.FailNow("Failed to create API client", err)
 	}
