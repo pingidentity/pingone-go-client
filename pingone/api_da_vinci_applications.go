@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // DaVinciApplicationsApiService DaVinciApplicationsApi service
@@ -75,13 +77,25 @@ func (a *DaVinciApplicationsApiService) CreateDavinciApplication(ctx context.Con
 // Execute executes the request
 //
 //	@return DaVinciApplicationResponse
-func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCreateDavinciApplicationRequest) (*DaVinciApplicationResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCreateDavinciApplicationRequest) (_ *DaVinciApplicationResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.CreateDavinciApplication",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.CreateDavinciApplication")
 	if err != nil {
@@ -115,6 +129,20 @@ func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCre
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -209,6 +237,12 @@ func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCre
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
 							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -235,6 +269,12 @@ func (a *DaVinciApplicationsApiService) CreateDavinciApplicationExecute(r ApiCre
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -354,13 +394,26 @@ func (a *DaVinciApplicationsApiService) CreateFlowPolicyByDavinciApplicationId(c
 // Execute executes the request
 //
 //	@return DaVinciFlowPolicyResponse
-func (a *DaVinciApplicationsApiService) CreateFlowPolicyByDavinciApplicationIdExecute(r ApiCreateFlowPolicyByDavinciApplicationIdRequest) (*DaVinciFlowPolicyResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) CreateFlowPolicyByDavinciApplicationIdExecute(r ApiCreateFlowPolicyByDavinciApplicationIdRequest) (_ *DaVinciFlowPolicyResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowPolicyResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.CreateFlowPolicyByDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.CreateFlowPolicyByDavinciApplicationId")
 	if err != nil {
@@ -395,6 +448,20 @@ func (a *DaVinciApplicationsApiService) CreateFlowPolicyByDavinciApplicationIdEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -594,12 +661,25 @@ func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationById(ctx context
 }
 
 // Execute executes the request
-func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r ApiDeleteDavinciApplicationByIdRequest) (*http.Response, error) {
+func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r ApiDeleteDavinciApplicationByIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.DeleteDavinciApplicationById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.DeleteDavinciApplicationById")
 	if err != nil {
@@ -631,6 +711,20 @@ func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -723,6 +817,12 @@ func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r Ap
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
 							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -749,6 +849,12 @@ func (a *DaVinciApplicationsApiService) DeleteDavinciApplicationByIdExecute(r Ap
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -854,12 +960,26 @@ func (a *DaVinciApplicationsApiService) DeleteFlowPolicyByIdUsingDavinciApplicat
 }
 
 // Execute executes the request
-func (a *DaVinciApplicationsApiService) DeleteFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest) (*http.Response, error) {
+func (a *DaVinciApplicationsApiService) DeleteFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiDeleteFlowPolicyByIdUsingDavinciApplicationIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.DeleteFlowPolicyByIdUsingDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+		trace.WithAttributes(attribute.String("pingone.flowPolicyID", url.PathEscape(parameterValueToString(r.flowPolicyID, "flowPolicyID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.DeleteFlowPolicyByIdUsingDavinciApplicationId")
 	if err != nil {
@@ -892,6 +1012,20 @@ func (a *DaVinciApplicationsApiService) DeleteFlowPolicyByIdUsingDavinciApplicat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1082,13 +1216,26 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationById(ctx context.Co
 // Execute executes the request
 //
 //	@return DaVinciApplicationResponse
-func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGetDavinciApplicationByIdRequest) (*DaVinciApplicationResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGetDavinciApplicationByIdRequest) (_ *DaVinciApplicationResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.GetDavinciApplicationById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.GetDavinciApplicationById")
 	if err != nil {
@@ -1120,6 +1267,20 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1212,6 +1373,12 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
 							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1238,6 +1405,12 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationByIdExecute(r ApiGe
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1348,13 +1521,25 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplications(ctx context.Conte
 // Execute executes the request
 //
 //	@return DaVinciApplicationCollectionResponse
-func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDavinciApplicationsRequest) (*DaVinciApplicationCollectionResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDavinciApplicationsRequest) (_ *DaVinciApplicationCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.GetDavinciApplications",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.GetDavinciApplications")
 	if err != nil {
@@ -1385,6 +1570,20 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1477,6 +1676,12 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDa
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
 							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1503,6 +1708,12 @@ func (a *DaVinciApplicationsApiService) GetDavinciApplicationsExecute(r ApiGetDa
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -1619,13 +1830,27 @@ func (a *DaVinciApplicationsApiService) GetEventsByDavinciApplicationIdAndFlowPo
 // Execute executes the request
 //
 //	@return DaVinciFlowPolicyEventsCollection
-func (a *DaVinciApplicationsApiService) GetEventsByDavinciApplicationIdAndFlowPolicyIdExecute(r ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest) (*DaVinciFlowPolicyEventsCollection, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) GetEventsByDavinciApplicationIdAndFlowPolicyIdExecute(r ApiGetEventsByDavinciApplicationIdAndFlowPolicyIdRequest) (_ *DaVinciFlowPolicyEventsCollection, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowPolicyEventsCollection
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.GetEventsByDavinciApplicationIdAndFlowPolicyId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+		trace.WithAttributes(attribute.String("pingone.flowPolicyID", url.PathEscape(parameterValueToString(r.flowPolicyID, "flowPolicyID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.GetEventsByDavinciApplicationIdAndFlowPolicyId")
 	if err != nil {
@@ -1658,6 +1883,20 @@ func (a *DaVinciApplicationsApiService) GetEventsByDavinciApplicationIdAndFlowPo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1855,13 +2094,26 @@ func (a *DaVinciApplicationsApiService) GetFlowPoliciesByDavinciApplicationId(ct
 // Execute executes the request
 //
 //	@return DaVinciFlowPolicyCollection
-func (a *DaVinciApplicationsApiService) GetFlowPoliciesByDavinciApplicationIdExecute(r ApiGetFlowPoliciesByDavinciApplicationIdRequest) (*DaVinciFlowPolicyCollection, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) GetFlowPoliciesByDavinciApplicationIdExecute(r ApiGetFlowPoliciesByDavinciApplicationIdRequest) (_ *DaVinciFlowPolicyCollection, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowPolicyCollection
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.GetFlowPoliciesByDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.GetFlowPoliciesByDavinciApplicationId")
 	if err != nil {
@@ -1893,6 +2145,20 @@ func (a *DaVinciApplicationsApiService) GetFlowPoliciesByDavinciApplicationIdExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2093,13 +2359,27 @@ func (a *DaVinciApplicationsApiService) GetFlowPolicyByIdUsingDavinciApplication
 // Execute executes the request
 //
 //	@return DaVinciFlowPolicyResponse
-func (a *DaVinciApplicationsApiService) GetFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest) (*DaVinciFlowPolicyResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) GetFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiGetFlowPolicyByIdUsingDavinciApplicationIdRequest) (_ *DaVinciFlowPolicyResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowPolicyResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.GetFlowPolicyByIdUsingDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+		trace.WithAttributes(attribute.String("pingone.flowPolicyID", url.PathEscape(parameterValueToString(r.flowPolicyID, "flowPolicyID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.GetFlowPolicyByIdUsingDavinciApplicationId")
 	if err != nil {
@@ -2132,6 +2412,20 @@ func (a *DaVinciApplicationsApiService) GetFlowPolicyByIdUsingDavinciApplication
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2335,13 +2629,26 @@ func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationById(ctx contex
 // Execute executes the request
 //
 //	@return DaVinciApplicationResponse
-func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r ApiReplaceDavinciApplicationByIdRequest) (*DaVinciApplicationResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r ApiReplaceDavinciApplicationByIdRequest) (_ *DaVinciApplicationResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.ReplaceDavinciApplicationById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.ReplaceDavinciApplicationById")
 	if err != nil {
@@ -2376,6 +2683,20 @@ func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2470,6 +2791,12 @@ func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r A
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 60 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 60*time.Second {
 							slog.Debug("The environment was created within the last 60 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2496,6 +2823,12 @@ func (a *DaVinciApplicationsApiService) ReplaceDavinciApplicationByIdExecute(r A
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -2618,13 +2951,27 @@ func (a *DaVinciApplicationsApiService) ReplaceFlowPolicyByIdUsingDavinciApplica
 // Execute executes the request
 //
 //	@return DaVinciFlowPolicyResponse
-func (a *DaVinciApplicationsApiService) ReplaceFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest) (*DaVinciFlowPolicyResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) ReplaceFlowPolicyByIdUsingDavinciApplicationIdExecute(r ApiReplaceFlowPolicyByIdUsingDavinciApplicationIdRequest) (_ *DaVinciFlowPolicyResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowPolicyResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.ReplaceFlowPolicyByIdUsingDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+		trace.WithAttributes(attribute.String("pingone.flowPolicyID", url.PathEscape(parameterValueToString(r.flowPolicyID, "flowPolicyID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.ReplaceFlowPolicyByIdUsingDavinciApplicationId")
 	if err != nil {
@@ -2660,6 +3007,20 @@ func (a *DaVinciApplicationsApiService) ReplaceFlowPolicyByIdUsingDavinciApplica
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -2867,13 +3228,26 @@ func (a *DaVinciApplicationsApiService) RotateKeyByDavinciApplicationId(ctx cont
 // Execute executes the request
 //
 //	@return DaVinciApplicationResponse
-func (a *DaVinciApplicationsApiService) RotateKeyByDavinciApplicationIdExecute(r ApiRotateKeyByDavinciApplicationIdRequest) (*DaVinciApplicationResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) RotateKeyByDavinciApplicationIdExecute(r ApiRotateKeyByDavinciApplicationIdRequest) (_ *DaVinciApplicationResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.RotateKeyByDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.RotateKeyByDavinciApplicationId")
 	if err != nil {
@@ -2908,6 +3282,20 @@ func (a *DaVinciApplicationsApiService) RotateKeyByDavinciApplicationIdExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -3113,13 +3501,26 @@ func (a *DaVinciApplicationsApiService) RotateSecretByDavinciApplicationId(ctx c
 // Execute executes the request
 //
 //	@return DaVinciApplicationResponse
-func (a *DaVinciApplicationsApiService) RotateSecretByDavinciApplicationIdExecute(r ApiRotateSecretByDavinciApplicationIdRequest) (*DaVinciApplicationResponse, *http.Response, error) {
+func (a *DaVinciApplicationsApiService) RotateSecretByDavinciApplicationIdExecute(r ApiRotateSecretByDavinciApplicationIdRequest) (_ *DaVinciApplicationResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciApplicationResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciApplicationsApi.RotateSecretByDavinciApplicationId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.davinciApplicationID", url.PathEscape(parameterValueToString(r.davinciApplicationID, "davinciApplicationID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciApplicationsApiService.RotateSecretByDavinciApplicationId")
 	if err != nil {
@@ -3154,6 +3555,20 @@ func (a *DaVinciApplicationsApiService) RotateSecretByDavinciApplicationIdExecut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}

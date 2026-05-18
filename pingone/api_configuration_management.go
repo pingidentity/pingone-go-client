@@ -23,6 +23,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // ConfigurationManagementApiService ConfigurationManagementApi service
@@ -81,13 +83,25 @@ func (a *ConfigurationManagementApiService) CreateSnapshot(ctx context.Context, 
 // Execute executes the request
 //
 //	@return SnapshotView
-func (a *ConfigurationManagementApiService) CreateSnapshotExecute(r ApiCreateSnapshotRequest) (*SnapshotView, *http.Response, error) {
+func (a *ConfigurationManagementApiService) CreateSnapshotExecute(r ApiCreateSnapshotRequest) (_ *SnapshotView, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SnapshotView
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.ConfigurationManagementApi.CreateSnapshot",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationManagementApiService.CreateSnapshot")
 	if err != nil {
@@ -125,6 +139,20 @@ func (a *ConfigurationManagementApiService) CreateSnapshotExecute(r ApiCreateSna
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -219,6 +247,12 @@ func (a *ConfigurationManagementApiService) CreateSnapshotExecute(r ApiCreateSna
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -335,13 +369,26 @@ func (a *ConfigurationManagementApiService) GetSnapshotById(ctx context.Context,
 // Execute executes the request
 //
 //	@return SnapshotView
-func (a *ConfigurationManagementApiService) GetSnapshotByIdExecute(r ApiGetSnapshotByIdRequest) (*SnapshotView, *http.Response, error) {
+func (a *ConfigurationManagementApiService) GetSnapshotByIdExecute(r ApiGetSnapshotByIdRequest) (_ *SnapshotView, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SnapshotView
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.ConfigurationManagementApi.GetSnapshotById",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.snapshotID", url.PathEscape(parameterValueToString(r.snapshotID, "snapshotID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationManagementApiService.GetSnapshotById")
 	if err != nil {
@@ -380,6 +427,20 @@ func (a *ConfigurationManagementApiService) GetSnapshotByIdExecute(r ApiGetSnaps
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -472,6 +533,12 @@ func (a *ConfigurationManagementApiService) GetSnapshotByIdExecute(r ApiGetSnaps
 						// Check if the retryEnvironmentResponse.CreatedAt is within the last 30 seconds
 						if time.Since(retryEnvironmentResponse.CreatedAt) < 30*time.Second {
 							slog.Debug("The environment was created within the last 30 seconds, retrying request", "attempt", i, "method", localVarHTTPMethod, "path", localVarPath)
+							span.AddEvent("pingone.retry.environment_not_ready",
+								trace.WithAttributes(
+									attribute.Int("retry.attempt", i),
+									attribute.String("retry.reason", "environment_created_within_30s"),
+								),
+							)
 							// Retry the request
 							time.Sleep(1 * time.Second)
 							continue
@@ -597,13 +664,27 @@ func (a *ConfigurationManagementApiService) GetVersionByIdUsingSnapshotId(ctx co
 // Execute executes the request
 //
 //	@return SnapshotView
-func (a *ConfigurationManagementApiService) GetVersionByIdUsingSnapshotIdExecute(r ApiGetVersionByIdUsingSnapshotIdRequest) (*SnapshotView, *http.Response, error) {
+func (a *ConfigurationManagementApiService) GetVersionByIdUsingSnapshotIdExecute(r ApiGetVersionByIdUsingSnapshotIdRequest) (_ *SnapshotView, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SnapshotView
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.ConfigurationManagementApi.GetVersionByIdUsingSnapshotId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.snapshotID", url.PathEscape(parameterValueToString(r.snapshotID, "snapshotID")))),
+		trace.WithAttributes(attribute.String("pingone.versionID", url.PathEscape(parameterValueToString(r.versionID, "versionID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationManagementApiService.GetVersionByIdUsingSnapshotId")
 	if err != nil {
@@ -647,6 +728,20 @@ func (a *ConfigurationManagementApiService) GetVersionByIdUsingSnapshotIdExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -826,13 +921,26 @@ func (a *ConfigurationManagementApiService) GetVersionsBySnapshotId(ctx context.
 // Execute executes the request
 //
 //	@return SnapshotVersionCollectionResponse
-func (a *ConfigurationManagementApiService) GetVersionsBySnapshotIdExecute(r ApiGetVersionsBySnapshotIdRequest) (*SnapshotVersionCollectionResponse, *http.Response, error) {
+func (a *ConfigurationManagementApiService) GetVersionsBySnapshotIdExecute(r ApiGetVersionsBySnapshotIdRequest) (_ *SnapshotVersionCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SnapshotVersionCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.ConfigurationManagementApi.GetVersionsBySnapshotId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.snapshotID", url.PathEscape(parameterValueToString(r.snapshotID, "snapshotID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConfigurationManagementApiService.GetVersionsBySnapshotId")
 	if err != nil {
@@ -864,6 +972,20 @@ func (a *ConfigurationManagementApiService) GetVersionsBySnapshotIdExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
