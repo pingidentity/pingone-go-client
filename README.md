@@ -131,7 +131,7 @@ You can initialize the API client in a few ways:
         serviceCfg.WithRootDomain("pingone.com") // or pingone.eu, pingone.asia
 
         configuration := pingone.NewConfiguration(serviceCfg)
-        client, err := pingone.NewAPIClient(configuration)
+        client, err := pingone.NewAPIClient(context.Background(), configuration)
         if err != nil {
             slog.Error("Failed to create client", "error", err)
             os.Exit(1)
@@ -160,7 +160,7 @@ You can initialize the API client in a few ways:
         }
 
         configuration := pingone.NewConfiguration(serviceCfg)
-        client, err := pingone.NewAPIClient(configuration)
+        client, err := pingone.NewAPIClient(context.Background(), configuration)
         // The SDK will open a browser for user authentication
     }
     ```
@@ -182,7 +182,7 @@ You can initialize the API client in a few ways:
         }
 
         configuration := pingone.NewConfiguration(serviceCfg)
-        client, err := pingone.NewAPIClient(configuration)
+        client, err := pingone.NewAPIClient(context.Background(), configuration)
         // The SDK will display a code for the user to enter at a verification URL
     }
     ```
@@ -200,7 +200,7 @@ You can initialize the API client in a few ways:
         serviceCfg.WithCustomDomain("auth.yourcustomdomain.com") // Replace with your custom domain
 
         configuration := pingone.NewConfiguration(serviceCfg)
-        client, err := pingone.NewAPIClient(configuration)
+        client, err := pingone.NewAPIClient(context.Background(), configuration)
         if err != nil {
             slog.Error("Failed to create client", "error", err)
             os.Exit(1)
@@ -245,7 +245,7 @@ See the [examples README](examples/README.md) for detailed setup instructions an
     func main() {
         // Ensure PINGONE_CLIENT_ID, PINGONE_CLIENT_SECRET, etc., are set in your environment
         cfg := pingone.NewConfiguration(nil) // Pass nil to use environment variables
-        client, err := pingone.NewAPIClient(cfg)
+        client, err := pingone.NewAPIClient(context.Background(), cfg)
         if err != nil {
             slog.Error("Failed to create client from environment variables", "error", err)
             os.Exit(1)
@@ -305,7 +305,7 @@ func main() {
     // Append a string to the default User-Agent header
     cfg.AppendUserAgent("my-application/1.2.3")
 
-    client, err := pingone.NewAPIClient(cfg)
+    client, err := pingone.NewAPIClient(context.Background(), cfg)
     if err != nil {
         slog.Error("Failed to create customized client", "error", err)
         os.Exit(1)
@@ -418,7 +418,7 @@ func main() {
 
     // Assume client is initialized as shown previously
     cfg := pingone.NewConfiguration(nil) // Or your explicit config
-    client, err := pingone.NewAPIClient(cfg)
+    client, err := pingone.NewAPIClient(context.Background(), cfg)
     if err != nil {
         slog.Error("Failed to create client", "error", err)
         os.Exit(1)

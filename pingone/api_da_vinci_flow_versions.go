@@ -22,6 +22,8 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // DaVinciFlowVersionsApiService DaVinciFlowVersionsApi service
@@ -72,12 +74,26 @@ func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowId(ctx context
 }
 
 // Execute executes the request
-func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowIdExecute(r ApiDeleteVersionByIdUsingFlowIdRequest) (*http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowIdExecute(r ApiDeleteVersionByIdUsingFlowIdRequest) (_ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowVersionsApi.DeleteVersionByIdUsingFlowId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+		trace.WithAttributes(attribute.String("pingone.versionID", url.PathEscape(parameterValueToString(r.versionID, "versionID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.DeleteVersionByIdUsingFlowId")
 	if err != nil {
@@ -110,6 +126,20 @@ func (a *DaVinciFlowVersionsApiService) DeleteVersionByIdUsingFlowIdExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -307,13 +337,27 @@ func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionId(ctx conte
 // Execute executes the request
 //
 //	@return DaVinciFlowVersionDetailResponse
-func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionIdExecute(r ApiGetDetailsByFlowIdAndVersionIdRequest) (*DaVinciFlowVersionDetailResponse, *http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionIdExecute(r ApiGetDetailsByFlowIdAndVersionIdRequest) (_ *DaVinciFlowVersionDetailResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowVersionDetailResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowVersionsApi.GetDetailsByFlowIdAndVersionId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+		trace.WithAttributes(attribute.String("pingone.versionID", url.PathEscape(parameterValueToString(r.versionID, "versionID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetDetailsByFlowIdAndVersionId")
 	if err != nil {
@@ -350,6 +394,20 @@ func (a *DaVinciFlowVersionsApiService) GetDetailsByFlowIdAndVersionIdExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -550,13 +608,27 @@ func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowId(ctx context.Co
 // Execute executes the request
 //
 //	@return DaVinciFlowVersionResponse
-func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowIdExecute(r ApiGetVersionByIdUsingFlowIdRequest) (*DaVinciFlowVersionResponse, *http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowIdExecute(r ApiGetVersionByIdUsingFlowIdRequest) (_ *DaVinciFlowVersionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowVersionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowVersionsApi.GetVersionByIdUsingFlowId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+		trace.WithAttributes(attribute.String("pingone.versionID", url.PathEscape(parameterValueToString(r.versionID, "versionID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetVersionByIdUsingFlowId")
 	if err != nil {
@@ -589,6 +661,20 @@ func (a *DaVinciFlowVersionsApiService) GetVersionByIdUsingFlowIdExecute(r ApiGe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -786,13 +872,26 @@ func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowId(ctx context.Context,
 // Execute executes the request
 //
 //	@return DaVinciFlowVersionCollectionResponse
-func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowIdExecute(r ApiGetVersionsByFlowIdRequest) (*DaVinciFlowVersionCollectionResponse, *http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowIdExecute(r ApiGetVersionsByFlowIdRequest) (_ *DaVinciFlowVersionCollectionResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowVersionCollectionResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowVersionsApi.GetVersionsByFlowId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.GetVersionsByFlowId")
 	if err != nil {
@@ -824,6 +923,20 @@ func (a *DaVinciFlowVersionsApiService) GetVersionsByFlowIdExecute(r ApiGetVersi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}
@@ -1030,13 +1143,27 @@ func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionId(ctx con
 // Execute executes the request
 //
 //	@return DaVinciFlowVersionAliasResponse
-func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionIdExecute(r ApiReplaceAliasByFlowIdAndVersionIdRequest) (*DaVinciFlowVersionAliasResponse, *http.Response, error) {
+func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionIdExecute(r ApiReplaceAliasByFlowIdAndVersionIdRequest) (_ *DaVinciFlowVersionAliasResponse, _ *http.Response, retErr error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *DaVinciFlowVersionAliasResponse
 	)
+
+	// Start a tracing span for this API operation. The span is automatically ended by the
+	// deferred closure, which also records any terminal error on the span.
+	ctx, span := a.client.startSpan(r.ctx, "pingone.DaVinciFlowVersionsApi.ReplaceAliasByFlowIdAndVersionId",
+		trace.WithSpanKind(trace.SpanKindClient),
+		trace.WithAttributes(attribute.String("pingone.environmentID", url.PathEscape(parameterValueToString(r.environmentID, "environmentID")))),
+		trace.WithAttributes(attribute.String("pingone.flowID", url.PathEscape(parameterValueToString(r.flowID, "flowID")))),
+		trace.WithAttributes(attribute.String("pingone.versionID", url.PathEscape(parameterValueToString(r.versionID, "versionID")))),
+	)
+	defer func() {
+		recordSpanError(span, retErr)
+		span.End()
+	}()
+	r.ctx = ctx
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DaVinciFlowVersionsApiService.ReplaceAliasByFlowIdAndVersionId")
 	if err != nil {
@@ -1072,6 +1199,20 @@ func (a *DaVinciFlowVersionsApiService) ReplaceAliasByFlowIdAndVersionIdExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+
+	// Auto-populate PingOne correlation headers from the active OTEL trace context unless
+	// the caller has already set them explicitly via XPingExternalTransactionID /
+	// XPingExternalSessionID.
+	if r.xPingExternalTransactionID == nil {
+		if sc := span.SpanContext(); sc.IsValid() {
+			traceID := sc.TraceID().String()
+			r.xPingExternalTransactionID = &traceID
+		}
+	}
+	if r.xPingExternalSessionID == nil && a.client.sessionID != nil {
+		r.xPingExternalSessionID = a.client.sessionID
+	}
+
 	if r.xPingExternalSessionID != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Ping-External-Session-ID", r.xPingExternalSessionID, "simple", "")
 	}

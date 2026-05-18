@@ -14,8 +14,13 @@ import (
 
 	svcOAuth2 "github.com/pingidentity/pingone-go-client/oauth2"
 	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/oauth2"
 )
+
+const tracerInstrumentationScope = "github.com/pingidentity/pingone-go-client/config"
 
 // keychainTokenSource wraps an oauth2.TokenSource and saves tokens to keychain after refresh
 type keychainTokenSource struct {
@@ -199,6 +204,11 @@ type Storage struct {
 // It contains authentication settings and endpoint configuration for connecting to PingOne services.
 // The configuration can be populated from environment variables or set explicitly through the builder methods.
 type Configuration struct {
+	// SessionID is an optional identifier for the current user session managed by the consuming
+	// project. When set, this value is automatically forwarded as the X-Ping-External-Session-ID
+	// header on every API request, unless the caller overrides the header per-request via
+	// XPingExternalSessionID().
+	SessionID *string `json:"sessionId,omitempty"`
 	// Auth contains authentication-related configuration including client credentials and grant types.
 	Auth struct {
 		AccessToken       *string              `envconfig:"PINGONE_API_ACCESS_TOKEN" json:"accessToken,omitempty"`
@@ -417,6 +427,15 @@ func (c *Configuration) WithStorageName(name string) *Configuration {
 	return c
 }
 
+// WithSessionID sets the session identifier that the consuming project uses to group
+// related API calls. When a TracerProvider is configured, this value is automatically
+// forwarded as the X-Ping-External-Session-ID header on every API request, unless the
+// caller overrides the header per-request via XPingExternalSessionID().
+func (c *Configuration) WithSessionID(sessionID string) *Configuration {
+	c.SessionID = &sessionID
+	return c
+}
+
 // WithStorageOptionalSuffix sets an optional suffix for the token key.
 // This allows SDK consumers to unify key names across keychain and file storage
 // without changing default SDK behavior for other clients.
@@ -464,8 +483,15 @@ func (c *Configuration) BearerToken() *oauth2.Token {
 // a default client will be used. It returns an HTTP client that automatically
 // handles authentication token management, or an error if token source creation fails.
 func (c *Configuration) Client(ctx context.Context, httpClient *http.Client) (*http.Client, error) {
+	ctx, span := otel.Tracer(tracerInstrumentationScope).Start(ctx, "pingone.config.AcquireTokenSource",
+		trace.WithSpanKind(trace.SpanKindInternal),
+	)
+	defer span.End()
+
 	ts, err := c.TokenSource(ctx)
 	if err != nil {
+		span.SetStatus(codes.Error, err.Error())
+		span.RecordError(err)
 		return nil, err
 	}
 
@@ -595,7 +621,15 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if c.Auth.AuthorizationCode == nil {
 				return nil, fmt.Errorf("authorization code configuration is required for auth code grant type")
 			}
-			ts, err := c.Auth.AuthorizationCode.AuthorizationCodeTokenSource(ctx, endpoints)
+			authCtx, authSpan := otel.Tracer(tracerInstrumentationScope).Start(ctx, "pingone.config.OAuth2.AuthorizationCode",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			ts, err := c.Auth.AuthorizationCode.AuthorizationCodeTokenSource(authCtx, endpoints)
+			if err != nil {
+				authSpan.SetStatus(codes.Error, err.Error())
+				authSpan.RecordError(err)
+			}
+			authSpan.End()
 			if err != nil {
 				return nil, err
 			}
@@ -604,7 +638,15 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if c.Auth.ClientCredentials == nil {
 				return nil, fmt.Errorf("client credentials configuration is required for client credentials grant type")
 			}
-			ts, err := c.Auth.ClientCredentials.ClientCredentialsTokenSource(ctx, endpoints)
+			ccCtx, ccSpan := otel.Tracer(tracerInstrumentationScope).Start(ctx, "pingone.config.OAuth2.ClientCredentials",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			ts, err := c.Auth.ClientCredentials.ClientCredentialsTokenSource(ccCtx, endpoints)
+			if err != nil {
+				ccSpan.SetStatus(codes.Error, err.Error())
+				ccSpan.RecordError(err)
+			}
+			ccSpan.End()
 			if err != nil {
 				return nil, err
 			}
@@ -637,7 +679,15 @@ func (c *Configuration) TokenSource(ctx context.Context) (oauth2.TokenSource, er
 			if c.Auth.DeviceCode == nil {
 				return nil, fmt.Errorf("device code configuration is required for device code grant type")
 			}
-			ts, err := c.Auth.DeviceCode.DeviceAuthTokenSource(ctx, endpoints.Endpoint)
+			deviceCtx, deviceSpan := otel.Tracer(tracerInstrumentationScope).Start(ctx, "pingone.config.OAuth2.DeviceCode",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			ts, err := c.Auth.DeviceCode.DeviceAuthTokenSource(deviceCtx, endpoints.Endpoint)
+			if err != nil {
+				deviceSpan.SetStatus(codes.Error, err.Error())
+				deviceSpan.RecordError(err)
+			}
+			deviceSpan.End()
 			if err != nil {
 				return nil, err
 			}

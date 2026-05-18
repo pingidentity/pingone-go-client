@@ -82,7 +82,8 @@ func main() {
 	configuration.AppendUserAgent("authorization-code-example")
 
 	// Create the API client
-	client, err := pingone.NewAPIClient(configuration)
+	ctx := context.Background()
+	client, err := pingone.NewAPIClient(ctx, configuration)
 	if err != nil {
 		slog.Error("Failed to create client", "error", err)
 		os.Exit(1)
