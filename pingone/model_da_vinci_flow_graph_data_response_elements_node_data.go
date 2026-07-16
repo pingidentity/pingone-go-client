@@ -35,6 +35,7 @@ type DaVinciFlowGraphDataResponseElementsNodeData struct {
 	Label                *string                                                       `json:"label,omitempty"`
 	LinterError          []DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem `json:"linterError,omitempty"`
 	Name                 *string                                                       `json:"name,omitempty"`
+	Outcomes             []DaVinciFlowGraphDataResponseElementsNodeDataOutcome         `json:"outcomes,omitempty"`
 	Properties           map[string]interface{}                                        `json:"properties,omitempty"`
 	Status               *string                                                       `json:"status,omitempty"`
 	Type                 *string                                                       `json:"type,omitempty"`
@@ -366,6 +367,38 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetName(v string) {
 	o.Name = &v
 }
 
+// GetOutcomes returns the Outcomes field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetOutcomes() []DaVinciFlowGraphDataResponseElementsNodeDataOutcome {
+	if o == nil || IsNil(o.Outcomes) {
+		var ret []DaVinciFlowGraphDataResponseElementsNodeDataOutcome
+		return ret
+	}
+	return o.Outcomes
+}
+
+// GetOutcomesOk returns a tuple with the Outcomes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetOutcomesOk() ([]DaVinciFlowGraphDataResponseElementsNodeDataOutcome, bool) {
+	if o == nil || IsNil(o.Outcomes) {
+		return nil, false
+	}
+	return o.Outcomes, true
+}
+
+// HasOutcomes returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) HasOutcomes() bool {
+	if o != nil && !IsNil(o.Outcomes) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutcomes gets a reference to the given []DaVinciFlowGraphDataResponseElementsNodeDataOutcome and assigns it to the Outcomes field.
+func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetOutcomes(v []DaVinciFlowGraphDataResponseElementsNodeDataOutcome) {
+	o.Outcomes = v
+}
+
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
@@ -498,6 +531,9 @@ func (o DaVinciFlowGraphDataResponseElementsNodeData) ToMap() (map[string]interf
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Outcomes) {
+		toSerialize["outcomes"] = o.Outcomes
+	}
 	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
@@ -561,6 +597,7 @@ func (o *DaVinciFlowGraphDataResponseElementsNodeData) UnmarshalJSON(data []byte
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "linterError")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "outcomes")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
@@ -598,6 +635,9 @@ func (o DaVinciFlowGraphDataResponseElementsNodeData) LogValue() slog.Value {
 	}
 	if !IsNil(o.Name) {
 		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
+	}
+	if !IsNil(o.Outcomes) {
+		logAttrs = append(logAttrs, slog.Any("outcomes", o.Outcomes))
 	}
 	if !IsNil(o.Properties) {
 		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
