@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Label** | Pointer to **string** |  | [optional] 
 **LinterError** | Pointer to [**[]DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem**](DaVinciFlowGraphDataResponseElementsNodeDataLinterErrorItem.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**Outcomes** | Pointer to [**[]DaVinciFlowGraphDataResponseElementsNodeDataOutcome**](DaVinciFlowGraphDataResponseElementsNodeDataOutcome.md) |  | [optional] 
 **Properties** | Pointer to **map[string]interface{}** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
@@ -276,6 +277,31 @@ SetName sets Name field to given value.
 `func (o *DaVinciFlowGraphDataResponseElementsNodeData) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetOutcomes
+
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetOutcomes() []DaVinciFlowGraphDataResponseElementsNodeDataOutcome`
+
+GetOutcomes returns the Outcomes field if non-nil, zero value otherwise.
+
+### GetOutcomesOk
+
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) GetOutcomesOk() (*[]DaVinciFlowGraphDataResponseElementsNodeDataOutcome, bool)`
+
+GetOutcomesOk returns a tuple with the Outcomes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutcomes
+
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) SetOutcomes(v []DaVinciFlowGraphDataResponseElementsNodeDataOutcome)`
+
+SetOutcomes sets Outcomes field to given value.
+
+### HasOutcomes
+
+`func (o *DaVinciFlowGraphDataResponseElementsNodeData) HasOutcomes() bool`
+
+HasOutcomes returns a boolean if a field has been set.
 
 ### GetProperties
 

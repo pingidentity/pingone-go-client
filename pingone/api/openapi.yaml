@@ -4782,6 +4782,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -4820,6 +4827,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -5256,6 +5270,13 @@ components:
                       type: type
                       flowId: flowId
                       nodeId: nodeId
+                    outcomes:
+                    - result: result
+                      label: label
+                      id: id
+                    - result: result
+                      label: label
+                      id: id
                     name: name
                     connectionId: connectionId
                     idUnique: idUnique
@@ -5294,6 +5315,13 @@ components:
                       type: type
                       flowId: flowId
                       nodeId: nodeId
+                    outcomes:
+                    - result: result
+                      label: label
+                      id: id
+                    - result: result
+                      label: label
+                      id: id
                     name: name
                     connectionId: connectionId
                     idUnique: idUnique
@@ -5543,6 +5571,13 @@ components:
                       type: type
                       flowId: flowId
                       nodeId: nodeId
+                    outcomes:
+                    - result: result
+                      label: label
+                      id: id
+                    - result: result
+                      label: label
+                      id: id
                     name: name
                     connectionId: connectionId
                     idUnique: idUnique
@@ -5581,6 +5616,13 @@ components:
                       type: type
                       flowId: flowId
                       nodeId: nodeId
+                    outcomes:
+                    - result: result
+                      label: label
+                      id: id
+                    - result: result
+                      label: label
+                      id: id
                     name: name
                     connectionId: connectionId
                     idUnique: idUnique
@@ -5759,14 +5801,21 @@ components:
             - data:
                 capabilityName: capabilityName
                 connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
                 id: id
-                label: label
-                nodeType: nodeType
                 capabilityClass: capabilityClass
-                type: type
                 properties:
                   key: ""
                 status: status
@@ -5784,14 +5833,21 @@ components:
             - data:
                 capabilityName: capabilityName
                 connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
                 id: id
-                label: label
-                nodeType: nodeType
                 capabilityClass: capabilityClass
-                type: type
                 properties:
                   key: ""
                 status: status
@@ -5994,14 +6050,21 @@ components:
           - data:
               capabilityName: capabilityName
               connectorId: connectorId
+              label: label
+              nodeType: nodeType
+              type: type
+              outcomes:
+              - result: result
+                label: label
+                id: id
+              - result: result
+                label: label
+                id: id
               name: name
               connectionId: connectionId
               idUnique: idUnique
               id: id
-              label: label
-              nodeType: nodeType
               capabilityClass: capabilityClass
-              type: type
               properties:
                 key: ""
               status: status
@@ -6019,14 +6082,21 @@ components:
           - data:
               capabilityName: capabilityName
               connectorId: connectorId
+              label: label
+              nodeType: nodeType
+              type: type
+              outcomes:
+              - result: result
+                label: label
+                id: id
+              - result: result
+                label: label
+                id: id
               name: name
               connectionId: connectionId
               idUnique: idUnique
               id: id
-              label: label
-              nodeType: nodeType
               capabilityClass: capabilityClass
-              type: type
               properties:
                 key: ""
               status: status
@@ -6218,6 +6288,13 @@ components:
                 type: type
                 flowId: flowId
                 nodeId: nodeId
+              outcomes:
+              - result: result
+                label: label
+                id: id
+              - result: result
+                label: label
+                id: id
               name: name
               connectionId: connectionId
               idUnique: idUnique
@@ -6256,6 +6333,13 @@ components:
                 type: type
                 flowId: flowId
                 nodeId: nodeId
+              outcomes:
+              - result: result
+                label: label
+                id: id
+              - result: result
+                label: label
+                id: id
               name: name
               connectionId: connectionId
               idUnique: idUnique
@@ -7146,14 +7230,21 @@ components:
             - data:
                 capabilityName: capabilityName
                 connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
                 id: id
-                label: label
-                nodeType: nodeType
                 capabilityClass: capabilityClass
-                type: type
                 properties:
                   key: ""
                 status: status
@@ -7171,14 +7262,21 @@ components:
             - data:
                 capabilityName: capabilityName
                 connectorId: connectorId
+                label: label
+                nodeType: nodeType
+                type: type
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
                 id: id
-                label: label
-                nodeType: nodeType
                 capabilityClass: capabilityClass
-                type: type
                 properties:
                   key: ""
                 status: status
@@ -7498,6 +7596,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -7536,6 +7641,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -8657,6 +8769,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -8695,6 +8814,13 @@ components:
                   type: type
                   flowId: flowId
                   nodeId: nodeId
+                outcomes:
+                - result: result
+                  label: label
+                  id: id
+                - result: result
+                  label: label
+                  id: id
                 name: name
                 connectionId: connectionId
                 idUnique: idUnique
@@ -14057,6 +14183,13 @@ components:
                     type: type
                     flowId: flowId
                     nodeId: nodeId
+                  outcomes:
+                  - result: result
+                    label: label
+                    id: id
+                  - result: result
+                    label: label
+                    id: id
                   name: name
                   connectionId: connectionId
                   idUnique: idUnique
@@ -14095,6 +14228,13 @@ components:
                     type: type
                     flowId: flowId
                     nodeId: nodeId
+                  outcomes:
+                  - result: result
+                    label: label
+                    id: id
+                  - result: result
+                    label: label
+                    id: id
                   name: name
                   connectionId: connectionId
                   idUnique: idUnique
@@ -14344,6 +14484,13 @@ components:
                     type: type
                     flowId: flowId
                     nodeId: nodeId
+                  outcomes:
+                  - result: result
+                    label: label
+                    id: id
+                  - result: result
+                    label: label
+                    id: id
                   name: name
                   connectionId: connectionId
                   idUnique: idUnique
@@ -14382,6 +14529,13 @@ components:
                     type: type
                     flowId: flowId
                     nodeId: nodeId
+                  outcomes:
+                  - result: result
+                    label: label
+                    id: id
+                  - result: result
+                    label: label
+                    id: id
                   name: name
                   connectionId: connectionId
                   idUnique: idUnique
@@ -14649,19 +14803,47 @@ components:
       required:
       - data
       title: DaVinci Flow Graph Data Request Elements Edge
+    DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Outcome:
+      additionalProperties: true
+      example:
+        result: result
+        label: label
+        id: id
+      properties:
+        result:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Outcome Result
+        label:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Outcome Label
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Request Elements Node Data Outcome Id
+      required:
+      - id
+      - label
+      - result
+      title: DaVinci Flow Graph Data Request Elements Node Data Outcome
     DaVinci_Flow_Graph_Data_Request_Elements_Node_Data:
       additionalProperties: true
       example:
         capabilityName: capabilityName
         connectorId: connectorId
+        label: label
+        nodeType: nodeType
+        type: type
+        outcomes:
+        - result: result
+          label: label
+          id: id
+        - result: result
+          label: label
+          id: id
         name: name
         connectionId: connectionId
         idUnique: idUnique
         id: id
-        label: label
-        nodeType: nodeType
         capabilityClass: capabilityClass
-        type: type
         properties:
           key: ""
         status: status
@@ -14713,6 +14895,10 @@ components:
           x-description-python-sdk: A string (str) that names the node.
           x-description-typescript-sdk: The name of the node (string).
           x-description-go-sdk: The name of the node.
+        outcomes:
+          items:
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Request_Elements_Node_Data_Outcome"
+          title: DaVinci Flow Graph Data Request Elements Node Data Outcomes
         properties:
           additionalProperties: true
           title: DaVinci Flow Graph Data Request Elements Node Data Properties
@@ -14776,14 +14962,21 @@ components:
         data:
           capabilityName: capabilityName
           connectorId: connectorId
+          label: label
+          nodeType: nodeType
+          type: type
+          outcomes:
+          - result: result
+            label: label
+            id: id
+          - result: result
+            label: label
+            id: id
           name: name
           connectionId: connectionId
           idUnique: idUnique
           id: id
-          label: label
-          nodeType: nodeType
           capabilityClass: capabilityClass
-          type: type
           properties:
             key: ""
           status: status
@@ -14869,14 +15062,21 @@ components:
         - data:
             capabilityName: capabilityName
             connectorId: connectorId
+            label: label
+            nodeType: nodeType
+            type: type
+            outcomes:
+            - result: result
+              label: label
+              id: id
+            - result: result
+              label: label
+              id: id
             name: name
             connectionId: connectionId
             idUnique: idUnique
             id: id
-            label: label
-            nodeType: nodeType
             capabilityClass: capabilityClass
-            type: type
             properties:
               key: ""
             status: status
@@ -14894,14 +15094,21 @@ components:
         - data:
             capabilityName: capabilityName
             connectorId: connectorId
+            label: label
+            nodeType: nodeType
+            type: type
+            outcomes:
+            - result: result
+              label: label
+              id: id
+            - result: result
+              label: label
+              id: id
             name: name
             connectionId: connectionId
             idUnique: idUnique
             id: id
-            label: label
-            nodeType: nodeType
             capabilityClass: capabilityClass
-            type: type
             properties:
               key: ""
             status: status
@@ -15081,6 +15288,30 @@ components:
       - recommendation
       - type
       title: DaVinci Flow Graph Data Response Elements Node Data Linter Error Item
+    DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Outcome:
+      additionalProperties: true
+      example:
+        result: result
+        label: label
+        id: id
+      properties:
+        result:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Outcome Result
+          type: string
+        label:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Outcome Label
+          type: string
+        id:
+          minLength: 1
+          title: DaVinci Flow Graph Data Response Elements Node Data Outcome Id
+          type: string
+      required:
+      - id
+      - label
+      - result
+      title: DaVinci Flow Graph Data Response Elements Node Data Outcome
     DaVinci_Flow_Graph_Data_Response_Elements_Node_Data:
       additionalProperties: true
       example:
@@ -15102,6 +15333,13 @@ components:
           type: type
           flowId: flowId
           nodeId: nodeId
+        outcomes:
+        - result: result
+          label: label
+          id: id
+        - result: result
+          label: label
+          id: id
         name: name
         connectionId: connectionId
         idUnique: idUnique
@@ -15177,6 +15415,10 @@ components:
           x-description-python-sdk: A string that holds the flow name.
           x-description-typescript-sdk: A string representing the flow name.
           x-description-go-sdk: FlowName holds the name of the flow.
+        outcomes:
+          items:
+            $ref: "#/components/schemas/DaVinci_Flow_Graph_Data_Response_Elements_Node_Data_Outcome"
+          type: array
         properties:
           additionalProperties: true
           title: DaVinci Flow Graph Data Response Elements Node Data Properties
@@ -15264,6 +15506,13 @@ components:
             type: type
             flowId: flowId
             nodeId: nodeId
+          outcomes:
+          - result: result
+            label: label
+            id: id
+          - result: result
+            label: label
+            id: id
           name: name
           connectionId: connectionId
           idUnique: idUnique
@@ -15560,6 +15809,13 @@ components:
               type: type
               flowId: flowId
               nodeId: nodeId
+            outcomes:
+            - result: result
+              label: label
+              id: id
+            - result: result
+              label: label
+              id: id
             name: name
             connectionId: connectionId
             idUnique: idUnique
@@ -15598,6 +15854,13 @@ components:
               type: type
               flowId: flowId
               nodeId: nodeId
+            outcomes:
+            - result: result
+              label: label
+              id: id
+            - result: result
+              label: label
+              id: id
             name: name
             connectionId: connectionId
             idUnique: idUnique

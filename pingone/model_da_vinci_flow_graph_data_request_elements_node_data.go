@@ -25,18 +25,19 @@ var _ slog.LogValuer = &DaVinciFlowGraphDataRequestElementsNodeData{}
 
 // DaVinciFlowGraphDataRequestElementsNodeData struct for DaVinciFlowGraphDataRequestElementsNodeData
 type DaVinciFlowGraphDataRequestElementsNodeData struct {
-	Id                   string                 `json:"id"`
-	NodeType             string                 `json:"nodeType"`
-	CapabilityClass      *string                `json:"capabilityClass,omitempty"`
-	CapabilityName       *string                `json:"capabilityName,omitempty"`
-	ConnectionId         *string                `json:"connectionId,omitempty"`
-	ConnectorId          *string                `json:"connectorId,omitempty"`
-	IdUnique             *string                `json:"idUnique,omitempty"`
-	Label                *string                `json:"label,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
-	Properties           map[string]interface{} `json:"properties,omitempty"`
-	Status               *string                `json:"status,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
+	Id                   string                                               `json:"id"`
+	NodeType             string                                               `json:"nodeType"`
+	CapabilityClass      *string                                              `json:"capabilityClass,omitempty"`
+	CapabilityName       *string                                              `json:"capabilityName,omitempty"`
+	ConnectionId         *string                                              `json:"connectionId,omitempty"`
+	ConnectorId          *string                                              `json:"connectorId,omitempty"`
+	IdUnique             *string                                              `json:"idUnique,omitempty"`
+	Label                *string                                              `json:"label,omitempty"`
+	Name                 *string                                              `json:"name,omitempty"`
+	Outcomes             []DaVinciFlowGraphDataRequestElementsNodeDataOutcome `json:"outcomes,omitempty"`
+	Properties           map[string]interface{}                               `json:"properties,omitempty"`
+	Status               *string                                              `json:"status,omitempty"`
+	Type                 *string                                              `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -333,6 +334,38 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetName(v string) {
 	o.Name = &v
 }
 
+// GetOutcomes returns the Outcomes field value if set, zero value otherwise.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetOutcomes() []DaVinciFlowGraphDataRequestElementsNodeDataOutcome {
+	if o == nil || IsNil(o.Outcomes) {
+		var ret []DaVinciFlowGraphDataRequestElementsNodeDataOutcome
+		return ret
+	}
+	return o.Outcomes
+}
+
+// GetOutcomesOk returns a tuple with the Outcomes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetOutcomesOk() ([]DaVinciFlowGraphDataRequestElementsNodeDataOutcome, bool) {
+	if o == nil || IsNil(o.Outcomes) {
+		return nil, false
+	}
+	return o.Outcomes, true
+}
+
+// HasOutcomes returns a boolean if a field has been set.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) HasOutcomes() bool {
+	if o != nil && !IsNil(o.Outcomes) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutcomes gets a reference to the given []DaVinciFlowGraphDataRequestElementsNodeDataOutcome and assigns it to the Outcomes field.
+func (o *DaVinciFlowGraphDataRequestElementsNodeData) SetOutcomes(v []DaVinciFlowGraphDataRequestElementsNodeDataOutcome) {
+	o.Outcomes = v
+}
+
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *DaVinciFlowGraphDataRequestElementsNodeData) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
@@ -462,6 +495,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) ToMap() (map[string]interfa
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Outcomes) {
+		toSerialize["outcomes"] = o.Outcomes
+	}
 	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
@@ -524,6 +560,7 @@ func (o *DaVinciFlowGraphDataRequestElementsNodeData) UnmarshalJSON(data []byte)
 		delete(additionalProperties, "idUnique")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "outcomes")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
@@ -558,6 +595,9 @@ func (o DaVinciFlowGraphDataRequestElementsNodeData) LogValue() slog.Value {
 	}
 	if !IsNil(o.Name) {
 		logAttrs = append(logAttrs, slog.Any("name", *o.Name))
+	}
+	if !IsNil(o.Outcomes) {
+		logAttrs = append(logAttrs, slog.Any("outcomes", o.Outcomes))
 	}
 	if !IsNil(o.Properties) {
 		logAttrs = append(logAttrs, slog.Any("properties", o.Properties))
