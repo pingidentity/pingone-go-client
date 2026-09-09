@@ -31,6 +31,9 @@ type DaVinciFlowSettingsRequest struct {
 	CustomErrorShowFooter           *DaVinciFlowSettingsRequestCustomErrorShowFooter           `json:"customErrorShowFooter,omitempty"`
 	CustomFaviconLink               *string                                                    `json:"customFaviconLink,omitempty"`
 	CustomLogoURLSelection          *int32                                                     `json:"customLogoURLSelection,omitempty"`
+	CustomTimeoutErrorScreenCSS     *string                                                    `json:"customTimeoutErrorScreenCSS,omitempty"`
+	CustomTimeoutErrorScreenHTML    *string                                                    `json:"customTimeoutErrorScreenHTML,omitempty"`
+	CustomTimeoutErrorScreenMessage *string                                                    `json:"customTimeoutErrorScreenMessage,omitempty"`
 	CustomTitle                     *string                                                    `json:"customTitle,omitempty"`
 	DefaultErrorScreenBrandLogo     *DaVinciFlowSettingsRequestDefaultErrorScreenBrandLogo     `json:"defaultErrorScreenBrandLogo,omitempty"`
 	FlowHttpTimeoutInSeconds        *int32                                                     `json:"flowHttpTimeoutInSeconds,omitempty"`
@@ -48,6 +51,7 @@ type DaVinciFlowSettingsRequest struct {
 	UseCustomCSS                    *DaVinciFlowSettingsRequestUseCustomCSS                    `json:"useCustomCSS,omitempty"`
 	UseCustomFlowPlayer             *DaVinciFlowSettingsRequestUseCustomFlowPlayer             `json:"useCustomFlowPlayer,omitempty"`
 	UseCustomScript                 *DaVinciFlowSettingsRequestUseCustomScript                 `json:"useCustomScript,omitempty"`
+	UseCustomTimeoutErrorScreen     *bool                                                      `json:"useCustomTimeoutErrorScreen,omitempty"`
 	UseIntermediateLoadingScreen    *DaVinciFlowSettingsRequestUseIntermediateLoadingScreen    `json:"useIntermediateLoadingScreen,omitempty"`
 	ValidateOnSave                  *DaVinciFlowSettingsRequestValidateOnSave                  `json:"validateOnSave,omitempty"`
 	AdditionalProperties            map[string]interface{}
@@ -294,6 +298,102 @@ func (o *DaVinciFlowSettingsRequest) HasCustomLogoURLSelection() bool {
 // SetCustomLogoURLSelection gets a reference to the given int32 and assigns it to the CustomLogoURLSelection field.
 func (o *DaVinciFlowSettingsRequest) SetCustomLogoURLSelection(v int32) {
 	o.CustomLogoURLSelection = &v
+}
+
+// GetCustomTimeoutErrorScreenCSS returns the CustomTimeoutErrorScreenCSS field value if set, zero value otherwise.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenCSS() string {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenCSS) {
+		var ret string
+		return ret
+	}
+	return *o.CustomTimeoutErrorScreenCSS
+}
+
+// GetCustomTimeoutErrorScreenCSSOk returns a tuple with the CustomTimeoutErrorScreenCSS field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenCSSOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenCSS) {
+		return nil, false
+	}
+	return o.CustomTimeoutErrorScreenCSS, true
+}
+
+// HasCustomTimeoutErrorScreenCSS returns a boolean if a field has been set.
+func (o *DaVinciFlowSettingsRequest) HasCustomTimeoutErrorScreenCSS() bool {
+	if o != nil && !IsNil(o.CustomTimeoutErrorScreenCSS) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomTimeoutErrorScreenCSS gets a reference to the given string and assigns it to the CustomTimeoutErrorScreenCSS field.
+func (o *DaVinciFlowSettingsRequest) SetCustomTimeoutErrorScreenCSS(v string) {
+	o.CustomTimeoutErrorScreenCSS = &v
+}
+
+// GetCustomTimeoutErrorScreenHTML returns the CustomTimeoutErrorScreenHTML field value if set, zero value otherwise.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenHTML() string {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenHTML) {
+		var ret string
+		return ret
+	}
+	return *o.CustomTimeoutErrorScreenHTML
+}
+
+// GetCustomTimeoutErrorScreenHTMLOk returns a tuple with the CustomTimeoutErrorScreenHTML field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenHTMLOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenHTML) {
+		return nil, false
+	}
+	return o.CustomTimeoutErrorScreenHTML, true
+}
+
+// HasCustomTimeoutErrorScreenHTML returns a boolean if a field has been set.
+func (o *DaVinciFlowSettingsRequest) HasCustomTimeoutErrorScreenHTML() bool {
+	if o != nil && !IsNil(o.CustomTimeoutErrorScreenHTML) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomTimeoutErrorScreenHTML gets a reference to the given string and assigns it to the CustomTimeoutErrorScreenHTML field.
+func (o *DaVinciFlowSettingsRequest) SetCustomTimeoutErrorScreenHTML(v string) {
+	o.CustomTimeoutErrorScreenHTML = &v
+}
+
+// GetCustomTimeoutErrorScreenMessage returns the CustomTimeoutErrorScreenMessage field value if set, zero value otherwise.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenMessage() string {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenMessage) {
+		var ret string
+		return ret
+	}
+	return *o.CustomTimeoutErrorScreenMessage
+}
+
+// GetCustomTimeoutErrorScreenMessageOk returns a tuple with the CustomTimeoutErrorScreenMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowSettingsRequest) GetCustomTimeoutErrorScreenMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomTimeoutErrorScreenMessage) {
+		return nil, false
+	}
+	return o.CustomTimeoutErrorScreenMessage, true
+}
+
+// HasCustomTimeoutErrorScreenMessage returns a boolean if a field has been set.
+func (o *DaVinciFlowSettingsRequest) HasCustomTimeoutErrorScreenMessage() bool {
+	if o != nil && !IsNil(o.CustomTimeoutErrorScreenMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomTimeoutErrorScreenMessage gets a reference to the given string and assigns it to the CustomTimeoutErrorScreenMessage field.
+func (o *DaVinciFlowSettingsRequest) SetCustomTimeoutErrorScreenMessage(v string) {
+	o.CustomTimeoutErrorScreenMessage = &v
 }
 
 // GetCustomTitle returns the CustomTitle field value if set, zero value otherwise.
@@ -840,6 +940,38 @@ func (o *DaVinciFlowSettingsRequest) SetUseCustomScript(v DaVinciFlowSettingsReq
 	o.UseCustomScript = &v
 }
 
+// GetUseCustomTimeoutErrorScreen returns the UseCustomTimeoutErrorScreen field value if set, zero value otherwise.
+func (o *DaVinciFlowSettingsRequest) GetUseCustomTimeoutErrorScreen() bool {
+	if o == nil || IsNil(o.UseCustomTimeoutErrorScreen) {
+		var ret bool
+		return ret
+	}
+	return *o.UseCustomTimeoutErrorScreen
+}
+
+// GetUseCustomTimeoutErrorScreenOk returns a tuple with the UseCustomTimeoutErrorScreen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowSettingsRequest) GetUseCustomTimeoutErrorScreenOk() (*bool, bool) {
+	if o == nil || IsNil(o.UseCustomTimeoutErrorScreen) {
+		return nil, false
+	}
+	return o.UseCustomTimeoutErrorScreen, true
+}
+
+// HasUseCustomTimeoutErrorScreen returns a boolean if a field has been set.
+func (o *DaVinciFlowSettingsRequest) HasUseCustomTimeoutErrorScreen() bool {
+	if o != nil && !IsNil(o.UseCustomTimeoutErrorScreen) {
+		return true
+	}
+
+	return false
+}
+
+// SetUseCustomTimeoutErrorScreen gets a reference to the given bool and assigns it to the UseCustomTimeoutErrorScreen field.
+func (o *DaVinciFlowSettingsRequest) SetUseCustomTimeoutErrorScreen(v bool) {
+	o.UseCustomTimeoutErrorScreen = &v
+}
+
 // GetUseIntermediateLoadingScreen returns the UseIntermediateLoadingScreen field value if set, zero value otherwise.
 func (o *DaVinciFlowSettingsRequest) GetUseIntermediateLoadingScreen() DaVinciFlowSettingsRequestUseIntermediateLoadingScreen {
 	if o == nil || IsNil(o.UseIntermediateLoadingScreen) {
@@ -935,6 +1067,15 @@ func (o DaVinciFlowSettingsRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CustomLogoURLSelection) {
 		toSerialize["customLogoURLSelection"] = o.CustomLogoURLSelection
 	}
+	if !IsNil(o.CustomTimeoutErrorScreenCSS) {
+		toSerialize["customTimeoutErrorScreenCSS"] = o.CustomTimeoutErrorScreenCSS
+	}
+	if !IsNil(o.CustomTimeoutErrorScreenHTML) {
+		toSerialize["customTimeoutErrorScreenHTML"] = o.CustomTimeoutErrorScreenHTML
+	}
+	if !IsNil(o.CustomTimeoutErrorScreenMessage) {
+		toSerialize["customTimeoutErrorScreenMessage"] = o.CustomTimeoutErrorScreenMessage
+	}
 	if !IsNil(o.CustomTitle) {
 		toSerialize["customTitle"] = o.CustomTitle
 	}
@@ -986,6 +1127,9 @@ func (o DaVinciFlowSettingsRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseCustomScript) {
 		toSerialize["useCustomScript"] = o.UseCustomScript
 	}
+	if !IsNil(o.UseCustomTimeoutErrorScreen) {
+		toSerialize["useCustomTimeoutErrorScreen"] = o.UseCustomTimeoutErrorScreen
+	}
 	if !IsNil(o.UseIntermediateLoadingScreen) {
 		toSerialize["useIntermediateLoadingScreen"] = o.UseIntermediateLoadingScreen
 	}
@@ -1021,6 +1165,9 @@ func (o *DaVinciFlowSettingsRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "customErrorShowFooter")
 		delete(additionalProperties, "customFaviconLink")
 		delete(additionalProperties, "customLogoURLSelection")
+		delete(additionalProperties, "customTimeoutErrorScreenCSS")
+		delete(additionalProperties, "customTimeoutErrorScreenHTML")
+		delete(additionalProperties, "customTimeoutErrorScreenMessage")
 		delete(additionalProperties, "customTitle")
 		delete(additionalProperties, "defaultErrorScreenBrandLogo")
 		delete(additionalProperties, "flowHttpTimeoutInSeconds")
@@ -1038,6 +1185,7 @@ func (o *DaVinciFlowSettingsRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "useCustomCSS")
 		delete(additionalProperties, "useCustomFlowPlayer")
 		delete(additionalProperties, "useCustomScript")
+		delete(additionalProperties, "useCustomTimeoutErrorScreen")
 		delete(additionalProperties, "useIntermediateLoadingScreen")
 		delete(additionalProperties, "validateOnSave")
 		o.AdditionalProperties = additionalProperties
@@ -1069,6 +1217,15 @@ func (o DaVinciFlowSettingsRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.CustomLogoURLSelection) {
 		logAttrs = append(logAttrs, slog.Any("customLogoURLSelection", *o.CustomLogoURLSelection))
+	}
+	if !IsNil(o.CustomTimeoutErrorScreenCSS) {
+		logAttrs = append(logAttrs, slog.Any("customTimeoutErrorScreenCSS", *o.CustomTimeoutErrorScreenCSS))
+	}
+	if !IsNil(o.CustomTimeoutErrorScreenHTML) {
+		logAttrs = append(logAttrs, slog.Any("customTimeoutErrorScreenHTML", *o.CustomTimeoutErrorScreenHTML))
+	}
+	if !IsNil(o.CustomTimeoutErrorScreenMessage) {
+		logAttrs = append(logAttrs, slog.Any("customTimeoutErrorScreenMessage", *o.CustomTimeoutErrorScreenMessage))
 	}
 	if !IsNil(o.CustomTitle) {
 		logAttrs = append(logAttrs, slog.Any("customTitle", *o.CustomTitle))
@@ -1120,6 +1277,9 @@ func (o DaVinciFlowSettingsRequest) LogValue() slog.Value {
 	}
 	if !IsNil(o.UseCustomScript) {
 		logAttrs = append(logAttrs, slog.Any("useCustomScript", *o.UseCustomScript))
+	}
+	if !IsNil(o.UseCustomTimeoutErrorScreen) {
+		logAttrs = append(logAttrs, slog.Any("useCustomTimeoutErrorScreen", *o.UseCustomTimeoutErrorScreen))
 	}
 	if !IsNil(o.UseIntermediateLoadingScreen) {
 		logAttrs = append(logAttrs, slog.Any("useIntermediateLoadingScreen", *o.UseIntermediateLoadingScreen))

@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **CustomErrorShowFooter** | Pointer to [**DaVinciFlowSettingsResponseCustomErrorShowFooter**](DaVinciFlowSettingsResponseCustomErrorShowFooter.md) |  | [optional] 
 **CustomFaviconLink** | Pointer to **string** |  | [optional] 
 **CustomLogoURLSelection** | Pointer to **int32** |  | [optional] 
+**CustomTimeoutErrorScreenCSS** | Pointer to **string** |  | [optional] 
+**CustomTimeoutErrorScreenHTML** | Pointer to **string** |  | [optional] 
+**CustomTimeoutErrorScreenMessage** | Pointer to **string** |  | [optional] 
 **CustomTitle** | Pointer to **string** |  | [optional] 
 **DefaultErrorScreenBrandLogo** | Pointer to [**DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo**](DaVinciFlowSettingsResponseDefaultErrorScreenBrandLogo.md) |  | [optional] 
 **FlowHttpTimeoutInSeconds** | Pointer to **int32** |  | [optional] 
@@ -28,6 +31,7 @@ Name | Type | Description | Notes
 **UseCustomCSS** | Pointer to [**DaVinciFlowSettingsResponseUseCustomCSS**](DaVinciFlowSettingsResponseUseCustomCSS.md) |  | [optional] 
 **UseCustomFlowPlayer** | Pointer to [**DaVinciFlowSettingsResponseUseCustomFlowPlayer**](DaVinciFlowSettingsResponseUseCustomFlowPlayer.md) |  | [optional] 
 **UseCustomScript** | Pointer to [**DaVinciFlowSettingsResponseUseCustomScript**](DaVinciFlowSettingsResponseUseCustomScript.md) |  | [optional] 
+**UseCustomTimeoutErrorScreen** | Pointer to **bool** |  | [optional] 
 **UseIntermediateLoadingScreen** | Pointer to [**DaVinciFlowSettingsResponseUseIntermediateLoadingScreen**](DaVinciFlowSettingsResponseUseIntermediateLoadingScreen.md) |  | [optional] 
 **ValidateOnSave** | Pointer to [**DaVinciFlowSettingsResponseValidateOnSave**](DaVinciFlowSettingsResponseValidateOnSave.md) |  | [optional] 
 
@@ -224,6 +228,81 @@ SetCustomLogoURLSelection sets CustomLogoURLSelection field to given value.
 `func (o *DaVinciFlowSettingsResponse) HasCustomLogoURLSelection() bool`
 
 HasCustomLogoURLSelection returns a boolean if a field has been set.
+
+### GetCustomTimeoutErrorScreenCSS
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenCSS() string`
+
+GetCustomTimeoutErrorScreenCSS returns the CustomTimeoutErrorScreenCSS field if non-nil, zero value otherwise.
+
+### GetCustomTimeoutErrorScreenCSSOk
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenCSSOk() (*string, bool)`
+
+GetCustomTimeoutErrorScreenCSSOk returns a tuple with the CustomTimeoutErrorScreenCSS field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomTimeoutErrorScreenCSS
+
+`func (o *DaVinciFlowSettingsResponse) SetCustomTimeoutErrorScreenCSS(v string)`
+
+SetCustomTimeoutErrorScreenCSS sets CustomTimeoutErrorScreenCSS field to given value.
+
+### HasCustomTimeoutErrorScreenCSS
+
+`func (o *DaVinciFlowSettingsResponse) HasCustomTimeoutErrorScreenCSS() bool`
+
+HasCustomTimeoutErrorScreenCSS returns a boolean if a field has been set.
+
+### GetCustomTimeoutErrorScreenHTML
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenHTML() string`
+
+GetCustomTimeoutErrorScreenHTML returns the CustomTimeoutErrorScreenHTML field if non-nil, zero value otherwise.
+
+### GetCustomTimeoutErrorScreenHTMLOk
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenHTMLOk() (*string, bool)`
+
+GetCustomTimeoutErrorScreenHTMLOk returns a tuple with the CustomTimeoutErrorScreenHTML field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomTimeoutErrorScreenHTML
+
+`func (o *DaVinciFlowSettingsResponse) SetCustomTimeoutErrorScreenHTML(v string)`
+
+SetCustomTimeoutErrorScreenHTML sets CustomTimeoutErrorScreenHTML field to given value.
+
+### HasCustomTimeoutErrorScreenHTML
+
+`func (o *DaVinciFlowSettingsResponse) HasCustomTimeoutErrorScreenHTML() bool`
+
+HasCustomTimeoutErrorScreenHTML returns a boolean if a field has been set.
+
+### GetCustomTimeoutErrorScreenMessage
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenMessage() string`
+
+GetCustomTimeoutErrorScreenMessage returns the CustomTimeoutErrorScreenMessage field if non-nil, zero value otherwise.
+
+### GetCustomTimeoutErrorScreenMessageOk
+
+`func (o *DaVinciFlowSettingsResponse) GetCustomTimeoutErrorScreenMessageOk() (*string, bool)`
+
+GetCustomTimeoutErrorScreenMessageOk returns a tuple with the CustomTimeoutErrorScreenMessage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomTimeoutErrorScreenMessage
+
+`func (o *DaVinciFlowSettingsResponse) SetCustomTimeoutErrorScreenMessage(v string)`
+
+SetCustomTimeoutErrorScreenMessage sets CustomTimeoutErrorScreenMessage field to given value.
+
+### HasCustomTimeoutErrorScreenMessage
+
+`func (o *DaVinciFlowSettingsResponse) HasCustomTimeoutErrorScreenMessage() bool`
+
+HasCustomTimeoutErrorScreenMessage returns a boolean if a field has been set.
 
 ### GetCustomTitle
 
@@ -649,6 +728,31 @@ SetUseCustomScript sets UseCustomScript field to given value.
 `func (o *DaVinciFlowSettingsResponse) HasUseCustomScript() bool`
 
 HasUseCustomScript returns a boolean if a field has been set.
+
+### GetUseCustomTimeoutErrorScreen
+
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomTimeoutErrorScreen() bool`
+
+GetUseCustomTimeoutErrorScreen returns the UseCustomTimeoutErrorScreen field if non-nil, zero value otherwise.
+
+### GetUseCustomTimeoutErrorScreenOk
+
+`func (o *DaVinciFlowSettingsResponse) GetUseCustomTimeoutErrorScreenOk() (*bool, bool)`
+
+GetUseCustomTimeoutErrorScreenOk returns a tuple with the UseCustomTimeoutErrorScreen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseCustomTimeoutErrorScreen
+
+`func (o *DaVinciFlowSettingsResponse) SetUseCustomTimeoutErrorScreen(v bool)`
+
+SetUseCustomTimeoutErrorScreen sets UseCustomTimeoutErrorScreen field to given value.
+
+### HasUseCustomTimeoutErrorScreen
+
+`func (o *DaVinciFlowSettingsResponse) HasUseCustomTimeoutErrorScreen() bool`
+
+HasUseCustomTimeoutErrorScreen returns a boolean if a field has been set.
 
 ### GetUseIntermediateLoadingScreen
 
