@@ -2,15 +2,20 @@
 package config_test
 
 import (
+	"bytes"
 	"context"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/pingidentity/pingone-go-client/config"
-	"github.com/pingidentity/pingone-go-client/oidc/endpoints"
+	oidcendpoints "github.com/pingidentity/pingone-go-client/oidc/endpoints"
+	oauth2endpoints "github.com/pingidentity/pingone-go-client/oauth2/endpoints"
+	"golang.org/x/oauth2"
 )
 
 func TestAuthorizationCodeTokenSource(t *testing.T) {
@@ -44,7 +49,14 @@ func TestAuthorizationCodeTokenSource(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			authorizationCode := tt.setup()
-			testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
+			testEndpoints := oidcendpoints.OIDCEndpoint{
+				ExtendedEndpoint: oauth2endpoints.ExtendedEndpoint{
+					Endpoint: oauth2.Endpoint{
+						AuthURL:  "https://auth.pingone.com/as/authorize",
+						TokenURL: "https://auth.pingone.com/as/token",
+					},
+				},
+			}
 
 			// Use a short timeout to prevent tests from hanging
 			ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
@@ -302,25 +314,36 @@ func TestGenerateState(t *testing.T) {
 	for i := 0; i < iterations; i++ {
 		// We can't directly call generateState as it's not exported,
 		// but we can test the behavior through AuthorizationCodeTokenSource
-		// For now, we'll verify that multiple calls should produce different URLs
+		// by capturing the authorization URL from the default handler's output.
 
 		clientID := "test-client-id"
+		var buf bytes.Buffer
 		authCode := &config.AuthorizationCode{
 			AuthorizationCodeClientID: &clientID,
-			OnOpenBrowser: func(authURL string) error {
-				// Extract state from URL
-				// This is a simplified test - in real scenario we'd parse the URL
-				states[authURL] = true
-				return nil
-			},
+			Output:                    &buf,
 		}
 
-		testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
-		ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+		// The AuthURL deliberately pairs a non-http(s) scheme with a loopback host so that
+		// browser.Open rejects it during validation without opening a real browser.
+		testEndpoints := oidcendpoints.OIDCEndpoint{
+			ExtendedEndpoint: oauth2endpoints.ExtendedEndpoint{
+				Endpoint: oauth2.Endpoint{
+					AuthURL:  "ftp://127.0.0.1/authorize",
+					TokenURL: "https://127.0.0.1/as/token.oauth2",
+				},
+			},
+		}
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
 
-		// This will fail due to timeout, but will call OnOpenBrowser first
+		// The canceled context deterministically aborts the callback wait after the handler
+		// has run; each run's URL (with its own state parameter) is captured from Output.
 		_, _ = authCode.AuthorizationCodeTokenSource(ctx, testEndpoints)
 		cancel()
+
+		if authURL := extractAuthURL(buf.String()); authURL != "" {
+			states[authURL] = true
+		}
 	}
 
 	// We should have multiple unique URLs (due to different state parameters)
@@ -331,38 +354,125 @@ func TestGenerateState(t *testing.T) {
 
 func TestStateParameterInAuthURL(t *testing.T) {
 	clientID := "test-client-id"
-	var capturedURL string
+	var buf bytes.Buffer
 
 	authCode := &config.AuthorizationCode{
 		AuthorizationCodeClientID: &clientID,
-		OnOpenBrowser: func(authURL string) error {
-			capturedURL = authURL
-			return nil
-		},
+		Output:                    &buf,
 	}
 
-	testEndpoints := endpoints.PingOneOIDCEndpoint("auth.pingone.com")
-	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
-	defer cancel()
+	// The AuthURL deliberately pairs a non-http(s) scheme with a loopback host so that
+	// browser.Open rejects it during validation without opening a real browser.
+	testEndpoints := oidcendpoints.OIDCEndpoint{
+		ExtendedEndpoint: oauth2endpoints.ExtendedEndpoint{
+			Endpoint: oauth2.Endpoint{
+				AuthURL:  "ftp://127.0.0.1/authorize",
+				TokenURL: "https://127.0.0.1/as/token.oauth2",
+			},
+		},
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
 
-	// This will timeout but will capture the auth URL
+	// The canceled context aborts the callback wait after the handler has written
+	// the authorization URL to Output.
 	_, _ = authCode.AuthorizationCodeTokenSource(ctx, testEndpoints)
 
-	// Verify that the URL contains a state parameter
+	capturedURL := extractAuthURL(buf.String())
 	if capturedURL == "" {
 		t.Fatal("No authorization URL was captured")
 	}
 
-	if !containsString(capturedURL, "state=") {
+	if !strings.Contains(capturedURL, "state=") {
 		t.Error("Authorization URL does not contain state parameter")
 	}
 
 	// Verify state parameter is not empty
-	// Parse the URL to get the state value
-	if idx := containsString(capturedURL, "state="); idx {
-		// Find the state value (simplified check)
-		if containsString(capturedURL, "state=&") || containsString(capturedURL, "state= ") {
-			t.Error("State parameter appears to be empty")
+	if strings.Contains(capturedURL, "state=&") || strings.Contains(capturedURL, "state= ") {
+		t.Error("State parameter appears to be empty")
+	}
+}
+
+// extractAuthURL pulls the authorization URL from default-handler progress output of the form
+// "Opening browser for authorization: <url>". Returns an empty string when not found.
+func extractAuthURL(out string) string {
+	const prefix = "Opening browser for authorization: "
+	for _, line := range strings.Split(out, "\n") {
+		if authURL, ok := strings.CutPrefix(line, prefix); ok {
+			return strings.TrimSpace(authURL)
 		}
+	}
+	return ""
+}
+
+// TestAuthorizationCodeTokenSource_DefaultHandlerHonorsOutput verifies that with no custom
+// handler, the default browser-opening handler is selected and writes its progress messages to
+// Output. The endpoint deliberately pairs a non-http(s) scheme with a loopback host so that
+// browser.Open rejects it during validation without opening a real browser, and the canceled
+// context deterministically aborts the callback wait once the handler has run.
+func TestAuthorizationCodeTokenSource_DefaultHandlerHonorsOutput(t *testing.T) {
+	clientID := "test-client-id"
+	scopes := []string{"openid"}
+	var buf bytes.Buffer
+
+	authCode := &config.AuthorizationCode{
+		AuthorizationCodeClientID: &clientID,
+		AuthorizationCodeScopes:   &scopes,
+		Output:                    &buf,
+	}
+
+	testEndpoint := oidcendpoints.OIDCEndpoint{
+		ExtendedEndpoint: oauth2endpoints.ExtendedEndpoint{
+			Endpoint: oauth2.Endpoint{
+				AuthURL:  "ftp://127.0.0.1/authorize",
+				TokenURL: "https://127.0.0.1/as/token.oauth2",
+			},
+		},
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	_, err := authCode.AuthorizationCodeTokenSource(ctx, testEndpoint)
+	if err == nil {
+		t.Fatalf("expected error but got none")
+	}
+	if !strings.Contains(err.Error(), "authorization cancelled") {
+		t.Errorf("expected cancellation error, got %q", err.Error())
+	}
+
+	out := buf.String()
+	if !strings.Contains(out, "Opening browser for authorization") {
+		t.Errorf("expected default handler progress output, got %q", out)
+	}
+	if !strings.Contains(out, "ftp://127.0.0.1/authorize") {
+		t.Errorf("expected auth URL in default handler output, got %q", out)
+	}
+}
+
+// TestAuthorizationCodeTokenSource_CallbackServerStartupError occupies the default redirect port
+// so the callback server cannot start. This exercises input validation, callback-server startup,
+// and the startup-failure path without requiring a live authorization server or launching a
+// browser.
+func TestAuthorizationCodeTokenSource_CallbackServerStartupError(t *testing.T) {
+	listener, err := net.Listen("tcp", ":"+config.GetDefaultAuthorizationCodeRedirectURIPort())
+	if err != nil {
+		t.Fatalf("failed to occupy redirect port: %v", err)
+	}
+	defer func() { _ = listener.Close() }()
+
+	clientID := "test-client-id"
+	scopes := []string{"openid"}
+	authCode := &config.AuthorizationCode{
+		AuthorizationCodeClientID: &clientID,
+		AuthorizationCodeScopes:   &scopes,
+	}
+
+	_, err = authCode.AuthorizationCodeTokenSource(context.Background(), oidcendpoints.OIDCEndpoint{})
+	if err == nil {
+		t.Fatalf("expected error but got none")
+	}
+	if !strings.Contains(err.Error(), "failed to start callback server") {
+		t.Errorf("expected callback-server startup error, got %q", err.Error())
 	}
 }

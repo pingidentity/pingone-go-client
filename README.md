@@ -226,6 +226,18 @@ Each example includes:
 
 See the [examples README](examples/README.md) for detailed setup instructions and PingOne configuration requirements.
 
+### Output control
+
+The SDK stays quiet by default: the default handlers for the authorization_code and device_code
+flows (`DefaultAuthorizationCodeBrowserHandler`, `DefaultDeviceCodePromptHandler`) open the
+system browser without printing anything. To show progress messages (the authorization URL,
+device code, and similar), route them into your own logger, or send them somewhere other than
+standard output without reimplementing the handlers, set `WithAuthorizationCodeOutput(w)` or
+`WithDeviceCodeOutput(w)` on the configuration builder (for example, `os.Stdout` to reproduce
+the interactive output of earlier releases), or call
+`DefaultAuthorizationCodeBrowserHandlerTo(w)` / `DefaultDeviceCodePromptHandlerTo(w)` directly
+to obtain a handler with the same browser-opening behavior that writes to `w`.
+
 
 2.  **Configuration via Environment Variables:**
     Initialize the client without explicit parameters. The SDK will look for configuration values in environment variables (see [Service Configuration](#-pingone-service-configuration) for details).

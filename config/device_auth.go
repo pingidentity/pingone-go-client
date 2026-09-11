@@ -4,6 +4,7 @@ package config
 import (
 	"context"
 	"fmt"
+	"io"
 
 	"github.com/pingidentity/pingone-go-client/utils/browser"
 	"golang.org/x/oauth2"
@@ -89,12 +90,8 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 		return nil, fmt.Errorf("device auth request failed: %w", err)
 	}
 
-	// Use custom handler if provided, otherwise use default with complete URL support
-	handler := d.OnDisplayPrompt
-	if handler == nil {
-		// Use a closure to capture the complete URL for the default handler
-		handler = DefaultDeviceCodePromptHandler
-	}
+	// Use the default handler, which honors the configured writer.
+	handler := DefaultDeviceCodePromptHandlerTo(d.Output)
 
 	if err := handler(response.VerificationURI, response.UserCode); err != nil {
 		return nil, fmt.Errorf("prompt handler failed: %w", err)
@@ -114,33 +111,49 @@ func (d *DeviceCode) DeviceAuthTokenSource(ctx context.Context, endpoints oauth2
 
 // DefaultDeviceCodePromptHandler is a simple handler that displays device code prompts.
 // This function can be used by consumer projects as a reference implementation or directly.
-// For better UX with complete URLs, use the closure pattern shown in DeviceAuthTokenSource.
 // This function implements the DeviceCodePromptHandler interface pattern.
+// It writes nothing; pass a writer to DefaultDeviceCodePromptHandlerTo, or set
+// DeviceCode.Output (via Configuration.WithDeviceCodeOutput), to receive its progress messages.
 func DefaultDeviceCodePromptHandler(verificationURI, userCode string) error {
-	fmt.Print(deviceAuthPromptHeader)
+	return DefaultDeviceCodePromptHandlerTo(nil)(verificationURI, userCode)
+}
 
-	// Determine which URL to use and whether to auto-open browser
-	browserAvailable := browser.CanOpen()
-	verificationURIComplete := fmt.Sprintf("%s?user_code=%s", verificationURI, userCode)
-
-	// Auto-open browser if available
-	if browserAvailable {
-		fmt.Print(deviceAuthBrowserOpeningMessage)
-		fmt.Printf(deviceAuthURLLabel, verificationURIComplete)
-		if err := browser.Open(verificationURIComplete); err != nil {
-			fmt.Printf(deviceAuthBrowserFailWarning, err)
-		}
-		fmt.Print(deviceAuthManualInstructionsHeader)
-		fmt.Printf(deviceAuthManualVisitPrompt, verificationURI)
-		fmt.Printf(deviceAuthManualCodePrompt, userCode)
-	} else {
-		// No browser available - show manual instructions
-		fmt.Printf(deviceAuthCompleteURLPrompt, verificationURIComplete)
-		fmt.Print(deviceAuthAlternativeInstructionsHeader)
-		fmt.Printf(deviceAuthManualVisitPrompt, verificationURI)
-		fmt.Printf(deviceAuthManualCodePrompt, userCode)
+// DefaultDeviceCodePromptHandlerTo returns a device code prompt handler equivalent to
+// DefaultDeviceCodePromptHandler, but that writes its progress messages to w instead of
+// staying silent. If w is nil, the returned handler is silent. Passing os.Stdout reproduces the
+// interactive output of earlier releases, and any other io.Writer captures or redirects the
+// output. This lets consumers opt in to (or relocate) the default handler's output without
+// reimplementing its prompt-display logic.
+func DefaultDeviceCodePromptHandlerTo(w io.Writer) DeviceCodePromptHandler {
+	if w == nil {
+		w = io.Discard
 	}
+	return func(verificationURI, userCode string) error {
+		fprint(w, deviceAuthPromptHeader)
 
-	fmt.Print(deviceAuthWaitingMessage)
-	return nil
+		// Determine which URL to use and whether to auto-open browser
+		browserAvailable := browser.CanOpen()
+		verificationURIComplete := fmt.Sprintf("%s?user_code=%s", verificationURI, userCode)
+
+		// Auto-open browser if available
+		if browserAvailable {
+			fprint(w, deviceAuthBrowserOpeningMessage)
+			fprintf(w, deviceAuthURLLabel, verificationURIComplete)
+			if err := browser.Open(verificationURIComplete); err != nil {
+				fprintf(w, deviceAuthBrowserFailWarning, err)
+			}
+			fprint(w, deviceAuthManualInstructionsHeader)
+			fprintf(w, deviceAuthManualVisitPrompt, verificationURI)
+			fprintf(w, deviceAuthManualCodePrompt, userCode)
+		} else {
+			// No browser available - show manual instructions
+			fprintf(w, deviceAuthCompleteURLPrompt, verificationURIComplete)
+			fprint(w, deviceAuthAlternativeInstructionsHeader)
+			fprintf(w, deviceAuthManualVisitPrompt, verificationURI)
+			fprintf(w, deviceAuthManualCodePrompt, userCode)
+		}
+
+		fprint(w, deviceAuthWaitingMessage)
+		return nil
+	}
 }
