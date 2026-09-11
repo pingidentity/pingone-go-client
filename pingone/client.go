@@ -58,7 +58,7 @@ var (
 // in the pingone package. It follows the convention of using the Go module path.
 const tracerName = "github.com/pingidentity/pingone-go-client/pingone"
 
-// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.07.16-beta
+// APIClient manages communication with the PingOne Platform User and Configuration Management API - SDK Generator API v2026.09.09-beta
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
