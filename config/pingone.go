@@ -8,6 +8,7 @@ package config
 import (
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -159,10 +160,11 @@ type AuthorizationCode struct {
 	AuthorizationCodeClientID    *string                      `envconfig:"PINGONE_AUTHORIZATION_CODE_CLIENT_ID" json:"authorizationCodeClientId,omitempty"`
 	AuthorizationCodeRedirectURI AuthorizationCodeRedirectURI `envconfig:"PINGONE_AUTHORIZATION_CODE_REDIRECT_URI" json:"authorizationCodeRedirectUri,omitempty"`
 	AuthorizationCodeScopes      *[]string                    `envconfig:"PINGONE_AUTHORIZATION_CODE_SCOPES" json:"authorizationCodeScopes,omitempty"`
-	// OnOpenBrowser is an optional handler for custom browser opening logic.
-	// If set, this handler will be called instead of automatically opening the system browser.
-	// This allows consumers to implement custom flows such as headless operation or alternative UX.
-	OnOpenBrowser AuthURLHandler `json:"-"`
+	// Output configures where the default browser-opening handler writes its progress messages.
+	// The SDK stays quiet by default: a nil Output disables progress output entirely. Set Output
+	// to os.Stdout (via Configuration.WithAuthorizationCodeOutput) to reproduce the interactive
+	// output of earlier releases, or to any other io.Writer to capture or redirect the messages.
+	Output io.Writer `json:"-"`
 	// CustomPageDataSuccess contains the data to display on successful authentication.
 	// If nil, default values will be used. The SDK template will be rendered with these values.
 	CustomPageDataSuccess *AuthResultPageData `json:"-"`
@@ -185,10 +187,12 @@ type DeviceCodePromptHandler func(verificationURI, userCode string) error
 type DeviceCode struct {
 	DeviceCodeClientID *string   `envconfig:"PINGONE_DEVICE_CODE_CLIENT_ID" json:"deviceCodeClientId,omitempty"`
 	DeviceCodeScopes   *[]string `envconfig:"PINGONE_DEVICE_CODE_SCOPES" json:"deviceCodeScopes,omitempty"`
-	// OnDisplayPrompt is an optional handler for custom device code prompt display.
-	// If set, this handler will be called instead of the default console output.
-	// This allows consumers to implement custom UX such as QR codes, notifications, or headless flows.
-	OnDisplayPrompt DeviceCodePromptHandler `json:"-"`
+	// Output configures where the default device code prompt handler writes its progress
+	// messages. The SDK stays quiet by default: a nil Output disables progress output entirely.
+	// Set Output to os.Stdout (via Configuration.WithDeviceCodeOutput) to reproduce the
+	// interactive output of earlier releases, or to any other io.Writer to capture or redirect
+	// the messages.
+	Output io.Writer `json:"-"`
 }
 
 type Storage struct {
@@ -387,6 +391,18 @@ func (c *Configuration) WithAuthorizationCodeRedirectURI(authorizationCodeRedire
 	return c
 }
 
+// WithAuthorizationCodeOutput sets the writer used by the default authorization_code browser
+// handler to print its progress messages. The SDK stays quiet by default: pass nil (or leave
+// it unset) to keep progress output disabled, os.Stdout to reproduce the interactive output of
+// earlier releases, or any other io.Writer to capture or redirect it.
+func (c *Configuration) WithAuthorizationCodeOutput(w io.Writer) *Configuration {
+	if c.Auth.AuthorizationCode == nil {
+		c.Auth.AuthorizationCode = &AuthorizationCode{}
+	}
+	c.Auth.AuthorizationCode.Output = w
+	return c
+}
+
 func (c *Configuration) WithDeviceCodeClientID(deviceCodeClientID string) *Configuration {
 	if c.Auth.DeviceCode == nil {
 		c.Auth.DeviceCode = &DeviceCode{}
@@ -400,6 +416,18 @@ func (c *Configuration) WithDeviceCodeScopes(deviceCodeScopes []string) *Configu
 		c.Auth.DeviceCode = &DeviceCode{}
 	}
 	c.Auth.DeviceCode.DeviceCodeScopes = &deviceCodeScopes
+	return c
+}
+
+// WithDeviceCodeOutput sets the writer used by the default device_code prompt handler to print
+// its progress messages. The SDK stays quiet by default: pass nil (or leave it unset) to keep
+// progress output disabled, os.Stdout to reproduce the interactive output of earlier releases,
+// or any other io.Writer to capture or redirect it.
+func (c *Configuration) WithDeviceCodeOutput(w io.Writer) *Configuration {
+	if c.Auth.DeviceCode == nil {
+		c.Auth.DeviceCode = &DeviceCode{}
+	}
+	c.Auth.DeviceCode.Output = w
 	return c
 }
 

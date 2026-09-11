@@ -4,6 +4,7 @@ package config_test
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"testing"
 
@@ -16,6 +17,19 @@ func TestNewConfiguration(t *testing.T) {
 	cfg := config.NewConfiguration()
 	if cfg == nil {
 		t.Fatal("Configuration should not be nil")
+	}
+}
+
+func TestConfigurationOutputMethods(t *testing.T) {
+	cfg := config.NewConfiguration().
+		WithAuthorizationCodeOutput(io.Discard).
+		WithDeviceCodeOutput(io.Discard)
+
+	if cfg.Auth.AuthorizationCode == nil || cfg.Auth.AuthorizationCode.Output != io.Discard {
+		t.Fatalf("authorization code Output not set correctly")
+	}
+	if cfg.Auth.DeviceCode == nil || cfg.Auth.DeviceCode.Output != io.Discard {
+		t.Fatalf("device code Output not set correctly")
 	}
 }
 

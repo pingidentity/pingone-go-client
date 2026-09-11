@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"html/template"
+	"io"
 	"log/slog"
 	"net"
 	"net/http"
@@ -199,11 +200,8 @@ func (a *AuthorizationCode) AuthorizationCodeTokenSource(ctx context.Context, en
 	// Generate authorization URL with secure state parameter and handle browser opening
 	authURL := config.AuthCodeURL(state, oauth2.AccessTypeOffline, oauth2.S256ChallengeOption(codeVerifier))
 
-	// Use custom handler if provided, otherwise use default
-	handler := a.OnOpenBrowser
-	if handler == nil {
-		handler = DefaultAuthorizationCodeBrowserHandler
-	}
+	// Use the default handler, which honors the configured output (silent when unset).
+	handler := DefaultAuthorizationCodeBrowserHandlerTo(a.Output)
 
 	if err := handler(authURL); err != nil {
 		return nil, fmt.Errorf("prompt handler failed: %w", err)
@@ -518,16 +516,49 @@ func startCallbackServer(redirectURI string, expectedState string, codeChan chan
 	return nil, fmt.Errorf("server failed to start accepting connections in time")
 }
 
+// fprint, fprintf, and fprintln write best-effort progress messages to w, mirroring fmt.Fprint,
+// fmt.Fprintf, and fmt.Fprintln respectively. Write failures are intentionally ignored: these are
+// user-facing progress messages for an interactive login flow, and a failed write to a
+// caller-supplied Output writer should not abort authentication.
+func fprint(w io.Writer, a ...any) {
+	_, _ = fmt.Fprint(w, a...)
+}
+
+func fprintf(w io.Writer, format string, a ...any) {
+	_, _ = fmt.Fprintf(w, format, a...)
+}
+
+func fprintln(w io.Writer, a ...any) {
+	_, _ = fmt.Fprintln(w, a...)
+}
+
 // DefaultAuthorizationCodeBrowserHandler is the default handler for opening the authorization URL.
 // It attempts to open the system browser automatically and provides fallback instructions if that fails.
 // This function implements the AuthURLHandler interface and provides a consistent UX pattern.
 // Consumer projects can use this handler as a reference or directly in their own implementations.
+// It writes nothing; pass a writer to DefaultAuthorizationCodeBrowserHandlerTo, or set
+// AuthorizationCode.Output (via Configuration.WithAuthorizationCodeOutput), to receive its progress messages.
 func DefaultAuthorizationCodeBrowserHandler(authURL string) error {
-	fmt.Printf("Opening browser for authorization: %s\n", authURL)
-	if err := browser.Open(authURL); err != nil {
-		fmt.Printf("Warning: Failed to open browser automatically: %v\n", err)
-		fmt.Printf("Please open this URL in your browser manually: %s\n", authURL)
+	return DefaultAuthorizationCodeBrowserHandlerTo(nil)(authURL)
+}
+
+// DefaultAuthorizationCodeBrowserHandlerTo returns a browser-opening handler equivalent to
+// DefaultAuthorizationCodeBrowserHandler, but that writes its progress messages to w instead of
+// staying silent. If w is nil, the returned handler is silent. Passing os.Stdout reproduces the
+// interactive output of earlier releases, and any other io.Writer captures or redirects the
+// output. This lets consumers opt in to (or relocate) the default handler's output without
+// reimplementing its browser-opening logic.
+func DefaultAuthorizationCodeBrowserHandlerTo(w io.Writer) AuthURLHandler {
+	if w == nil {
+		w = io.Discard
 	}
-	fmt.Println("Waiting for authorization callback...")
-	return nil
+	return func(authURL string) error {
+		fprintf(w, "Opening browser for authorization: %s\n", authURL)
+		if err := browser.Open(authURL); err != nil {
+			fprintf(w, "Warning: Failed to open browser automatically: %v\n", err)
+			fprintf(w, "Please open this URL in your browser manually: %s\n", authURL)
+		}
+		fprintln(w, "Waiting for authorization callback...")
+		return nil
+	}
 }
