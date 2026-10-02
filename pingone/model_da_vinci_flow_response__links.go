@@ -32,8 +32,8 @@ type DaVinciFlowResponseLinks struct {
 	FlowDeploy           JSONHALLink  `json:"flow.deploy"`
 	FlowClone            JSONHALLink  `json:"flow.clone"`
 	FlowEnabled          JSONHALLink  `json:"flow.enabled"`
-	Version              JSONHALLink  `json:"version"`
 	FlowValidate         *JSONHALLink `json:"flow.validate,omitempty"`
+	Version              *JSONHALLink `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,7 +43,7 @@ type _DaVinciFlowResponseLinks DaVinciFlowResponseLinks
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDaVinciFlowResponseLinks(environment JSONHALLink, self JSONHALLink, connectorInstances JSONHALLink, connectors JSONHALLink, flowDeploy JSONHALLink, flowClone JSONHALLink, flowEnabled JSONHALLink, version JSONHALLink) *DaVinciFlowResponseLinks {
+func NewDaVinciFlowResponseLinks(environment JSONHALLink, self JSONHALLink, connectorInstances JSONHALLink, connectors JSONHALLink, flowDeploy JSONHALLink, flowClone JSONHALLink, flowEnabled JSONHALLink) *DaVinciFlowResponseLinks {
 	this := DaVinciFlowResponseLinks{}
 	this.Environment = environment
 	this.Self = self
@@ -52,7 +52,6 @@ func NewDaVinciFlowResponseLinks(environment JSONHALLink, self JSONHALLink, conn
 	this.FlowDeploy = flowDeploy
 	this.FlowClone = flowClone
 	this.FlowEnabled = flowEnabled
-	this.Version = version
 	return &this
 }
 
@@ -232,30 +231,6 @@ func (o *DaVinciFlowResponseLinks) SetFlowEnabled(v JSONHALLink) {
 	o.FlowEnabled = v
 }
 
-// GetVersion returns the Version field value
-func (o *DaVinciFlowResponseLinks) GetVersion() JSONHALLink {
-	if o == nil {
-		var ret JSONHALLink
-		return ret
-	}
-
-	return o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value
-// and a boolean to check if the value has been set.
-func (o *DaVinciFlowResponseLinks) GetVersionOk() (*JSONHALLink, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Version, true
-}
-
-// SetVersion sets field value
-func (o *DaVinciFlowResponseLinks) SetVersion(v JSONHALLink) {
-	o.Version = v
-}
-
 // GetFlowValidate returns the FlowValidate field value if set, zero value otherwise.
 func (o *DaVinciFlowResponseLinks) GetFlowValidate() JSONHALLink {
 	if o == nil || IsNil(o.FlowValidate) {
@@ -288,6 +263,38 @@ func (o *DaVinciFlowResponseLinks) SetFlowValidate(v JSONHALLink) {
 	o.FlowValidate = &v
 }
 
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *DaVinciFlowResponseLinks) GetVersion() JSONHALLink {
+	if o == nil || IsNil(o.Version) {
+		var ret JSONHALLink
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DaVinciFlowResponseLinks) GetVersionOk() (*JSONHALLink, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *DaVinciFlowResponseLinks) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given JSONHALLink and assigns it to the Version field.
+func (o *DaVinciFlowResponseLinks) SetVersion(v JSONHALLink) {
+	o.Version = &v
+}
+
 func (o DaVinciFlowResponseLinks) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -305,9 +312,11 @@ func (o DaVinciFlowResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize["flow.deploy"] = o.FlowDeploy
 	toSerialize["flow.clone"] = o.FlowClone
 	toSerialize["flow.enabled"] = o.FlowEnabled
-	toSerialize["version"] = o.Version
 	if !IsNil(o.FlowValidate) {
 		toSerialize["flow.validate"] = o.FlowValidate
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -329,7 +338,6 @@ func (o *DaVinciFlowResponseLinks) UnmarshalJSON(data []byte) (err error) {
 		"flow.deploy",
 		"flow.clone",
 		"flow.enabled",
-		"version",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -366,8 +374,8 @@ func (o *DaVinciFlowResponseLinks) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "flow.deploy")
 		delete(additionalProperties, "flow.clone")
 		delete(additionalProperties, "flow.enabled")
-		delete(additionalProperties, "version")
 		delete(additionalProperties, "flow.validate")
+		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
 	}
 
@@ -384,9 +392,11 @@ func (o DaVinciFlowResponseLinks) LogValue() slog.Value {
 	logAttrs = append(logAttrs, slog.Any("flow.deploy", o.FlowDeploy))
 	logAttrs = append(logAttrs, slog.Any("flow.clone", o.FlowClone))
 	logAttrs = append(logAttrs, slog.Any("flow.enabled", o.FlowEnabled))
-	logAttrs = append(logAttrs, slog.Any("version", o.Version))
 	if !IsNil(o.FlowValidate) {
 		logAttrs = append(logAttrs, slog.Any("flow.validate", *o.FlowValidate))
+	}
+	if !IsNil(o.Version) {
+		logAttrs = append(logAttrs, slog.Any("version", *o.Version))
 	}
 	logAttrs = append(logAttrs, slog.Any("additionalProperties", o.AdditionalProperties))
 
