@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
   title: PingOne Platform User and Configuration Management API - SDK Generator
-  version: 2026.09.09-beta
+  version: 2026.10.02-beta
 servers:
 - url: "https://api.pingone.{tld}/{basePath}"
   variables:
@@ -17547,9 +17547,9 @@ components:
           $ref: "#/components/schemas/JSONHALLink"
         flow.enabled:
           $ref: "#/components/schemas/JSONHALLink"
-        version:
-          $ref: "#/components/schemas/JSONHALLink"
         flow.validate:
+          $ref: "#/components/schemas/JSONHALLink"
+        version:
           $ref: "#/components/schemas/JSONHALLink"
       required:
       - connectorInstances
@@ -17559,7 +17559,6 @@ components:
       - flow.deploy
       - flow.enabled
       - self
-      - version
       title: DaVinci Flow Response _links
     DaVinci_Flow_Settings_Request_Custom_Error_Show_Footer_Choice_2:
       enum:

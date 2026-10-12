@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **FlowDeploy** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **FlowClone** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **FlowEnabled** | [**JSONHALLink**](JSONHALLink.md) |  | 
-**Version** | [**JSONHALLink**](JSONHALLink.md) |  | 
 **FlowValidate** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
+**Version** | Pointer to [**JSONHALLink**](JSONHALLink.md) |  | [optional] 
 
 ## Methods
 
 ### NewDaVinciFlowResponseLinks
 
-`func NewDaVinciFlowResponseLinks(environment JSONHALLink, self JSONHALLink, connectorInstances JSONHALLink, connectors JSONHALLink, flowDeploy JSONHALLink, flowClone JSONHALLink, flowEnabled JSONHALLink, version JSONHALLink, ) *DaVinciFlowResponseLinks`
+`func NewDaVinciFlowResponseLinks(environment JSONHALLink, self JSONHALLink, connectorInstances JSONHALLink, connectors JSONHALLink, flowDeploy JSONHALLink, flowClone JSONHALLink, flowEnabled JSONHALLink, ) *DaVinciFlowResponseLinks`
 
 NewDaVinciFlowResponseLinks instantiates a new DaVinciFlowResponseLinks object
 This constructor will assign default values to properties that have it defined,
@@ -173,26 +173,6 @@ and a boolean to check if the value has been set.
 SetFlowEnabled sets FlowEnabled field to given value.
 
 
-### GetVersion
-
-`func (o *DaVinciFlowResponseLinks) GetVersion() JSONHALLink`
-
-GetVersion returns the Version field if non-nil, zero value otherwise.
-
-### GetVersionOk
-
-`func (o *DaVinciFlowResponseLinks) GetVersionOk() (*JSONHALLink, bool)`
-
-GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVersion
-
-`func (o *DaVinciFlowResponseLinks) SetVersion(v JSONHALLink)`
-
-SetVersion sets Version field to given value.
-
-
 ### GetFlowValidate
 
 `func (o *DaVinciFlowResponseLinks) GetFlowValidate() JSONHALLink`
@@ -217,6 +197,31 @@ SetFlowValidate sets FlowValidate field to given value.
 `func (o *DaVinciFlowResponseLinks) HasFlowValidate() bool`
 
 HasFlowValidate returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *DaVinciFlowResponseLinks) GetVersion() JSONHALLink`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *DaVinciFlowResponseLinks) GetVersionOk() (*JSONHALLink, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *DaVinciFlowResponseLinks) SetVersion(v JSONHALLink)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *DaVinciFlowResponseLinks) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
