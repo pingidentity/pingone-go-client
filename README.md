@@ -556,7 +556,7 @@ This SDK is organized into the following packages:
 
 ### SDK Code Generation
 
-This SDK uses [OpenAPI Generator](https://openapi-generator.tech/) to automatically generate the client code in the `pingone` directory from the [PingOne OpenAPI Specifications](https://github.com/pingidentity/pingone-openapi-specifications). This ensures the SDK stays up-to-date with the latest PingOne API changes.
+This SDK uses [OpenAPI Generator](https://openapi-generator.tech/) to automatically generate the client code in the `pingone` directory from the specifications in the [ppds-api-specifications](https://github.com/ping-internal/ppds-api-specifications) repository. This ensures the SDK stays up-to-date with the latest PingOne API changes.
 
 ### Feedback and Issues
 
