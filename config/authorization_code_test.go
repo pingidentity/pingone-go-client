@@ -280,7 +280,8 @@ func TestStateParameterValidation(t *testing.T) {
 			if tt.expectError {
 				// Should receive error
 				select {
-				case <-errorReceived:
+				case err := <-errorReceived:
+					_ = err
 					// Expected error received
 					if resp.StatusCode != http.StatusBadRequest {
 						t.Errorf("Expected status %d, got %d", http.StatusBadRequest, resp.StatusCode)
