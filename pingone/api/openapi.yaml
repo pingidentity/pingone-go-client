@@ -19704,7 +19704,9 @@ components:
       - PING_ONE_LEGACY
       - PING_ONE_MFA
       - PING_ONE_ORCHESTRATE
+      - PING_ONE_PAM
       - PING_ONE_PROVISIONING
+      - PING_ONE_RECOGNIZE
       - PING_ONE_RISK
       - PING_ONE_VERIFY
       minLength: 1
